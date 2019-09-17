@@ -4,6 +4,8 @@ The TRES video game
 
 ## Team
 
+Preferred role(s) are suggestions. If there is disagreement, we'll vote.
+
 Name    |GitHub username    |Preferred role(s)
 --------|-------------------|------------------------------------------------
 Apu     |                   |
@@ -17,15 +19,17 @@ Xiaoyan |                   |
 
 ## Roles
 
+These are suggestions. Roles may be added or unfulfilled.
+
 Role name       |Ensures or tries to                           |Gets to decide
 ----------------|----------------------------------------------|-----------------------------------------------------------------
+Chairman        |Have a productive meeting                     |Rules of the meeting
+Coordinator     |All team members know what to do              |Best order of what needs to be done
+Game design     |The game is interesting and fun               |What game concepts needs to be added
+Graphics        |The game looks nice                           |The look and artwork of the game
 Junior developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
 Medior developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
 Senior developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
-Coordinator     |All team members know what to do              |Best order of what needs to be done
-Chairman        |Have a productive meeting                     |Rules of the meeting
-Game design     |The game is interesting and fun               |What game concepts needs to be added
-Graphics        |The game looks nice                           |The look and artwork of the game
 Sound           |The game sounds nice                          |The sound and music of the game
 [your]          |[suggestion]                                  |[here]
 
