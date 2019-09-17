@@ -24,6 +24,8 @@ Timespan    |Activity
 18:aa-18:bb |Vote for suggestions, graphics libary with most votes will be used
 18:bb-18:45 |GitHub Issues
 
+ * Note that `xx` and the other variables can be in range `00` to and including `59`. 
+
 ## Long-term schedule
 
 Not set in stone, but it's a good idea to have a plan :rainbow:
