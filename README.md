@@ -4,11 +4,32 @@ The TRES video game
 
 ## Team
 
-Name   |GitHub username
--------|------------------
-Richel | @richelbilderbeek
-Pedro  | @Neves-P
-Stefano| @swom
+Name    |GitHub username    |Preferred role(s)
+--------|-------------------|------------------------------------------------
+Apu     |                   |
+Boris   |                   |
+Josh    |                   |
+Marina  |                   |
+Pedro   |                   |
+Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
+Stefano |                   |
+Xiaoyan |                   |
+
+Role name       |Ensures or tries to                           |Gets to decide
+----------------|----------------------------------------------|-----------------------------------------------------------------
+Junior developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
+Medior developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
+Senior developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
+Coordinator     |All team members know what to do              |Best order of what needs to be done
+Chairman        |Have a productive meeting                     |Rules of the meeting
+Game design     |The game is interesting and fun               |What game concepts needs to be added
+Graphics        |The game looks nice                           |The look and artwork of the game
+Sound           |The game sounds nice                          |The sound and music of the game
+[your]          |[suggestion]                                  |[here]
+
+
+
+
 
 ## Short-term schedule
 
