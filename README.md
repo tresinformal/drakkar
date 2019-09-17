@@ -15,6 +15,8 @@ Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
 Stefano |                   |
 Xiaoyan |                   |
 
+## Roles
+
 Role name       |Ensures or tries to                           |Gets to decide
 ----------------|----------------------------------------------|-----------------------------------------------------------------
 Junior developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
@@ -26,10 +28,6 @@ Game design     |The game is interesting and fun               |What game concep
 Graphics        |The game looks nice                           |The look and artwork of the game
 Sound           |The game sounds nice                          |The sound and music of the game
 [your]          |[suggestion]                                  |[here]
-
-
-
-
 
 ## Short-term schedule
 
