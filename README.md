@@ -11,9 +11,10 @@ Name    |GitHub username    |Preferred role(s)
 Apu     |                   |
 Boris   |                   |
 Josh    |                   |
-Marina  |                   |
 Pedro   |                   |
+Marina  |                   |
 Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
+Shu     |                   |
 Stefano |                   |
 Xiaoyan |                   |
 
