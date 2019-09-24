@@ -39,6 +39,7 @@ Junior developer|Learn programming                             |How to implement
 Medior developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
 Senior developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
 Sound           |The game sounds nice                          |The sound and music of the game
+Tester          |Verify an Issue has been done                 |If an Issue has been done
 [your]          |[suggestion]                                  |[here]
 
 ## Short-term schedule
