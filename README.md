@@ -19,7 +19,7 @@ Apu     |                   |
 Boris   |                   |
 Josh    |                   |
 Pedro   |                   |
-Marina  |                   |
+Marina  | @marinapapa       |Graphics, game design, developer
 Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
 Shu     |                   |
 Stefano |                   |
