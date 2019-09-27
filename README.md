@@ -9,6 +9,13 @@ The TRES video game
  * Time: 17:00-19:00
  * Location: Franjo's fancy library, 5171.580
 
+## Game: 2D PvP chasing game
+
+A game where you are on a 2D surface with heterogeneous characteristics, as different terrains, resources etc. You start with a very small particle-like character, as you play you can gather resources scattered around and increase your size/mass, the more you grow the more your options increase(you can change shape, what matter composes you etc.), other players roam around as you do increasing size and having more options as they progress. The goal is to chase and eliminate the other players. It would be good to have multiple conditions(you have to be bigger, you need to be made of a certain material etc.) you need to satisfy to be able to eliminate the other players.e.
+
+### Relevant Links:
+https://agar.io/, this game could give a good idea of how we would like this game to work. The game we think about though should allow more variation in determining how you grow and/or change shape, as well as could require different conditions than just being bigger than the other player to eliminate it.
+
 ## Team
 
 Preferred role(s) are suggestions. If there is disagreement, we'll vote.
