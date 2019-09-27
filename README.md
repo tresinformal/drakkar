@@ -16,6 +16,11 @@ A game where you are on a 2D surface with heterogeneous characteristics, as diff
 ### Relevant Links:
 https://agar.io/, this game could give a good idea of how we would like this game to work. The game we think about though should allow more variation in determining how you grow and/or change shape, as well as could require different conditions than just being bigger than the other player to eliminate it.
 
+## Techical specs
+
+ * C++
+ * SFML
+
 ## Team
 
 Preferred role(s) are suggestions. If there is disagreement, we'll vote.
@@ -55,13 +60,7 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-17:00-17:xx |Each team member may take 3 minutes (sharp!) to explain his/her suggestion for the game
-17:xx-17:yy |Vote for suggestions, game with most votes will be created
-17:yy-17:45 |GitHub Issues
-17:45-18:00 |Break
-18:00-18:aa |Each team member may take 3 minutes (sharp!) to explain his/her suggestion for a C++ graphics library
-18:aa-18:bb |Vote for suggestions, graphics libary with most votes will be used
-18:bb-18:45 |GitHub Issues
+..          |..
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
 
