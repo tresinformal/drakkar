@@ -6,7 +6,7 @@ void test() {
   assert(1 + 1 == 2);
 }
 
-int main()
+int main(int argc, char ** argv)
 {
 #ifndef NDEBUG
   test();
@@ -14,6 +14,9 @@ int main()
   // In release mode, all asserts are removed from the code
   assert(1 == 2);
 #endif
+  const std::vector<std::string> args(argv, argv + argc);
+  if (args.size() > 1 && args[1] == "--test") return 0;
+
 
   sf::RenderWindow window(sf::VideoMode(1280, 720), "tresinformal game");
 
