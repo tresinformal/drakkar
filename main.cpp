@@ -7,7 +7,7 @@ void test() {
   const int a{1};
   const int b{2};
   const int c{3};
-  assert(a + b == c);
+  assert(a + b == c); //!OCLINT indeed a trivial test
 }
 
 int main(int argc, char ** argv)
