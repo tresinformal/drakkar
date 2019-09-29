@@ -3,7 +3,11 @@
 
 /// All tests are called from here, only in debug mode
 void test() {
-  assert(1 + 1 == 2);
+  //A first trivial test
+  const int a{1};
+  const int b{2};
+  const int c{3};
+  assert(a + b == c);
 }
 
 int main(int argc, char ** argv)
