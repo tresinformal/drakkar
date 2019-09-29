@@ -1,0 +1,52 @@
+language: cpp
+dist: bionic
+compiler:
+  - gcc
+  # - clang 
+
+install: 
+  # Required on bionic
+  - sudo apt update -qq
+  # Boost
+  - sudo apt install -qq libboost-all-dev
+  # Qt5
+  - sudo apt install -qq qt5-qmake qt5-default
+  # SFML
+  - sudo apt install -qq libsfml-dev
+  # cppcheck
+  - sudo apt install -qq cppcheck
+  # Codecov
+  - sudo pip install codecov
+  # OCLint
+  - ./scripts/install_oclint
+  # SLOCcount
+  - sudo apt install -qq sloccount
+
+services:
+ - xvfb
+
+script: 
+  # Build the project, then:
+  - qmake -qt=qt5 game.pro
+  - make --silent debug
+  - ./game --test
+  # 2) Run the game for a short time, then quit
+  # Call OCLint
+  - ./scripts/do_oclint
+  # Get code coverage
+  - cp debug/*.* .
+  - ./scripts/get_code_cov >/dev/null
+  - codecov >/dev/null
+  # cppcheck
+  - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
+  # SLOCcount
+  #   remove OCLint and .git, otherwise it will be counted as well
+  - rm -rf oclint-0.10.3 oclint-0.10.3-x86_64-linux-3.13.0-74-generic.tar.gz oclint.log
+  - rm -rf .git
+  - rm -rf debug
+  - rm -rf release
+  - cd ..; sloccount --overhead 1 --personcost 22614 game | egrep -v "Adding"; cd game
+
+after_success:
+  # Codecov
+  - bash <(curl -s https://codecov.io/bash)
