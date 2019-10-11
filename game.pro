@@ -1,5 +1,6 @@
 # Entry point for user
 SOURCES += main.cpp \
+    game.cpp \
     player.cpp
 
 CONFIG += c++17
@@ -37,4 +38,5 @@ win32{
 }
 
 HEADERS += \
+    game.h \
     player.h

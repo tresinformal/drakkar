@@ -1,10 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
 #include "player.h"
+#include "game.h"
 
 /// All tests are called from here, only in debug mode
 void test() {
   test_player();
+  test_game();
 }
 
 int main(int argc, char ** argv)
