@@ -34,7 +34,7 @@ Pedro   |                   |
 Marina  | @marinapapa       |Graphics, game design, developer
 Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
 Shu     |                   |
-Stefano |                   |
+Stefano | @swom             |
 Xiaoyan |                   |
 
 ## Roles
