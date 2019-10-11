@@ -1,5 +1,6 @@
 # Entry point for user
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    player.cpp
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17
@@ -34,3 +35,6 @@ win32{
   LIBS += -lgdi32                 #Dependency
   LIBS += -lwinmm                 #Dependency
 }
+
+HEADERS += \
+    player.h

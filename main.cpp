@@ -1,13 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
+#include "player.h"
 
 /// All tests are called from here, only in debug mode
 void test() {
-  //A first trivial test
-  const int a{1};
-  const int b{2};
-  const int c{3};
-  assert(a + b == c); //!OCLINT indeed a trivial test
+  test_player();
 }
 
 int main(int argc, char ** argv)
