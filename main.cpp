@@ -2,11 +2,14 @@
 #include <cassert>
 #include "player.h"
 #include "game.h"
+#include "game_view.h"
 
 /// All tests are called from here, only in debug mode
 void test() {
   test_player();
   test_game();
+  test_game_view();
+
 }
 
 int main(int argc, char ** argv)
