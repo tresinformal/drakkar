@@ -60,7 +60,11 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-..          |..
+..          |Workflow
+..          |Install SFML
+..          |Do git commit
+..          |Poll: allow outsider minors yes/no
+..          |Poll: allow outsider adults yes/no
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
 
