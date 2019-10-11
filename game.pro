@@ -2,7 +2,8 @@
 SOURCES += main.cpp \
     game.cpp \
     game_view.cpp \
-    player.cpp
+    player.cpp \
+    player_shape.cpp
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17
@@ -41,4 +42,5 @@ win32{
 HEADERS += \
     game.h \
     game_view.h \
-    player.h
+    player.h \
+    player_shape.h
