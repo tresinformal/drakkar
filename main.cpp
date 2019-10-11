@@ -45,6 +45,8 @@ int main(int argc, char ** argv)
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
     rect.setPosition(300.0, 400.0);
     rect.setRotation(angle_rad);
+    rect.setFillColor(sf::Color::Red);
+
     window.draw(rect);
 
     //Display all shapes
