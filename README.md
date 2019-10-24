@@ -66,11 +66,13 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-..          |Workflow
-..          |Install SFML
-..          |Do git commit
-..          |Poll: allow outsider minors yes/no
-..          |Poll: allow outsider adults yes/no
+17:00       |Rehearse workflow
+..          |Rehease git basic #19
+..          |Show how to fix a test
+..          |Do Issues
+17:45-18:00 |Break
+18:00-18:15 |Demo git branches
+..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
 
@@ -79,11 +81,11 @@ Timespan    |Activity
 Not set in stone, but it's a good idea to have a plan :rainbow:
 
 Week|Goal
----|---
-1|Present game suggestions, pick game, present graphics libraries, pick graphics library
-2|Install library, get a graphical 'Hello world' program, `git` contribute to fairytale on `master`
-3|`git` contribute to fairytale on `develop`
-4|`git` contribute to fairytale on own branch
+----|---
+1   |Present game suggestions, pick game, present graphics libraries, pick graphics library
+2   |Install library, get a graphical 'Hello world' program, `git` contribute to fairytale on `master`
+3   |Rehearse `git` basics, demonstrate `git` branches
+4   |Rehearse `git` branches
 
 ## Screenshots
 
