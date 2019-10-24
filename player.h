@@ -5,7 +5,7 @@
 class player
 {
 public:
-  player(const double x, const double y, const player_shape s );
+  player(const double x, const double y, const player_shape shape);
 
   /// Get the X coordinat of the player
   double get_x() const noexcept { return m_x; }

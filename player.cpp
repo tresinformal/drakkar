@@ -2,8 +2,8 @@
 #include "player_shape.h"
 #include <cassert>
 
-player::player(const double x, const double y, const player_shape s)
-    : m_x{x}, m_y{y}, m_shape{player_shape::rocket}
+player::player(const double x, const double y, const player_shape shape)
+    : m_x{x}, m_y{y}, m_shape{shape}
 {
 
 }
