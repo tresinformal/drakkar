@@ -14,7 +14,7 @@ void test() {
   test_game_resources();
 }
 
-int main(int argc, char ** argv)
+int main(int argc, char ** argv) //!OCLINT tests may be long
 {
 #ifndef NDEBUG
   test();
