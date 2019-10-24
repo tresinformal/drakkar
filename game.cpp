@@ -19,7 +19,8 @@ void test_game()
   // A game has a player
   {
     const game g;
-    assert(g.get_player().get_x() > -1234.5); // The value 1234.5 is irrelevant: just get this to compile
+    // The value 1234.5 is irrelevant: just get this to compile
+    assert(g.get_player().get_x() > -1234.5);
   }
   #endif
   #ifdef FIX_ISSUE_39

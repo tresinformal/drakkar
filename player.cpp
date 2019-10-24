@@ -9,7 +9,7 @@ player::player(const double x, const double y, const player_shape shape)
 
 }
 
-void test_player()
+void test_player() //!OCLINT tests may be long
 {
   #ifdef FIX_ISSUE_35
   // Can default construct a player
