@@ -13,7 +13,9 @@ The TRES video game
  * Date: Every Friday before the [Keivrijdag](https://github.com/richelbilderbeek/keivrijdag),
    which is once per two weeks
  * Time: 17:00-19:00
- * Location: Franjo's fancy library, 5171.580
+ * Location: Linnaeusborg (Nijenborg 7, Groningen) at Franjo's fancy library, 
+   5171.580 (walk in main entrance, take elevator the the fifth floor, go right, 
+   go right, go straight.
 
 ## Game: 2D PvP chasing game
 
