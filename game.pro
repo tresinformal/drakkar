@@ -1,9 +1,17 @@
 # Entry point for user
+HEADERS += \
+    game.h \
+    game_view.h \
+    player.h \
+    player_shape.h \
+    game_resources.h
+
 SOURCES += main.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \
-    player_shape.cpp
+    player_shape.cpp \
+    game_resources.cpp
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17
@@ -12,6 +20,9 @@ CONFIG += resources_big
 # High warning levels
 # SFML goes bad with -Weffc++
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
+
+# A warning is an error
+QMAKE_CXXFLAGS += -Werror
 
 # Debug and release settings
 CONFIG += debug_and_release
@@ -39,8 +50,5 @@ win32{
   LIBS += -lwinmm                 #Dependency
 }
 
-HEADERS += \
-    game.h \
-    game_view.h \
-    player.h \
-    player_shape.h
+RESOURCES += \
+    game_resources.qrc

@@ -1,15 +1,17 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
+#include "player_shape.h"
 #include "player.h"
 #include "game.h"
 #include "game_view.h"
-
+#include "game_resources.h"
 /// All tests are called from here, only in debug mode
 void test() {
+  test_player_shape();
   test_player();
   test_game();
   test_game_view();
-
+  test_game_resources();
 }
 
 int main(int argc, char ** argv)
@@ -21,9 +23,14 @@ int main(int argc, char ** argv)
   assert(1 == 2);
 #endif
   const std::vector<std::string> args(argv, argv + argc);
+
+  //We've already tested, so the program is done
   if (args.size() > 1 && args[1] == "--test") return 0;
 
-
+  #ifdef FIX_ISSUE_33
+  game_view v;
+  v.exec();
+  #else
   sf::RenderWindow window(sf::VideoMode(1280, 720), "tresinformal game");
 
   float angle_rad{0.0}; //SFML prefers floats
@@ -52,5 +59,6 @@ int main(int argc, char ** argv)
     //Display all shapes
     window.display();
   }
+  #endif
   return 0;
 }

@@ -2,7 +2,8 @@
 #define GAME_VIEW_H
 #include <SFML/Graphics.hpp>
 
-
+/// The game's main window
+/// Displays the game class
 class game_view
 {
 public:
