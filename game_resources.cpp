@@ -1,4 +1,6 @@
 #include "game_resources.h"
+
+#include <cassert>
 #include <QFile>
 
 game_resources::game_resources()
