@@ -9,7 +9,7 @@ public:
   game_resources();
 
   /// Get the texture of a heterogenous landscape
-  const sf::Texture& get_heterogenous_landscape() const noexcept { return m_heterogenous_landscape; }
+  sf::Texture& get_heterogenous_landscape() noexcept { return m_heterogenous_landscape; }
 
 private:
 

@@ -33,6 +33,12 @@ int main(int argc, char ** argv)
   #else
   sf::RenderWindow window(sf::VideoMode(1280, 720), "tresinformal game");
 
+  // g must not go out of scope.
+  // If the textures turn white, you know it did
+  game_resources g;
+  sf::Sprite background_sprite;
+  background_sprite.setTexture(g.get_heterogenous_landscape());
+
   float angle_rad{0.0}; //SFML prefers floats
 
   while(window.isOpen()) {
@@ -47,6 +53,9 @@ int main(int argc, char ** argv)
 
     // Start drawing the new frame, by clearing the screen
     window.clear();
+
+    // Draw the background
+    window.draw(background_sprite);
 
     //Draw the shapes
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));

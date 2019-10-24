@@ -17,6 +17,6 @@ game_resources::game_resources()
 
 void test_game_resources()
 {
-  const game_resources g;
+  game_resources g;
   assert(g.get_heterogenous_landscape().getSize().x > 0.0);
 }
