@@ -32,3 +32,5 @@
 *.app
 *.pro.user
 *.pro.user.*
+*.autsave
+*.autosave
