@@ -5,7 +5,8 @@
 class player
 {
 public:
-  player(const double x, const double y, const player_shape shape);
+  player(const double x = 0.0, const double y = 0.0,
+         const player_shape shape = player_shape::rocket);
 
   /// Get the X coordinat of the player
   double get_x() const noexcept { return m_x; }
