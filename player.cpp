@@ -5,15 +5,13 @@
 
 player::player(const double x, const double y, const player_shape shape,
                const double player_speed, const double size)
-    : m_x{x}, m_y{y}, m_shape{shape},m_player_speed{player_speed}, m_size{size}
-
+    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed}, m_size{size}
 {
 
 }
 
 void test_player() //!OCLINT tests may be long
 {
-  #ifdef FIX_ISSUE_35
   // Can default construct a player
   {
     const player p;
@@ -21,8 +19,6 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_y() == 0.0);
     assert(p.get_shape() == player_shape::rocket); //Or your favorite shape
   }
-  #endif
-
   // A player has the same coordinats as set at construction
   {
     const double x{12.34};
