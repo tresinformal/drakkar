@@ -44,7 +44,7 @@ win32{
   INCLUDEPATH += D:/Qt/sfml/include
   LIBS += -LC:/Qt/sfml/lib
   LIBS += -LD:/Qt/sfml/lib
-  CONFIG(release, debug|release) {
+  CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }
   CONFIG(debug, debug|release) {
