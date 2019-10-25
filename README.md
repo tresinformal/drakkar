@@ -5,6 +5,7 @@ Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)           
 master |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=master)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=develop)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
+josh |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=josh)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=josh)](https://codecov.io/github/tresinformal/game/branch/josh)
 
 The TRES video game
 
