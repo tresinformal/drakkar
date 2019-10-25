@@ -14,7 +14,7 @@ public:
   int get_n_ticks() const noexcept { return m_n_ticks; }
 
   ///Get the player of the game
-  player get_player() const { return m_player; }
+  const player& get_player() const { return m_player; }
 
 private:
 
