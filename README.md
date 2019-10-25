@@ -1,5 +1,11 @@
 # game
 
+Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)                                                         |[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
+-------|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------
+master |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=master)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
+develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=develop)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
+richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
+
 The TRES video game
 
 ## Real life meetings
@@ -7,7 +13,9 @@ The TRES video game
  * Date: Every Friday before the [Keivrijdag](https://github.com/richelbilderbeek/keivrijdag),
    which is once per two weeks
  * Time: 17:00-19:00
- * Location: Franjo's fancy library, 5171.580
+ * Location: Linnaeusborg (Nijenborg 7, Groningen) at Franjo's fancy library, 
+   5171.580 (walk in main entrance, take elevator the the fifth floor, go right, 
+   go right, go straight.
 
 ## Game: 2D PvP chasing game
 
@@ -60,11 +68,13 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-..          |Workflow
-..          |Install SFML
-..          |Do git commit
-..          |Poll: allow outsider minors yes/no
-..          |Poll: allow outsider adults yes/no
+17:00       |Rehearse workflow
+..          |Rehease git basic #19
+..          |Show how to fix a test
+..          |Do Issues
+17:45-18:00 |Break
+18:00-18:15 |Demo git branches
+..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
 
@@ -73,14 +83,16 @@ Timespan    |Activity
 Not set in stone, but it's a good idea to have a plan :rainbow:
 
 Week|Goal
----|---
-1|Present game suggestions, pick game, present graphics libraries, pick graphics library
-2|Install library, get a graphical 'Hello world' program, `git` contribute to fairytale on `master`
-3|`git` contribute to fairytale on `develop`
-4|`git` contribute to fairytale on own branch
+----|---
+1   |Present game suggestions, pick game, present graphics libraries, pick graphics library
+2   |Install library, get a graphical 'Hello world' program, `git` contribute to fairytale on `master`
+3   |Rehearse `git` basics, demonstrate `git` branches
+4   |Rehearse `git` branches
 
 ## Screenshots
 
 Most recent at the top.
+
+![](pics/20191024.png) 
 
 ![](pics/20190929.png) 
