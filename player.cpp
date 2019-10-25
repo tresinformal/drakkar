@@ -3,8 +3,8 @@
 #include <cassert>
 #include <cmath>
 
-player::player(const double x, const double y, const player_shape shape)
-    : m_x{x}, m_y{y}, m_shape{shape}
+player::player(const double x, const double y, const player_shape shape, const double player_speed)
+    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed}
 {
 
 }
@@ -53,6 +53,8 @@ void test_player() //!OCLINT tests may be long
     assert(std::abs(p.get_direction() - 0.0) < 0.00001);
   }
   #endif
+
+  #define FIX_ISSUE_45
   #ifdef FIX_ISSUE_45
   // A player has a speed of zero
   {

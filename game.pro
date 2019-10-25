@@ -47,7 +47,7 @@ win32{
   CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }
-  CONFIG(release, debug|release) {
+  CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-window-d -lsfml-system-d
   }
   #LIBS += -lopenal32              #Dependency
