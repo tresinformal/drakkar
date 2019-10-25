@@ -8,4 +8,5 @@ And went on until sunrise...
 which is troublesome as it was winter and they were in North Finland...
 and they lived happily until their livers collapsed..
 
-Eventually, the universe aged and entropy ripped them apart!
+Eventually, the universe aged and entropy ripped the rest of 
+their bodies apart!
