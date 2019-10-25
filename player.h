@@ -17,7 +17,7 @@ public:
   player_shape get_shape() const noexcept { return m_shape; }
 
   //Get the size of the player
-  double get_player_size() const noexcept{return m_size;}
+  double get_size() const noexcept{return m_size;}
   
 private:
 
