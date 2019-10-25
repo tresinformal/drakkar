@@ -38,7 +38,7 @@ Name    |GitHub username    |Preferred role(s)
 Apu     |                   |
 Boris   |                   |
 Josh    | @joshwlambert     |Junior developer, game design
-Pedro   |                   |
+Pedro   | @Neves-P          |Junior developer, sound
 Marina  | @marinapapa       |Graphics, game design, developer
 Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
 Shu     |                   |
