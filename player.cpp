@@ -3,8 +3,9 @@
 #include <cassert>
 #include <cmath>
 
-player::player(const double x, const double y, const player_shape shape, const double size)
-    : m_x{x}, m_y{y}, m_shape{shape}, m_size{size}
+player::player(const double x, const double y, const player_shape shape, const double player_speed, const double size)
+    : m_x{x}, m_y{y}, m_shape{shape},m_player_speed{player_speed}, m_size{size}
+
 {
 
 }
@@ -20,6 +21,7 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_shape() == player_shape::rocket); //Or your favorite shape
   }
   #endif
+
   // A player has the same coordinats as set at construction
   {
     const double x{12.34};
@@ -55,6 +57,8 @@ void test_player() //!OCLINT tests may be long
     assert(std::abs(p.get_direction() - 0.0) < 0.00001);
   }
   #endif
+
+  #define FIX_ISSUE_45
   #ifdef FIX_ISSUE_45
   // A player has a speed of zero
   {
