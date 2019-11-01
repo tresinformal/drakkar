@@ -2,7 +2,7 @@
 
 Once upon a time there was a dragon and a toothfairy.
 
-Plotwist!!! They were both horses in disguise!
+They were both horses in disguise!
 
 They drank a lot of beer and rode into the sunset...
 
