@@ -5,6 +5,8 @@
 #include "game.h"
 #include "game_view.h"
 #include "game_resources.h"
+#include "enemy.h"
+
 /// All tests are called from here, only in debug mode
 void test() {
   test_player_shape();
@@ -12,6 +14,7 @@ void test() {
   test_game();
   test_game_view();
   test_game_resources();
+  test_enemy();
 }
 
 int main(int argc, char ** argv) //!OCLINT tests may be long
