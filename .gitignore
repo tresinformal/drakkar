@@ -34,3 +34,8 @@
 *.pro.user.*
 *.autsave
 *.autosave
+.qmake.stash
+Makefile
+Makefile.*
+game
+release/
