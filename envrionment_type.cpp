@@ -7,8 +7,8 @@ void test_environment(){
 #ifdef  FIX_ISSUE_40
 //Conversion to string
 
-  assert(static_cast<int>(environment_type::empty) == 0);
-  assert(static_cast<int>(environment_type::random) == 2);
-  assert(static_cast<int>(environment_type::random) != 9);
+  assert(to_str_env_type(environment_type::empty) == "empty");
+  assert(to_str_env_type(environment_type::random)== "random");
+  assert(to_str_env_type(environment_type::random)!= "wormhole");
 #endif
 }

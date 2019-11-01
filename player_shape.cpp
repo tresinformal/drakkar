@@ -1,6 +1,5 @@
 #include <assert.h>
 #include "player_shape.h"
-#include <string>
 #include <cassert>
 
 void test_player_shape()
