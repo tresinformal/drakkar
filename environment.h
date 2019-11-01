@@ -2,7 +2,7 @@
 #define ENVIRONMENT_H
 
 
-enum class player_shape
+enum class environment
 {
     empty,
     quiet,
