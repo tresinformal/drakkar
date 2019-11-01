@@ -1,5 +1,6 @@
 # Entry point for user
 HEADERS += \
+    environment_type.h \
     game.h \
     game_view.h \
     player.h \
@@ -7,6 +8,7 @@ HEADERS += \
     game_resources.h
 
 SOURCES += main.cpp \
+    envrionment_type.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \
@@ -53,7 +55,7 @@ win32{
   CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }
-  CONFIG(debug, debug|release) {
+  CONFIG(release, debug|release) {
     LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-window-d -lsfml-system-d
   }
   #LIBS += -lopenal32              #Dependency
