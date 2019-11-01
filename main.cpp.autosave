@@ -8,7 +8,6 @@
 #include "environment.h"
 /// All tests are called from here, only in debug mode
 void test() {
-  test_environment();
   test_player_shape();
   test_player();
   test_game();
