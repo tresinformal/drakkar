@@ -5,7 +5,8 @@
 
 player::player(const double x, const double y, const player_shape shape,
                const double player_speed, const double size, const double direction)
-    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed}, m_size{size}, m_direction{direction}
+    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed}, m_size{size},
+      m_direction{direction}
 {
 
 }
