@@ -32,3 +32,10 @@
 *.app
 *.pro.user
 *.pro.user.*
+*.autsave
+*.autosave
+.qmake.stash
+Makefile
+Makefile.*
+game
+release/

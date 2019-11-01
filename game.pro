@@ -1,5 +1,6 @@
 # Entry point for user
 HEADERS += \
+    environment_type.h \
     game.h \
     game_view.h \
     player.h \
@@ -7,6 +8,7 @@ HEADERS += \
     game_resources.h
 
 SOURCES += main.cpp \
+    envrionment_type.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \
@@ -37,6 +39,12 @@ QT += core gui
 # GNU/Linux
 unix:!macx {
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
+  CONFIG(debug, debug|release) {
+    # gcov
+    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+    LIBS += -lgcov
+  }
 }
 
 win32{
