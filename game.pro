@@ -1,6 +1,7 @@
 # Entry point for user
 HEADERS += \
     enemy.h \
+    environment_type.h \
     game.h \
     game_view.h \
     player.h \
@@ -9,6 +10,7 @@ HEADERS += \
 
 SOURCES += main.cpp \
     enemy.cpp \
+    envrionment_type.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \
@@ -55,7 +57,7 @@ win32{
   CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }
-  CONFIG(debug, debug|release) {
+  CONFIG(release, debug|release) {
     LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-window-d -lsfml-system-d
   }
   #LIBS += -lopenal32              #Dependency
