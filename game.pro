@@ -39,6 +39,12 @@ QT += core gui
 # GNU/Linux
 unix:!macx {
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
+  CONFIG(debug, debug|release) {
+    # gcov
+    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+    LIBS += -lgcov
+  }
 }
 
 win32{
@@ -49,7 +55,7 @@ win32{
   CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }
-  CONFIG(release, debug|release) {
+  CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-window-d -lsfml-system-d
   }
   #LIBS += -lopenal32              #Dependency
