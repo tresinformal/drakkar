@@ -8,14 +8,12 @@
 #include "environment.h"
 /// All tests are called from here, only in debug mode
 void test() {
-  test_environment();
   test_player_shape();
   test_player();
   test_game();
   test_game_view();
   test_game_resources();
 }
-
 int main(int argc, char ** argv) //!OCLINT tests may be long
 {
 #ifndef NDEBUG
