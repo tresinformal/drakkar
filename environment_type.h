@@ -2,7 +2,7 @@
 #define ENVIRONMENT_H
 
 
-enum class environment
+enum class environment_type
 {
     empty,
     quiet,
@@ -12,5 +12,6 @@ enum class environment
     wormhole
 };
 
+void test_environment();
 
 #endif // ENVIRONMENT_H

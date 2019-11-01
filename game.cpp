@@ -1,12 +1,11 @@
 #include "game.h"
 #include <cassert>
-#include "player_shape.h"
 
-game::game(const int n_ticks)
+game::game(const int n_ticks, environment_type environment)
  : m_n_ticks{n_ticks},
-   m_player{0.0, 0.0, player_shape::rocket}
+   m_player{0.0, 0.0, player_shape::rocket},
+   m_environment{environment}
 {
-
 }
 
 void test_game()
@@ -29,5 +28,20 @@ void test_game()
     const game g;
     assert(!g.get_food().empty);
   }
+  #endif
+
+  #define FIX_ISSUE_54
+  #ifdef FIX_ISSUE_54
+    // A game by default  has an empty environment
+      {
+        const game g;
+        assert(g.get_environment()==environment_type::empty );
+      }
+    // a game initialized with an environment has that environment
+      {
+        const game g{0, environment_type::random};
+        assert(g.get_environment()==environment_type::random);
+        assert(static_cast<int>(g.get_environment())!=9);
+      }
   #endif
 }

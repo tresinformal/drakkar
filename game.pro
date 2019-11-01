@@ -1,6 +1,6 @@
 # Entry point for user
 HEADERS += \
-    environment.h \
+    environment_type.h \
     game.h \
     game_view.h \
     player.h \
@@ -8,7 +8,7 @@ HEADERS += \
     game_resources.h
 
 SOURCES += main.cpp \
-    envrionment.cpp \
+    envrionment_type.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \

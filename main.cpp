@@ -5,7 +5,7 @@
 #include "game.h"
 #include "game_view.h"
 #include "game_resources.h"
-#include "environment.h"
+#include "environment_type.h"
 /// All tests are called from here, only in debug mode
 void test() {
   test_player_shape();
