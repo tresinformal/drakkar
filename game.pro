@@ -1,5 +1,6 @@
 # Entry point for user
 HEADERS += \
+    enemy.h \
     game.h \
     game_view.h \
     player.h \
@@ -7,6 +8,7 @@ HEADERS += \
     game_resources.h
 
 SOURCES += main.cpp \
+    enemy.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \
