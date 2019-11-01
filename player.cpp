@@ -4,8 +4,8 @@
 #include <cmath>
 
 player::player(const double x, const double y, const player_shape shape,
-               const double player_speed, const double size)
-    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed}, m_size{size}
+               const double player_speed, const double size, const double direction)
+    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed}, m_size{size}, m_direction{direction}
 {
 
 }
@@ -47,6 +47,8 @@ void test_player() //!OCLINT tests may be long
     assert(std::abs(p.get_health() - 1.0) < 0.00001);
   }
   #endif
+
+  #define FIX_ISSUE_44
   #ifdef FIX_ISSUE_44
   // A player has a direction of zero radians
   {
