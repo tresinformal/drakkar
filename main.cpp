@@ -30,6 +30,7 @@ int main(int argc, char ** argv) //!OCLINT tests may be long
   //We've already tested, so the program is done
   if (args.size() > 1 && args[1] == "--test") return 0;
 
+  #define FIX_ISSUE_33
   #ifdef FIX_ISSUE_33
   game_view v;
   v.exec();
