@@ -11,9 +11,9 @@ enum class player_shape
 
 /// Tests the functions related to player_shape
 void test_player_shape();
-inline const std::string to_str(player_shape player_shape)
+inline const std::string to_str(player_shape this_player_shape)
 {
-    switch (player_shape)
+    switch (this_player_shape)
     {
         case player_shape::circle:   return "circle";
         case player_shape::rocket:   return "rocket";
