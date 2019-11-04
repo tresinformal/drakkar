@@ -11,6 +11,7 @@ enum class environment_type
     attractive,
     repellent,
     wormhole
+
 };
 
 void test_environment();
