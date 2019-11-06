@@ -29,6 +29,10 @@ public:
 
   /// Get the direction of player movement
   double get_direction() const noexcept{ return m_direction;}
+
+  ///Get the player's health
+  double get_health() const noexcept{ return m_health;}
+
 private:
 
   /// The X coordinat of the player
@@ -48,6 +52,9 @@ private:
 
   ///The direction of player
   double m_direction;
+
+  ///Player's health percentage, the player always start with max health at construction
+  double m_health = 1.0;
 };
 
 /// Test the player class

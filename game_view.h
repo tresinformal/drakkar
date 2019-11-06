@@ -9,7 +9,13 @@ class game_view
 public:
     game_view();
 
-    void show() const;
+    void show() noexcept;
+    void exec() noexcept;
+
+private:
+    //The game_view has a window
+
+    sf::RenderWindow m_window;
 
 
 };
