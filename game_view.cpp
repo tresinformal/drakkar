@@ -37,15 +37,15 @@ void game_view::exec() noexcept
         m_window.close();
         return; //Game is done
       }
+      #ifdef FIX_ISSUE_1234
       if (event.type == sf::Event::KeyPressed)
       {
         if (event.key.code == sf::Keyboard::D)
         {
-          #ifdef FIX_ISSUE_1234
           m_game.do_action(action_type::turn_left);
-          #endif
         }
       }
+      #endif
     }
     show();
   }
