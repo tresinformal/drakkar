@@ -63,7 +63,10 @@ void test_game() //!OCLINT tests may be many
     assert(std::abs(before - after) < 0.0001);
   }
   #endif
-    //game by default has a mix and max evironment size
-
+  //game by default has a mix and max evironment size
+  {
+    game g;
+    assert(g.get_environment().get_max_x() > -56465214.0);
+  }
 
 }

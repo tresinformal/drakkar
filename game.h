@@ -25,7 +25,7 @@ public:
    environment_type get_environment_type() const { return m_environment_type; }
 
    ///Get environment size of the game
-   environment get_environment_size() const { return m_environment_size; }
+   environment get_environment() const { return m_environment; }
 
 
 
@@ -43,7 +43,7 @@ private:
   environment_type m_environment_type;
 
   /// the environment
-  environment m_environment_size;
+  environment m_environment;
 };
 
 void test_game();
