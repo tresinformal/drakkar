@@ -37,7 +37,7 @@ void game_view::exec() noexcept
         m_window.close();
         return; //Game is done
       }
-      #ifdef FIX_ISSUE_1234
+      #ifdef FIX_ISSUE_69
       if (event.type == sf::Event::KeyPressed)
       {
         if (event.key.code == sf::Keyboard::D)
@@ -50,6 +50,7 @@ void game_view::exec() noexcept
     show();
   }
 }
+
 void game_view::show() noexcept
 {
   // Start drawing the new frame, by clearing the screen
