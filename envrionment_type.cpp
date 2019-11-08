@@ -12,5 +12,5 @@ void test_environment()
   assert(to_str_env_type(environment_type::random)== "random");
   assert(to_str_env_type(environment_type::random)!= "wormhole");
 #endif
-  assert(1 == 2); //This should cause a crash. Issue #55
+  assert(1 == 2); //!OCLINT This should cause a crash. Issue #55
 }
