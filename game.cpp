@@ -30,9 +30,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  #define FIX_ISSUE_54
-  #ifdef FIX_ISSUE_54
-    // A game by default  has an empty environment
+  // A game by default  has an empty environment
       {
         const game g;
         assert(g.get_environment()==environment_type::empty );
@@ -43,7 +41,6 @@ void test_game() //!OCLINT tests may be many
         assert(g.get_environment()==environment_type::random);
         assert(static_cast<int>(g.get_environment())!=9);
       }
-  #endif
 
   #ifdef FIX_ISSUE_68
   // A game responds to actions: player can turn left
