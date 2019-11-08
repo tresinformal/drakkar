@@ -1,7 +1,7 @@
-#include <string>
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+#ifndef ENVIRONMENT_TYPE_H
+#define ENVIRONMENT_TYPE_H
 
+#include <string>
 
 enum class environment_type
 {

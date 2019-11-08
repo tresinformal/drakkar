@@ -2,7 +2,7 @@
 #include "environment_type.h"
 #include <cassert>
 
-void test_environment()
+void test_environment_type()
 {
 #define FIX_ISSUE_40
 #ifdef  FIX_ISSUE_40

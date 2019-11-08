@@ -1,10 +1,10 @@
 #include "game.h"
 #include <cassert>
 
-game::game(const int n_ticks, environment_type environment)
+game::game(const int n_ticks, environment_type environment_type)
  : m_n_ticks{n_ticks},
    m_player{0.0, 0.0, player_shape::rocket},
-   m_environment{environment}
+   m_environment_type{environment_type}
 {
 }
 
@@ -35,13 +35,13 @@ void test_game() //!OCLINT tests may be many
     // A game by default  has an empty environment
       {
         const game g;
-        assert(g.get_environment()==environment_type::empty );
+        assert(g.get_environment_type()==environment_type::empty );
       }
     // a game initialized with an environment has that environment
       {
         const game g{0, environment_type::random};
-        assert(g.get_environment()==environment_type::random);
-        assert(static_cast<int>(g.get_environment())!=9);
+        assert(g.get_environment_type()==environment_type::random);
+        assert(static_cast<int>(g.get_environment_type())!=9);
       }
   #endif
 
@@ -63,4 +63,7 @@ void test_game() //!OCLINT tests may be many
     assert(std::abs(before - after) < 0.0001);
   }
   #endif
+    //game by default has a mix and max evironment size
+
+
 }
