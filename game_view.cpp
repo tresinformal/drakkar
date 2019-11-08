@@ -27,54 +27,43 @@ void test_game_view()
 
 void game_view::exec() noexcept
 {
-    ///The exec command will show the rectangle spinning around on the heterogenous landscape
-    /// adding the necessary statements to do that before while loop
-    ///
-    // g must not go out of scope.
-    // If the textures turn white, you know it did
-    game_resources g;
-    sf::Sprite background_sprite;
-    background_sprite.setTexture(g.get_heterogenous_landscape());
-
-    float angle_rad{0.0}; //SFML prefers floats
-
-    while(m_window.isOpen()) {
-      //Use interaction
-      sf::Event event;
-      while(m_window.pollEvent(event)) {
-        if(event.type == sf::Event::Closed) {
-          m_window.close();
-          return; //Game is done
+  while(m_window.isOpen()) {
+    //User interaction
+    sf::Event event;
+    while(m_window.pollEvent(event))
+    {
+      if(event.type == sf::Event::Closed)
+      {
+        m_window.close();
+        return; //Game is done
+      }
+      if (event.type == sf::Event::KeyPressed)
+      {
+        if (event.key.code == sf::Keyboard::D)
+        {
+          #ifdef FIX_ISSUE_1234
+          m_game.press_key(key::right);
+          #endif
         }
       }
-
-      //Game events
-      angle_rad += 0.1f;
-
-      // Start drawing the new frame, by clearing the screen
-      m_window.clear();
-
-      // Draw the background
-      m_window.draw(background_sprite);
-
-      //Draw the shapes
-      sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-      rect.setPosition(300.0, 400.0);
-      rect.setRotation(angle_rad);
-      rect.setFillColor(sf::Color::Red);
     }
+    show();
+  }
 }
 void game_view::show() noexcept
 {
+  // Start drawing the new frame, by clearing the screen
+  m_window.clear();
 
+  // Draw the background
+  sf::Sprite background_sprite;
+  background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
+  m_window.draw(background_sprite);
 
-  //define angle of intial rectangle
-  float angle_rad{0.0}; //SFML prefers floats
-
-  //Draw the shapes
+  //Draw the player
   sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
   rect.setPosition(300.0, 400.0);
-  rect.setRotation(angle_rad);
+  rect.setRotation(m_game.get_player().get_direction());
   m_window.draw(rect);
 
   //Display all shapes
