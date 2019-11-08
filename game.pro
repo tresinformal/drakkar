@@ -3,6 +3,7 @@ HEADERS += \
     enemy.h \
     environment.h \
     environment_type.h \
+    food_type.h \
     game.h \
     game_view.h \
     player.h \
@@ -14,6 +15,7 @@ SOURCES += main.cpp \
     enemy.cpp \
     environment.cpp \
     envrionment_type.cpp \
+    food_type.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \
