@@ -11,6 +11,7 @@ class game_view
 {
 public:
   game_view();
+  ~game_view();
 
   /// Show one frame
   void show() noexcept;

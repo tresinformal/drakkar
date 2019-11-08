@@ -15,6 +15,16 @@ game_resources::game_resources()
       throw std::runtime_error(msg.toStdString());
     }
   }
+  {
+    const QString filename{"ninja_gods.ogg"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_ninja_gods.openFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
 }
 
 void test_game_resources()

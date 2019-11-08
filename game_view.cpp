@@ -6,7 +6,13 @@
 game_view::game_view():
     m_window(sf::VideoMode(1280, 720), "tresinformal game")
 {
+  m_game_resources.get_ninja_gods().setLoop(true);
+  m_game_resources.get_ninja_gods().play();
+}
 
+game_view::~game_view()
+{
+  m_game_resources.get_ninja_gods().stop();
 }
 
 void test_game_view()

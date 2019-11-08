@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>heterogenous_landscape.jpg</file>
+        <file>ninja_gods.ogg</file>
     </qresource>
 </RCC>
