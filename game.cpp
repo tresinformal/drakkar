@@ -8,7 +8,7 @@ game::game(const int n_ticks, environment_type environment)
 {
 }
 
-void test_game()
+void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
   {
