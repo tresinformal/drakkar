@@ -11,12 +11,13 @@ enum class environment_type
     attractive,
     repellent,
     wormhole
+
 };
 
 void test_environment();
-inline const std::string to_str_env_type(environment_type environment_type)
+inline const std::string to_str_env_type(environment_type this_environment_type)
 {
-    switch (environment_type)
+    switch (this_environment_type)
     {
         case environment_type::empty:   return "empty";
         case environment_type::quiet:   return "quiet";

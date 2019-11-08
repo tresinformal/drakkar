@@ -8,7 +8,7 @@ game::game(const int n_ticks, environment_type environment)
 {
 }
 
-void test_game()
+void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
   {
@@ -43,5 +43,24 @@ void test_game()
         assert(g.get_environment()==environment_type::random);
         assert(static_cast<int>(g.get_environment())!=9);
       }
+  #endif
+
+  #ifdef FIX_ISSUE_68
+  // A game responds to actions: player can turn left
+  {
+    game g;
+    const double before{g.get_player().get_direction()};
+    g.do_action(action_type::turn_left);
+    const double after{g.get_player().get_direction()};
+    assert(std::abs(before - after) > 0.01); //Should be different
+  }
+  #endif // FIX_ISSUE_68
+  #ifdef FIX_ISSUE_71
+  {
+    const game g;
+    const double a{g.get_player().get_direction()};
+    const double b{get_player_direction(g)};
+    assert(std::abs(before - after) < 0.0001);
+  }
   #endif
 }

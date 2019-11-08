@@ -70,11 +70,9 @@ Next meeting:
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
 17:00       |Rehearse workflow
-..          |Rehease git basic #19
-..          |Show how to fix a test
+..          |Rehease git branching
 ..          |Do Issues
 17:45-18:00 |Break
-18:00-18:15 |Demo git branches
 ..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
