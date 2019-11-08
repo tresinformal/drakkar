@@ -52,7 +52,15 @@ void test_game()
     const double before{g.get_player().get_direction()};
     g.do_action(action_type::turn_left);
     const double after{g.get_player().get_direction()};
-    assert(std::abs(before - after) > 0.01);
+    assert(std::abs(before - after) > 0.01); //Should be different
   }
   #endif // FIX_ISSUE_68
+  #ifdef FIX_ISSUE_71
+  {
+    const game g;
+    const double a{g.get_player().get_direction()};
+    const double b{get_player_direction(g)};
+    assert(std::abs(before - after) < 0.0001);
+  }
+  #endif
 }
