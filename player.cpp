@@ -40,15 +40,15 @@ void test_player() //!OCLINT tests may be long
     const player p{1.2, 3.4, player_shape::circle};
     assert(p.get_shape() == player_shape::circle);
   }
-#define FIX_ISSUE_36
-#ifdef FIX_ISSUE_36
+
+
   // A player starts with 1.0 (that is, 100%) health
   {
     const player p{1.2, 3.4, player_shape::rocket};
     // Health is 100% by default
     assert(std::abs(p.get_health() - 1.0) < 0.00001);
   }
-  #endif
+
 
   #define FIX_ISSUE_44
   #ifdef FIX_ISSUE_44
