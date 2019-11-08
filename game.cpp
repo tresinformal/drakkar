@@ -44,4 +44,15 @@ void test_game()
         assert(static_cast<int>(g.get_environment())!=9);
       }
   #endif
+
+  #ifdef FIX_ISSUE_68
+  // A game responds to actions: player can turn left
+  {
+    game g;
+    const double before{g.get_player().get_direction()};
+    g.do_action(action_type::turn_left);
+    const double after{g.get_player().get_direction()};
+    assert(std::abs(before - after) > 0.01);
+  }
+  #endif // FIX_ISSUE_68
 }

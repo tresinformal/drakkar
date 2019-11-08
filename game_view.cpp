@@ -42,7 +42,7 @@ void game_view::exec() noexcept
         if (event.key.code == sf::Keyboard::D)
         {
           #ifdef FIX_ISSUE_1234
-          m_game.press_key(key::right);
+          m_game.do_action(action_type::turn_left);
           #endif
         }
       }
@@ -63,7 +63,7 @@ void game_view::show() noexcept
   //Draw the player
   sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
   rect.setPosition(300.0, 400.0);
-  rect.setRotation(m_game.get_player().get_direction());
+  rect.setRotation(static_cast<float>(m_game.get_player().get_direction()));
   m_window.draw(rect);
 
   //Display all shapes
