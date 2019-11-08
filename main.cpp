@@ -19,6 +19,7 @@ void test() {
   test_game_resources();
   test_enemy();
   test_environment();
+  test_environment_type();
 }
 int main(int argc, char ** argv) //!OCLINT tests may be long
 {

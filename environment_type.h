@@ -14,7 +14,7 @@ enum class environment_type
 
 };
 
-void test_environment();
+void test_environment_type();
 inline const std::string to_str_env_type(environment_type this_environment_type)
 {
     switch (this_environment_type)
