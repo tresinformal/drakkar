@@ -14,9 +14,7 @@ install:
   # SFML
   - sudo apt install -qq libsfml-dev
   # Sound
-  - sudo apt install -qq alsa-utils
-  - sudo modprobe snd_bcm2835
-  - sudo apt install -qq avahi-utils
+  - sudo apt install -qq alsa-utils avahi-utils
   # cppcheck
   - sudo apt install -qq cppcheck
   # Codecov
