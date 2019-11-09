@@ -23,7 +23,8 @@ install:
   - sudo apt install -qq sloccount
 
 services:
- - xvfb
+  - xvfb
+  - alsa
 
 script: 
   # Build the project, then:
