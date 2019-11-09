@@ -73,6 +73,21 @@ void game_view::show() noexcept
   rect.setRotation(static_cast<float>(m_game.get_player().get_direction()));
   m_window.draw(rect);
 
+  //Draw some semitransparent circles to see how well RGB/opsin-based vision works out
+  sf::CircleShape circle(200.0);
+  //Red
+  circle.setPosition(600.0, 200.0);
+  circle.setFillColor(sf::Color(255, 0, 0, 128));
+  m_window.draw(circle);
+  //Green
+  circle.setPosition(600.0, 500.0);
+  circle.setFillColor(sf::Color(0, 255, 0, 128));
+  m_window.draw(circle);
+  //Blue
+  circle.setPosition(800.0, 350.0);
+  circle.setFillColor(sf::Color(0, 0, 255, 128));
+  m_window.draw(circle);
+
   //Display all shapes
   m_window.display();
 }
