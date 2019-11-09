@@ -9,7 +9,8 @@ HEADERS += \
     player.h \
     player_shape.h \
     game_resources.h \
-    action_type.h
+    action_type.h \
+    sound_type.h
 
 SOURCES += main.cpp \
     enemy.cpp \
@@ -21,7 +22,8 @@ SOURCES += main.cpp \
     player.cpp \
     player_shape.cpp \
     game_resources.cpp \
-    action_type.cpp
+    action_type.cpp \
+    sound_type.cpp
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17
