@@ -15,6 +15,7 @@ install:
   - sudo apt install -qq libsfml-dev
   # Sound
   - sudo apt install -qq alsa-utils avahi-utils
+  - export SDL_AUDIODRIVER=alsa
   # cppcheck
   - sudo apt install -qq cppcheck
   # Codecov
