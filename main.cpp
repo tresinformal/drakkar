@@ -34,6 +34,16 @@ int main(int argc, char ** argv) //!OCLINT tests may be long
   //We've already tested, so the program is done
   if (args.size() > 1 && args[1] == "--test") return 0;
 
+  #ifdef FIX_ISSUE_74
+  //Show the menu, quits after (for now)
+  if (args.size() > 1 && args[1] == "--menu")
+  {
+    menu_view v;
+    v.exec();
+    return 0;
+  }
+  #endif
+
   game_view v;
   v.exec();
   return 0;
