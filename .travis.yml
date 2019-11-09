@@ -17,6 +17,7 @@ install:
   - sudo apt install -qq alsa-utils avahi-utils
   - export SDL_AUDIODRIVER=alsa
   - sudo useradd -G sound $USER
+  - cat /proc/asound/modules
   # cppcheck
   - sudo apt install -qq cppcheck
   # Codecov
