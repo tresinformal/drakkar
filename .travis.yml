@@ -13,10 +13,10 @@ install:
   - sudo apt install -qq qt5-qmake qt5-default
   # SFML
   - sudo apt install -qq libsfml-dev
-  # Sound
+  # Sound, among others https://askubuntu.com/a/345952
   - sudo apt install -qq alsa-utils avahi-utils
   - export SDL_AUDIODRIVER=alsa
-  - sudo useradd -G sound $USER
+  - # sudo useradd -G sound $USER
   - cat /proc/asound/modules
   # cppcheck
   - sudo apt install -qq cppcheck
