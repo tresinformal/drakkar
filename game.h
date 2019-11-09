@@ -49,3 +49,6 @@ private:
 void test_game();
 
 #endif // GAMELOGIC_H
+
+///Get player directions
+double get_player_direction(const game g);

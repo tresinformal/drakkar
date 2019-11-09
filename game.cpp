@@ -8,6 +8,8 @@ game::game(const int n_ticks, environment_type environment_type)
 {
 }
 
+double get_player_direction(game g) {return g.get_player().get_direction();}
+
 void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
@@ -55,14 +57,15 @@ void test_game() //!OCLINT tests may be many
     assert(std::abs(before - after) > 0.01); //Should be different
   }
   #endif // FIX_ISSUE_68
-  #ifdef FIX_ISSUE_71
-  {
+
+   {
     const game g;
     const double a{g.get_player().get_direction()};
     const double b{get_player_direction(g)};
-    assert(std::abs(before - after) < 0.0001);
+
+    assert(std::abs(b - a) < 0.0001);
   }
-  #endif
+
   //game by default has a mix and max evironment size
   {
     game g;
