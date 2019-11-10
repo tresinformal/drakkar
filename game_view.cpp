@@ -15,7 +15,10 @@ game_view::game_view():
 
 game_view::~game_view()
 {
+  #ifndef IS_ON_TRAVIS
+  //Playing sound on Travis gives thousands of error lines, which causes the build to fail
   m_game_resources.get_ninja_gods().stop();
+  #endif // IS_ON_TRAVIS
 }
 
 void test_game_view()
