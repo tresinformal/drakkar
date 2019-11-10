@@ -28,7 +28,8 @@ services:
 
 script: 
   # Build the project, then:
-  - qmake -qt=qt5 -DIS_ON_TRAVIS game.pro
+
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   - ./game --test
   # 2) Run the game for a short time, then quit
