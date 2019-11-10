@@ -7,6 +7,8 @@ develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=deve
 josh   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=josh)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=josh)](https://codecov.io/github/tresinformal/game/branch/josh)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 
+ * Branches are ordered `master`, `develop`, then topic branches alphabetically
+
 The TRES video game
 
 ## Real life meetings
@@ -38,12 +40,14 @@ Name    |GitHub username    |Preferred role(s)
 --------|-------------------|------------------------------------------------
 Apu     |                   |
 Boris   |                   |
+Giorgio |                   |
 Josh    | @joshwlambert     |Junior developer, game design
 Pedro   | @Neves-P          |Junior developer, sound
 Marina  | @marinapapa       |Graphics, game design, developer
 Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
 Shu     |                   |
 Stefano | @swom             |
+Tim     |                   |
 Xiaoyan |                   |
 
 ## Roles
