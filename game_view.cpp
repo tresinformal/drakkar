@@ -6,8 +6,10 @@
 game_view::game_view():
     m_window(sf::VideoMode(1280, 720), "tresinformal game")
 {
+  #ifndef IS_ON_TRAVIS
   m_game_resources.get_ninja_gods().setLoop(true);
   m_game_resources.get_ninja_gods().play();
+  #endif
 }
 
 game_view::~game_view()

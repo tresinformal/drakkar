@@ -34,7 +34,7 @@ services:
 script: 
   # Build the project, then:
   - qmake -qt=qt5 game.pro
-  - make --silent debug
+  - make --silent -DIS_ON_TRAVIS debug
   - ./game --test
   # 2) Run the game for a short time, then quit
   # Call OCLint
