@@ -15,7 +15,7 @@ HEADERS += \
 SOURCES += main.cpp \
     enemy.cpp \
     environment.cpp \
-    envrionment_type.cpp \
+    environment_type.cpp \
     food_type.cpp \
     game.cpp \
     game_view.cpp \
