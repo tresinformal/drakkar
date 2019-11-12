@@ -14,7 +14,5 @@ const std::string to_str_act_type(action_type this_action_type){
     case action_type::turn_right:   return "turn_right";
     case action_type::accelerate:   return "accelerate";
     case action_type::brake:   return "brake";
-
-    default:      return "[Unknown action_type]";
 }
 }
