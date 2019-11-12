@@ -8,7 +8,7 @@
 #include "enemy.h"
 #include "environment_type.h"
 #include "environment.h"
-
+#include "food.h"
 
 /// All tests are called from here, only in debug mode
 void test() {
@@ -20,6 +20,7 @@ void test() {
   test_enemy();
   test_environment();
   test_environment_type();
+  test_food();
 }
 int main(int argc, char ** argv) //!OCLINT tests may be long
 {
