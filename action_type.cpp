@@ -6,7 +6,8 @@ void test_action_type()
   assert(to_str_act_type(action_type::accelerate) != to_str_act_type(action_type::brake));
 }
 
-const std::string to_str_act_type(action_type this_action_type){
+const std::string to_str_act_type(action_type this_action_type)//!OCLint it might be wise to keep a default statement in case for some reason an invalid input is given
+{
 
     switch (this_action_type)
 {
@@ -14,5 +15,7 @@ const std::string to_str_act_type(action_type this_action_type){
     case action_type::turn_right:   return "turn_right";
     case action_type::accelerate:   return "accelerate";
     case action_type::brake:   return "brake";
+
+    default:      return "[Unknown action_type]";
 }
 }
