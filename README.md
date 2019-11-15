@@ -75,6 +75,7 @@ Timespan    |Activity
 ------------|--------------------------------------------------------------------------
 17:00       |Rehearse workflow
 ..          |Rehease git branching
+..          |Vote for #77
 ..          |Do Issues
 17:45-18:00 |Break
 ..          |Do Issues
