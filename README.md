@@ -7,6 +7,8 @@ develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=deve
 josh   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=josh)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=josh)](https://codecov.io/github/tresinformal/game/branch/josh)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 
+ * Branches are ordered `master`, `develop`, then topic branches alphabetically
+
 The TRES video game
 
 ## Real life meetings
@@ -38,12 +40,14 @@ Name    |GitHub username    |Preferred role(s)
 --------|-------------------|------------------------------------------------
 Apu     |                   |
 Boris   |                   |
+Giorgio |                   |
 Josh    | @joshwlambert     |Junior developer, game design
 Pedro   | @Neves-P          |Junior developer, sound
 Marina  | @marinapapa       |Graphics, game design, developer
 Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
 Shu     |                   |
 Stefano | @swom             |
+Tim     |                   |
 Xiaoyan |                   |
 
 ## Roles
@@ -70,11 +74,10 @@ Next meeting:
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
 17:00       |Rehearse workflow
-..          |Rehease git basic #19
-..          |Show how to fix a test
+..          |Rehease git branching
+..          |Vote for #77
 ..          |Do Issues
 17:45-18:00 |Break
-18:00-18:15 |Demo git branches
 ..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
@@ -93,6 +96,8 @@ Week|Goal
 ## Screenshots
 
 Most recent at the top.
+
+![](pics/20191115.png)
 
 ![](pics/20191024.png) 
 

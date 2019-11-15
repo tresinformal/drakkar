@@ -5,6 +5,11 @@
 #include "game.h"
 #include "game_view.h"
 #include "game_resources.h"
+#include "enemy.h"
+#include "environment_type.h"
+#include "environment.h"
+#include "food.h"
+
 /// All tests are called from here, only in debug mode
 void test() {
   test_player_shape();
@@ -12,8 +17,11 @@ void test() {
   test_game();
   test_game_view();
   test_game_resources();
+  test_enemy();
+  test_environment();
+  test_environment_type();
+  test_food();
 }
-
 int main(int argc, char ** argv) //!OCLINT tests may be long
 {
 #ifndef NDEBUG
@@ -27,47 +35,17 @@ int main(int argc, char ** argv) //!OCLINT tests may be long
   //We've already tested, so the program is done
   if (args.size() > 1 && args[1] == "--test") return 0;
 
-  #ifdef FIX_ISSUE_33
-  game_view v;
-  v.exec();
-  #else
-  sf::RenderWindow window(sf::VideoMode(1280, 720), "tresinformal game");
-
-  // g must not go out of scope.
-  // If the textures turn white, you know it did
-  game_resources g;
-  sf::Sprite background_sprite;
-  background_sprite.setTexture(g.get_heterogenous_landscape());
-
-  float angle_rad{0.0}; //SFML prefers floats
-
-  while(window.isOpen()) {
-    //Use interaction
-    sf::Event event;
-    while(window.pollEvent(event)) {
-      if(event.type == sf::Event::Closed) window.close();
-    }
-
-    //Game events
-    angle_rad += 0.1f;
-
-    // Start drawing the new frame, by clearing the screen
-    window.clear();
-
-    // Draw the background
-    window.draw(background_sprite);
-
-    //Draw the shapes
-    sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    rect.setPosition(300.0, 400.0);
-    rect.setRotation(angle_rad);
-    rect.setFillColor(sf::Color::Red);
-
-    window.draw(rect);
-
-    //Display all shapes
-    window.display();
+  #ifdef FIX_ISSUE_74
+  //Show the menu, quits after (for now)
+  if (args.size() > 1 && args[1] == "--menu")
+  {
+    menu_view v;
+    v.exec();
+    return 0;
   }
   #endif
+
+  game_view v;
+  v.exec();
   return 0;
 }

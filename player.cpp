@@ -4,9 +4,14 @@
 #include <cmath>
 
 player::player(const double x, const double y, const player_shape shape,
-               const double player_speed, const double size, const double direction)
-    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed}, m_size{size},
-      m_direction{direction}
+               const double player_speed, const double size, const double direction,
+               const double turn_rate)
+    : m_x{x}, m_y{y},
+      m_shape{shape},
+      m_player_speed{player_speed},
+      m_size{size},
+      m_direction{direction},
+      m_turn_rate{turn_rate}
 {
 
 }
@@ -40,7 +45,8 @@ void test_player() //!OCLINT tests may be long
     const player p{1.2, 3.4, player_shape::circle};
     assert(p.get_shape() == player_shape::circle);
   }
-  #ifdef FIX_ISSUE_36
+#define FIX_ISSUE_36
+#ifdef FIX_ISSUE_36
   // A player starts with 1.0 (that is, 100%) health
   {
     const player p{1.2, 3.4, player_shape::rocket};
