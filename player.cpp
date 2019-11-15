@@ -64,14 +64,12 @@ void test_player() //!OCLINT tests may be long
   }
   #endif
 
-  #define FIX_ISSUE_45
-  #ifdef FIX_ISSUE_45
+
   // A player has a speed of zero
   {
     const player p{1.2, 3.4, player_shape::rocket};
     assert(std::abs(p.get_speed() - 0.0) < 0.00001);
   }
-  #endif
 
   // A player has an initial size of one hundred
   {
