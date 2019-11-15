@@ -103,7 +103,7 @@ void test_player() //!OCLINT tests may be long
     // A player has a max_speed of 2(arbitrary value for now)
     {
         const player p;
-        assert(p.get_max_speed()-2<0.000000000001);
+        assert(p.get_max_s()-2<0.000000000001);
     }
     //A player has a default acceleration of 0.1 per frame
     {

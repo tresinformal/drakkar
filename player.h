@@ -33,7 +33,7 @@ public:
     double get_speed() const noexcept { return m_player_speed; }
 
     /// Get the speed of the player
-    double get_max_speed() const noexcept { return m_player_max_speed; }
+    double get_max_s() const noexcept { return m_player_max_speed; }
 
     /// Get the acceleration of the player
     double get_acceleration() const noexcept {return m_player_acceleration; }

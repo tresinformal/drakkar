@@ -52,8 +52,7 @@ void game_view::exec() noexcept
                 return; //Game is done
             }
 
-#define FIX_ISSUE_69
-#ifdef FIX_ISSUE_69
+
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::D)
@@ -64,14 +63,14 @@ void game_view::exec() noexcept
                     m_game.do_action(action_type::turn_right);
                 }
                 //player accelerates until it reaches maximum speed
-                if (event.key.code == sf::Keyboard::W &&
-                        m_game.get_player().get_max_speed() - m_game.get_player().get_speed() > 0.0000001)
+                if (event.key.code == sf::Keyboard::W)
                 {
                     m_game.do_action(action_type::accelerate);
                 }
                 else if(m_game.get_player().get_speed()>0){
                     //momentarly using brake action, do not know to what assign this
-                    //function. To game or to player. And should this function take some value from environment?
+                    //function. To game or to player.
+                    //And should this function take some value from environment?
                     m_game.do_action(action_type::brake);
                 }
 
@@ -80,7 +79,7 @@ void game_view::exec() noexcept
                 }
             }
 
-#endif
+
         }
         show();
     }
