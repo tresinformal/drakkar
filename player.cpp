@@ -5,7 +5,8 @@
 
 player::player(const double x, const double y, const player_shape shape,
                const double player_speed, const double player_max_speed,
-               const double player_acceleration , const double player_deceleration, const double size, const double direction,
+               const double player_acceleration, const double player_deceleration,
+               const double size, const double direction,
                const double turn_rate)
     : m_x{x}, m_y{y},
       m_shape{shape},
@@ -25,7 +26,8 @@ void player::brake() noexcept{
         m_player_speed = m_player_max_speed;
     }
     else if(m_player_speed >= 0){
-        m_player_speed - m_player_deceleration < 0 ? m_player_speed=0 : m_player_speed -= m_player_deceleration;
+        m_player_speed - m_player_deceleration < 0 ?
+        m_player_speed = 0 : m_player_speed -= m_player_deceleration;
     }
     else{
         m_player_speed=0;

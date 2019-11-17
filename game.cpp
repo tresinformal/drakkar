@@ -17,21 +17,22 @@ double get_player_direction(game g) {return g.get_player().get_direction();}
 
 void game::do_action(action_type action){
 
+    player &p = get_ref_player();
     switch (action) {
     case action_type::turn_left :{
-        get_ref_player().turn_left();
+        p.turn_left();
         break;
     }
     case action_type::turn_right :{
-        get_ref_player().turn_right();
+        p.turn_right();
         break;
     }
     case action_type::accelerate :{
-        get_ref_player().accelerate();
+        p.accelerate();
         break;
     }
     case action_type::brake   :{
-        get_ref_player().brake();
+        p.brake();
         break;
     }
     }
