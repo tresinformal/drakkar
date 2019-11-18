@@ -124,7 +124,6 @@ void test_player() //!OCLINT tests may be long
         double a_x = p.get_x();
         double a_y = p.get_y();
         p.accelerate();//move the player
-        p.update_player_position();
         double b_x = p.get_x();
         double b_y = p.get_y();
         assert(std::abs(a_x - b_x)>0.0000001);
@@ -139,7 +138,6 @@ void test_player() //!OCLINT tests may be long
         double a_x = p.get_x();
         double a_y = p.get_y();
         p.accelerate();//move the player
-        p.update_player_position();
         double b_x = p.get_x();
         double b_y = p.get_y();
         assert(std::abs(a_x - b_x)>0.0000001);

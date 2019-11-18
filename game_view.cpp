@@ -58,30 +58,33 @@ void game_view::exec() noexcept
                 if (event.key.code == sf::Keyboard::D)
                 {
                     m_game.do_action(action_type::turn_left);
+                    break;
                 }
                 if (event.key.code == sf::Keyboard::A){
                     m_game.do_action(action_type::turn_right);
+                    break;
                 }
-                //player accelerates until it reaches maximum speed
                 if (event.key.code == sf::Keyboard::W)
                 {
                     m_game.do_action(action_type::accelerate);
+                    break;
                 }
-                else if(m_game.get_player().get_speed()>0){
-                    //momentarly using brake action, do not know to what assign this
-                    //function. To game or to player.
-                    //And should this function take some value from environment?
-                    m_game.do_action(action_type::brake);
-                }
-
                 if (event.key.code == sf::Keyboard::S){
                     m_game.do_action(action_type::brake);
+                    break;
                 }
             }
 
-
         }
-        show();
+        // apply inertia  and attrition
+        if(m_game.get_player().get_speed()>0){
+            //momentarly using brake action, do not know to what assign this
+            //function. To game or to player?
+            //Both will need this functions for this to happen.
+            //And should this function take some value from environment?
+            m_game.do_action(action_type::brake);
+       }
+       show();
     }
 }
 
@@ -95,13 +98,16 @@ void game_view::show() noexcept
     background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
     m_window.draw(background_sprite);
 
-    //Draw the player
+    //Create the player sprite
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
+    //Set the center of rotation as the center of the shape
+    rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
     rect.setPosition(
                 300.0f + static_cast<float>(m_game.get_player().get_x()),
-                400.0f + static_cast<float>(m_game.get_player().get_x())
+                400.0f + static_cast<float>(m_game.get_player().get_y())
                 );
     rect.setRotation(static_cast<float>((m_game.get_player().get_direction())*180/M_PI));
+    //Draw the player
     m_window.draw(rect);
 
     //Draw some semitransparent circles to see how well RGB/opsin-based vision works out

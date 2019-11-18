@@ -75,8 +75,6 @@ void test_game() //!OCLINT tests may be many
       }
   #endif
 
-#define FIX_ISSUE_68
-  #ifdef FIX_ISSUE_68
   // A game responds to actions: player can turn left
   {
     game g;
@@ -85,7 +83,7 @@ void test_game() //!OCLINT tests may be many
     const double after{g.get_player().get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
   }
-  #endif // FIX_ISSUE_68
+
     // A game responds to actions: player can turn right
     {
       game g;
@@ -107,7 +105,6 @@ void test_game() //!OCLINT tests may be many
       game g;
       g.do_action(action_type::accelerate);//just to give the player a speed of more than 0
       const double before{g.get_player().get_speed()};
-      assert(before > 0);
       g.do_action(action_type::brake);
       const double after{g.get_player().get_speed()};
       assert( before-after > 0.0000000000000001); //After should be < than before
