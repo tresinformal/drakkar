@@ -58,20 +58,20 @@ void game_view::exec() noexcept
                 if (event.key.code == sf::Keyboard::D)
                 {
                     m_game.do_action(action_type::turn_left);
-                    continue;
+                    break;
                 }
-                if (event.key.code == sf::Keyboard::A){
+                else if (event.key.code == sf::Keyboard::A){
                     m_game.do_action(action_type::turn_right);
-                    continue;
+                    break;
                 }
-                if (event.key.code == sf::Keyboard::W)
+                else if (event.key.code == sf::Keyboard::W)
                 {
                     m_game.do_action(action_type::accelerate);
-                    continue;
+                    break;
                 }
-                if (event.key.code == sf::Keyboard::S){
+                else if (event.key.code == sf::Keyboard::S){
                     m_game.do_action(action_type::brake);
-                    continue;
+                    break;
                 }
             }
 
