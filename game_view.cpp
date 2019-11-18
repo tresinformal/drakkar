@@ -53,7 +53,7 @@ void game_view::exec() noexcept
             }
 
 
-            if (event.type == sf::Event::KeyPressed)
+            else if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::D)
                 {
@@ -71,6 +71,9 @@ void game_view::exec() noexcept
                 }
                 else if (event.key.code == sf::Keyboard::S){
                     m_game.do_action(action_type::brake);
+                    break;
+                }
+                else{
                     break;
                 }
             }
