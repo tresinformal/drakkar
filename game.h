@@ -1,11 +1,14 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
 
+#include <vector>
 #include "player_shape.h"
 #include "player.h"
 #include "environment.h"
 #include "environment_type.h"
 #include "action_type.h"
+#include "food.h"
+
 
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
@@ -33,6 +36,9 @@ public:
    ///Get environment size of the game
    environment get_environment() const { return m_environment; }
 
+   ///Get food
+   std::vector<food> get_food() const {return m_food; }
+
 
 
 
@@ -50,6 +56,9 @@ private:
 
   /// the environment
   environment m_environment;
+
+  /// the food
+  std::vector<food> m_food;
 };
 
 void test_game();
