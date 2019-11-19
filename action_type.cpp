@@ -7,11 +7,12 @@ void test_action_type()
 }
 
 const std::string to_str_act_type(action_type this_action_type)
-//it might be wise to keep a default statement
-// in case for some reason an invalid input is given
+
 {
 
     switch (this_action_type)//!OCLINT
+        //it might be wise to keep a default statement
+        // in case for some reason an invalid input is given
 {
     case action_type::turn_left:   return "turn_left";
     case action_type::turn_right:   return "turn_right";
