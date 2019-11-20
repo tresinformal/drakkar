@@ -18,18 +18,22 @@ double get_player_direction(game g) {return g.get_player().get_direction();}
 
 void game::do_action(action_type action){
 
+    player &p = get_ref_player();
     switch (action) {
     case action_type::turn_left :{
-        get_ref_player().turn_left();
+        p.turn_left();
         break;
     }
     case action_type::turn_right :{
+        p.turn_right();
         break;
     }
     case action_type::accelerate :{
+        p.accelerate();
         break;
     }
     case action_type::brake   :{
+        p.brake();
         break;
     }
     }
@@ -71,8 +75,6 @@ void test_game() //!OCLINT tests may be many
       }
   #endif
 
-#define FIX_ISSUE_68
-  #ifdef FIX_ISSUE_68
   // A game responds to actions: player can turn left
   {
     game g;
@@ -81,12 +83,42 @@ void test_game() //!OCLINT tests may be many
     const double after{g.get_player().get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
   }
-  #endif // FIX_ISSUE_68
 
+    // A game responds to actions: player can turn right
+    {
+      game g;
+      const double before{g.get_player().get_direction()};
+      g.do_action(action_type::turn_right);
+      const double after{g.get_player().get_direction()};
+      assert( std::abs(before-after) > 0.01); //Should be different
+    }
+    // A game responds to actions: player can accelerate
+    {
+      game g;
+      const double before{g.get_player().get_speed()};
+      g.do_action(action_type::accelerate);
+      const double after{g.get_player().get_speed()};
+      assert( before-after < 0.01); //After should be > than before
+    }
+    // A game responds to actions: player can break
+    {
+      game g;
+      g.do_action(action_type::accelerate);//just to give the player a speed of more than 0
+      const double before{g.get_player().get_speed()};
+      g.do_action(action_type::brake);
+      const double after{g.get_player().get_speed()};
+      assert( before-after > 0.0000000000000001); //After should be < than before
+    }
+
+
+
+//Stefano: What was this test for?
    {
     const game g;
     const double a{g.get_player().get_direction()};
     const double b{get_player_direction(g)};
+    //Stefano: why are we using this free function
+    //instead of a safer member function?
 
     assert(std::abs(b - a) < 0.0001);
   }
