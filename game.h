@@ -22,9 +22,11 @@ public:
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
 
+  ///Gets the player direction
+  double get_player_direction(unsigned int player_ind);
 
   ///Get the vector of players
-  const std::vector<player>& get_v_player() {return m_v_player;}
+  const std::vector<player>& get_v_player() const {return m_v_player;}
 
   ///Get the player at a specified index in the vector of players
   const player& get_player(unsigned int i) const { return m_v_player[i]; }
@@ -61,7 +63,5 @@ private:
 
 void test_game();
 
-///Get player directions
-double get_player_direction(const game g);
 
 #endif // GAMELOGIC_H

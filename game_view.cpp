@@ -76,7 +76,7 @@ void game_view::exec() noexcept
 
         }
         // apply inertia  and attrition
-        if(m_game.get_player().get_speed()>0){
+        if(m_game.get_player(0).get_speed()>0){
           //momentarly using brake action, do not know to what assign this
           //function. To game or to player?
           //Both will need this functions for this to happen.
@@ -102,10 +102,10 @@ void game_view::show() noexcept
     //Set the center of rotation as the center of the shape
     rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
     rect.setPosition(
-                300.0f + static_cast<float>(m_game.get_player().get_x()),
-                400.0f + static_cast<float>(m_game.get_player().get_y())
+                300.0f + static_cast<float>(m_game.get_player(0).get_x()),
+                400.0f + static_cast<float>(m_game.get_player(0).get_y())
                 );
-    rect.setRotation(static_cast<float>((m_game.get_player().get_direction())*180/M_PI));
+    rect.setRotation(static_cast<float>((m_game.get_player(0).get_direction())*180/M_PI));
     //Draw the player
     m_window.draw(rect);
 

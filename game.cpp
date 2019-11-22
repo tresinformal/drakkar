@@ -11,15 +11,13 @@ game::game(const int n_ticks, environment_type environment_type)
 {
 }
 
-double get_player_direction(game g, unsigned int player_ind)
-{return g.get_player(player_ind).get_direction();}
+double game::get_player_direction( unsigned int player_ind)
+{return get_player(player_ind).get_direction();}
 
-///For now only turn_left command actually does something, to be decided how the it and the
-/// rest will really work later after voting
 
 void game::do_action(action_type action){
 
-    player &p = get_ref_player();
+    player &p = get_ref_player(0);
     switch (action) {
     case action_type::turn_left :{
         p.turn_left();
@@ -40,6 +38,8 @@ void game::do_action(action_type action){
     }
 }
 
+double get_player_direction(game g, unsigned int player_ind){return g.get_player(player_ind).get_direction();}
+
 void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
@@ -52,7 +52,7 @@ void test_game() //!OCLINT tests may be many
   {
     const game g;
     // The value 1234.5 is irrelevant: just get this to compile
-    for(unsigned int i = 0; i < g.; ++i)
+    for(unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
     assert(g.get_player(i).get_x() > -1234.5);
     }
@@ -79,41 +79,41 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can turn left
   {
     game g;
-    const double before{g.get_player().get_direction()};
+    const double before{g.get_player(0).get_direction()};
     g.do_action(action_type::turn_left);
-    const double after{g.get_player().get_direction()};
+    const double after{g.get_player(0).get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
   }
   // A game responds to actions: player can turn right
   {
     game g;
-    const double before{g.get_player().get_direction()};
+    const double before{g.get_player(0).get_direction()};
     g.do_action(action_type::turn_right);
-    const double after{g.get_player().get_direction()};
+    const double after{g.get_player(0).get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
   }
   // A game responds to actions: player can accelerate
   {
     game g;
-    const double before{g.get_player().get_speed()};
+    const double before{g.get_player(0).get_speed()};
     g.do_action(action_type::accelerate);
-    const double after{g.get_player().get_speed()};
+    const double after{g.get_player(0).get_speed()};
     assert( before-after < 0.01); //After should be > than before
   }
   // A game responds to actions: player can break
   {
     game g;
     g.do_action(action_type::accelerate);//just to give the player a speed of more than 0
-    const double before{g.get_player().get_speed()};
+    const double before{g.get_player(0).get_speed()};
     g.do_action(action_type::brake);
-    const double after{g.get_player().get_speed()};
+    const double after{g.get_player(0).get_speed()};
     assert( before-after > 0.0000000000000001); //After should be < than before
   }
   //Can get a player's direction by using a free function
   {
     const game g;
-    const double a{g.get_player().get_direction()};
-    const double b{get_player_direction(g)};
+    const double a{g.get_player(0).get_direction()};
+    const double b{get_player_direction(g,0)};
     assert(std::abs(b - a) < 0.0001);
   }
   //game by default has a mix and max evironment size
