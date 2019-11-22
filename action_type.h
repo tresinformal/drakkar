@@ -5,12 +5,10 @@
 
 enum class action_type
 {
-  // Action types here
-    turn_left,
-    turn_right,
-    accelerate,
-    brake
-
+  turn_left,
+  turn_right,
+  accelerate,
+  brake
 };
 
 void test_action_type();

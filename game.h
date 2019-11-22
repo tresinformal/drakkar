@@ -9,10 +9,8 @@
 #include "action_type.h"
 #include "food.h"
 
-
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
-
 class game
 {
 public:
@@ -31,17 +29,13 @@ public:
   player& get_ref_player() { return m_player; }
 
   ///Get environment type of the game
-   environment_type get_environment_type() const { return m_environment_type; }
+  environment_type get_environment_type() const { return m_environment_type; }
 
-   ///Get environment size of the game
-   environment get_environment() const { return m_environment; }
+  ///Get environment size of the game
+  environment get_environment() const { return m_environment; }
 
-   ///Get food
-   std::vector<food> get_food() const {return m_food; }
-
-
-
-
+  ///Get food
+  std::vector<food> get_food() const {return m_food; }
 
 private:
 
@@ -63,7 +57,7 @@ private:
 
 void test_game();
 
-#endif // GAMELOGIC_H
-
 ///Get player directions
 double get_player_direction(const game g);
+
+#endif // GAMELOGIC_H
