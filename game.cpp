@@ -117,4 +117,11 @@ void test_game() //!OCLINT tests may be many
     game g;
     assert(g.get_environment().get_max_x() > -56465214.0);
   }
+  #ifdef FIX_ISSUE_94
+  // A game has enemies
+  {
+    const game g;
+    assert(!g.get_enemies().empty());
+  }
+  #endif //FIX_ISSUE_89
 }
