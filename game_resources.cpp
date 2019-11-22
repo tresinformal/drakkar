@@ -23,7 +23,7 @@ game_resources::game_resources()
     f.copy(filename);
     if (!m_ninja_gods.openFromFile(filename.toStdString()))
     {
-      QString msg{"Cannot find image file '" + filename + "'"};
+      QString msg{"Cannot find sound file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());
     }
   }

@@ -1,5 +1,7 @@
 #include "game.h"
 #include <cassert>
+#include<iostream>
+#include<cmath>
 
 game::game(const int n_ticks, environment_type environment_type)
  : m_n_ticks{n_ticks},
@@ -9,6 +11,28 @@ game::game(const int n_ticks, environment_type environment_type)
 }
 
 double get_player_direction(game g) {return g.get_player().get_direction();}
+
+///For now only turn_left command actually does something, to be decided how the it and the
+/// rest will really work later after voting
+
+void game::do_action(action_type action){
+
+    switch (action) {
+    case action_type::turn_left :{
+        get_ref_player().turn_left();
+        break;
+    }
+    case action_type::turn_right :{
+        break;
+    }
+    case action_type::accelerate :{
+        break;
+    }
+    case action_type::brake   :{
+        break;
+    }
+    }
+}
 
 void test_game() //!OCLINT tests may be many
 {
@@ -47,6 +71,7 @@ void test_game() //!OCLINT tests may be many
       }
   #endif
 
+#define FIX_ISSUE_68
   #ifdef FIX_ISSUE_68
   // A game responds to actions: player can turn left
   {
@@ -54,7 +79,7 @@ void test_game() //!OCLINT tests may be many
     const double before{g.get_player().get_direction()};
     g.do_action(action_type::turn_left);
     const double after{g.get_player().get_direction()};
-    assert(std::abs(before - after) > 0.01); //Should be different
+    assert( std::abs(before-after) > 0.01); //Should be different
   }
   #endif // FIX_ISSUE_68
 
