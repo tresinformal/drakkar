@@ -2,8 +2,11 @@
 
 branches=$(git branch -r | egrep -v "HEAD" | sed 's/origin\///g')
 
+<<<<<<< HEAD
 #branches=$(git branch --list --all | egrep -v "remotes/" | egrep -v "\*")
 
+=======
+>>>>>>> develop
 for branch in $branches
 do
   git checkout $branch
@@ -12,4 +15,7 @@ do
   git merge $branch
   git push
 done
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
