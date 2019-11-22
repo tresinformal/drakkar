@@ -3,6 +3,7 @@
 #include "player_shape.h"
 #include "player.h"
 #include "game.h"
+#include "game_options.h"
 #include "game_view.h"
 #include "game_resources.h"
 #include "enemy.h"
@@ -15,6 +16,7 @@ void test() {
   test_player_shape();
   test_player();
   test_game();
+  test_game_options();
   test_game_view();
   test_game_resources();
   test_enemy();
