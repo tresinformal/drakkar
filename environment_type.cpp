@@ -2,9 +2,9 @@
 #include "environment_type.h"
 #include <cassert>
 
-std::string to_str_env_type(environment_type this_environment_type)
+std::string to_str_env_type(environment_type environment_type)
 {
-    switch (this_environment_type)
+    switch (environment_type)
     {
         case environment_type::empty:   return "empty";
         case environment_type::quiet:   return "quiet";
