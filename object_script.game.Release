@@ -1,0 +1,15 @@
+release/qrc_game_resources.o
+release/main.o
+release/enemy.o
+release/environment.o
+release/environment_type.o
+release/food_type.o
+release/food.o
+release/game.o
+release/game_view.o
+release/player.o
+release/player_shape.o
+release/game_resources.o
+release/action_type.o
+release/sound_type.o
+release/game_options.o

@@ -1,0 +1,15 @@
+debug/qrc_game_resources.o
+debug/main.o
+debug/enemy.o
+debug/environment.o
+debug/environment_type.o
+debug/food_type.o
+debug/food.o
+debug/game.o
+debug/game_view.o
+debug/player.o
+debug/player_shape.o
+debug/game_resources.o
+debug/action_type.o
+debug/sound_type.o
+debug/game_options.o
