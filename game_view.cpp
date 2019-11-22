@@ -108,8 +108,8 @@ void game_view::show() noexcept
     //Set the center of rotation as the center of the shape
     rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
     rect.setPosition(
-                300.0f + static_cast<float>(m_game.get_player().get_x()),
-                400.0f + static_cast<float>(m_game.get_player().get_y())
+               static_cast<float>(m_game.get_player().get_x()),
+               static_cast<float>(m_game.get_player().get_y())
                 );
     rect.setRotation(static_cast<float>((m_game.get_player().get_direction())*180/M_PI));
     //Draw the player

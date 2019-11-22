@@ -5,7 +5,7 @@
 
 game::game(const int n_ticks, environment_type environment_type)
  : m_n_ticks{n_ticks},
-   m_player{0.0, 0.0, player_shape::rocket},
+   m_player{300.0,400.0, player_shape::rocket},
    m_environment_type{environment_type},
    m_food{1}
 {
