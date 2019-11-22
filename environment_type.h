@@ -5,13 +5,12 @@
 
 enum class environment_type
 {
-    empty,
-    quiet,
-    random,
-    attractive,
-    repellent,
-    wormhole
-
+  empty,
+  quiet,
+  random,
+  attractive,
+  repellent,
+  wormhole
 };
 
 void test_environment_type();

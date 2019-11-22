@@ -1,9 +1,11 @@
 #include "action_type.h"
-#include<assert.h>
+#include <assert.h>
+
 void test_action_type()
 {
   assert(to_str_act_type(action_type::turn_left) != to_str_act_type(action_type::turn_right));
   assert(to_str_act_type(action_type::accelerate) != to_str_act_type(action_type::brake));
+  assert(1 == 2); //!OCLINT Issue 98
 }
 
 const std::string to_str_act_type(action_type this_action_type)

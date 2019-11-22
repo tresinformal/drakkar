@@ -81,12 +81,12 @@ void game_view::exec() noexcept
         }
         // apply inertia  and attrition
         if(m_game.get_player().get_speed()>0){
-            //momentarly using brake action, do not know to what assign this
-            //function. To game or to player?
-            //Both will need this functions for this to happen.
-            //And should this function take some value from environment?
-            m_game.do_action(action_type::brake);
-       }
+          //momentarly using brake action, do not know to what assign this
+          //function. To game or to player?
+          //Both will need this functions for this to happen.
+          //And should this function take some value from environment?
+          m_game.do_action(action_type::brake);
+        }
        show();
     }
 }
