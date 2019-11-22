@@ -9,6 +9,7 @@ game::game(const int n_ticks, environment_type environment_type)
    m_environment_type{environment_type},
    m_food{1}
 {
+  m_v_player[0] = player(300.0,400.0, player_shape::rocket);
 }
 
 double game::get_player_direction( unsigned int player_ind)
