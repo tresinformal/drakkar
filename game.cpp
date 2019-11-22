@@ -5,13 +5,14 @@
 
 game::game(const int n_ticks, environment_type environment_type)
  : m_n_ticks{n_ticks},
-   m_player{0.0, 0.0, player_shape::rocket},
+   m_v_player{2, player()},
    m_environment_type{environment_type},
    m_food{1}
 {
 }
 
-double get_player_direction(game g) {return g.get_player().get_direction();}
+double get_player_direction(game g, unsigned int player_ind)
+{return g.get_player(player_ind).get_direction();}
 
 ///For now only turn_left command actually does something, to be decided how the it and the
 /// rest will really work later after voting
@@ -47,11 +48,14 @@ void test_game() //!OCLINT tests may be many
     // n_ticks is the number of times the game is displayed on screen
     assert(g.get_n_ticks() == 0);
   }
-  // A game has a player
+  // A game has a vector of players
   {
     const game g;
     // The value 1234.5 is irrelevant: just get this to compile
-    assert(g.get_player().get_x() > -1234.5);
+    for(unsigned int i = 0; i < g.; ++i)
+    {
+    assert(g.get_player(i).get_x() > -1234.5);
+    }
   }
   // A game has food items
   {
