@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Remote branches
+branches=$(git branch -r | egrep -v "HEAD" | sed 's/origin\///g')
+
+# Local branches only
+# branches=$(git branch --list --all | egrep -v "remotes/" | egrep -v "\*")
+
+for branch in $branches
+do
+  git checkout $branch
+  git pull
+  git checkout richel
+  git merge $branch
+  git push
+done
+

@@ -14,6 +14,7 @@ public:
 private:
     double f_x;
     double f_y;
+
 };
 
 void test_food ();

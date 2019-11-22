@@ -76,6 +76,7 @@ Timespan    |Activity
 ------------|--------------------------------------------------------------------------
 17:00       |Rehearse workflow
 ..          |Rehease git branching
+..          |Vote for #77
 ..          |Do Issues
 17:45-18:00 |Break
 ..          |Do Issues
@@ -86,16 +87,16 @@ Timespan    |Activity
 
 Not set in stone, but it's a good idea to have a plan :rainbow:
 
-Week|Goal
-----|---
-1   |Present game suggestions, pick game, present graphics libraries, pick graphics library
-2   |Install library, get a graphical 'Hello world' program, `git` contribute to fairytale on `master`
-3   |Rehearse `git` basics, demonstrate `git` branches
-4   |Rehearse `git` branches
+ * [x] team known workflow
+ * [x] team can work with `git` branches 
 
 ## Screenshots
 
 Most recent at the top.
+
+![](pics/20191122.png)
+
+![](pics/20191115.png)
 
 ![](pics/20191024.png) 
 
