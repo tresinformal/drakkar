@@ -120,7 +120,10 @@ void game_view::show() noexcept
     // Get position of food
     std::vector foods = m_game.get_food();
     // Position in landscape
-    foodsprite.setPosition(foods[0].get_x(), foods[0].get_y());
+    foodsprite.setPosition(
+                static_cast<float>(foods[0].get_x()),
+                static_cast<float>(foods[0].get_y())
+                );
     foodsprite.setFillColor(sf::Color(0, 0, 0));
     m_window.draw(foodsprite);
 
