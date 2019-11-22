@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>heterogenous_landscape.jpg</file>
         <file>ninja_gods.ogg</file>
+        <file>grass_landscape.png</file>
     </qresource>
 </RCC>
