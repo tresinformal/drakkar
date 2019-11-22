@@ -38,7 +38,8 @@ void game::do_action(action_type action){
     }
 }
 
-double get_player_direction(game g, unsigned int player_ind){return g.get_player(player_ind).get_direction();}
+double get_player_direction(game g, unsigned int player_ind)
+{return g.get_player(player_ind).get_direction();}
 
 void test_game() //!OCLINT tests may be many
 {
