@@ -22,11 +22,17 @@ public:
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
 
-  ///Get the player of the game
-  const player& get_player() const { return m_player; }
+  ///Gets the player direction
+  double get_player_direction(unsigned int player_ind);
+
+  ///Get the vector of players
+  const std::vector<player>& get_v_player() const {return m_v_player;}
+
+  ///Get the player at a specified index in the vector of players
+  const player& get_player(unsigned int i) const { return m_v_player[i]; }
 
   ///Get reference to player to change some parameters
-  player& get_ref_player() { return m_player; }
+  player& get_ref_player(unsigned int i) { return m_v_player[i]; }
 
   ///Get environment type of the game
   environment_type get_environment_type() const { return m_environment_type; }
@@ -43,7 +49,7 @@ private:
   int m_n_ticks;
 
   /// The player
-  player m_player;
+  std::vector<player> m_v_player;
 
   /// the environment
   environment_type m_environment_type;
@@ -57,7 +63,5 @@ private:
 
 void test_game();
 
-///Get player directions
-double get_player_direction(const game g);
 
 #endif // GAMELOGIC_H

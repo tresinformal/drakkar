@@ -84,6 +84,7 @@ void test_player() //!OCLINT tests may be long
         assert(std::abs(p.get_health() - 1.0) < 0.00001);
     }
 #endif
+
   // A player has a speed of zero
   {
     const player p{1.2, 3.4, player_shape::rocket};
