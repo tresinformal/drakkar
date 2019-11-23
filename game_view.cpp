@@ -1,6 +1,7 @@
 #include "game_view.h"
 #include "game.h"
 #include "game_resources.h"
+#include "food.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
@@ -58,20 +59,16 @@ void game_view::exec() noexcept
                 if (event.key.code == sf::Keyboard::D)
                 {
                     m_game.do_action(action_type::turn_left);
-                    break;
                 }
                 else if (event.key.code == sf::Keyboard::A){
                     m_game.do_action(action_type::turn_right);
-                    break;
                 }
                 else if (event.key.code == sf::Keyboard::W)
                 {
                     m_game.do_action(action_type::accelerate);
-                    break;
                 }
                 else if (event.key.code == sf::Keyboard::S){
                     m_game.do_action(action_type::brake);
-                    break;
                 }
                 else{
                     break;
@@ -80,7 +77,7 @@ void game_view::exec() noexcept
 
         }
         // apply inertia  and attrition
-        if(m_game.get_player().get_speed()>0){
+        if(m_game.get_player(0).get_speed()>0){
           //momentarly using brake action, do not know to what assign this
           //function. To game or to player?
           //Both will need this functions for this to happen.
@@ -98,6 +95,7 @@ void game_view::show() noexcept
 
     // Draw the background
     sf::Sprite background_sprite;
+    background_sprite.setPosition(10.0,10.0);
     background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
     m_window.draw(background_sprite);
 
@@ -106,12 +104,24 @@ void game_view::show() noexcept
     //Set the center of rotation as the center of the shape
     rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
     rect.setPosition(
-                300.0f + static_cast<float>(m_game.get_player().get_x()),
-                400.0f + static_cast<float>(m_game.get_player().get_y())
+               static_cast<float>(m_game.get_player(0).get_x()),
+               static_cast<float>(m_game.get_player(0).get_y())
                 );
-    rect.setRotation(static_cast<float>((m_game.get_player().get_direction())*180/M_PI));
+    rect.setRotation(static_cast<float>((m_game.get_player(0).get_direction())*180/M_PI));
     //Draw the player
     m_window.draw(rect);
+
+    // Create food sprite
+    sf::CircleShape foodsprite(25.0);
+    // Get position of food
+    std::vector foods = m_game.get_food();
+    // Position in landscape
+    foodsprite.setPosition(
+                static_cast<float>(foods[0].get_x()),
+                static_cast<float>(foods[0].get_y())
+                );
+    foodsprite.setFillColor(sf::Color(0, 0, 0));
+    m_window.draw(foodsprite);
 
     //Draw some semitransparent circles to see how well RGB/opsin-based vision works out
     sf::CircleShape circle(200.0);
