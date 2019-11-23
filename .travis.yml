@@ -46,7 +46,8 @@ script:
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
   # clang-tidy
-  - clang-tidy $(ls *.cpp) --checks=cppcoreguidelines-* -- -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -std=c++17 -fPIC
+  - clang-tidy $(ls *.cpp) --checks=-*,cppcoreguidelines-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay -- -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -std=c++17 -fPIC
+  #- clang-tidy $(ls *.cpp) --checks=cppcoreguidelines-* -- -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -std=c++17 -fPIC
   # - clang-tidy $(ls {*.cpp,*.h}) -- -std=c++17 2>/dev/null
   # SLOCcount
   #   remove OCLint and .git, otherwise it will be counted as well
