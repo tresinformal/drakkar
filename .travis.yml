@@ -19,6 +19,8 @@ install:
   - sudo pip install codecov
   # OCLint
   - ./scripts/install_oclint
+  # clang-tidy
+  - sudo apt install -qq clang clang-tidy
   # SLOCcount
   - sudo apt install -qq sloccount
 
@@ -43,6 +45,8 @@ script:
   - codecov
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
+  # clang-tidy
+  - clang-tidy $(ls {*.cpp,*.h}) -- -std=c++17 2>/dev/null
   # SLOCcount
   #   remove OCLint and .git, otherwise it will be counted as well
   - rm -rf oclint-0.10.3 oclint-0.10.3-x86_64-linux-3.13.0-74-generic.tar.gz oclint.log
