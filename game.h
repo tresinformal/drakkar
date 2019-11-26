@@ -21,6 +21,9 @@ public:
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
 
+  ///Gets reference adress of number of ticks
+  int& get_n_ticks() noexcept { return m_n_ticks; }
+
   ///Gets the player direction
   double get_player_direction(unsigned int player_ind);
 
@@ -44,6 +47,9 @@ public:
 
   ///Apply inertia to player movement
   void apply_inertia();
+
+  ///Applies default actions every tick
+  void tick();
 
 private:
 

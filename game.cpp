@@ -27,6 +27,13 @@ for(unsigned int i = 0; i < get_v_player().size(); ++i){
     }
 }
 }
+
+void game::tick(){
+    //for now only applies inertia
+    apply_inertia();
+    ++get_n_ticks();
+}
+
 void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
@@ -103,7 +110,8 @@ void test_game() //!OCLINT tests may be many
     const double before{g.get_player(i).get_speed()};
     g.get_player(i).do_action(action_type::brake);
     const double after{g.get_player(i).get_speed()};
-    assert( before-after > 0.0000000000000001); //After should be < than before
+    assert( before-after > 0.0000000000000001);
+    //After should be < than before
     }
   }
   //Can get a player's direction by using a free function
@@ -128,8 +136,17 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_enemies().empty());
   }
   #endif //FIX_ISSUE_89
+    //calling tick updates the counter and
+    
+    //callling tick() increases m_n_tick by one
+    {
+        game g;
+        const int before =g.get_n_ticks();
+        g.tick();
+        assert( g.get_n_ticks() - before == 1);
 
-    //inertia slows down players
+    }
+    // inertia  slows down players
     {
         game g;
         std::vector<double> before_v;
@@ -147,8 +164,10 @@ void test_game() //!OCLINT tests may be many
         }
         for (unsigned int i = 0; i< g.get_v_player().size();++i)
         {
-        assert( before_v[i]-after_v[i] > 0.0000000000000001);
+        assert( before_v[i] - after_v[i] > 0.0000000000000001);
         //After should be < than before
         }
     }
+    
+
 }

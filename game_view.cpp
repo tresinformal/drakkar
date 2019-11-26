@@ -76,7 +76,7 @@ void game_view::exec() noexcept
                 }
             }
         }
-       m_game.apply_inertia();
+       m_game.tick();
        show();
     }
 }
