@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "player_shape.h"
+#include "action_type.h"
 #include<cmath>
 
 class player
@@ -43,6 +44,9 @@ public:
 
     ///Get the player's health
     double get_health() const noexcept{ return m_health;}
+
+    ///makes the player in the game execute an action
+    void do_action(action_type action);
 
     ///Turn the player left
     void turn_left() noexcept {m_direction += m_turn_rate;}

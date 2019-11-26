@@ -16,29 +16,6 @@ double game::get_player_direction( unsigned int player_ind)
 {return get_player(player_ind).get_direction();}
 
 
-void game::do_action(action_type action){
-
-    player &p = get_ref_player(0);
-    switch (action) {
-    case action_type::turn_left :{
-        p.turn_left();
-        break;
-    }
-    case action_type::turn_right :{
-        p.turn_right();
-        break;
-    }
-    case action_type::accelerate :{
-        p.accelerate();
-        break;
-    }
-    case action_type::brake   :{
-        p.brake();
-        break;
-    }
-    }
-}
-
 double get_player_direction(game g, unsigned int player_ind)
 {return g.get_player(player_ind).get_direction();}
 
@@ -64,8 +41,6 @@ void test_game() //!OCLINT tests may be many
     const game g;
     assert(!g.get_food().empty());
   }
-  #define FIX_ISSUE_54
-  #ifdef FIX_ISSUE_54
   // A game by default  has an empty environment
   {
     const game g;
@@ -77,46 +52,60 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_environment_type()==environment_type::random);
     assert(static_cast<int>(g.get_environment_type())!=9);
   }
-  #endif
   // A game responds to actions: player can turn left
   {
     game g;
-    const double before{g.get_player(0).get_direction()};
-    g.do_action(action_type::turn_left);
-    const double after{g.get_player(0).get_direction()};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double before{g.get_player(i).get_direction()};
+    g.get_player(i).do_action(action_type::turn_left);
+    const double after{g.get_player(i).get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
+    }
   }
   // A game responds to actions: player can turn right
   {
     game g;
-    const double before{g.get_player(0).get_direction()};
-    g.do_action(action_type::turn_right);
-    const double after{g.get_player(0).get_direction()};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double before{g.get_player(i).get_direction()};
+    g.get_player(i).do_action(action_type::turn_right);
+    const double after{g.get_player(i).get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
+    }
   }
   // A game responds to actions: player can accelerate
   {
     game g;
-    const double before{g.get_player(0).get_speed()};
-    g.do_action(action_type::accelerate);
-    const double after{g.get_player(0).get_speed()};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double before{g.get_player(i).get_speed()};
+    g.get_player(i).do_action(action_type::accelerate);
+    const double after{g.get_player(i).get_speed()};
     assert( before-after < 0.01); //After should be > than before
+    }
   }
   // A game responds to actions: player can break
   {
     game g;
-    g.do_action(action_type::accelerate);//just to give the player a speed of more than 0
-    const double before{g.get_player(0).get_speed()};
-    g.do_action(action_type::brake);
-    const double after{g.get_player(0).get_speed()};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    g.get_player(i).do_action(action_type::accelerate);//just to give the player a speed of more than 0
+    const double before{g.get_player(i).get_speed()};
+    g.get_player(i).do_action(action_type::brake);
+    const double after{g.get_player(i).get_speed()};
     assert( before-after > 0.0000000000000001); //After should be < than before
+    }
   }
   //Can get a player's direction by using a free function
   {
     const game g;
-    const double a{g.get_player(0).get_direction()};
-    const double b{get_player_direction(g,0)};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double a{g.get_player(i).get_direction()};
+    const double b{get_player_direction(g,i)};
     assert(std::abs(b - a) < 0.0001);
+    }
   }
   //game by default has a mix and max evironment size
   {

@@ -56,33 +56,41 @@ void game_view::exec() noexcept
 
             else if (event.type == sf::Event::KeyPressed)
             {
+                //buttons for  player1
                 if (event.key.code == sf::Keyboard::D)
                 {
-                    m_game.do_action(action_type::turn_left);
+                    m_game.get_player(0).do_action(action_type::turn_left);
                 }
                 else if (event.key.code == sf::Keyboard::A){
-                    m_game.do_action(action_type::turn_right);
+                    m_game.get_player(0).do_action(action_type::turn_right);
                 }
                 else if (event.key.code == sf::Keyboard::W)
                 {
-                    m_game.do_action(action_type::accelerate);
+                    m_game.get_player(0).do_action(action_type::accelerate);
                 }
                 else if (event.key.code == sf::Keyboard::S){
-                    m_game.do_action(action_type::brake);
+                    m_game.get_player(0).do_action(action_type::brake);
                 }
+                //here put buttons for other players
+                //
+                //
+                //
                 else{
                     break;
                 }
+
             }
 
         }
         // apply inertia  and attrition
-        if(m_game.get_player(0).get_speed()>0){
-          //momentarly using brake action, do not know to what assign this
-          //function. To game or to player?
-          //Both will need this functions for this to happen.
-          //And should this function take some value from environment?
-          m_game.do_action(action_type::brake);
+        for(unsigned int i = 0; i < m_game.get_v_player().size(); ++i){
+            if(m_game.get_player(i).get_speed()>0){
+                //momentarly using brake action, do not know to what assign this
+                //function. To game or to player?
+                //Both will need this functions for this to happen.
+                //And should this function take some value from environment?
+                m_game.get_player(i).do_action(action_type::brake);
+            }
         }
        show();
     }

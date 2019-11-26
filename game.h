@@ -16,8 +16,7 @@ class game
 public:
   game(const int n_ticks = 0,const environment_type environment = environment_type::empty);
 
-  ///makes the player in the game execute an action
-  void do_action(action_type action);
+
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
