@@ -32,7 +32,7 @@ public:
   const player& get_player(unsigned int i) const { return m_v_player[i]; }
 
   ///Get reference to player to change some parameters
-  player& get_ref_player(unsigned int i) { return m_v_player[i]; }
+  player& get_player(unsigned int i) { return m_v_player[i]; }
 
   ///Get environment type of the game
   environment_type get_environment_type() const { return m_environment_type; }

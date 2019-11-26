@@ -114,7 +114,7 @@ void game_view::show() noexcept
     // Create food sprite
     sf::CircleShape foodsprite(25.0);
     // Get position of food
-    std::vector foods = m_game.get_food();
+    std::vector<food> foods = m_game.get_food();
     // Position in landscape
     foodsprite.setPosition(
                 static_cast<float>(foods[0].get_x()),
