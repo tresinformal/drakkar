@@ -52,8 +52,6 @@ void game_view::exec() noexcept
                 m_window.close();
                 return; //Game is done
             }
-
-
             else if (event.type == sf::Event::KeyPressed)
             {
                 //buttons for  player1
@@ -73,25 +71,12 @@ void game_view::exec() noexcept
                 }
                 //here put buttons for other players
                 //
-                //
-                //
                 else{
                     break;
                 }
-
-            }
-
-        }
-        // apply inertia  and attrition
-        for(unsigned int i = 0; i < m_game.get_v_player().size(); ++i){
-            if(m_game.get_player(i).get_speed()>0){
-                //momentarly using brake action, do not know to what assign this
-                //function. To game or to player?
-                //Both will need this functions for this to happen.
-                //And should this function take some value from environment?
-                m_game.get_player(i).do_action(action_type::brake);
             }
         }
+       m_game.apply_inertia();
        show();
     }
 }
@@ -109,7 +94,6 @@ void game_view::show() noexcept
 
     //Create the player sprite
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    //Set the center of rotation as the center of the shape
     rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
     rect.setPosition(
                static_cast<float>(m_game.get_player(0).get_x()),
@@ -118,7 +102,6 @@ void game_view::show() noexcept
     rect.setRotation(static_cast<float>((m_game.get_player(0).get_direction())*180/M_PI));
     //Draw the player
     m_window.draw(rect);
-
     // Create food sprite
     sf::CircleShape foodsprite(25.0);
     // Get position of food

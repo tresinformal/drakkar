@@ -19,6 +19,14 @@ double game::get_player_direction( unsigned int player_ind)
 double get_player_direction(game g, unsigned int player_ind)
 {return g.get_player(player_ind).get_direction();}
 
+void game::apply_inertia(){
+for(unsigned int i = 0; i < get_v_player().size(); ++i){
+    if(get_player(i).get_speed()>0){
+        //And should this function take some value from environment?
+        get_player(i).do_action(action_type::brake);
+    }
+}
+}
 void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
@@ -90,7 +98,8 @@ void test_game() //!OCLINT tests may be many
     game g;
     for (unsigned int i = 0; i< g.get_v_player().size();++i)
     {
-    g.get_player(i).do_action(action_type::accelerate);//just to give the player a speed of more than 0
+    // give the player a speed of more than 0
+    g.get_player(i).do_action(action_type::accelerate);
     const double before{g.get_player(i).get_speed()};
     g.get_player(i).do_action(action_type::brake);
     const double after{g.get_player(i).get_speed()};
@@ -119,4 +128,27 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_enemies().empty());
   }
   #endif //FIX_ISSUE_89
+
+    //inertia slows down players
+    {
+        game g;
+        std::vector<double> before_v;
+        std::vector<double> after_v;
+        for (unsigned int i = 0; i< g.get_v_player().size();++i)
+        {
+        // give the player a speed of more than 0
+        g.get_player(i).do_action(action_type::accelerate);
+        before_v.push_back(g.get_player(i).get_speed());
+        }
+        g.apply_inertia();
+        for (unsigned int i = 0; i< g.get_v_player().size();++i)
+        {
+        after_v.push_back(g.get_player(i).get_speed());
+        }
+        for (unsigned int i = 0; i< g.get_v_player().size();++i)
+        {
+        assert( before_v[i]-after_v[i] > 0.0000000000000001);
+        //After should be < than before
+        }
+    }
 }

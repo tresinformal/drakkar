@@ -42,6 +42,9 @@ public:
   ///Get food
   std::vector<food> get_food() const {return m_food; }
 
+  ///Apply inertia to player movement
+  void apply_inertia();
+
 private:
 
   ///the number of ticks
