@@ -3,13 +3,15 @@
 #include<iostream>
 #include<cmath>
 
-game::game(const int n_ticks, environment_type environment_type)
+game::game(const int n_ticks, environment_type environment_type, unsigned int num_players)
  : m_n_ticks{n_ticks},
-   m_v_player{2, player()},
+   m_v_player(num_players, player()),
    m_environment_type{environment_type},
    m_food{1}
 {
-  m_v_player[0] = player(300.0,400.0, player_shape::rocket);
+  for (unsigned int i = 0; i < m_v_player.size(); ++i){
+  m_v_player[i] = player(300.0 + m_dist_x_pls * i,400.0, player_shape::rocket);
+  }
 }
 
 double game::get_player_direction( unsigned int player_ind)
@@ -168,6 +170,16 @@ void test_game() //!OCLINT tests may be many
         //After should be < than before
         }
     }
-    
+
+    //players are placed at dist of 100 points
+    //along the x axis at initialization
+    {
+        game g;
+        for(unsigned int i = 0; i < (g.get_v_player().size() - 1); ++i){
+        assert(g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() < 0.000001
+               &&
+               g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() > -0.000001);
+        }
+    }
 
 }

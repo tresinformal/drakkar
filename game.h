@@ -14,7 +14,7 @@
 class game
 {
 public:
-  game(const int n_ticks = 0,const environment_type environment = environment_type::empty);
+  game(const int n_ticks = 0, const environment_type environment = environment_type::empty, unsigned int num_players = 2);
 
 
 
@@ -51,6 +51,9 @@ public:
   ///Applies default actions every tick
   void tick();
 
+  ///Get initial x distance of players
+  unsigned int get_dist_x_pls() const noexcept{return m_dist_x_pls;}
+
 private:
 
   ///the number of ticks
@@ -67,6 +70,9 @@ private:
 
   /// the food
   std::vector<food> m_food;
+
+  /// starting x distance between players
+  unsigned int m_dist_x_pls = 100;
 };
 
 void test_game();

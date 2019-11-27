@@ -16,8 +16,17 @@ public:
   /// Show one frame
   void show() noexcept;
 
+  /// Draws players
+  void draw_players() noexcept;
+
   /// Run the game until the window is closed
   void exec() noexcept;
+
+  ///Parses input for player 1
+  void pl_1_input(sf::Event event) noexcept;
+
+  ///Parses input for player 2
+  void pl_2_input(sf::Event event) noexcept;
 
 private:
   /// The game logic

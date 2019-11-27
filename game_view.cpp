@@ -40,6 +40,43 @@ void test_game_view()
 #endif
 }
 
+void game_view::pl_1_input(sf::Event event) noexcept
+{
+    //buttons for  player1
+    if (event.key.code == sf::Keyboard::D)
+    {
+        m_game.get_player(0).do_action(action_type::turn_left);
+    }
+    else if (event.key.code == sf::Keyboard::A){
+        m_game.get_player(0).do_action(action_type::turn_right);
+    }
+    else if (event.key.code == sf::Keyboard::W)
+    {
+        m_game.get_player(0).do_action(action_type::accelerate);
+    }
+    else if (event.key.code == sf::Keyboard::S){
+        m_game.get_player(0).do_action(action_type::brake);
+    }
+}
+
+void game_view::pl_2_input(sf::Event event) noexcept
+{
+    if (event.key.code == sf::Keyboard::L)
+    {
+        m_game.get_player(1).do_action(action_type::turn_left);
+    }
+    else if (event.key.code == sf::Keyboard::J){
+        m_game.get_player(1).do_action(action_type::turn_right);
+    }
+    else if (event.key.code == sf::Keyboard::I)
+    {
+        m_game.get_player(1).do_action(action_type::accelerate);
+    }
+    else if (event.key.code == sf::Keyboard::K){
+        m_game.get_player(1).do_action(action_type::brake);
+    }
+}
+
 void game_view::exec() noexcept
 {
     while(m_window.isOpen()) {
@@ -54,30 +91,58 @@ void game_view::exec() noexcept
             }
             else if (event.type == sf::Event::KeyPressed)
             {
-                //buttons for  player1
-                if (event.key.code == sf::Keyboard::D)
-                {
-                    m_game.get_player(0).do_action(action_type::turn_left);
-                }
-                else if (event.key.code == sf::Keyboard::A){
-                    m_game.get_player(0).do_action(action_type::turn_right);
-                }
-                else if (event.key.code == sf::Keyboard::W)
-                {
-                    m_game.get_player(0).do_action(action_type::accelerate);
-                }
-                else if (event.key.code == sf::Keyboard::S){
-                    m_game.get_player(0).do_action(action_type::brake);
-                }
-                //here put buttons for other players
-                //
-                else{
-                    break;
-                }
+                pl_1_input(event);
+                pl_2_input(event);
+
+
             }
         }
        m_game.tick();
        show();
+    }
+}
+
+void game_view::draw_players() noexcept
+{
+    sf::Color color;
+    for (unsigned int i = 0; i<m_game.get_v_player().size(); ++i){
+
+    //assign different color for different players,
+    //max 5 players handled for now.
+    switch (i) {
+    case 0:{
+      color = sf::Color::White;
+      break;
+    }
+    case 1:{
+      color = sf::Color::Red;
+      break;
+    }
+    case 2:{
+        color =sf::Color::Blue;
+        break;
+    }
+    case 3:{
+      color = sf::Color::Black;
+      break;
+    }
+    case 4:{
+      color = sf::Color::Green;
+      break;
+    }
+    }
+
+    //Create the player sprite
+    sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
+    rect.setFillColor(color);
+    rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
+    rect.setPosition(
+               static_cast<float>(m_game.get_player(i).get_x()),
+               static_cast<float>(m_game.get_player(i).get_y())
+                );
+    rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction())*180/M_PI));
+    //Draw the player
+    m_window.draw(rect);
     }
 }
 
@@ -92,16 +157,10 @@ void game_view::show() noexcept
     background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
     m_window.draw(background_sprite);
 
-    //Create the player sprite
-    sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
-    rect.setPosition(
-               static_cast<float>(m_game.get_player(0).get_x()),
-               static_cast<float>(m_game.get_player(0).get_y())
-                );
-    rect.setRotation(static_cast<float>((m_game.get_player(0).get_direction())*180/M_PI));
-    //Draw the player
-    m_window.draw(rect);
+
+    draw_players();
+
+
     // Create food sprite
     sf::CircleShape foodsprite(25.0);
     // Get position of food
@@ -132,3 +191,5 @@ void game_view::show() noexcept
     //Display all shapes
     m_window.display();
 }
+
+
