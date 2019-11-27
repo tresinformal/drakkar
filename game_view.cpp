@@ -40,6 +40,7 @@ void test_game_view()
 #endif
 }
 
+
 void game_view::pl_1_input(sf::Event event) noexcept
 {
     //buttons for  player1
@@ -77,28 +78,32 @@ void game_view::pl_2_input(sf::Event event) noexcept
     }
 }
 
+bool game_view::process_events(){
+    //User interaction
+    sf::Event event;
+    while(m_window.pollEvent(event))
+    {
+        if(event.type == sf::Event::Closed)
+        {
+            m_window.close();
+            return true; //Game is done
+        }
+        else if (event.type == sf::Event::KeyPressed)
+        {
+            pl_1_input(event);
+            pl_2_input(event);
+        }
+    }
+    return false; //if no events proceed with tick
+}
+
 void game_view::exec() noexcept
 {
     while(m_window.isOpen()) {
-        //User interaction
-        sf::Event event;
-        while(m_window.pollEvent(event))
-        {
-            if(event.type == sf::Event::Closed)
-            {
-                m_window.close();
-                return; //Game is done
-            }
-            else if (event.type == sf::Event::KeyPressed)
-            {
-                pl_1_input(event);
-                pl_2_input(event);
-
-
-            }
-        }
-       m_game.tick();
-       show();
+        bool must_quit{process_events()};
+        if (must_quit) return;
+        m_game.tick();
+        show();
     }
 }
 
@@ -107,43 +112,43 @@ void game_view::draw_players() noexcept
     sf::Color color;
     for (unsigned int i = 0; i<m_game.get_v_player().size(); ++i){
 
-    //assign different color for different players,
-    //max 5 players handled for now.
-    switch (i) {
+        //assign different color for different players,
+        //max 5 players handled for now.
+        switch (i) {
 
-    case 1:{
-      color = sf::Color::Red;
-      break;
-    }
-    case 2:{
-        color =sf::Color::Blue;
-        break;
-    }
-    case 3:{
-      color = sf::Color::Black;
-      break;
-    }
-    case 4:{
-      color = sf::Color::Green;
-      break;
-    }
-    case 0: default:{
-        color = sf::Color::White;
-        break;
-      }
-    }
+        case 1:{
+            color = sf::Color::Red;
+            break;
+        }
+        case 2:{
+            color =sf::Color::Blue;
+            break;
+        }
+        case 3:{
+            color = sf::Color::Black;
+            break;
+        }
+        case 4:{
+            color = sf::Color::Green;
+            break;
+        }
+        case 0: default:{
+            color = sf::Color::White;
+            break;
+        }
+        }
 
-    //Create the player sprite
-    sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    rect.setFillColor(color);
-    rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
-    rect.setPosition(
-               static_cast<float>(m_game.get_player(i).get_x()),
-               static_cast<float>(m_game.get_player(i).get_y())
-                );
-    rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction())*180/M_PI));
-    //Draw the player
-    m_window.draw(rect);
+        //Create the player sprite
+        sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
+        rect.setFillColor(color);
+        rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
+        rect.setPosition(
+                    static_cast<float>(m_game.get_player(i).get_x()),
+                    static_cast<float>(m_game.get_player(i).get_y())
+                    );
+        rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction())*180/M_PI));
+        //Draw the player
+        m_window.draw(rect);
     }
 }
 
@@ -169,8 +174,8 @@ void game_view::show() noexcept
     // Position in landscape
     foodsprite.setPosition(
                 static_cast<float>(foods[0].get_x()),
-                static_cast<float>(foods[0].get_y())
-                );
+            static_cast<float>(foods[0].get_y())
+            );
     foodsprite.setFillColor(sf::Color(0, 0, 0));
     m_window.draw(foodsprite);
 

@@ -33,6 +33,7 @@ for(unsigned int i = 0; i < get_v_player().size(); ++i){
 void game::tick(){
     //for now only applies inertia
     apply_inertia();
+    //and updates m_n_ticks
     ++get_n_ticks();
 }
 

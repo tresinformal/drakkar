@@ -28,6 +28,10 @@ public:
   ///Parses input for player 2
   void pl_2_input(sf::Event event) noexcept;
 
+  ///Processes events in game and ouputs false if quit
+  /// is inputted
+  bool process_events();
+
 private:
   /// The game logic
   game m_game;
