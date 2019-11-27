@@ -110,7 +110,7 @@ void game_view::draw_players() noexcept
     //assign different color for different players,
     //max 5 players handled for now.
     switch (i) {
-    case 0:{
+    case 0: default:{
       color = sf::Color::White;
       break;
     }

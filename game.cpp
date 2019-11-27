@@ -176,9 +176,11 @@ void test_game() //!OCLINT tests may be many
     {
         game g;
         for(unsigned int i = 0; i < (g.get_v_player().size() - 1); ++i){
-        assert(g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() < 0.000001
+        assert(
+               g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() < 0.000001
                &&
-               g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() > -0.000001);
+               g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() > -0.000001
+               );
         }
     }
 
