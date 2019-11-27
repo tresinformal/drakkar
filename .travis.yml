@@ -2,7 +2,7 @@ language: cpp
 dist: bionic
 compiler:
   - gcc
-  # - clang 
+  - clang 
 
 install: 
   # Required on bionic

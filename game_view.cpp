@@ -62,6 +62,7 @@ void game_view::pl_1_input(sf::Event event) noexcept
 
 void game_view::pl_2_input(sf::Event event) noexcept
 {
+    //buttons for  player2
     if (event.key.code == sf::Keyboard::L)
     {
         m_game.get_player(1).do_action(action_type::turn_left);
@@ -79,6 +80,7 @@ void game_view::pl_2_input(sf::Event event) noexcept
 }
 
 bool game_view::process_events(){
+
     //User interaction
     sf::Event event;
     while(m_window.pollEvent(event))
@@ -147,6 +149,7 @@ void game_view::draw_players() noexcept
                     static_cast<float>(m_game.get_player(i).get_y())
                     );
         rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction())*180/M_PI));
+
         //Draw the player
         m_window.draw(rect);
     }
@@ -173,7 +176,7 @@ void game_view::show() noexcept
     std::vector<food> foods = m_game.get_food();
     // Position in landscape
     foodsprite.setPosition(
-                static_cast<float>(foods[0].get_x()),
+            static_cast<float>(foods[0].get_x()),
             static_cast<float>(foods[0].get_y())
             );
     foodsprite.setFillColor(sf::Color(0, 0, 0));
