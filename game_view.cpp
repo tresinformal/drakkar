@@ -110,10 +110,7 @@ void game_view::draw_players() noexcept
     //assign different color for different players,
     //max 5 players handled for now.
     switch (i) {
-    case 0: default:{
-      color = sf::Color::White;
-      break;
-    }
+
     case 1:{
       color = sf::Color::Red;
       break;
@@ -130,6 +127,10 @@ void game_view::draw_players() noexcept
       color = sf::Color::Green;
       break;
     }
+    case 0: default:{
+        color = sf::Color::White;
+        break;
+      }
     }
 
     //Create the player sprite
