@@ -64,6 +64,7 @@ services:
   - alsa
 
 script: 
+    #use cmake to enforce coding standards with clang-tidy
   - cmake -DENABLE_CLANG_TIDY=ON -DCMAKE_CXX_COMPILER="g++-6" ..
   - make
   - make tidy > output.txt
@@ -93,7 +94,8 @@ script:
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
   # SLOCcount
-  #   remove OCLint and .git, otherwise it will be counted as well
+  #   remove build dir for CMake, OCLint and .git, otherwise it will be counted as well
+  - rm -rf build
   - rm -rf oclint-0.10.3 oclint-0.10.3-x86_64-linux-3.13.0-74-generic.tar.gz oclint.log
   - rm -rf .git
   - rm -rf debug

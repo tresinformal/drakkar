@@ -14,7 +14,9 @@
 class game
 {
 public:
-  game(const int n_ticks = 0, const environment_type environment = environment_type::empty, unsigned int num_players = 2);
+  game(const int n_ticks = 0,
+       const environment_type environment = environment_type::empty,
+       unsigned int num_players = 2);
 
 
 

@@ -12,6 +12,8 @@ void test_player_shape()
   {
     assert(to_str(player_shape::circle) == "circle");
     assert(to_str(player_shape::rocket) == "rocket");
+    assert(to_str(player_shape::square) == "square");
+
   }
   #endif
 }

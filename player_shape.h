@@ -7,7 +7,8 @@
 enum class player_shape
 {
   rocket,
-  circle
+  circle,
+  square
 };
 
 /// Tests the functions related to player_shape
@@ -17,6 +18,7 @@ inline const std::string to_str(player_shape this_player_shape)
     switch (this_player_shape)
     {
     case player_shape::circle:   return "circle";
+    case player_shape::square:   return "square";
     default:
         assert(this_player_shape == player_shape::rocket);
                 return "rocket";

@@ -14,9 +14,9 @@ enum class environment_type
 };
 
 void test_environment_type();
-inline const std::string to_str_env_type(environment_type this_environment_type)
+inline const std::string to_str_env_type(environment_type this_env_type)
 {
-    switch (this_environment_type)
+    switch (this_env_type)
     {
         case environment_type::empty:   return "empty";
         case environment_type::quiet:   return "quiet";
@@ -24,8 +24,8 @@ inline const std::string to_str_env_type(environment_type this_environment_type)
         case environment_type::attractive:   return "attractive";
         case environment_type::repellent:   return "repellent";
         case environment_type::wormhole:   return "wormhole";
-        default:      return "[Unknown environment_type]";
     }
+    return "[Unknown environment_type]";
 }
 
 #endif // ENVIRONMENT_H
