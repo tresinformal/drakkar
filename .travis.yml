@@ -31,7 +31,16 @@ before_script:
 compiler:
   - gcc
   - clang 
-
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-bionic main
+    packages:
+      - clang
+      - clang-tidy
+      - gcc-6
+      - g++-6
 install: 
   # Required on bionic
   - sudo apt update -qq
