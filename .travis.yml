@@ -37,8 +37,8 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-bionic main
     packages:
-      - clang
-      - clang-tidy
+      - clang-6.0
+      - clang-tidy-6.0
       - gcc-6
       - g++-6
 install: 
