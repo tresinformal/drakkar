@@ -77,7 +77,7 @@ script:
         echo -e "\033[1;32m\xE2\x9C\x93 passed:\033[0m $1";
     fi
   # Build the project, then:
-
+  - cd ../
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   - ./game --test
