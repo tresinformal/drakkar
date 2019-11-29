@@ -327,15 +327,4 @@ endmacro(do_test)
 do_test(main)
 do_test(producer)
 do_test(consumer)
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+
