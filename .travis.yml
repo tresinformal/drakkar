@@ -2,7 +2,7 @@ language: cpp
 dist: bionic
 compiler:
   - gcc
-  # - clang 
+  - clang 
 
 install: 
   # Required on bionic
@@ -19,15 +19,19 @@ install:
   - sudo pip install codecov
   # OCLint
   - ./scripts/install_oclint
+  # clang-tidy
+  - sudo apt install -qq clang clang-tidy
   # SLOCcount
   - sudo apt install -qq sloccount
 
 services:
- - xvfb
+  - xvfb
+  - alsa
 
 script: 
   # Build the project, then:
-  - qmake -qt=qt5 game.pro
+
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   - ./game --test
   # 2) Run the game for a short time, then quit
@@ -39,6 +43,11 @@ script:
   - codecov >/dev/null
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
+  # clang-tidy
+  - clang-tidy $(ls *.cpp) --checks=-*,cppcoreguidelines-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-type-union-access --format-style=mozilla -- -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -std=c++17 -fPIC
+  #- clang-tidy $(ls *.cpp) --checks=-*,cppcoreguidelines-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay -- -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -std=c++17 -fPIC
+  #- clang-tidy $(ls *.cpp) --checks=cppcoreguidelines-* -- -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCore -std=c++17 -fPIC
+  # - clang-tidy $(ls {*.cpp,*.h}) -- -std=c++17 2>/dev/null
   # SLOCcount
   #   remove OCLint and .git, otherwise it will be counted as well
   - rm -rf oclint-0.10.3 oclint-0.10.3-x86_64-linux-3.13.0-74-generic.tar.gz oclint.log

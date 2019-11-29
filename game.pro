@@ -4,24 +4,30 @@ HEADERS += \
     environment.h \
     environment_type.h \
     food_type.h \
+    food.h \
     game.h \
     game_view.h \
     player.h \
     player_shape.h \
     game_resources.h \
-    action_type.h
+    action_type.h \
+    sound_type.h \
+    game_options.h
 
 SOURCES += main.cpp \
     enemy.cpp \
     environment.cpp \
-    envrionment_type.cpp \
+    environment_type.cpp \
     food_type.cpp \
+    food.cpp \
     game.cpp \
     game_view.cpp \
     player.cpp \
     player_shape.cpp \
     game_resources.cpp \
-    action_type.cpp
+    action_type.cpp \
+    sound_type.cpp \
+    game_options.cpp
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17

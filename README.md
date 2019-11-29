@@ -5,7 +5,10 @@ Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)           
 master |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=master)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=develop)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
 josh   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=josh)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=josh)](https://codecov.io/github/tresinformal/game/branch/josh)
+pedro   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=pedro)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pedro)](https://codecov.io/github/tresinformal/game/branch/pedro)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
+
+ * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
 The TRES video game
 
@@ -38,12 +41,14 @@ Name    |GitHub username    |Preferred role(s)
 --------|-------------------|------------------------------------------------
 Apu     |                   |
 Boris   |                   |
+Giorgio |                   |
 Josh    | @joshwlambert     |Junior developer, game design
 Pedro   | @Neves-P          |Junior developer, sound
 Marina  | @marinapapa       |Graphics, game design, developer
 Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
 Shu     |                   |
 Stefano | @swom             |
+Tim     |                   |
 Xiaoyan |                   |
 
 ## Roles
@@ -71,6 +76,7 @@ Timespan    |Activity
 ------------|--------------------------------------------------------------------------
 17:00       |Rehearse workflow
 ..          |Rehease git branching
+..          |Vote for #77
 ..          |Do Issues
 17:45-18:00 |Break
 ..          |Do Issues
@@ -81,16 +87,16 @@ Timespan    |Activity
 
 Not set in stone, but it's a good idea to have a plan :rainbow:
 
-Week|Goal
-----|---
-1   |Present game suggestions, pick game, present graphics libraries, pick graphics library
-2   |Install library, get a graphical 'Hello world' program, `git` contribute to fairytale on `master`
-3   |Rehearse `git` basics, demonstrate `git` branches
-4   |Rehearse `git` branches
+ * [x] team known workflow
+ * [x] team can work with `git` branches 
 
 ## Screenshots
 
 Most recent at the top.
+
+![](pics/20191122.png)
+
+![](pics/20191115.png)
 
 ![](pics/20191024.png) 
 
