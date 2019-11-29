@@ -66,7 +66,7 @@ services:
 script: 
     #use cmake to enforce coding standards with clang-tidy
   - cmake -DCMAKE_CXX_COMPILER="g++-6" \
-    -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-warnings-as-errors=*;-header-filter=$(realpath ..)" ..
+    -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-warnings-as-errors=*;-header-filter=$(realpath ..);-checks=-*,clang-analyzer-*" ..
   - make
   - make tidy > output.txt
   - |
