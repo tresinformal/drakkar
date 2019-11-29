@@ -40,51 +40,115 @@ void test_game_view()
 #endif
 }
 
+
+void game_view::pl_1_input(sf::Event event) noexcept
+{
+    //buttons for  player1
+    if (event.key.code == sf::Keyboard::D)
+    {
+        m_game.get_player(0).do_action(action_type::turn_left);
+    }
+    else if (event.key.code == sf::Keyboard::A){
+        m_game.get_player(0).do_action(action_type::turn_right);
+    }
+    else if (event.key.code == sf::Keyboard::W)
+    {
+        m_game.get_player(0).do_action(action_type::accelerate);
+    }
+    else if (event.key.code == sf::Keyboard::S){
+        m_game.get_player(0).do_action(action_type::brake);
+    }
+}
+
+void game_view::pl_2_input(sf::Event event) noexcept
+{
+    if (event.key.code == sf::Keyboard::L)
+    {
+        m_game.get_player(1).do_action(action_type::turn_left);
+    }
+    else if (event.key.code == sf::Keyboard::J){
+        m_game.get_player(1).do_action(action_type::turn_right);
+    }
+    else if (event.key.code == sf::Keyboard::I)
+    {
+        m_game.get_player(1).do_action(action_type::accelerate);
+    }
+    else if (event.key.code == sf::Keyboard::K){
+        m_game.get_player(1).do_action(action_type::brake);
+    }
+}
+
+bool game_view::process_events(){
+    //User interaction
+    sf::Event event;
+    while(m_window.pollEvent(event))
+    {
+        if(event.type == sf::Event::Closed)
+        {
+            m_window.close();
+            return true; //Game is done
+        }
+        else if (event.type == sf::Event::KeyPressed)
+        {
+            pl_1_input(event);
+            pl_2_input(event);
+        }
+    }
+    return false; //if no events proceed with tick
+}
+
 void game_view::exec() noexcept
 {
     while(m_window.isOpen()) {
-        //User interaction
-        sf::Event event;
-        while(m_window.pollEvent(event))
-        {
-            if(event.type == sf::Event::Closed)
-            {
-                m_window.close();
-                return; //Game is done
-            }
+        bool must_quit{process_events()};
+        if (must_quit) return;
+        m_game.tick();
+        show();
+    }
+}
 
+void game_view::draw_players() noexcept
+{
+    sf::Color color;
+    for (unsigned int i = 0; i<m_game.get_v_player().size(); ++i){
 
-            else if (event.type == sf::Event::KeyPressed)
-            {
-                if (event.key.code == sf::Keyboard::D)
-                {
-                    m_game.do_action(action_type::turn_left);
-                }
-                else if (event.key.code == sf::Keyboard::A){
-                    m_game.do_action(action_type::turn_right);
-                }
-                else if (event.key.code == sf::Keyboard::W)
-                {
-                    m_game.do_action(action_type::accelerate);
-                }
-                else if (event.key.code == sf::Keyboard::S){
-                    m_game.do_action(action_type::brake);
-                }
-                else{
-                    break;
-                }
-            }
+        //assign different color for different players,
+        //max 5 players handled for now.
+        switch (i) {
 
+        case 1:{
+            color = sf::Color::Red;
+            break;
         }
-        // apply inertia  and attrition
-        if(m_game.get_player(0).get_speed()>0){
-          //momentarly using brake action, do not know to what assign this
-          //function. To game or to player?
-          //Both will need this functions for this to happen.
-          //And should this function take some value from environment?
-          m_game.do_action(action_type::brake);
+        case 2:{
+            color =sf::Color::Blue;
+            break;
         }
-       show();
+        case 3:{
+            color = sf::Color::Black;
+            break;
+        }
+        case 4:{
+            color = sf::Color::Green;
+            break;
+        }
+        case 0: default:{
+            color = sf::Color::White;
+            break;
+        }
+        }
+
+        //Create the player sprite
+        sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
+        rect.setFillColor(color);
+        rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
+        rect.setPosition(
+                    static_cast<float>(m_game.get_player(i).get_x()),
+                    static_cast<float>(m_game.get_player(i).get_y())
+                    );
+        rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction())*180/M_PI));
+        //Draw the player
+        m_window.draw(rect);
     }
 }
 
@@ -99,27 +163,19 @@ void game_view::show() noexcept
     background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
     m_window.draw(background_sprite);
 
-    //Create the player sprite
-    sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    //Set the center of rotation as the center of the shape
-    rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
-    rect.setPosition(
-               static_cast<float>(m_game.get_player(0).get_x()),
-               static_cast<float>(m_game.get_player(0).get_y())
-                );
-    rect.setRotation(static_cast<float>((m_game.get_player(0).get_direction())*180/M_PI));
-    //Draw the player
-    m_window.draw(rect);
+
+    draw_players();
+
 
     // Create food sprite
     sf::CircleShape foodsprite(25.0);
     // Get position of food
-    std::vector foods = m_game.get_food();
+    std::vector<food> foods = m_game.get_food();
     // Position in landscape
     foodsprite.setPosition(
                 static_cast<float>(foods[0].get_x()),
-                static_cast<float>(foods[0].get_y())
-                );
+            static_cast<float>(foods[0].get_y())
+            );
     foodsprite.setFillColor(sf::Color(0, 0, 0));
     m_window.draw(foodsprite);
 
@@ -141,3 +197,5 @@ void game_view::show() noexcept
     //Display all shapes
     m_window.display();
 }
+
+

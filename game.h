@@ -14,13 +14,15 @@
 class game
 {
 public:
-  game(const int n_ticks = 0,const environment_type environment = environment_type::empty);
+  game(const int n_ticks = 0, const environment_type environment = environment_type::empty, unsigned int num_players = 2);
 
-  ///makes the player in the game execute an action
-  void do_action(action_type action);
+
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
+
+  ///Gets reference adress of number of ticks
+  int& get_n_ticks() noexcept { return m_n_ticks; }
 
   ///Gets the player direction
   double get_player_direction(unsigned int player_ind);
@@ -32,7 +34,7 @@ public:
   const player& get_player(unsigned int i) const { return m_v_player[i]; }
 
   ///Get reference to player to change some parameters
-  player& get_ref_player(unsigned int i) { return m_v_player[i]; }
+  player& get_player(unsigned int i) { return m_v_player[i]; }
 
   ///Get environment type of the game
   environment_type get_environment_type() const { return m_environment_type; }
@@ -42,6 +44,15 @@ public:
 
   ///Get food
   std::vector<food> get_food() const {return m_food; }
+
+  ///Apply inertia to player movement
+  void apply_inertia();
+
+  ///Applies default actions every tick
+  void tick();
+
+  ///Get initial x distance of players
+  unsigned int get_dist_x_pls() const noexcept{return m_dist_x_pls;}
 
 private:
 
@@ -59,6 +70,9 @@ private:
 
   /// the food
   std::vector<food> m_food;
+
+  /// starting x distance between players
+  unsigned int m_dist_x_pls = 100;
 };
 
 void test_game();

@@ -3,44 +3,39 @@
 #include<iostream>
 #include<cmath>
 
-game::game(const int n_ticks, environment_type environment_type)
+game::game(const int n_ticks, environment_type environment_type, unsigned int num_players)
  : m_n_ticks{n_ticks},
-   m_v_player{2, player()},
+   m_v_player(num_players, player()),
    m_environment_type{environment_type},
    m_food{1}
 {
-  m_v_player[0] = player(300.0,400.0, player_shape::rocket);
+  for (unsigned int i = 0; i < m_v_player.size(); ++i){
+  m_v_player[i] = player(300.0 + m_dist_x_pls * i,400.0, player_shape::rocket);
+  }
 }
 
 double game::get_player_direction( unsigned int player_ind)
 {return get_player(player_ind).get_direction();}
 
 
-void game::do_action(action_type action){
-
-    player &p = get_ref_player(0);
-    switch (action) {
-    case action_type::turn_left :{
-        p.turn_left();
-        break;
-    }
-    case action_type::turn_right :{
-        p.turn_right();
-        break;
-    }
-    case action_type::accelerate :{
-        p.accelerate();
-        break;
-    }
-    case action_type::brake   :{
-        p.brake();
-        break;
-    }
-    }
-}
-
 double get_player_direction(game g, unsigned int player_ind)
 {return g.get_player(player_ind).get_direction();}
+
+void game::apply_inertia(){
+for(unsigned int i = 0; i < get_v_player().size(); ++i){
+    if(get_player(i).get_speed()>0){
+        //And should this function take some value from environment?
+        get_player(i).do_action(action_type::brake);
+    }
+}
+}
+
+void game::tick(){
+    //for now only applies inertia
+    apply_inertia();
+    //and updates m_n_ticks
+    ++get_n_ticks();
+}
 
 void test_game() //!OCLINT tests may be many
 {
@@ -64,8 +59,6 @@ void test_game() //!OCLINT tests may be many
     const game g;
     assert(!g.get_food().empty());
   }
-  #define FIX_ISSUE_54
-  #ifdef FIX_ISSUE_54
   // A game by default  has an empty environment
   {
     const game g;
@@ -77,46 +70,62 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_environment_type()==environment_type::random);
     assert(static_cast<int>(g.get_environment_type())!=9);
   }
-  #endif
   // A game responds to actions: player can turn left
   {
     game g;
-    const double before{g.get_player(0).get_direction()};
-    g.do_action(action_type::turn_left);
-    const double after{g.get_player(0).get_direction()};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double before{g.get_player(i).get_direction()};
+    g.get_player(i).do_action(action_type::turn_left);
+    const double after{g.get_player(i).get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
+    }
   }
   // A game responds to actions: player can turn right
   {
     game g;
-    const double before{g.get_player(0).get_direction()};
-    g.do_action(action_type::turn_right);
-    const double after{g.get_player(0).get_direction()};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double before{g.get_player(i).get_direction()};
+    g.get_player(i).do_action(action_type::turn_right);
+    const double after{g.get_player(i).get_direction()};
     assert( std::abs(before-after) > 0.01); //Should be different
+    }
   }
   // A game responds to actions: player can accelerate
   {
     game g;
-    const double before{g.get_player(0).get_speed()};
-    g.do_action(action_type::accelerate);
-    const double after{g.get_player(0).get_speed()};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double before{g.get_player(i).get_speed()};
+    g.get_player(i).do_action(action_type::accelerate);
+    const double after{g.get_player(i).get_speed()};
     assert( before-after < 0.01); //After should be > than before
+    }
   }
   // A game responds to actions: player can break
   {
     game g;
-    g.do_action(action_type::accelerate);//just to give the player a speed of more than 0
-    const double before{g.get_player(0).get_speed()};
-    g.do_action(action_type::brake);
-    const double after{g.get_player(0).get_speed()};
-    assert( before-after > 0.0000000000000001); //After should be < than before
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    // give the player a speed of more than 0
+    g.get_player(i).do_action(action_type::accelerate);
+    const double before{g.get_player(i).get_speed()};
+    g.get_player(i).do_action(action_type::brake);
+    const double after{g.get_player(i).get_speed()};
+    assert( before-after > 0.0000000000000001);
+    //After should be < than before
+    }
   }
   //Can get a player's direction by using a free function
   {
     const game g;
-    const double a{g.get_player(0).get_direction()};
-    const double b{get_player_direction(g,0)};
+    for (unsigned int i = 0; i< g.get_v_player().size();++i)
+    {
+    const double a{g.get_player(i).get_direction()};
+    const double b{get_player_direction(g,i)};
     assert(std::abs(b - a) < 0.0001);
+    }
   }
   //game by default has a mix and max evironment size
   {
@@ -130,4 +139,50 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_enemies().empty());
   }
   #endif //FIX_ISSUE_89
+    //calling tick updates the counter and
+    
+    //callling tick() increases m_n_tick by one
+    {
+        game g;
+        const int before =g.get_n_ticks();
+        g.tick();
+        assert( g.get_n_ticks() - before == 1);
+
+    }
+    // inertia  slows down players
+    {
+        game g;
+        std::vector<double> before_v;
+        std::vector<double> after_v;
+        for (unsigned int i = 0; i< g.get_v_player().size();++i)
+        {
+        // give the player a speed of more than 0
+        g.get_player(i).do_action(action_type::accelerate);
+        before_v.push_back(g.get_player(i).get_speed());
+        }
+        g.apply_inertia();
+        for (unsigned int i = 0; i< g.get_v_player().size();++i)
+        {
+        after_v.push_back(g.get_player(i).get_speed());
+        }
+        for (unsigned int i = 0; i< g.get_v_player().size();++i)
+        {
+        assert( before_v[i] - after_v[i] > 0.0000000000000001);
+        //After should be < than before
+        }
+    }
+
+    //players are placed at dist of 100 points
+    //along the x axis at initialization
+    {
+        game g;
+        for(unsigned int i = 0; i < (g.get_v_player().size() - 1); ++i){
+        assert(
+               g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() < 0.000001
+               &&
+               g.get_player(i).get_x() - g.get_player(i+1).get_x() + g.get_dist_x_pls() > -0.000001
+               );
+        }
+    }
+
 }
