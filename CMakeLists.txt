@@ -178,15 +178,15 @@ endif()
 
 if(ENABLE_CLANG_TIDY)
 
-    find_program(CLANG_TIDY_BIN clang-tidy-4.0)
-    find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-4.0.py)
+    find_program(CLANG_TIDY_BIN clang-tidy-6.0)
+    find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-6.0.py)
 
     if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
-        message(FATAL_ERROR "unable to locate clang-tidy-4.0")
+        message(FATAL_ERROR "unable to locate clang-tidy-6.0")
     endif()
 
     if(RUN_CLANG_TIDY_BIN STREQUAL "RUN_CLANG_TIDY_BIN-NOTFOUND")
-        message(FATAL_ERROR "unable to locate run-clang-tidy-4.0.py")
+        message(FATAL_ERROR "unable to locate run-clang-tidy-6.0.py")
     endif()
 
     list(APPEND RUN_CLANG_TIDY_BIN_ARGS

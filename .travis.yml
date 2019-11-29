@@ -37,8 +37,8 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-bionic main
     packages:
-      - clang-4.0
-      - clang-tidy-4.0
+      - clang-6.0
+      - clang-tidy-6.0
       - gcc-6
       - g++-6
 install: 
@@ -63,20 +63,19 @@ services:
   - xvfb
   - alsa
 
-script: 
-      - cmake -DENABLE_CLANG_TIDY=ON -DCMAKE_CXX_COMPILER="g++-6" ..
-      - make
-      - make tidy > output.txt
-      - |
-        if [[ -n $(grep "warning: " output.txt) ]] || [[ -n $(grep "error: " output.txt) ]]; then
-            echo "You must pass the clang tidy checks before submitting a pull request"
-            echo ""
-            grep --color -E '^|warning: |error: ' output.txt
-            exit -1;
-        else
-            echo -e "\033[1;32m\xE2\x9C\x93 passed:\033[0m $1";
-        fi
-
+script:
+  - cmake -DENABLE_CLANG_TIDY=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+  - make
+  - make tidy > output.txt
+  - |
+    if [[ -n $(grep "warning: " output.txt) ]] || [[ -n $(grep "error: " output.txt) ]]; then
+        echo "You must pass the clang tidy checks before submitting a pull request"
+        echo ""
+        grep --color -E '^|warning: |error: ' output.txt
+        exit -1;
+    else
+        echo -e "\033[1;32m\xE2\x9C\x93 passed:\033[0m $1";
+    fi
   # Build the project, then:
   - cd ../
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
