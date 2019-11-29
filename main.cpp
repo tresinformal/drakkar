@@ -7,6 +7,8 @@
 #include "game_resources.h"
 #include "enemy.h"
 #include "environment_type.h"
+#include "environment.h"
+
 
 /// All tests are called from here, only in debug mode
 void test() {
@@ -16,6 +18,8 @@ void test() {
   test_game_view();
   test_game_resources();
   test_enemy();
+  test_environment();
+  //test_environment_type();
 }
 int main(int argc, char ** argv) //!OCLINT tests may be long
 {

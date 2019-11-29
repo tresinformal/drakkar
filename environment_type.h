@@ -1,7 +1,7 @@
-#include <string>
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+#ifndef ENVIRONMENT_TYPE_H
+#define ENVIRONMENT_TYPE_H
 
+#include <string>
 
 enum class environment_type
 {
@@ -14,8 +14,9 @@ enum class environment_type
 
 };
 
-void test_environment();
-inline const std::string to_str(environment_type this_environment_type)
+void test_environment_type();
+
+inline const std::string to_str_env_type(environment_type this_environment_type)
 {
     switch (this_environment_type)
     {

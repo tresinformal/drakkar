@@ -16,3 +16,14 @@ void test_player_shape()
   #endif
 }
 
+std::string to_str(player_shape this_player_shape)
+{
+    switch (this_player_shape)
+    {
+    case player_shape::circle:   return "circle";
+    default:
+        assert(this_player_shape == player_shape::rocket);
+                return "rocket";
+    }
+}
+

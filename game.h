@@ -3,7 +3,9 @@
 
 #include "player_shape.h"
 #include "player.h"
+#include "environment.h"
 #include "environment_type.h"
+
 
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
@@ -19,8 +21,14 @@ public:
   ///Get the player of the game
   const player& get_player() const { return m_player; }
 
-  ///Get environemtn type of the game
-   environment_type get_environment() const { return m_environment; }
+  ///Get environment type of the game
+   environment_type get_environment_type() const { return m_environment_type; }
+
+   ///Get environment size of the game
+   environment get_environment() const { return m_environment; }
+
+
+
 
 
 private:
@@ -32,8 +40,10 @@ private:
   player m_player;
 
   /// the environment
-  environment_type m_environment;
+  environment_type m_environment_type;
 
+  /// the environment
+  environment m_environment;
 };
 
 void test_game();
