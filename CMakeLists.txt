@@ -15,7 +15,6 @@ list(APPEND RUN_CLANG_TIDY_BIN_ARGS
     -clang-tidy-binary ${CLANG_TIDY_BIN}
     -header-filter=.*
     -checks=-*,cppcoreguidelines*
-    -format-style='{IndentWidth: 4}'
 )
 
 add_custom_target(
