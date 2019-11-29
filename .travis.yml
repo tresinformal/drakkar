@@ -37,10 +37,10 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-bionic main
     packages:
-      - clang
-      - clang-tidy
-      - gcc-
-      - g++-
+      - clang-6.0
+      - clang-tidy-6.0
+      - gcc-6
+      - g++-6
 install: 
   # Required on bionic
   - sudo apt update -qq
@@ -65,10 +65,13 @@ services:
 
 script: 
     #use cmake to enforce coding standards with clang-tidy
-  - cmake -DCMAKE_CXX_COMPILER="g++-4.0" \
+  - cmake -DCMAKE_CXX_COMPILER="g++-6" \
     -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-warnings-as-errors=*;-header-filter=$(realpath ..);-checks=-*,cppcoreguidelines-*;\
         -format-style='{IndentWidth: 8}'" \
      > output.txt
+  - | ..
+  - make
+  - make tidy > output.txt
   - |
     if [[ -n $(grep "warning: " output.txt) ]] || [[ -n $(grep "error: " output.txt) ]]; then
         echo "You must pass the clang tidy checks before submitting a pull request"
