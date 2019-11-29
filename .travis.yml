@@ -57,7 +57,7 @@ services:
   - alsa
 
 script:
-  - cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-warnings-as-errors=* ;-checks=-*,cppcoreguidelines-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-type-union-acces" ..
+  - cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-warnings-as-errors=* ;-checks=-*,cppcoreguidelines-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-type-union-acces" ..
   - make -k
   # - make tidy > output.txt
   # - |
