@@ -1,4 +1,3 @@
-#include <assert.h>
 #include "player_shape.h"
 #include <cassert>
 
