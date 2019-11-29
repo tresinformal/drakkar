@@ -64,7 +64,7 @@ services:
   - alsa
 
 script:
-  - cmake -DENABLE_CLANG_TIDY=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+  - cmake -DCMAKE_CXX_COMPILER="g++-6" ..
   - make
   - make tidy > output.txt
   - |
