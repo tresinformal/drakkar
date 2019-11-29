@@ -37,10 +37,10 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-bionic main
     packages:
-      - clang-4.0
-      - clang-tidy-4.0
-      - gcc-4
-      - g++-4
+      - clang
+      - clang-tidy
+      - gcc-
+      - g++-
 install: 
   # Required on bionic
   - sudo apt update -qq
