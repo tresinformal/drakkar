@@ -31,16 +31,7 @@ before_script:
 compiler:
   - gcc
   - clang 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-bionic main
-    packages:
-      - clang-6.0
-      - clang-tidy-6.0
-      - gcc-6
-      - g++-6
+
 install: 
   # Required on bionic
   - sudo apt update -qq
@@ -56,6 +47,8 @@ install:
   - sudo pip install codecov
   # OCLint
   - ./scripts/install_oclint
+  # clang-tidy
+  - sudo apt install -qq clang clang-tidy
   # SLOCcount
   - sudo apt install -qq sloccount
 
