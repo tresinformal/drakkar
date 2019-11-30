@@ -44,7 +44,7 @@ script:
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
   # Check code formatting
-  - ./scripts/do_clang-format
+  - ./scripts/do_clang-format || true
   # SLOCcount
   #   remove OCLint and .git, otherwise it will be counted as well
   - rm -rf oclint-0.10.3 oclint-0.10.3-x86_64-linux-3.13.0-74-generic.tar.gz oclint.log
