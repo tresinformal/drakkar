@@ -1,8 +1,8 @@
-#include<string>
-#include<cassert>
-
 #ifndef PLAYER_SHAPE_H
 #define PLAYER_SHAPE_H
+
+#include<string>
+#include<cassert>
 
 enum class player_shape
 {
@@ -12,14 +12,7 @@ enum class player_shape
 
 /// Tests the functions related to player_shape
 void test_player_shape();
-inline const std::string to_str(player_shape this_player_shape)
-{
-    switch (this_player_shape)
-    {
-    case player_shape::circle:   return "circle";
-    default:
-        assert(this_player_shape == player_shape::rocket);
-                return "rocket";
-    }
-}
+
+std::string to_str(player_shape this_player_shape);
+
 #endif // PLAYER_SHAPE_H

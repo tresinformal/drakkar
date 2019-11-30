@@ -1,5 +1,5 @@
 #include "action_type.h"
-#include <assert.h>
+#include <cassert>
 #include <sstream>
 
 void test_action_type()
