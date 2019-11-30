@@ -7,6 +7,13 @@
 # ./scripts/do_clang_format
 #
 #
-cat $(ls *cpp | sort) > current_code
-clang-format current_code > correct_code ; diff current_code correct_code --suppress-common-lines -y
+for filename in $(ls *.cpp | sort)
+do
+  echo "-----------------------------------------------------------------------"
+  echo "File: $filename"
+  echo "-----------------------------------------------------------------------"
+  clang-format $filename > correct_code
+  diff $filename correct_code --suppress-common-lines -y
+done
+
 
