@@ -21,9 +21,6 @@ std::string to_str(player_shape this_player_shape)
   {
     return "circle";
   }
-  else
-  {
-    assert(this_player_shape == player_shape::rocket);
-    return "rocket";
-  }
+  assert(this_player_shape == player_shape::rocket);
+  return "rocket";
 }
