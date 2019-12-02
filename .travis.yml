@@ -1,36 +1,8 @@
 language: cpp
 dist: bionic
-
-#
-# Build Dependencies
-#
-before_script:
-
-  #
-  # Build Folder
-  #
-  - mkdir build
-  - cd build
-
-  #
-  # Update / Install CMake
-  #
-  - |
-    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
-      mkdir -p external/cmake
-      pushd external/cmake
-      wget https://cmake.org/files/v3.8/cmake-3.8.0-Linux-x86_64.sh
-      chmod +x cmake-*-Linux-x86_64.sh
-      ./cmake-*-Linux-x86_64.sh --exclude-subdir --skip-license
-      export PATH="${PWD}/bin:$PATH"
-      popd
-    else
-      if ! brew ls --version cmake &>/dev/null; then brew update; brew install cmake; fi
-    fi
-
 compiler:
   - gcc
-  - clang 
+  # - clang 
 
 install: 
   # Required on bionic
@@ -47,8 +19,6 @@ install:
   - sudo pip install codecov
   # OCLint
   - ./scripts/install_oclint
-  # clang-tidy
-  - sudo apt install -qq clang clang-tidy
   # SLOCcount
   - sudo apt install -qq sloccount
 
@@ -56,21 +26,9 @@ services:
   - xvfb
   - alsa
 
-script:
-  - cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy; --checks=-*,cppcoreguidelines-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-type-union-acces" ..
-  - make 
-  # - make tidy > output.txt
-  # - |
-    # if [[ -n $(grep "warning: " output.txt) ]] || [[ -n $(grep "error: " output.txt) ]]; then
-        # echo "You must pass the clang tidy checks before submitting a pull request"
-        # echo ""
-        # grep --color -E '^|warning: |error: ' output.txt
-        # exit -1;
-    # else
-        # echo -e "\033[1;32m\xE2\x9C\x93 passed:\033[0m $1";
-    # fi
+script: 
   # Build the project, then:
-  - cd ../
+
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   - ./game --test
@@ -86,8 +44,7 @@ script:
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
   # SLOCcount
-  #   remove build dir for CMake, OCLint and .git, otherwise it will be counted as well
-  - rm -rf build
+  #   remove OCLint and .git, otherwise it will be counted as well
   - rm -rf oclint-0.10.3 oclint-0.10.3-x86_64-linux-3.13.0-74-generic.tar.gz oclint.log
   - rm -rf .git
   - rm -rf debug

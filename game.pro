@@ -7,6 +7,9 @@ HEADERS += \
     food.h \
     game.h \
     game_view.h \
+    menu_button.h \
+    menu_logic.h \
+    menu_view.h \
     player.h \
     player_shape.h \
     game_resources.h \
@@ -22,6 +25,9 @@ SOURCES += main.cpp \
     food.cpp \
     game.cpp \
     game_view.cpp \
+    menu_button.cpp \
+    menu_logic.cpp \
+    menu_view.cpp \
     player.cpp \
     player_shape.cpp \
     game_resources.cpp \

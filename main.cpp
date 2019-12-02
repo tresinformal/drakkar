@@ -10,6 +10,9 @@
 #include "environment_type.h"
 #include "environment.h"
 #include "food.h"
+#include "menu_logic.h"
+#include "menu_button.h"
+#include "menu_view.h"
 
 /// All tests are called from here, only in debug mode
 void test() {
@@ -23,6 +26,8 @@ void test() {
     test_environment();
     test_environment_type();
     test_food();
+    test_menu();
+    test_menu_button();
 }
 
 int main(int argc, char ** argv) //!OCLINT tests may be long
@@ -38,6 +43,7 @@ int main(int argc, char ** argv) //!OCLINT tests may be long
     //We've already tested, so the program is done
     if (args.size() > 1 && args[1] == "--test") return 0;
 
+#define FIX_ISSUE_74
 #ifdef FIX_ISSUE_74
     //Show the menu, quits after (for now)
     if (args.size() > 1 && args[1] == "--menu")
