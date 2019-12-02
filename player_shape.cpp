@@ -23,6 +23,16 @@ const std::string to_str(player_shape this_player_shape)
   {
     return "circle";
   }
-  assert(this_player_shape == player_shape::rocket);
+  else if (this_player_shape == player_shape::rocket)
+  {
   return "rocket";
+  }
+  else if(this_player_shape == player_shape::square)
+  {
+      return "square";
+  }
+  else {
+      return "ERROR! Invalid player_shape, "
+             "or unitiated player shape";
+  }
 }
