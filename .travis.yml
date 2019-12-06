@@ -13,6 +13,8 @@ install:
   - sudo apt install -qq qt5-qmake qt5-default
   # SFML
   - sudo apt install -qq libsfml-dev
+  - sudo apt-get install -qq qtcreator libqt5webkit5-dev qtdeclarative5-dev libqt5svg5* libqt5svg5-dev libsfml-dev
+
   # cppcheck
   - sudo apt install -qq cppcheck
   # Codecov
