@@ -36,7 +36,7 @@ script:
   # Call OCLint
   - ./scripts/do_oclint
   # Delete unecessary Qt files for codecov
-  - rm debug/qrc_game_resources.cpp
+  - rm ./debug/qrc_game_resources.cpp
   - rm qrc_game_resources.cpp
   # Get code coverage
   - cp debug/*.* .
