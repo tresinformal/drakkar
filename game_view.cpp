@@ -166,20 +166,6 @@ void game_view::draw_players() noexcept
         //Draw the player
         m_window.draw(rect);
 
-/*
-        sf::Sprite player;
-        player.
-            ( sf::Vector2f(200.0, 100.0));
-        sf::Vector2f(200.0, 100.0);
-        player.setTexture(m_game_resources.get_franjo());
-        player.setPosition(static_cast<float>(m_game.get_player(i).get_x()),
-                    static_cast<float>(m_game.get_player(i).get_y())
-                    );
-        player.setRotation(static_cast<float>((m_game.get_player(i).get_direction())*180/M_PI));
-        m_window.draw(player);
-*/
-
-
         }
     }
 
