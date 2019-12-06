@@ -17,5 +17,3 @@ their bodies apart!
 
 Anticlimcatic you may think
 
-
-
