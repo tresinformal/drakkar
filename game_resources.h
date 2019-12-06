@@ -26,6 +26,12 @@ public:
   sf::Music& get_ninja_gods() noexcept { return m_ninja_gods; }
   #endif // IS_ON_TRAVIS
 
+  #ifndef IS_ON_TRAVIS
+  //Playing sound on Travis gives thousands of error lines, which causes the build to fail
+  /// Get music file
+  sf::Music& get_wonderland() noexcept { return m_wonderland; }
+  #endif // IS_ON_TRAVIS
+
 private:
 
   /// Franjo
@@ -44,6 +50,12 @@ private:
   //Playing sound on Travis gives thousands of error lines, which causes the build to fail
   /// 'Ninja Gods' from Urho3D
   sf::Music m_ninja_gods;
+  #endif // IS_ON_TRAVIS
+
+  #ifndef IS_ON_TRAVIS
+  //Playing sound on Travis gives thousands of error lines, which causes the build to fail
+  /// 'wonderland' from Sebastian
+  sf::Music m_wonderland;
   #endif // IS_ON_TRAVIS
 };
 

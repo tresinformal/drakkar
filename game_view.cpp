@@ -11,8 +11,8 @@ game_view::game_view():
 {
 #ifndef IS_ON_TRAVIS
     //Playing sound on Travis gives thousands of error lines, which causes the build to fail
-    m_game_resources.get_ninja_gods().setLoop(true);
-    m_game_resources.get_ninja_gods().play();
+    m_game_resources.get_wonderland().setLoop(true);
+    m_game_resources.get_wonderland().play();
 #endif
 }
 
@@ -20,7 +20,7 @@ game_view::~game_view()
 {
 #ifndef IS_ON_TRAVIS
     //Playing sound on Travis gives thousands of error lines, which causes the build to fail
-    m_game_resources.get_ninja_gods().stop();
+    m_game_resources.get_wonderland().stop();
 #endif // IS_ON_TRAVIS
 }
 
