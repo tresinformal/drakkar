@@ -6,10 +6,30 @@
 game_resources::game_resources()
 {
   {
+    const QString filename{"franjo.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_franjo.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+  {
     const QString filename{"heterogenous_landscape.jpg"};
     QFile f(":/" + filename);
     f.copy(filename);
     if (!m_heterogenous_landscape.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+  {
+    const QString filename{"grass_landscape.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_grass_landscape.loadFromFile(filename.toStdString()))
     {
       QString msg{"Cannot find image file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());
