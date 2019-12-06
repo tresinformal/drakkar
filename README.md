@@ -48,7 +48,7 @@ Manuel   | @Manuel438         |
 Pedro    | @Neves-P           |Junior developer, sound
 Richel   | @richelbilderbeek  |Senior developer, project coordinator, chairman
 Sebastian| @sebmader          |Lead sound
-Shu      |                    |
+Shu      | @xieshu95          |
 Stefano  | @swom              |
 Tim      | @TimTemizyuerek    |
 Xiaoyan  |                    |
@@ -84,6 +84,17 @@ Timespan    |Activity
 ..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
+
+## Long-term schedule
+
+Date       |Activity
+-----------|--------------------------------------------------------------------------
+2019-12-06 |Pick coding standard
+2019-12-13 |.
+2019-12-20 |.
+2019-12-27 |No tresinformal, due to holiday
+2020-01-03 |.
+2020-01-10 |.
 
 ## Screenshots
 
