@@ -37,19 +37,21 @@ https://agar.io/, this game could give a good idea of how we would like this gam
 
 Preferred role(s) are suggestions. If there is disagreement, we'll vote.
 
-Name    |GitHub username    |Preferred role(s)
---------|-------------------|------------------------------------------------
-Apu     |                   |
-Boris   |                   |
-Giorgio |                   |
-Josh    | @joshwlambert     |Junior developer, game design
-Pedro   | @Neves-P          |Junior developer, sound
-Marina  | @marinapapa       |Graphics, game design, developer
-Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
-Shu     |                   |
-Stefano | @swom             |
-Tim     |                   |
-Xiaoyan |                   |
+Name     |GitHub username     |Preferred role(s)
+---------|--------------------|------------------------------------------------
+Apu      | @AparajithaRamesh  |
+Boris    |                    |
+Giorgio  | @GiorgioBoccarella |Lead graphics
+Josh     | @joshwlambert      |Junior developer, game design
+Marina   | @marinapapa        |Graphics, game design, developer
+Manuel   | @Manuel438         |
+Pedro    | @Neves-P           |Junior developer, sound
+Richel   | @richelbilderbeek  |Senior developer, project coordinator, chairman
+Sebastian| @sebmader          |Lead sound
+Shu      |                    |
+Stefano  | @swom              |
+Tim      | @TimTemizyuerek    |
+Xiaoyan  |                    |
 
 ## Roles
 
@@ -74,25 +76,22 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-17:00       |Rehearse workflow
-..          |Rehease git branching
-..          |Vote for #77
+17:00       |Door open
+17:15       |Suggest coding standard
 ..          |Do Issues
 17:45-18:00 |Break
+18:00       |Vote coding standard
 ..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
 
-## Long-term schedule
-
-Not set in stone, but it's a good idea to have a plan :rainbow:
-
- * [x] team known workflow
- * [x] team can work with `git` branches 
-
 ## Screenshots
 
 Most recent at the top.
+
+![](pics/20191206.png)
+
+![](pics/20191205.png)
 
 ![](pics/20191122.png)
 
