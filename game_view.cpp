@@ -161,11 +161,14 @@ void game_view::draw_players() noexcept
                     static_cast<float>(m_game.get_player(i).get_y())
                     );
         rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction())*180/M_PI));
+        rect.setTexture(&m_game_resources.get_franjo());
 
         //Draw the player
         m_window.draw(rect);
+
+        }
     }
-}
+
 
 void game_view::show() noexcept
 {
