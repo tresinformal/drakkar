@@ -8,6 +8,7 @@
 #include "environment_type.h"
 #include "action_type.h"
 #include "food.h"
+#include "enemy.h"
 
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
@@ -47,6 +48,9 @@ public:
   ///Get food
   std::vector<food> get_food() const {return m_food; }
 
+  ///Get enemies
+  std::vector<enemy> get_enemies() const{return m_enemies;}
+
   ///Apply inertia to player movement
   void apply_inertia();
 
@@ -72,6 +76,9 @@ private:
 
   /// the food
   std::vector<food> m_food;
+
+  /// the enemies
+  std::vector<enemy>m_enemies;
 
   /// starting x distance between players
   unsigned int m_dist_x_pls = 100;

@@ -7,7 +7,8 @@ game::game(const int n_ticks, environment_type environment_type, unsigned int nu
  : m_n_ticks{n_ticks},
    m_v_player(num_players, player()),
    m_environment_type{environment_type},
-   m_food{1}
+   m_food{1},
+   m_enemies{1}
 {
   for (unsigned int i = 0; i < m_v_player.size(); ++i){
   m_v_player[i] = player(300.0 + m_dist_x_pls * i,400.0, player_shape::rocket);
@@ -58,6 +59,11 @@ void test_game() //!OCLINT tests may be many
   {
     const game g;
     assert(!g.get_food().empty());
+  }
+  // A game has enemies
+  {
+    const game g;
+    assert(!g.get_enemies().empty());
   }
   // A game by default  has an empty environment
   {

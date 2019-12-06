@@ -16,6 +16,8 @@ void test_enemy ()
     assert(e.get_x()-x < 0.000001 );
     assert(e.get_y()-y < 0.000001 );
     }
+
+
 }
 
 
