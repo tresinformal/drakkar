@@ -163,7 +163,7 @@ void game_view::show() noexcept
     // Draw the background
     sf::Sprite background_sprite;
     background_sprite.setPosition(10.0,10.0);
-    background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
+    background_sprite.setTexture(m_game_resources.get_grass_landscape());
     m_window.draw(background_sprite);
 
 
