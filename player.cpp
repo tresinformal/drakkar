@@ -21,6 +21,30 @@ player::player(const double x, const double y, const player_shape shape,
 
 }
 
+
+void player::do_action(action_type action){
+
+
+    switch (action) {
+    case action_type::turn_left :{
+        turn_left();
+        break;
+    }
+    case action_type::turn_right :{
+        turn_right();
+        break;
+    }
+    case action_type::accelerate :{
+        accelerate();
+        break;
+    }
+    case action_type::brake   :{
+        brake();
+        break;
+    }
+    }
+}
+
 void player::brake() noexcept{
     if(m_player_speed > m_player_max_speed){
         m_player_speed = m_player_max_speed;
@@ -84,19 +108,18 @@ void test_player() //!OCLINT tests may be long
         assert(std::abs(p.get_health() - 1.0) < 0.00001);
     }
 #endif
+
   // A player has a speed of zero
   {
     const player p{1.2, 3.4, player_shape::rocket};
     assert(std::abs(p.get_speed() - 0.0) < 0.00001);
   }
-#define FIX_ISSUE_44
-#ifdef FIX_ISSUE_44
+
     // A player has a direction of zero radians
     {
         const player p{1.2, 3.4, player_shape::rocket};
         assert(std::abs(p.get_direction() - 0.0) < 0.00001);
     }
-#endif
 
 #define FIX_ISSUE_45
 #ifdef FIX_ISSUE_45

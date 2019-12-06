@@ -15,8 +15,13 @@ public:
   /// Get the texture of a heterogenous landscape
   sf::Texture& get_grass_landscape() noexcept { return m_grass_landscape; }
 
+<<<<<<< HEAD
   /// Get the texture of a heterogenous landscape
   sf::Texture& get_player_sprite() noexcept { return m_player_sprite; }
+=======
+  /// Get a picture of Franjo
+  sf::Texture& get_franjo() noexcept { return m_franjo; }
+>>>>>>> a375861e28173ed3866a3765a6506460da37d9e0
 
   #ifndef IS_ON_TRAVIS
   //Playing sound on Travis gives thousands of error lines, which causes the build to fail
@@ -25,6 +30,8 @@ public:
 
 private:
 
+  /// Franjo
+  sf::Texture m_franjo;
 
   /// A grass landscape
   sf::Texture m_grass_landscape;

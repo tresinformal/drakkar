@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "player_shape.h"
+#include "action_type.h"
 #include<cmath>
 
 class player
@@ -44,6 +45,9 @@ public:
     ///Get the player's health
     double get_health() const noexcept{ return m_health;}
 
+    ///makes the player in the game execute an action
+    void do_action(action_type action);
+
     ///Turn the player left
     void turn_left() noexcept {m_direction += m_turn_rate;}
 
@@ -74,13 +78,13 @@ private:
     double m_player_speed;
 
     ///The maximum speed of the player
-    const double m_player_max_speed;
+    double m_player_max_speed;
 
     ///The acceleration of the player
-    const double m_player_acceleration;
+    double m_player_acceleration;
 
     ///The acceleration of the player
-    const double m_player_deceleration;
+    double m_player_deceleration;
 
     ///The size of the player
     double m_size;
@@ -89,7 +93,7 @@ private:
     double m_direction;
 
     ///The rate at which the player turns
-    const double m_turn_rate;
+    double m_turn_rate;
 
     ///Player's health percentage, the player always start with max health at construction
     double m_health = 1.0;
