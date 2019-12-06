@@ -15,6 +15,9 @@ public:
   /// Get the texture of a heterogenous landscape
   sf::Texture& get_grass_landscape() noexcept { return m_grass_landscape; }
 
+  /// Get the texture of a heterogenous landscape
+  sf::Texture& get_player_sprite() noexcept { return m_player_sprite; }
+
   #ifndef IS_ON_TRAVIS
   //Playing sound on Travis gives thousands of error lines, which causes the build to fail
   sf::Music& get_ninja_gods() noexcept { return m_ninja_gods; }
@@ -25,6 +28,9 @@ private:
 
   /// A grass landscape
   sf::Texture m_grass_landscape;
+
+  /// A grass landscape
+  sf::Texture m_player_sprite;
 
   /// A heterogenous landscape
   sf::Texture m_heterogenous_landscape;

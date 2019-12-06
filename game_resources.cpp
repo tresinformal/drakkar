@@ -25,6 +25,16 @@ game_resources::game_resources()
       throw std::runtime_error(msg.toStdString());
     }
   }
+  {
+    const QString filename{"player_sprite.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_player_sprite.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
   #ifndef IS_ON_TRAVIS
   //Playing sound on Travis gives thousands of error lines, which causes the build to fail
   {

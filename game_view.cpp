@@ -102,7 +102,22 @@ void game_view::show() noexcept
     m_window.draw(background_sprite);
 
     //Create the player sprite
+    sf::Sprite player_sprite;
+    player_sprite.setTexture(m_game_resources.get_player_sprite());
+    m_window.draw(player_sprite);
+
+    //Create the player sprite
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
+    //Set the center of rotation as the center of the shape
+    rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
+    rect.setPosition(
+                300.0f + static_cast<float>(m_game.get_player().get_x()),
+                400.0f + static_cast<float>(m_game.get_player().get_y())
+                );
+    rect.setRotation(static_cast<float>((m_game.get_player().get_direction())*180/M_PI));
+    //Draw the player
+    m_window.draw(player_sprite);
+
     //Set the center of rotation as the center of the shape
     rect.setOrigin(rect.getSize().x/2,rect.getSize().y/2);
     rect.setPosition(
