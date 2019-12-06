@@ -52,6 +52,7 @@ int main(int argc, char ** argv) //!OCLINT tests may be long
         v.exec();
         return 0;
     }
+
 #endif
 
     game_view v;

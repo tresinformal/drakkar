@@ -33,7 +33,7 @@ script:
 
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
-  - ./game --menu
+  - ./game 
   - ./game --test
   # 2) Run the game for a short time, then quit
   # Call OCLint
