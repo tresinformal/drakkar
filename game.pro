@@ -62,8 +62,8 @@ unix:!macx {
 
   CONFIG(debug, debug|release) {
     # gcov
-    #QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
-    #LIBS += -lgcov
+    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+    LIBS += -lgcov
     DEFINES += IS_ON_TRAVIS
   }
 }

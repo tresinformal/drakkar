@@ -47,3 +47,5 @@ object_script.game.*
 tmp.txt
 correct_code
 current_code
+debug/
+qrc_game_resources.cpp
