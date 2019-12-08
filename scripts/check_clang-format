@@ -12,15 +12,28 @@ echo "--------------------------------------------------------------------------
 echo "Your version                                                            | Corrected version"
 echo "----------------------------------------------------------------------------------------------------------------------------------------------"
 
+has_error=0
+
 for filename in $(ls {*.cpp,*.h} | egrep -v "qrc_" | sort)
 do
-  echo "----------------------------------------------------------------------------------------------------------------------------------------------"
-  echo "File: "$filename
-  echo "----------------------------------------------------------------------------------------------------------------------------------------------"
   cp $filename current_code
   sed -i 's/!OCLINT/! OCLINT/g' current_code
   clang-format current_code > correct_code
-  diff current_code correct_code --suppress-common-lines -y
+  diff current_code correct_code --suppress-common-lines -y > /dev/null
+  if [ $? -eq 1 ] 
+  then
+    echo "----------------------------------------------------------------------------------------------------------------------------------------------"
+    echo "File: "$filename
+    echo "----------------------------------------------------------------------------------------------------------------------------------------------"
+    diff current_code correct_code --suppress-common-lines -y
+    has_error=1
+  fi
 done
 
+if [ $has_error -eq 1 ] 
+then
+  echo "ERROR"
+else
+  echo "OK"
+fi
 
