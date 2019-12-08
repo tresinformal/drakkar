@@ -22,7 +22,7 @@ const std::string to_str_food_type(food_type this_food_type)
 
 {
 
-  switch (this_food_type) //! OCLINT
+  switch (this_food_type) //!OCLINT
                           // it might be wise to keep a default statement
                           // in case for some reason an invalid input is given
   {

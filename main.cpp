@@ -31,7 +31,7 @@ void test()
   test_menu_button();
 }
 
-int main(int argc, char **argv) //! OCLINT tests may be long
+int main(int argc, char **argv) //!OCLINT tests may be long
 {
 #ifndef NDEBUG
   test();

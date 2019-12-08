@@ -122,7 +122,7 @@ void game_view::draw_franjo() noexcept
   franjo.setPosition(400.0, 200.0);
   franjo.setTexture(m_game_resources.get_franjo());
   static double franjo_rotation =
-      0.0; //! OCLINT indeed, should nearly ever use a static
+      0.0; //!OCLINT indeed, should nearly ever use a static
   franjo_rotation += 0.01;
   franjo.setRotation(franjo_rotation);
   m_window.draw(franjo);

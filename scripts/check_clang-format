@@ -17,8 +17,10 @@ do
   echo "----------------------------------------------------------------------------------------------------------------------------------------------"
   echo "File: "$filename
   echo "----------------------------------------------------------------------------------------------------------------------------------------------"
-  clang-format $filename > correct_code
-  diff $filename correct_code --suppress-common-lines -y
+  cp $filename current_code
+  sed -i 's/!OCLINT/! OCLINT/g' current_code
+  clang-format current_code > correct_code
+  diff current_code correct_code --suppress-common-lines -y
 done
 
 

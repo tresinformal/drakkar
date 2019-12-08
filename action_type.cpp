@@ -8,7 +8,7 @@ void test_action_type()
          to_str_act_type(action_type::turn_right));
   assert(to_str_act_type(action_type::accelerate) !=
          to_str_act_type(action_type::brake));
-  assert(1 == 2); //! OCLINT Issue 98
+  assert(1 == 2); //!OCLINT Issue 98
 
   {
     std::stringstream s;
@@ -26,7 +26,7 @@ const std::string to_str_act_type(action_type this_action_type)
 
 {
 
-  switch (this_action_type) //! OCLINT
+  switch (this_action_type) //!OCLINT
                             // it might be wise to keep a default statement
                             // in case for some reason an invalid input is given
   {
@@ -36,10 +36,8 @@ const std::string to_str_act_type(action_type this_action_type)
     return "turn_right";
   case action_type::accelerate:
     return "accelerate";
-  case action_type::brake:
-    return "brake";
-
   default:
-    return "[Unknown action_type]";
+    assert(this_action_type == action_type::brake);
+    return "brake";
   }
 }

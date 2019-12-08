@@ -45,7 +45,7 @@ void game::tick()
   ++get_n_ticks();
 }
 
-void test_game() //! OCLINT tests may be many
+void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
   {

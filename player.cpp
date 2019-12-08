@@ -76,7 +76,7 @@ void player::accelerate() noexcept
   update_player_position();
 }
 
-void test_player() //! OCLINT tests may be long
+void test_player() //!OCLINT tests may be long
 {
   // Can default construct a player
   {

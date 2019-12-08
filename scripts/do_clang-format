@@ -12,6 +12,7 @@ for filename in $(ls {*.cpp,*.h} | sort)
 do
   echo "File: "$filename
   clang-format -i $filename
+  sed -i 's/! OCLINT/!OCLINT/g' $filename 
 done
 
 
