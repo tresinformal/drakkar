@@ -33,7 +33,9 @@ done
 if [ $has_error -eq 1 ] 
 then
   echo "ERROR"
+  exit 1
 else
   echo "OK"
+  exit 0
 fi
 
