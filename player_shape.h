@@ -1,8 +1,8 @@
 #ifndef PLAYER_SHAPE_H
 #define PLAYER_SHAPE_H
 
-#include<string>
-#include<cassert>
+#include <cassert>
+#include <string>
 
 enum class player_shape
 {

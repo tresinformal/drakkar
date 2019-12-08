@@ -4,26 +4,31 @@
 
 std::string to_str(environment_type this_env_type)
 {
-    switch (this_env_type)
-    {
-        case environment_type::empty:   return "empty";
-        case environment_type::quiet:   return "quiet";
-        case environment_type::random:   return "random";
-        case environment_type::attractive:   return "attractive";
-        case environment_type::repellent:   return "repellent";
-        case environment_type::wormhole:   return "wormhole";
-    }
-    return "[Unknown environment_type]";
+  switch (this_env_type)
+  {
+  case environment_type::empty:
+    return "empty";
+  case environment_type::quiet:
+    return "quiet";
+  case environment_type::random:
+    return "random";
+  case environment_type::attractive:
+    return "attractive";
+  case environment_type::repellent:
+    return "repellent";
+  case environment_type::wormhole:
+    return "wormhole";
+  }
+  return "[Unknown environment_type]";
 }
 
 void test_environment_type()
 {
-  //Conversion to string
+  // Conversion to string
   {
     assert(to_str(environment_type::empty) == "empty");
-    assert(to_str(environment_type::random)== "random");
-    assert(to_str(environment_type::random)!= "wormhole");
+    assert(to_str(environment_type::random) == "random");
+    assert(to_str(environment_type::random) != "wormhole");
   }
-  //Other tests will follow here
-
+  // Other tests will follow here
 }

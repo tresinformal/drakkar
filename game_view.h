@@ -1,9 +1,9 @@
 #ifndef GAME_VIEW_H
 #define GAME_VIEW_H
 
-#include <SFML/Graphics.hpp>
 #include "game.h"
 #include "game_resources.h"
+#include <SFML/Graphics.hpp>
 
 /// The game's main window
 /// Displays the game class
@@ -22,13 +22,13 @@ public:
   /// Run the game until the window is closed
   void exec() noexcept;
 
-  ///Parses input for player 1
+  /// Parses input for player 1
   void pl_1_input(sf::Event event) noexcept;
 
-  ///Parses input for player 2
+  /// Parses input for player 2
   void pl_2_input(sf::Event event) noexcept;
 
-  ///Processes events in game and ouputs false if quit
+  /// Processes events in game and ouputs false if quit
   /// is inputted
   bool process_events();
 
@@ -45,7 +45,6 @@ private:
   /// Draws Franjo
   void draw_franjo() noexcept;
 };
-
 
 void test_game_view();
 

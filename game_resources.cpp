@@ -1,7 +1,7 @@
 #include "game_resources.h"
 
-#include <cassert>
 #include <QFile>
+#include <cassert>
 
 game_resources::game_resources()
 {
@@ -45,8 +45,9 @@ game_resources::game_resources()
       throw std::runtime_error(msg.toStdString());
     }
   }
-  #ifndef IS_ON_TRAVIS
-  //Playing sound on Travis gives thousands of error lines, which causes the build to fail
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
   {
     const QString filename{"ninja_gods.ogg"};
     QFile f(":/" + filename);
@@ -57,9 +58,10 @@ game_resources::game_resources()
       throw std::runtime_error(msg.toStdString());
     }
   }
-  #endif // IS_ON_TRAVIS
-  #ifndef IS_ON_TRAVIS
-  //Playing sound on Travis gives thousands of error lines, which causes the build to fail
+#endif // IS_ON_TRAVIS
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
   {
     const QString filename{"wonderland.ogg"};
     QFile f(":/" + filename);
@@ -70,7 +72,7 @@ game_resources::game_resources()
       throw std::runtime_error(msg.toStdString());
     }
   }
-  #endif // IS_ON_TRAVIS
+#endif // IS_ON_TRAVIS
 }
 
 void test_game_resources()
