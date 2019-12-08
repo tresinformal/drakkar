@@ -128,7 +128,7 @@ void game_view::draw_franjo() noexcept
   m_window.draw(franjo);
 }
 
-void game_view::draw_players() noexcept
+void game_view::draw_players() noexcept //!OCLINT too long indeed, please shorten
 {
   sf::Color color;
   for (unsigned int i = 0; i < m_game.get_v_player().size(); ++i)
