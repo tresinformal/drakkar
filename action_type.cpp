@@ -4,7 +4,7 @@
 
 void test_action_type()
 {
-         assert(to_str_act_type(action_type::turn_left) !=
+  assert(to_str_act_type(action_type::turn_left) !=
          to_str_act_type(action_type::turn_right));
   assert(to_str_act_type(action_type::accelerate) !=
          to_str_act_type(action_type::brake));
