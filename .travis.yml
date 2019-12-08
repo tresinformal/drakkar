@@ -30,7 +30,6 @@ services:
 
 script: 
   # Build the project, then:
-
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   - ./game --test
