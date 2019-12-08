@@ -11,7 +11,7 @@
 for filename in $(ls {*.cpp,*.h} | sort)
 do
   echo "File: "$filename
-  clang-format $filename
+  clang-format -i $filename
 done
 
 
