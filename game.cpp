@@ -4,8 +4,8 @@
 #include <iostream>
 
 game::game(const int n_ticks, unsigned int num_players)
-    : m_n_ticks{n_ticks}, m_v_player(num_players, player()),
-      m_food{1}, m_enemies{1}
+    : m_n_ticks{n_ticks},
+      m_v_player(num_players, player()), m_food{1}, m_enemies{1}
 {
   for (unsigned int i = 0; i < m_v_player.size(); ++i)
   {

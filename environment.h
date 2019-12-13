@@ -5,7 +5,7 @@
 class environment
 {
 public:
-  environment(environment_type environment_type= environment_type::empty);
+  environment(environment_type environment_type = environment_type::empty);
   int get_min_x() const noexcept { return m_min_x; }
   int get_min_y() const noexcept { return m_min_y; }
   int get_max_x() const noexcept { return m_max_x; }
