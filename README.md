@@ -4,6 +4,7 @@ Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)           
 -------|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------
 master |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=master)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=develop)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
+apu   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=apu)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=apu)](https://codecov.io/github/tresinformal/game/branch/apu)
 josh   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=josh)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=josh)](https://codecov.io/github/tresinformal/game/branch/josh)
 pedro   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=pedro)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pedro)](https://codecov.io/github/tresinformal/game/branch/pedro)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
@@ -37,19 +38,21 @@ https://agar.io/, this game could give a good idea of how we would like this gam
 
 Preferred role(s) are suggestions. If there is disagreement, we'll vote.
 
-Name    |GitHub username    |Preferred role(s)
---------|-------------------|------------------------------------------------
-Apu     |                   |
-Boris   |                   |
-Giorgio |                   |
-Josh    | @joshwlambert     |Junior developer, game design
-Pedro   | @Neves-P          |Junior developer, sound
-Marina  | @marinapapa       |Graphics, game design, developer
-Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
-Shu     |                   |
-Stefano | @swom             |
-Tim     |                   |
-Xiaoyan |                   |
+Name     |GitHub username     |Preferred role(s)
+---------|--------------------|------------------------------------------------
+Apu      | @AparajithaRamesh  |
+Boris    |                    |
+Giorgio  | @GiorgioBoccarella |Lead graphics
+Josh     | @joshwlambert      |Junior developer, game design
+Marina   | @marinapapa        |Graphics, game design, developer
+Manuel   | @Manuel438         |
+Pedro    | @Neves-P           |Junior developer, sound
+Richel   | @richelbilderbeek  |Senior developer, project coordinator, chairman
+Sebastian| @sebmader          |Lead sound
+Shu      | @xieshu95          |
+Stefano  | @swom              |
+Tim      | @TimTemizyuerek    |
+Xiaoyan  |                    |
 
 ## Roles
 
@@ -74,25 +77,35 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-17:00       |Rehearse workflow
-..          |Rehease git branching
-..          |Vote for #77
+17:00       |Door open
+17:15       |Suggest coding standard
 ..          |Do Issues
 17:45-18:00 |Break
+18:00       |Vote coding standard
 ..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
 
 ## Long-term schedule
 
-Not set in stone, but it's a good idea to have a plan :rainbow:
-
- * [x] team known workflow
- * [x] team can work with `git` branches 
+Date       |Activity
+-----------|--------------------------------------------------------------------------
+2019-12-06 |Pick coding standard
+2019-12-13 |.
+2019-12-20 |.
+2019-12-27 |No tresinformal, due to holiday
+2020-01-03 |.
+2020-01-10 |.
 
 ## Screenshots
 
 Most recent at the top.
+
+![](pics/20191209.png)
+
+![](pics/20191206.png)
+
+![](pics/20191205.png)
 
 ![](pics/20191122.png)
 

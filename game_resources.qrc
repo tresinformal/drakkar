@@ -3,5 +3,8 @@
         <file>heterogenous_landscape.jpg</file>
         <file>ninja_gods.ogg</file>
         <file>grass_landscape.png</file>
+        <file>player_sprite.png</file>
+        <file>franjo.png</file>
+        <file>wonderland.ogg</file>
     </qresource>
 </RCC>

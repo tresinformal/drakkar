@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Formats the code to conform to our coding standard
+#
+# Usage:
+#
+# ./scripts/do_clang_format
+#
+#
+
+for filename in $(ls {*.cpp,*.h} | sort)
+do
+  echo "File: "$filename
+  clang-format -i $filename
+  sed -i 's/! OCLINT/!OCLINT/g' $filename 
+done
+
+
