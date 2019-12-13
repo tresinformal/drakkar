@@ -32,11 +32,18 @@ services:
 
 script: 
   # Build the project, then:
-
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
-  - ./game -Y
+  # Run the tests
   - ./game --test
+  # Run the game from main screen, for 10 secs
+  - ./game &
+  - sleep 10
+  - sudo killall -9 game
+  # Run the game from menu screen, for 10 secs
+  - ./game --menu
+  - sleep 10
+  - sudo killall -9 game
   # 2) Run the game for a short time, then quit
   # Call OCLint
   - ./scripts/do_oclint
