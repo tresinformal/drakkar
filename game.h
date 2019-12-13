@@ -15,8 +15,7 @@
 class game
 {
 public:
-  game(const int n_ticks = 0,
-       unsigned int num_players = 2);
+  game(const int n_ticks = 0, unsigned int num_players = 2);
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
