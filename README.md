@@ -11,7 +11,7 @@ richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=rich
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
-The TRES video game
+The TRES video game.
 
 ## Real life meetings
 
