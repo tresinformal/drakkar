@@ -36,6 +36,7 @@ script:
   # Run the tests
   - ./game --test
   # Run the game from main screen, for 10 secs
+  - make clean
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   - xvfb-run -e /dev/stdout -a ./game &
@@ -44,7 +45,7 @@ script:
   # Run the game from menu screen, for 10 secs
   - xvfb-run -e /dev/stdout -a ./game --menu & 
   - sleep 10
-  - sudo killall -9 game
+  - sudo killall -9 game || true
   # 2) Run the game for a short time, then quit
   # Call OCLint
   - ./scripts/do_oclint
