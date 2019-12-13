@@ -44,6 +44,7 @@ script:
   - sudo killall -9 game || true
   # Run the game from menu screen, for 10 secs
   # Will not do so now, as xvfb needs to be restarted in a way unknown to us yet
+  # See https://github.com/tresinformal/game/issues/105
   - # ./game --menu &
   - # sleep 10 || true
   - # sudo killall -9 game || true
