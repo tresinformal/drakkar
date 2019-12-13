@@ -41,7 +41,7 @@ script:
   - make --silent debug
   - ./game &
   - sleep 10
-  - sudo killall -9 game
+  - sudo killall -9 game || true
   # Run the game from menu screen, for 10 secs
   # Will not do so now, as xvfb needs to be restarted in a way unknown to us yet
   - # ./game --menu &
