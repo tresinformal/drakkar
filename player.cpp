@@ -52,7 +52,7 @@ void player::brake() noexcept
   }
   else if (m_player_speed >= 0)
   {
-    m_player_speed - m_player_deceleration < 0
+    m_player_speed - 20 * m_player_deceleration < 0
         ? m_player_speed = 0
         : m_player_speed -= m_player_deceleration;
   }
