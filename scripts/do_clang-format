@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Checks if the code conforms to our coding standard
+# Formats the code to conform to our coding standard
 #
 # Usage:
 #
@@ -8,17 +8,11 @@
 #
 #
 
-echo "----------------------------------------------------------------------------------------------------------------------------------------------"
-echo "Your version                                                            | Corrected version"
-echo "----------------------------------------------------------------------------------------------------------------------------------------------"
-
-for filename in $(ls *.cpp | sort)
+for filename in $(ls {*.cpp,*.h} | sort)
 do
-  echo "----------------------------------------------------------------------------------------------------------------------------------------------"
   echo "File: "$filename
-  echo "----------------------------------------------------------------------------------------------------------------------------------------------"
-  clang-format $filename > correct_code
-  diff $filename correct_code --suppress-common-lines -y
+  clang-format -i $filename
+  sed -i 's/! OCLINT/!OCLINT/g' $filename 
 done
 
 
