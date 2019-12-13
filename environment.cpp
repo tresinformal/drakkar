@@ -2,7 +2,7 @@
 #include <cassert>
 
 environment::environment(environment_type enviroment_type)
-    :m_environment_type {enviroment_type}
+    : m_environment_type{enviroment_type}
 
 {
 
