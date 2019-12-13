@@ -1,12 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <cassert>
-#include <iostream>
-#include "player_shape.h"
-#include "player.h"
-#include "game.h"
-#include "game_options.h"
-#include "game_view.h"
-#include "game_resources.h"
 #include "enemy.h"
 #include "environment.h"
 #include "environment_type.h"
@@ -22,23 +13,25 @@
 #include "player_shape.h"
 #include <SFML/Graphics.hpp>
 #include <cassert>
+#include <iostream>
 
 /// All tests are called from here, only in debug mode
-void test() {
-    test_player_shape();
-    test_player();
-    test_game();
-    test_game_options();
-    test_enemy();
-    test_environment();
-    test_environment_type();
-    test_food();
-    test_menu();
-    test_menu_button();
-    #ifndef LOGIC_ONLY
-    test_game_view();
-    test_game_resources();
-    #endif // LOGIC_ONLY
+void test()
+{
+  test_player_shape();
+  test_player();
+  test_game();
+  test_game_options();
+  test_enemy();
+  test_environment();
+  test_environment_type();
+  test_food();
+  test_menu();
+  test_menu_button();
+#ifndef LOGIC_ONLY
+  test_game_view();
+  test_game_resources();
+#endif // LOGIC_ONLY
 }
 
 int main(int argc, char **argv) //!OCLINT tests may be long
@@ -50,10 +43,10 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   assert(1 == 2);
 #endif
 #ifdef LOGIC_ONLY
-    std::cout << "Compiled with LOGIC_ONLY\n";
+  std::cout << "Compiled with LOGIC_ONLY\n";
 #endif
 
-    const std::vector<std::string> args(argv, argv + argc);
+  const std::vector<std::string> args(argv, argv + argc);
 
   // We've already tested, so the program is done
   if (args.size() > 1 && args[1] == "--test")
@@ -63,20 +56,20 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 
 #define FIX_ISSUE_74
 #ifdef FIX_ISSUE_74
-    //Show the menu, quits after (for now)
-    if (args.size() > 1 && args[1] == "--menu")
-    {
-        menu_view v;
-        v.exec();
-        return 0;
-    }
+  // Show the menu, quits after (for now)
+  if (args.size() > 1 && args[1] == "--menu")
+  {
+    menu_view v;
+    v.exec();
+    return 0;
+  }
 
 #endif
 
-    game_view v;
-    v.exec();
+  game_view v;
+  v.exec();
 
 #endif // LOGIC_ONLY
 
-    return 0;
+  return 0;
 }
