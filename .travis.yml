@@ -34,13 +34,13 @@ script:
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   # Run the tests
-  - xvfb-run -e /dev/stdout ./game --test
+  - xvfb-run -e /dev/stdout -a ./game --test
   # Run the game from main screen, for 10 secs
-  - xvfb-run -e /dev/stdout ./game &
+  - xvfb-run -e /dev/stdout -a ./game &
   - sleep 10
   - sudo killall -9 game
   # Run the game from menu screen, for 10 secs
-  - xvfb-run -e /dev/stdout ./game --menu
+  - xvfb-run -e /dev/stdout -a ./game --menu
   - sleep 10
   - sudo killall -9 game
   # 2) Run the game for a short time, then quit
