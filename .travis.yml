@@ -51,6 +51,9 @@ script:
   # 2) Run the game for a short time, then quit
   # Call OCLint
   - ./scripts/do_oclint
+  # Delete qrc before coverage
+  - rm -f debug/qrc_game_resources.cpp
+  - rm -f qrc_game_resources.cpp
   # Get code coverage
   - cp debug/*.* .
   - ./scripts/get_code_cov >/dev/null
