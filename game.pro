@@ -65,11 +65,6 @@ unix:!macx {
     # gcov
     QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
     LIBS += -lgcov
-
-    # Removes all sound, as this does not work on Travis
-    # For the Linux users, to hear sound, compile in release mode
-    # DEFINES += IS_ON_TRAVIS
-    DEFINES += LOGIC_ONLY
   }
 }
 
