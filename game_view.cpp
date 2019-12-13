@@ -1,7 +1,7 @@
+#include "game_view.h"
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
-#include "game_view.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
