@@ -36,6 +36,7 @@ script:
   # Run the tests
   - ./game --test
   # Run the game from main screen, for 10 secs
+  - make clean --silent
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
   - xvfb-run -e /dev/stdout -a ./game &
