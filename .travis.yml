@@ -39,13 +39,14 @@ script:
   - make clean --silent
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
-  - xvfb-run -e /dev/stdout -a ./game &
+  - ./game &
   - sleep 10
   - sudo killall -9 game
   # Run the game from menu screen, for 10 secs
-  - $(xvfb-run -e /dev/stdout -a ./game --menu & ) || true
-  - sleep 10 || true
-  - sudo killall -9 game || true
+  # Will not do so now, as xvfb needs to be restarted in a way unknown to us yet
+  - # ./game --menu &
+  - # sleep 10 || true
+  - # sudo killall -9 game || true
   # 2) Run the game for a short time, then quit
   # Call OCLint
   - ./scripts/do_oclint
