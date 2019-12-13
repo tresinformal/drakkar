@@ -35,15 +35,15 @@ script:
   - make --silent debug
   # Run the tests
   - sudo rm /tmp/.X99-lock
-  - xvfb-run -e /dev/stdout -a ./game --test
+  - xvfb-run -e /dev/stdout ./game --test
   # Run the game from main screen, for 10 secs
   - sudo rm /tmp/.X99-lock
-  - xvfb-run -e /dev/stdout -a ./game &
+  - xvfb-run -e /dev/stdout ./game &
   - sleep 10
   - sudo killall -9 game
   # Run the game from menu screen, for 10 secs
   - sudo rm /tmp/.X99-lock
-  - xvfb-run -e /dev/stdout -a ./game --menu
+  - xvfb-run -e /dev/stdout ./game --menu
   - sleep 10
   - sudo killall -9 game
   # 2) Run the game for a short time, then quit
