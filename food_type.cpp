@@ -5,15 +5,15 @@
 
 void test_food_type()
 {
-    // ...
-    {
-        std::stringstream s;
-        s << food_type::rocket;
-    }
-    {
-        std::stringstream s;
-        s << food_type::potion_of_camouflage;
-    }
+  // ...
+  {
+    std::stringstream s;
+    s << food_type::rocket;
+  }
+  {
+    std::stringstream s;
+    s << food_type::potion_of_camouflage;
+  }
 }
 
 std::ostream &operator<<(std::ostream &os, const food_type t)
