@@ -13,6 +13,7 @@
 #include "player_shape.h"
 #include <SFML/Graphics.hpp>
 #include <cassert>
+#include <iostream>
 
 /// All tests are called from here, only in debug mode
 void test()
@@ -21,14 +22,16 @@ void test()
   test_player();
   test_game();
   test_game_options();
-  test_game_view();
-  test_game_resources();
   test_enemy();
   test_environment();
   test_environment_type();
   test_food();
   test_menu();
   test_menu_button();
+#ifndef LOGIC_ONLY
+  test_game_view();
+  test_game_resources();
+#endif // LOGIC_ONLY
 }
 
 int main(int argc, char **argv) //!OCLINT tests may be long
@@ -39,11 +42,17 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   // In release mode, all asserts are removed from the code
   assert(1 == 2);
 #endif
+#ifdef LOGIC_ONLY
+  std::cout << "Compiled with LOGIC_ONLY\n";
+#endif
+
   const std::vector<std::string> args(argv, argv + argc);
 
   // We've already tested, so the program is done
   if (args.size() > 1 && args[1] == "--test")
     return 0;
+
+#ifndef LOGIC_ONLY
 
 #define FIX_ISSUE_74
 #ifdef FIX_ISSUE_74
@@ -54,9 +63,13 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     v.exec();
     return 0;
   }
+
 #endif
 
   game_view v;
   v.exec();
+
+#endif // LOGIC_ONLY
+
   return 0;
 }

@@ -13,6 +13,7 @@ install:
   - sudo apt install -qq qt5-qmake qt5-default
   # SFML
   - sudo apt install -qq libsfml-dev
+  - sudo apt-get install -qq qtcreator libqt5webkit5-dev qtdeclarative5-dev libqt5svg5* libqt5svg5-dev libsfml-dev
   # cppcheck
   - sudo apt install -qq cppcheck
   # Codecov
@@ -30,9 +31,23 @@ services:
 
 script: 
   # Build the project, then:
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY game.pro
+  - make --silent debug
+  # Run the tests
+  - ./game --test
+  # Run the game from main screen, for 10 secs
+  - make clean --silent
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
   - make --silent debug
-  - ./game --test
+  - ./game &
+  - sleep 10
+  - sudo killall -9 game || true
+  # Run the game from menu screen, for 10 secs
+  # Will not do so now, as xvfb needs to be restarted in a way unknown to us yet
+  # See https://github.com/tresinformal/game/issues/105
+  - # ./game --menu &
+  - # sleep 10 || true
+  - # sudo killall -9 game || true
   # 2) Run the game for a short time, then quit
   # Call OCLint
   - ./scripts/do_oclint
