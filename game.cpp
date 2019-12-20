@@ -13,6 +13,21 @@ game::game(const int n_ticks, environment_type environment_type,
     m_v_player[i] =
         player(300.0 + m_dist_x_pls * i, 400.0, player_shape::rocket);
   }
+  //Set color
+  {
+    int i = 0;
+    for (auto& player: m_v_player)
+    {
+      player.set_color(
+        color(
+          i % 3 == 0 ? 255: 0,
+          i % 3 == 1 ? 255: 0,
+          i % 3 == 2 ? 255: 0
+        )
+      );
+      ++i;
+    }
+  }
 }
 
 double game::get_player_direction(unsigned int player_ind)
@@ -41,6 +56,12 @@ void game::tick()
 {
   // for now only applies inertia
   apply_inertia();
+
+  for (player& p: m_v_player)
+  {
+    p.set_color(get_adjacent_color(p.get_color()));
+  }
+
   // and updates m_n_ticks
   ++get_n_ticks();
 }

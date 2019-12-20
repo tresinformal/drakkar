@@ -50,6 +50,9 @@ public:
   /// makes the player in the game execute an action
   void do_action(action_type action);
 
+  /// Set the color of the player
+  void set_color(const color& c) noexcept { m_color = c; }
+
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
 

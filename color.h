@@ -23,6 +23,9 @@ private:
   int m_b;
 };
 
+/// Get a color that differs one hue in its red, green or blue value
+color get_adjacent_color(color c);
+
 /// Test the color class
 void test_color();
 

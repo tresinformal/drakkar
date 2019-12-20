@@ -195,5 +195,6 @@ void test_player() //!OCLINT tests may be long
   {
     player p;
     assert(p.get_color().get_blue() >= 0);
+    p.set_color(get_adjacent_color(p.get_color()));
   }
 }
