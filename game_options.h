@@ -6,7 +6,9 @@ class game_options
 {
 public:
   game_options(const bool play_music = true);
+
   bool do_play_music() const noexcept { return m_play_music; }
+
 private:
   bool m_play_music = true;
 };
