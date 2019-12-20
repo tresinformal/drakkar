@@ -115,19 +115,6 @@ void game_view::exec() noexcept
   }
 }
 
-void game_view::draw_franjo() noexcept
-{
-  // The part below is mostly showing off and how to draw a sprite
-  sf::Sprite franjo;
-  franjo.setPosition(400.0, 200.0);
-  franjo.setTexture(m_game_resources.get_franjo());
-  static double franjo_rotation =
-      0.0; //!OCLINT indeed, should nearly ever use a static
-  franjo_rotation += 0.01;
-  franjo.setRotation(franjo_rotation);
-  m_window.draw(franjo);
-}
-
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
                                         //! shorten
 {
@@ -160,7 +147,6 @@ void game_view::show() noexcept
   background_sprite.setTexture(m_game_resources.get_grass_landscape());
   m_window.draw(background_sprite);
 
-  draw_franjo();
   draw_players();
 
   // Create food sprite

@@ -42,8 +42,6 @@ private:
   /// The window to draw to
   sf::RenderWindow m_window;
 
-  /// Draws Franjo
-  void draw_franjo() noexcept;
 };
 
 void test_game_view();
