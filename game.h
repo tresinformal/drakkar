@@ -8,6 +8,7 @@
 #include "food.h"
 #include "player.h"
 #include "player_shape.h"
+#include "shelter.h"
 #include <vector>
 
 /// Contains the game logic.
@@ -76,6 +77,8 @@ private:
 
   /// the enemies
   std::vector<enemy> m_enemies;
+
+  std::vector<shelter> m_shelters;
 
   /// starting x distance between players
   unsigned int m_dist_x_pls = 100;
