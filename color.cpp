@@ -2,9 +2,7 @@
 
 #include <cassert>
 
-
-color::color(const int r, const int g, const int b)
-    : m_r{r}, m_g{g}, m_b{b}
+color::color(const int r, const int g, const int b) : m_r{r}, m_g{g}, m_b{b}
 {
   // Stub, need exceptions later
   assert(m_r >= 0);
@@ -17,7 +15,7 @@ color::color(const int r, const int g, const int b)
 
 void test_color()
 {
-  //Color is white by default
+  // Color is white by default
   {
     const color c;
     assert(c.get_red() == 255);

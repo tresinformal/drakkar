@@ -1,7 +1,6 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-
 class color
 {
 public:
@@ -23,7 +22,6 @@ private:
   /// Blueness, value from [0, 255]
   int m_b;
 };
-
 
 /// Test the color class
 void test_color();
