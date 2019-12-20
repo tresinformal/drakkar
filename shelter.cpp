@@ -2,7 +2,7 @@
 #include <cassert>
 #include <cmath>
 
-shelter::shelter(const double x, const double y, const color& c) : f_x{x}, f_y{y}, m_color{c} {}
+shelter::shelter(const double x, const double y, const double radius, const color& c) : m_color{c}, m_radius{radius}, m_x{x}, m_y{y} {}
 
 void test_shelter()
 {

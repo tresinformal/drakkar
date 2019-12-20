@@ -7,16 +7,18 @@
 class shelter
 {
 public:
-  shelter(const double x = 0.0, const double y = 0.0, const color& c = color());
+  shelter(const double x = 0.0, const double y = 0.0, const double radius = 100.0, const color& c = color());
 
   const color& get_color() const noexcept { return m_color; }
-  double get_x() const noexcept { return f_x; }
-  double get_y() const noexcept { return f_y; }
+  double get_radius() const noexcept { return m_radius; }
+  double get_x() const noexcept { return m_x; }
+  double get_y() const noexcept { return m_y; }
 
 private:
-  double f_x;
-  double f_y;
   color m_color;
+  double m_radius;
+  double m_x;
+  double m_y;
 };
 
 void test_shelter();
