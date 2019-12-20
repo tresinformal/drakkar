@@ -108,6 +108,15 @@ private:
   double m_health = 1.0;
 };
 
+/// Get the blueness (from the color) of the player
+int get_blueness(const player& p) noexcept;
+
+/// Get the greenness (from the color) of the player
+int get_greenness(const player& p) noexcept;
+
+/// Get the redness (from the color) of the player
+int get_redness(const player& p) noexcept;
+
 /// Test the player class
 void test_player();
 

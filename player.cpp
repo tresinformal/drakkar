@@ -77,6 +77,21 @@ void player::accelerate() noexcept
   update_player_position();
 }
 
+int get_blueness(const player& p) noexcept
+{
+  return p.get_color().get_blue();
+}
+
+int get_greenness(const player& p) noexcept
+{
+  return p.get_color().get_green();
+}
+
+int get_redness(const player& p) noexcept
+{
+  return p.get_color().get_red();
+}
+
 void test_player() //!OCLINT tests may be long
 {
   // Can default construct a player

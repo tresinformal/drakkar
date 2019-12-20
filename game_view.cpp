@@ -131,51 +131,21 @@ void game_view::draw_franjo() noexcept
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
                                         //! shorten
 {
-  sf::Color color;
-  for (unsigned int i = 0; i < m_game.get_v_player().size(); ++i)
+  for (const auto& player: m_game.get_v_player())
   {
-
-    // assign different color for different players,
-    // max 5 players handled for now.
-    switch (i)
-    {
-
-    case 1:
-    {
-      color = sf::Color::Red;
-      break;
-    }
-    case 2:
-    {
-      color = sf::Color::Blue;
-      break;
-    }
-    case 3:
-    {
-      color = sf::Color::Black;
-      break;
-    }
-    case 4:
-    {
-      color = sf::Color::Green;
-      break;
-    }
-    case 0:
-    default:
-    {
-      color = sf::Color::White;
-      break;
-    }
-    }
-
     // Create the player sprite
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    rect.setFillColor(color);
+    rect.setFillColor(
+          sf::Color(
+            static_cast<sf::Uint8>(get_redness(player)),
+            static_cast<sf::Uint8>(get_greenness(player)),
+            static_cast<sf::Uint8>(get_blueness(player))
+          )
+        );
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(static_cast<float>(m_game.get_player(i).get_x()),
-                     static_cast<float>(m_game.get_player(i).get_y()));
-    rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction()) *
-                                        180 / M_PI));
+    rect.setPosition(static_cast<float>(player.get_x()),
+                     static_cast<float>(player.get_y()));
+    rect.setRotation(static_cast<float>((player.get_direction()) * 180 / M_PI));
     rect.setTexture(&m_game_resources.get_franjo());
 
     // Draw the player
