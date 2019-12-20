@@ -22,7 +22,6 @@ private:
 
   /// the environment
   environment_type m_environment_type;
-
 };
 
 void test_environment();

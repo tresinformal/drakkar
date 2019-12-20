@@ -5,7 +5,6 @@ environment::environment(environment_type enviroment_type)
     : m_environment_type{enviroment_type}
 
 {
-
 }
 
 void test_environment()
@@ -23,7 +22,5 @@ void test_environment()
     assert(e.get_type() == environment_type::empty);
     const environment e1(environment_type::quiet);
     assert(e1.get_type() == environment_type::quiet);
-
   }
-
 }
