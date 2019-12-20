@@ -18,27 +18,33 @@ color get_adjacent_color(color c)
 {
   while (1)
   {
-    //Stub: should use a proper RNG
+    // Stub: should use a proper RNG
     switch (std::rand() % 6)
     {
-      case 0: //Increase red
-        if (c.get_red() == 255) continue;
-        return color(c.get_red() + 1, c.get_green(), c.get_blue());
-      case 1: //Decrease red
-        if (c.get_red() == 0) continue;
-        return color(c.get_red() - 1, c.get_green(), c.get_blue());
-      case 2: //Increase green
-        if (c.get_green() == 255) continue;
-        return color(c.get_red(), c.get_green() + 1, c.get_blue());
-      case 3: //Decrease green
-        if (c.get_green() == 0) continue;
-        return color(c.get_red(), c.get_green() - 1, c.get_blue());
-      case 4: //Increase blue
-        if (c.get_blue() == 255) continue;
-        return color(c.get_red(), c.get_green(), c.get_blue() + 1);
-      case 5: //Decrease blue
-        if (c.get_blue() == 0) continue;
-        return color(c.get_red(), c.get_green(), c.get_blue() - 1);
+    case 0: // Increase red
+      if (c.get_red() == 255)
+        continue;
+      return color(c.get_red() + 1, c.get_green(), c.get_blue());
+    case 1: // Decrease red
+      if (c.get_red() == 0)
+        continue;
+      return color(c.get_red() - 1, c.get_green(), c.get_blue());
+    case 2: // Increase green
+      if (c.get_green() == 255)
+        continue;
+      return color(c.get_red(), c.get_green() + 1, c.get_blue());
+    case 3: // Decrease green
+      if (c.get_green() == 0)
+        continue;
+      return color(c.get_red(), c.get_green() - 1, c.get_blue());
+    case 4: // Increase blue
+      if (c.get_blue() == 255)
+        continue;
+      return color(c.get_red(), c.get_green(), c.get_blue() + 1);
+    case 5: // Decrease blue
+      if (c.get_blue() == 0)
+        continue;
+      return color(c.get_red(), c.get_green(), c.get_blue() - 1);
     }
   }
 }
@@ -55,7 +61,7 @@ void test_color()
   {
     const color white;
     const color other = get_adjacent_color(white);
-    assert(other.get_red() != 255 || other.get_green() != 255 || other.get_blue() != 255);
+    assert(other.get_red() != 255 || other.get_green() != 255 ||
+           other.get_blue() != 255);
   }
-
 }

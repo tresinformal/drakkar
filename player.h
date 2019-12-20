@@ -51,7 +51,7 @@ public:
   void do_action(action_type action);
 
   /// Set the color of the player
-  void set_color(const color& c) noexcept { m_color = c; }
+  void set_color(const color &c) noexcept { m_color = c; }
 
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
@@ -112,13 +112,13 @@ private:
 };
 
 /// Get the blueness (from the color) of the player
-int get_blueness(const player& p) noexcept;
+int get_blueness(const player &p) noexcept;
 
 /// Get the greenness (from the color) of the player
-int get_greenness(const player& p) noexcept;
+int get_greenness(const player &p) noexcept;
 
 /// Get the redness (from the color) of the player
-int get_redness(const player& p) noexcept;
+int get_redness(const player &p) noexcept;
 
 /// Test the player class
 void test_player();

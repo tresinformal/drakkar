@@ -131,17 +131,13 @@ void game_view::draw_franjo() noexcept
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
                                         //! shorten
 {
-  for (const auto& player: m_game.get_v_player())
+  for (const auto &player : m_game.get_v_player())
   {
     // Create the player sprite
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    rect.setFillColor(
-          sf::Color(
-            static_cast<sf::Uint8>(get_redness(player)),
-            static_cast<sf::Uint8>(get_greenness(player)),
-            static_cast<sf::Uint8>(get_blueness(player))
-          )
-        );
+    rect.setFillColor(sf::Color(static_cast<sf::Uint8>(get_redness(player)),
+                                static_cast<sf::Uint8>(get_greenness(player)),
+                                static_cast<sf::Uint8>(get_blueness(player))));
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     rect.setPosition(static_cast<float>(player.get_x()),
                      static_cast<float>(player.get_y()));
