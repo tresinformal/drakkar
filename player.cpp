@@ -7,8 +7,9 @@ player::player(const double x, const double y, const player_shape shape,
                const double player_speed, const double player_max_speed,
                const double player_acceleration,
                const double player_deceleration, const double size,
-               const double direction, const double turn_rate)
-    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed},
+               const double direction, const double turn_rate,
+               const color& any_color)
+    : m_color{any_color}, m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed},
       m_player_max_speed{player_max_speed},
       m_player_acceleration{player_acceleration},
       m_player_deceleration{player_deceleration}, m_size{size},
@@ -175,5 +176,9 @@ void test_player() //!OCLINT tests may be long
     double b_y = p.get_y();
     assert(std::abs(a_x - b_x) > 0.0000001);
     assert(std::abs(a_y - b_y) > 0.0000001);
+  }
+  {
+    player p;
+    assert(p.get_color().get_blue() >= 0);
   }
 }

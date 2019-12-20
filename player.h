@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include "action_type.h"
+#include "color.h"
 #include "player_shape.h"
 #include <cmath>
 
@@ -12,7 +14,12 @@ public:
          const double player_speed = 0, const double player_max_speed = 2,
          const double player_acceleration = 0.1,
          const double player_deceleration = 0.001, const double size = 100.0,
-         const double direction = 0.0, const double turn_rate = 0.1);
+         const double direction = 0.0, const double turn_rate = 0.1,
+         const color& any_color = color()
+       );
+
+  /// Get the color of the player
+  const color& get_color() const noexcept { return m_color; }
 
   /// Get the X coordinat of the player
   double get_x() const noexcept { return m_x; }
@@ -64,6 +71,10 @@ public:
   void brake() noexcept;
 
 private:
+
+  /// The player's color, will change depending on food items
+  color m_color;
+
   /// The X coordinat of the player
   double m_x;
 
