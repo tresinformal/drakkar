@@ -3,7 +3,7 @@
 #include <cassert>
 #include <cstdlib>
 
-color::color(const int r, const int g, const int b) : m_r{r}, m_g{g}, m_b{b}
+color::color(const int r, const int g, const int b, const int a) : m_r{r}, m_g{g}, m_b{b}, m_a{a}
 {
   // Stub, need exceptions later
   assert(m_r >= 0);
@@ -12,6 +12,8 @@ color::color(const int r, const int g, const int b) : m_r{r}, m_g{g}, m_b{b}
   assert(m_g <= 255);
   assert(m_b >= 0);
   assert(m_b <= 255);
+  assert(m_a >= 0);
+  assert(m_a <= 255);
 }
 
 color get_adjacent_color(color c)
@@ -48,6 +50,14 @@ color get_adjacent_color(color c)
     }
   }
 }
+
+int get_blueness(const color &c) noexcept { return c.get_blue(); }
+
+int get_greenness(const color &c) noexcept { return c.get_green(); }
+
+int get_opaqueness(const color &c) noexcept { return c.get_opaqueness(); }
+
+int get_redness(const color &c) noexcept { return c.get_red(); }
 
 void test_color()
 {

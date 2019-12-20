@@ -136,6 +136,17 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
   }
 }
 
+void game_view::draw_shelters() noexcept
+{
+  for (const auto &shelter : m_game.get_shelters())
+  {
+    sf::CircleShape circle(shelter.get_radius());
+    circle.setPosition(shelter.get_x(), shelter.get_y());
+    circle.setFillColor(sf::Color(get_redness(shelter), get_greenness(shelter), get_blueness(shelter), get_opaqueness(shelter)));
+    m_window.draw(circle);
+  }
+}
+
 void game_view::show() noexcept
 {
   // Start drawing the new frame, by clearing the screen
@@ -159,25 +170,7 @@ void game_view::show() noexcept
   foodsprite.setFillColor(sf::Color(0, 0, 0));
   m_window.draw(foodsprite);
 
-  // Draw some semitransparent circles to see how well RGB/opsin-based vision
-  // works out
-  sf::CircleShape circle(200.0);
-  // Red
-  circle.setPosition(600.0, 200.0);
-  circle.setFillColor(sf::Color(255, 0, 0, 128 + 64));
-  m_window.draw(circle);
-  // Green
-  circle.setPosition(600.0, 500.0);
-  circle.setFillColor(sf::Color(0, 255, 0, 128 + 64));
-  m_window.draw(circle);
-  // Blue
-  circle.setPosition(800.0, 350.0);
-  circle.setFillColor(sf::Color(0, 0, 255, 128 + 64));
-  m_window.draw(circle);
-  // Black
-  circle.setPosition(300.0, 100.0);
-  circle.setFillColor(sf::Color(0, 0, 0, 128 + 64));
-  m_window.draw(circle);
+  draw_shelters();
 
   // Display all shapes
   m_window.display();

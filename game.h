@@ -50,6 +50,9 @@ public:
   /// Get enemies
   std::vector<enemy> get_enemies() const { return m_enemies; }
 
+  /// Get enemies
+  std::vector<shelter> get_shelters() const { return m_shelters; }
+
   /// Apply inertia to player movement
   void apply_inertia();
 

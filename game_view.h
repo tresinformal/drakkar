@@ -41,6 +41,10 @@ private:
 
   /// The window to draw to
   sf::RenderWindow m_window;
+
+  /// Draws shelters
+  void draw_shelters() noexcept;
+
 };
 
 void test_game_view();
