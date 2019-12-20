@@ -41,7 +41,6 @@ private:
 
   /// The window to draw to
   sf::RenderWindow m_window;
-
 };
 
 void test_game_view();

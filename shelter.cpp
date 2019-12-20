@@ -2,7 +2,11 @@
 #include <cassert>
 #include <cmath>
 
-shelter::shelter(const double x, const double y, const double radius, const color& c) : m_color{c}, m_radius{radius}, m_x{x}, m_y{y} {}
+shelter::shelter(const double x, const double y, const double radius,
+                 const color &c)
+    : m_color{c}, m_radius{radius}, m_x{x}, m_y{y}
+{
+}
 
 void test_shelter()
 {
@@ -12,7 +16,7 @@ void test_shelter()
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
   }
-  //X and Y work as expected
+  // X and Y work as expected
   {
     const double x{12.34};
     const double y{23.45};
@@ -21,4 +25,3 @@ void test_shelter()
     assert(std::abs(f.get_y() - y) < 0.00001);
   }
 }
-
