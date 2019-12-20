@@ -11,7 +11,6 @@ private:
   bool m_play_music = true;
 };
 
-
 /// Test the 'game_options' class
 void test_game_options();
 
