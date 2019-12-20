@@ -3,7 +3,8 @@
 #include <cassert>
 #include <cstdlib>
 
-color::color(const int r, const int g, const int b, const int a) : m_r{r}, m_g{g}, m_b{b}, m_a{a}
+color::color(const int r, const int g, const int b, const int a)
+    : m_r{r}, m_g{g}, m_b{b}, m_a{a}
 {
   // Stub, need exceptions later
   assert(m_r >= 0);

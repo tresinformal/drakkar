@@ -29,7 +29,8 @@ int get_blueness(const shelter &f) noexcept;
 /// Get the greenness (from the color) of the shelter
 int get_greenness(const shelter &f) noexcept;
 
-/// Get the opaqueness(from the color) of the shelter (0 = transparat, 255 = opaque)
+/// Get the opaqueness(from the color) of the shelter (0 = transparat, 255 =
+/// opaque)
 int get_opaqueness(const shelter &f) noexcept;
 
 /// Get the redness (from the color) of the shelter

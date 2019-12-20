@@ -15,14 +15,12 @@ int get_blueness(const shelter &f) noexcept
 
 int get_greenness(const shelter &f) noexcept
 {
-return get_greenness(f.get_color());
-
+  return get_greenness(f.get_color());
 }
 
 int get_opaqueness(const shelter &f) noexcept
 {
-return get_opaqueness(f.get_color());
-
+  return get_opaqueness(f.get_color());
 }
 
 int get_redness(const shelter &f) noexcept

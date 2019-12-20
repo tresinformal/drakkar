@@ -142,7 +142,9 @@ void game_view::draw_shelters() noexcept
   {
     sf::CircleShape circle(shelter.get_radius());
     circle.setPosition(shelter.get_x(), shelter.get_y());
-    circle.setFillColor(sf::Color(get_redness(shelter), get_greenness(shelter), get_blueness(shelter), get_opaqueness(shelter)));
+    circle.setFillColor(sf::Color(get_redness(shelter), get_greenness(shelter),
+                                  get_blueness(shelter),
+                                  get_opaqueness(shelter)));
     m_window.draw(circle);
   }
 }
