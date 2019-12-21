@@ -7,9 +7,10 @@ player::player(const double x, const double y, const player_shape shape,
                const double player_speed, const double player_max_speed,
                const double player_acceleration,
                const double player_deceleration, const double size,
-               const double direction, const double turn_rate)
-    : m_x{x}, m_y{y}, m_shape{shape}, m_player_speed{player_speed},
-      m_player_max_speed{player_max_speed},
+               const double direction, const double turn_rate,
+               const color &any_color)
+    : m_color{any_color}, m_x{x}, m_y{y}, m_shape{shape},
+      m_player_speed{player_speed}, m_player_max_speed{player_max_speed},
       m_player_acceleration{player_acceleration},
       m_player_deceleration{player_deceleration}, m_size{size},
       m_direction{direction}, m_turn_rate{turn_rate}
@@ -75,6 +76,15 @@ void player::accelerate() noexcept
   }
   update_player_position();
 }
+
+int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
+
+int get_greenness(const player &p) noexcept
+{
+  return p.get_color().get_green();
+}
+
+int get_redness(const player &p) noexcept { return p.get_color().get_red(); }
 
 void test_player() //!OCLINT tests may be long
 {
@@ -175,5 +185,10 @@ void test_player() //!OCLINT tests may be long
     double b_y = p.get_y();
     assert(std::abs(a_x - b_x) > 0.0000001);
     assert(std::abs(a_y - b_y) > 0.0000001);
+  }
+  {
+    player p;
+    assert(p.get_color().get_blue() >= 0);
+    p.set_color(get_adjacent_color(p.get_color()));
   }
 }

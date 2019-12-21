@@ -8,6 +8,7 @@
 #include "food.h"
 #include "player.h"
 #include "player_shape.h"
+#include "shelter.h"
 #include <vector>
 
 /// Contains the game logic.
@@ -17,7 +18,7 @@ class game
 public:
   game(const int n_ticks = 0,
        const environment_type environment = environment_type::empty,
-       unsigned int num_players = 2);
+       unsigned int num_players = 3);
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
@@ -49,6 +50,9 @@ public:
   /// Get enemies
   std::vector<enemy> get_enemies() const { return m_enemies; }
 
+  /// Get enemies
+  std::vector<shelter> get_shelters() const { return m_shelters; }
+
   /// Apply inertia to player movement
   void apply_inertia();
 
@@ -76,6 +80,8 @@ private:
 
   /// the enemies
   std::vector<enemy> m_enemies;
+
+  std::vector<shelter> m_shelters;
 
   /// starting x distance between players
   unsigned int m_dist_x_pls = 100;

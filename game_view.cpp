@@ -1,7 +1,7 @@
+#include "game_view.h"
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
-#include "game_view.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
@@ -115,71 +115,37 @@ void game_view::exec() noexcept
   }
 }
 
-void game_view::draw_franjo() noexcept
-{
-  // The part below is mostly showing off and how to draw a sprite
-  sf::Sprite franjo;
-  franjo.setPosition(400.0, 200.0);
-  franjo.setTexture(m_game_resources.get_franjo());
-  static double franjo_rotation =
-      0.0; //!OCLINT indeed, should nearly ever use a static
-  franjo_rotation += 0.01;
-  franjo.setRotation(franjo_rotation);
-  m_window.draw(franjo);
-}
-
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
                                         //! shorten
 {
-  sf::Color color;
-  for (unsigned int i = 0; i < m_game.get_v_player().size(); ++i)
+  for (const auto &player : m_game.get_v_player())
   {
-
-    // assign different color for different players,
-    // max 5 players handled for now.
-    switch (i)
-    {
-
-    case 1:
-    {
-      color = sf::Color::Red;
-      break;
-    }
-    case 2:
-    {
-      color = sf::Color::Blue;
-      break;
-    }
-    case 3:
-    {
-      color = sf::Color::Black;
-      break;
-    }
-    case 4:
-    {
-      color = sf::Color::Green;
-      break;
-    }
-    case 0:
-    default:
-    {
-      color = sf::Color::White;
-      break;
-    }
-    }
-
     // Create the player sprite
     sf::RectangleShape rect(sf::Vector2f(200.0, 100.0));
-    rect.setFillColor(color);
+    rect.setFillColor(sf::Color(static_cast<sf::Uint8>(get_redness(player)),
+                                static_cast<sf::Uint8>(get_greenness(player)),
+                                static_cast<sf::Uint8>(get_blueness(player))));
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(static_cast<float>(m_game.get_player(i).get_x()),
-                     static_cast<float>(m_game.get_player(i).get_y()));
-    rect.setRotation(static_cast<float>((m_game.get_player(i).get_direction()) *
-                                        180 / M_PI));
+    rect.setPosition(static_cast<float>(player.get_x()),
+                     static_cast<float>(player.get_y()));
+    rect.setRotation(static_cast<float>((player.get_direction()) * 180 / M_PI));
     rect.setTexture(&m_game_resources.get_franjo());
 
     // Draw the player
     m_window.draw(rect);
+  }
+}
+
+void game_view::draw_shelters() noexcept
+{
+  for (const auto &shelter : m_game.get_shelters())
+  {
+    sf::CircleShape circle(shelter.get_radius());
+    circle.setPosition(shelter.get_x(), shelter.get_y());
+    circle.setFillColor(sf::Color(get_redness(shelter), get_greenness(shelter),
+                                  get_blueness(shelter),
+                                  get_opaqueness(shelter)));
+    m_window.draw(circle);
   }
 }
 
@@ -194,7 +160,6 @@ void game_view::show() noexcept
   background_sprite.setTexture(m_game_resources.get_grass_landscape());
   m_window.draw(background_sprite);
 
-  draw_franjo();
   draw_players();
 
   // Create food sprite
@@ -207,21 +172,7 @@ void game_view::show() noexcept
   foodsprite.setFillColor(sf::Color(0, 0, 0));
   m_window.draw(foodsprite);
 
-  // Draw some semitransparent circles to see how well RGB/opsin-based vision
-  // works out
-  sf::CircleShape circle(200.0);
-  // Red
-  circle.setPosition(600.0, 200.0);
-  circle.setFillColor(sf::Color(255, 0, 0, 128));
-  m_window.draw(circle);
-  // Green
-  circle.setPosition(600.0, 500.0);
-  circle.setFillColor(sf::Color(0, 255, 0, 128));
-  m_window.draw(circle);
-  // Blue
-  circle.setPosition(800.0, 350.0);
-  circle.setFillColor(sf::Color(0, 0, 255, 128));
-  m_window.draw(circle);
+  draw_shelters();
 
   // Display all shapes
   m_window.display();

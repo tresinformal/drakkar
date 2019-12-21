@@ -6,12 +6,42 @@
 game::game(const int n_ticks, environment_type environment_type,
            unsigned int num_players)
     : m_n_ticks{n_ticks}, m_v_player(num_players, player()),
-      m_environment_type{environment_type}, m_food{1}, m_enemies{1}
+      m_environment_type{environment_type}, m_food{1}, m_enemies{1},
+      m_shelters(3)
 {
   for (unsigned int i = 0; i < m_v_player.size(); ++i)
   {
     m_v_player[i] =
         player(300.0 + m_dist_x_pls * i, 400.0, player_shape::rocket);
+  }
+  // Set color
+  {
+    int i = 0;
+    for (auto &player : m_v_player)
+    {
+      player.set_color(color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+                             i % 3 == 2 ? 255 : 0));
+      ++i;
+    }
+  }
+  // Set shelters
+  {
+    assert(m_shelters.size() == 3);
+    int i = 0;
+    for (auto &this_shelter : m_shelters)
+    {
+      const double angle{2.0 * M_PI * static_cast<double>(i) /
+                         static_cast<double>(m_shelters.size())};
+      const double mid_x{400.0};
+      const double mid_y{300.0};
+      const double radius{200.0};
+      const double x{mid_x + (std::sin(angle) * radius)};
+      const double y{mid_y - (std::cos(angle) * radius)};
+      const color c(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+                    i % 3 == 2 ? 255 : 0, 128 + 64);
+      this_shelter = shelter(x, y, 100.0, c);
+      ++i;
+    }
   }
 }
 
@@ -41,6 +71,12 @@ void game::tick()
 {
   // for now only applies inertia
   apply_inertia();
+
+  for (player &p : m_v_player)
+  {
+    p.set_color(get_adjacent_color(p.get_color()));
+  }
+
   // and updates m_n_ticks
   ++get_n_ticks();
 }

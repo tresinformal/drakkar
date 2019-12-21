@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include "action_type.h"
+#include "color.h"
 #include "player_shape.h"
 #include <cmath>
 
@@ -12,7 +14,11 @@ public:
          const double player_speed = 0, const double player_max_speed = 2,
          const double player_acceleration = 0.1,
          const double player_deceleration = 0.001, const double size = 100.0,
-         const double direction = 0.0, const double turn_rate = 0.1);
+         const double direction = 0.0, const double turn_rate = 0.1,
+         const color &any_color = color());
+
+  /// Get the color of the player
+  const color &get_color() const noexcept { return m_color; }
 
   /// Get the X coordinat of the player
   double get_x() const noexcept { return m_x; }
@@ -44,6 +50,9 @@ public:
   /// makes the player in the game execute an action
   void do_action(action_type action);
 
+  /// Set the color of the player
+  void set_color(const color &c) noexcept { m_color = c; }
+
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
 
@@ -64,6 +73,9 @@ public:
   void brake() noexcept;
 
 private:
+  /// The player's color, will change depending on food items
+  color m_color;
+
   /// The X coordinat of the player
   double m_x;
 
@@ -98,6 +110,15 @@ private:
   /// construction
   double m_health = 1.0;
 };
+
+/// Get the blueness (from the color) of the player
+int get_blueness(const player &p) noexcept;
+
+/// Get the greenness (from the color) of the player
+int get_greenness(const player &p) noexcept;
+
+/// Get the redness (from the color) of the player
+int get_redness(const player &p) noexcept;
 
 /// Test the player class
 void test_player();
