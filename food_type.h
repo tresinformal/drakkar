@@ -8,7 +8,8 @@ enum class food_type
   rocket,
   laser,
   poison,
-  neutral
+  neutral,
+  potion_of_camouflage
 };
 
 std::ostream &operator<<(std::ostream &os, const food_type t);
