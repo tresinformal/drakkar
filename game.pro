@@ -17,7 +17,8 @@ HEADERS += \
     sound_type.h \
     game_options.h \
     color.h \
-    shelter.h
+    shelter.h \
+    projectile.h
 
 SOURCES += \
     action_type.cpp \
@@ -38,7 +39,8 @@ SOURCES += \
     sound_type.cpp \
     game_options.cpp \
     color.cpp \
-    shelter.cpp
+    shelter.cpp \
+    projectile.cpp
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17

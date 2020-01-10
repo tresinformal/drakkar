@@ -191,9 +191,10 @@ void test_player() //!OCLINT tests may be long
     assert(std::abs(a_x - b_x) > 0.0000001);
     assert(std::abs(a_y - b_y) > 0.0000001);
   }
+  // A player can shoot
   {
     player p;
-    assert(p.get_color().get_blue() >= 0);
-    p.set_color(get_adjacent_color(p.get_color()));
+    p.shoot();
+    assert(p.is_shooting());
   }
 }

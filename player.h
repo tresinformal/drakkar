@@ -47,6 +47,12 @@ public:
   /// Get the player's health
   double get_health() const noexcept { return m_health; }
 
+  /// Is the player shooting?
+  /// When a player shoots, 'm_is_shooting' is true for one tick.
+  /// 'game' reads 'm_is_shooting' and if it is true,
+  /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
+  bool is_shooting() const noexcept { return m_is_shooting; }
+
   /// makes the player in the game execute an action
   void do_action(action_type action);
 
@@ -54,7 +60,10 @@ public:
   void set_color(const color &c) noexcept { m_color = c; }
 
   /// The player shoots, does nothing for now
-  void shoot() noexcept {}
+  /// When a player shoots, 'm_is_shooting' is true for one tick.
+  /// 'game' reads 'm_is_shooting' and if it is true,
+  /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
+  void shoot() noexcept { m_is_shooting = true; }
 
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
@@ -78,6 +87,11 @@ public:
 private:
   /// The player's color, will change depending on food items
   color m_color;
+
+  /// When a player shoots, 'm_is_shooting' is true for one tick.
+  /// 'game' reads 'm_is_shooting' and if it is true,
+  /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
+  bool m_is_shooting{false};
 
   /// The X coordinat of the player
   double m_x;

@@ -43,6 +43,11 @@ game::game(const int n_ticks, unsigned int num_players)
   }
 }
 
+int count_n_projectiles(const game& g) noexcept
+{
+  return static_cast<int>(g.get_projectiles().size());
+}
+
 double game::get_player_direction(unsigned int player_ind)
 {
   return get_player(player_ind).get_direction();
@@ -152,6 +157,22 @@ void test_game() //!OCLINT tests may be many
       assert(before - after > 0.0000000000000001);
       // After should be < than before
     }
+  }
+  // A game responds to actions: player can shoot
+  {
+    game g;
+    assert(count_n_projectiles(g) == 0);
+    g.get_player(0).do_action(action_type::shoot);
+    // Without a tick, no projectile is formed yet
+    assert(count_n_projectiles(g) == 0);
+  }
+  // A game responds to actions: player can shoot
+  {
+    game g;
+    assert(count_n_projectiles(g) == 0);
+    g.get_player(0).do_action(action_type::shoot);
+    g.tick();
+    //assert(count_n_projectiles(g) == 1);
   }
   // Can get a player's direction by using a free function
   {

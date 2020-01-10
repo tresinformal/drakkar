@@ -8,6 +8,7 @@
 #include "food.h"
 #include "player.h"
 #include "player_shape.h"
+#include "projectile.h"
 #include "shelter.h"
 #include <vector>
 
@@ -45,6 +46,9 @@ public:
   /// Get enemies
   std::vector<enemy> get_enemies() const { return m_enemies; }
 
+  /// Get the projectiles
+  const std::vector<projectile> &get_projectiles() const noexcept { return m_projectiles; }
+
   /// Get enemies
   std::vector<shelter> get_shelters() const { return m_shelters; }
 
@@ -73,11 +77,18 @@ private:
   /// the enemies
   std::vector<enemy> m_enemies;
 
+  /// the projectiles
+  std::vector<projectile> m_projectiles;
+
+  /// the shelters
   std::vector<shelter> m_shelters;
 
   /// starting x distance between players
   unsigned int m_dist_x_pls = 100;
 };
+
+/// Count the number of projectiles in the game
+int count_n_projectiles(const game& g) noexcept;
 
 void test_game();
 
