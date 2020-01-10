@@ -75,10 +75,13 @@ void game::tick()
   // for now only applies inertia
   apply_inertia();
 
+  // make the player change colors randomly, for fun, just temporary
   for (player &p : m_v_player)
   {
     p.set_color(get_adjacent_color(p.get_color()));
   }
+
+  // players that shoot must generate projectiles
 
   // and updates m_n_ticks
   ++get_n_ticks();
