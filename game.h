@@ -85,6 +85,9 @@ private:
 
   /// starting x distance between players
   unsigned int m_dist_x_pls = 100;
+
+  /// Moves the projectiles
+  void move_projectiles();
 };
 
 /// Count the number of projectiles in the game

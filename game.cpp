@@ -72,8 +72,19 @@ void game::apply_inertia()
   }
 }
 
+void game::move_projectiles()
+{
+  for (auto& p: m_projectiles)
+  {
+    p.move();
+  }
+}
+
 void game::tick()
 {
+  // Moves the projectiles
+  move_projectiles();
+
   // for now only applies inertia
   apply_inertia();
 
@@ -94,7 +105,7 @@ void game::tick()
       // Put the projectile just in front outside of the player
       const double d{p.get_direction()};
       const double x{p.get_x() + (std::cos(d) * p.get_size() * 1.1)};
-      const double y{p.get_y() - (std::sin(d) * p.get_size() * 1.1)};
+      const double y{p.get_y() + (std::sin(d) * p.get_size() * 1.1)};
       m_projectiles.push_back(projectile(x, y, d));
     }
     p.stop_shooting();
@@ -193,7 +204,21 @@ void test_game() //!OCLINT tests may be many
     assert(count_n_projectiles(g) == 0);
     g.get_player(0).do_action(action_type::shoot);
     g.tick();
-    //assert(count_n_projectiles(g) == 1);
+    assert(count_n_projectiles(g) == 1);
+  }
+  // Projectiles move
+  {
+    game g;
+    g.get_player(0).do_action(action_type::shoot);
+    g.tick();
+    assert(count_n_projectiles(g) == 1);
+    const double x_before{g.get_projectiles()[0].get_x()};
+    const double y_before{g.get_projectiles()[0].get_y()};
+    g.tick();
+    const double x_after{g.get_projectiles()[0].get_x()};
+    const double y_after{g.get_projectiles()[0].get_y()};
+    // coordinats should differ
+    assert(std::abs(x_before - x_after) > 0.01 || std::abs(y_before - y_after) > 0.01);
   }
   // Can get a player's direction by using a free function
   {
