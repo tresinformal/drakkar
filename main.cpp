@@ -18,6 +18,7 @@
 /// All tests are called from here, only in debug mode
 void test()
 {
+  test_action_type();
   test_player_shape();
   test_player();
   test_game();
