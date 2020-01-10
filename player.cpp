@@ -197,4 +197,12 @@ void test_player() //!OCLINT tests may be long
     p.shoot();
     assert(p.is_shooting());
   }
+  // A player can stop shooting
+  {
+    player p;
+    p.shoot();
+    assert(p.is_shooting());
+    p.stop_shooting();
+    assert(!p.is_shooting());
+  }
 }

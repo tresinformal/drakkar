@@ -1,4 +1,6 @@
 #include "game.h"
+#include "projectile.h"
+
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -82,6 +84,22 @@ void game::tick()
   }
 
   // players that shoot must generate projectiles
+  for (player &p : m_v_player)
+  {
+    // When a player shoots, 'm_is_shooting' is true for one tick.
+    // 'game' reads 'm_is_shooting' and if it is true,
+    // it (1) creates a projectile, (2) sets 'm_is_shooting' to false
+    if (p.is_shooting())
+    {
+      // Put the projectile just in front outside of the player
+      const double d{p.get_direction()};
+      const double x{p.get_x() + (std::cos(d) * p.get_size() * 1.1)};
+      const double y{p.get_y() - (std::sin(d) * p.get_size() * 1.1)};
+      m_projectiles.push_back(projectile(x, y, d));
+    }
+    p.stop_shooting();
+    assert(!p.is_shooting());
+  }
 
   // and updates m_n_ticks
   ++get_n_ticks();

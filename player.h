@@ -65,6 +65,12 @@ public:
   /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
   void shoot() noexcept { m_is_shooting = true; }
 
+  /// Make the player stop shooting
+  /// When a player shoots, 'm_is_shooting' is true for one tick.
+  /// 'game' reads 'm_is_shooting' and if it is true,
+  /// it (1) creates a projectile, (2) makes the player stop shooting
+  void stop_shooting() noexcept { m_is_shooting = false; }
+
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
 
@@ -117,7 +123,7 @@ private:
   /// The size of the player
   double m_size;
 
-  /// The direction of player in radiants
+  /// The direction of player in radians
   double m_direction;
 
   /// The rate at which the player turns
