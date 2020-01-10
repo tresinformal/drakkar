@@ -42,6 +42,11 @@ void player::do_action(action_type action)
     brake();
     break;
   }
+  case action_type::shoot:
+  {
+    shoot();
+    break;
+  }
   }
 }
 

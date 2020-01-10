@@ -53,6 +53,9 @@ public:
   /// Set the color of the player
   void set_color(const color &c) noexcept { m_color = c; }
 
+  /// The player shoots, does nothing for now
+  void shoot() noexcept {}
+
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
 

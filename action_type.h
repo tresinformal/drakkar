@@ -9,7 +9,8 @@ enum class action_type
   turn_left,
   turn_right,
   accelerate,
-  brake
+  brake,
+  shoot
 };
 
 void test_action_type();
