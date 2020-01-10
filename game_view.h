@@ -42,6 +42,9 @@ private:
   /// The window to draw to
   sf::RenderWindow m_window;
 
+  /// Draws projectiles
+  void draw_projectiles() noexcept;
+
   /// Draws shelters
   void draw_shelters() noexcept;
 };

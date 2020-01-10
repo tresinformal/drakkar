@@ -94,7 +94,7 @@ void game::tick()
       // Put the projectile just in front outside of the player
       const double d{p.get_direction()};
       const double x{p.get_x() + (std::cos(d) * p.get_size() * 1.1)};
-      const double y{p.get_y() - (std::sin(d) * p.get_size() * 1.1)};
+      const double y{p.get_y() + (std::sin(d) * p.get_size() * 1.1)};
       m_projectiles.push_back(projectile(x, y, d));
     }
     p.stop_shooting();

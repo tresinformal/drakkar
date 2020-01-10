@@ -59,6 +59,10 @@ void game_view::pl_1_input(sf::Event event) noexcept
   {
     m_game.get_player(0).do_action(action_type::brake);
   }
+  else if (event.key.code == sf::Keyboard::Q)
+  {
+    m_game.get_player(0).do_action(action_type::shoot);
+  }
 }
 
 void game_view::pl_2_input(sf::Event event) noexcept
@@ -79,6 +83,10 @@ void game_view::pl_2_input(sf::Event event) noexcept
   else if (event.key.code == sf::Keyboard::K)
   {
     m_game.get_player(1).do_action(action_type::brake);
+  }
+  else if (event.key.code == sf::Keyboard::U)
+  {
+    m_game.get_player(1).do_action(action_type::shoot);
   }
 }
 
@@ -136,6 +144,19 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
   }
 }
 
+void game_view::draw_projectiles() noexcept
+{
+  for (const auto &projectile : m_game.get_projectiles())
+  {
+    const double radius{3.14};
+    sf::CircleShape circle(radius);
+    circle.setPosition(projectile.get_x(), projectile.get_y());
+    circle.setFillColor(sf::Color(0, 0, 0));
+    m_window.draw(circle);
+  }
+
+}
+
 void game_view::draw_shelters() noexcept
 {
   for (const auto &shelter : m_game.get_shelters())
@@ -171,6 +192,8 @@ void game_view::show() noexcept
                          static_cast<float>(foods[0].get_y()));
   foodsprite.setFillColor(sf::Color(0, 0, 0));
   m_window.draw(foodsprite);
+
+  draw_projectiles();
 
   draw_shelters();
 
