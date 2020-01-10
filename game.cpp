@@ -3,11 +3,9 @@
 #include <cmath>
 #include <iostream>
 
-game::game(const int n_ticks, environment_type environment_type,
-           unsigned int num_players)
-    : m_n_ticks{n_ticks}, m_v_player(num_players, player()),
-      m_environment_type{environment_type}, m_food{1}, m_enemies{1},
-      m_shelters(3)
+game::game(const int n_ticks, unsigned int num_players)
+    : m_n_ticks{n_ticks},
+      m_v_player(num_players, player()), m_food{1}, m_enemies{1}, m_shelters(3)
 {
   for (unsigned int i = 0; i < m_v_player.size(); ++i)
   {
@@ -108,17 +106,6 @@ void test_game() //!OCLINT tests may be many
     const game g;
     assert(!g.get_enemies().empty());
   }
-  // A game by default  has an empty environment
-  {
-    const game g;
-    assert(g.get_environment_type() == environment_type::empty);
-  }
-  // a game initialized with an environment has that environment
-  {
-    const game g{0, environment_type::random};
-    assert(g.get_environment_type() == environment_type::random);
-    assert(static_cast<int>(g.get_environment_type()) != 9);
-  }
   // A game responds to actions: player can turn left
   {
     game g;
@@ -181,13 +168,13 @@ void test_game() //!OCLINT tests may be many
     game g;
     assert(g.get_environment().get_max_x() > -56465214.0);
   }
-#ifdef FIX_ISSUE_94
+
   // A game has enemies
   {
     const game g;
     assert(!g.get_enemies().empty());
   }
-#endif // FIX_ISSUE_89
+
   // calling tick updates the counter and
 
   // callling tick() increases m_n_tick by one
