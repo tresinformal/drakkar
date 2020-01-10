@@ -101,6 +101,8 @@ Date       |Activity
 
 Most recent at the top.
 
+![](pics/20200110.png)
+
 ![](pics/20191209.png)
 
 ![](pics/20191206.png)
