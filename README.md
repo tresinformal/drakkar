@@ -78,10 +78,8 @@ Next meeting:
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
 17:00       |Door open
-17:15       |Suggest coding standard
 ..          |Do Issues
 17:45-18:00 |Break
-18:00       |Vote coding standard
 ..          |Do Issues
 
  * Note that `xx` and the other variables can be in range `00` to and including `59`. 
