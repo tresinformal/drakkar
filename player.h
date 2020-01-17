@@ -71,8 +71,12 @@ public:
   /// it (1) creates a projectile, (2) makes the player stop shooting
   void stop_shooting() noexcept { m_is_shooting = false; }
 
-  /// Set a player position
-  void set_x(double x) {m_x = x;}
+  /// Set a player x position
+  void set_x(double x) noexcept {m_x = x;}
+
+  /// Set a player y position
+  void set_y(double y) noexcept {m_y = y;}
+
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
 
