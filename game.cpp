@@ -116,6 +116,10 @@ void game::tick()
   ++get_n_ticks();
 }
 
+bool has_collision(const game& ) noexcept {
+return false;
+}
+
 void test_game() //!OCLINT tests may be many
 {
   // The game has done zero ticks upon startup
@@ -287,5 +291,11 @@ void test_game() //!OCLINT tests may be many
                      g.get_dist_x_pls() >
                  -0.000001);
     }
+  }
+
+  // In the start of the game no players are colliding
+  {
+  const game g;
+  assert(has_collision(g) == false);
   }
 }

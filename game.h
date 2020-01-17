@@ -93,6 +93,9 @@ private:
 /// Count the number of projectiles in the game
 int count_n_projectiles(const game& g) noexcept;
 
+///checks if there is at least one collision between players in the gamer
+bool has_collision(const game& g) noexcept;
+
 void test_game();
 
 #endif // GAMELOGIC_H
