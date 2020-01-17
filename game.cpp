@@ -298,5 +298,11 @@ void test_game() //!OCLINT tests may be many
   const game g;
   assert(has_collision(g) == false);
   }
+// two overlapping players signal a collision
+  {
+    game g;
+    g.get_player(1).set_x(g.get_player(0).get_x());
 
+
+  }
 }
