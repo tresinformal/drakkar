@@ -84,7 +84,7 @@ private:
   std::vector<shelter> m_shelters;
 
   /// starting x distance between players
-  unsigned int m_dist_x_pls = 100;
+  const unsigned int m_dist_x_pls = 300;
 
   /// Moves the projectiles
   void move_projectiles();

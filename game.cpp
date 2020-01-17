@@ -278,7 +278,7 @@ void test_game() //!OCLINT tests may be many
     }
   }
 
-  // players are placed at dist of 100 points
+  // players are placed at dist of 300 points
   // along the x axis at initialization
   {
     game g;
@@ -298,4 +298,5 @@ void test_game() //!OCLINT tests may be many
   const game g;
   assert(has_collision(g) == false);
   }
+
 }
