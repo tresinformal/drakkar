@@ -116,7 +116,13 @@ void game::tick()
   ++get_n_ticks();
 }
 
-bool has_collision(const game& ) noexcept {
+bool has_collision(const game& g) noexcept {
+  for(unsigned int i =0; i <g.get_v_player().size(); ++i)
+  {
+    for(unsigned int j = i+1; j < g.get_v_player().size(); ++j){
+      if(are_colliding(g.get_v_player()[i],g.get_v_player()[j])) return true;
+    }
+  }
 return false;
 }
 
@@ -302,7 +308,9 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
 
+    assert(has_collision(g)== true);
 
   }
 }

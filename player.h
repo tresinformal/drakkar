@@ -140,6 +140,9 @@ private:
   double m_health = 1.0;
 };
 
+/// Checks if two players are colliding
+ bool are_colliding (const player &p1, const player &p2) noexcept;
+
 /// Get the blueness (from the color) of the player
 int get_blueness(const player &p) noexcept;
 

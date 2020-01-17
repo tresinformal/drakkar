@@ -81,7 +81,12 @@ void player::accelerate() noexcept
   }
   update_player_position();
 }
-
+bool are_colliding(const player &lhs, const player &rhs) noexcept{
+if(std::abs(lhs.get_x() - rhs.get_x())<0.0000001 && std::abs(lhs.get_y() - rhs.get_y())<0.00001)return true;
+else {
+    return false;
+  }
+}
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
 
 int get_greenness(const player &p) noexcept
