@@ -82,9 +82,11 @@ void player::accelerate() noexcept
   update_player_position();
 }
 bool are_colliding(const player &lhs, const player &rhs) noexcept{
-  return
-       std::abs(lhs.get_x() - rhs.get_x()) < 0.0000001
-    && std::abs(lhs.get_y() - rhs.get_y()) < 0.0000001;
+  const double dx = std::abs(lhs.get_x() - rhs.get_x());
+  const double dy = std::abs(lhs.get_y() - rhs.get_y());
+  const double actual_distance = std::sqrt( (dx * dx) + (dy * dy) );
+  const double collision_distance = (lhs.get_size() + rhs.get_size()) / 2;
+  return actual_distance < collision_distance;
 }
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
 
@@ -208,5 +210,13 @@ void test_player() //!OCLINT tests may be long
     assert(p.is_shooting());
     p.stop_shooting();
     assert(!p.is_shooting());
+  }
+  //two players(assuming they are not rotated) collide when they are less than their size away
+  {
+    const player p1(0.0, 0.0);
+    assert(p1.get_size() == 100.0);
+    //So, 90 pixels is a collision then
+    const player p2(90.0, 0.0);
+    assert(are_colliding(p1, p2));
   }
 }
