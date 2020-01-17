@@ -47,7 +47,10 @@ public:
   std::vector<enemy> get_enemies() const { return m_enemies; }
 
   /// Get the projectiles
-  const std::vector<projectile> &get_projectiles() const noexcept { return m_projectiles; }
+  const std::vector<projectile> &get_projectiles() const noexcept
+  {
+    return m_projectiles;
+  }
 
   /// Get enemies
   std::vector<shelter> get_shelters() const { return m_shelters; }
@@ -91,10 +94,10 @@ private:
 };
 
 /// Count the number of projectiles in the game
-int count_n_projectiles(const game& g) noexcept;
+int count_n_projectiles(const game &g) noexcept;
 
-///checks if there is at least one collision between players in the gamer
-bool has_collision(const game& g) noexcept;
+/// checks if there is at least one collision between players in the gamer
+bool has_collision(const game &g) noexcept;
 
 void test_game();
 

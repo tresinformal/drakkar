@@ -72,10 +72,10 @@ public:
   void stop_shooting() noexcept { m_is_shooting = false; }
 
   /// Set a player x position
-  void set_x(double x) noexcept {m_x = x;}
+  void set_x(double x) noexcept { m_x = x; }
 
   /// Set a player y position
-  void set_y(double y) noexcept {m_y = y;}
+  void set_y(double y) noexcept { m_y = y; }
 
   /// Turn the player left
   void turn_left() noexcept { m_direction += m_turn_rate; }
@@ -141,7 +141,7 @@ private:
 };
 
 /// Checks if two players are colliding
- bool are_colliding (const player &p1, const player &p2) noexcept;
+bool are_colliding(const player &p1, const player &p2) noexcept;
 
 /// Get the blueness (from the color) of the player
 int get_blueness(const player &p) noexcept;

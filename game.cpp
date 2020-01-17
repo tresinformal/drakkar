@@ -45,7 +45,7 @@ game::game(const int n_ticks, unsigned int num_players)
   }
 }
 
-int count_n_projectiles(const game& g) noexcept
+int count_n_projectiles(const game &g) noexcept
 {
   return static_cast<int>(g.get_projectiles().size());
 }
@@ -74,7 +74,7 @@ void game::apply_inertia()
 
 void game::move_projectiles()
 {
-  for (auto& p: m_projectiles)
+  for (auto &p : m_projectiles)
   {
     p.move();
   }
@@ -116,12 +116,15 @@ void game::tick()
   ++get_n_ticks();
 }
 
-bool has_collision(const game& g) noexcept {
+bool has_collision(const game &g) noexcept
+{
   const auto n_players = g.get_v_player().size();
-  for(unsigned int i =0; i < n_players; ++i)
+  for (unsigned int i = 0; i < n_players; ++i)
   {
-    for(unsigned int j = i+1; j < n_players; ++j){
-      if(are_colliding(g.get_player(i),g.get_player(j))) return true;
+    for (unsigned int j = i + 1; j < n_players; ++j)
+    {
+      if (are_colliding(g.get_player(i), g.get_player(j)))
+        return true;
     }
   }
   return false;
@@ -229,7 +232,8 @@ void test_game() //!OCLINT tests may be many
     const double x_after{g.get_projectiles()[0].get_x()};
     const double y_after{g.get_projectiles()[0].get_y()};
     // coordinats should differ
-    assert(std::abs(x_before - x_after) > 0.01 || std::abs(y_before - y_after) > 0.01);
+    assert(std::abs(x_before - x_after) > 0.01 ||
+           std::abs(y_before - y_after) > 0.01);
   }
   // Can get a player's direction by using a free function
   {
@@ -302,16 +306,15 @@ void test_game() //!OCLINT tests may be many
 
   // In the start of the game no players are colliding
   {
-  const game g;
-  assert(has_collision(g) == false);
+    const game g;
+    assert(has_collision(g) == false);
   }
-// two overlapping players signal a collision
+  // two overlapping players signal a collision
   {
     game g;
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
 
-    assert(has_collision(g)== true);
-
+    assert(has_collision(g) == true);
   }
 }

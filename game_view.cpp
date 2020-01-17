@@ -154,7 +154,6 @@ void game_view::draw_projectiles() noexcept
     circle.setFillColor(sf::Color(0, 0, 0));
     m_window.draw(circle);
   }
-
 }
 
 void game_view::draw_shelters() noexcept

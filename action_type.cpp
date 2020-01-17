@@ -32,8 +32,8 @@ const std::string to_str_act_type(action_type this_action_type)
     return "turn_right";
   case action_type::accelerate:
     return "accelerate";
-    case action_type::brake:
-      return "brake";
+  case action_type::brake:
+    return "brake";
   default:
     assert(this_action_type == action_type::shoot);
     return "shoot";
