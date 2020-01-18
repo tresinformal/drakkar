@@ -88,12 +88,12 @@ Timespan    |Activity
 
 Date       |Activity
 -----------|--------------------------------------------------------------------------
-2019-12-06 |Pick coding standard
-2019-12-13 |.
-2019-12-20 |.
-2019-12-27 |No tresinformal, due to holiday
-2020-01-03 |.
-2020-01-10 |.
+2020-01-24 |2nd half: group programming
+2020-01-31 |-
+2020-02-07 |2nd half: group programming
+2020-02-14 |-
+2020-02-21 |2nd half: group programming
+2020-02-28 |Meeting: (1) how do we enjoy group programming, (2) propose pair programming, (3) propose code review, (4) plan accordingly
 
 ## Screenshots
 
