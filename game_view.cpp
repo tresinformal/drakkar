@@ -129,7 +129,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
   for (const auto &player : m_game.get_v_player())
   {
     // Create the player sprite
-    sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
+    sf::RectangleShape rect(sf::Vector2f(player.get_size(), player.get_size()));
     rect.setFillColor(sf::Color(static_cast<sf::Uint8>(get_redness(player)),
                                 static_cast<sf::Uint8>(get_greenness(player)),
                                 static_cast<sf::Uint8>(get_blueness(player))));
