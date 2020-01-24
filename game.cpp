@@ -350,4 +350,5 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g) == true);
   }
+
 }
