@@ -347,7 +347,7 @@ void test_game() //!OCLINT tests may be many
   // In the start of the game no players are colliding
   {
     const game g;
-    assert(has_collision(g) == false);
+    assert(!has_collision(g));
   }
   // two overlapping players signal a collision
   {
@@ -355,18 +355,19 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
 
-    assert(has_collision(g) == true);
+    assert(has_collision(g));
   }
-  //if has_collision happens destroys a player
-    {
-        game g;
-        size_t initial_vec_player_size = g.get_v_player().size();
-        g.get_player(1).set_x(g.get_player(0).get_x());
-        g.get_player(1).set_y(g.get_player(0).get_y());
-        assert(has_collision(g));
-        g.tick();
-        assert(initial_vec_player_size > g.get_v_player().size());
-    }
+  // A collision destroys a player
+  {
+    game g;
+    const auto n_players_before = g.get_v_player().size();
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    g.tick();
+    const auto n_players_after = g.get_v_player().size();
+    assert(n_players_after < n_players_before);
+  }
 
 
 }
