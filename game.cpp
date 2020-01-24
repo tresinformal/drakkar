@@ -357,7 +357,7 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g) == true);
   }
-  //if has_collision happens destroy the loser
+  //if has_collision happens destroys a player
     {
         game g;
         size_t initial_vec_player_size = g.get_v_player().size();
@@ -366,7 +366,7 @@ void test_game() //!OCLINT tests may be many
         assert(has_collision(g));
         g.tick();
         assert(initial_vec_player_size > g.get_v_player().size());
-
-
     }
+
+
 }
