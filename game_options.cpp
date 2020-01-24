@@ -18,4 +18,13 @@ void test_game_options()
     const game_options g(do_play_music);
     assert(!g.do_play_music());
   }
+  #ifdef FIX_ISSUE_132
+  // Test for equality
+  {
+    const game_options a(true);
+    const game_options b(false);
+    assert(a == a);
+    assert(a != b);
+  }
+  #endif // FIX_ISSUE_132
 }
