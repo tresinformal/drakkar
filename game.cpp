@@ -115,6 +115,13 @@ void game::move_projectiles()
 
 void game::tick()
 {
+
+  //if collision abort game
+  if(has_collision(*this)){
+  m_v_player.pop_back();
+  }
+
+
   // Moves the projectiles
   move_projectiles();
 
@@ -350,5 +357,16 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g) == true);
   }
+  //if has_collision happens destroy the loser
+    {
+        game g;
+        size_t initial_vec_player_size = g.get_v_player().size();
+        g.get_player(1).set_x(g.get_player(0).get_x());
+        g.get_player(1).set_y(g.get_player(0).get_y());
+        assert(has_collision(g));
+        g.tick();
+        assert(initial_vec_player_size > g.get_v_player().size());
 
+
+    }
 }

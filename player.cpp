@@ -190,4 +190,5 @@ void test_player() //!OCLINT tests may be long
     const player p2(90.0, 0.0);
     assert(are_colliding(p1, p2));
   }
+
 }
