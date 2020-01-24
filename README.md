@@ -7,6 +7,7 @@ develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=deve
 apu    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=apu)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=apu)](https://codecov.io/github/tresinformal/game/branch/apu)
 josh   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=josh)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=josh)](https://codecov.io/github/tresinformal/game/branch/josh)
 pedro  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=pedro)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pedro)](https://codecov.io/github/tresinformal/game/branch/pedro)
+swom  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=stefano)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/pedro)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
