@@ -53,9 +53,6 @@ public:
   /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
   bool is_shooting() const noexcept { return m_is_shooting; }
 
-  /// makes the player in the game execute an action
-  void do_action(action_type action);
-
   /// Set the color of the player
   void set_color(const color &c) noexcept { m_color = c; }
 

@@ -45,23 +45,23 @@ void game_view::pl_1_input(sf::Event event) noexcept
   // buttons for  player1
   if (event.key.code == sf::Keyboard::D)
   {
-    m_game.get_player(0).do_action(action_type::turn_left);
+    m_game.do_action(0, action_type::turn_left);
   }
   else if (event.key.code == sf::Keyboard::A)
   {
-    m_game.get_player(0).do_action(action_type::turn_right);
+    m_game.do_action(0, action_type::turn_right);
   }
   else if (event.key.code == sf::Keyboard::W)
   {
-    m_game.get_player(0).do_action(action_type::accelerate);
+    m_game.do_action(0, action_type::accelerate);
   }
   else if (event.key.code == sf::Keyboard::S)
   {
-    m_game.get_player(0).do_action(action_type::brake);
+    m_game.do_action(0, action_type::brake);
   }
   else if (event.key.code == sf::Keyboard::Q)
   {
-    m_game.get_player(0).do_action(action_type::shoot);
+    m_game.do_action(0, action_type::shoot);
   }
 }
 
@@ -70,23 +70,23 @@ void game_view::pl_2_input(sf::Event event) noexcept
   // buttons for  player2
   if (event.key.code == sf::Keyboard::L)
   {
-    m_game.get_player(1).do_action(action_type::turn_left);
+    m_game.do_action(1, action_type::turn_left);
   }
   else if (event.key.code == sf::Keyboard::J)
   {
-    m_game.get_player(1).do_action(action_type::turn_right);
+    m_game.do_action(1, action_type::turn_right);
   }
   else if (event.key.code == sf::Keyboard::I)
   {
-    m_game.get_player(1).do_action(action_type::accelerate);
+    m_game.do_action(1, action_type::accelerate);
   }
   else if (event.key.code == sf::Keyboard::K)
   {
-    m_game.get_player(1).do_action(action_type::brake);
+    m_game.do_action(1, action_type::brake);
   }
   else if (event.key.code == sf::Keyboard::U)
   {
-    m_game.get_player(1).do_action(action_type::shoot);
+    m_game.do_action(1, action_type::shoot);
   }
 }
 

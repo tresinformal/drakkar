@@ -50,6 +50,39 @@ int count_n_projectiles(const game &g) noexcept
   return static_cast<int>(g.get_projectiles().size());
 }
 
+
+void game::do_action(unsigned int player_index, action_type action)
+{
+
+  switch (action)
+  {
+  case action_type::turn_left:
+  {
+    get_player(player_index).turn_left();
+    break;
+  }
+  case action_type::turn_right:
+  {
+    get_player(player_index).turn_right();
+    break;
+  }
+  case action_type::accelerate:
+  {
+    get_player(player_index).accelerate();
+    break;
+  }
+  case action_type::brake:
+  {
+    get_player(player_index).brake();
+    break;
+  }
+  case action_type::shoot:
+  {
+    get_player(player_index).shoot();
+    break;
+  }
+  }
+}
 double game::get_player_direction(unsigned int player_ind)
 {
   return get_player(player_ind).get_direction();
@@ -67,7 +100,7 @@ void game::apply_inertia()
     if (get_player(i).get_speed() > 0)
     {
       // And should this function take some value from environment?
-      get_player(i).do_action(action_type::brake);
+      do_action(i,action_type::brake);
     }
   }
 }
@@ -163,7 +196,7 @@ void test_game() //!OCLINT tests may be many
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
       const double before{g.get_player(i).get_direction()};
-      g.get_player(i).do_action(action_type::turn_left);
+      g.do_action(i,action_type::turn_left);
       const double after{g.get_player(i).get_direction()};
       assert(std::abs(before - after) > 0.01); // Should be different
     }
@@ -174,7 +207,7 @@ void test_game() //!OCLINT tests may be many
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
       const double before{g.get_player(i).get_direction()};
-      g.get_player(i).do_action(action_type::turn_right);
+      g.do_action(i, action_type::turn_right);
       const double after{g.get_player(i).get_direction()};
       assert(std::abs(before - after) > 0.01); // Should be different
     }
@@ -185,7 +218,7 @@ void test_game() //!OCLINT tests may be many
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
       const double before{g.get_player(i).get_speed()};
-      g.get_player(i).do_action(action_type::accelerate);
+      g.do_action(i, action_type::accelerate);
       const double after{g.get_player(i).get_speed()};
       assert(before - after < 0.01); // After should be > than before
     }
@@ -196,9 +229,9 @@ void test_game() //!OCLINT tests may be many
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
       // give the player a speed of more than 0
-      g.get_player(i).do_action(action_type::accelerate);
+      g.do_action(i, action_type::accelerate);
       const double before{g.get_player(i).get_speed()};
-      g.get_player(i).do_action(action_type::brake);
+      g.do_action(i, action_type::brake);
       const double after{g.get_player(i).get_speed()};
       assert(before - after > 0.0000000000000001);
       // After should be < than before
@@ -208,7 +241,7 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     assert(count_n_projectiles(g) == 0);
-    g.get_player(0).do_action(action_type::shoot);
+    g.do_action(0, action_type::shoot);
     // Without a tick, no projectile is formed yet
     assert(count_n_projectiles(g) == 0);
   }
@@ -216,14 +249,14 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     assert(count_n_projectiles(g) == 0);
-    g.get_player(0).do_action(action_type::shoot);
+    g.do_action(0, action_type::shoot);
     g.tick();
     assert(count_n_projectiles(g) == 1);
   }
   // Projectiles move
   {
     game g;
-    g.get_player(0).do_action(action_type::shoot);
+    g.do_action(0, action_type::shoot);
     g.tick();
     assert(count_n_projectiles(g) == 1);
     const double x_before{g.get_projectiles()[0].get_x()};
@@ -274,7 +307,7 @@ void test_game() //!OCLINT tests may be many
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
       // give the player a speed of more than 0
-      g.get_player(i).do_action(action_type::accelerate);
+      g.do_action(i, action_type::accelerate);
       before_v.push_back(g.get_player(i).get_speed());
     }
     g.apply_inertia();

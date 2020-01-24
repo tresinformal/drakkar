@@ -17,38 +17,7 @@ player::player(const double x, const double y, const player_shape shape,
 {
 }
 
-void player::do_action(action_type action)
-{
 
-  switch (action)
-  {
-  case action_type::turn_left:
-  {
-    turn_left();
-    break;
-  }
-  case action_type::turn_right:
-  {
-    turn_right();
-    break;
-  }
-  case action_type::accelerate:
-  {
-    accelerate();
-    break;
-  }
-  case action_type::brake:
-  {
-    brake();
-    break;
-  }
-  case action_type::shoot:
-  {
-    shoot();
-    break;
-  }
-  }
-}
 
 void player::brake() noexcept
 {
