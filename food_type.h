@@ -12,10 +12,10 @@ enum class food_type
   potion_of_camouflage
 };
 
-void test_food_type();
-
 std::ostream &operator<<(std::ostream &os, const food_type t);
 
 const std::string to_str_food_type(food_type this_food_type);
+
+void test_food_type();
 
 #endif // FOOD_TYPE_H

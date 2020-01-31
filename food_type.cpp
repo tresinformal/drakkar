@@ -14,6 +14,18 @@ void test_food_type()
     std::stringstream s;
     s << food_type::potion_of_camouflage;
   }
+  {
+    std::stringstream s;
+    s << food_type::neutral;
+  }
+  {
+    std::stringstream s;
+    s << food_type::laser;
+  }
+  {
+    std::stringstream s;
+    s << food_type::poison;
+  }
 }
 
 std::ostream &operator<<(std::ostream &os, const food_type t)
