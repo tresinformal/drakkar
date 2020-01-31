@@ -23,6 +23,12 @@ public:
   void do_action(unsigned int player_index, action_type action);
 
 
+  ///returns the collision vector
+  const std::vector<unsigned int>& get_collision_vec(){return m_v_collisions_ind;}
+
+  ///sets the collision vector
+  void set_collision_vector(unsigned  int lhs, unsigned int rhs);
+
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
 
@@ -75,6 +81,9 @@ private:
   /// The player
   std::vector<player> m_v_player;
 
+  ///Vector of index of the players that collide
+  std::vector<unsigned int> m_v_collisions_ind;
+
   /// the environment
   environment m_environment;
 
@@ -101,7 +110,7 @@ private:
 int count_n_projectiles(const game &g) noexcept;
 
 /// checks if there is at least one collision between players in the gamer
-bool has_collision(const game &g) noexcept;
+bool has_collision(game &g) noexcept;
 
 void test_game();
 

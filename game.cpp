@@ -93,6 +93,12 @@ double get_player_direction(game g, unsigned int player_ind)
   return g.get_player(player_ind).get_direction();
 }
 
+void game::set_collision_vector(unsigned int lhs, unsigned int rhs)
+{
+ m_v_collisions_ind.push_back(lhs);
+ m_v_collisions_ind.push_back(rhs);
+}
+
 void game::apply_inertia()
 {
   for (unsigned int i = 0; i < get_v_player().size(); ++i)
@@ -118,8 +124,10 @@ void game::tick()
 
   //if collision abort game
   if(has_collision(*this)){
-  m_v_player.pop_back();
+  m_v_player.erase(m_v_player.begin() + m_v_collisions_ind[0]);
   }
+
+
 
 
   // Moves the projectiles
@@ -156,7 +164,7 @@ void game::tick()
   ++get_n_ticks();
 }
 
-bool has_collision(const game &g) noexcept
+bool has_collision( game &g) noexcept
 {
   const auto n_players = g.get_v_player().size();
   for (unsigned int i = 0; i < n_players; ++i)
@@ -164,7 +172,10 @@ bool has_collision(const game &g) noexcept
     for (unsigned int j = i + 1; j < n_players; ++j)
     {
       if (are_colliding(g.get_player(i), g.get_player(j)))
-        return true;
+        {
+          g.set_collision_vector(i,j);
+          return true;
+        }
     }
   }
   return false;
@@ -346,7 +357,7 @@ void test_game() //!OCLINT tests may be many
 
   // In the start of the game no players are colliding
   {
-    const game g;
+    game g;
     assert(!has_collision(g));
   }
   // two overlapping players signal a collision
@@ -368,6 +379,26 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after = g.get_v_player().size();
     assert(n_players_after < n_players_before);
   }
+  // A collision destroy one of the colliding player
+  {
+    game g;
+    const auto n_players_before = g.get_v_player().size();
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    g.tick();
+    const auto n_players_after = g.get_v_player().size();
+    assert(n_players_after < n_players_before);
+    assert(!has_collision(g));
+    g.tick();
+    const auto n_players_after_after = g.get_v_player().size();
+    assert(n_players_after_after == n_players_after);
+  }
+
+
+
+
+
 
 
 }
