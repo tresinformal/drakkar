@@ -4,6 +4,11 @@
 // Try to define the class 'game_options' yourself
 game_options::game_options(const bool play_music) : m_play_music{play_music} {}
 
+bool operator==(const game_options& lhs, const game_options& rhs) noexcept {
+  // Check if left-hand side is equal to the right-hand side
+  return lhs.do_play_music()==rhs.do_play_music();
+}
+
 void test_game_options()
 {
 
@@ -18,13 +23,12 @@ void test_game_options()
     const game_options g(do_play_music);
     assert(!g.do_play_music());
   }
-  #ifdef FIX_ISSUE_132
+
   // Test for equality
   {
     const game_options a(true);
     const game_options b(false);
     assert(a == a);
-    assert(a != b);
+    assert(!(a == b));
   }
-  #endif // FIX_ISSUE_132
 }
