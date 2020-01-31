@@ -24,6 +24,9 @@ public:
   /// Get a picture of Franjo
   sf::Texture &get_franjo() noexcept { return m_franjo; }
 
+  /// Get a picture of Franjo
+  sf::Texture &get_rocket() noexcept { return m_rocket; }
+
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
@@ -40,6 +43,9 @@ public:
 private:
   /// Franjo
   sf::Texture m_franjo;
+
+  /// Franjo
+  sf::Texture m_rocket;
 
   /// A grass landscape
   sf::Texture m_grass_landscape;

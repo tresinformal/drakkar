@@ -6,5 +6,6 @@
         <file>player_sprite.png</file>
         <file>franjo.png</file>
         <file>wonderland.ogg</file>
+        <file>rocket_sprite.png</file>
     </qresource>
 </RCC>

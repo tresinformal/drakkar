@@ -10,6 +10,9 @@ public:
   double get_x() const noexcept { return m_x; }
   double get_y() const noexcept { return m_y; }
 
+  /// Get the direction of player movement
+  double get_direction() const noexcept { return m_direction; }
+
   /// Move a certain distance (of 1.0 for now) in the direction the projectile
   /// is facing
   void move();

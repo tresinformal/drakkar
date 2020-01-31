@@ -148,13 +148,19 @@ void game_view::draw_projectiles() noexcept
 {
   for (const auto &projectile : m_game.get_projectiles())
   {
-    const double radius{3.14};
-    sf::CircleShape circle(radius);
-    circle.setPosition(projectile.get_x(), projectile.get_y());
-    circle.setFillColor(sf::Color(0, 0, 0));
-    m_window.draw(circle);
+      // Create the player sprite
+      sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
+
+      rect.setRotation(static_cast<float>(90));
+      rect.setPosition(projectile.get_x(), projectile.get_y());
+      rect.setTexture(&m_game_resources.get_rocket());
+      rect.rotate(projectile.get_direction());
+
+      // Draw the player
+      m_window.draw(rect);
   }
 }
+
 
 void game_view::draw_shelters() noexcept
 {
