@@ -9,6 +9,10 @@ bool operator==(const game_options& lhs, const game_options& rhs) noexcept {
   return lhs.do_play_music()==rhs.do_play_music();
 }
 
+bool operator!=(const game_options& lhs, const game_options& rhs) noexcept {
+  return !(lhs==rhs);
+}
+
 void test_game_options()
 {
 
@@ -29,6 +33,6 @@ void test_game_options()
     const game_options a(true);
     const game_options b(false);
     assert(a == a);
-    assert(!(a == b));
+    assert(a != b);
   }
 }

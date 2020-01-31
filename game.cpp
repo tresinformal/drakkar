@@ -5,9 +5,9 @@
 #include <cmath>
 #include <iostream>
 
-game::game(const int n_ticks, unsigned int num_players)
+game::game(const int n_ticks, int num_players)
     : m_n_ticks{n_ticks},
-      m_v_player(num_players, player()), m_food{1}, m_enemies{1}, m_shelters(3)
+      m_v_player(static_cast<unsigned int>(num_players), player()), m_food{1}, m_enemies{1}, m_shelters(3)
 {
   for (unsigned int i = 0; i < m_v_player.size(); ++i)
   {
@@ -83,9 +83,9 @@ void game::do_action(unsigned int player_index, action_type action)
   }
   }
 }
-double game::get_player_direction(unsigned int player_ind)
+double game::get_player_direction( int player_ind)
 {
-  return get_player(player_ind).get_direction();
+  return get_player(static_cast<unsigned int>(player_ind)).get_direction();
 }
 
 double get_player_direction(game g, unsigned int player_ind)

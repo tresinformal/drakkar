@@ -17,7 +17,7 @@
 class game
 {
 public:
-  game(const int n_ticks = 0, unsigned int num_players = 3);
+  game(const int n_ticks = 0, int num_players = 3);
 
   ///makes a player do an action
   void do_action(unsigned int player_index, action_type action);
@@ -30,7 +30,7 @@ public:
   int &get_n_ticks() noexcept { return m_n_ticks; }
 
   /// Gets the player direction
-  double get_player_direction(unsigned int player_ind);
+  double get_player_direction( int player_ind);
 
   /// Get the vector of players
   const std::vector<player> &get_v_player() const { return m_v_player; }
