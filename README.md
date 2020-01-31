@@ -89,12 +89,11 @@ Timespan    |Activity
 
 Date       |Activity
 -----------|--------------------------------------------------------------------------
-2020-01-24 |2nd half: group programming
-2020-01-31 |-
-2020-02-07 |2nd half: group programming
+2020-01-31 |2nd half: pair programming
+2020-02-07 |-
 2020-02-14 |-
-2020-02-21 |2nd half: group programming
-2020-02-28 |Meeting: (1) how do we enjoy group programming, (2) propose pair programming, (3) propose code review, (4) plan accordingly
+2020-02-21 |-
+2020-02-28 |-
 
 ## Screenshots
 
