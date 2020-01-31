@@ -154,7 +154,7 @@ void game_view::draw_projectiles() noexcept
       rect.setRotation(static_cast<float>(90));
       rect.setPosition(projectile.get_x(), projectile.get_y());
       rect.setTexture(&m_game_resources.get_rocket());
-      rect.rotate(projectile.get_direction());
+      rect.rotate(projectile.get_direction() * 180 / M_PI);
 
       // Draw the player
       m_window.draw(rect);
