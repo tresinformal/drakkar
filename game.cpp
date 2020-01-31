@@ -124,7 +124,7 @@ void game::tick()
 
   //if collision abort game
   if(has_collision(*this)){
-  m_v_player.erase(m_v_player.begin() + m_v_collisions_ind[0]);
+  m_v_player.erase(m_v_player.begin() + get_collision_members(*this)[0]);
   }
 
 
@@ -164,7 +164,7 @@ void game::tick()
   ++get_n_ticks();
 }
 
-bool has_collision( game &g) noexcept
+bool has_collision(const game &g) noexcept
 {
   const auto n_players = g.get_v_player().size();
   for (unsigned int i = 0; i < n_players; ++i)
@@ -173,12 +173,31 @@ bool has_collision( game &g) noexcept
     {
       if (are_colliding(g.get_player(i), g.get_player(j)))
         {
-          g.set_collision_vector(i,j);
           return true;
         }
     }
   }
   return false;
+}
+
+
+
+std::vector<unsigned int> get_collision_members(const game &g) noexcept
+{
+  std::vector<unsigned int> v_collisions;
+  const auto n_players = g.get_v_player().size();
+  for (unsigned int i = 0; i < n_players; ++i)
+  {
+    for (unsigned int j = i + 1; j < n_players; ++j)
+    {
+      if (are_colliding(g.get_player(i), g.get_player(j)))
+        {
+          v_collisions.push_back(i);
+          v_collisions.push_back(j);
+        }
+    }
+  }
+  return v_collisions;
 }
 
 void test_game() //!OCLINT tests may be many
