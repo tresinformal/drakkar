@@ -1,11 +1,9 @@
 #include "food_type.h"
 #include <sstream>
-
 // in food_type.cpp
 
 void test_food_type()
 {
-  // ...
   {
     std::stringstream s;
     s << food_type::rocket;
