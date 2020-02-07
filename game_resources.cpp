@@ -72,11 +72,42 @@ game_resources::game_resources()
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
+  // load menu music "wonderland"
   {
     const QString filename{"wonderland.ogg"};
     QFile f(":/" + filename);
     f.copy(filename);
     if (!m_wonderland.openFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find sound file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+#endif // IS_ON_TRAVIS
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
+  // load sound for shooting
+  {
+    const QString filename{"shoot.ogg"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_shoot.openFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find sound file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+#endif // IS_ON_TRAVIS
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
+  // load sound for bumping into something/someone
+  {
+    const QString filename{"bump.ogg"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_bump.openFromFile(filename.toStdString()))
     {
       QString msg{"Cannot find sound file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());

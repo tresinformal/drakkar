@@ -7,5 +7,7 @@
         <file>franjo.png</file>
         <file>wonderland.ogg</file>
         <file>rocket_sprite.png</file>
+        <file>bump.ogg</file>
+        <file>shoot.ogg</file>
     </qresource>
 </RCC>
