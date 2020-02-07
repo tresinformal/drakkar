@@ -17,11 +17,17 @@
 class game
 {
 public:
-  game(const int n_ticks = 0, unsigned int num_players = 3);
+  game(const int n_ticks = 0, int num_players = 3);
 
   ///makes a player do an action
   void do_action(unsigned int player_index, action_type action);
 
+
+  ///returns the collision vector
+  const std::vector<unsigned int>& get_collision_vec(){return m_v_collisions_ind;}
+
+  ///sets the collision vector
+  void set_collision_vector(unsigned  int lhs, unsigned int rhs);
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
@@ -30,7 +36,7 @@ public:
   int &get_n_ticks() noexcept { return m_n_ticks; }
 
   /// Gets the player direction
-  double get_player_direction(unsigned int player_ind);
+  double get_player_direction( int player_ind);
 
   /// Get the vector of players
   const std::vector<player> &get_v_player() const { return m_v_player; }
@@ -75,6 +81,9 @@ private:
   /// The player
   std::vector<player> m_v_player;
 
+  ///Vector of index of the players that collide
+  std::vector<unsigned int> m_v_collisions_ind;
+
   /// the environment
   environment m_environment;
 
@@ -102,6 +111,8 @@ int count_n_projectiles(const game &g) noexcept;
 
 /// checks if there is at least one collision between players in the gamer
 bool has_collision(const game &g) noexcept;
+
+std::vector<unsigned int> get_collision_members(const game &g) noexcept;
 
 void test_game();
 
