@@ -18,14 +18,18 @@ public:
   /// Get the texture of a heterogenous landscape
   sf::Texture &get_grass_landscape() noexcept { return m_grass_landscape; }
 
-  /// Get the texture of a heterogenous landscape
+  /// Get the texture of a the player
   sf::Texture &get_player_sprite() noexcept { return m_player_sprite; }
 
   /// Get a picture of Franjo
   sf::Texture &get_franjo() noexcept { return m_franjo; }
 
-  /// Get a picture of Franjo
+  /// Get a picture of Rocket
   sf::Texture &get_rocket() noexcept { return m_rocket; }
+
+  /// Get a picture of a Cat
+  sf::Texture &get_cat() noexcept { return m_cat; }
+
 
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
@@ -44,17 +48,20 @@ private:
   /// Franjo
   sf::Texture m_franjo;
 
-  /// Franjo
+  /// Rocket
   sf::Texture m_rocket;
 
   /// A grass landscape
   sf::Texture m_grass_landscape;
 
-  /// A grass landscape
+  /// Player sprite
   sf::Texture m_player_sprite;
 
   /// A heterogenous landscape
   sf::Texture m_heterogenous_landscape;
+
+  /// Rocket
+  sf::Texture m_cat;
 
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the

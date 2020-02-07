@@ -148,16 +148,33 @@ void game_view::draw_projectiles() noexcept
 {
   for (const auto &projectile : m_game.get_projectiles())
   {
-      // Create the player sprite
-      sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
+      //Every 7 projectile the projectile becames a cat
+      if (m_game.get_projectiles().size() % 7 == 0){
+      // Create the projectile sprite
+      sf::RectangleShape rect(sf::Vector2f(220.0, 120.0));
 
-      rect.setRotation(static_cast<float>(90));
+      rect.setRotation(static_cast<float>(0));
       rect.setPosition(projectile.get_x(), projectile.get_y());
-      rect.setTexture(&m_game_resources.get_rocket());
+      rect.setTexture(&m_game_resources.get_cat());
       rect.rotate(projectile.get_direction() * 180 / M_PI);
 
-      // Draw the player
+      // Draw the cat
       m_window.draw(rect);
+      }
+      else {
+          // Create the projectile sprite
+          sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
+
+          rect.setRotation(static_cast<float>(90));
+          rect.setPosition(projectile.get_x(), projectile.get_y());
+          rect.setTexture(&m_game_resources.get_rocket());
+          rect.rotate(projectile.get_direction() * 180 / M_PI);
+
+          // Draw the rocket
+          m_window.draw(rect);
+        }
+
+
   }
 }
 
