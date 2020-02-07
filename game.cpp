@@ -413,11 +413,12 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after_after = g.get_v_player().size();
     assert(n_players_after_after == n_players_after);
   }
-
-
-
-
-
-
+  #ifdef FIX_ISSUE_135
+  // In the start of the game, there is no player-food collision
+  {
+    game g;
+    assert(!has_food_collision(g));
+  }
+  #endif // FIX_ISSUE_135
 
 }
