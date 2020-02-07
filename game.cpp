@@ -437,5 +437,4 @@ void test_game() //!OCLINT tests may be many
     assert(!has_enemy_collision(g));
   }
   #endif // FIX_ISSUE_138
-  assert(1==2);
 }
