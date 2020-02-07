@@ -2,6 +2,7 @@
 #include "environment.h"
 #include "environment_type.h"
 #include "food.h"
+#include "food_type.h"
 #include "game.h"
 #include "game_options.h"
 #include "game_resources.h"
@@ -27,6 +28,7 @@ void test()
   test_environment();
   test_environment_type();
   test_food();
+  test_food_type();
   test_menu();
   test_menu_button();
 #ifndef LOGIC_ONLY

@@ -1,11 +1,9 @@
 #include "food_type.h"
 #include <sstream>
-
 // in food_type.cpp
 
 void test_food_type()
 {
-  // ...
   {
     std::stringstream s;
     s << food_type::rocket;
@@ -13,6 +11,18 @@ void test_food_type()
   {
     std::stringstream s;
     s << food_type::potion_of_camouflage;
+  }
+  {
+    std::stringstream s;
+    s << food_type::neutral;
+  }
+  {
+    std::stringstream s;
+    s << food_type::laser;
+  }
+  {
+    std::stringstream s;
+    s << food_type::poison;
   }
 }
 
