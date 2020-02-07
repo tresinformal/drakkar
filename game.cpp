@@ -420,5 +420,11 @@ void test_game() //!OCLINT tests may be many
     assert(!has_food_collision(g));
   }
   #endif // FIX_ISSUE_135
-
+  #ifdef FIX_ISSUE_138
+  // In the start of the game, there is no player-enemy collision
+  {
+    game g;
+    assert(!has_enemy_collision(g));
+  }
+  #endif // FIX_ISSUE_138
 }
