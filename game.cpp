@@ -5,9 +5,9 @@
 #include <cmath>
 #include <iostream>
 
-game::game(const int n_ticks, unsigned int num_players)
+game::game(const int n_ticks, int num_players)
     : m_n_ticks{n_ticks},
-      m_v_player(num_players, player()), m_food{1}, m_enemies{1}, m_shelters(3)
+      m_v_player(static_cast<unsigned int>(num_players), player()), m_food{1}, m_enemies{1}, m_shelters(3)
 {
   for (unsigned int i = 0; i < m_v_player.size(); ++i)
   {
@@ -83,14 +83,20 @@ void game::do_action(unsigned int player_index, action_type action)
   }
   }
 }
-double game::get_player_direction(unsigned int player_ind)
+double game::get_player_direction( int player_ind)
 {
-  return get_player(player_ind).get_direction();
+  return get_player(static_cast<unsigned int>(player_ind)).get_direction();
 }
 
 double get_player_direction(game g, unsigned int player_ind)
 {
   return g.get_player(player_ind).get_direction();
+}
+
+void game::set_collision_vector(unsigned int lhs, unsigned int rhs)
+{
+ m_v_collisions_ind.push_back(lhs);
+ m_v_collisions_ind.push_back(rhs);
 }
 
 void game::apply_inertia()
@@ -118,8 +124,10 @@ void game::tick()
 
   //if collision abort game
   if(has_collision(*this)){
-  m_v_player.pop_back();
+  m_v_player.erase(m_v_player.begin() + get_collision_members(*this)[0]);
   }
+
+
 
 
   // Moves the projectiles
@@ -164,10 +172,32 @@ bool has_collision(const game &g) noexcept
     for (unsigned int j = i + 1; j < n_players; ++j)
     {
       if (are_colliding(g.get_player(i), g.get_player(j)))
-        return true;
+        {
+          return true;
+        }
     }
   }
   return false;
+}
+
+
+
+std::vector<unsigned int> get_collision_members(const game &g) noexcept
+{
+  std::vector<unsigned int> v_collisions;
+  const auto n_players = g.get_v_player().size();
+  for (unsigned int i = 0; i < n_players; ++i)
+  {
+    for (unsigned int j = i + 1; j < n_players; ++j)
+    {
+      if (are_colliding(g.get_player(i), g.get_player(j)))
+        {
+          v_collisions.push_back(i);
+          v_collisions.push_back(j);
+        }
+    }
+  }
+  return v_collisions;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -346,7 +376,7 @@ void test_game() //!OCLINT tests may be many
 
   // In the start of the game no players are colliding
   {
-    const game g;
+    game g;
     assert(!has_collision(g));
   }
   // two overlapping players signal a collision
@@ -368,6 +398,43 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after = g.get_v_player().size();
     assert(n_players_after < n_players_before);
   }
-
-
+  // A collision destroy one of the colliding player
+  {
+    game g;
+    const auto n_players_before = g.get_v_player().size();
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    g.tick();
+    const auto n_players_after = g.get_v_player().size();
+    assert(n_players_after < n_players_before);
+    assert(!has_collision(g));
+    g.tick();
+    const auto n_players_after_after = g.get_v_player().size();
+    assert(n_players_after_after == n_players_after);
+  }
+  #ifdef FIX_ISSUE_135
+  // In the start of the game, there is no player-food collision
+  {
+    game g;
+    assert(!has_food_collision(g));
+  }
+  #endif // FIX_ISSUE_135
+  #ifdef FIX_ISSUE_139
+  //Can modify food items, for example, delete all food items
+  {
+    game g;
+    g.get_food();
+    assert(!g.get_food().empty());
+    g.get_food().clear();
+    assert(g.get_food().empty());
+  }
+  #endif //FIX_ISSUE_139
+  #ifdef FIX_ISSUE_138
+  // In the start of the game, there is no player-enemy collision
+  {
+    game g;
+    assert(!has_enemy_collision(g));
+  }
+  #endif // FIX_ISSUE_138
 }
