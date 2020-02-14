@@ -1,5 +1,6 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
+#include "projectile_type.h"
 
 class projectile
 {
@@ -17,6 +18,9 @@ public:
   /// is facing
   void move();
 
+  /// Get projectile type of the game
+  projectile_type get_type() const { return m_projectile_type; }
+
 private:
   /// The x coordinat
   double m_x;
@@ -26,6 +30,10 @@ private:
 
   /// The direction of projectile in radians
   double m_direction;
+
+  /// the environment
+   projectile_type m_projectile_type;
+
 };
 
 #endif // PROJECTILE_H
