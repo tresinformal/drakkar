@@ -20,14 +20,14 @@ public:
   game(const int n_ticks = 0, int num_players = 3);
 
   ///makes a player do an action
-  void do_action(unsigned int player_index, action_type action);
+  void do_action(int player_index, action_type action);
 
 
   ///returns the collision vector
-  const std::vector<unsigned int>& get_collision_vec(){return m_v_collisions_ind;}
+  const auto& get_collision_vec(){return m_v_collisions_ind;}
 
   ///sets the collision vector
-  void set_collision_vector(unsigned  int lhs, unsigned int rhs);
+  void set_collision_vector(int lhs, int rhs);
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
@@ -36,16 +36,16 @@ public:
   int &get_n_ticks() noexcept { return m_n_ticks; }
 
   /// Gets the player direction
-  double get_player_direction( int player_ind);
+  double get_player_direction(int player_ind);
 
   /// Get the vector of players
   const std::vector<player> &get_v_player() const { return m_v_player; }
 
   /// Get the player at a specified index in the vector of players
-  const player &get_player(unsigned int i) const { return m_v_player[i]; }
+  const player &get_player(int i) const { return m_v_player[static_cast<unsigned int>(i)]; }
 
   /// Get reference to player to change some parameters
-  player &get_player(unsigned int i) { return m_v_player[i]; }
+  player &get_player(int i) { return m_v_player[static_cast<unsigned int>(i)]; }
 
   /// Get environment size of the game
   environment get_environment() const { return m_environment; }
@@ -72,7 +72,7 @@ public:
   void tick();
 
   /// Get initial x distance of players
-  unsigned int get_dist_x_pls() const noexcept { return m_dist_x_pls; }
+  auto get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
 private:
   /// the number of ticks
@@ -82,7 +82,7 @@ private:
   std::vector<player> m_v_player;
 
   ///Vector of index of the players that collide
-  std::vector<unsigned int> m_v_collisions_ind;
+  std::vector<int> m_v_collisions_ind;
 
   /// the environment
   environment m_environment;
@@ -100,7 +100,7 @@ private:
   std::vector<shelter> m_shelters;
 
   /// starting x distance between players
-  const unsigned int m_dist_x_pls = 300;
+  const int m_dist_x_pls = 300;
 
   /// Moves the projectiles
   void move_projectiles();
@@ -112,7 +112,7 @@ int count_n_projectiles(const game &g) noexcept;
 /// checks if there is at least one collision between players in the gamer
 bool has_collision(const game &g) noexcept;
 
-std::vector<unsigned int> get_collision_members(const game &g) noexcept;
+auto get_collision_members(const game &g) noexcept;
 
 void test_game();
 

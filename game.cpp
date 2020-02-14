@@ -12,7 +12,7 @@ game::game(const int n_ticks, int num_players)
   for (unsigned int i = 0; i < m_v_player.size(); ++i)
   {
     m_v_player[i] =
-        player(300.0 + m_dist_x_pls * i, 400.0, player_shape::rocket);
+        player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
   }
   // Set color
   {
@@ -51,7 +51,7 @@ int count_n_projectiles(const game &g) noexcept
 }
 
 
-void game::do_action(unsigned int player_index, action_type action)
+void game::do_action(int player_index, action_type action)
 {
 
   switch (action)
@@ -85,15 +85,15 @@ void game::do_action(unsigned int player_index, action_type action)
 }
 double game::get_player_direction( int player_ind)
 {
-  return get_player(static_cast<unsigned int>(player_ind)).get_direction();
+  return get_player(player_ind).get_direction();
 }
 
-double get_player_direction(game g, unsigned int player_ind)
+double get_player_direction(game g, int player_ind)
 {
   return g.get_player(player_ind).get_direction();
 }
 
-void game::set_collision_vector(unsigned int lhs, unsigned int rhs)
+void game::set_collision_vector( int lhs,  int rhs)
 {
  m_v_collisions_ind.push_back(lhs);
  m_v_collisions_ind.push_back(rhs);
@@ -101,7 +101,7 @@ void game::set_collision_vector(unsigned int lhs, unsigned int rhs)
 
 void game::apply_inertia()
 {
-  for (unsigned int i = 0; i < get_v_player().size(); ++i)
+  for ( int i = 0; i != static_cast<int>(get_v_player().size()); ++i)
   {
     if (get_player(i).get_speed() > 0)
     {
@@ -117,6 +117,43 @@ void game::move_projectiles()
   {
     p.move();
   }
+}
+
+bool has_collision(const game &g) noexcept
+{
+  const auto n_players = g.get_v_player().size();
+  for (unsigned int i = 0; i < n_players; ++i)
+  {
+    for (unsigned int j = i + 1; j < n_players; ++j)
+    {
+      if (are_colliding(g.get_player(static_cast<int>(i)),
+                        g.get_player(static_cast<int>(j))
+                        )
+          )
+        {
+          return true;
+        }
+    }
+  }
+  return false;
+}
+
+auto get_collision_members(const game &g) noexcept
+{
+  std::vector<int> v_collisions;
+  const int n_players = static_cast<int>(g.get_v_player().size());
+  for (auto i = 0; i < n_players; ++i)
+  {
+    for (auto j = i + 1; j < n_players; ++j)
+    {
+      if (are_colliding(g.get_player(i), g.get_player(j)))
+        {
+          v_collisions.push_back(i);
+          v_collisions.push_back(j);
+        }
+    }
+  }
+  return v_collisions;
 }
 
 void game::tick()
@@ -164,41 +201,6 @@ void game::tick()
   ++get_n_ticks();
 }
 
-bool has_collision(const game &g) noexcept
-{
-  const auto n_players = g.get_v_player().size();
-  for (unsigned int i = 0; i < n_players; ++i)
-  {
-    for (unsigned int j = i + 1; j < n_players; ++j)
-    {
-      if (are_colliding(g.get_player(i), g.get_player(j)))
-        {
-          return true;
-        }
-    }
-  }
-  return false;
-}
-
-
-
-std::vector<unsigned int> get_collision_members(const game &g) noexcept
-{
-  std::vector<unsigned int> v_collisions;
-  const auto n_players = g.get_v_player().size();
-  for (unsigned int i = 0; i < n_players; ++i)
-  {
-    for (unsigned int j = i + 1; j < n_players; ++j)
-    {
-      if (are_colliding(g.get_player(i), g.get_player(j)))
-        {
-          v_collisions.push_back(i);
-          v_collisions.push_back(j);
-        }
-    }
-  }
-  return v_collisions;
-}
 
 void test_game() //!OCLINT tests may be many
 {
@@ -214,7 +216,7 @@ void test_game() //!OCLINT tests may be many
     // The value 1234.5 is irrelevant: just get this to compile
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
-      assert(g.get_player(i).get_x() > -1234.5);
+      assert(g.get_player(static_cast<int>(i)).get_x() > -1234.5);
     }
   }
   // A game has food items
@@ -230,7 +232,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can turn left
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
     {
       const double before{g.get_player(i).get_direction()};
       g.do_action(i,action_type::turn_left);
@@ -241,7 +243,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can turn right
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       const double before{g.get_player(i).get_direction()};
       g.do_action(i, action_type::turn_right);
@@ -252,7 +254,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can accelerate
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       const double before{g.get_player(i).get_speed()};
       g.do_action(i, action_type::accelerate);
@@ -263,7 +265,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can break
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       // give the player a speed of more than 0
       g.do_action(i, action_type::accelerate);
@@ -308,7 +310,7 @@ void test_game() //!OCLINT tests may be many
   // Can get a player's direction by using a free function
   {
     const game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       const double a{g.get_player(i).get_direction()};
       const double b{get_player_direction(g, i)};
@@ -341,14 +343,14 @@ void test_game() //!OCLINT tests may be many
     game g;
     std::vector<double> before_v;
     std::vector<double> after_v;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       // give the player a speed of more than 0
       g.do_action(i, action_type::accelerate);
       before_v.push_back(g.get_player(i).get_speed());
     }
     g.apply_inertia();
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       after_v.push_back(g.get_player(i).get_speed());
     }
@@ -363,7 +365,7 @@ void test_game() //!OCLINT tests may be many
   // along the x axis at initialization
   {
     game g;
-    for (unsigned int i = 0; i < (g.get_v_player().size() - 1); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size() - 1); ++i)
     {
       assert(g.get_player(i).get_x() - g.get_player(i + 1).get_x() +
                      g.get_dist_x_pls() <
