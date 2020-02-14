@@ -123,11 +123,21 @@ void game::tick()
 {
 
   //if collision abort game
-  if(has_collision(*this)){
-  m_v_player.erase(m_v_player.begin() + get_collision_members(*this)[0]);
+  if(has_collision(*this)) {
+    const int first_player_index = get_collision_members(*this)[0];
+    const int second_player_index = get_collision_members(*this)[1];
+    const player& first_player = m_v_player[first_player_index];
+    const player& second_player = m_v_player[second_player_index];
+  if (first_player.get_color().get_red() >
+     second_player.get_color().get_red())
+  {
+    m_v_player.erase(m_v_player.begin() + second_player_index);
   }
-
-
+  else
+  {
+      m_v_player.erase(m_v_player.begin() + first_player_index);
+  }
+}
 
 
   // Moves the projectiles
@@ -437,4 +447,31 @@ void test_game() //!OCLINT tests may be many
     assert(!has_enemy_collision(g));
   }
   #endif // FIX_ISSUE_138
+  //If red eats green then red survives
+  {
+    game g;
+    assert(g.get_player(0).get_color().get_red() == 255);
+    assert(g.get_player(1).get_color().get_green() == 255);
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    g.tick();
+    assert(g.get_player(0).get_color().get_red() > 250);
+  }
+  #ifdef FIX_ISSUE_VALENTINES_DAY
+  //If green eats blue then green survives
+  {
+    game g;
+    assert(g.get_player(1).get_color().get_green() == 255);
+    assert(g.get_player(2).get_color().get_blue() == 255);
+    g.get_player(1).set_x(g.get_player(2).get_x());
+    g.get_player(1).set_y(g.get_player(2).get_y());
+    assert(has_collision(g));
+    g.tick();
+    assert(g.get_player(1).get_color().get_green() > 250);
+  }
+  #endif // FIX_ISSUE_VALENTINES_DAY
+
 }
+
+
