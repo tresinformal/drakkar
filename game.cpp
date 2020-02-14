@@ -420,5 +420,21 @@ void test_game() //!OCLINT tests may be many
     assert(!has_food_collision(g));
   }
   #endif // FIX_ISSUE_135
-
+  #ifdef FIX_ISSUE_139
+  //Can modify food items, for example, delete all food items
+  {
+    game g;
+    g.get_food();
+    assert(!g.get_food().empty());
+    g.get_food().clear();
+    assert(g.get_food().empty());
+  }
+  #endif //FIX_ISSUE_139
+  #ifdef FIX_ISSUE_138
+  // In the start of the game, there is no player-enemy collision
+  {
+    game g;
+    assert(!has_enemy_collision(g));
+  }
+  #endif // FIX_ISSUE_138
 }

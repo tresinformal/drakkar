@@ -44,6 +44,20 @@ public:
   sf::Music &get_wonderland() noexcept { return m_wonderland; }
 #endif // IS_ON_TRAVIS
 
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
+  /// Get 'shoot' sound
+  sf::Music &get_shoot() noexcept { return m_shoot; }
+#endif // IS_ON_TRAVIS
+
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
+  /// Get 'bump' sound
+  sf::Music &get_bump() noexcept { return m_bump; }
+#endif // IS_ON_TRAVIS
+
 private:
   /// Franjo
   sf::Texture m_franjo;
@@ -75,6 +89,20 @@ private:
   // build to fail
   /// 'wonderland' from Sebastian
   sf::Music m_wonderland;
+#endif // IS_ON_TRAVIS
+
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
+  /// 'shoot' sound from Sebastian
+  sf::Music m_shoot;
+#endif // IS_ON_TRAVIS
+
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
+  /// 'bump' sound from Sebastian
+  sf::Music m_bump;
 #endif // IS_ON_TRAVIS
 };
 
