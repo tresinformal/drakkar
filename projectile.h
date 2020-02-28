@@ -6,7 +6,7 @@ class projectile
 {
 public:
   projectile(const double x = 0.0, const double y = 0.0,
-             const double direction = 0.0);
+             const double direction = 0.0, projectile_type = projectile_type::rocket);
 
   double get_x() const noexcept { return m_x; }
   double get_y() const noexcept { return m_y; }
@@ -20,6 +20,8 @@ public:
 
   /// Get projectile type of the game
   projectile_type get_type() const { return m_projectile_type; }
+
+  void set_type(const projectile_type &p_type) noexcept { m_projectile_type = p_type; }
 
 private:
   /// The x coordinat

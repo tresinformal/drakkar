@@ -1,5 +1,6 @@
 #include "game.h"
 #include "projectile.h"
+#include "projectile_type.h"
 
 #include <cassert>
 #include <cmath>
@@ -115,8 +116,9 @@ void game::move_projectiles()
 {
   for (auto &p : m_projectiles)
   {
+    p.set_type(projectile_type::rocket);
     p.move();
-  }
+   }
 }
 
 void game::tick()
