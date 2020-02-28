@@ -46,6 +46,13 @@ game::game(const int n_ticks, int num_players)
   }
 }
 
+void add_projectile(game &g, const projectile &p)
+{
+  g
+
+}
+
+
 int count_n_projectiles(const game &g) noexcept
 {
   return static_cast<int>(g.get_projectiles().size());
