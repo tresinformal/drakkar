@@ -196,6 +196,19 @@ bool has_collision(const game &g) noexcept
   return false;
 }
 
+bool has_collision(const player& pl, const projectile& p)
+{
+  //Player and projectile are circularal, so use pythagoras
+  const double player_radius{pl.get_size()};
+  const double projectile_radius{p.get_radius()};
+  const double dx
+  if (std::abs(p.get_x() - pl.get_x()) < 0.0001
+    && std::abs(p.get_y() - pl.get_y()) < 0.0001)
+  {
+    return true;
+  }
+  return false;
+}
 
 bool has_collision_with_projectile(const game & g) noexcept
 {
@@ -207,11 +220,7 @@ bool has_collision_with_projectile(const game & g) noexcept
   {
     for (const auto& pl : players)
     {
-      if (std::abs(p.get_x() - pl.get_x()) < 0.0001
-        && std::abs(p.get_y() - pl.get_y()) < 0.0001)
-      {
-        return true;
-      }
+      if (has_collision(pl, p)) return true;
     }
   }
   return false;
@@ -466,7 +475,7 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     const double radius = 12.34;
-    const auto x = g.get_player(0).get_x() + (0.99*radius);
+    const auto x = g.get_player(0).get_x() + (0.99 * radius);
     const auto y = g.get_player(0).get_y();
     const projectile p(x, y, 0.0, projectile_type::rocket, radius);
     add_projectile(g, p);

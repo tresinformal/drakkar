@@ -37,6 +37,9 @@ private:
 
   /// the environment
   projectile_type m_projectile_type;
+
+  /// The projectile is a circle
+  double m_radius;
 };
 
 #endif // PROJECTILE_H
