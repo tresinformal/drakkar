@@ -201,7 +201,9 @@ bool has_collision(const player& pl, const projectile& p)
   //Player and projectile are circularal, so use pythagoras
   const double player_radius{pl.get_size()};
   const double projectile_radius{p.get_radius()};
-  const double dx
+  const double dx = std::abs(p.get_x() - pl.get_x());
+  const double dy = std::abs(p.get_y() - pl.get_y());
+
   if (std::abs(p.get_x() - pl.get_x()) < 0.0001
     && std::abs(p.get_y() - pl.get_y()) < 0.0001)
   {

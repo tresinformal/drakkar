@@ -16,6 +16,9 @@ public:
   /// Get the direction of player movement
   double get_direction() const noexcept { return m_direction; }
 
+  ///Get the radius of the projectile
+  double get_radius() const noexcept {return m_radius;}
+
   /// Move a certain distance (of 1.0 for now) in the direction the projectile
   /// is facing
   void move();
