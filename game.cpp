@@ -465,20 +465,22 @@ void test_game() //!OCLINT tests may be many
   //If a projectile is 0.99 of its radius right of a player, there is a collision
   {
     game g;
-    const auto x = g.get_player(0).get_x();
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (0.99*radius);
     const auto y = g.get_player(0).get_y();
-    const projectile p(x, y, 0.0, projectile_type::rocket, 12.34);
-    add_projectile(g, );
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
   }
   //If a projectile is 1.01 of its radius right of a player, there is no collision
   {
-    //TODO
     game g;
-    const auto x = g.get_player(0).get_x();
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (1.01*radius);
     const auto y = g.get_player(0).get_y();
-    add_projectile(g, projectile(x, y));
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
   }

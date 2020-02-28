@@ -7,7 +7,8 @@ class projectile
 {
 public:
   projectile(const double x = 0.0, const double y = 0.0,
-             const double direction = 0.0, projectile_type = projectile_type::rocket);
+             const double direction = 0.0, projectile_type = projectile_type::rocket,
+             const double radius = 100);
 
   double get_x() const noexcept { return m_x; }
   double get_y() const noexcept { return m_y; }
