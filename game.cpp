@@ -200,8 +200,20 @@ bool has_collision(const game &g) noexcept
 bool has_collision_with_projectile(const game & g) noexcept
 {
   const auto& projectiles = g.get_projectiles();
-  if (projectiles.empty()) return;
+  if (projectiles.empty()) return false;
   const auto& players = g.get_v_player();
+
+  for (const auto& p : projectiles)
+  {
+      for (const auto& pl : players)
+        {
+          if (std::abs(p.get_x() - pl.get_x()) < 0.0001 && std::abs(p.get_y() - pl.get_y() < 0.0001))
+            {
+              return true;
+            }
+        }
+
+    }
 
   return false;
 }
