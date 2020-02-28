@@ -32,6 +32,9 @@ public:
   /// is inputted
   bool process_events();
 
+  /// Play sound effects
+  void play_sound();
+
 private:
   /// The game logic
   game m_game;

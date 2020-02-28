@@ -120,6 +120,7 @@ void game_view::exec() noexcept
       return;
     m_game.tick();
     show();
+    play_sound();
   }
 }
 
@@ -221,4 +222,11 @@ void game_view::show() noexcept
 
   // Display all shapes
   m_window.display();
+}
+
+void game_view::play_sound()
+{
+  if(m_game.get_collision_flag()) {
+      m_game_resources.get_sound(sound_type::bump).play();
+    }
 }

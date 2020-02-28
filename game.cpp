@@ -122,9 +122,12 @@ void game::move_projectiles()
 void game::tick()
 {
 
-  //if collision abort game
+
+  // if collision cancel a player and make a bump sound
+  m_collision_detected = false;
   if(has_collision(*this)){
-  m_v_player.erase(m_v_player.begin() + get_collision_members(*this)[0]);
+    m_v_player.erase(m_v_player.begin() + get_collision_members(*this)[0]);
+    m_collision_detected = true;
   }
 
 

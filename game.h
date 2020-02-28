@@ -35,6 +35,12 @@ public:
   /// Gets reference adress of number of ticks
   int &get_n_ticks() noexcept { return m_n_ticks; }
 
+  /// Gets collision flag
+  bool get_collision_flag() noexcept { return m_collision_detected; }
+
+  /// set collision flag
+  void set_collision_flag(bool flag) noexcept { m_collision_detected = flag; }
+
   /// Gets the player direction
   double get_player_direction( int player_ind);
 
@@ -98,6 +104,9 @@ private:
 
   /// the shelters
   std::vector<shelter> m_shelters;
+
+  /// collision flag
+  bool m_collision_detected = false;
 
   /// starting x distance between players
   const unsigned int m_dist_x_pls = 300;
