@@ -2,6 +2,7 @@
 #define PROJECTILE_H
 #include "projectile_type.h"
 
+/// A projectile has the virtual shape of a circle
 class projectile
 {
 public:
@@ -34,8 +35,7 @@ private:
   double m_direction;
 
   /// the environment
-   projectile_type m_projectile_type;
-
+  projectile_type m_projectile_type;
 };
 
 #endif // PROJECTILE_H

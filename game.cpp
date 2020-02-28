@@ -462,6 +462,26 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
   }
+  //If a projectile is 0.99 of its radius right of a player, there is a collision
+  {
+    game g;
+    const auto x = g.get_player(0).get_x();
+    const auto y = g.get_player(0).get_y();
+    const projectile p(x, y, 0.0, projectile_type::rocket, 12.34);
+    add_projectile(g, );
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+  //If a projectile is 1.01 of its radius right of a player, there is no collision
+  {
+    //TODO
+    game g;
+    const auto x = g.get_player(0).get_x();
+    const auto y = g.get_player(0).get_y();
+    add_projectile(g, projectile(x, y));
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
 
   #ifdef FIX_ISSUE_135
   // In the start of the game, there is no player-food collision
