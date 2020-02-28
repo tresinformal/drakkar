@@ -193,13 +193,10 @@ bool has_collision(const game &g) noexcept
 }
 
 
-bool has_collision_with_projectile(const game &g) noexcept
+bool has_collision_with_projectile(const game &) noexcept
 {
- return false;
+  return false;
 }
-
-
-
 
 std::vector<unsigned int> get_collision_members(const game &g) noexcept
 {
@@ -435,6 +432,14 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     assert(!has_collision_with_projectile(g));
+  }
+  {
+    game g;
+    const auto x = g.get_player(0).get_x();
+    const auto y = g.get_player(0).get_y();
+    add_projectile(g, projectile(x, y));
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
   }
 
   #ifdef FIX_ISSUE_135

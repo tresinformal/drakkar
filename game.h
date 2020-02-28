@@ -22,7 +22,6 @@ public:
   ///makes a player do an action
   void do_action(unsigned int player_index, action_type action);
 
-
   ///returns the collision vector
   const std::vector<unsigned int>& get_collision_vec(){return m_v_collisions_ind;}
 
@@ -106,11 +105,18 @@ private:
   void move_projectiles();
 };
 
+/// Add a projectile to the game
+void add_projectile(game& g, const projectile& p);
+
 /// Count the number of projectiles in the game
 int count_n_projectiles(const game &g) noexcept;
 
-/// checks if there is at least one collision between players in the gamer
+/// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
+
+/// checks if there is at least one collision between a player
+/// and a projectile in the game
+bool has_collision_with_projectile(const game &) noexcept;
 
 std::vector<unsigned int> get_collision_members(const game &g) noexcept;
 
