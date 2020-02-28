@@ -10,6 +10,7 @@
 #include "player_shape.h"
 #include "projectile.h"
 #include "shelter.h"
+#include "sound_type.h"
 #include <vector>
 
 /// Contains the game logic.
@@ -38,6 +39,8 @@ public:
   /// Gets collision flag
   bool get_collision_flag() noexcept { return m_collision_detected; }
 
+  ///Get vector of sounds
+  std::vector<sound_type> get_sound_vector() noexcept {return m_sound_effects;}
   /// set collision flag
   void set_collision_flag(bool flag) noexcept { m_collision_detected = flag; }
 
@@ -107,6 +110,9 @@ private:
 
   /// collision flag
   bool m_collision_detected = false;
+
+  /// Vector of sounds to be played for the executed tick
+  std::vector<sound_type> m_sound_effects;
 
   /// starting x distance between players
   const unsigned int m_dist_x_pls = 300;

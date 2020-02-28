@@ -127,8 +127,8 @@ void game::tick()
   m_collision_detected = false;
   if(has_collision(*this)){
     m_v_player.erase(m_v_player.begin() + get_collision_members(*this)[0]);
-    m_collision_detected = true;
-  }
+    m_sound_effects.push_back(sound_type::bump);
+    }
 
 
 
@@ -158,7 +158,10 @@ void game::tick()
       const double x{p.get_x() + (std::cos(d) * p.get_size() * 1.1)};
       const double y{p.get_y() + (std::sin(d) * p.get_size() * 1.1)};
       m_projectiles.push_back(projectile(x, y, d));
+      //temporary solution, has to be fixed
+      m_sound_effects.push_back(sound_type::shoot);
     }
+
     p.stop_shooting();
     assert(!p.is_shooting());
   }

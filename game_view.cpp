@@ -226,7 +226,8 @@ void game_view::show() noexcept
 
 void game_view::play_sound()
 {
-  if(m_game.get_collision_flag()) {
-      m_game_resources.get_sound(sound_type::bump).play();
+  std::vector<sound_type> sound_effects = m_game.get_sound_vector();
+  for(auto sound : sound_effects){
+      m_game_resources.get_sound(sound).play();
     }
 }
