@@ -61,6 +61,12 @@ public:
     return m_projectiles;
   }
 
+  /// Get the projectiles
+  std::vector<projectile> &get_projectiles() noexcept
+  {
+    return m_projectiles;
+  }
+
   /// Get enemies
   std::vector<shelter> get_shelters() const { return m_shelters; }
 

@@ -48,16 +48,13 @@ game::game(const int n_ticks, int num_players)
 
 void add_projectile(game &g, const projectile &p)
 {
-  g
-
+  g.get_projectiles().push_back(p);
 }
-
 
 int count_n_projectiles(const game &g) noexcept
 {
   return static_cast<int>(g.get_projectiles().size());
 }
-
 
 void game::do_action(unsigned int player_index, action_type action)
 {
@@ -200,8 +197,12 @@ bool has_collision(const game &g) noexcept
 }
 
 
-bool has_collision_with_projectile(const game &) noexcept
+bool has_collision_with_projectile(const game & g) noexcept
 {
+  const auto& projectiles = g.get_projectiles();
+  if (projectiles.empty()) return;
+  const auto& players = g.get_v_player();
+
   return false;
 }
 
@@ -436,10 +437,12 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after_after = g.get_v_player().size();
     assert(n_players_after_after == n_players_after);
   }
+  //Initially, there is no collision with a projectile
   {
     game g;
     assert(!has_collision_with_projectile(g));
   }
+  //If a projectile is put on top of a player, there is a collision
   {
     game g;
     const auto x = g.get_player(0).get_x();
