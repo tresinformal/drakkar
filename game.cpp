@@ -203,13 +203,9 @@ bool has_collision(const player& pl, const projectile& p)
   const double projectile_radius{p.get_radius()};
   const double dx = std::abs(p.get_x() - pl.get_x());
   const double dy = std::abs(p.get_y() - pl.get_y());
-
-  if (std::abs(p.get_x() - pl.get_x()) < 0.0001
-    && std::abs(p.get_y() - pl.get_y()) < 0.0001)
-  {
-    return true;
-  }
-  return false;
+  const double dist = std::sqrt((dx * dx) + (dy * dy));
+  const double radii = player_radius + projectile_radius;
+  return dist < radii;
 }
 
 bool has_collision_with_projectile(const game & g) noexcept
