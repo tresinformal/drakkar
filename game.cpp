@@ -193,6 +193,13 @@ bool has_collision(const game &g) noexcept
 }
 
 
+bool has_collision_with_projectile(const game &g) noexcept
+{
+ return false;
+}
+
+
+
 
 std::vector<unsigned int> get_collision_members(const game &g) noexcept
 {
@@ -425,6 +432,11 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after_after = g.get_v_player().size();
     assert(n_players_after_after == n_players_after);
   }
+  {
+    game g;
+    assert(!has_collision_with_projectile(g));
+  }
+
   #ifdef FIX_ISSUE_135
   // In the start of the game, there is no player-food collision
   {
