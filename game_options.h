@@ -13,6 +13,7 @@ private:
   bool m_play_music = true;
 };
 
+bool operator == (const game_options& lhs, const game_options& rhs) noexcept;
 
 /// Test the 'game_options' class
 void test_game_options();

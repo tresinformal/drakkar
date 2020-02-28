@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "game_resources.h"
+#include "game_options.h"
 #include <SFML/Graphics.hpp>
 
 /// The game's main window
@@ -10,7 +11,8 @@
 class game_view
 {
 public:
-  game_view();
+
+  game_view(game_options options = game_options());
   ~game_view();
 
   /// Show one frame
@@ -32,6 +34,9 @@ public:
   /// is inputted
   bool process_events();
 
+  ///Gets option settings of the game
+  const game_options get_options() {return m_options;}
+
 private:
   /// The game logic
   game m_game;
@@ -41,6 +46,9 @@ private:
 
   /// The window to draw to
   sf::RenderWindow m_window;
+
+  /// The options of the game
+  game_options m_options;
 
   /// Draws projectiles
   void draw_projectiles() noexcept;

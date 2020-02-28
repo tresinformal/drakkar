@@ -69,7 +69,9 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 
 #endif
 
-  game_view v;
+  const game_options options;
+  game_view v(options);
+  assert(options == v.get_options());
   v.exec();
 
 #endif // LOGIC_ONLY

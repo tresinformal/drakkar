@@ -54,7 +54,7 @@ void menu_view::show()
 void menu_view::draw_buttons() noexcept
 {
   sf::Color color;
-  for (unsigned int i = 0; i < m_menu_logic.get_m_v_buttons().size(); ++i)
+  for ( int i = 0; i < static_cast<int>(m_menu_logic.get_m_v_buttons().size()); ++i)
   {
     // assign different color for buttons
     // i = 0: Action "Green"

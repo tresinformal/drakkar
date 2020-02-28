@@ -9,7 +9,7 @@ game::game(const int n_ticks, int num_players)
     : m_n_ticks{n_ticks},
       m_v_player(static_cast<unsigned int>(num_players), player()), m_food{1}, m_enemies{1}, m_shelters(3)
 {
-  for (unsigned int i = 0; i < m_v_player.size(); ++i)
+  for (unsigned int i = 0; i != m_v_player.size(); ++i)
   {
     m_v_player[i] =
         player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);

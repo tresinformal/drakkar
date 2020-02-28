@@ -5,7 +5,9 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
-game_view::game_view() : m_window(sf::VideoMode(1280, 720), "tresinformal game")
+game_view::game_view(game_options options) :
+  m_window(sf::VideoMode(1280, 720), "tresinformal game"),
+  m_options(options)
 {
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
