@@ -124,7 +124,23 @@ game_resources::game_resources()
     }
   }
 #endif // IS_ON_TRAVIS
+
 }
+
+#ifndef IS_ON_TRAVIS
+  /// Get sound and specify which sound to get
+sf::Music& game_resources::get_sound(sound_type sound)
+{
+  switch (sound) {
+    case sound_type::bump:
+      return m_bump;
+    case sound_type::shoot:
+      return m_shoot;
+    default:
+      return m_shoot;
+    }
+}
+#endif // IS_ON_TRAVIS
 
 void test_game_resources()
 {
@@ -132,7 +148,6 @@ void test_game_resources()
   assert(g.get_heterogenous_landscape().getSize().x > 0.0);
 
 
-  #ifdef FIX_ISSUE_136
   assert(g.get_sound(sound_type::shoot).getDuration().asMicroseconds() > 0.0);
-  #endif
+
 }
