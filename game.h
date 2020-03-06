@@ -40,7 +40,11 @@ public:
   bool get_collision_flag() noexcept { return m_collision_detected; }
 
   ///Get vector of sounds
-  std::vector<sound_type> get_sound_vector() noexcept {return m_sound_effects;}
+  const std::vector<sound_type>& get_sound_vector() const noexcept {return m_sound_effects;}
+
+  ///Get vector of sounds modifiable
+  std::vector<sound_type>& get_sound_vector() noexcept {return m_sound_effects;}
+
   /// set collision flag
   void set_collision_flag(bool flag) noexcept { m_collision_detected = flag; }
 

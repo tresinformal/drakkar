@@ -226,8 +226,8 @@ void game_view::show() noexcept
 
 void game_view::play_sound()
 {
-  std::vector<sound_type> sound_effects = m_game.get_sound_vector();
-  for(auto sound : sound_effects){
+  for(auto sound : m_game.get_sound_vector()){
       m_game_resources.get_sound(sound).play();
     }
+  m_game.get_sound_vector().clear();
 }

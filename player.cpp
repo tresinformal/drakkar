@@ -58,6 +58,7 @@ bool are_colliding(const player &lhs, const player &rhs) noexcept
   const double collision_distance = (lhs.get_size() + rhs.get_size()) / 2;
   return actual_distance < collision_distance;
 }
+
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
 
 int get_greenness(const player &p) noexcept
