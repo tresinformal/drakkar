@@ -1,5 +1,6 @@
 #include "game.h"
 #include "projectile.h"
+#include "projectile_type.h"
 
 #include <cassert>
 #include <cmath>
@@ -45,11 +46,15 @@ game::game(const int n_ticks, int num_players)
   }
 }
 
+void add_projectile(game &g, const projectile &p)
+{
+  g.get_projectiles().push_back(p);
+}
+
 int count_n_projectiles(const game &g) noexcept
 {
   return static_cast<int>(g.get_projectiles().size());
 }
-
 
 void game::do_action(unsigned int player_index, action_type action)
 {
@@ -115,8 +120,9 @@ void game::move_projectiles()
 {
   for (auto &p : m_projectiles)
   {
+    p.set_type(projectile_type::rocket);
     p.move();
-  }
+   }
 }
 
 void game::tick()
@@ -131,6 +137,21 @@ void game::tick()
     }
 
 
+  if(has_collision(*this)) {
+    const int first_player_index = get_collision_members(*this)[0];
+    const int second_player_index = get_collision_members(*this)[1];
+    const player& first_player = m_v_player[first_player_index];
+    const player& second_player = m_v_player[second_player_index];
+  if (first_player.get_color().get_red() >
+     second_player.get_color().get_red())
+  {
+    m_v_player.erase(m_v_player.begin() + second_player_index);
+  }
+  else
+  {
+      m_v_player.erase(m_v_player.begin() + first_player_index);
+  }
+}
 
 
   // Moves the projectiles
@@ -186,7 +207,33 @@ bool has_collision(const game &g) noexcept
   return false;
 }
 
+bool has_collision(const player& pl, const projectile& p)
+{
+  //Player and projectile are circularal, so use pythagoras
+  const double player_radius{pl.get_size()};
+  const double projectile_radius{p.get_radius()};
+  const double dx = std::abs(p.get_x() - pl.get_x());
+  const double dy = std::abs(p.get_y() - pl.get_y());
+  const double dist = std::sqrt((dx * dx) + (dy * dy));
+  const double radii = player_radius + projectile_radius;
+  return dist < radii;
+}
 
+bool has_collision_with_projectile(const game & g) noexcept
+{
+  const auto& projectiles = g.get_projectiles();
+  if (projectiles.empty()) return false;
+  const auto& players = g.get_v_player();
+
+  for (const auto& p : projectiles)
+  {
+    for (const auto& pl : players)
+    {
+      if (has_collision(pl, p)) return true;
+    }
+  }
+  return false;
+}
 
 std::vector<unsigned int> get_collision_members(const game &g) noexcept
 {
@@ -419,6 +466,43 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after_after = g.get_v_player().size();
     assert(n_players_after_after == n_players_after);
   }
+  //Initially, there is no collision with a projectile
+  {
+    game g;
+    assert(!has_collision_with_projectile(g));
+  }
+  //If a projectile is put on top of a player, there is a collision
+  {
+    game g;
+    const auto x = g.get_player(0).get_x();
+    const auto y = g.get_player(0).get_y();
+    add_projectile(g, projectile(x, y));
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+  //If a projectile is 0.99 of its radius right of a player, there is a collision
+  {
+    game g;
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (0.99 * radius);
+    const auto y = g.get_player(0).get_y();
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+  //If a projectile is 1.01 of its radius right of a player, there is no collision
+  {
+    game g;
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (1.01*radius);
+    const auto y = g.get_player(0).get_y();
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+
   #ifdef FIX_ISSUE_135
   // In the start of the game, there is no player-food collision
   {
@@ -443,4 +527,31 @@ void test_game() //!OCLINT tests may be many
     assert(!has_enemy_collision(g));
   }
   #endif // FIX_ISSUE_138
+  //If red eats green then red survives
+  {
+    game g;
+    assert(g.get_player(0).get_color().get_red() == 255);
+    assert(g.get_player(1).get_color().get_green() == 255);
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    g.tick();
+    assert(g.get_player(0).get_color().get_red() > 250);
+  }
+  #ifdef FIX_ISSUE_VALENTINES_DAY
+  //If green eats blue then green survives
+  {
+    game g;
+    assert(g.get_player(1).get_color().get_green() == 255);
+    assert(g.get_player(2).get_color().get_blue() == 255);
+    g.get_player(1).set_x(g.get_player(2).get_x());
+    g.get_player(1).set_y(g.get_player(2).get_y());
+    assert(has_collision(g));
+    g.tick();
+    assert(g.get_player(1).get_color().get_green() > 250);
+  }
+  #endif // FIX_ISSUE_VALENTINES_DAY
+
 }
+
+
