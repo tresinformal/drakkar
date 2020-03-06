@@ -132,9 +132,9 @@ game_resources::game_resources()
 sf::Music& game_resources::get_sound(sound_type sound)
 {
   switch (sound) {
-    case sound_type::bump:
+    case sound_type::bump :
       return m_bump;
-    case sound_type::shoot:
+    case sound_type::shoot :
       return m_shoot;
     default:
       return m_shoot;
