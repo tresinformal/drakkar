@@ -67,6 +67,39 @@ int get_greenness(const player &p) noexcept
 
 int get_redness(const player &p) noexcept { return p.get_color().get_red(); }
 
+bool is_blue(const player &p) noexcept
+{
+  assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
+  assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
+  assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
+  return p.get_color().get_red() == 0
+    && p.get_color().get_green() == 0
+    && p.get_color().get_blue() == 255
+  ;
+}
+
+bool is_green(const player &p) noexcept
+{
+  assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
+  assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
+  assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
+  return p.get_color().get_red() == 0
+    && p.get_color().get_green() == 255
+    && p.get_color().get_blue() == 0
+  ;
+}
+
+bool is_red(const player & p) noexcept
+{
+  assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
+  assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
+  assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
+  return p.get_color().get_red() == 255
+    && p.get_color().get_green() == 0
+    && p.get_color().get_blue() == 0
+  ;
+}
+
 void test_player() //!OCLINT tests may be long
 {
   // Can default construct a player
@@ -188,5 +221,30 @@ void test_player() //!OCLINT tests may be long
     const player p2(90.0, 0.0);
     assert(are_colliding(p1, p2));
   }
+  // A player of RGB values (255, 0, 0) should be red, not green, not blue
+  {
+    player p;
+    p.set_color(color(255, 0, 0));
+    assert(is_red(p));
+    assert(!is_green(p));
+    assert(!is_blue(p));
+  }
+  // A player of RGB values (0, 255, 0) should be green, not red, not blue
+  {
+    player p;
+    p.set_color(color(0, 255, 0));
+    assert(!is_red(p));
+    assert(is_green(p));
+    assert(!is_blue(p));
 
+  }
+  // A player of RGB values (0, 0, 255) should be blue, not red, not green
+  {
+    player p;
+    p.set_color(color(0, 0, 255));
+    assert(!is_red(p));
+    assert(!is_green(p));
+    assert(is_blue(p));
+
+  }
 }

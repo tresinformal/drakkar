@@ -149,6 +149,15 @@ int get_greenness(const player &p) noexcept;
 /// Get the redness (from the color) of the player
 int get_redness(const player &p) noexcept;
 
+/// Is a player blue?
+bool is_blue(const player &p) noexcept;
+
+/// Is a player green?
+bool is_green(const player &p) noexcept;
+
+/// Is a player red?
+bool is_red(const player &p) noexcept;
+
 /// Test the player class
 void test_player();
 

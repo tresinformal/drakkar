@@ -70,6 +70,10 @@ public:
   /// Get enemies
   std::vector<shelter> get_shelters() const { return m_shelters; }
 
+  /// Kills the index'th player (e.g. index 0 is the first player)
+  /// Assumes that index exists, else crashes
+  void kill_player(const int index);
+
   /// Apply inertia to player movement
   void apply_inertia();
 
@@ -128,6 +132,10 @@ bool has_collision(const player& pl, const projectile& p);
 bool has_collision_with_projectile(const game &) noexcept;
 
 std::vector<unsigned int> get_collision_members(const game &g) noexcept;
+
+/// Upon a collision, kills the player that loser
+/// Assumes there is a collision
+void kill_losing_player(game &);
 
 void test_game();
 

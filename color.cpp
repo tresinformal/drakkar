@@ -76,3 +76,12 @@ void test_color()
            other.get_blue() != 255);
   }
 }
+
+bool operator==(const color& lhs, const color& rhs) noexcept
+{
+  return lhs.get_red() == rhs.get_red()
+    && lhs.get_green() == rhs.get_green()
+    && lhs.get_blue() == rhs.get_blue()
+    && lhs.get_opaqueness() == rhs.get_opaqueness()
+  ;
+}

@@ -127,23 +127,11 @@ void game::move_projectiles()
 
 void game::tick()
 {
-
   //if collision abort game
-  if(has_collision(*this)) {
-    const int first_player_index = get_collision_members(*this)[0];
-    const int second_player_index = get_collision_members(*this)[1];
-    const player& first_player = m_v_player[first_player_index];
-    const player& second_player = m_v_player[second_player_index];
-  if (first_player.get_color().get_red() >
-     second_player.get_color().get_red())
+  if(has_collision(*this))
   {
-    m_v_player.erase(m_v_player.begin() + second_player_index);
+    kill_losing_player(*this);
   }
-  else
-  {
-      m_v_player.erase(m_v_player.begin() + first_player_index);
-  }
-}
 
 
   // Moves the projectiles
@@ -151,12 +139,6 @@ void game::tick()
 
   // for now only applies inertia
   apply_inertia();
-
-  // make the player change colors randomly, for fun, just temporary
-  for (player &p : m_v_player)
-  {
-    p.set_color(get_adjacent_color(p.get_color()));
-  }
 
   // players that shoot must generate projectiles
   for (player &p : m_v_player)
@@ -240,6 +222,45 @@ std::vector<unsigned int> get_collision_members(const game &g) noexcept
     }
   }
   return v_collisions;
+}
+
+void kill_losing_player(game &g)
+{
+  const int first_player_index = get_collision_members(g)[0];
+  const int second_player_index = get_collision_members(g)[1];
+  const player& first_player = g.get_player(first_player_index);
+  const player& second_player = g.get_player(second_player_index);
+  const color c1 = first_player.get_color();
+  const color c2 = second_player.get_color();
+  // It is possible that this happens, no worries here :-)
+  if (c1 == c2) return;
+  if (is_red(first_player) && is_green(second_player)) {
+    g.kill_player(second_player_index);
+  }
+  else if (is_red(first_player) && is_blue(second_player)) {
+    g.kill_player(first_player_index);
+  }
+  else if (is_green(first_player) && is_red(second_player)) {
+    g.kill_player(first_player_index);
+  }
+  else if (is_green(first_player) && is_blue(second_player)) {
+    g.kill_player(second_player_index);
+  }
+  else if (is_blue(first_player) && is_red(second_player)) {
+    g.kill_player(second_player_index);
+  }
+  else if (is_blue(first_player) && is_green(second_player)) {
+    g.kill_player(first_player_index);
+  }
+}
+
+void game::kill_player(const int index)
+{
+  assert(index >= 0);
+  assert(index < static_cast<int>(m_v_player.size()));
+  this->m_v_player.erase(
+    m_v_player.begin() + index
+  );
 }
 
 void test_game() //!OCLINT tests may be many
@@ -455,6 +476,24 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after_after = g.get_v_player().size();
     assert(n_players_after_after == n_players_after);
   }
+
+  // Blue (player index 2) defeats red (player index 0)
+  {
+    game g;
+    g.get_player(2).set_x(g.get_player(0).get_x());
+    g.get_player(2).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    assert(is_red(g.get_player(0)));
+    assert(is_green(g.get_player(1)));
+    assert(is_blue(g.get_player(2)));
+    assert(g.get_v_player().size() == 3); //All three still live
+    g.tick();
+    assert(g.get_v_player().size() == 2); //Red has died!
+    assert(is_green(g.get_player(0)));
+    assert(is_blue(g.get_player(1)));
+  }
+
+
   //Initially, there is no collision with a projectile
   {
     game g;
@@ -519,13 +558,15 @@ void test_game() //!OCLINT tests may be many
   //If red eats green then red survives
   {
     game g;
-    assert(g.get_player(0).get_color().get_red() == 255);
-    assert(g.get_player(1).get_color().get_green() == 255);
+    assert(is_red(g.get_player(0)));
+    assert(is_green(g.get_player(1)));
+    assert(is_blue(g.get_player(2)));
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    assert(g.get_player(0).get_color().get_red() > 250);
+    assert(is_red(g.get_player(0)));
+    assert(is_blue(g.get_player(1)));
   }
   #ifdef FIX_ISSUE_VALENTINES_DAY
   //If green eats blue then green survives

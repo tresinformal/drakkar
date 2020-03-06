@@ -46,7 +46,10 @@ int get_opaqueness(const color &c) noexcept;
 /// Get the redness
 int get_redness(const color &c) noexcept;
 
+
 /// Test the color class
 void test_color();
+
+bool operator==(const color& lhs, const color& rhs) noexcept;
 
 #endif // COLOR_H
