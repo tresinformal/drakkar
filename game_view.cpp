@@ -221,8 +221,11 @@ void game_view::show() noexcept
 
 void game_view::play_sound()
 {
-  for(auto sound : m_game.get_sound_vector()){
+  for(auto sound : m_game.get_sound_vector())
+    {
+#ifndef IS_ON_TRAVIS
       m_game_resources.get_sound(sound).play();
+#endif // IS_ON_TRAVIS
     }
   m_game.get_sound_vector().clear();
 }

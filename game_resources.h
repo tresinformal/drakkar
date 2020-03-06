@@ -63,7 +63,7 @@ public:
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
   /// Get sound and specify which sound to get
-    sf::Music &get_sound(sound_type sound);
+    sf::Music& get_sound(sound_type sound);
 #endif // IS_ON_TRAVIS
 
 private:
