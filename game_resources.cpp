@@ -36,6 +36,7 @@ game_resources::game_resources()
     }
   }
   {
+    /*
     const QString filename{"heterogenous_landscape.jpg"};
     QFile f(":/" + filename);
     f.copy(filename);
@@ -44,6 +45,26 @@ game_resources::game_resources()
       QString msg{"Cannot find image file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());
     }
+    */
+    sf::Image image;
+    const int width{256};
+    const int height{256};
+    image.create(width, height);
+    for (int x{0}; x!=width; ++x)
+    {
+      for (int y{0}; y!=height; ++y)
+      {
+        const sf::Uint8 r{static_cast<sf::Uint8>((x * 16) % 256)};
+        const sf::Uint8 g{static_cast<sf::Uint8>((y * 16)  % 256)};
+        const sf::Uint8 b{static_cast<sf::Uint8>((((x + y) * 16) % 256))};
+        image.setPixel(
+          static_cast<unsigned int>(x),
+          static_cast<unsigned int>(y),
+          sf::Color(r, g, b)
+        );
+      }
+    }
+    m_heterogenous_landscape.loadFromImage(image);
   }
   {
     const QString filename{"grass_landscape.png"};
