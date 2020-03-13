@@ -15,6 +15,7 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
 #include <iostream>
+#include "sound_type.h"
 
 /// All tests are called from here, only in debug mode
 void test()
@@ -34,6 +35,7 @@ void test()
 #ifndef LOGIC_ONLY
   test_game_view();
   test_game_resources();
+  test_sound_type();
 #endif // LOGIC_ONLY
 }
 

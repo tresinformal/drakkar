@@ -22,7 +22,6 @@ public:
   ///makes a player do an action
   void do_action(int player_index, action_type action);
 
-
   ///returns the collision vector
   const auto& get_collision_vec(){return m_v_collisions_ind;}
 
@@ -62,8 +61,18 @@ public:
     return m_projectiles;
   }
 
+  /// Get the projectiles
+  std::vector<projectile> &get_projectiles() noexcept
+  {
+    return m_projectiles;
+  }
+
   /// Get enemies
   std::vector<shelter> get_shelters() const { return m_shelters; }
+
+  /// Kills the index'th player (e.g. index 0 is the first player)
+  /// Assumes that index exists, else crashes
+  void kill_player(const int index);
 
   /// Apply inertia to player movement
   void apply_inertia();
@@ -106,13 +115,27 @@ private:
   void move_projectiles();
 };
 
+/// Add a projectile to the game
+void add_projectile(game& g, const projectile& p);
+
 /// Count the number of projectiles in the game
 int count_n_projectiles(const game &g) noexcept;
 
-/// checks if there is at least one collision between players in the gamer
+/// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
-auto get_collision_members(const game &g) noexcept;
+/// Determines if the player and projectile collide
+bool has_collision(const player& pl, const projectile& p);
+
+/// checks if there is at least one collision between a player
+/// and a projectile in the game
+bool has_collision_with_projectile(const game &) noexcept;
+
+std::vector<int> get_collision_members(const game &g) noexcept;
+
+/// Upon a collision, kills the player that loser
+/// Assumes there is a collision
+void kill_losing_player(game &);
 
 void test_game();
 

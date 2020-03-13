@@ -29,8 +29,8 @@ public:
   /// Get the shape of the player
   player_shape get_shape() const noexcept { return m_shape; }
 
-  /// Get the size of the player
-  double get_size() const noexcept { return m_size; }
+  /// Get the radius of the player
+  double get_radius() const noexcept { return m_radius; }
 
   /// Get the speed of the player
   double get_speed() const noexcept { return m_player_speed; }
@@ -41,8 +41,8 @@ public:
   /// Get the acceleration of the player
   double get_acceleration() const noexcept { return m_player_acceleration; }
 
-  /// Get the direction of player movement
-  double get_direction() const noexcept { return m_direction; }
+  /// Get the direction of player movement, in radians
+  double get_direction() const noexcept { return m_direction_radians; }
 
   /// Get the player's health
   double get_health() const noexcept { return m_health; }
@@ -75,16 +75,16 @@ public:
   void set_y(double y) noexcept { m_y = y; }
 
   /// Turn the player left
-  void turn_left() noexcept { m_direction += m_turn_rate; }
+  void turn_left() noexcept { m_direction_radians += m_turn_rate; }
 
   /// Turn the player right
-  void turn_right() noexcept { m_direction -= m_turn_rate; }
+  void turn_right() noexcept { m_direction_radians -= m_turn_rate; }
 
   /// Update the position of the player on the base of its speed and direction
   void update_player_position() noexcept
   {
-    m_x += cos(m_direction) * m_player_speed;
-    m_y += sin(m_direction) * m_player_speed;
+    m_x += cos(m_direction_radians) * m_player_speed;
+    m_y += sin(m_direction_radians) * m_player_speed;
   }
 
   /// Accelerate the player
@@ -124,10 +124,10 @@ private:
   double m_player_deceleration;
 
   /// The size of the player
-  double m_size;
+  double m_radius;
 
   /// The direction of player in radians
-  double m_direction;
+  double m_direction_radians;
 
   /// The rate at which the player turns
   double m_turn_rate;
@@ -148,6 +148,15 @@ int get_greenness(const player &p) noexcept;
 
 /// Get the redness (from the color) of the player
 int get_redness(const player &p) noexcept;
+
+/// Is a player blue?
+bool is_blue(const player &p) noexcept;
+
+/// Is a player green?
+bool is_green(const player &p) noexcept;
+
+/// Is a player red?
+bool is_red(const player &p) noexcept;
 
 /// Test the player class
 void test_player();

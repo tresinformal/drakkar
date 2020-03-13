@@ -12,8 +12,8 @@ player::player(const double x, const double y, const player_shape shape,
     : m_color{any_color}, m_x{x}, m_y{y}, m_shape{shape},
       m_player_speed{player_speed}, m_player_max_speed{player_max_speed},
       m_player_acceleration{player_acceleration},
-      m_player_deceleration{player_deceleration}, m_size{size},
-      m_direction{direction}, m_turn_rate{turn_rate}
+      m_player_deceleration{player_deceleration}, m_radius{size},
+      m_direction_radians{direction}, m_turn_rate{turn_rate}
 {
 }
 
@@ -55,7 +55,7 @@ bool are_colliding(const player &lhs, const player &rhs) noexcept
   const double dx = std::abs(lhs.get_x() - rhs.get_x());
   const double dy = std::abs(lhs.get_y() - rhs.get_y());
   const double actual_distance = std::sqrt((dx * dx) + (dy * dy));
-  const double collision_distance = (lhs.get_size() + rhs.get_size()) / 2;
+  const double collision_distance = (lhs.get_radius() + rhs.get_radius()) / 2;
   return actual_distance < collision_distance;
 }
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
@@ -66,6 +66,39 @@ int get_greenness(const player &p) noexcept
 }
 
 int get_redness(const player &p) noexcept { return p.get_color().get_red(); }
+
+bool is_blue(const player &p) noexcept
+{
+  assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
+  assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
+  assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
+  return p.get_color().get_red() == 0
+    && p.get_color().get_green() == 0
+    && p.get_color().get_blue() == 255
+  ;
+}
+
+bool is_green(const player &p) noexcept
+{
+  assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
+  assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
+  assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
+  return p.get_color().get_red() == 0
+    && p.get_color().get_green() == 255
+    && p.get_color().get_blue() == 0
+  ;
+}
+
+bool is_red(const player & p) noexcept
+{
+  assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
+  assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
+  assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
+  return p.get_color().get_red() == 255
+    && p.get_color().get_green() == 0
+    && p.get_color().get_blue() == 0
+  ;
+}
 
 void test_player() //!OCLINT tests may be long
 {
@@ -137,7 +170,7 @@ void test_player() //!OCLINT tests may be long
   // A player has an initial size of one hundred
   {
     const player p{1.2, 3.4, player_shape::rocket};
-    assert(std::abs(p.get_size() - 100.0) < 0.00001);
+    assert(std::abs(p.get_radius() - 100.0) < 0.00001);
   }
   // A player can update its position
   {
@@ -183,10 +216,35 @@ void test_player() //!OCLINT tests may be long
   // their size away
   {
     const player p1(0.0, 0.0);
-    assert(p1.get_size() == 100.0);
+    assert(p1.get_radius() == 100.0);
     // So, 90 pixels is a collision then
     const player p2(90.0, 0.0);
     assert(are_colliding(p1, p2));
   }
+  // A player of RGB values (255, 0, 0) should be red, not green, not blue
+  {
+    player p;
+    p.set_color(color(255, 0, 0));
+    assert(is_red(p));
+    assert(!is_green(p));
+    assert(!is_blue(p));
+  }
+  // A player of RGB values (0, 255, 0) should be green, not red, not blue
+  {
+    player p;
+    p.set_color(color(0, 255, 0));
+    assert(!is_red(p));
+    assert(is_green(p));
+    assert(!is_blue(p));
 
+  }
+  // A player of RGB values (0, 0, 255) should be blue, not red, not green
+  {
+    player p;
+    p.set_color(color(0, 0, 255));
+    assert(!is_red(p));
+    assert(!is_green(p));
+    assert(is_blue(p));
+
+  }
 }

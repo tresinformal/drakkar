@@ -1,5 +1,6 @@
 #include "game.h"
 #include "projectile.h"
+#include "projectile_type.h"
 
 #include <cassert>
 #include <cmath>
@@ -45,13 +46,17 @@ game::game(const int n_ticks, int num_players)
   }
 }
 
+void add_projectile(game &g, const projectile &p)
+{
+  g.get_projectiles().push_back(p);
+}
+
 int count_n_projectiles(const game &g) noexcept
 {
   return static_cast<int>(g.get_projectiles().size());
 }
 
-
-void game::do_action(int player_index, action_type action)
+void game::do_action( int player_index, action_type action)
 {
 
   switch (action)
@@ -115,56 +120,18 @@ void game::move_projectiles()
 {
   for (auto &p : m_projectiles)
   {
+    p.set_type(projectile_type::rocket);
     p.move();
-  }
-}
-
-bool has_collision(const game &g) noexcept
-{
-  const auto n_players = g.get_v_player().size();
-  for (unsigned int i = 0; i < n_players; ++i)
-  {
-    for (unsigned int j = i + 1; j < n_players; ++j)
-    {
-      if (are_colliding(g.get_player(static_cast<int>(i)),
-                        g.get_player(static_cast<int>(j))
-                        )
-          )
-        {
-          return true;
-        }
-    }
-  }
-  return false;
-}
-
-auto get_collision_members(const game &g) noexcept
-{
-  std::vector<int> v_collisions;
-  const int n_players = static_cast<int>(g.get_v_player().size());
-  for (auto i = 0; i < n_players; ++i)
-  {
-    for (auto j = i + 1; j < n_players; ++j)
-    {
-      if (are_colliding(g.get_player(i), g.get_player(j)))
-        {
-          v_collisions.push_back(i);
-          v_collisions.push_back(j);
-        }
-    }
-  }
-  return v_collisions;
+   }
 }
 
 void game::tick()
 {
-
   //if collision abort game
-  if(has_collision(*this)){
-  m_v_player.erase(m_v_player.begin() + get_collision_members(*this)[0]);
+  if(has_collision(*this))
+  {
+    kill_losing_player(*this);
   }
-
-
 
 
   // Moves the projectiles
@@ -172,12 +139,6 @@ void game::tick()
 
   // for now only applies inertia
   apply_inertia();
-
-  // make the player change colors randomly, for fun, just temporary
-  for (player &p : m_v_player)
-  {
-    p.set_color(get_adjacent_color(p.get_color()));
-  }
 
   // players that shoot must generate projectiles
   for (player &p : m_v_player)
@@ -189,8 +150,8 @@ void game::tick()
     {
       // Put the projectile just in front outside of the player
       const double d{p.get_direction()};
-      const double x{p.get_x() + (std::cos(d) * p.get_size() * 1.1)};
-      const double y{p.get_y() + (std::sin(d) * p.get_size() * 1.1)};
+      const double x{p.get_x() + (std::cos(d) * p.get_radius() * 1.1)};
+      const double y{p.get_y() + (std::sin(d) * p.get_radius() * 1.1)};
       m_projectiles.push_back(projectile(x, y, d));
     }
     p.stop_shooting();
@@ -201,6 +162,106 @@ void game::tick()
   ++get_n_ticks();
 }
 
+bool has_collision(const game &g) noexcept
+{
+  const auto n_players = static_cast<int>(g.get_v_player().size()) ;
+  for (int i = 0; i < n_players; ++i)
+  {
+    for (int j = i + 1; j < n_players; ++j)
+    {
+      if (are_colliding(g.get_player(i), g.get_player(j)))
+        {
+          return true;
+        }
+    }
+  }
+  return false;
+}
+
+bool has_collision(const player& pl, const projectile& p)
+{
+  //Player and projectile are circularal, so use pythagoras
+  const double player_radius{pl.get_radius()};
+  const double projectile_radius{p.get_radius()};
+  const double dx = std::abs(p.get_x() - pl.get_x());
+  const double dy = std::abs(p.get_y() - pl.get_y());
+  const double dist = std::sqrt((dx * dx) + (dy * dy));
+  const double radii = player_radius + projectile_radius;
+  return dist < radii;
+}
+
+bool has_collision_with_projectile(const game & g) noexcept
+{
+  const auto& projectiles = g.get_projectiles();
+  if (projectiles.empty()) return false;
+  const auto& players = g.get_v_player();
+
+  for (const auto& p : projectiles)
+  {
+    for (const auto& pl : players)
+    {
+      if (has_collision(pl, p)) return true;
+    }
+  }
+  return false;
+}
+
+std::vector<unsigned int> get_collision_members(const game &g) noexcept
+{
+  std::vector<int> v_collisions;
+  const auto n_players = static_cast<int>(g.get_v_player().size());
+  for (int i = 0; i < n_players; ++i)
+  {
+    for (int j = i + 1; j < n_players; ++j)
+    {
+      if (are_colliding(g.get_player(i), g.get_player(j)))
+        {
+          v_collisions.push_back(i);
+          v_collisions.push_back(j);
+        }
+    }
+  }
+  return v_collisions;
+}
+
+void kill_losing_player(game &g)
+{
+  const int first_player_index = get_collision_members(g)[0];
+  const int second_player_index = get_collision_members(g)[1];
+  const player& first_player = g.get_player(first_player_index);
+  const player& second_player = g.get_player(second_player_index);
+  const color c1 = first_player.get_color();
+  const color c2 = second_player.get_color();
+  // It is possible that this happens, no worries here :-)
+  if (c1 == c2) return;
+  if (is_red(first_player) && is_green(second_player)) {
+    g.kill_player(second_player_index);
+  }
+  else if (is_red(first_player) && is_blue(second_player)) {
+    g.kill_player(first_player_index);
+  }
+  else if (is_green(first_player) && is_red(second_player)) {
+    g.kill_player(first_player_index);
+  }
+  else if (is_green(first_player) && is_blue(second_player)) {
+    g.kill_player(second_player_index);
+  }
+  else if (is_blue(first_player) && is_red(second_player)) {
+    g.kill_player(second_player_index);
+  }
+  else if (is_blue(first_player) && is_green(second_player)) {
+    g.kill_player(first_player_index);
+  }
+}
+
+void game::kill_player(const int index)
+{
+  assert(index >= 0);
+  assert(index < static_cast<int>(m_v_player.size()));
+  this->m_v_player.erase(
+    m_v_player.begin() + index
+  );
+}
 
 void test_game() //!OCLINT tests may be many
 {
@@ -415,6 +476,61 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after_after = g.get_v_player().size();
     assert(n_players_after_after == n_players_after);
   }
+
+  // Blue (player index 2) defeats red (player index 0)
+  {
+    game g;
+    g.get_player(2).set_x(g.get_player(0).get_x());
+    g.get_player(2).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    assert(is_red(g.get_player(0)));
+    assert(is_green(g.get_player(1)));
+    assert(is_blue(g.get_player(2)));
+    assert(g.get_v_player().size() == 3); //All three still live
+    g.tick();
+    assert(g.get_v_player().size() == 2); //Red has died!
+    assert(is_green(g.get_player(0)));
+    assert(is_blue(g.get_player(1)));
+  }
+
+
+  //Initially, there is no collision with a projectile
+  {
+    game g;
+    assert(!has_collision_with_projectile(g));
+  }
+  //If a projectile is put on top of a player, there is a collision
+  {
+    game g;
+    const auto x = g.get_player(0).get_x();
+    const auto y = g.get_player(0).get_y();
+    add_projectile(g, projectile(x, y));
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+  //If a projectile is 0.99 of its radius right of a player, there is a collision
+  {
+    game g;
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (0.99 * radius);
+    const auto y = g.get_player(0).get_y();
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+  //If a projectile is 1.01 of its radius right of a player, there is no collision
+  {
+    game g;
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (1.01*radius);
+    const auto y = g.get_player(0).get_y();
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+
   #ifdef FIX_ISSUE_135
   // In the start of the game, there is no player-food collision
   {
@@ -439,4 +555,33 @@ void test_game() //!OCLINT tests may be many
     assert(!has_enemy_collision(g));
   }
   #endif // FIX_ISSUE_138
+  //If red eats green then red survives
+  {
+    game g;
+    assert(is_red(g.get_player(0)));
+    assert(is_green(g.get_player(1)));
+    assert(is_blue(g.get_player(2)));
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    g.tick();
+    assert(is_red(g.get_player(0)));
+    assert(is_blue(g.get_player(1)));
+  }
+  #ifdef FIX_ISSUE_VALENTINES_DAY
+  //If green eats blue then green survives
+  {
+    game g;
+    assert(g.get_player(1).get_color().get_green() == 255);
+    assert(g.get_player(2).get_color().get_blue() == 255);
+    g.get_player(1).set_x(g.get_player(2).get_x());
+    g.get_player(1).set_y(g.get_player(2).get_y());
+    assert(has_collision(g));
+    g.tick();
+    assert(g.get_player(1).get_color().get_green() > 250);
+  }
+  #endif // FIX_ISSUE_VALENTINES_DAY
+
 }
+
+
