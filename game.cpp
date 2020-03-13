@@ -150,8 +150,8 @@ void game::tick()
     {
       // Put the projectile just in front outside of the player
       const double d{p.get_direction()};
-      const double x{p.get_x() + (std::cos(d) * p.get_size() * 1.1)};
-      const double y{p.get_y() + (std::sin(d) * p.get_size() * 1.1)};
+      const double x{p.get_x() + (std::cos(d) * p.get_radius() * 1.1)};
+      const double y{p.get_y() + (std::sin(d) * p.get_radius() * 1.1)};
       m_projectiles.push_back(projectile(x, y, d));
     }
     p.stop_shooting();
@@ -181,7 +181,7 @@ bool has_collision(const game &g) noexcept
 bool has_collision(const player& pl, const projectile& p)
 {
   //Player and projectile are circularal, so use pythagoras
-  const double player_radius{pl.get_size()};
+  const double player_radius{pl.get_radius()};
   const double projectile_radius{p.get_radius()};
   const double dx = std::abs(p.get_x() - pl.get_x());
   const double dy = std::abs(p.get_y() - pl.get_y());

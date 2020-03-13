@@ -128,18 +128,33 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 {
   for (const auto &player : m_game.get_v_player())
   {
+    // Type conversions that simplify notation
+    const float r{static_cast<float>(player.get_radius()) / 2.0f};
+    const float x{static_cast<float>(player.get_x())};
+    const float y{static_cast<float>(player.get_y())};
+    const float angle{static_cast<float>(player.get_direction())};
+    const sf::Uint8 red{static_cast<sf::Uint8>(get_redness(player))};
+    const sf::Uint8 green{static_cast<sf::Uint8>(get_greenness(player))};
+    const sf::Uint8 blue{static_cast<sf::Uint8>(get_blueness(player))};
+
     // Create the player sprite
-    sf::RectangleShape rect(sf::Vector2f(player.get_size(), player.get_size()));
-    rect.setFillColor(sf::Color(static_cast<sf::Uint8>(get_redness(player)),
-                                static_cast<sf::Uint8>(get_greenness(player)),
-                                static_cast<sf::Uint8>(get_blueness(player))));
-    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(static_cast<float>(player.get_x()),
-                     static_cast<float>(player.get_y()));
-    rect.setRotation(static_cast<float>((player.get_direction()) * 180 / M_PI));
-    rect.setTexture(&m_game_resources.get_franjo());
+    sf::CircleShape circle;
+    circle.setRadius(r);
+    circle.setFillColor(sf::Color(red, green, blue));
+    circle.setOutlineColor(sf::Color(red / 2, green / 2, blue / 2));
+    circle.setOutlineThickness(2.0f);
+    circle.setOrigin(r, r);
+    circle.setPosition(x, y);
+    circle.setRotation(angle  * 180.0f / M_PI);
+
+    sf::RectangleShape rect;
+    rect.setSize(sf::Vector2f(r, 2.0f));
+    rect.setPosition(x, y);
+    rect.setFillColor(sf::Color(red / 2, green / 2, blue / 2));
+    rect.setRotation(angle  * 180.0f / M_PI);
 
     // Draw the player
+    m_window.draw(circle);
     m_window.draw(rect);
   }
 }
