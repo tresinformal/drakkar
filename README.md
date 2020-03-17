@@ -14,13 +14,21 @@ richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=rich
 
 The TRES video game.
 
-## Real life meetings
+## :warning: Coding via Discord :warning: 
+
+Many fun things are cancelled in these days. Not tresinformal!
+
+We continue developing our game, while chatting on Discord.
+To join, send Richel a Discord Friend Request: `richelbilderbeek#9002`.
+He'll add you to the tresinformal server.
+
+Things will be different, but hopefully still fun and even useful.
+
+## Meetings
 
  * Date: Weekly, every Friday
  * Time: 17:00-19:00
- * Location: Linnaeusborg (Nijenborg 7, Groningen) at Franjo's fancy library, 
-   5171.580 (walk in main entrance, take elevator the the fifth floor, go right, 
-   go right, go straight.
+ * On Discord
 
 ## Game: 2D PvP chasing game
 
@@ -42,17 +50,13 @@ Preferred role(s) are suggestions. If there is disagreement, we'll vote.
 Name     |GitHub username     |Preferred role(s)
 ---------|--------------------|------------------------------------------------
 Apu      | @AparajithaRamesh  |
-Boris    |                    |
 Giorgio  | @GiorgioBoccarella |Lead graphics
-Josh     | @joshwlambert      |Junior developer, game design
 Marina   | @marinapapa        |Graphics, game design, developer
-Manuel   | @Manuel438         |
 Pedro    | @Neves-P           |Junior developer, sound
 Richel   | @richelbilderbeek  |Senior developer, project coordinator, chairman
 Sebastian| @sebmader          |Lead sound
 Shu      | @xieshu95          |
 Stefano  | @swom              |
-Tim      | @TimTemizyuerek    |
 Xiaoyan  |                    |
 
 ## Roles
@@ -89,17 +93,11 @@ Timespan    |Activity
 
 Date       |Activity
 -----------|--------------------------------------------------------------------------
-2020-01-31 |2nd half: pair programming
-2020-02-07 |-
-2020-02-14 |-
-2020-02-21 |-
-2020-02-28 |-
+2020-03-20 |Programming via Discord
 
 ## Screenshots
 
 Most recent at the top.
-
-![](pics/20200111.png)
 
 ![](pics/20200110.png)
 
