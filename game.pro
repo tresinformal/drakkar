@@ -14,6 +14,7 @@ HEADERS += \
     menu_view.h \
     player.h \
     player_shape.h \
+    program_state.h \
     projectile_type.h \
     sound_type.h \
     game_options.h \
@@ -37,6 +38,7 @@ SOURCES += \
     menu_view.cpp \
     player.cpp \
     player_shape.cpp \
+    program_state.cpp \
     projectile_type.cpp \
     sound_type.cpp \
     game_options.cpp \
