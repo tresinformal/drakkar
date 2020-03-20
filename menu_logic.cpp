@@ -1,34 +1,30 @@
 #include "menu_logic.h"
 
 menu_logic::menu_logic( int w_width,  int w_height,
-                       std::string button1, std::string button2,
-                       std::string button3)
-    : m_window_width{w_width}, m_window_height{w_height},
-      m_v_buttons{menu_button(button1), menu_button(button2),
-                  menu_button(button3)}
+                        std::string button1, std::string button2,
+                        std::string button3)
+  : m_window_width{w_width}, m_window_height{w_height},
+    m_v_buttons{menu_button(button1), menu_button(button2),
+                menu_button(button3)}
 {
   put_buttons_tidy();
 }
 
 menu_button &menu_logic::get_button(int index)
 {
-
-  if (index < static_cast<int>(m_v_buttons.size()))
-  {
-    return m_v_buttons[static_cast<unsigned int>(index)];
-  }
-  return m_mock_button;
+  assert(index >= 0 && index < static_cast<int>(m_v_buttons.size()));
+  return m_v_buttons[static_cast<unsigned int>(index)];
 }
 
 void menu_logic::put_buttons_tidy() noexcept
 {
   for (unsigned int i = 0; i != get_m_v_buttons().size(); ++i)
-  {
-    get_m_v_buttons()[i].set_x(m_window_width / 2);
-    get_m_v_buttons()[i].set_y(static_cast<int>((i + 1)) *
-                               (m_window_height)/
-                               (static_cast<int>(m_v_buttons.size()) + 1));
-  }
+    {
+      get_m_v_buttons()[i].set_x(m_window_width / 2);
+      get_m_v_buttons()[i].set_y(static_cast<int>((i + 1)) *
+                                 (m_window_height)/
+                                 (static_cast<int>(m_v_buttons.size()) + 1));
+    }
 }
 
 void test_menu()
@@ -51,9 +47,6 @@ void test_menu()
   {
     menu_logic v;
     assert(v.get_button(0).get_name() == "action");
-    assert(v.get_button(1000).get_name() ==
-           "INVALID INDEX!"
-           " Trying to get a button that does not exist");
   }
   // buttons are evenly distributed
   // along the height of the screen
