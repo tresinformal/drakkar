@@ -43,6 +43,9 @@ public:
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
 
+  ///Gets constant ref to sf::RenderWindow m_window
+  const sf::RenderWindow& get_window() const noexcept {return m_window; }
+
 private:
   /// The game logic
   game m_game;
