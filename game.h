@@ -40,8 +40,11 @@ public:
   /// Get enemies
   const std::vector<enemy>& get_enemies() const noexcept { return m_enemies; }
 
-  /// Get food
-  std::vector<food> get_food() const { return m_food; }
+  /// Get const reference to food vector
+  const std::vector<food>& get_food() const noexcept { return m_food; }
+
+  /// Get reference to food vector
+  std::vector<food>& get_food()  noexcept { return m_food; }
 
   /// Get the player at a specified index in the vector of players
   const player &get_player(int i) const { return m_v_player[static_cast<unsigned int>(i)]; }
