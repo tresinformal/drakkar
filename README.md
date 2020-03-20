@@ -24,11 +24,23 @@ He'll add you to the tresinformal server.
 
 Things will be different, but hopefully still fun and even useful.
 
+See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [download (.OGG)](http://richelbilderbeek.nl/dutch_by_kids_students.ogv)
+
 ## Meetings
 
  * Date: Weekly, every Friday
  * Time: 17:00-19:00
  * On Discord
+
+We follow this timetable:
+
+What             | Time
+-----------------|------
+Doors open       | 17:00
+Lesson starts    | 17:15
+Break time!      | 18:00
+Lesson continues | 18:15
+End of lesson    | 19:00
 
 ## Game: 2D PvP chasing game
 
