@@ -127,6 +127,9 @@ bool has_collision(const game &g) noexcept;
 /// Determines if the player and projectile collide
 bool has_collision(const player& pl, const projectile& p);
 
+///Checks if there are collisions with food items
+bool has_food_collision(const game &) noexcept;
+
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
 bool has_collision_with_projectile(const game &) noexcept;
