@@ -7,8 +7,16 @@
 
 game_view::game_view(game_options options) :
   m_window(sf::VideoMode(1280, 720), "tresinformal game"),
+  m_v_views(
+    m_game.get_v_player().size(),
+    sf::View(
+      sf::Vector2f(0,0),
+      sf::Vector2f(m_window.getSize().x/2,m_window.getSize().y/2)
+      )
+    ),
   m_options(options)
 {
+
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
@@ -40,6 +48,27 @@ void test_game_view()
     assert(v.get_game().get_n_ticks() == 0);
   }
 #endif
+
+  //A game view is initialized with a number of views/cameras
+  //Equal to the number of players
+  {
+    game_view v;
+    assert(static_cast<int>(v.get_v_views().size()) -
+           static_cast<int>(v.get_game().get_v_player().size()) == 0);
+  }
+
+  //Each view will be half the height and half the side of the renderWindow
+
+  {
+    game_view v;
+    for(const auto& view : v.get_v_views())
+      {
+        assert(view.getSize().x - v.get_window().getSize().x/2 < 0.00001f
+               && view.getSize().x - v.get_window().getSize().x/2 > -0.00001f);
+        assert(view.getSize().y - v.get_window().getSize().y/2 < 0.00001f
+               && view.getSize().y - v.get_window().getSize().y/2 > -0.00001f);
+      }
+  }
 }
 
 void game_view::pl_1_input(sf::Event event) noexcept
