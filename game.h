@@ -40,8 +40,11 @@ public:
   /// Get enemies
   const std::vector<enemy>& get_enemies() const noexcept { return m_enemies; }
 
-  /// Get food
-  std::vector<food> get_food() const { return m_food; }
+  /// Get const reference to food vector
+  const std::vector<food>& get_food() const noexcept { return m_food; }
+
+  /// Get reference to food vector
+  std::vector<food>& get_food()  noexcept { return m_food; }
 
   /// Get the player at a specified index in the vector of players
   const player &get_player(int i) const { return m_v_player[static_cast<unsigned int>(i)]; }
@@ -126,6 +129,9 @@ bool has_collision(const game &g) noexcept;
 
 /// Determines if the player and projectile collide
 bool has_collision(const player& pl, const projectile& p);
+
+///Checks if there are collisions with food items
+bool has_food_collision(const game &) noexcept;
 
 /// checks if there is at least one collision between a player
 /// and a projectile in the game

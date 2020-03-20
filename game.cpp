@@ -206,6 +206,11 @@ bool has_collision_with_projectile(const game & g) noexcept
   return false;
 }
 
+bool has_food_collision(const game &) noexcept
+{
+  return false;
+}
+
 std::vector<int> get_collision_members(const game &g) noexcept
 {
   std::vector<int> v_collisions;
@@ -531,14 +536,12 @@ void test_game() //!OCLINT tests may be many
     assert(has_collision_with_projectile(g));
   }
 
-  #ifdef FIX_ISSUE_135
   // In the start of the game, there is no player-food collision
   {
     game g;
     assert(!has_food_collision(g));
   }
-  #endif // FIX_ISSUE_135
-  #ifdef FIX_ISSUE_139
+
   //Can modify food items, for example, delete all food items
   {
     game g;
@@ -547,7 +550,6 @@ void test_game() //!OCLINT tests may be many
     g.get_food().clear();
     assert(g.get_food().empty());
   }
-  #endif //FIX_ISSUE_139
   #ifdef FIX_ISSUE_138
   // In the start of the game, there is no player-enemy collision
   {
