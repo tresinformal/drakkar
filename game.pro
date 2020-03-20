@@ -10,7 +10,7 @@ HEADERS += \
     game_resources.h \
     game_view.h \
     menu_button.h \
-    menu_logic.h \
+    menu.h \
     menu_view.h \
     player.h \
     player_shape.h \
@@ -34,7 +34,7 @@ SOURCES += \
     game_view.cpp \
     main.cpp \
     menu_button.cpp \
-    menu_logic.cpp \
+    menu.cpp \
     menu_view.cpp \
     player.cpp \
     player_shape.cpp \

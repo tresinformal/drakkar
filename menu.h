@@ -1,11 +1,11 @@
-#ifndef MENU_LOGIC_H
-#define MENU_LOGIC_H
+#ifndef MENU_H
+#define MENU_H
 #include "menu_button.h"
 
-class menu_logic
+class menu
 {
 public:
-  menu_logic(int w_width = 1280, int w_height = 720,
+  menu(int w_width = 1280, int w_height = 720,
              std::string button1 = "action", std::string button2 = "about",
              std::string button3 = "quit");
 
@@ -39,4 +39,4 @@ private:
 
 void test_menu();
 
-#endif // MENU_LOGIC_H
+#endif // MENU_H

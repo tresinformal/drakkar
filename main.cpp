@@ -8,7 +8,7 @@
 #include "game_resources.h"
 #include "game_view.h"
 #include "menu_button.h"
-#include "menu_logic.h"
+#include "menu.h"
 #include "menu_view.h"
 #include "player.h"
 #include "player_shape.h"
