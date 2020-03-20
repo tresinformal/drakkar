@@ -34,8 +34,14 @@ public:
   /// is inputted
   bool process_events();
 
+  ///Gets a const ref to m_game
+  const game& get_game() const noexcept {return m_game; }
+
   ///Gets option settings of the game
   const game_options get_options() {return m_options;}
+
+  ///Gets the const reference to the vector of sf::Views m_v_views
+  const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
 
 private:
   /// The game logic
@@ -46,6 +52,9 @@ private:
 
   /// The window to draw to
   sf::RenderWindow m_window;
+
+  ///The views of each player
+  std::vector<sf::View> m_v_views;
 
   /// The options of the game
   game_options m_options;

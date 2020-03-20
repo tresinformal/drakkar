@@ -7,6 +7,7 @@
 
 game_view::game_view(game_options options) :
   m_window(sf::VideoMode(1280, 720), "tresinformal game"),
+  m_v_views(m_game.get_v_player().size()),
   m_options(options)
 {
 #ifndef IS_ON_TRAVIS
@@ -40,6 +41,16 @@ void test_game_view()
     assert(v.get_game().get_n_ticks() == 0);
   }
 #endif
+
+  //A game view is initialized with a number of views/cameras
+  //Equal to the number of players
+  {
+    game_view v;
+    assert(static_cast<int>(v.get_v_views().size()) -
+           static_cast<int>(v.get_game().get_v_player().size()) == 0);
+  }
+
+  //Each view will be hlaf the height and half the side of the renderWindow
 }
 
 void game_view::pl_1_input(sf::Event event) noexcept
