@@ -34,11 +34,14 @@ public:
   /// Gets reference adress of number of ticks
   int &get_n_ticks() noexcept { return m_n_ticks; }
 
-  /// Gets the player direction
-  double get_player_direction(int player_ind);
+  /// Get environment size of the game
+  environment get_environment() const { return m_environment; }
 
-  /// Get the vector of players
-  const std::vector<player> &get_v_player() const { return m_v_player; }
+  /// Get enemies
+  const std::vector<enemy>& get_enemies() const noexcept { return m_enemies; }
+
+  /// Get food
+  std::vector<food> get_food() const { return m_food; }
 
   /// Get the player at a specified index in the vector of players
   const player &get_player(int i) const { return m_v_player[static_cast<unsigned int>(i)]; }
@@ -46,14 +49,11 @@ public:
   /// Get reference to player to change some parameters
   player &get_player(int i) { return m_v_player[static_cast<unsigned int>(i)]; }
 
-  /// Get environment size of the game
-  environment get_environment() const { return m_environment; }
+  /// Gets the player direction
+  double get_player_direction(int player_ind);
 
-  /// Get food
-  std::vector<food> get_food() const { return m_food; }
-
-  /// Get enemies
-  std::vector<enemy> get_enemies() const { return m_enemies; }
+  /// Get the vector of players
+  const std::vector<player> &get_v_player() const { return m_v_player; }
 
   /// Get the projectiles
   const std::vector<projectile> &get_projectiles() const noexcept

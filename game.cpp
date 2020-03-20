@@ -206,7 +206,7 @@ bool has_collision_with_projectile(const game & g) noexcept
   return false;
 }
 
-std::vector<unsigned int> get_collision_members(const game &g) noexcept
+std::vector<int> get_collision_members(const game &g) noexcept
 {
   std::vector<int> v_collisions;
   const auto n_players = static_cast<int>(g.get_v_player().size());
