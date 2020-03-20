@@ -59,8 +59,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 
 #ifndef LOGIC_ONLY
 
-#define FIX_ISSUE_74
-#ifdef FIX_ISSUE_74
+
   // Show the menu, quits after (for now)
   if (args.size() > 1 && args[1] == "--menu")
   {
@@ -68,8 +67,6 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     v.exec();
     return 0;
   }
-
-#endif
 
   const game_options options;
   game_view v(options);
