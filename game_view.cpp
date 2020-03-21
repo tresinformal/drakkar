@@ -87,15 +87,13 @@ void test_game_view()
   //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
   //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
   //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-  //!!!!this test looks tauthological to me. @swom
+  //!!!!this test looks tauthological to me. Do not knwo how to make it better @swom
   {
     game_view v;
-
 
     assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.25f, 0.f, 0.5f, 0.5f) );
     assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
     assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.75f, 0.5f, 0.5f, 0.5f) );
-
   }
 }
 
@@ -182,6 +180,15 @@ void game_view::exec() noexcept
     }
 }
 
+void game_view::draw_background() noexcept{
+  // Draw the background
+  sf::Sprite background_sprite;
+  background_sprite.setPosition(10.0, 10.0);
+  //background_sprite.setTexture(m_game_resources.get_grass_landscape());
+  background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
+  background_sprite.setScale(16.0f, 16.0f);
+  m_window.draw(background_sprite);
+}
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 //! shorten
 {
@@ -266,13 +273,7 @@ void game_view::show() noexcept
   // Start drawing the new frame, by clearing the screen
   m_window.clear();
 
-  // Draw the background
-  sf::Sprite background_sprite;
-  background_sprite.setPosition(10.0, 10.0);
-  //background_sprite.setTexture(m_game_resources.get_grass_landscape());
-  background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
-  background_sprite.setScale(16.0f, 16.0f);
-  m_window.draw(background_sprite);
+  draw_background();
 
   draw_players();
 

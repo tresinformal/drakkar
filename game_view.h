@@ -65,6 +65,9 @@ private:
   /// The options of the game
   game_options m_options;
 
+  ///Draws the background
+  void draw_background() noexcept;
+
   /// Draws projectiles
   void draw_projectiles() noexcept;
 
