@@ -18,7 +18,7 @@ game_view::game_view(game_options options) :
 {
 
   //Hardcoded postions of the three sf::views of the three players
-  m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+  m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
   m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
   m_v_views[2].setViewport(sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f));
 
@@ -91,7 +91,7 @@ void test_game_view()
   {
     game_view v;
 
-    assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 1.f, 1.f) );
+    assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 0.5f, 0.5f) );
     assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
     assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
   }
@@ -289,8 +289,12 @@ void game_view::show() noexcept
   // Start drawing the new frame, by clearing the screen
   m_window.clear();
 
+  for(int i = 0; i != static_cast<int>(m_v_views.size()); i++){
 
-      m_window.setView(m_v_views[0]);
+      m_v_views[static_cast<unsigned int>(i)].setCenter(
+            static_cast<float>(m_game.get_player(i).get_x()),
+            static_cast<float>(m_game.get_player(i).get_y()));
+      m_window.setView(m_v_views[static_cast<unsigned int>(i)]);
 
       draw_background();
 
@@ -301,7 +305,7 @@ void game_view::show() noexcept
       draw_projectiles();
 
       draw_shelters();
-
+    }
 
 
   // Display all shapes
