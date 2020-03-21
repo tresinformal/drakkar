@@ -18,9 +18,9 @@ game_view::game_view(game_options options) :
 {
 
   //Hardcoded postions of the three sf::views of the three players
-  m_v_views[0].setViewport(sf::FloatRect(0.25f, 0.f, 0.5f, 0.5f));
+  m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
   m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
-  m_v_views[2].setViewport(sf::FloatRect(0.75f, 0.5f, 0.5f, 0.5f));
+  m_v_views[2].setViewport(sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f));
 
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
@@ -91,9 +91,9 @@ void test_game_view()
   {
     game_view v;
 
-    assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.25f, 0.f, 0.5f, 0.5f) );
+    assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 1.f, 1.f) );
     assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
-    assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.75f, 0.5f, 0.5f, 0.5f) );
+    assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
   }
 }
 
@@ -180,7 +180,8 @@ void game_view::exec() noexcept
     }
 }
 
-void game_view::draw_background() noexcept{
+void game_view::draw_background() noexcept
+{
   // Draw the background
   sf::Sprite background_sprite;
   background_sprite.setPosition(10.0, 10.0);
@@ -189,6 +190,21 @@ void game_view::draw_background() noexcept{
   background_sprite.setScale(16.0f, 16.0f);
   m_window.draw(background_sprite);
 }
+
+void game_view::draw_food() noexcept
+{
+   // Create food sprite
+  sf::CircleShape foodsprite(25.0);
+  // Get position of food
+  std::vector<food> foods = m_game.get_food();
+  // Position in landscape
+  foodsprite.setPosition(static_cast<float>(foods[0].get_x()),
+      static_cast<float>(foods[0].get_y()));
+  foodsprite.setFillColor(sf::Color(0, 0, 0));
+  m_window.draw(foodsprite);
+}
+
+
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 //! shorten
 {
@@ -273,23 +289,20 @@ void game_view::show() noexcept
   // Start drawing the new frame, by clearing the screen
   m_window.clear();
 
-  draw_background();
 
-  draw_players();
+      m_window.setView(m_v_views[0]);
 
-  // Create food sprite
-  sf::CircleShape foodsprite(25.0);
-  // Get position of food
-  std::vector<food> foods = m_game.get_food();
-  // Position in landscape
-  foodsprite.setPosition(static_cast<float>(foods[0].get_x()),
-      static_cast<float>(foods[0].get_y()));
-  foodsprite.setFillColor(sf::Color(0, 0, 0));
-  m_window.draw(foodsprite);
+      draw_background();
 
-  draw_projectiles();
+      draw_players();
 
-  draw_shelters();
+      draw_food();
+
+      draw_projectiles();
+
+      draw_shelters();
+
+
 
   // Display all shapes
   m_window.display();
