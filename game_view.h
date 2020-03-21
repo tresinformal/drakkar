@@ -43,6 +43,9 @@ public:
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
 
+  ///Gets the reference to a view in m_v_views
+  sf::View& get_view(int i) {return m_v_views[static_cast<unsigned int>(i)]; }
+
   ///Gets constant ref to sf::RenderWindow m_window
   const sf::RenderWindow& get_window() const noexcept {return m_window; }
 
