@@ -27,7 +27,7 @@ void test()
   test_game_options();
   test_enemy();
   test_environment();
-  test_environment_type();
+  test_individual_type();
   test_food();
   test_food_type();
   test_menu();

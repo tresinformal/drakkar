@@ -22,7 +22,7 @@ std::string to_str(environment_type this_env_type)
   return "[Unknown environment_type]";
 }
 
-void test_environment_type()
+void test_individual_type()
 {
   // Conversion to string
   {
