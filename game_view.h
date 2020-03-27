@@ -24,6 +24,9 @@ public:
   /// Run the game until the window is closed
   void exec() noexcept;
 
+  /// Get const reference to m_game_options
+  const game_options& get_options() const noexcept {return m_options;}
+
   /// Parses input for player 1
   void pl_1_input(sf::Event event) noexcept;
 

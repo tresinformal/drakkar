@@ -25,8 +25,11 @@ game_view::game_view(game_options options) :
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
-  m_game_resources.get_wonderland().setLoop(true);
-  m_game_resources.get_wonderland().play();
+  if(m_options.is_playing_music())
+    {
+      m_game_resources.get_wonderland().setLoop(true);
+      m_game_resources.get_wonderland().play();
+    }
 #endif
 }
 
@@ -39,63 +42,6 @@ game_view::~game_view()
 #endif // IS_ON_TRAVIS
 }
 
-void test_game_view()
-{
-  {
-    // Show the game for one frame
-    // (there will be a member function 'exec' for running the game)
-    game_view v;
-    v.show();
-  }
-#ifdef FIX_ISSUE_34
-  {
-    const game_view v;
-    assert(v.get_game().get_n_ticks() == 0);
-  }
-#endif
-
-  //A game view is initialized with a number of views/cameras
-  //Equal to the number of players
-  {
-    game_view v;
-    assert(static_cast<int>(v.get_v_views().size()) -
-           static_cast<int>(v.get_game().get_v_player().size()) == 0);
-  }
-
-  //Each view will show a rectangle half the height and half the side of the renderWindow
-
-  {
-    game_view v;
-    for(const auto& view : v.get_v_views())
-      {
-        assert(view.getSize().x - v.get_window().getSize().x/2 < 0.00001f
-               && view.getSize().x - v.get_window().getSize().x/2 > -0.00001f);
-        assert(view.getSize().y - v.get_window().getSize().y/2 < 0.00001f
-               && view.getSize().y - v.get_window().getSize().y/2 > -0.00001f);
-      }
-  }
-
-  //Each view port will also be half the dimaensions of the render window
-  //View will be initialized for the three default player like this
-  //     Screen.begin                                  Screen.end
-  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-  //-------|---------------------------------------------|---------
-  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-  //!!!!this test looks tauthological to me. Do not knwo how to make it better @swom
-  {
-    game_view v;
-
-    assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 0.5f, 0.5f) );
-    assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
-    assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
-  }
-}
 
 void game_view::pl_1_input(sf::Event event) noexcept
 {
@@ -193,7 +139,7 @@ void game_view::draw_background() noexcept
 
 void game_view::draw_food() noexcept
 {
-   // Create food sprite
+  // Create food sprite
   sf::CircleShape foodsprite(25.0);
   // Get position of food
   std::vector<food> foods = m_game.get_food();
@@ -310,4 +256,71 @@ void game_view::show() noexcept
 
   // Display all shapes
   m_window.display();
+}
+
+
+void test_game_view()
+{
+  {
+    // Show the game for one frame
+    // (there will be a member function 'exec' for running the game)
+    game_view v;
+    v.show();
+  }
+#ifdef FIX_ISSUE_34
+  {
+    const game_view v;
+    assert(v.get_game().get_n_ticks() == 0);
+  }
+#endif
+
+  //A game view is initialized with a number of views/cameras
+  //Equal to the number of players
+  {
+    game_view v;
+    assert(static_cast<int>(v.get_v_views().size()) -
+           static_cast<int>(v.get_game().get_v_player().size()) == 0);
+  }
+
+  //Each view will show a rectangle half the height and half the side of the renderWindow
+
+  {
+    game_view v;
+    for(const auto& view : v.get_v_views())
+      {
+        assert(view.getSize().x - v.get_window().getSize().x/2 < 0.00001f
+               && view.getSize().x - v.get_window().getSize().x/2 > -0.00001f);
+        assert(view.getSize().y - v.get_window().getSize().y/2 < 0.00001f
+               && view.getSize().y - v.get_window().getSize().y/2 > -0.00001f);
+      }
+  }
+
+  //Each view port will also be half the dimaensions of the render window
+  //View will be initialized for the three default player like this
+  //     Screen.begin                                  Screen.end
+  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
+  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
+  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
+  //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
+  //-------|---------------------------------------------|---------
+  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
+  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
+  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
+  //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
+  //!!!!this test looks tauthological to me. Do not knwo how to make it better @swom
+  {
+    game_view v;
+
+    assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 0.5f, 0.5f) );
+    assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
+    assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
+  }
+
+  //It is possible to access the game options
+  //the command .is_playing_music() is irrelevant
+  //is just to see if get_options() correctlu returns the game options
+  {
+    game_view v;
+    assert(v.get_options().is_playing_music());
+  }
 }
