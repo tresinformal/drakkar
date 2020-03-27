@@ -71,7 +71,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   game_options options;
   if (args.size() > 1 && args[1] == "--no-sound")
     {
-      sound_off(options);
+      music_off(options);
     }
   game_view v(options);
   assert(options == v.get_options());

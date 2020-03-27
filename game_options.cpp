@@ -13,12 +13,12 @@ bool operator != (const game_options& lhs, const game_options& rhs) noexcept {
   return !(lhs==rhs);
 }
 
-void sound_off(game_options& o) noexcept
+void music_off(game_options& o) noexcept
 {
   o.stop_music();//ok maybe this is redundant @swom
 }
 
-void sound_on(game_options& o) noexcept
+void music_on(game_options& o) noexcept
 {
   o.play_music();
 }
@@ -50,9 +50,9 @@ void test_game_options()
   {
     game_options o;
     assert(o.is_playing_music());
-    sound_off(o);
+    music_off(o);
     assert(!o.is_playing_music());
-    sound_on(o);
+    music_on(o);
     assert(o.is_playing_music());
   }
 }
