@@ -20,7 +20,8 @@ HEADERS += \
     game_options.h \
     color.h \
     shelter.h \
-    projectile.h
+    projectile.h \
+    enemy_behavior_type.h
 
 SOURCES += \
     action_type.cpp \
@@ -44,7 +45,8 @@ SOURCES += \
     game_options.cpp \
     color.cpp \
     shelter.cpp \
-    projectile.cpp
+    projectile.cpp \
+    enemy_behavior_type.cpp
 
 CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17
