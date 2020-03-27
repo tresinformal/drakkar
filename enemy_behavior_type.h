@@ -7,4 +7,7 @@ enum class enemy_behavior_type
   shy
 };
 
+/// Test the enemy_behavior_type
+void test_enemy_behavior_type();
+
 #endif // ENEMY_BEHAVIOR_TYPE_H
