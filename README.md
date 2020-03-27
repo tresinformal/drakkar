@@ -9,6 +9,7 @@ paula  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=paul
 pedro  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=pedro)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pedro)](https://codecov.io/github/tresinformal/game/branch/pedro)
 swom   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=stefano)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/pedro)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
+timo |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/timo)
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
