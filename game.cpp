@@ -206,6 +206,11 @@ bool has_collision_with_projectile(const game & g) noexcept
   return false;
 }
 
+bool has_enemy_collision(const game&)
+{
+  return false;
+}
+
 bool has_food_collision(const game &) noexcept
 {
   return false;
@@ -550,13 +555,11 @@ void test_game() //!OCLINT tests may be many
     g.get_food().clear();
     assert(g.get_food().empty());
   }
-  #ifdef FIX_ISSUE_138
   // In the start of the game, there is no player-enemy collision
   {
     game g;
     assert(!has_enemy_collision(g));
   }
-  #endif // FIX_ISSUE_138
   //If red eats green then red survives
   {
     game g;
