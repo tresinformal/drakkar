@@ -36,3 +36,9 @@ void test_individual_type()
     s << environment_type::empty;
  }
 }
+
+std::ostream &operator<<(std::ostream &os, const environment_type t)
+{
+  os << to_str(t);
+  return os;
+}
