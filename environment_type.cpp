@@ -36,3 +36,9 @@ void test_individual_type()
     s << environment_type::empty;
  }
 }
+
+std::ostream &operator<<(std::ostream &os, const action_type t)
+{
+  os << to_str_act_type(t);
+  return os;
+}
