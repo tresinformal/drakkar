@@ -23,10 +23,10 @@ private:
 bool operator == (const game_options& lhs, const game_options& rhs) noexcept;
 
 ///Turns off the sound in options
-void sound_off(game_options& o) noexcept;
+void music_off(game_options& o) noexcept;
 
 ///Turns on the sound in options
-void sound_on(game_options& o) noexcept;
+void music_on(game_options& o) noexcept;
 
 /// Test the 'game_options' class
 void test_game_options();

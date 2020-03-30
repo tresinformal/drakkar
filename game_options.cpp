@@ -15,7 +15,7 @@ bool operator != (const game_options& lhs, const game_options& rhs) noexcept {
 
 void music_off(game_options& o) noexcept
 {
-  o.stop_music();//ok maybe this is redundant @swom
+  o.stop_music(); //ok maybe this is redundant @swom
 }
 
 void music_on(game_options& o) noexcept
