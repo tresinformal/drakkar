@@ -48,8 +48,8 @@ SOURCES += \
     projectile.cpp \
     enemy_behavior_type.cpp
 
-CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++17
+CONFIG += c++14
+QMAKE_CXXFLAGS += -std=c++14
 CONFIG += resources_big
 
 # High warning levels
