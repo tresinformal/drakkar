@@ -28,11 +28,11 @@ void test_food_type()
 
 std::ostream &operator<<(std::ostream &os, const food_type t)
 {
-  os << to_str_food_type(t);
+  os << to_str(t);
   return os;
 }
 
-const std::string to_str_food_type(food_type this_food_type)
+std::string to_str(food_type this_food_type) noexcept
 
 {
 
