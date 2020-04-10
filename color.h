@@ -38,15 +38,6 @@ private:
 
 /// Implement stream operator
 std::stringstream& operator << (std::stringstream &out, const color &color)
-{
-    // Since operator<< is a friend of the Point class, we can access Point's members directly.
-    "Color(" << std::to_string(color.m_r) <<
-           ", " << std::to_string(color.m_g) <<
-           ", " << std::to_string(color.m_b) <<
-           ")"; // actual output done here
-
-    return out; // return std::ostream so we can chain calls to operator<<
-}
 
 /// Get a color that differs one hue in its red, green or blue value
 color get_adjacent_color(color c);
