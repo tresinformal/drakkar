@@ -71,7 +71,7 @@ public:
   }
 
   /// Get enemies
-  std::vector<shelter> get_shelters() const { return m_shelters; }
+  const std::vector<shelter>& get_shelters() const noexcept { return m_shelters; }
 
   /// Kills the index'th player (e.g. index 0 is the first player)
   /// Assumes that index exists, else crashes
