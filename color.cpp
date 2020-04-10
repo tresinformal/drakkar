@@ -98,7 +98,7 @@ bool operator==(const color& lhs, const color& rhs) noexcept
 std::stringstream& operator << (std::stringstream &out, const color &color)
 {
     // Since operator<< is a friend of the Point class, we can access Point's members directly.
-    "Color(" << std::to_string(color.m_r) <<
+    out << "Color(" << std::to_string(color.m_r) <<
            ", " << std::to_string(color.m_g) <<
            ", " << std::to_string(color.m_b) <<
            ")"; // actual output done here
