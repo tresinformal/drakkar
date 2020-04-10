@@ -76,6 +76,7 @@ void test_color()
     assert(other.get_red() != 255 || other.get_green() != 255 ||
            other.get_blue() != 255);
   }
+  #define FIX_ISSUE_156
   #ifdef FIX_ISSUE_156
   {
     std::stringstream s;
