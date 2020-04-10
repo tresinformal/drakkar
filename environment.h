@@ -5,7 +5,7 @@
 class environment
 {
 public:
-  environment(environment_type environment_type = environment_type::empty);
+  environment(double wall_short_side, environment_type environment_type = environment_type::empty);
   int get_min_x() const noexcept { return m_min_x; }
   int get_min_y() const noexcept { return m_min_y; }
   int get_max_x() const noexcept { return m_max_x; }
@@ -19,6 +19,8 @@ private:
   int m_min_y = -1000;
   int m_max_x = 1000;
   int m_max_y = 1000;
+  double m_wall_short_side;
+  double m_wall_long_side;
 
   /// the environment
   environment_type m_environment_type;

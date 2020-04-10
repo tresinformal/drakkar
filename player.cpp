@@ -12,7 +12,7 @@ player::player(const double x, const double y, const player_shape shape,
     : m_color{any_color}, m_x{x}, m_y{y}, m_shape{shape},
       m_player_speed{player_speed}, m_player_max_speed{player_max_speed},
       m_player_acceleration{player_acceleration},
-      m_player_deceleration{player_deceleration}, m_radius{size},
+      m_player_deceleration{player_deceleration}, m_diameter{size},
       m_direction_radians{direction}, m_turn_rate{turn_rate}
 {
 }
@@ -55,7 +55,7 @@ bool are_colliding(const player &lhs, const player &rhs) noexcept
   const double dx = std::abs(lhs.get_x() - rhs.get_x());
   const double dy = std::abs(lhs.get_y() - rhs.get_y());
   const double actual_distance = std::sqrt((dx * dx) + (dy * dy));
-  const double collision_distance = (lhs.get_radius() + rhs.get_radius()) / 2;
+  const double collision_distance = (lhs.get_diameter() + rhs.get_diameter()) / 2;
   return actual_distance < collision_distance;
 }
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
@@ -170,7 +170,7 @@ void test_player() //!OCLINT tests may be long
   // A player has an initial size of one hundred
   {
     const player p{1.2, 3.4, player_shape::rocket};
-    assert(std::abs(p.get_radius() - 100.0) < 0.00001);
+    assert(std::abs(p.get_diameter() - 100.0) < 0.00001);
   }
   // A player can update its position
   {
@@ -216,7 +216,7 @@ void test_player() //!OCLINT tests may be long
   // their size away
   {
     const player p1(0.0, 0.0);
-    assert(p1.get_radius() == 100.0);
+    assert(p1.get_diameter() == 100.0);
     // So, 90 pixels is a collision then
     const player p2(90.0, 0.0);
     assert(are_colliding(p1, p2));

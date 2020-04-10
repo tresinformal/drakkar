@@ -30,7 +30,7 @@ public:
   player_shape get_shape() const noexcept { return m_shape; }
 
   /// Get the radius of the player
-  double get_radius() const noexcept { return m_radius; }
+  double get_diameter() const noexcept { return m_diameter; }
 
   /// Get the speed of the player
   double get_speed() const noexcept { return m_player_speed; }
@@ -124,7 +124,7 @@ private:
   double m_player_deceleration;
 
   /// The size of the player
-  double m_radius;
+  double m_diameter;
 
   /// The direction of player in radians
   double m_direction_radians;
