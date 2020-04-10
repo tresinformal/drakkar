@@ -46,6 +46,7 @@ void test_game_options()
     assert(a == a);
     assert(a != b);
   }
+
   //Sound can be turned down
   {
     game_options o;
