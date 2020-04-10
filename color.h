@@ -32,8 +32,6 @@ private:
   /// Alpha or opaqueness (0 = transparant, 255 = opaque)
   int m_a;
 
-  /// Implment stream operator
-  friend std::stringstream& operator << (std::stringstream &out, const color &color);
 };
 
 /// Implement stream operator
