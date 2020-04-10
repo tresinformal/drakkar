@@ -34,9 +34,6 @@ private:
 
 };
 
-/// Implement stream operator
-std::stringstream& operator << (std::stringstream &out, const color &color);
-
 /// Get a color that differs one hue in its red, green or blue value
 color get_adjacent_color(color c);
 
@@ -58,5 +55,7 @@ void test_color();
 
 bool operator==(const color& lhs, const color& rhs) noexcept;
 
+/// Implement stream operator
+std::stringstream& operator << (std::stringstream &out, const color &color);
 
 #endif // COLOR_H
