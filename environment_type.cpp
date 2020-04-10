@@ -1,4 +1,4 @@
-
+#include <sstream>
 #include "environment_type.h"
 #include <cassert>
 
@@ -31,4 +31,14 @@ void test_individual_type()
     assert(to_str(environment_type::random) != "wormhole");
   }
   // Other tests will follow here
+ {
+    std::stringstream s;
+    s << environment_type::empty;
+ }
+}
+
+std::ostream &operator<<(std::ostream &os, const environment_type t)
+{
+  os << to_str(t);
+  return os;
 }

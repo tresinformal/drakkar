@@ -14,6 +14,7 @@ enum class environment_type
 };
 
 std::string to_str(environment_type this_env_type);
+std::ostream &operator<<(std::ostream &os, const environment_type t);
 
 void test_individual_type();
 

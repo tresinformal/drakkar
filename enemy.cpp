@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include <cassert>
+#include <sstream>
 
 void test_enemy()
 {
@@ -16,6 +17,14 @@ void test_enemy()
     assert(e.get_x() - x < 0.000001);
     assert(e.get_y() - y < 0.000001);
   }
+  //#define FIX_ISSUE_157
+  #ifdef FIX_ISSUE_157
+  {
+    std::stringstream s;
+    const enemy e;
+    s << e;
+  }
+  #endif //FIX_ISSUE_157
 }
 
 enemy::enemy(const double x, const double y) : m_x{x}, m_y{y} {}

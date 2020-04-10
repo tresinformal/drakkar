@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <cstdlib>
+#include <sstream>
 
 color::color(const int r, const int g, const int b, const int a)
     : m_r{r}, m_g{g}, m_b{b}, m_a{a}
@@ -75,6 +76,13 @@ void test_color()
     assert(other.get_red() != 255 || other.get_green() != 255 ||
            other.get_blue() != 255);
   }
+  #ifdef FIX_ISSUE_156
+  {
+    std::stringstream s;
+    const color c;
+    s << c;
+  }
+  #endif //FIX_ISSUE_156
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept

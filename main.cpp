@@ -1,6 +1,7 @@
 #include "enemy.h"
 #include "environment.h"
 #include "environment_type.h"
+#include "enemy_behavior_type.h"
 #include "food.h"
 #include "food_type.h"
 #include "game.h"
@@ -26,6 +27,7 @@ void test()
   test_game();
   test_game_options();
   test_enemy();
+  test_enemy_behavior_type();
   test_environment();
   test_individual_type();
   test_food();

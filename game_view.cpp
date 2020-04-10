@@ -42,7 +42,10 @@ game_view::~game_view()
 #endif // IS_ON_TRAVIS
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 void game_view::pl_1_input(sf::Event event) noexcept
 {
   // buttons for  player1
@@ -315,6 +318,7 @@ void test_game_view()
     assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
     assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
   }
+<<<<<<< HEAD
 
   //It is possible to access the game options
   //the command .is_playing_music() is irrelevant
@@ -324,3 +328,7 @@ void test_game_view()
     assert(v.get_options().is_playing_music());
   }
 }
+=======
+}
+
+>>>>>>> develop
