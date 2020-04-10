@@ -70,7 +70,11 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     return 0;
   }
 
-  const game_options options;
+  game_options options;
+  if (args.size() > 1 && args[1] == "--no-sound")
+    {
+      music_off(options);
+    }
   game_view v(options);
   assert(options == v.get_options());
   v.exec();
