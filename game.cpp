@@ -10,10 +10,10 @@ game::game(const int n_ticks, int num_players)
     : m_n_ticks{n_ticks},
       m_v_player(static_cast<unsigned int>(num_players), player()), m_food{1}, m_enemies{1}, m_shelters(3)
 {
-  for (unsigned int i = 0; i < m_v_player.size(); ++i)
+  for (unsigned int i = 0; i != m_v_player.size(); ++i)
   {
     m_v_player[i] =
-        player(300.0 + m_dist_x_pls * i, 400.0, player_shape::rocket);
+        player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
   }
   // Set color
   {
@@ -56,7 +56,7 @@ int count_n_projectiles(const game &g) noexcept
   return static_cast<int>(g.get_projectiles().size());
 }
 
-void game::do_action(unsigned int player_index, action_type action)
+void game::do_action( int player_index, action_type action)
 {
 
   switch (action)
@@ -95,15 +95,15 @@ void game::do_action(unsigned int player_index, action_type action)
 }
 double game::get_player_direction( int player_ind)
 {
-  return get_player(static_cast<unsigned int>(player_ind)).get_direction();
+  return get_player(player_ind).get_direction();
 }
 
-double get_player_direction(game g, unsigned int player_ind)
+double get_player_direction(game g, int player_ind)
 {
   return g.get_player(player_ind).get_direction();
 }
 
-void game::set_collision_vector(unsigned int lhs, unsigned int rhs)
+void game::set_collision_vector( int lhs,  int rhs)
 {
  m_v_collisions_ind.push_back(lhs);
  m_v_collisions_ind.push_back(rhs);
@@ -111,7 +111,7 @@ void game::set_collision_vector(unsigned int lhs, unsigned int rhs)
 
 void game::apply_inertia()
 {
-  for (unsigned int i = 0; i < get_v_player().size(); ++i)
+  for ( int i = 0; i != static_cast<int>(get_v_player().size()); ++i)
   {
     if (get_player(i).get_speed() != 0.0)
     {
@@ -169,10 +169,10 @@ void game::tick()
 
 bool has_collision(const game &g) noexcept
 {
-  const auto n_players = g.get_v_player().size();
-  for (unsigned int i = 0; i < n_players; ++i)
+  const auto n_players = static_cast<int>(g.get_v_player().size()) ;
+  for (int i = 0; i < n_players; ++i)
   {
-    for (unsigned int j = i + 1; j < n_players; ++j)
+    for (int j = i + 1; j < n_players; ++j)
     {
       if (are_colliding(g.get_player(i), g.get_player(j)))
         {
@@ -211,13 +211,23 @@ bool has_collision_with_projectile(const game & g) noexcept
   return false;
 }
 
-std::vector<unsigned int> get_collision_members(const game &g) noexcept
+bool has_enemy_collision(const game&)
 {
-  std::vector<unsigned int> v_collisions;
-  const auto n_players = g.get_v_player().size();
-  for (unsigned int i = 0; i < n_players; ++i)
+  return false;
+}
+
+bool has_food_collision(const game &) noexcept
+{
+  return false;
+}
+
+std::vector<int> get_collision_members(const game &g) noexcept
+{
+  std::vector<int> v_collisions;
+  const auto n_players = static_cast<int>(g.get_v_player().size());
+  for (int i = 0; i < n_players; ++i)
   {
-    for (unsigned int j = i + 1; j < n_players; ++j)
+    for (int j = i + 1; j < n_players; ++j)
     {
       if (are_colliding(g.get_player(i), g.get_player(j)))
         {
@@ -282,7 +292,7 @@ void test_game() //!OCLINT tests may be many
     // The value 1234.5 is irrelevant: just get this to compile
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
     {
-      assert(g.get_player(i).get_x() > -1234.5);
+      assert(g.get_player(static_cast<int>(i)).get_x() > -1234.5);
     }
   }
   // A game has food items
@@ -298,7 +308,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can turn left
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
     {
       const double before{g.get_player(i).get_direction()};
       g.do_action(i,action_type::turn_left);
@@ -309,7 +319,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can turn right
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       const double before{g.get_player(i).get_direction()};
       g.do_action(i, action_type::turn_right);
@@ -320,7 +330,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can accelerate
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       const double before{g.get_player(i).get_speed()};
       g.do_action(i, action_type::accelerate);
@@ -331,7 +341,7 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can break
   {
     game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       // give the player a speed of more than 0
       g.do_action(i, action_type::accelerate);
@@ -393,7 +403,7 @@ void test_game() //!OCLINT tests may be many
   // Can get a player's direction by using a free function
   {
     const game g;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       const double a{g.get_player(i).get_direction()};
       const double b{get_player_direction(g, i)};
@@ -426,14 +436,14 @@ void test_game() //!OCLINT tests may be many
     game g;
     std::vector<double> before_v;
     std::vector<double> after_v;
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       // give the player a speed of more than 0
       g.do_action(i, action_type::accelerate);
       before_v.push_back(g.get_player(i).get_speed());
     }
     g.apply_inertia();
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
     {
       after_v.push_back(g.get_player(i).get_speed());
     }
@@ -448,7 +458,7 @@ void test_game() //!OCLINT tests may be many
   // along the x axis at initialization
   {
     game g;
-    for (unsigned int i = 0; i < (g.get_v_player().size() - 1); ++i)
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size() - 1); ++i)
     {
       assert(g.get_player(i).get_x() - g.get_player(i + 1).get_x() +
                      g.get_dist_x_pls() <
@@ -553,14 +563,12 @@ void test_game() //!OCLINT tests may be many
     assert(has_collision_with_projectile(g));
   }
 
-  #ifdef FIX_ISSUE_135
   // In the start of the game, there is no player-food collision
   {
     game g;
     assert(!has_food_collision(g));
   }
-  #endif // FIX_ISSUE_135
-  #ifdef FIX_ISSUE_139
+
   //Can modify food items, for example, delete all food items
   {
     game g;
@@ -569,14 +577,11 @@ void test_game() //!OCLINT tests may be many
     g.get_food().clear();
     assert(g.get_food().empty());
   }
-  #endif //FIX_ISSUE_139
-  #ifdef FIX_ISSUE_138
   // In the start of the game, there is no player-enemy collision
   {
     game g;
     assert(!has_enemy_collision(g));
   }
-  #endif // FIX_ISSUE_138
   //If red eats green then red survives
   {
     game g;
@@ -603,6 +608,7 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_player(1).get_color().get_green() > 250);
   }
   #endif // FIX_ISSUE_VALENTINES_DAY
+
 
 }
 

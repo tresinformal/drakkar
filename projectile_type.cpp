@@ -20,11 +20,11 @@ std::ostream &operator<<(std::ostream &os, const projectile_type t)
   return os;
 }
 
-const std::string to_str_projectile_type(projectile_type this_food_type)
+const std::string to_str_projectile_type(projectile_type this_projectile_type)
 
 {
 
-  switch (this_food_type) //!OCLINT
+  switch (this_projectile_type) //!OCLINT
                           // it might be wise to keep a default statement
                           // in case for some reason an invalid input is given
   {

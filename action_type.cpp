@@ -4,14 +4,12 @@
 
 void test_action_type()
 {
-  assert(to_str_act_type(action_type::turn_left) !=
-         to_str_act_type(action_type::turn_right));
-  assert(to_str_act_type(action_type::accelerate) !=
-         to_str_act_type(action_type::brake));
-  assert(to_str_act_type(action_type::accelerate) !=
-         to_str_act_type(action_type::shoot));
-  assert(to_str_act_type(action_type::brake) !=
-         to_str_act_type(action_type::acc_backward));
+  assert(to_str(action_type::turn_left) !=
+         to_str(action_type::turn_right));
+  assert(to_str(action_type::accelerate) !=
+         to_str(action_type::brake));
+  assert(to_str(action_type::accelerate) !=
+         to_str(action_type::shoot));
   {
     std::stringstream s;
     s << action_type::brake;
@@ -20,11 +18,11 @@ void test_action_type()
 
 std::ostream &operator<<(std::ostream &os, const action_type t)
 {
-  os << to_str_act_type(t);
+  os << to_str(t);
   return os;
 }
 
-const std::string to_str_act_type(action_type this_action_type)
+const std::string to_str(action_type this_action_type)
 {
   switch (this_action_type)
   {

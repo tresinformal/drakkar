@@ -1,7 +1,7 @@
 #ifndef MENU_VIEW_H
 #define MENU_VIEW_H
 #include "SFML/Graphics.hpp"
-#include "menu_logic.h"
+#include "menu.h"
 
 class menu_view
 {
@@ -12,7 +12,7 @@ public:
   void exec();
 
 private:
-  menu_logic m_menu_logic;
+  menu m_menu;
   sf::RenderWindow m_window;
 
   ///

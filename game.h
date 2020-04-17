@@ -20,13 +20,13 @@ public:
   game(const int n_ticks = 0, int num_players = 3);
 
   ///makes a player do an action
-  void do_action(unsigned int player_index, action_type action);
+  void do_action(int player_index, action_type action);
 
   ///returns the collision vector
-  const std::vector<unsigned int>& get_collision_vec(){return m_v_collisions_ind;}
+  const auto& get_collision_vec(){return m_v_collisions_ind;}
 
   ///sets the collision vector
-  void set_collision_vector(unsigned  int lhs, unsigned int rhs);
+  void set_collision_vector(int lhs, int rhs);
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
@@ -34,26 +34,29 @@ public:
   /// Gets reference adress of number of ticks
   int &get_n_ticks() noexcept { return m_n_ticks; }
 
-  /// Gets the player direction
-  double get_player_direction( int player_ind);
-
-  /// Get the vector of players
-  const std::vector<player> &get_v_player() const { return m_v_player; }
-
-  /// Get the player at a specified index in the vector of players
-  const player &get_player(unsigned int i) const { return m_v_player[i]; }
-
-  /// Get reference to player to change some parameters
-  player &get_player(unsigned int i) { return m_v_player[i]; }
-
   /// Get environment size of the game
   environment get_environment() const { return m_environment; }
 
-  /// Get food
-  std::vector<food> get_food() const { return m_food; }
-
   /// Get enemies
-  std::vector<enemy> get_enemies() const { return m_enemies; }
+  const std::vector<enemy>& get_enemies() const noexcept { return m_enemies; }
+
+  /// Get const reference to food vector
+  const std::vector<food>& get_food() const noexcept { return m_food; }
+
+  /// Get reference to food vector
+  std::vector<food>& get_food()  noexcept { return m_food; }
+
+  /// Get the player at a specified index in the vector of players
+  const player &get_player(int i) const { return m_v_player[static_cast<unsigned int>(i)]; }
+
+  /// Get reference to player to change some parameters
+  player &get_player(int i) { return m_v_player[static_cast<unsigned int>(i)]; }
+
+  /// Gets the player direction
+  double get_player_direction(int player_ind);
+
+  /// Get the vector of players
+  const std::vector<player> &get_v_player() const { return m_v_player; }
 
   /// Get the projectiles
   const std::vector<projectile> &get_projectiles() const noexcept
@@ -68,7 +71,7 @@ public:
   }
 
   /// Get enemies
-  std::vector<shelter> get_shelters() const { return m_shelters; }
+  const std::vector<shelter>& get_shelters() const noexcept { return m_shelters; }
 
   /// Kills the index'th player (e.g. index 0 is the first player)
   /// Assumes that index exists, else crashes
@@ -81,7 +84,7 @@ public:
   void tick();
 
   /// Get initial x distance of players
-  unsigned int get_dist_x_pls() const noexcept { return m_dist_x_pls; }
+  auto get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
 private:
   /// the number of ticks
@@ -91,7 +94,7 @@ private:
   std::vector<player> m_v_player;
 
   ///Vector of index of the players that collide
-  std::vector<unsigned int> m_v_collisions_ind;
+  std::vector<int> m_v_collisions_ind;
 
   /// the environment
   environment m_environment;
@@ -109,7 +112,7 @@ private:
   std::vector<shelter> m_shelters;
 
   /// starting x distance between players
-  const unsigned int m_dist_x_pls = 300;
+  const int m_dist_x_pls = 300;
 
   /// Moves the projectiles
   void move_projectiles();
@@ -127,11 +130,17 @@ bool has_collision(const game &g) noexcept;
 /// Determines if the player and projectile collide
 bool has_collision(const player& pl, const projectile& p);
 
+/// Is there a collision between an enemy and player?
+bool has_enemy_collision(const game& g);
+
+///Checks if there are collisions with food items
+bool has_food_collision(const game &) noexcept;
+
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
 bool has_collision_with_projectile(const game &) noexcept;
 
-std::vector<unsigned int> get_collision_members(const game &g) noexcept;
+std::vector<int> get_collision_members(const game &g) noexcept;
 
 /// Upon a collision, kills the player that loser
 /// Assumes there is a collision

@@ -1,4 +1,4 @@
-
+#include <sstream>
 #include "environment_type.h"
 #include <cassert>
 
@@ -22,7 +22,7 @@ std::string to_str(environment_type this_env_type)
   return "[Unknown environment_type]";
 }
 
-void test_environment_type()
+void test_individual_type()
 {
   // Conversion to string
   {
@@ -31,4 +31,14 @@ void test_environment_type()
     assert(to_str(environment_type::random) != "wormhole");
   }
   // Other tests will follow here
+ {
+    std::stringstream s;
+    s << environment_type::empty;
+ }
+}
+
+std::ostream &operator<<(std::ostream &os, const environment_type t)
+{
+  os << to_str(t);
+  return os;
 }

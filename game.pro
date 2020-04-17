@@ -10,16 +10,18 @@ HEADERS += \
     game_resources.h \
     game_view.h \
     menu_button.h \
-    menu_logic.h \
+    menu.h \
     menu_view.h \
     player.h \
     player_shape.h \
+    program_state.h \
     projectile_type.h \
     sound_type.h \
     game_options.h \
     color.h \
     shelter.h \
-    projectile.h
+    projectile.h \
+    enemy_behavior_type.h
 
 SOURCES += \
     action_type.cpp \
@@ -33,19 +35,21 @@ SOURCES += \
     game_view.cpp \
     main.cpp \
     menu_button.cpp \
-    menu_logic.cpp \
+    menu.cpp \
     menu_view.cpp \
     player.cpp \
     player_shape.cpp \
+    program_state.cpp \
     projectile_type.cpp \
     sound_type.cpp \
     game_options.cpp \
     color.cpp \
     shelter.cpp \
-    projectile.cpp
+    projectile.cpp \
+    enemy_behavior_type.cpp
 
-CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++17
+CONFIG += c++14
+QMAKE_CXXFLAGS += -std=c++14
 CONFIG += resources_big
 
 # High warning levels

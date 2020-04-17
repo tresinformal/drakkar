@@ -1,6 +1,7 @@
 #include "enemy.h"
 #include "environment.h"
 #include "environment_type.h"
+#include "enemy_behavior_type.h"
 #include "food.h"
 #include "food_type.h"
 #include "game.h"
@@ -8,7 +9,7 @@
 #include "game_resources.h"
 #include "game_view.h"
 #include "menu_button.h"
-#include "menu_logic.h"
+#include "menu.h"
 #include "menu_view.h"
 #include "player.h"
 #include "player_shape.h"
@@ -26,8 +27,9 @@ void test()
   test_game();
   test_game_options();
   test_enemy();
+  test_enemy_behavior_type();
   test_environment();
-  test_environment_type();
+  test_individual_type();
   test_food();
   test_food_type();
   test_menu();
@@ -59,8 +61,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 
 #ifndef LOGIC_ONLY
 
-#define FIX_ISSUE_74
-#ifdef FIX_ISSUE_74
+
   // Show the menu, quits after (for now)
   if (args.size() > 1 && args[1] == "--menu")
   {
@@ -69,9 +70,13 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     return 0;
   }
 
-#endif
-
-  game_view v;
+  game_options options;
+  if (args.size() > 1 && args[1] == "--no-sound")
+    {
+      music_off(options);
+    }
+  game_view v(options);
+  assert(options == v.get_options());
   v.exec();
 
 #endif // LOGIC_ONLY
