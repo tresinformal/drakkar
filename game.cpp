@@ -111,12 +111,12 @@ void game::set_collision_vector( int lhs,  int rhs)
 
 void game::apply_inertia()
 {
-  for ( int i = 0; i != static_cast<int>(get_v_player().size()); ++i)
+  for (auto& player: m_v_player)
   {
-    if (get_player(i).get_speed() != 0.0)
+    if (player.get_speed() != 0.0)
     {
       // And should this function take some value from environment?
-      do_action(i,action_type::brake);
+      player.brake();
     }
   }
 }
@@ -347,10 +347,8 @@ void test_game() //!OCLINT tests may be many
       g.do_action(i, action_type::accelerate);
       const double before{g.get_player(i).get_speed()};
       g.do_action(i, action_type::brake);
-      g.do_action(i, action_type::brake);
-      g.do_action(i, action_type::brake);
       const double after{g.get_player(i).get_speed()};
-      assert(before - after > 0.0000000000000001);
+      assert(before > after);
       // After should be < than before
     }
   }

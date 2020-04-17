@@ -11,13 +11,13 @@ player::player(const double x, const double y, const player_shape shape,
                const double size,
                const double direction, const double turn_rate,
                const color &any_color)
-    : m_color{any_color}, m_x{x}, m_y{y}, m_shape{shape},
-      m_player_speed{player_speed}, m_player_max_speed{player_max_speed},
-      m_player_acceleration{player_acceleration},
-      m_player_deceleration{player_deceleration},
-      m_player_acc_backward{player_acc_backward},
-      m_radius{size},
-      m_direction_radians{direction}, m_turn_rate{turn_rate}
+  : m_color{any_color}, m_x{x}, m_y{y}, m_shape{shape},
+    m_player_speed{player_speed}, m_player_max_speed{player_max_speed},
+    m_player_acceleration{player_acceleration},
+    m_player_deceleration{player_deceleration},
+    m_player_acc_backward{player_acc_backward},
+    m_radius{size},
+    m_direction_radians{direction}, m_turn_rate{turn_rate}
 {
 }
 
@@ -26,39 +26,45 @@ player::player(const double x, const double y, const player_shape shape,
 void player::brake() noexcept
 {
   if (m_player_speed > m_player_max_speed)
-  {
-    m_player_speed = m_player_max_speed;
-  }
-  else
-  {
-        m_player_speed -= m_player_deceleration;
-  }
+    {
+      m_player_speed = m_player_max_speed;
+    }
+  else if(m_player_speed < -m_player_max_speed)
+    {
+      m_player_speed = -m_player_max_speed;
+    }
+  else if(m_player_speed > 0)
+    {
+      m_player_speed += m_player_deceleration;
+    }
+  m_player_speed -= m_player_deceleration;
+
   update_player_position();
 }
 
 void player::accelerate() noexcept
 {
   if (m_player_speed < m_player_max_speed)
-  {
-    m_player_speed += m_player_acceleration;
-  }
+    {
+      m_player_speed += m_player_acceleration;
+    }
   else
-  {
-    m_player_speed = m_player_max_speed;
-  }
+    {
+      m_player_speed = m_player_max_speed;
+    }
   update_player_position();
 }
 
 void player::acc_backward() noexcept
 {
   if (m_player_speed < -m_player_max_speed)
-  {
-    m_player_speed = -m_player_max_speed;
-  }
+    {
+      m_player_speed = -m_player_max_speed;
+    }
   else
-  {
-    m_player_speed -= m_player_acc_backward ;
-  }
+    {
+      m_player_speed += m_player_acc_backward ;
+    }
   update_player_position();
 
 }
@@ -85,9 +91,9 @@ bool is_blue(const player &p) noexcept
   assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
   assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
   return p.get_color().get_red() == 0
-    && p.get_color().get_green() == 0
-    && p.get_color().get_blue() == 255
-  ;
+      && p.get_color().get_green() == 0
+      && p.get_color().get_blue() == 255
+      ;
 }
 
 bool is_green(const player &p) noexcept
@@ -96,9 +102,9 @@ bool is_green(const player &p) noexcept
   assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
   assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
   return p.get_color().get_red() == 0
-    && p.get_color().get_green() == 255
-    && p.get_color().get_blue() == 0
-  ;
+      && p.get_color().get_green() == 255
+      && p.get_color().get_blue() == 0
+      ;
 }
 
 bool is_red(const player & p) noexcept
@@ -107,9 +113,9 @@ bool is_red(const player & p) noexcept
   assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
   assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
   return p.get_color().get_red() == 255
-    && p.get_color().get_green() == 0
-    && p.get_color().get_blue() == 0
-  ;
+      && p.get_color().get_green() == 0
+      && p.get_color().get_blue() == 0
+      ;
 }
 
 void test_player() //!OCLINT tests may be long
