@@ -37,7 +37,10 @@ void player::brake() noexcept
     {
       m_player_speed += m_player_deceleration;
     }
-  m_player_speed -= m_player_deceleration;
+  else
+    {
+      m_player_speed -= m_player_deceleration;
+    }
 
   update_player_position();
 }
