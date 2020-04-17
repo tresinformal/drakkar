@@ -13,7 +13,9 @@ public:
          const player_shape shape = player_shape::rocket,
          const double player_speed = 0, const double player_max_speed = 2,
          const double player_acceleration = 0.1,
-         const double player_deceleration = 0.001, const double size = 100.0,
+         const double player_deceleration = 0.001,
+         const double player_acc_backward = 0.1,
+         const double size = 100.0,
          const double direction = 0.0, const double turn_rate = 0.1,
          const color &any_color = color());
 
@@ -83,15 +85,18 @@ public:
   /// Update the position of the player on the base of its speed and direction
   void update_player_position() noexcept
   {
-    m_x += cos(m_direction_radians) * m_player_speed;
-    m_y += sin(m_direction_radians) * m_player_speed;
+    m_x -= cos(m_direction_radians) * m_player_speed;
+    m_y -= sin(m_direction_radians) * m_player_speed;
   }
 
   /// Accelerate the player
   void accelerate() noexcept;
 
-  /// Brake/decelerate the player
+  /// Brake the player
   void brake() noexcept;
+
+  /// Accelerate the player backward
+  void acc_backward() noexcept;
 
 private:
   /// The player's color, will change depending on food items
@@ -122,6 +127,9 @@ private:
 
   /// The acceleration of the player
   double m_player_deceleration;
+
+  ///The backward acceleration of player
+  double m_player_acc_backward;
 
   /// The size of the player
   double m_radius;

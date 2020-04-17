@@ -10,6 +10,8 @@ void test_action_type()
          to_str_act_type(action_type::brake));
   assert(to_str_act_type(action_type::accelerate) !=
          to_str_act_type(action_type::shoot));
+  assert(to_str_act_type(action_type::brake) !=
+         to_str_act_type(action_type::acc_backward));
   {
     std::stringstream s;
     s << action_type::brake;
@@ -34,6 +36,8 @@ const std::string to_str_act_type(action_type this_action_type)
     return "accelerate";
   case action_type::brake:
     return "brake";
+  case action_type::acc_backward:
+      return "acc_backward";
   default:
     assert(this_action_type == action_type::shoot);
     return "shoot";
