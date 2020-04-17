@@ -29,7 +29,7 @@ enemy::enemy(const double x, const double y) : m_x{x}, m_y{y} {}
 
 std::stringstream& operator << (std::stringstream &out, const enemy &enemy)
 {
-    out << "Color(" << std::to_string(enemy.get_x()) <<
+    out << "Enemy(" << std::to_string(enemy.get_x()) <<
            ", " << std::to_string(enemy.get_y()) <<
            ")";
 
