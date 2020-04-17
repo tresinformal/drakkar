@@ -47,6 +47,7 @@ void test()
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
 #ifndef NDEBUG
+  assert(0.1 > 0.0); //!OCLINT indeed a constant conditional
   test();
 #else
   // In release mode, all asserts are removed from the code

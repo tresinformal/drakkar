@@ -16,11 +16,11 @@ void test_projectile_type()
 
 std::ostream &operator<<(std::ostream &os, const projectile_type t)
 {
-  os << to_str_projectile_type(t);
+  os << to_str(t);
   return os;
 }
 
-const std::string to_str_projectile_type(projectile_type this_projectile_type)
+std::string to_str(const projectile_type this_projectile_type) noexcept
 
 {
 
