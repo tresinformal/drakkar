@@ -5,22 +5,24 @@
 class environment
 {
 public:
-  environment(double wall_short_side, environment_type environment_type = environment_type::empty);
-  int get_min_x() const noexcept { return m_min_x; }
-  int get_min_y() const noexcept { return m_min_y; }
-  int get_max_x() const noexcept { return m_max_x; }
-  int get_max_y() const noexcept { return m_max_y; }
-
+  environment(double wall_short_side = 720, environment_type environment_type = environment_type::empty);
+  double get_min_x() const noexcept { return m_min_x; }
+  double get_min_y() const noexcept { return m_min_y; }
+  double get_max_x() const noexcept { return m_max_x; }
+  double get_max_y() const noexcept { return m_max_y; }
+  double get_wall_s_side() const noexcept { return m_wall_short_side;}
+  double get_wall_l_side() const noexcept { return m_wall_long_side;}
   /// Get environment type of the game
   environment_type get_type() const { return m_environment_type; }
 
 private:
-  int m_min_x = -1000;
-  int m_min_y = -1000;
-  int m_max_x = 1000;
-  int m_max_y = 1000;
   double m_wall_short_side;
   double m_wall_long_side;
+  double m_max_x;
+  double m_min_x;
+  double m_max_y;
+  double m_min_y;
+
 
   /// the environment
   environment_type m_environment_type;

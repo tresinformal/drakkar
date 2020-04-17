@@ -17,7 +17,7 @@
 class game
 {
 public:
-  game(const int n_ticks = 0, int num_players = 3);
+  game(double wall_short_side = 720, int num_players = 3, int n_ticks = 0, size_t n_shelters = 3);
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -35,7 +35,7 @@ public:
   int &get_n_ticks() noexcept { return m_n_ticks; }
 
   /// Get environment size of the game
-  environment get_environment() const { return m_environment; }
+  const environment& get_env() const noexcept{ return m_environment; }
 
   /// Get enemies
   const std::vector<enemy>& get_enemies() const noexcept { return m_enemies; }
@@ -96,14 +96,14 @@ private:
   ///Vector of index of the players that collide
   std::vector<int> m_v_collisions_ind;
 
+  /// the enemies
+  std::vector<enemy> m_enemies;
+
   /// the environment
   environment m_environment;
 
   /// the food
   std::vector<food> m_food;
-
-  /// the enemies
-  std::vector<enemy> m_enemies;
 
   /// the projectiles
   std::vector<projectile> m_projectiles;
