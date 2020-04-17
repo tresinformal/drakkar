@@ -50,3 +50,5 @@ current_code
 debug/
 qrc_game_resources.cpp
 Thumbs.db
+html/
+latex/
