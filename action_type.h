@@ -10,6 +10,7 @@ enum class action_type
   turn_right,
   accelerate,
   brake,
+  acc_backward,
   shoot
 };
 

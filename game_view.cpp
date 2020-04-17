@@ -58,10 +58,16 @@ void game_view::pl_1_input(sf::Event event) noexcept
       m_game.do_action(0, action_type::accelerate);
     }
   else if (event.key.code == sf::Keyboard::S)
+
+  {
+    m_game.do_action(0, action_type::acc_backward);
+  }
+else if (event.key.code == sf::Keyboard::Y)
     {
       m_game.do_action(0, action_type::brake);
     }
-  else if (event.key.code == sf::Keyboard::Q)
+
+ else if (event.key.code == sf::Keyboard::Q)
     {
       m_game.do_action(0, action_type::shoot);
     }
@@ -83,9 +89,14 @@ void game_view::pl_2_input(sf::Event event) noexcept
       m_game.do_action(1, action_type::accelerate);
     }
   else if (event.key.code == sf::Keyboard::K)
-    {
-      m_game.do_action(1, action_type::brake);
-    }
+  {
+    m_game.do_action(1, action_type::acc_backward);
+  }
+else if (event.key.code == sf::Keyboard::U)
+  {
+    m_game.do_action(1, action_type::brake);
+  }
+
   else if (event.key.code == sf::Keyboard::U)
     {
       m_game.do_action(1, action_type::shoot);
