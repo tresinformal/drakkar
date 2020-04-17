@@ -8,15 +8,17 @@
 #include "game_options.h"
 #include "game_resources.h"
 #include "game_view.h"
+#include "key_action_map.h"
 #include "menu_button.h"
 #include "menu.h"
 #include "menu_view.h"
 #include "player.h"
 #include "player_shape.h"
+#include "sound_type.h"
+
 #include <SFML/Graphics.hpp>
 #include <cassert>
 #include <iostream>
-#include "sound_type.h"
 
 /// All tests are called from here, only in debug mode
 void test()
@@ -32,6 +34,7 @@ void test()
   test_individual_type();
   test_food();
   test_food_type();
+  test_key_action_map();
   test_menu();
   test_menu_button();
 #ifndef LOGIC_ONLY

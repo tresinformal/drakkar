@@ -9,6 +9,7 @@ HEADERS += \
     game.h \
     game_resources.h \
     game_view.h \
+    key_action_map.h \
     menu_button.h \
     menu.h \
     menu_view.h \
@@ -33,6 +34,7 @@ SOURCES += \
     game.cpp \
     game_resources.cpp \
     game_view.cpp \
+    key_action_map.cpp \
     main.cpp \
     menu_button.cpp \
     menu.cpp \
