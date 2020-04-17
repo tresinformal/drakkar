@@ -1,19 +1,20 @@
 #ifndef ACTION_TYPE_H
 #define ACTION_TYPE_H
 
+#include <iosfwd>
 #include <string>
 
 enum class action_type
 {
-  // Action types here
-    turn_left,
-    turn_right,
-    accelerate,
-    brake
-
+  turn_left,
+  turn_right,
+  accelerate,
+  brake,
+  shoot
 };
 
 void test_action_type();
-const std::string to_str_act_type(action_type this_action_type);
+const std::string to_str(action_type this_action_type);
+std::ostream &operator<<(std::ostream &os, const action_type t);
 
 #endif // ACTION_TYPE_H

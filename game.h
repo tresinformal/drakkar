@@ -1,60 +1,151 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
 
-#include "player_shape.h"
-#include "player.h"
+#include "action_type.h"
+#include "enemy.h"
 #include "environment.h"
 #include "environment_type.h"
-#include "action_type.h"
+#include "food.h"
+#include "player.h"
+#include "player_shape.h"
+#include "projectile.h"
+#include "shelter.h"
+#include <vector>
 
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
-
 class game
 {
 public:
-  game(const int n_ticks = 0,const environment_type environment = environment_type::empty);
+  game(const int n_ticks = 0, int num_players = 3);
 
-  ///makes the player in the game execute an action
-  void do_action(action_type action);
+  ///makes a player do an action
+  void do_action(int player_index, action_type action);
+
+  ///returns the collision vector
+  const auto& get_collision_vec(){return m_v_collisions_ind;}
+
+  ///sets the collision vector
+  void set_collision_vector(int lhs, int rhs);
 
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
 
-  ///Get the player of the game
-  const player& get_player() const { return m_player; }
+  /// Gets reference adress of number of ticks
+  int &get_n_ticks() noexcept { return m_n_ticks; }
 
-  ///Get reference to player to change some parameters
-  player& get_ref_player() { return m_player; }
+  /// Get environment size of the game
+  environment get_environment() const { return m_environment; }
 
-  ///Get environment type of the game
-   environment_type get_environment_type() const { return m_environment_type; }
+  /// Get enemies
+  const std::vector<enemy>& get_enemies() const noexcept { return m_enemies; }
 
-   ///Get environment size of the game
-   environment get_environment() const { return m_environment; }
+  /// Get const reference to food vector
+  const std::vector<food>& get_food() const noexcept { return m_food; }
 
+  /// Get reference to food vector
+  std::vector<food>& get_food()  noexcept { return m_food; }
 
+  /// Get the player at a specified index in the vector of players
+  const player &get_player(int i) const { return m_v_player[static_cast<unsigned int>(i)]; }
 
+  /// Get reference to player to change some parameters
+  player &get_player(int i) { return m_v_player[static_cast<unsigned int>(i)]; }
 
+  /// Gets the player direction
+  double get_player_direction(int player_ind);
+
+  /// Get the vector of players
+  const std::vector<player> &get_v_player() const { return m_v_player; }
+
+  /// Get the projectiles
+  const std::vector<projectile> &get_projectiles() const noexcept
+  {
+    return m_projectiles;
+  }
+
+  /// Get the projectiles
+  std::vector<projectile> &get_projectiles() noexcept
+  {
+    return m_projectiles;
+  }
+
+  /// Get enemies
+  const std::vector<shelter>& get_shelters() const noexcept { return m_shelters; }
+
+  /// Kills the index'th player (e.g. index 0 is the first player)
+  /// Assumes that index exists, else crashes
+  void kill_player(const int index);
+
+  /// Apply inertia to player movement
+  void apply_inertia();
+
+  /// Applies default actions every tick
+  void tick();
+
+  /// Get initial x distance of players
+  auto get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
 private:
-
-  ///the number of ticks
+  /// the number of ticks
   int m_n_ticks;
 
   /// The player
-  player m_player;
+  std::vector<player> m_v_player;
 
-  /// the environment
-  environment_type m_environment_type;
+  ///Vector of index of the players that collide
+  std::vector<int> m_v_collisions_ind;
 
   /// the environment
   environment m_environment;
+
+  /// the food
+  std::vector<food> m_food;
+
+  /// the enemies
+  std::vector<enemy> m_enemies;
+
+  /// the projectiles
+  std::vector<projectile> m_projectiles;
+
+  /// the shelters
+  std::vector<shelter> m_shelters;
+
+  /// starting x distance between players
+  const int m_dist_x_pls = 300;
+
+  /// Moves the projectiles
+  void move_projectiles();
 };
+
+/// Add a projectile to the game
+void add_projectile(game& g, const projectile& p);
+
+/// Count the number of projectiles in the game
+int count_n_projectiles(const game &g) noexcept;
+
+/// checks if there is at least one collision between players in the game
+bool has_collision(const game &g) noexcept;
+
+/// Determines if the player and projectile collide
+bool has_collision(const player& pl, const projectile& p);
+
+/// Is there a collision between an enemy and player?
+bool has_enemy_collision(const game& g);
+
+///Checks if there are collisions with food items
+bool has_food_collision(const game &) noexcept;
+
+/// checks if there is at least one collision between a player
+/// and a projectile in the game
+bool has_collision_with_projectile(const game &) noexcept;
+
+std::vector<int> get_collision_members(const game &g) noexcept;
+
+/// Upon a collision, kills the player that loser
+/// Assumes there is a collision
+void kill_losing_player(game &);
 
 void test_game();
 
 #endif // GAMELOGIC_H
-
-///Get player directions
-double get_player_direction(const game g);

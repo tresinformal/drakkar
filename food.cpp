@@ -1,27 +1,26 @@
 #include "food.h"
 #include <cassert>
+#include <cmath>
 
-void test_food() {
+food::food(const double x, const double y, const color &c)
+    : f_x{x}, f_y{y}, m_color{c}
+{
+}
 
-    {
+void test_food()
+{
+
+  {
     food f;
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
-    }
-
-
-  const double x{12.34};
-  const double y{23.45};
-  const food f(x, y);
-  assert(f.get_x() == x);
-  assert(f.get_y() == y);
+  }
+  // X and Y work as expected
+  {
+    const double x{12.34};
+    const double y{23.45};
+    const food f(x, y);
+    assert(std::abs(f.get_x() - x) < 0.00001);
+    assert(std::abs(f.get_y() - y) < 0.00001);
+  }
 }
-
-
-food::food(const double x, const double y)
-    :f_x{x},
-     f_y{y}
-{
-
-}
-

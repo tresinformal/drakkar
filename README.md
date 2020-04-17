@@ -4,20 +4,51 @@ Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)           
 -------|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------
 master |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=master)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 develop|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=develop)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
-josh   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=josh)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=josh)](https://codecov.io/github/tresinformal/game/branch/josh)
+apu    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=apu)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=apu)](https://codecov.io/github/tresinformal/game/branch/apu)
+paula  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=paula)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=paula)](https://codecov.io/github/tresinformal/game/branch/paula)
+pedro  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=pedro)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pedro)](https://codecov.io/github/tresinformal/game/branch/pedro)
+swom   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=stefano)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/pedro)
 richel |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
+timo |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/timo)
+claudio |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game) |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/claudio)
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
-The TRES video game
+The TRES video game.
 
-## Real life meetings
+```
+ AGAR
+  R P
+  B S
+```
+
+## :warning: Coding via Discord :warning: 
+
+Many fun things are cancelled in these days. Not tresinformal!
+
+We continue developing our game, while chatting on Discord.
+To join, send Richel a Discord Friend Request: `richelbilderbeek#9002`.
+He'll add you to the tresinformal server.
+
+Things will be different, but hopefully still fun and even useful.
+
+See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [download (.OGG)](http://richelbilderbeek.nl/dutch_by_kids_students.ogv)
+
+## Meetings
 
  * Date: Weekly, every Friday
  * Time: 17:00-19:00
- * Location: Linnaeusborg (Nijenborg 7, Groningen) at Franjo's fancy library, 
-   5171.580 (walk in main entrance, take elevator the the fifth floor, go right, 
-   go right, go straight.
+ * On Discord
+
+We follow this timetable:
+
+What             | Time
+-----------------|------
+Doors open       | 17:00
+Lesson starts    | 17:15
+Break time!      | 18:00
+Lesson continues | 18:15
+End of lesson    | 19:00
 
 ## Game: 2D PvP chasing game
 
@@ -36,19 +67,17 @@ https://agar.io/, this game could give a good idea of how we would like this gam
 
 Preferred role(s) are suggestions. If there is disagreement, we'll vote.
 
-Name    |GitHub username    |Preferred role(s)
---------|-------------------|------------------------------------------------
-Apu     |                   |
-Boris   |                   |
-Giorgio |                   |
-Josh    | @joshwlambert     |Junior developer, game design
-Pedro   | @Neves-P          |Junior developer, sound
-Marina  | @marinapapa       |Graphics, game design, developer
-Richel  | @richelbilderbeek |Senior developer, project coordinator, chairman
-Shu     |                   |
-Stefano | @swom             |
-Tim     |                   |
-Xiaoyan |                   |
+Name     |GitHub username     |Preferred role(s)
+---------|--------------------|------------------------------------------------
+Apu      | @AparajithaRamesh  |
+Giorgio  | @GiorgioBoccarella |Lead graphics
+Marina   | @marinapapa        |Graphics, game design, developer
+Pedro    | @Neves-P           |Junior developer, sound
+Richel   | @richelbilderbeek  |Senior developer, project coordinator, chairman
+Sebastian| @sebmader          |Lead sound
+Shu      | @xieshu95          |
+Stefano  | @swom              |
+Xiaoyan  |                    |
 
 ## Roles
 
@@ -73,9 +102,7 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-17:00       |Rehearse workflow
-..          |Rehease git branching
-..          |Vote for #77
+17:00       |Door open
 ..          |Do Issues
 17:45-18:00 |Break
 ..          |Do Issues
@@ -84,18 +111,27 @@ Timespan    |Activity
 
 ## Long-term schedule
 
-Not set in stone, but it's a good idea to have a plan :rainbow:
-
-Week|Goal
-----|---
-1   |Present game suggestions, pick game, present graphics libraries, pick graphics library
-2   |Install library, get a graphical 'Hello world' program, `git` contribute to fairytale on `master`
-3   |Rehearse `git` basics, demonstrate `git` branches
-4   |Rehearse `git` branches
+Date       |Activity
+-----------|--------------------------------------------------------------------------
+2020-03-20 |Programming via Discord
 
 ## Screenshots
 
 Most recent at the top.
+
+![](pics/20200326.png)
+
+![](pics/20200219.png)
+
+![](pics/20200110.png)
+
+![](pics/20191209.png)
+
+![](pics/20191206.png)
+
+![](pics/20191205.png)
+
+![](pics/20191122.png)
 
 ![](pics/20191115.png)
 
