@@ -1,6 +1,8 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include <string>
+
 class enemy
 {
 public:
@@ -21,4 +23,8 @@ private:
 };
 
 void test_enemy();
+
+/// Implement stream operator
+std::stringstream& operator << (std::stringstream &out, const enemy &enemy);
+
 #endif // ENEMY_H
