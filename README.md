@@ -16,6 +16,12 @@ claudio |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=tim
 
 The TRES video game.
 
+```
+ AGAR
+  R P
+  B S
+```
+
 ## :warning: Coding via Discord :warning: 
 
 Many fun things are cancelled in these days. Not tresinformal!

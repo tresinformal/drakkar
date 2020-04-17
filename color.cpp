@@ -76,13 +76,11 @@ void test_color()
     assert(other.get_red() != 255 || other.get_green() != 255 ||
            other.get_blue() != 255);
   }
-  #ifdef FIX_ISSUE_156
   {
     std::stringstream s;
     const color c;
     s << c;
   }
-  #endif //FIX_ISSUE_156
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept
@@ -92,4 +90,14 @@ bool operator==(const color& lhs, const color& rhs) noexcept
     && lhs.get_blue() == rhs.get_blue()
     && lhs.get_opaqueness() == rhs.get_opaqueness()
   ;
+}
+
+std::stringstream& operator << (std::stringstream &out, const color &color)
+{
+    out << "Color(" << std::to_string(color.get_red()) <<
+           ", " << std::to_string(color.get_green()) <<
+           ", " << std::to_string(color.get_blue()) <<
+           ")";
+
+    return out;
 }
