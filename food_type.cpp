@@ -1,4 +1,5 @@
 #include "food_type.h"
+#include <cassert>
 #include <sstream>
 // in food_type.cpp
 
