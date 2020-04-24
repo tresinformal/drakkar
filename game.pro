@@ -75,11 +75,11 @@ QT += core gui
 unix:!macx {
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-  CONFIG(debug, debug|release) {
-    # gcov
-    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
-    LIBS += -lgcov
-  }
+  #CONFIG(debug, debug|release) {
+  #  # gcov
+  #  QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
+  #  LIBS += -lgcov
+  #}
 }
 
 win32{
