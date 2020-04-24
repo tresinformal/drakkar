@@ -34,6 +34,8 @@ const std::string to_str(action_type this_action_type)
     return "accelerate";
   case action_type::brake:
     return "brake";
+  case action_type::acc_backward:
+      return "acc_backward";
   default:
     assert(this_action_type == action_type::shoot);
     return "shoot";

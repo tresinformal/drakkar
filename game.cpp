@@ -65,34 +65,41 @@ void game::do_action( int player_index, action_type action)
 {
 
   switch (action)
+
+  {
+  case action_type::turn_left:
+  {
+    get_player(player_index).turn_left();
+    break;
+  }
+  case action_type::turn_right:
+  {
+    get_player(player_index).turn_right();
+    break;
+  }
+  case action_type::accelerate:
+  {
+    get_player(player_index).accelerate();
+    break;
+  }
+  case action_type::brake:
+  {
+    get_player(player_index).brake();
+    break;
+  }
+  case action_type::acc_backward:
     {
-    case action_type::turn_left:
-      {
-        get_player(player_index).turn_left();
-        break;
-      }
-    case action_type::turn_right:
-      {
-        get_player(player_index).turn_right();
-        break;
-      }
-    case action_type::accelerate:
-      {
-        get_player(player_index).accelerate();
-        break;
-      }
-    case action_type::brake:
-      {
-        get_player(player_index).brake();
-        break;
-      }
-    case action_type::shoot:
-      {
-        get_player(player_index).shoot();
-        break;
-      }
+      get_player(player_index).acc_backward();
+      break;
+    }
+  case action_type::shoot:
+  {
+    get_player(player_index).shoot();
+    break;
+  }
     }
 }
+
 double game::get_player_direction( int player_ind)
 {
   return get_player(player_ind).get_direction();
@@ -111,14 +118,16 @@ void game::set_collision_vector( int lhs,  int rhs)
 
 void game::apply_inertia()
 {
-  for ( int i = 0; i != static_cast<int>(get_v_player().size()); ++i)
+
+  for (auto& player: m_v_player)
+  {
+    if (player.get_speed() != 0.0)
     {
-      if (get_player(i).get_speed() > 0)
-        {
-          // And should this function take some value from environment?
-          do_action(i,action_type::brake);
-        }
+      // And should this function take some value from environment?
+      player.brake();
+
     }
+  }
 }
 
 void game::move_projectiles()
@@ -342,16 +351,32 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-      {
-        // give the player a speed of more than 0
-        g.do_action(i, action_type::accelerate);
-        const double before{g.get_player(i).get_speed()};
-        g.do_action(i, action_type::brake);
-        const double after{g.get_player(i).get_speed()};
-        assert(before - after > 0.0000000000000001);
-        // After should be < than before
-      }
+
+    {
+      // give the player a speed of more than 0
+      g.do_action(i, action_type::accelerate);
+      const double before{g.get_player(i).get_speed()};
+      g.do_action(i, action_type::brake);
+      const double after{g.get_player(i).get_speed()};
+      assert(before > after);
+      // After should be < than before
+    }
   }
+
+  //A game responds to actions: player can accelerate backward
+  {
+    game g;
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    {
+      // the player has a speed of 0
+      const double before{g.get_player(i).get_speed()};
+      assert(before == 0.0);
+      g.do_action(i, action_type::acc_backward);
+      const double after{g.get_player(i).get_speed()};
+      assert(before - after > 0.0000000000000001);
+    }
+  }
+
   // A game responds to actions: player can shoot
   {
     game g;
@@ -435,6 +460,7 @@ void test_game() //!OCLINT tests may be many
         assert(before_v[i] - after_v[i] > 0.0000000000000001);
         // After should be < than before
       }
+
   }
 
   // players are placed at dist of 300 points
