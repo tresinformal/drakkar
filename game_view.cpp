@@ -4,6 +4,7 @@
 #include "game_resources.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include "key_action_map.h"
 
 game_view::game_view(game_options options) :
   m_window(sf::VideoMode(1280, 720), "tresinformal game"),
@@ -44,37 +45,15 @@ game_view::~game_view()
 
 void game_view::pl_1_input(sf::Event event) noexcept
 {
-  // buttons for  player1
-  if (event.key.code == sf::Keyboard::D)
-    {
-      m_game.do_action(0, action_type::turn_left);
-    }
-  else if (event.key.code == sf::Keyboard::A)
-    {
-      m_game.do_action(0, action_type::turn_right);
-    }
-  else if (event.key.code == sf::Keyboard::W)
-    {
-      m_game.do_action(0, action_type::accelerate);
-    }
-  else if (event.key.code == sf::Keyboard::S)
-
-  {
-    m_game.do_action(0, action_type::acc_backward);
-  }
-else if (event.key.code == sf::Keyboard::Y)
-    {
-      m_game.do_action(0, action_type::brake);
-    }
-
- else if (event.key.code == sf::Keyboard::Q)
-    {
-      m_game.do_action(0, action_type::shoot);
-    }
+  const key_action_map m = get_player_1_kam();
+  m_game.do_action(0, m.to_action(event.key.code));
 }
 
 void game_view::pl_2_input(sf::Event event) noexcept
 {
+  const key_action_map m = get_player_2_kam();
+  m_game.do_action(1, m.to_action(event.key.code));
+/*
   // buttons for  player2
   if (event.key.code == sf::Keyboard::L)
     {
@@ -101,6 +80,7 @@ else if (event.key.code == sf::Keyboard::U)
     {
       m_game.do_action(1, action_type::shoot);
     }
+  */
 }
 
 bool game_view::process_events()
