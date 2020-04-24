@@ -27,12 +27,6 @@ public:
   /// Get const reference to m_game_options
   const game_options& get_options() const noexcept {return m_options;}
 
-  /// Parses input for player 1
-  void pl_1_input(sf::Event event) noexcept;
-
-  /// Parses input for player 2
-  void pl_2_input(sf::Event event) noexcept;
-
   /// Processes events in game and ouputs false if quit
   /// is inputted
   bool process_events();
@@ -64,6 +58,12 @@ private:
 
   ///The views of each player
   std::vector<sf::View> m_v_views;
+
+  /// Parses input for player 1
+  void pl_1_input(sf::Event event) noexcept;
+
+  /// Parses input for player 2
+  void pl_2_input(sf::Event event) noexcept;
 
   /// The options of the game
   game_options m_options;
