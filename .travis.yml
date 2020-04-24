@@ -56,7 +56,7 @@ script:
   - rm -f qrc_game_resources.cpp
   # Get code coverage
   - cp debug/*.* .
-  - ./scripts/get_code_cov >/dev/null
+  - ./scripts/get_code_cov
   - codecov >/dev/null
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
