@@ -29,7 +29,7 @@ public:
   void set_collision_vector(int lhs, int rhs);
 
   /// return the number of ticks
-  int get_n_ticks() const noexcept { return m_n_ticks; }
+  constexpr int get_n_ticks() const noexcept { return m_n_ticks; }
 
   /// Gets reference adress of number of ticks
   int &get_n_ticks() noexcept { return m_n_ticks; }

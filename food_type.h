@@ -3,7 +3,6 @@
 #include <iosfwd>
 
 enum class food_type
-
 {
   rocket,
   laser,
