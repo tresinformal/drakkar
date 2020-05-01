@@ -61,27 +61,12 @@ key_action_map get_player_2_kam()
 
 bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
 {
-    if (key == m_key_to_go_left)
-    {
-        return true;
-    }
-    else if (key == m_key_to_go_right)
-    {
-        return true;
-    }
-    else if (key == m_key_to_accelerate)
-    {
-        return true;
-    }
-    else if (key == m_key_to_brake)
-    {
-        return true;
-    }
-    else if (key == m_key_to_shoot)
-    {
-        return true;
-    }
-    return false;
+    return key == m_key_to_go_left
+      || key == m_key_to_go_right
+      || key == m_key_to_accelerate
+      || key == m_key_to_brake
+      || key == m_key_to_shoot
+    ;
 }
 
 void test_key_action_map()
