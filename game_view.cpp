@@ -53,34 +53,6 @@ void game_view::pl_2_input(sf::Event event) noexcept
 {
   const key_action_map m = get_player_2_kam();
   m_game.do_action(1, m.to_action(event.key.code));
-/*
-  // buttons for  player2
-  if (event.key.code == sf::Keyboard::L)
-    {
-      m_game.do_action(1, action_type::turn_left);
-    }
-  else if (event.key.code == sf::Keyboard::J)
-    {
-      m_game.do_action(1, action_type::turn_right);
-    }
-  else if (event.key.code == sf::Keyboard::I)
-    {
-      m_game.do_action(1, action_type::accelerate);
-    }
-  else if (event.key.code == sf::Keyboard::K)
-  {
-    m_game.do_action(1, action_type::acc_backward);
-  }
-else if (event.key.code == sf::Keyboard::U)
-  {
-    m_game.do_action(1, action_type::brake);
-  }
-
-  else if (event.key.code == sf::Keyboard::U)
-    {
-      m_game.do_action(1, action_type::shoot);
-    }
-  */
 }
 
 bool game_view::process_events()

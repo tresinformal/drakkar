@@ -107,4 +107,11 @@ void test_key_action_map()
     //assert(m.to_action(sf::Keyboard::Comma) == action_type::acc_backward);
     assert(m.to_action(sf::Keyboard::U) == action_type::shoot);
   }
+  #ifdef FIX_ISSUE_174
+  {
+    const key_action_map m = get_player_1_kam();
+    assert( m.has_key(sf::Keyboard::A));
+    assert(!m.has_key(sf::Keyboard::L));
+  }
+  #endif // FIX_ISSUE_174
 }
