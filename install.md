@@ -1,14 +1,8 @@
 # Install
 
-## Linux
-
-Type this in a terminal:
-
-```
-sudo apt-get install -qq qtcreator libqt5webkit5-dev qtdeclarative5-dev libqt5svg5* libqt5svg5-dev libsfml-dev
-```
-
-Done!
+ * [Linux](install_linux.md)
+ * [Mac](install_mac.md)
+ * [Windows](install_windows.md)
 
 ## Mac
 

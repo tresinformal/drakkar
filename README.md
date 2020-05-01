@@ -24,15 +24,11 @@ The TRES video game.
   B S
 ```
 
-## :warning: Coding via Discord :warning: 
+## Coding via Discord
 
-Many fun things are cancelled in these days. Not tresinformal!
-
-We continue developing our game, while chatting on Discord.
+We developing our game, while chatting on Discord.
 To join, send Richel a Discord Friend Request: `richelbilderbeek#9002`.
 He'll add you to the tresinformal server.
-
-Things will be different, but hopefully still fun and even useful.
 
 See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [download (.OGG)](http://richelbilderbeek.nl/dutch_by_kids_students.ogv)
 
@@ -55,6 +51,10 @@ End of lesson    | 19:00
 ## Game: 2D PvP chasing game
 
 A game where you are on a 2D surface with heterogeneous characteristics, as different terrains, resources etc. You start with a very small particle-like character, as you play you can gather resources scattered around and increase your size/mass, the more you grow the more your options increase(you can change shape, what matter composes you etc.), other players roam around as you do increasing size and having more options as they progress. The goal is to chase and eliminate the other players. It would be good to have multiple conditions(you have to be bigger, you need to be made of a certain material etc.) you need to satisfy to be able to eliminate the other players.e.
+
+## [Installation](install.md)
+
+See [install.md](install.md).
 
 ## Links
 
