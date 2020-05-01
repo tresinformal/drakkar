@@ -20,6 +20,9 @@ public:
   ///Find out which action is triggered by that key
   action_type to_action(sf::Keyboard::Key key) const noexcept;
 
+  ///Find out if the key is mapped
+  bool has_key(sf::Keyboard::Key key) const noexcept;
+
 private:
   sf::Keyboard::Key m_key_to_go_left;
   sf::Keyboard::Key m_key_to_go_right;
@@ -36,6 +39,8 @@ key_action_map get_player_2_kam();
 
 /// Get the default key to action map for player 3
 //key_action_map get_player_3_kam();
+
+/// Check if key has action
 
 void test_key_action_map();
 

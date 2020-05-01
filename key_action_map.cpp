@@ -59,6 +59,31 @@ key_action_map get_player_2_kam()
   );
 }
 
+bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
+{
+    if (key == m_key_to_go_left)
+    {
+        return true;
+    }
+    else if (key == m_key_to_go_right)
+    {
+        return true;
+    }
+    else if (key == m_key_to_accelerate)
+    {
+        return true;
+    }
+    else if (key == m_key_to_brake)
+    {
+        return true;
+    }
+    else if (key == m_key_to_shoot)
+    {
+        return true;
+    }
+    return false;
+}
+
 void test_key_action_map()
 {
   //It is possible to return an action type from a key being pressed
@@ -107,11 +132,13 @@ void test_key_action_map()
     //assert(m.to_action(sf::Keyboard::Comma) == action_type::acc_backward);
     assert(m.to_action(sf::Keyboard::U) == action_type::shoot);
   }
-  #ifdef FIX_ISSUE_174
   {
     const key_action_map m = get_player_1_kam();
     assert( m.has_key(sf::Keyboard::A));
+    assert( m.has_key(sf::Keyboard::D));
+    assert( m.has_key(sf::Keyboard::W));
+    assert( m.has_key(sf::Keyboard::S));
+    assert( m.has_key(sf::Keyboard::Q));
     assert(!m.has_key(sf::Keyboard::L));
   }
-  #endif // FIX_ISSUE_174
 }
