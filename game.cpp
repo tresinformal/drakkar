@@ -97,6 +97,8 @@ void game::do_action( int player_index, action_type action)
     get_player(player_index).shoot();
     break;
   }
+  case action_type::none:
+      return;
     }
 }
 
@@ -385,13 +387,35 @@ void test_game() //!OCLINT tests may be many
     // Without a tick, no projectile is formed yet
     assert(count_n_projectiles(g) == 0);
   }
-  // A game responds to actions: player can shoot
+  // A game responds to actions: player can do nothing
   {
     game g;
-    assert(count_n_projectiles(g) == 0);
-    g.do_action(0, action_type::shoot);
-    g.tick();
-    assert(count_n_projectiles(g) == 1);
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+    {
+      // the player has a speed of 0
+      const double before_sp{g.get_player(i).get_speed()};
+      //and a certain direction
+      const double before_dir{g.get_player(i).get_direction()};
+      //And an initial x and y position
+      const double before_x{g.get_player(i).get_x()};
+      const double before_y{g.get_player(i).get_y()};
+
+//action_type::none does not change anyhthing in the player
+      g.do_action(i, action_type::none);
+      const double after_sp{g.get_player(i).get_speed()};
+      const double after_dir{g.get_player(i).get_direction()};
+      const double after_x{g.get_player(i).get_x()};
+      const double after_y{g.get_player(i).get_y()};
+
+      assert(before_sp - after_sp < 0.0000000000000001 &&
+             before_sp - after_sp > -0.0000000000000001);
+      assert(before_dir - after_dir < 0.0000000000000001 &&
+             before_dir - after_dir > -0.0000000000000001);
+      assert(before_x - after_x < 0.0000000000000001 &&
+             before_x - after_x > -0.0000000000000001);
+      assert(before_y - after_y < 0.0000000000000001 &&
+             before_y - after_y > -0.0000000000000001);
+    }
   }
   // Projectiles move
   {

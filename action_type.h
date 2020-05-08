@@ -11,7 +11,8 @@ enum class action_type
   accelerate,
   brake,
   acc_backward,
-  shoot
+  shoot,
+  none
 };
 
 void test_action_type();

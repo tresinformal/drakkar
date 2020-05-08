@@ -18,6 +18,10 @@ key_action_map::key_action_map(
 
 action_type key_action_map::to_action(sf::Keyboard::Key key) const noexcept
 {
+  if(!has_key(key))
+  {
+      return action_type::none;
+  }
   if (key == m_key_to_go_left)
   {
     return action_type::turn_left;
@@ -126,4 +130,12 @@ void test_key_action_map()
     assert( m.has_key(sf::Keyboard::Q));
     assert(!m.has_key(sf::Keyboard::L));
   }
+    //Giving a key that is not in the map returns a action_type::none action
+    //but does not crash the program
+    {
+        const key_action_map m = get_player_1_kam();
+        assert(!m.has_key(sf::Keyboard::L));
+        assert(action_type::none == m.to_action(sf::Keyboard::L));
+
+    }
 }
