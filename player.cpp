@@ -269,4 +269,10 @@ void test_player() //!OCLINT tests may be long
     assert(is_blue(p));
 
   }
+
+    //A player is initialized with an empty action set
+    {
+        player p;
+        assert(p.get_action_set().empty());
+    }
 }

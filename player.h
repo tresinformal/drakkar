@@ -5,6 +5,9 @@
 #include "color.h"
 #include "player_shape.h"
 #include <cmath>
+#include <vector>
+#include <set>
+
 
 class player
 {
@@ -18,6 +21,9 @@ public:
          const double size = 100.0,
          const double direction = 0.0, const double turn_rate = 0.1,
          const color &any_color = color());
+
+  ///Returns const ref to action set of the player
+  std::set<action_type> get_action_set() noexcept {return m_action_set;}
 
   /// Get the color of the player
   const color &get_color() const noexcept { return m_color; }
@@ -102,6 +108,8 @@ private:
   /// The player's color, will change depending on food items
   color m_color;
 
+//The set of ongoing actions of a player
+  std::set<action_type> m_action_set;
   /// When a player shoots, 'm_is_shooting' is true for one tick.
   /// 'game' reads 'm_is_shooting' and if it is true,
   /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
