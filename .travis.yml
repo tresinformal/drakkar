@@ -31,22 +31,21 @@ services:
 
 script: 
   # Build the project, then:
-  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY game.pro
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY game_on_travis.pro
   - make --silent debug
-  # Something like: make --silent debug QMAKE_CXXFLAGS+=-fprofile-arcs QMAKE_CXXFLAGS+=-ftest-coverage LIBS+=-lgcov
   # Run the tests
-  - ./game --test
+  - ./game_on_travis --test
   # Run the game from main screen, for 10 secs
   - make clean --silent
-  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game_on_travis.pro
   - make --silent debug
-  - ./game &
+  - ./game_on_travis &
   - sleep 10
   - sudo killall -9 game || true
   # Run the game from menu screen, for 10 secs
   # Will not do so now, as xvfb needs to be restarted in a way unknown to us yet
   # See https://github.com/tresinformal/game/issues/105
-  - # ./game --menu &
+  - # ./game_on_travis --menu &
   - # sleep 10 || true
   - # sudo killall -9 game || true
   # 2) Run the game for a short time, then quit
