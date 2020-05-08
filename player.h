@@ -23,7 +23,10 @@ public:
          const color &any_color = color());
 
   ///Returns const ref to action set of the player
-  std::set<action_type> get_action_set() noexcept {return m_action_set;}
+  const std::set<action_type>& get_action_set() const noexcept {return m_action_set;}
+
+  ///Returns const ref to action set of the player
+  std::set<action_type>& get_action_set() noexcept {return m_action_set;}
 
   /// Get the color of the player
   const color &get_color() const noexcept { return m_color; }
@@ -153,6 +156,9 @@ private:
   double m_health = 1.0;
 };
 
+///Adds an action to the action set
+void add_action(player& p, action_type action) noexcept;
+
 /// Checks if two players are colliding
 bool are_colliding(const player &p1, const player &p2) noexcept;
 
@@ -173,6 +179,9 @@ bool is_green(const player &p) noexcept;
 
 /// Is a player red?
 bool is_red(const player &p) noexcept;
+
+///Removes an action from action set of the player
+void remove_action(player& p, action_type) noexcept;
 
 /// Test the player class
 void test_player();
