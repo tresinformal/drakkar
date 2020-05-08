@@ -130,4 +130,12 @@ void test_key_action_map()
     assert( m.has_key(sf::Keyboard::Q));
     assert(!m.has_key(sf::Keyboard::L));
   }
+    //Giving a key that is not in the map returns a action_type::none action
+    //but does not crash the program
+    {
+        const key_action_map m = get_player_1_kam();
+        assert(!m.has_key(sf::Keyboard::L));
+        assert(action_type::none == m.to_action(sf::Keyboard::L));
+
+    }
 }
