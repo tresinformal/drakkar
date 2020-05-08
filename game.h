@@ -80,6 +80,9 @@ public:
   /// Apply inertia to player movement
   void apply_inertia();
 
+  /// Move shelter around - for simplicity, in straight line back and forth
+  void move_shelter();
+
   /// Applies default actions every tick
   void tick();
 

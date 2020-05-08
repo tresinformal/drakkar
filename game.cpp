@@ -132,6 +132,12 @@ void game::apply_inertia()
   }
 }
 
+void game::move_shelter()
+{
+  for (auto & shelter: m_shelters)
+   shelter.update_shelter_position();
+}
+
 void game::move_projectiles()
 {
   for (auto &p : m_projectiles)

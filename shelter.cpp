@@ -7,7 +7,11 @@ shelter::shelter(const double x, const double y, const double radius,
     : m_color{c}, m_radius{radius}, m_x{x}, m_y{y},m_speed {shelter_speed}, m_direction{direction}
 {
 }
-
+void shelter::update_shelter_position()
+  {
+      m_x += std::cos(m_direction);
+      m_y += std::sin(m_direction);
+  }
 int get_blueness(const shelter &f) noexcept
 {
   return get_blueness(f.get_color());
@@ -47,8 +51,10 @@ void test_shelter()
   //test that shelter moves with each tick
   {
     shelter f;
-
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
+    f.update_shelter_position();
+    f.update_shelter_position(); //move shelter
+    assert(f.get_x() != 0.0); //see that shelter moves
   }
 }
