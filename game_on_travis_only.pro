@@ -5,9 +5,9 @@
 # This .pro file is used for codecov and profiling
 
 win32{
-  message(Do not run this .pro file on a Windows computer)
-  message(Use 'game.pro' to run the game)
-  message(This .pro file is used to be run on Travis)
+  error(Do not run this .pro file on a Windows computer)
+  error(Use 'game.pro' to run the game)
+  error(This .pro file is used to be run on Travis)
 }
 
 # All files
