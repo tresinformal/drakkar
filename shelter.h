@@ -2,23 +2,30 @@
 #define SHELTER_H
 
 #include "color.h"
-
+#include <cmath>
 class shelter
 {
 public:
   shelter(const double x = 0.0, const double y = 0.0,
-          const double radius = 100.0, const color &c = color());
-
+          const double radius = 100.0, const color &c = color(),
+          const double speed = 0.1, const double direction =0.0 );
   const color &get_color() const noexcept { return m_color; }
   double get_radius() const noexcept { return m_radius; }
   double get_x() const noexcept { return m_x; }
   double get_y() const noexcept { return m_y; }
-
+  /// Update the position of the player on the base of its speed and direction
+  void update_shelter_position() noexcept
+  {
+    m_x += cos(m_direction) * m_speed;
+    m_y += sin(m_direction) * m_speed;
+  }
 private:
   color m_color;
   double m_radius;
   double m_x;
   double m_y;
+  double m_speed;
+  double m_direction;
 };
 
 void test_shelter();
