@@ -1,3 +1,9 @@
+# This is the general project file,
+# to be used to simply run the game.
+#
+# Other .pro files are used for specific tasks,
+# such as codecov or profiling
+
 # All files are in here, the rest are just settings
 include(game.pri)
 
@@ -44,10 +50,8 @@ win32{
   CONFIG(release, debug|release) {
     LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-window-d -lsfml-system-d
   }
-  #LIBS += -lopenal32              #Dependency
-  #LIBS += -lfreetype              #Dependency
-  LIBS += -lopengl32              #Dependency
-  LIBS += -lgdi32                 #Dependency
-  LIBS += -lwinmm                 #Dependency
+  LIBS += -lopengl32
+  LIBS += -lgdi32
+  LIBS += -lwinmm
 }
 
