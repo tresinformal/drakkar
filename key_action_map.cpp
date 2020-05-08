@@ -18,6 +18,10 @@ key_action_map::key_action_map(
 
 action_type key_action_map::to_action(sf::Keyboard::Key key) const noexcept
 {
+  if(!has_key(key))
+  {
+      return action_type::none;
+  }
   if (key == m_key_to_go_left)
   {
     return action_type::turn_left;
