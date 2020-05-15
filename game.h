@@ -22,6 +22,12 @@ public:
   ///makes a player do an action
   void do_action(int player_index, action_type action);
 
+  ///makes a player do an action
+  void do_action(player& player_index, action_type action);
+
+  ///Executes all actions issued by all players, called in tick()
+  void do_actions() noexcept;
+
   ///returns the collision vector
   const auto& get_collision_vec(){return m_v_collisions_ind;}
 
