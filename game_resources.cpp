@@ -86,7 +86,8 @@ game_resources::game_resources()
       throw std::runtime_error(msg.toStdString());
     }
   }
-
+  /// Load font file
+  {
     const QString filename{"arial.tff"};
     QFile f(":/" + filename);
     f.copy(filename);
