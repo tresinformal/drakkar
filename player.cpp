@@ -72,6 +72,12 @@ void player::acc_backward() noexcept
   update_player_position();
 
 }
+
+void add_action(player& p, action_type action) noexcept
+{
+    p.get_action_set().insert(action);
+}
+
 bool are_colliding(const player &lhs, const player &rhs) noexcept
 {
   const double dx = std::abs(lhs.get_x() - rhs.get_x());
@@ -120,6 +126,11 @@ bool is_red(const player & p) noexcept
       && p.get_color().get_green() == 0
       && p.get_color().get_blue() == 0
       ;
+}
+
+void remove_action(player& p, action_type action) noexcept
+{
+    p.get_action_set().erase(action);
 }
 
 void test_player() //!OCLINT tests may be long
@@ -269,4 +280,37 @@ void test_player() //!OCLINT tests may be long
     assert(is_blue(p));
 
   }
+
+    //A player is initialized with an empty action set
+    {
+        player p;
+        assert(p.get_action_set().empty());
+    }
+
+    //A player can add an action to its action set
+    {
+        player p;
+        auto action = action_type::none;
+        assert(p.get_action_set().empty());
+        add_action(p, action);
+        assert(!p.get_action_set().empty());
+        assert(p.get_action_set().size() == 1);
+        //Check there is at least one element of the specified key
+        assert(p.get_action_set().count(action));
+    }
+
+    //A player can erase an action from its action set and keep the others
+    {
+        player p;
+        auto action1 = action_type::none;
+        auto action2 = action_type::brake;
+        add_action(p, action1);
+        add_action(p, action2);
+        assert(!p.get_action_set().empty());
+        assert(p.get_action_set().count(action1));
+        assert(p.get_action_set().count(action2));
+        remove_action(p, action1);
+        assert(!p.get_action_set().count(action1));
+        assert(p.get_action_set().count(action2));
+    }
 }
