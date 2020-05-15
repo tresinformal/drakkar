@@ -86,10 +86,10 @@ public:
   void set_y(double y) noexcept { m_y = y; }
 
   /// Turn the player left
-  void turn_left() noexcept { m_direction_radians += m_turn_rate; }
+  void turn_left() noexcept { m_direction_radians -= m_turn_rate; }
 
   /// Turn the player right
-  void turn_right() noexcept { m_direction_radians -= m_turn_rate; }
+  void turn_right() noexcept { m_direction_radians += m_turn_rate; }
 
   /// Update the position of the player on the base of its speed and direction
   void update_player_position() noexcept

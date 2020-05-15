@@ -54,8 +54,8 @@ key_action_map get_player_1_kam()
 key_action_map get_player_2_kam()
 {
   return key_action_map(
-    sf::Keyboard::L,
     sf::Keyboard::J,
+    sf::Keyboard::L,
     sf::Keyboard::I,
     sf::Keyboard::K,
     //sf::Keyboard::Comma,
@@ -114,8 +114,8 @@ void test_key_action_map()
   }
   {
     const key_action_map m = get_player_2_kam();
-    assert(m.to_action(sf::Keyboard::L) == action_type::turn_left);
-    assert(m.to_action(sf::Keyboard::J) == action_type::turn_right);
+    assert(m.to_action(sf::Keyboard::J) == action_type::turn_left);
+    assert(m.to_action(sf::Keyboard::L) == action_type::turn_right);
     assert(m.to_action(sf::Keyboard::I) == action_type::accelerate);
     assert(m.to_action(sf::Keyboard::K) == action_type::brake);
     //assert(m.to_action(sf::Keyboard::Comma) == action_type::acc_backward);

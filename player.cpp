@@ -298,6 +298,7 @@ void test_player() //!OCLINT tests may be long
         //Check there is at least one element of the specified key
         assert(p.get_action_set().count(action));
     }
+
     //A player can erase an action from its action set and keep the others
     {
         player p;
