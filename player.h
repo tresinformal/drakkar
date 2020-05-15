@@ -5,6 +5,9 @@
 #include "color.h"
 #include "player_shape.h"
 #include <cmath>
+#include <vector>
+#include <set>
+
 
 class player
 {
@@ -18,6 +21,12 @@ public:
          const double size = 100.0,
          const double direction = 0.0, const double turn_rate = 0.1,
          const color &any_color = color());
+
+  ///Returns const ref to action set of the player
+  const std::set<action_type>& get_action_set() const noexcept {return m_action_set;}
+
+  ///Returns const ref to action set of the player
+  std::set<action_type>& get_action_set() noexcept {return m_action_set;}
 
   /// Get the color of the player
   const color &get_color() const noexcept { return m_color; }
@@ -77,10 +86,10 @@ public:
   void set_y(double y) noexcept { m_y = y; }
 
   /// Turn the player left
-  void turn_left() noexcept { m_direction_radians += m_turn_rate; }
+  void turn_left() noexcept { m_direction_radians -= m_turn_rate; }
 
   /// Turn the player right
-  void turn_right() noexcept { m_direction_radians -= m_turn_rate; }
+  void turn_right() noexcept { m_direction_radians += m_turn_rate; }
 
   /// Update the position of the player on the base of its speed and direction
   void update_player_position() noexcept
@@ -102,6 +111,8 @@ private:
   /// The player's color, will change depending on food items
   color m_color;
 
+//The set of ongoing actions of a player
+  std::set<action_type> m_action_set;
   /// When a player shoots, 'm_is_shooting' is true for one tick.
   /// 'game' reads 'm_is_shooting' and if it is true,
   /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
@@ -145,6 +156,9 @@ private:
   double m_health = 1.0;
 };
 
+///Adds an action to the action set
+void add_action(player& p, action_type action) noexcept;
+
 /// Checks if two players are colliding
 bool are_colliding(const player &p1, const player &p2) noexcept;
 
@@ -165,6 +179,9 @@ bool is_green(const player &p) noexcept;
 
 /// Is a player red?
 bool is_red(const player &p) noexcept;
+
+///Removes an action from action set of the player
+void remove_action(player& p, action_type) noexcept;
 
 /// Test the player class
 void test_player();

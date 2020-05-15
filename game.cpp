@@ -102,6 +102,58 @@ void game::do_action( int player_index, action_type action)
     }
 }
 
+void game::do_action( player& player, action_type action)
+{
+
+  switch (action)
+
+  {
+  case action_type::turn_left:
+  {
+    player.turn_left();
+    break;
+  }
+  case action_type::turn_right:
+  {
+    player.turn_right();
+    break;
+  }
+  case action_type::accelerate:
+  {
+    player.accelerate();
+    break;
+  }
+  case action_type::brake:
+  {
+    player.brake();
+    break;
+  }
+  case action_type::acc_backward:
+    {
+      player.acc_backward();
+      break;
+    }
+  case action_type::shoot:
+  {
+    player.shoot();
+    break;
+  }
+  case action_type::none:
+      return;
+    }
+}
+
+void game::do_actions() noexcept
+{
+    for(auto& player: m_v_player)
+    {
+        for(const auto& action : player.get_action_set())
+        {
+            do_action(player, action);
+        }
+    }
+}
+
 double game::get_player_direction( int player_ind)
 {
   return get_player(player_ind).get_direction();
@@ -132,6 +184,12 @@ void game::apply_inertia()
   }
 }
 
+void game::move_shelter()
+{
+  for (auto & shelter: m_shelters)
+   shelter.update_shelter_position();
+}
+
 void game::move_projectiles()
 {
   for (auto &p : m_projectiles)
@@ -155,6 +213,12 @@ void game::tick()
 
   // for now only applies inertia
   apply_inertia();
+
+  //move shelters
+  move_shelter();
+
+  //Actions issued by the players are executed
+  do_actions();
 
   // players that shoot must generate projectiles
   for (player &p : m_v_player)
@@ -652,6 +716,17 @@ void test_game() //!OCLINT tests may be many
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
 
+  //shelter moves with ever tick
+  {
+    game g;
+    for (auto i = 0; i < static_cast<int>(g.get_shelters().size()); ++i)
+      {//selected shelter is moving with each tick
+        double before=g.get_shelters()[i].get_x();
+        g.tick();
+        g.tick();
+        double after=g.get_shelters()[i].get_x();
+        assert(after-before > 0.0000000000000001);
+      }
+  }
 }
-
 
