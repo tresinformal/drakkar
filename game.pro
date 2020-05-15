@@ -7,8 +7,8 @@
 # All files are in here, the rest are just settings
 include(game.pri)
 
-CONFIG += c++14
-QMAKE_CXXFLAGS += -std=c++14
+CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++17
 CONFIG += resources_big
 
 # High warning levels

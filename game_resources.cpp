@@ -88,7 +88,7 @@ game_resources::game_resources()
   }
   /// Load font file
   {
-    const QString filename{"arial.tff"};
+    const QString filename{"arial.ttf"};
     QFile f(":/" + filename);
     f.copy(filename);
     if (!m_font.loadFromFile(filename.toStdString()))
