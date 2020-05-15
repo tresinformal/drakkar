@@ -664,13 +664,14 @@ void test_game() //!OCLINT tests may be many
   //shelter moves with ever tick
   {
     game g;
-    //selected shelter is moving with each tick
-   double before=g.get_shelters()[0].get_x();
-    g.tick();
-    g.tick();
-    double after=g.get_shelters()[0].get_x();
-    assert(after-before > 0.0000000000000001);
+    for (auto i = 0; i < static_cast<int>(g.get_shelters().size()); ++i)
+      {//selected shelter is moving with each tick
+        double before=g.get_shelters()[i].get_x();
+        g.tick();
+        g.tick();
+        double after=g.get_shelters()[i].get_x();
+        assert(after-before > 0.0000000000000001);
+      }
   }
 }
-
 
