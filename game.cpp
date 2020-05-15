@@ -162,6 +162,9 @@ void game::tick()
   // for now only applies inertia
   apply_inertia();
 
+  //move shelters
+  move_shelter();
+
   // players that shoot must generate projectiles
   for (player &p : m_v_player)
     {
@@ -656,6 +659,17 @@ void test_game() //!OCLINT tests may be many
     game g(wall_short_side);
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
+  }
+
+  //shelter moves with ever tick
+  {
+    game g;
+    //selected shelter is moving with each tick
+   double before=g.get_shelters()[0].get_x();
+    g.tick();
+    g.tick();
+    double after=g.get_shelters()[0].get_x();
+    assert(after-before > 0.0000000000000001); //see that shelter moves
   }
 
 }
