@@ -25,11 +25,6 @@ public:
 
 private:
   std::map<sf::Keyboard::Key, action_type> m_map;
-//  sf::Keyboard::Key m_key_to_go_left;
-//  sf::Keyboard::Key m_key_to_go_right;
-//  sf::Keyboard::Key m_key_to_accelerate;
-//  sf::Keyboard::Key m_key_to_brake;
-//  sf::Keyboard::Key m_key_to_shoot;
 };
 
 /// Get the default key to action map for player 1
