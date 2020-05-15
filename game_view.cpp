@@ -220,7 +220,6 @@ void game_view::show() noexcept
   m_window.display();
 }
 
-
 void test_game_view()
 {
   {

@@ -79,6 +79,7 @@ private:
 
   /// Draws shelters
   void draw_shelters() noexcept;
+
 };
 
 void test_game_view();
