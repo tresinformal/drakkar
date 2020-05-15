@@ -669,9 +669,8 @@ void test_game() //!OCLINT tests may be many
     g.tick();
     g.tick();
     double after=g.get_shelters()[0].get_x();
-    assert(after-before > 0.0000000000000001); //see that shelter moves
+    assert(after-before > 0.0000000000000001);
   }
-
 }
 
 

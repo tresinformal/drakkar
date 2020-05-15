@@ -4,13 +4,14 @@
 
 shelter::shelter(const double x, const double y, const double radius,
                  const color &c, const double shelter_speed, const double direction)
-    : m_color{c}, m_radius{radius}, m_x{x}, m_y{y},m_speed {shelter_speed}, m_direction{direction}
+    : m_color{c}, m_radius{radius}, m_x{x}, m_y{y},m_speed {shelter_speed},
+      m_direction{direction}
 {
 }
 void shelter::update_shelter_position()
   {
-      m_x += std::cos(m_direction);
-      m_y += std::sin(m_direction);
+      m_x += std::cos(rand());
+      m_y += std::sin(rand());
   }
 int get_blueness(const shelter &f) noexcept
 {
