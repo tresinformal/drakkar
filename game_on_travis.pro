@@ -21,12 +21,6 @@ QMAKE_CXXFLAGS += -std=c++11
 CONFIG += debug_and_release
 CONFIG(release, debug|release) {
   DEFINES += NDEBUG
-
-  # High warning levels
-  QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
-
-  # A warning is an error
-  QMAKE_CXXFLAGS += -Werror
 }
 
 # Qt5
@@ -36,6 +30,12 @@ QT += core gui
 LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 CONFIG(debug, debug|release) {
+  # High warning levels
+  QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
+
+  # A warning is an error
+  QMAKE_CXXFLAGS += -Werror
+
   # gcov
   QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
   LIBS += -lgcov
