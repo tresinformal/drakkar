@@ -13,8 +13,8 @@ win32{
 # All files
 include(game.pri)
 
-CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++17
+CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 # High warning levels
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
