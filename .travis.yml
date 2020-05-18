@@ -35,13 +35,14 @@ script:
   - make --silent debug
   # Run the tests
   - ./game_on_travis --test
-  # Run the game from main screen, for 10 secs
+  # Profiling: run the game from main screen, for 10 secs
   - make clean --silent
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game_on_travis.pro
-  - make --silent debug
-  - ./game_on_travis &
+  - make --silent release
+  - $(gprof game_on_travis > gprof.log) &
   - sleep 10
-  - sudo killall -9 game || true
+  - sudo killall -9 game_on_travis || true
+  - head gprof.log -n 1000
   # Run the game from menu screen, for 10 secs
   # Will not do so now, as xvfb needs to be restarted in a way unknown to us yet
   # See https://github.com/tresinformal/game/issues/105

@@ -7,9 +7,8 @@
 # All files are in here, the rest are just settings
 include(game.pri)
 
-CONFIG += c++14
-QMAKE_CXXFLAGS += -std=c++14
-CONFIG += resources_big
+CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 # High warning levels
 # SFML goes bad with -Weffc++

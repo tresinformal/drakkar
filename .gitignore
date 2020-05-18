@@ -52,3 +52,5 @@ qrc_game_resources.cpp
 Thumbs.db
 html/
 latex/
+game_on_travis
+gprof.log

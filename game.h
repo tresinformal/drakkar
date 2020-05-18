@@ -18,7 +18,7 @@
 class game
 {
 public:
-  game(double wall_short_side = 720, int num_players = 3, int n_ticks = 0, size_t n_shelters = 3);
+  game(double wall_short_side = 720, int num_players = 3, int n_ticks = 0, std::size_t n_shelters = 3);
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -30,13 +30,13 @@ public:
   void do_actions() noexcept;
 
   ///returns the collision vector
-  const auto& get_collision_vec(){return m_v_collisions_ind;}
+  const std::vector<int>& get_collision_vec(){return m_v_collisions_ind;}
 
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);
 
   /// return the number of ticks
-  constexpr int get_n_ticks() const noexcept { return m_n_ticks; }
+  int get_n_ticks() const noexcept { return m_n_ticks; }
 
   /// Gets reference adress of number of ticks
   int &get_n_ticks() noexcept { return m_n_ticks; }
@@ -94,7 +94,7 @@ public:
   void tick();
 
   /// Get initial x distance of players
-  auto get_dist_x_pls() const noexcept { return m_dist_x_pls; }
+  int get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
 private:
   /// the number of ticks
