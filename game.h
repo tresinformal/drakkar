@@ -11,7 +11,6 @@
 #include "projectile.h"
 #include "shelter.h"
 #include <vector>
-#include <experimental/optional>
 
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
