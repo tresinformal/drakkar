@@ -7,8 +7,8 @@
 # All files are in here, the rest are just settings
 include(game.pri)
 
-CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++17
+CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 # High warning levels
 # SFML goes bad with -Weffc++

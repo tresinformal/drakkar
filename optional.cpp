@@ -1,11 +1,10 @@
 #include "optional.h"
 
 #include <cassert>
-#include <optional>
 
 void test_optional()
 {
-  using namespace std;
+  #ifdef FIX_ISSUE_189
   // Initialize with a value
   {
     const int value = 42;
@@ -35,4 +34,5 @@ void test_optional()
       //Great! x should throw, as there is no value
     }
   }
+  #endif // FIX_ISSUE_189
 }
