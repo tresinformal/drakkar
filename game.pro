@@ -7,8 +7,8 @@
 # All files are in here, the rest are just settings
 include(game.pri)
 
-CONFIG += c++11
-QMAKE_CXXFLAGS += -std=c++11
+CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++17
 
 # High warning levels
 # SFML goes bad with -Weffc++
@@ -53,4 +53,10 @@ win32{
   LIBS += -lgdi32
   LIBS += -lwinmm
 }
+
+HEADERS += \
+  optional.h
+
+SOURCES += \
+  optional.cpp
 

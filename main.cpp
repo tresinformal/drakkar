@@ -15,7 +15,7 @@
 #include "player.h"
 #include "player_shape.h"
 #include "sound_type.h"
-
+#include "optional.h"
 #include <SFML/Graphics.hpp>
 #include <cassert>
 #include <iostream>
@@ -23,6 +23,7 @@
 /// All tests are called from here, only in debug mode
 void test()
 {
+  test_optional();
   test_action_type();
   test_player_shape();
   test_player();
