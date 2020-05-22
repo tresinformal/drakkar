@@ -17,11 +17,13 @@ void test_enemy_behavior_type()
 
 std::stringstream& operator << (std::stringstream &out, const enemy_behavior_type &enemy_type)
 {
-    switch(enemy_type)
-    {
-        case enemy_behavior_type::gezellig  : out << "gezillig";    break;
-        case enemy_behavior_type::shy       : out << "shy";   break;
-        default                             : out << "unknown";
-    }
+
+        if(enemy_type == enemy_behavior_type::gezellig)
+        out << "gezillig";
+        else if(enemy_type == enemy_behavior_type::shy)
+        out << "shy";
+        else
+        out << "unknown";
+
     return out;
 }
