@@ -180,6 +180,9 @@ bool is_green(const player &p) noexcept;
 /// Is a player red?
 bool is_red(const player &p) noexcept;
 
+///Get color index
+int get_colorhash(const player &p) noexcept;
+
 ///Removes an action from action set of the player
 void remove_action(player& p, action_type) noexcept;
 

@@ -128,6 +128,20 @@ bool is_red(const player & p) noexcept
       ;
 }
 
+int get_colorhash(const player &p) noexcept
+{
+  assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
+  assert(p.get_color().get_green() == 0 || p.get_color().get_green() == 255);
+  assert(p.get_color().get_blue() == 0 || p.get_color().get_blue() == 255);
+
+ //1 is red, 2 is blue, 3 is green
+  if(p.get_color().get_red() == 255)
+    return 0;
+  if(p.get_color().get_green() == 255)
+    return 1;
+  assert(p.get_color().get_blue() == 255);
+    return 2;
+}
 void remove_action(player& p, action_type action) noexcept
 {
     p.get_action_set().erase(action);
@@ -280,7 +294,33 @@ void test_player() //!OCLINT tests may be long
     assert(is_blue(p));
 
   }
-
+  //A player with RGB values (255, 0, 0) should be red with colorhash1 ,not 2 or 3
+  {
+    //0 is red, 1 is blue, 2 is green
+    player p;
+    p.set_color(color(255, 0, 0));
+    assert(get_colorhash(p)==0);
+    assert(get_colorhash(p)!=1);
+    assert(get_colorhash(p)!=2);
+  }
+  //A player with RGB values (0,255, 0) should be blue with colorhash2 ,not 1 or 3
+  {
+    //0 is red, 1 is blue, 2 is green
+    player p;
+    p.set_color(color(0, 255, 0));
+    assert(get_colorhash(p)!=0);
+    assert(get_colorhash(p)==1);
+    assert(get_colorhash(p)!=2);
+  }
+  //A player with RGB values ( 0, 0, 255) should be green with colorhash3 ,not 1 or 2
+  {
+    //0 is red, 1 is blue, 2 is green
+    player p;
+    p.set_color(color(0, 0, 255));
+    assert(get_colorhash(p)!=0);
+    assert(get_colorhash(p)!=1);
+    assert(get_colorhash(p)==2);
+  }
     //A player is initialized with an empty action set
     {
         player p;
