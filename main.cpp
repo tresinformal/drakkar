@@ -67,6 +67,9 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 
   else  if (args.size() > 1 && args[1] == "--profile")
   {
+#ifndef NDEBUG
+      perror("Do not profile in debug mode");
+#endif
       using namespace std::chrono;
       game_view v;
       double max_duration = 10;
