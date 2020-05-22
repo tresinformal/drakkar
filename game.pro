@@ -54,9 +54,4 @@ win32{
   LIBS += -lwinmm
 }
 
-HEADERS += \
-  optional.h
-
-SOURCES += \
-  optional.cpp
 
