@@ -79,18 +79,18 @@ bool game_view::process_events()
             m_window.close();
             return true; // Game is done
         }
-        else
-        {if (event.type == sf::Event::KeyPressed)
-            {
-                pl_1_input(event);
-                pl_2_input(event);
-            }
-            if (event.type == sf::Event::KeyReleased)
-            {
-                pl_1_stop_input(event);
-                pl_2_stop_input(event);
-            }
+
+        else if (event.type == sf::Event::KeyPressed)
+        {
+            pl_1_input(event);
+            pl_2_input(event);
         }
+        else if (event.type == sf::Event::KeyReleased)
+        {
+            pl_1_stop_input(event);
+            pl_2_stop_input(event);
+        }
+
     }
     return false; // if no events proceed with tick
 }
@@ -240,7 +240,7 @@ void game_view::show() noexcept
 }
 
 
-void test_game_view()
+void test_game_view()//!OCLINT tests may be many
 {
     {
         // Show the game for one frame
