@@ -7,11 +7,11 @@
 # All files are in here, the rest are just settings
 include(game.pri)
 
+# Use the C++ version that all team members can use
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
 # High warning levels
-# SFML goes bad with -Weffc++
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
 
 # A warning is an error
@@ -26,16 +26,9 @@ CONFIG(release, debug|release) {
 # Qt5
 QT += core gui
 
-# SFML, default compiling
 # GNU/Linux
 unix:!macx {
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-
-  #CONFIG(debug, debug|release) {
-  #  # gcov
-  #  QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
-  #  LIBS += -lgcov
-  #}
 }
 
 win32{
@@ -53,4 +46,3 @@ win32{
   LIBS += -lgdi32
   LIBS += -lwinmm
 }
-

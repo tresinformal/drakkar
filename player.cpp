@@ -3,22 +3,26 @@
 #include <cassert>
 #include <cmath>
 
-player::player(const double x, const double y, const player_shape shape,
-               const double player_speed, const double player_max_speed,
+player::player(const double x,
+               const double y,
+               const player_shape shape,
+               const double player_max_speed,
                const double player_acceleration,
                const double player_deceleration,
                const double player_acc_backward,
                const double size,
-               const double direction, const double turn_rate,
+               const double turn_rate,
                const color &any_color)
 
-    : m_color{any_color}, m_x{x}, m_y{y}, m_shape{shape},
-      m_player_speed{player_speed}, m_player_max_speed{player_max_speed},
+    : m_color{any_color}, m_x{x},
+      m_y{y},
+      m_shape{shape},
+      m_player_max_speed{player_max_speed},
       m_player_acceleration{player_acceleration},
       m_player_deceleration{player_deceleration},
       m_player_acc_backward{player_acc_backward},
       m_diameter{size},
-      m_direction_radians{direction}, m_turn_rate{turn_rate}
+      m_turn_rate{turn_rate}
 
 {
 }
