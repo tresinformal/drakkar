@@ -14,6 +14,7 @@ void test_program_state()
     std::stringstream s;
     s << program_state::menu;
   }
+  assert(1 == 2); //
 }
 
 std::ostream &operator<<(std::ostream &os, const program_state t)
