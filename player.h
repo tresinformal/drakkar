@@ -23,6 +23,13 @@ public:
          const double turn_rate = 0.1,
          const color &any_color = color());
 
+
+  /// Get the acceleration of the player
+  double get_acceleration() const noexcept { return m_player_acceleration; }
+
+  ///Get the backward acceleration of the player
+  double get_acceleration_backward() const noexcept { return m_player_acc_backward; }
+
   ///Returns const ref to action set of the player
   const std::set<action_type>& get_action_set() const noexcept {return m_action_set;}
 
@@ -49,9 +56,6 @@ public:
 
   /// Get the speed of the player
   double get_max_s() const noexcept { return m_player_max_speed; }
-
-  /// Get the acceleration of the player
-  double get_acceleration() const noexcept { return m_player_acceleration; }
 
   /// Get the direction of player movement, in radians
   double get_direction() const noexcept { return m_direction_radians; }

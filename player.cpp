@@ -35,12 +35,16 @@ void player::brake() noexcept
     {
         m_player_speed += m_player_deceleration;
     }
-    else
+    else if(m_player_speed < 0)
     {
         m_player_speed -= m_player_deceleration;
     }
-
+    else
+    {
+        return;
+    }
     update_player_position();
+
 }
 
 void player::accelerate() noexcept
@@ -64,7 +68,7 @@ void player::acc_backward() noexcept
     }
     else
     {
-        m_player_speed += m_player_acc_backward ;
+        m_player_speed = -m_player_max_speed;
     }
     update_player_position();
 
@@ -363,4 +367,46 @@ void test_player() //!OCLINT tests may be long
         assert(brake_back_speed > full_back_speed);
     }
 
+    //A player cannot surpass its positive max_speed
+    {
+        player p;
+        int n_of_accelerations = 1000;
+        assert(p.get_acceleration() * n_of_accelerations > p.get_max_s());
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            p.accelerate();
+        }
+        assert(p.get_speed() - p.get_max_s() < 0.00001
+               && p.get_speed() - p.get_max_s() > -0.00001);
+    }
+
+    //A player cannot surpass its negative max_speed
+    {
+        player p;
+        int n_of_accelerations = 1000;
+        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            p.acc_backward();
+        }
+
+        assert(p.get_speed() + p.get_max_s() < 0.00001
+               && p.get_speed() + p.get_max_s() > -0.00001);
+    }
+
+    //It is possible to establish how bluish, reddish and greenish a player is
+    {
+        player p;
+        int blueness = 1;
+        int greenness = 1;
+        int redness = 1;
+        p.set_color(
+                    color{redness,
+                          greenness,
+                          blueness}
+                    );
+        assert(get_blueness(p) == blueness);
+        assert(get_redness(p) == redness);
+        assert(get_greenness(p) == greenness);
+    }
 }
