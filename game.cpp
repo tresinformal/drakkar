@@ -720,5 +720,11 @@ void test_game() //!OCLINT tests may be many
         assert(after-before > 0.0000000000000001);
       }
   }
+    // Test get functions
+    {
+        game g;
+        std::vector<food> f;
+        assert(g.get_food() == f);
+    }
 }
 
