@@ -10,5 +10,6 @@
         <file>cat.png</file>
         <file>bump.ogg</file>
         <file>shoot.ogg</file>
+        <file>arial.ttf</file>
     </qresource>
 </RCC>
