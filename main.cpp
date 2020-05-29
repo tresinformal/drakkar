@@ -38,6 +38,7 @@ void test()
   test_key_action_map();
   test_menu();
   test_menu_button();
+  test_shelter();
 #ifndef LOGIC_ONLY
   test_game_view();
   test_game_resources();
