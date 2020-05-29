@@ -39,7 +39,8 @@ script:
   - make clean --silent
   - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game_on_travis.pro
   - make --silent release
-  - gprof ./profile_game.sh > gprof.log
+  - ./game_on_travis --profile
+  - gprof game_on_travis > gprof.log
   - sleep 10
   - sudo killall -9 game_on_travis || true
   - head gprof.log -n 1000
