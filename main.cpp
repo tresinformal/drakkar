@@ -69,7 +69,8 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   {
 #ifndef NDEBUG
       perror("Do not profile in debug mode");
-#endif
+      abort();
+#else
       using namespace std::chrono;
       game_view v;
       double max_duration = 10;
@@ -82,6 +83,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
           v.show();
           time =  high_resolution_clock::now() - start;
       }
+#endif
   }
 #ifndef LOGIC_ONLY
 
