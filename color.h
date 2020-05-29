@@ -34,9 +34,6 @@ private:
 
 };
 
-/// Get a color that differs one hue in its red, green or blue value
-color get_adjacent_color(color c);
-
 /// Get the blueness
 int get_blueness(const color &c) noexcept;
 
@@ -48,7 +45,6 @@ int get_opaqueness(const color &c) noexcept;
 
 /// Get the redness
 int get_redness(const color &c) noexcept;
-
 
 /// Test the color class
 void test_color();
