@@ -35,12 +35,16 @@ void player::brake() noexcept
     {
         m_player_speed += m_player_deceleration;
     }
-    else
+    else if(m_player_speed < 0)
     {
         m_player_speed -= m_player_deceleration;
     }
-
+    else
+    {
+        return;
+    }
     update_player_position();
+
 }
 
 void player::accelerate() noexcept
