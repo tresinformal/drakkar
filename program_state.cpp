@@ -14,6 +14,7 @@ void test_program_state()
     std::stringstream s;
     s << program_state::menu;
   }
+  assert(1 == 2); //!OCLINT indeed a constant expression
 }
 
 std::ostream &operator<<(std::ostream &os, const program_state t)
@@ -24,14 +25,15 @@ std::ostream &operator<<(std::ostream &os, const program_state t)
 
 std::string to_str(const program_state this_program_state) noexcept
 {
-  switch (this_program_state)
-  {
-  case program_state::paused:
-    return "paused";
-  case program_state::playing:
+
+   if(this_program_state == program_state::paused)
+   {
+       return "paused";
+   }
+  else if(this_program_state == program_state::playing)
     return "playing";
-  default:
-    assert(this_program_state == program_state::menu);
+
+   assert(this_program_state == program_state::menu);
     return "menu";
-  }
+
 }

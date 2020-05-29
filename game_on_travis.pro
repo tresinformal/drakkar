@@ -13,14 +13,9 @@ win32{
 # All files
 include(game.pri)
 
-CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++17
+CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 
-# High warning levels
-QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
-
-# A warning is an error
-QMAKE_CXXFLAGS += -Werror
 
 # Debug and release settings
 CONFIG += debug_and_release
@@ -35,6 +30,12 @@ QT += core gui
 LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 CONFIG(debug, debug|release) {
+  # High warning levels
+  QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
+
+  # A warning is an error
+  QMAKE_CXXFLAGS += -Werror
+
   # gcov
   QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
   LIBS += -lgcov
