@@ -37,8 +37,8 @@ script:
   - ./game_on_travis --test
   # Profiling: run the game from main screen, for 10 secs
   - make clean --silent
-  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY game_on_travis.pro
-  - make --silent release
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY QMAKE_CXXFLAGS +=-Wunused-variable game_on_travis.pro
+  - make --silent release 
   - ./game_on_travis --profile
   - gprof game_on_travis > gprof.log
   - sleep 10
