@@ -7,15 +7,15 @@
 color::color(const int r, const int g, const int b, const int a)
     : m_r{r}, m_g{g}, m_b{b}, m_a{a}
 {
-  // Stub, need exceptions later
-  assert(m_r >= 0);
-  assert(m_r <= 255);
-  assert(m_g >= 0);
-  assert(m_g <= 255);
-  assert(m_b >= 0);
-  assert(m_b <= 255);
-  assert(m_a >= 0);
-  assert(m_a <= 255);
+    // Stub, need exceptions later
+    assert(m_r >= 0);
+    assert(m_r <= 255);
+    assert(m_g >= 0);
+    assert(m_g <= 255);
+    assert(m_b >= 0);
+    assert(m_b <= 255);
+    assert(m_a >= 0);
+    assert(m_a <= 255);
 }
 
 int get_blueness(const color &c) noexcept { return c.get_blue(); }
@@ -38,11 +38,11 @@ void test_color()
     }
     // Test get functions
     {
-        const color c(100, 100, 100, 100);
-        assert(get_blueness(c) == 100);
-        assert(get_greenness(c) == 100);
-        assert(get_opaqueness(c) == 100);
-        assert(get_redness(c) == 100);
+        const color c1{0,21,255,10};
+        assert(get_redness(c1)==0);
+        assert(get_greenness(c1)==21);
+        assert(get_blueness(c1)==255);
+        assert(get_opaqueness(c1)==10);
     }
     // Test overloeaded operators
     {
@@ -59,11 +59,11 @@ void test_color()
 
 bool operator==(const color& lhs, const color& rhs) noexcept
 {
-  return lhs.get_red() == rhs.get_red()
-    && lhs.get_green() == rhs.get_green()
-    && lhs.get_blue() == rhs.get_blue()
-    && lhs.get_opaqueness() == rhs.get_opaqueness()
-  ;
+    return lhs.get_red() == rhs.get_red()
+            && lhs.get_green() == rhs.get_green()
+            && lhs.get_blue() == rhs.get_blue()
+            && lhs.get_opaqueness() == rhs.get_opaqueness()
+            ;
 }
 
 std::stringstream& operator << (std::stringstream &out, const color &color)

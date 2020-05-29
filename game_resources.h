@@ -30,6 +30,8 @@ public:
   /// Get a picture of a Cat
   sf::Texture &get_cat() noexcept { return m_cat; }
 
+  /// Get a font
+  sf::Font &get_font() noexcept {return m_font; }
 
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
@@ -74,9 +76,11 @@ private:
   /// A heterogenous landscape
   sf::Texture m_heterogenous_landscape;
 
+  /// Font
+  sf::Font m_font;
+
   /// Rocket
   sf::Texture m_cat;
-
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
