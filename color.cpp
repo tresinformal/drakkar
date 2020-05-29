@@ -37,12 +37,19 @@ void test_color()
   }
 
   {
-    std::stringstream s;
     const color c;
+    std::stringstream s;
     s << c;
   }
-}
 
+  {
+    const color c1{0,21,255,10};
+    assert(get_redness(c1)==0);
+    assert(get_greenness(c1)==21);
+    assert(get_blueness(c1)==255);
+    assert(get_opaqueness(c1)==10);
+  }
+}
 bool operator==(const color& lhs, const color& rhs) noexcept
 {
   return lhs.get_red() == rhs.get_red()
