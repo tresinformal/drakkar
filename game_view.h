@@ -34,6 +34,9 @@ public:
   ///Gets a const ref to m_game
   const game& get_game() const noexcept {return m_game; }
 
+  ///Gets a ref to m_game
+  game& get_game() noexcept {return m_game; }
+
   ///Gets option settings of the game
   const game_options get_options() {return m_options;}
 
@@ -85,6 +88,7 @@ private:
 
   /// Draws shelters
   void draw_shelters() noexcept;
+
 };
 
 void test_game_view();

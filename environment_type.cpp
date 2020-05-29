@@ -16,10 +16,11 @@ std::string to_str(environment_type this_env_type)
     return "attractive";
   case environment_type::repellent:
     return "repellent";
-  case environment_type::wormhole:
+
+  default:
+    assert(this_env_type == environment_type::wormhole);
     return "wormhole";
   }
-  return "[Unknown environment_type]";
 }
 
 void test_individual_type()
@@ -27,8 +28,11 @@ void test_individual_type()
   // Conversion to string
   {
     assert(to_str(environment_type::empty) == "empty");
+    assert(to_str(environment_type::quiet) == "quiet");
     assert(to_str(environment_type::random) == "random");
-    assert(to_str(environment_type::random) != "wormhole");
+    assert(to_str(environment_type::attractive) == "attractive");
+    assert(to_str(environment_type::repellent) == "repellent");
+    assert(to_str(environment_type::wormhole) == "wormhole");
   }
   // Other tests will follow here
  {
