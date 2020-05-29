@@ -57,8 +57,8 @@ script:
   - rm -f qrc_game_resources.cpp
   # Get code coverage
   - cp debug/*.* .
-  - ./scripts/get_code_cov.sh >/dev/null
-  - codecov >/dev/null
+  - ./scripts/get_code_cov.sh
+  - codecov
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
   # Check code formatting

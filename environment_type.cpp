@@ -27,8 +27,11 @@ void test_individual_type()
   // Conversion to string
   {
     assert(to_str(environment_type::empty) == "empty");
+    assert(to_str(environment_type::quiet) == "quiet");
     assert(to_str(environment_type::random) == "random");
-    assert(to_str(environment_type::random) != "wormhole");
+    assert(to_str(environment_type::attractive) == "attractive");
+    assert(to_str(environment_type::repellent) == "repellent");
+    assert(to_str(environment_type::wormhole) == "wormhole");
   }
   // Other tests will follow here
  {
