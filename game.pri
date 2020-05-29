@@ -22,7 +22,8 @@ HEADERS += \
     color.h \
     shelter.h \
     projectile.h \
-    enemy_behavior_type.h
+    enemy_behavior_type.h \
+    optional.h
 
 SOURCES += \
     action_type.cpp \
@@ -48,7 +49,8 @@ SOURCES += \
     color.cpp \
     shelter.cpp \
     projectile.cpp \
-    enemy_behavior_type.cpp
+    enemy_behavior_type.cpp \
+    optional.cpp
 
 RESOURCES += \
     game_resources.qrc

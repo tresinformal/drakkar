@@ -66,38 +66,38 @@ void game::do_action( int player_index, action_type action)
 
   switch (action)
 
-  {
-  case action_type::turn_left:
-  {
-    get_player(player_index).turn_left();
-    break;
-  }
-  case action_type::turn_right:
-  {
-    get_player(player_index).turn_right();
-    break;
-  }
-  case action_type::accelerate:
-  {
-    get_player(player_index).accelerate();
-    break;
-  }
-  case action_type::brake:
-  {
-    get_player(player_index).brake();
-    break;
-  }
-  case action_type::acc_backward:
     {
-      get_player(player_index).acc_backward();
-      break;
-    }
-  case action_type::shoot:
-  {
-    get_player(player_index).shoot();
-    break;
-  }
-  case action_type::none:
+    case action_type::turn_left:
+      {
+        get_player(player_index).turn_left();
+        break;
+      }
+    case action_type::turn_right:
+      {
+        get_player(player_index).turn_right();
+        break;
+      }
+    case action_type::accelerate:
+      {
+        get_player(player_index).accelerate();
+        break;
+      }
+    case action_type::brake:
+      {
+        get_player(player_index).brake();
+        break;
+      }
+    case action_type::acc_backward:
+      {
+        get_player(player_index).acc_backward();
+        break;
+      }
+    case action_type::shoot:
+      {
+        get_player(player_index).shoot();
+        break;
+      }
+    case action_type::none:
       return;
     }
 }
@@ -107,49 +107,49 @@ void game::do_action( player& player, action_type action)
 
   switch (action)
 
-  {
-  case action_type::turn_left:
-  {
-    player.turn_left();
-    break;
-  }
-  case action_type::turn_right:
-  {
-    player.turn_right();
-    break;
-  }
-  case action_type::accelerate:
-  {
-    player.accelerate();
-    break;
-  }
-  case action_type::brake:
-  {
-    player.brake();
-    break;
-  }
-  case action_type::acc_backward:
     {
-      player.acc_backward();
-      break;
-    }
-  case action_type::shoot:
-  {
-    player.shoot();
-    break;
-  }
-  case action_type::none:
+    case action_type::turn_left:
+      {
+        player.turn_left();
+        break;
+      }
+    case action_type::turn_right:
+      {
+        player.turn_right();
+        break;
+      }
+    case action_type::accelerate:
+      {
+        player.accelerate();
+        break;
+      }
+    case action_type::brake:
+      {
+        player.brake();
+        break;
+      }
+    case action_type::acc_backward:
+      {
+        player.acc_backward();
+        break;
+      }
+    case action_type::shoot:
+      {
+        player.shoot();
+        break;
+      }
+    case action_type::none:
       return;
     }
 }
 
 void game::do_actions() noexcept
 {
-    for(auto& player: m_v_player)
+  for(auto& player: m_v_player)
     {
-        for(const auto& action : player.get_action_set())
+      for(const auto& action : player.get_action_set())
         {
-            do_action(player, action);
+          do_action(player, action);
         }
     }
 }
@@ -174,20 +174,20 @@ void game::apply_inertia()
 {
 
   for (auto& player: m_v_player)
-  {
-    if (player.get_speed() != 0.0)
     {
-      // And should this function take some value from environment?
-      player.brake();
+      if (player.get_speed() != 0.0)
+        {
+          // And should this function take some value from environment?
+          player.brake();
 
+        }
     }
-  }
 }
 
 void game::move_shelter()
 {
   for (auto & shelter: m_shelters)
-   shelter.update_shelter_position();
+    shelter.update_shelter_position();
 }
 
 void game::move_projectiles()
@@ -320,28 +320,20 @@ void kill_losing_player(game &g)
   const int second_player_index = get_collision_members(g)[1];
   const player& first_player = g.get_player(first_player_index);
   const player& second_player = g.get_player(second_player_index);
-  const color c1 = first_player.get_color();
-  const color c2 = second_player.get_color();
+  const int c1 = get_colorhash(first_player);
+  const int c2 = get_colorhash(second_player);
+
   // It is possible that this happens, no worries here :-)
   if (c1 == c2) return;
-  if (is_red(first_player) && is_green(second_player)) {
-      g.kill_player(second_player_index);
+  else if (std::abs(c1-c2)==1)
+    {
+      if(c1<c2)
+        g.kill_player(second_player_index);
+      else
+        g.kill_player(first_player_index);
     }
-  else if (is_red(first_player) && is_blue(second_player)) {
-      g.kill_player(first_player_index);
-    }
-  else if (is_green(first_player) && is_red(second_player)) {
-      g.kill_player(first_player_index);
-    }
-  else if (is_green(first_player) && is_blue(second_player)) {
-      g.kill_player(second_player_index);
-    }
-  else if (is_blue(first_player) && is_red(second_player)) {
-      g.kill_player(second_player_index);
-    }
-  else if (is_blue(first_player) && is_green(second_player)) {
-      g.kill_player(first_player_index);
-    }
+  else if(c1<c2)
+    g.kill_player(first_player_index);
 }
 
 void game::kill_player(const int index)
@@ -418,29 +410,29 @@ void test_game() //!OCLINT tests may be many
     game g;
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
 
-    {
-      // give the player a speed of more than 0
-      g.do_action(i, action_type::accelerate);
-      const double before{g.get_player(i).get_speed()};
-      g.do_action(i, action_type::brake);
-      const double after{g.get_player(i).get_speed()};
-      assert(before > after);
-      // After should be < than before
-    }
+      {
+        // give the player a speed of more than 0
+        g.do_action(i, action_type::accelerate);
+        const double before{g.get_player(i).get_speed()};
+        g.do_action(i, action_type::brake);
+        const double after{g.get_player(i).get_speed()};
+        assert(before > after);
+        // After should be < than before
+      }
   }
 
   //A game responds to actions: player can accelerate backward
   {
     game g;
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-    {
-      // the player has a speed of 0
-      const double before{g.get_player(i).get_speed()};
-      assert(before == 0.0);
-      g.do_action(i, action_type::acc_backward);
-      const double after{g.get_player(i).get_speed()};
-      assert(before - after > 0.0000000000000001);
-    }
+      {
+        // the player has a speed of 0
+        const double before{g.get_player(i).get_speed()};
+        assert(before == 0.0);
+        g.do_action(i, action_type::acc_backward);
+        const double after{g.get_player(i).get_speed()};
+        assert(before - after > 0.0000000000000001);
+      }
   }
 
   // A game responds to actions: player can shoot
@@ -455,31 +447,31 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-    {
-      // the player has a speed of 0
-      const double before_sp{g.get_player(i).get_speed()};
-      //and a certain direction
-      const double before_dir{g.get_player(i).get_direction()};
-      //And an initial x and y position
-      const double before_x{g.get_player(i).get_x()};
-      const double before_y{g.get_player(i).get_y()};
+      {
+        // the player has a speed of 0
+        const double before_sp{g.get_player(i).get_speed()};
+        //and a certain direction
+        const double before_dir{g.get_player(i).get_direction()};
+        //And an initial x and y position
+        const double before_x{g.get_player(i).get_x()};
+        const double before_y{g.get_player(i).get_y()};
 
-//action_type::none does not change anyhthing in the player
-      g.do_action(i, action_type::none);
-      const double after_sp{g.get_player(i).get_speed()};
-      const double after_dir{g.get_player(i).get_direction()};
-      const double after_x{g.get_player(i).get_x()};
-      const double after_y{g.get_player(i).get_y()};
+        //action_type::none does not change anyhthing in the player
+        g.do_action(i, action_type::none);
+        const double after_sp{g.get_player(i).get_speed()};
+        const double after_dir{g.get_player(i).get_direction()};
+        const double after_x{g.get_player(i).get_x()};
+        const double after_y{g.get_player(i).get_y()};
 
-      assert(before_sp - after_sp < 0.0000000000000001 &&
-             before_sp - after_sp > -0.0000000000000001);
-      assert(before_dir - after_dir < 0.0000000000000001 &&
-             before_dir - after_dir > -0.0000000000000001);
-      assert(before_x - after_x < 0.0000000000000001 &&
-             before_x - after_x > -0.0000000000000001);
-      assert(before_y - after_y < 0.0000000000000001 &&
-             before_y - after_y > -0.0000000000000001);
-    }
+        assert(before_sp - after_sp < 0.0000000000000001 &&
+               before_sp - after_sp > -0.0000000000000001);
+        assert(before_dir - after_dir < 0.0000000000000001 &&
+               before_dir - after_dir > -0.0000000000000001);
+        assert(before_x - after_x < 0.0000000000000001 &&
+               before_x - after_x > -0.0000000000000001);
+        assert(before_y - after_y < 0.0000000000000001 &&
+               before_y - after_y > -0.0000000000000001);
+      }
   }
   // Projectiles move
   {
@@ -602,8 +594,8 @@ void test_game() //!OCLINT tests may be many
     assert(n_players_after < n_players_before);
     assert(!has_collision(g));
     g.tick();
-    const auto n_players_after_after = g.get_v_player().size();
-    assert(n_players_after_after == n_players_after);
+    const auto n_player_afteragain = g.get_v_player().size();
+    assert(n_player_afteragain == n_players_after);
   }
 
   // Blue (player index 2) defeats red (player index 0)

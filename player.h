@@ -12,14 +12,15 @@
 class player
 {
 public:
-  player(const double x = 0.0, const double y = 0.0,
+  player(const double x = 0.0,
+         const double y = 0.0,
          const player_shape shape = player_shape::rocket,
-         const double player_speed = 0, const double player_max_speed = 2,
+         const double player_max_speed = 2,
          const double player_acceleration = 0.1,
          const double player_deceleration = -0.001,
          const double player_acc_backward = -0.1,
          const double size = 100.0,
-         const double direction = 0.0, const double turn_rate = 0.1,
+         const double turn_rate = 0.1,
          const color &any_color = color());
 
   ///Returns const ref to action set of the player
@@ -128,7 +129,7 @@ private:
   player_shape m_shape;
 
   /// The speed of the player
-  double m_player_speed;
+  double m_player_speed = 0;
 
   /// The maximum speed of the player
   double m_player_max_speed;
@@ -146,7 +147,7 @@ private:
   double m_diameter;
 
   /// The direction of player in radians
-  double m_direction_radians;
+  double m_direction_radians = 0;
 
   /// The rate at which the player turns
   double m_turn_rate;
@@ -179,6 +180,9 @@ bool is_green(const player &p) noexcept;
 
 /// Is a player red?
 bool is_red(const player &p) noexcept;
+
+///Get color index
+int get_colorhash(const player &p) noexcept;
 
 ///Removes an action from action set of the player
 void remove_action(player& p, action_type) noexcept;
