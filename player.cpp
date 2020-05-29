@@ -68,7 +68,7 @@ void player::acc_backward() noexcept
     }
     else
     {
-        m_player_speed += m_player_acc_backward ;
+        m_player_speed = -m_player_max_speed;
     }
     update_player_position();
 
@@ -365,6 +365,33 @@ void test_player() //!OCLINT tests may be long
         p.brake();
         auto brake_back_speed = p.get_speed();
         assert(brake_back_speed > full_back_speed);
+    }
+
+    //A player cannot surpass its positive max_speed
+    {
+        player p;
+        int n_of_accelerations = 1000;
+        assert(p.get_acceleration() * n_of_accelerations > p.get_max_s());
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            p.accelerate();
+        }
+        assert(p.get_speed() - p.get_max_s() < 0.00001
+               && p.get_speed() - p.get_max_s() > -0.00001);
+    }
+
+    //A player cannot surpass its negative max_speed
+    {
+        player p;
+        int n_of_accelerations = 1000;
+        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            p.acc_backward();
+        }
+
+        assert(p.get_speed() + p.get_max_s() < 0.00001
+               && p.get_speed() + p.get_max_s() > -0.00001);
     }
 
 }
