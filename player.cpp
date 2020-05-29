@@ -394,4 +394,19 @@ void test_player() //!OCLINT tests may be long
                && p.get_speed() + p.get_max_s() > -0.00001);
     }
 
+    //It is possible to establish how bluish, reddish and greenish a player is
+    {
+        player p;
+        int blueness = 1;
+        int greenness = 1;
+        int redness = 1;
+        p.set_color(
+                    color{redness,
+                          greenness,
+                          blueness}
+                    );
+        assert(get_blueness(p) == blueness);
+        assert(get_redness(p) == redness);
+        assert(get_greenness(p) == greenness);
+    }
 }
