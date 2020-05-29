@@ -14,6 +14,7 @@
 #include "menu_view.h"
 #include "player.h"
 #include "player_shape.h"
+#include "program_state.h"
 #include "sound_type.h"
 #include "optional.h"
 #include <SFML/Graphics.hpp>
@@ -41,6 +42,7 @@ void test()
   test_menu_button();
   test_shelter();
   test_color();
+  test_program_state();
 #ifndef LOGIC_ONLY
   test_game_view();
   test_game_resources();
