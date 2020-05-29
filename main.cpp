@@ -18,6 +18,7 @@
 #include "optional.h"
 #include <SFML/Graphics.hpp>
 #include <cassert>
+#include <chrono>
 #include <iostream>
 
 /// All tests are called from here, only in debug mode
@@ -39,6 +40,7 @@ void test()
   test_menu();
   test_menu_button();
   test_shelter();
+  test_color();
 #ifndef LOGIC_ONLY
   test_game_view();
   test_game_resources();
@@ -65,6 +67,26 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   if (args.size() > 1 && args[1] == "--test")
     return 0;
 
+  else  if (args.size() > 1 && args[1] == "--profile")
+  {
+#ifndef NDEBUG
+      perror("Do not profile in debug mode");
+      abort();
+#else
+      using namespace std::chrono;
+      game_view v;
+      double max_duration = 10;
+      auto start = high_resolution_clock::now();
+      duration<double> time;
+      while( time.count() < max_duration)
+      {
+          v.process_events();
+          v.get_game().tick();
+          v.show();
+          time =  high_resolution_clock::now() - start;
+      }
+#endif
+  }
 #ifndef LOGIC_ONLY
 
 
