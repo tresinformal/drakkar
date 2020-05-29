@@ -41,6 +41,7 @@ void test()
   test_menu_button();
   test_shelter();
   test_color();
+  test_projectile_type();
 #ifndef LOGIC_ONLY
   test_game_view();
   test_game_resources();

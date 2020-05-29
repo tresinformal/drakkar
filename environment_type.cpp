@@ -16,10 +16,11 @@ std::string to_str(environment_type this_env_type)
     return "attractive";
   case environment_type::repellent:
     return "repellent";
-  case environment_type::wormhole:
+
+  default:
+    assert(this_env_type == environment_type::wormhole);
     return "wormhole";
   }
-  return "[Unknown environment_type]";
 }
 
 void test_individual_type()
