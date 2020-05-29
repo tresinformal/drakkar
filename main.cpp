@@ -39,6 +39,7 @@ void test()
   test_menu();
   test_menu_button();
   test_shelter();
+  test_color();
 #ifndef LOGIC_ONLY
   test_game_view();
   test_game_resources();
