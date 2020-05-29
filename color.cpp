@@ -28,19 +28,33 @@ int get_redness(const color &c) noexcept { return c.get_red(); }
 
 void test_color()
 {
-  // Color is white by default
-  {
-    const color c;
-    assert(c.get_red() == 255);
-    assert(c.get_green() == 255);
-    assert(c.get_blue() == 255);
-  }
-
-  {
-    std::stringstream s;
-    const color c;
-    s << c;
-  }
+    // Color is white by default
+    {
+        const color c;
+        assert(c.get_red() == 255);
+        assert(c.get_green() == 255);
+        assert(c.get_blue() == 255);
+        assert(c.get_opaqueness() == 255);
+    }
+    // Test get functions
+    {
+        const color c(100, 100, 100, 100);
+        assert(get_blueness(c) == 100);
+        assert(get_greenness(c) == 100);
+        assert(get_opaqueness(c) == 100);
+        assert(get_redness(c) == 100);
+    }
+    // Test overloeaded operators
+    {
+        const color c;
+        const color c1;
+        assert(c == c1);
+    }
+    {
+        std::stringstream s;
+        const color c;
+        s << c;
+    }
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept
