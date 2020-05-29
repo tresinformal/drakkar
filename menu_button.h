@@ -7,7 +7,8 @@
 class menu_button
 {
 public:
-  menu_button(std::string name, float b_width = 200.0f,
+  menu_button(std::string name,
+              float b_width = 200.0f,
               float b_height = 100.0f);
   /// Get x pos of a button
   float get_x() const noexcept { return m_x; }
