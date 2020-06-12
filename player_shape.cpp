@@ -13,11 +13,13 @@ void test_player_shape()
 
 std::string to_str(player_shape this_player_shape)
 {
-  switch (this_player_shape)
+  if (this_player_shape == player_shape::circle)
   {
-    case player_shape::circle: return "circle";
-    case player_shape::rocket: return "rocket";
-    default: break;
+    return "circle";
+  }
+  else if (this_player_shape == player_shape::rocket)
+  {
+    return "rocket";
   }
   assert(this_player_shape == player_shape::square);
   return "square";
