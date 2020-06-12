@@ -31,11 +31,11 @@ player::player(const double x,
 void player::brake() noexcept
 {
 
-    if(m_player_speed > 0)
+    if(m_player_speed > 0.0)
     {
         m_player_speed += m_player_deceleration;
     }
-    else if(m_player_speed < 0)
+    else if(m_player_speed < 0.0)
     {
         m_player_speed -= m_player_deceleration;
     }
@@ -353,6 +353,15 @@ void test_player() //!OCLINT tests may be long
         remove_action(p, action1);
         assert(!p.get_action_set().count(action1));
         assert(p.get_action_set().count(action2));
+    }
+    //When a player is standing still,
+    //braking will do nothing
+    //counteract it by increasing its speed
+    {
+        player p;
+        assert(p.get_speed() == 0.0);
+        p.brake();
+        assert(p.get_speed() == 0.0);
     }
 
     //When a player is accelerating backwards brake will
