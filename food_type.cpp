@@ -24,6 +24,7 @@ void test_food_type()
   {
     std::stringstream s;
     s << food_type::poison;
+    assert(!s.str().empty());
   }
 }
 
