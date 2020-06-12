@@ -8,6 +8,27 @@ shelter::shelter(const double x, const double y, const double radius,
       m_direction{direction}
 {
 }
+
+const color& shelter::get_color() const noexcept
+{
+  return m_color;
+}
+
+double shelter::get_radius() const noexcept
+{
+  return m_radius;
+}
+
+double shelter::get_x() const noexcept
+{
+  return m_x;
+}
+
+double shelter::get_y() const noexcept
+{
+  return m_y;
+}
+
 void shelter::update_shelter_position()
   {
       m_x += std::cos(rand());
