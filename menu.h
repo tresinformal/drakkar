@@ -10,13 +10,13 @@ public:
              std::string button3 = "quit");
 
   /// Gets the width of the screen
-  int get_w_width() const noexcept { return m_window_width; }
+  int get_w_width() const noexcept;
 
   /// Gets height of the screen
-  int get_height() const noexcept { return m_window_height; }
+  int get_height()const noexcept;
 
   /// Gets the vector of buttons
-  std::vector<menu_button> &get_m_v_buttons() noexcept { return m_v_buttons; }
+  std::vector<menu_button> &get_m_v_buttons() noexcept;
 
   /// Get one button at index i
   menu_button &get_button(int index);
