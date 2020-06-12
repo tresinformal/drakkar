@@ -15,6 +15,13 @@ void test_food()
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
   }
+
+  {
+    food f{1.0,2.0};
+    assert(f.get_x() == 1.0);
+    assert(f.get_y() == 2.0);
+  }
+
   // X and Y work as expected
   {
     const double x{12.34};
