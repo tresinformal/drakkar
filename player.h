@@ -40,16 +40,16 @@ public:
   const color &get_color() const noexcept { return m_color; }
 
   /// Get the X coordinat of the player
-  double get_x() const noexcept { return m_x; }
+  double get_x() const noexcept;
 
   /// Get the Y coordinat of the player
-  double get_y() const noexcept { return m_y; }
+  double get_y() const noexcept;
 
   /// Get the shape of the player
   player_shape get_shape() const noexcept { return m_shape; }
 
   /// Get the radius of the player
-  double get_diameter() const noexcept { return m_diameter; }
+  double get_diameter() const noexcept;
 
   /// Get the speed of the player
   double get_speed() const noexcept { return m_player_speed; }
@@ -58,7 +58,7 @@ public:
   double get_max_s() const noexcept { return m_player_max_speed; }
 
   /// Get the direction of player movement, in radians
-  double get_direction() const noexcept { return m_direction_radians; }
+  double get_direction() const noexcept;
 
   /// Get the player's health
   double get_health() const noexcept { return m_health; }

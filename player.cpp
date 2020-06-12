@@ -27,6 +27,17 @@ player::player(const double x,
 {
 }
 
+/// Get the X coordinat of the player
+double player::get_x() const noexcept { return m_x; }
+
+/// Get the Y coordinat of the player
+double player::get_y() const noexcept { return m_y; }
+
+/// Get the radius of the player
+double player::get_diameter() const noexcept { return m_diameter; }
+
+/// Get the direction of player movement, in radians
+double player::get_direction() const noexcept { return m_direction_radians; }
 
 void player::brake() noexcept
 {
