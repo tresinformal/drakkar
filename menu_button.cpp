@@ -7,6 +7,14 @@ menu_button::menu_button(std::string name,
       m_name{name}
 {
 }
+/// Get x pos of a button
+float menu_button::get_x() const noexcept { return m_x; }
+
+/// Get y pos of a button
+float menu_button::get_y() const noexcept { return m_y; }
+
+  /// Get the sizes of the button
+const sf::Vector2f &menu_button::get_body() const noexcept { return m_body; }
 
 void test_menu_button()
 {
