@@ -58,4 +58,17 @@ void test_shelter()
     f.update_shelter_position(); //move shelter
     assert(f.get_x() != 0.0); //see that shelter moves
   }
+  // Colors
+  {
+    const int r{1};
+    const int g{2};
+    const int b{3};
+    const int a{4};
+    const color c(r, g, b, a);
+    const shelter s(0.0, 0.0, 100.0, c);
+    assert(get_blueness(s) == b);
+    assert(get_greenness(s) == g);
+    assert(get_opaqueness(s) == a);
+    assert(get_redness(s) == r);
+  }
 }
