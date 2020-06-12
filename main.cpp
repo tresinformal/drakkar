@@ -112,6 +112,4 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   v.exec();
 
 #endif // LOGIC_ONLY
-
-  return 0;
 }
