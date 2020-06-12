@@ -121,7 +121,7 @@ void game::do_actions() noexcept
 
 double game::get_player_direction( int player_ind)
 {
-  assert(1 == 2); //Guess this is unused :-)
+  assert(1 == 2); //!OCLINT Guess this is unused :-)
   return get_player(player_ind).get_direction();
 }
 
@@ -132,7 +132,7 @@ double get_player_direction(game g, int player_ind)
 
 void game::set_collision_vector( int lhs,  int rhs)
 {
-  assert(1 == 2); //Guess this is unused :-)
+  assert(1 == 2); //!OCLINT Guess this is unused :-)
   m_v_collisions_ind.push_back(lhs);
   m_v_collisions_ind.push_back(rhs);
 }
