@@ -45,4 +45,6 @@ private:
   double m_radius;
 };
 
+void test_projectile();
+
 #endif // PROJECTILE_H

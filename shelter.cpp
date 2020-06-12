@@ -30,10 +30,11 @@ double shelter::get_y() const noexcept
 }
 
 void shelter::update_shelter_position()
-  {
-      m_x += std::cos(rand());
-      m_y += std::sin(rand());
-  }
+{
+  m_x += std::cos(rand());
+  m_y += std::sin(rand());
+}
+
 int get_blueness(const shelter &f) noexcept
 {
   return get_blueness(f.get_color());

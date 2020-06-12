@@ -15,6 +15,7 @@
 #include "player.h"
 #include "player_shape.h"
 #include "program_state.h"
+#include "projectile.h"
 #include "sound_type.h"
 #include "optional.h"
 #include <SFML/Graphics.hpp>
@@ -43,6 +44,7 @@ void test()
   test_shelter();
   test_color();
   test_projectile_type();
+  test_projectile();
   test_program_state();
 
 #ifndef LOGIC_ONLY
