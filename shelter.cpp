@@ -55,9 +55,8 @@ int get_redness(const shelter &f) noexcept
   return get_redness(f.get_color());
 }
 
-void test_shelter()
+void test_shelter() //!OCLINT tests may be complex
 {
-
   {
     shelter f;
     assert(f.get_x() == 0.0);
