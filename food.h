@@ -9,8 +9,8 @@ public:
   food(const double x = 0.0, const double y = 0.0, const color &c = color());
 
   const color &get_color() const noexcept { return m_color; }
-  double get_x() const noexcept { return f_x; }
-  double get_y() const noexcept { return f_y; }
+  double get_x() const noexcept;
+  double get_y() const noexcept ;
 
 private:
   double f_x;
