@@ -7,6 +7,9 @@ food::food(const double x, const double y, const color &c)
 {
 }
 
+double food::get_x() const noexcept { return f_x; }
+double food::get_y() const noexcept { return f_y; }
+
 void test_food()
 {
 
