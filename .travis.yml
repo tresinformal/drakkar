@@ -1,8 +1,6 @@
 language: cpp
-dist: bionic
 compiler:
   - gcc
-  # - clang 
 
 install: 
   # Required on bionic
