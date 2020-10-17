@@ -4,15 +4,21 @@
 
 void test_action_type()
 {
-  assert(to_str(action_type::turn_left) !=
-         to_str(action_type::turn_right));
-  assert(to_str(action_type::accelerate) !=
-         to_str(action_type::brake));
-  assert(to_str(action_type::accelerate) !=
-         to_str(action_type::shoot));
+  // to_str
+  {
+    assert(to_str(action_type::turn_left) == "turn_left");
+    assert(to_str(action_type::turn_right) == "turn_right");
+    assert(to_str(action_type::accelerate) == "accelerate");
+    assert(to_str(action_type::brake) == "brake");
+    assert(to_str(action_type::acc_backward) == "acc_backward");
+    assert(to_str(action_type::shoot) == "shoot");
+    assert(to_str(action_type::none) == "none");
+  }
+  //
   {
     std::stringstream s;
     s << action_type::brake;
+    assert(!s.str().empty());
   }
 }
 

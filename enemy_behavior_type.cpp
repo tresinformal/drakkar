@@ -12,7 +12,20 @@ void test_enemy_behavior_type()
   {
     std::stringstream s;
     s << enemy_behavior_type::gezellig;
+
   }
+  {
+    std::stringstream s;
+    s<< enemy_behavior_type::shy;
+    // check that the string stream is not empty, i.e. it's shy now
+    assert(!s.str().empty());
+  }
+  {
+    //check that it is empty
+    std::stringstream s;
+    assert(s.str().empty());
+  }
+
 }
 
 std::stringstream& operator << (std::stringstream &out, const enemy_behavior_type &enemy_type)

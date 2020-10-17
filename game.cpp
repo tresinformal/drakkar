@@ -61,50 +61,15 @@ int count_n_projectiles(const game &g) noexcept
   return static_cast<int>(g.get_projectiles().size());
 }
 
-void game::do_action( int player_index, action_type action)
+void game::do_action(const int player_index, action_type action)
 {
-
-  switch (action)
-
-    {
-    case action_type::turn_left:
-      {
-        get_player(player_index).turn_left();
-        break;
-      }
-    case action_type::turn_right:
-      {
-        get_player(player_index).turn_right();
-        break;
-      }
-    case action_type::accelerate:
-      {
-        get_player(player_index).accelerate();
-        break;
-      }
-    case action_type::brake:
-      {
-        get_player(player_index).brake();
-        break;
-      }
-    case action_type::acc_backward:
-      {
-        get_player(player_index).acc_backward();
-        break;
-      }
-    case action_type::shoot:
-      {
-        get_player(player_index).shoot();
-        break;
-      }
-    case action_type::none:
-      return;
-    }
+  assert(player_index >= 0);
+  assert(player_index < static_cast<int>(m_v_player.size()));
+  do_action(m_v_player[player_index], action);
 }
 
 void game::do_action( player& player, action_type action)
 {
-
   switch (action)
 
     {
@@ -156,6 +121,7 @@ void game::do_actions() noexcept
 
 double game::get_player_direction( int player_ind)
 {
+  assert(1 == 2); //!OCLINT Guess this is unused :-)
   return get_player(player_ind).get_direction();
 }
 
@@ -166,6 +132,7 @@ double get_player_direction(game g, int player_ind)
 
 void game::set_collision_vector( int lhs,  int rhs)
 {
+  assert(1 == 2); //!OCLINT Guess this is unused :-)
   m_v_collisions_ind.push_back(lhs);
   m_v_collisions_ind.push_back(rhs);
 }
@@ -273,7 +240,6 @@ bool has_collision(const player& pl, const projectile& p)
 bool has_collision_with_projectile(const game & g) noexcept
 {
   const auto& projectiles = g.get_projectiles();
-  if (projectiles.empty()) return false;
   const auto& players = g.get_v_player();
 
   for (const auto& p : projectiles)

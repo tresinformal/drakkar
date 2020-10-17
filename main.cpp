@@ -14,6 +14,7 @@
 #include "menu_view.h"
 #include "player.h"
 #include "player_shape.h"
+#include "program_state.h"
 #include "sound_type.h"
 #include "optional.h"
 #include <SFML/Graphics.hpp>
@@ -42,6 +43,8 @@ void test()
   test_shelter();
   test_color();
   test_projectile_type();
+  test_program_state();
+
 #ifndef LOGIC_ONLY
   test_game_view();
   test_game_resources();
@@ -109,6 +112,4 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   v.exec();
 
 #endif // LOGIC_ONLY
-
-  return 0;
 }

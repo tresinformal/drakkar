@@ -9,6 +9,14 @@ menu::menu( int w_width,  int w_height,
 {
   put_buttons_tidy();
 }
+/// Gets the width of the screen
+int menu::get_w_width() const noexcept { return m_window_width; }
+
+/// Gets height of the screen
+int menu::get_height() const noexcept { return m_window_height; }
+
+/// Gets the vector of buttons
+std::vector<menu_button> &menu::get_m_v_buttons() noexcept { return m_v_buttons; }
 
 menu_button &menu::get_button(int index)
 {
