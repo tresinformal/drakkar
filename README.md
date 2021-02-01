@@ -1,18 +1,21 @@
 # game
 
-Branch   |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)                                                           |[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
----------|------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------
-master   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=master)](https://travis-ci.org/tresinformal/game)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
-develop  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=develop)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
-apu      |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=apu)](https://travis-ci.org/tresinformal/game)      |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=apu)](https://codecov.io/github/tresinformal/game/branch/apu)
-claudio  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/claudio)
-paula    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=paula)](https://travis-ci.org/tresinformal/game)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=paula)](https://codecov.io/github/tresinformal/game/branch/paula)
-pedro    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=pedro)](https://travis-ci.org/tresinformal/game)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pedro)](https://codecov.io/github/tresinformal/game/branch/pedro)
-swom     |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=stefano)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/pedro)
-richel   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
-sebastian|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=sebastian)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
-timo     |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/timo)
-xiaoyan  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=xiaoyan)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
+Branch    |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)                                                           |[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
+----------|------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------
+master    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=master)](https://travis-ci.org/tresinformal/game)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
+develop   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=develop)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
+?apu      |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=apu)](https://travis-ci.org/tresinformal/game)      |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=apu)](https://codecov.io/github/tresinformal/game/branch/apu)
+?claudio  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/claudio)
+?paula    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=paula)](https://travis-ci.org/tresinformal/game)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=paula)](https://codecov.io/github/tresinformal/game/branch/paula)
+?pedro    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=pedro)](https://travis-ci.org/tresinformal/game)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pedro)](https://codecov.io/github/tresinformal/game/branch/pedro)
+?swom     |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=stefano)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/pedro)
+richel    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=richel)](https://travis-ci.org/tresinformal/game)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
+?sebastian|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=sebastian)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
+?timo     |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/timo)
+?xiaoyan  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=xiaoyan)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
+
+:warning: due to a new team being formed, I added question marks before
+all team members' names
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
@@ -63,17 +66,20 @@ https://agar.io/, this game could give a good idea of how we would like this gam
 
 Preferred role(s) are suggestions. If there is disagreement, we'll vote.
 
-Name     |GitHub username     |Preferred role(s)
----------|--------------------|------------------------------------------------
-Apu      | @AparajithaRamesh  |
-Giorgio  | @GiorgioBoccarella |Lead graphics
-Marina   | @marinapapa        |Graphics, game design, developer
-Pedro    | @Neves-P           |Junior developer, sound
-Richel   | @richelbilderbeek  |Senior developer, project coordinator, chairman
-Sebastian| @sebmader          |Lead sound
-Shu      | @xieshu95          |
-Stefano  | @swom              |
-Xiaoyan  |                    |
+Name      |GitHub username     |Preferred role(s)
+----------|--------------------|------------------------------------------------
+?Apu      | @AparajithaRamesh  |
+?Giorgio  | @GiorgioBoccarella |Lead graphics
+?Marina   | @marinapapa        |Graphics, game design, developer
+?Pedro    | @Neves-P           |Junior developer, sound
+Richel    | @richelbilderbeek  |Senior developer, project coordinator, chairman
+?Sebastian| @sebmader          |Lead sound
+?Shu      | @xieshu95          |
+?Stefano  | @swom              |
+?Xiaoyan  |                    |
+
+:warning: due to a new team being formed, I added question marks before
+all team members' names
 
 ## Roles
 
@@ -109,7 +115,10 @@ Timespan    |Activity
 
 Date       |Activity
 -----------|--------------------------------------------------------------------------
-2020-03-20 |Programming via Discord
+2021-02-03 |New C++ team starting
+.          |practice git branching
+.          |fixing tests
+.          |pair programming
 
 ## Screenshots
 
