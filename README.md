@@ -18,12 +18,6 @@ xiaoyan  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=xi
 
 The TRES video game.
 
-```
- AGAR
-  R P
-  B S
-```
-
 ## Coding via Discord
 
 We developing our game, while chatting on Discord.
@@ -34,7 +28,7 @@ See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [dow
 
 ## Meetings
 
- * Date: Weekly, every Friday
+ * Date: Weekly, every Wednesday
  * Time: 17:00-19:00
  * On Discord
 
