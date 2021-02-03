@@ -477,7 +477,6 @@ void test_game() //!OCLINT tests may be many
   }
 
   // calling tick updates the counter and
-
   // callling tick() increases m_n_tick by one
   {
     game g;

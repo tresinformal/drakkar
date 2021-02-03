@@ -5,6 +5,8 @@
 #include "game_resources.h"
 #include "game_options.h"
 #include <SFML/Graphics.hpp>
+#include "key_action_map.h"
+
 
 /// The game's main window
 /// Displays the game class
@@ -62,6 +64,9 @@ private:
   ///The views of each player
   std::vector<sf::View> m_v_views;
 
+  /// Parses input for a player
+  player player_input(player p, sf::Event event);
+
   /// Parses input for player 1
   void pl_1_input(sf::Event event) noexcept;
 
@@ -90,6 +95,8 @@ private:
   void draw_shelters() noexcept;
 
 };
+
+key_action_map get_player_kam(const player& p);
 
 void test_game_view();
 

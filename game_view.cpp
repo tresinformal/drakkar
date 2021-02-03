@@ -4,7 +4,6 @@
 #include "game_resources.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
-#include "key_action_map.h"
 
 game_view::game_view(game_options options) :
     m_window(sf::VideoMode(1280, 720), "tresinformal game"),
@@ -41,6 +40,13 @@ game_view::~game_view()
     // build to fail
     m_game_resources.get_wonderland().stop();
 #endif // IS_ON_TRAVIS
+}
+
+player game_view::player_input(player p, sf::Event event)
+{
+    auto m = get_player_kam(p);
+    add_action(p, m.to_action(event.key.code));
+    return p;
 }
 
 void game_view::pl_1_input(sf::Event event) noexcept
@@ -239,6 +245,29 @@ void game_view::show() noexcept
     m_window.display();
 }
 
+key_action_map get_player_kam(const player& p)
+{
+    if(p.get_ID() == "1")
+    {
+        return get_player_1_kam();
+    }
+    else if(p.get_ID() == "2")
+    {
+        return  get_player_2_kam();
+    }
+    else
+    {
+        //for now return a weird action map
+        return
+                key_action_map
+        {sf::Keyboard::P,
+        sf::Keyboard::P,
+        sf::Keyboard::P,
+        sf::Keyboard::P,
+        sf::Keyboard::P};
+    }
+}
+
 
 void test_game_view()//!OCLINT tests may be many
 {
@@ -304,6 +333,38 @@ void test_game_view()//!OCLINT tests may be many
         game_view v;
         assert(v.get_options().is_playing_music());
     }
+
+#ifdef FIX_ISSUE_183
+    ///given a player get_player_kam provides the correct player kam
+    {
+     player p;
+     assert(p.get_ID() == "1");
+     assert(get_player_kam(p) == get_player_1_kam());
+
+     p.set_ID("2");
+     assert(get_player_kam(p) != get_player_1_kam());
+     assert(get_player_kam(p) == get_player_2_kam());
+
+    }
+#endif
+
+#ifdef FIX_ISSUE_183
+    ///Given a player and an event
+    ///player_input sees if any action has to be applied to the player
+    {
+        player p1;
+        player p2;
+
+        sf::Event::KeyEvent move_forward_pl_1;
+        move_forward_pl_1.code = sf::Keyboard::A;
+
+        player_input(p1,move_forward_pl_1);
+        player_input(p2,move_forward_pl_1);
+
+        assert(p1.get_y() != p2.get_y());
+
+    }
+#endif
 }
 
 
