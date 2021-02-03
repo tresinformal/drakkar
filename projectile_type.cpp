@@ -1,40 +1,34 @@
 #include "projectile_type.h"
 #include <sstream>
-// in projectile_type.cpp
+#include <cassert>
 
 void test_projectile_type()
 {
+  // String conversion
+  {
+    assert(to_str(projectile_type::cat) == "cat");
+    assert(to_str(projectile_type::rocket) == "rocket");
+  }
+  // Can stream
   {
     std::stringstream s;
     s << projectile_type::rocket;
-  }
-  {
-    std::stringstream s;
-    s << projectile_type::cat;
+    assert(!s.str().empty());
   }
 }
 
 std::ostream &operator<<(std::ostream &os, const projectile_type t)
 {
-  os << to_str_projectile_type(t);
+  os << to_str(t);
   return os;
 }
 
-const std::string to_str_projectile_type(projectile_type this_food_type)
-
+std::string to_str(const projectile_type this_projectile_type) noexcept
 {
-
-  switch (this_food_type) //!OCLINT
-                          // it might be wise to keep a default statement
-                          // in case for some reason an invalid input is given
+  if (this_projectile_type == projectile_type::rocket)
   {
-  case projectile_type::rocket:
     return "rocket";
-  case projectile_type::cat:
-    return "cat";
-
-
-  default:
-    return "[Unknown projectile_type]";
   }
+  assert(this_projectile_type == projectile_type::cat);
+  return "cat";
 }

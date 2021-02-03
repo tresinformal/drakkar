@@ -1,55 +1,17 @@
-# Files
-HEADERS += \
-    action_type.h \
-    enemy.h \
-    environment.h \
-    environment_type.h \
-    food.h \
-    food_type.h \
-    game.h \
-    game_resources.h \
-    game_view.h \
-    menu_button.h \
-    menu_logic.h \
-    menu_view.h \
-    player.h \
-    player_shape.h \
-    projectile_type.h \
-    sound_type.h \
-    game_options.h \
-    color.h \
-    shelter.h \
-    projectile.h
+# This is the general project file,
+# to be used to simply run the game.
+#
+# Other .pro files are used for specific tasks,
+# such as codecov or profiling
 
-SOURCES += \
-    action_type.cpp \
-    enemy.cpp \
-    environment.cpp \
-    environment_type.cpp \
-    food.cpp \
-    food_type.cpp \
-    game.cpp \
-    game_resources.cpp \
-    game_view.cpp \
-    main.cpp \
-    menu_button.cpp \
-    menu_logic.cpp \
-    menu_view.cpp \
-    player.cpp \
-    player_shape.cpp \
-    projectile_type.cpp \
-    sound_type.cpp \
-    game_options.cpp \
-    color.cpp \
-    shelter.cpp \
-    projectile.cpp
+# All files are in here, the rest are just settings
+include(game.pri)
 
-CONFIG += c++17
-QMAKE_CXXFLAGS += -std=c++17
-CONFIG += resources_big
+# Use the C++ version that all team members can use
+CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 # High warning levels
-# SFML goes bad with -Weffc++
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
 
 # A warning is an error
@@ -64,16 +26,9 @@ CONFIG(release, debug|release) {
 # Qt5
 QT += core gui
 
-# SFML, default compiling
 # GNU/Linux
 unix:!macx {
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-
-  CONFIG(debug, debug|release) {
-    # gcov
-    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
-    LIBS += -lgcov
-  }
 }
 
 win32{
@@ -87,12 +42,7 @@ win32{
   CONFIG(release, debug|release) {
     LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-window-d -lsfml-system-d
   }
-  #LIBS += -lopenal32              #Dependency
-  #LIBS += -lfreetype              #Dependency
-  LIBS += -lopengl32              #Dependency
-  LIBS += -lgdi32                 #Dependency
-  LIBS += -lwinmm                 #Dependency
+  LIBS += -lopengl32
+  LIBS += -lgdi32
+  LIBS += -lwinmm
 }
-
-RESOURCES += \
-    game_resources.qrc

@@ -3,7 +3,6 @@
 #include <iosfwd>
 
 enum class food_type
-
 {
   rocket,
   laser,
@@ -14,7 +13,7 @@ enum class food_type
 
 std::ostream &operator<<(std::ostream &os, const food_type t);
 
-const std::string to_str_food_type(food_type this_food_type);
+std::string to_str(const food_type this_food_type) noexcept;
 
 void test_food_type();
 

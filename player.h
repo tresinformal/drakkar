@@ -5,32 +5,51 @@
 #include "color.h"
 #include "player_shape.h"
 #include <cmath>
+#include <vector>
+#include <set>
+
 
 class player
 {
 public:
-  player(const double x = 0.0, const double y = 0.0,
+  player(const double x = 0.0,
+         const double y = 0.0,
          const player_shape shape = player_shape::rocket,
-         const double player_speed = 0, const double player_max_speed = 2,
+         const double player_max_speed = 2,
          const double player_acceleration = 0.1,
-         const double player_deceleration = 0.001, const double size = 100.0,
-         const double direction = 0.0, const double turn_rate = 0.1,
+         const double player_deceleration = -0.001,
+         const double player_acc_backward = -0.1,
+         const double size = 100.0,
+         const double turn_rate = 0.1,
          const color &any_color = color());
+
+
+  /// Get the acceleration of the player
+  double get_acceleration() const noexcept { return m_player_acceleration; }
+
+  ///Get the backward acceleration of the player
+  double get_acceleration_backward() const noexcept { return m_player_acc_backward; }
+
+  ///Returns const ref to action set of the player
+  const std::set<action_type>& get_action_set() const noexcept {return m_action_set;}
+
+  ///Returns const ref to action set of the player
+  std::set<action_type>& get_action_set() noexcept {return m_action_set;}
 
   /// Get the color of the player
   const color &get_color() const noexcept { return m_color; }
 
   /// Get the X coordinat of the player
-  double get_x() const noexcept { return m_x; }
+  double get_x() const noexcept;
 
   /// Get the Y coordinat of the player
-  double get_y() const noexcept { return m_y; }
+  double get_y() const noexcept;
 
   /// Get the shape of the player
   player_shape get_shape() const noexcept { return m_shape; }
 
-  /// Get the size of the player
-  double get_size() const noexcept { return m_size; }
+  /// Get the radius of the player
+  double get_diameter() const noexcept;
 
   /// Get the speed of the player
   double get_speed() const noexcept { return m_player_speed; }
@@ -38,11 +57,8 @@ public:
   /// Get the speed of the player
   double get_max_s() const noexcept { return m_player_max_speed; }
 
-  /// Get the acceleration of the player
-  double get_acceleration() const noexcept { return m_player_acceleration; }
-
-  /// Get the direction of player movement
-  double get_direction() const noexcept { return m_direction; }
+  /// Get the direction of player movement, in radians
+  double get_direction() const noexcept;
 
   /// Get the player's health
   double get_health() const noexcept { return m_health; }
@@ -75,28 +91,33 @@ public:
   void set_y(double y) noexcept { m_y = y; }
 
   /// Turn the player left
-  void turn_left() noexcept { m_direction += m_turn_rate; }
+  void turn_left() noexcept { m_direction_radians -= m_turn_rate; }
 
   /// Turn the player right
-  void turn_right() noexcept { m_direction -= m_turn_rate; }
+  void turn_right() noexcept { m_direction_radians += m_turn_rate; }
 
   /// Update the position of the player on the base of its speed and direction
   void update_player_position() noexcept
   {
-    m_x += cos(m_direction) * m_player_speed;
-    m_y += sin(m_direction) * m_player_speed;
+    m_x += cos(m_direction_radians) * m_player_speed;
+    m_y += sin(m_direction_radians) * m_player_speed;
   }
 
   /// Accelerate the player
   void accelerate() noexcept;
 
-  /// Brake/decelerate the player
+  /// Brake the player
   void brake() noexcept;
+
+  /// Accelerate the player backward
+  void acc_backward() noexcept;
 
 private:
   /// The player's color, will change depending on food items
   color m_color;
 
+//The set of ongoing actions of a player
+  std::set<action_type> m_action_set;
   /// When a player shoots, 'm_is_shooting' is true for one tick.
   /// 'game' reads 'm_is_shooting' and if it is true,
   /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
@@ -112,7 +133,7 @@ private:
   player_shape m_shape;
 
   /// The speed of the player
-  double m_player_speed;
+  double m_player_speed = 0;
 
   /// The maximum speed of the player
   double m_player_max_speed;
@@ -123,11 +144,14 @@ private:
   /// The acceleration of the player
   double m_player_deceleration;
 
+  ///The backward acceleration of player
+  double m_player_acc_backward;
+
   /// The size of the player
-  double m_size;
+  double m_diameter;
 
   /// The direction of player in radians
-  double m_direction;
+  double m_direction_radians = 0;
 
   /// The rate at which the player turns
   double m_turn_rate;
@@ -136,6 +160,9 @@ private:
   /// construction
   double m_health = 1.0;
 };
+
+///Adds an action to the action set
+void add_action(player& p, action_type action) noexcept;
 
 /// Checks if two players are colliding
 bool are_colliding(const player &p1, const player &p2) noexcept;
@@ -148,6 +175,21 @@ int get_greenness(const player &p) noexcept;
 
 /// Get the redness (from the color) of the player
 int get_redness(const player &p) noexcept;
+
+/// Is a player blue?
+bool is_blue(const player &p) noexcept;
+
+/// Is a player green?
+bool is_green(const player &p) noexcept;
+
+/// Is a player red?
+bool is_red(const player &p) noexcept;
+
+///Get color index
+int get_colorhash(const player &p) noexcept;
+
+///Removes an action from action set of the player
+void remove_action(player& p, action_type) noexcept;
 
 /// Test the player class
 void test_player();

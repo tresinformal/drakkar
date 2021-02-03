@@ -31,21 +31,23 @@ services:
 
 script: 
   # Build the project, then:
-  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY game.pro
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY game_on_travis.pro
   - make --silent debug
   # Run the tests
-  - ./game --test
-  # Run the game from main screen, for 10 secs
+  - ./game_on_travis --test
+  # Profiling: run the game from main screen, for 10 secs
   - make clean --silent
-  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS game.pro
-  - make --silent debug
-  - ./game &
+  - qmake -qt=qt5 DEFINES+=IS_ON_TRAVIS DEFINES+=LOGIC_ONLY QMAKE_CXXFLAGS+=-Wunused-variable game_on_travis.pro
+  - make --silent release 
+  - ./game_on_travis --profile
+  - gprof game_on_travis > gprof.log || true
   - sleep 10
-  - sudo killall -9 game || true
+  - sudo killall -9 game_on_travis || true
+  - head gprof.log -n 1000
   # Run the game from menu screen, for 10 secs
   # Will not do so now, as xvfb needs to be restarted in a way unknown to us yet
   # See https://github.com/tresinformal/game/issues/105
-  - # ./game --menu &
+  - # ./game_on_travis --menu &
   - # sleep 10 || true
   - # sudo killall -9 game || true
   # 2) Run the game for a short time, then quit
@@ -56,12 +58,12 @@ script:
   - rm -f qrc_game_resources.cpp
   # Get code coverage
   - cp debug/*.* .
-  - ./scripts/get_code_cov >/dev/null
-  - codecov >/dev/null
+  - ./scripts/get_code_cov.sh
+  - codecov
   # cppcheck
   - travis_wait 50 cppcheck --quiet --error-exitcode=1 .
   # Check code formatting
-  - ./scripts/check_clang-format || true
+  # - ./scripts/check_clang-format || true
   # SLOCcount
   #   remove OCLint and .git, otherwise it will be counted as well
   - rm -rf oclint-0.10.3 oclint-0.10.3-x86_64-linux-3.13.0-74-generic.tar.gz oclint.log

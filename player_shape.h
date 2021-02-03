@@ -14,6 +14,6 @@ enum class player_shape
 /// Tests the functions related to player_shape
 void test_player_shape();
 
-const std::string to_str(player_shape this_player_shape);
+std::string to_str(player_shape this_player_shape);
 
 #endif // PLAYER_SHAPE_H

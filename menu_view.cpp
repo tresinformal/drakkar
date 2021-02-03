@@ -2,7 +2,7 @@
 
 menu_view::menu_view()
     : m_window(
-          sf::VideoMode(m_menu_logic.get_w_width(), m_menu_logic.get_height()),
+          sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
           "tresinformal game_menu")
 {
 }
@@ -38,7 +38,7 @@ void menu_view::show()
   m_window.clear();
 
   // Draw the background
-  sf::Vector2f bg_dim(m_menu_logic.get_height(), m_menu_logic.get_height());
+  sf::Vector2f bg_dim(m_menu.get_height(), m_menu.get_height());
   sf::RectangleShape background_sprite(bg_dim);
   background_sprite.setPosition(10.0, 10.0);
   background_sprite.setFillColor(sf::Color::Black);
@@ -54,7 +54,7 @@ void menu_view::show()
 void menu_view::draw_buttons() noexcept
 {
   sf::Color color;
-  for (unsigned int i = 0; i < m_menu_logic.get_m_v_buttons().size(); ++i)
+  for ( int i = 0; i < static_cast<int>(m_menu.get_m_v_buttons().size()); ++i)
   {
     // assign different color for buttons
     // i = 0: Action "Green"
@@ -86,11 +86,11 @@ void menu_view::draw_buttons() noexcept
     }
 
     // Create the button sprite
-    sf::RectangleShape rect(m_menu_logic.get_button(i).get_body());
+    sf::RectangleShape rect(m_menu.get_button(i).get_body());
     rect.setFillColor(color);
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(static_cast<float>(m_menu_logic.get_button(i).get_x()),
-                     static_cast<float>(m_menu_logic.get_button(i).get_y()));
+    rect.setPosition(static_cast<float>(m_menu.get_button(i).get_x()),
+                     static_cast<float>(m_menu.get_button(i).get_y()));
     // Draw the player
     m_window.draw(rect);
   }

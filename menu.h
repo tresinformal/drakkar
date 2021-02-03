@@ -1,25 +1,25 @@
-#ifndef MENU_LOGIC_H
-#define MENU_LOGIC_H
+#ifndef MENU_H
+#define MENU_H
 #include "menu_button.h"
 
-class menu_logic
+class menu
 {
 public:
-  menu_logic(unsigned int w_width = 1280, unsigned int w_height = 720,
+  menu(int w_width = 1280, int w_height = 720,
              std::string button1 = "action", std::string button2 = "about",
              std::string button3 = "quit");
 
   /// Gets the width of the screen
-  unsigned int get_w_width() const noexcept { return m_window_width; }
+  int get_w_width() const noexcept;
 
   /// Gets height of the screen
-  unsigned int get_height() const noexcept { return m_window_height; }
+  int get_height()const noexcept;
 
   /// Gets the vector of buttons
-  std::vector<menu_button> &get_m_v_buttons() noexcept { return m_v_buttons; }
+  std::vector<menu_button> &get_m_v_buttons() noexcept;
 
   /// Get one button at index i
-  menu_button &get_button(unsigned int index);
+  menu_button &get_button(int index);
 
   /// Sets the position of the buttons
   /// aligned in the center and equally
@@ -27,8 +27,8 @@ public:
   void put_buttons_tidy() noexcept;
 
 private:
-  unsigned int m_window_width;
-  unsigned int m_window_height;
+  int m_window_width;
+  int m_window_height;
   std::vector<menu_button> m_v_buttons;
 
   /// mock button to signal if button that does not exist is called
@@ -39,4 +39,4 @@ private:
 
 void test_menu();
 
-#endif // MENU_LOGIC_H
+#endif // MENU_H

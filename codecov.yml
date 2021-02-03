@@ -1,0 +1,5 @@
+ignore:
+-"main.cpp"
+-"game_view.*"
+-"game_resources.*"
+-"menu_view.*"

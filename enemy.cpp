@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include <cassert>
+#include <sstream>
 
 void test_enemy()
 {
@@ -16,6 +17,21 @@ void test_enemy()
     assert(e.get_x() - x < 0.000001);
     assert(e.get_y() - y < 0.000001);
   }
+
+  {
+    std::stringstream s;
+    const enemy e;
+    s << e;
+  }
 }
 
 enemy::enemy(const double x, const double y) : m_x{x}, m_y{y} {}
+
+std::stringstream& operator << (std::stringstream &out, const enemy &enemy)
+{
+    out << "Enemy(" << std::to_string(enemy.get_x()) <<
+           ", " << std::to_string(enemy.get_y()) <<
+           ")";
+
+    return out;
+}

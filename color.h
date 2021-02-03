@@ -1,6 +1,8 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <string>
+
 class color
 {
 public:
@@ -29,10 +31,8 @@ private:
   int m_b;
   /// Alpha or opaqueness (0 = transparant, 255 = opaque)
   int m_a;
-};
 
-/// Get a color that differs one hue in its red, green or blue value
-color get_adjacent_color(color c);
+};
 
 /// Get the blueness
 int get_blueness(const color &c) noexcept;
@@ -48,5 +48,10 @@ int get_redness(const color &c) noexcept;
 
 /// Test the color class
 void test_color();
+
+bool operator==(const color& lhs, const color& rhs) noexcept;
+
+/// Implement stream operator
+std::stringstream& operator << (std::stringstream &out, const color &color);
 
 #endif // COLOR_H
