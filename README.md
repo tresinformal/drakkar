@@ -127,9 +127,9 @@ get stuck, start working on the next one) list what to do:
 
  * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
  * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)
- * [Modify fairytale on master branch](https://github.com/tresinformal/game/issues/19)
+ * [Modify README.md on master branch](https://github.com/tresinformal/game/issues/19)
  * [Make a branch for yourself via the GitHub web interface](https://github.com/tresinformal/game/issues/47)
- * [Modify the fairytale on your local harddrive on your own branch](https://github.com/tresinformal/game/issues/48)
+ * [Modify README.md on your local harddrive on your own branch](https://github.com/tresinformal/game/issues/48)
  * [Add your branch's badges to the README.md](https://github.com/tresinformal/game/issues/87)
 
 When you feel comfortable with the workflow, you become a junior developer!
