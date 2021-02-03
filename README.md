@@ -120,6 +120,58 @@ Date       |Activity
 .          |fixing tests
 .          |pair programming
 
+## I am a newbie developer. What must I do?
+
+Welcome to the team! Here is a more-or-less-chronological (i.e. if you
+get stuck, start working on the next one) list what to do:
+
+ * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
+ * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)
+ * [Modify fairytale on master branch](https://github.com/tresinformal/game/issues/19)
+ * [Make a branch for yourself via the GitHub web interface](https://github.com/tresinformal/game/issues/47)
+ * [Modify the fairytale on your local harddrive on your own branch](https://github.com/tresinformal/game/issues/48)
+ * [Add your branch's badges to the README.md](https://github.com/tresinformal/game/issues/87)
+
+When you feel comfortable with the workflow, you become a junior developer!
+
+## I am a junior developer, what should I do?
+
+Junior developers are those that feel comfortable enough with the workflow
+to write their own tests. Next to programming, juniors will
+occasionally teach newbies.
+
+Start from an idea of a visible change in the game,
+for example, 'The players should be able to do a little dance'.
+Create an Issue for that and assign yourself to it
+Work from big to small, in TDD fashion.
+
+For a big Issue:
+
+ * Postpone the hard work, create simpler and simpler tests, 
+   until a test can be fixed by a small Issue.
+ * Do push the #IFDEF-ed tests
+
+For a small Issue:
+
+ * Write a test that breaks the build
+ * Make the test pass
+ * Push to GitLab
+
+Golden rules:
+
+ * Whatever you work on, always be assigned to an Issue
+ * Whatever code you develop, always be working to fix a test,
+   unless you work on graphics
+ * If all tests pass, we are -by definition- happy.
+
+## I am a medior developer, what should I do?
+
+Medior developers are those that see the bigger picture
+of the code and the team. Next to programming, mediors will
+occasionally teach juniors.
+
+You know what to do :+1:
+
 ## Screenshots
 
 Most recent at the top.
