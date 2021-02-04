@@ -70,13 +70,15 @@ Name      |GitHub username     |Preferred role(s)
 ----------|--------------------|------------------------------------------------
 ?Apu      | @AparajithaRamesh  |
 ?Giorgio  | @GiorgioBoccarella |Lead graphics
-?Marina   | @marinapapa        |Graphics, game design, developer
-?Pedro    | @Neves-P           |Junior developer, sound
-Richel    | @richelbilderbeek  |Senior developer, project coordinator, chairman
-?Sebastian| @sebmader          |Lead sound
+?Marina   | @marinapapa        |Graphics, Game Design, Developer
+?Pedro    | @Neves-P           |Junior Developer, Sound
+Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
+?Sebastian| @sebmader          |Lead Sound
 ?Shu      | @xieshu95          |
 Stefano   | @swom              |
 ?Xiaoyan  |                    |
+Oliver    | @ollyturner        |
+
 
 :warning: due to a new team being formed, I added question marks before
 all team members' names
@@ -89,11 +91,11 @@ Role name       |Ensures or tries to                           |Gets to decide
 ----------------|----------------------------------------------|-----------------------------------------------------------------
 Chairman        |Have a productive meeting                     |Rules of the meeting
 Coordinator     |All team members know what to do              |Best order of what needs to be done
-Game design     |The game is interesting and fun               |What game concepts needs to be added
+Game Design     |The game is interesting and fun               |What game concepts needs to be added
 Graphics        |The game looks nice                           |The look and artwork of the game
-Junior developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
-Medior developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
-Senior developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
+Junior Developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
+Medior Developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
+Senior Developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
 Sound           |The game sounds nice                          |The sound and music of the game
 Tester          |Verify an Issue has been done                 |If an Issue has been done
 [your]          |[suggestion]                                  |[here]
