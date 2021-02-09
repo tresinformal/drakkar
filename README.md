@@ -13,7 +13,7 @@ richel    |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=r
 ?sebastian|[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=sebastian)](https://travis-ci.org/tresinformal/game)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 ?timo     |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=timo)](https://travis-ci.org/tresinformal/game)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=timo)](https://codecov.io/github/tresinformal/game/branch/timo)
 ?xiaoyan  |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=xiaoyan)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
-
+kirsten   |[![Build Status](https://travis-ci.org/tresinformal/game.svg?branch=kirsten)](https://travis-ci.org/tresinformal/game)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=kirsten)](https://codecov.io/github/tresinformal/game/branch/kirsten)
 :warning: due to a new team being formed, I added question marks before
 all team members' names
 
@@ -77,6 +77,8 @@ Richel    | @richelbilderbeek  |Senior developer, project coordinator, chairman
 ?Shu      | @xieshu95          |
 Stefano   | @swom              |
 ?Xiaoyan  |                    |
+Kirsten   | @Kirsten29
+
 
 :warning: due to a new team being formed, I added question marks before
 all team members' names
