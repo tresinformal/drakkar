@@ -42,7 +42,7 @@ game_view::~game_view()
 #endif // IS_ON_TRAVIS
 }
 
-player game_view::player_input(player p, sf::Event event)
+player player_input(player p, sf::Event event)
 {
     auto m = get_player_kam(p);
     add_action(p, m.to_action(event.key.code));
@@ -334,6 +334,7 @@ void test_game_view()//!OCLINT tests may be many
         assert(v.get_options().is_playing_music());
     }
 
+#define FIX_ISSUE_183
 #ifdef FIX_ISSUE_183
     ///given a player get_player_kam provides the correct player kam
     {

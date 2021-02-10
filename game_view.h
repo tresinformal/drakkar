@@ -64,15 +64,6 @@ private:
   ///The views of each player
   std::vector<sf::View> m_v_views;
 
-  /// Parses input for a player
-  player player_input(player p, sf::Event event);
-
-  /// Parses input for player 1
-  void pl_1_input(sf::Event event) noexcept;
-
-  /// Parses input for player 2
-  void pl_2_input(sf::Event event) noexcept;
-
   /// Parses input for player 1
   void pl_1_stop_input(sf::Event event) noexcept;
 
@@ -97,6 +88,15 @@ private:
 };
 
 key_action_map get_player_kam(const player& p);
+
+/// Parses input for a player
+player player_input(player p, sf::Event event);
+
+/// Parses input for player 1
+void pl_1_input(sf::Event event) noexcept;
+
+/// Parses input for player 2
+void pl_2_input(sf::Event event) noexcept;
 
 void test_game_view();
 

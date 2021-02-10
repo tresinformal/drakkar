@@ -23,6 +23,9 @@ public:
   ///Find out if the key is mapped
   bool has_key(sf::Keyboard::Key key) const noexcept;
 
+  ///Returns const ref of m_map
+  const std::map<sf::Keyboard::Key, action_type>& get_raw_map() noexcept {return m_map;}
+
 private:
   std::map<sf::Keyboard::Key, action_type> m_map;
 };
