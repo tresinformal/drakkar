@@ -9,10 +9,12 @@ public:
   shelter(const double x = 0.0, const double y = 0.0,
           const double radius = 100.0, const color &c = color(),
           const double speed = 0.1, const double direction =1.0 );
-  const color &get_color() const noexcept { return m_color; }
-  double get_radius() const noexcept { return m_radius; }
-  double get_x() const noexcept { return m_x; }
-  double get_y() const noexcept { return m_y; }
+  const color &get_color() const noexcept;
+  double get_radius() const noexcept;
+  double get_x() const noexcept;
+  double get_y() const noexcept;
+
+  /// ?What does the update do?
   void update_shelter_position();
 private:
   color m_color;

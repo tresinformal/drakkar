@@ -1,6 +1,6 @@
 # Fairytale
 
-Once upon a time there was a dragon and a toothfairy.
+Once upon a time there was a dragon and a toothfairy and a goblin.
 
 They were both horses in disguise!
 
