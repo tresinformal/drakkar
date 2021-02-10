@@ -20,13 +20,13 @@ jobs:
         run: sudo pip install codecov
 
       - name: qmake
-        run: qmake
+        run: qmake game_on_travis.pro
 
       - name: make
         run: make debug --silent
 
       - name: run
-        run: ./game --test
+        run: ./game_on_travis
 
       - name: Measure codecov
         run:
