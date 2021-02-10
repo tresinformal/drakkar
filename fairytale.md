@@ -1,10 +1,10 @@
 # Fairytale
 
-Once upon a time there was a dragon and a toothfairy.
+Once upon a time there were a dragon and a toothfairy.
 
 They were both horses in disguise!
 
-They drank a lot of beer and flew into the sun
+So they horsed around a lot; they drank a lot of beer and flew into the sun
 
 
 and they lived happily ever after (maybe).
