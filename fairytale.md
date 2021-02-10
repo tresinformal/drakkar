@@ -3,7 +3,9 @@
 
 Once upon a time there was a dragon and a toothfairy and a goblin.
 
-They were both horses in disguise!
+They were both horses in disguise (can you imagine?)!
+
+Three fairytale protagonists in two horse bodies, what a quantum conundrum.
 
 They drank a lot of beer and flew into the sun
 
@@ -13,33 +15,13 @@ They flew right through it and back into darkness.
 
 They flew back to earth.
 and they lived happily ever after (maybe).
-which is troublesome as it was winter and they were in North Korea, the land of the gods...
-and they lived happily until their livers collapsed..
+
+which is troublesome as it was winter and they were in North Finland...
+and they lived happily until their livers collapsed. Ande even then, they were happy.
 
 
 Until the universe aged and entropy ripped the rest of 
 their bodies apart and shredded them to bits like shredded wheat!
 
 Anticlimcatic you may think
-
-=======
-# Fairytale
-
-Once upon a time there were a dragon and a toothfairy.
-
-They were both horses in disguise!
-
-So they horsed around a lot; they drank a lot of beer and flew into the sun
-
-
-and they lived happily ever after (maybe).
-which is troublesome as it was winter and they were in North Finland...
-and they lived happily until their livers collapsed..
-
-
-Until the universe aged and entropy ripped the rest of 
-their bodies apart!
-
-Anticlimcatic you may think
-
 
