@@ -4,6 +4,8 @@ Once upon a time there was a dragon and a toothfairy and a goblin.
 
 They were both horses in disguise!
 
+Three fairytale protagonists in two horse bodies, what a quantum conundrum.
+
 They drank a lot of beer and flew into the sun
 
 The sun was very hot and would burn anything and anyone to a crisp, but as they are magical creatures, they were not harmed.
