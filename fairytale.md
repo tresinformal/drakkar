@@ -64,6 +64,6 @@ and they lived happily until their livers collapsed..
 Until the universe aged and entropy ripped the rest of 
 their bodies apart!
 
-Anticlimcatic you may think
+Anticlimcatic you may think. But wait till you hear what happened next.....
 
 >>>>>>> kirsten
