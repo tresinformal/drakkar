@@ -20,7 +20,7 @@ jobs:
         run: sudo pip install codecov
 
       - name: qmake
-        run: qmake game_on_travis.pro
+        run: qmake game_on_gha.pro
 
       - name: make
         run: make debug --silent
