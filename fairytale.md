@@ -13,7 +13,7 @@ and they lived happily until their livers collapsed..
 
 
 Until the universe aged and entropy ripped the rest of 
-their bodies apart!
+their bodies apart and shredded them to bits like shredded wheat!
 
 Anticlimcatic you may think
 
