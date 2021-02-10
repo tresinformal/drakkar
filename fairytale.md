@@ -2,7 +2,7 @@
 
 Once upon a time there was a dragon and a toothfairy.
 
-They were both horses in disguise!
+They were both horses in disguise (can you imagine?)!
 
 They drank a lot of beer and flew into the sun
 
