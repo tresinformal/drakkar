@@ -8,11 +8,33 @@ shelter::shelter(const double x, const double y, const double radius,
       m_direction{direction}
 {
 }
+
+const color& shelter::get_color() const noexcept
+{
+  return m_color;
+}
+
+double shelter::get_radius() const noexcept
+{
+  return m_radius;
+}
+
+double shelter::get_x() const noexcept
+{
+  return m_x;
+}
+
+double shelter::get_y() const noexcept
+{
+  return m_y;
+}
+
 void shelter::update_shelter_position()
-  {
-      m_x += std::cos(rand());
-      m_y += std::sin(rand());
-  }
+{
+  m_x += std::cos(rand());
+  m_y += std::sin(rand());
+}
+
 int get_blueness(const shelter &f) noexcept
 {
   return get_blueness(f.get_color());
@@ -33,9 +55,8 @@ int get_redness(const shelter &f) noexcept
   return get_redness(f.get_color());
 }
 
-void test_shelter()
+void test_shelter() //!OCLINT tests may be complex
 {
-
   {
     shelter f;
     assert(f.get_x() == 0.0);
@@ -57,5 +78,18 @@ void test_shelter()
     f.update_shelter_position();
     f.update_shelter_position(); //move shelter
     assert(f.get_x() != 0.0); //see that shelter moves
+  }
+  // Colors
+  {
+    const int r{1};
+    const int g{2};
+    const int b{3};
+    const int a{4};
+    const color c(r, g, b, a);
+    const shelter s(0.0, 0.0, 100.0, c);
+    assert(get_blueness(s) == b);
+    assert(get_greenness(s) == g);
+    assert(get_opaqueness(s) == a);
+    assert(get_redness(s) == r);
   }
 }

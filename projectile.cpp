@@ -1,4 +1,5 @@
 #include "projectile.h"
+#include <cassert>
 #include <cmath>
 
 projectile::projectile(
@@ -15,3 +16,21 @@ void projectile::move()
   m_y += std::sin(m_direction);
 }
 
+void test_projectile()
+{
+  // Constructor
+  {
+    const double x{1.2};
+    const double y{3.4};
+    const double d{5.6};
+    const projectile_type t = projectile_type::cat;
+    const double r{7.8};
+    const projectile p(x, y, d, t, r);
+    assert(x == p.get_x());
+    assert(y == p.get_y());
+    assert(d == p.get_direction());
+    assert(t == p.get_type());
+    assert(r == p.get_radius());
+  }
+
+}
