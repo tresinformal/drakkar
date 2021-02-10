@@ -106,7 +106,7 @@ Next meeting:
 
 Timespan    |Activity
 ------------|--------------------------------------------------------------------------
-17:00       |Door open
+17:00       |Door opens
 ..          |Do Issues
 17:45-18:00 |Break
 ..          |Do Issues
