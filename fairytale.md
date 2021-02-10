@@ -8,7 +8,7 @@ They drank a lot of beer and flew into the sun
 
 
 and they lived happily ever after (maybe).
-which is troublesome as it was winter and they were in North Finland...
+which is troublesome as it was winter and they were in North Korea, the land of the gods...
 and they lived happily until their livers collapsed..
 
 
