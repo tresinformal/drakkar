@@ -16,6 +16,9 @@ include(game.pri)
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
+# To get it working on GitHub Actions,
+# we cannot use any SFML thingies
+DEFINES += LOGIC_ONLY
 
 # Debug and release settings
 CONFIG += debug_and_release
