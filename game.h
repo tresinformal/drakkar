@@ -99,7 +99,7 @@ private:
   /// the number of ticks
   int m_n_ticks;
 
-  /// The player
+  /// Vector of players
   std::vector<player> m_v_player;
 
   ///Vector of index of the players that collide
