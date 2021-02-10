@@ -4,7 +4,8 @@
 enum class sound_type
 {
   shoot,
-  hit
+  hit,
+  bump
 };
 
 /// Test the sound types and helper functions

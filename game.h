@@ -10,6 +10,7 @@
 #include "player_shape.h"
 #include "projectile.h"
 #include "shelter.h"
+#include "sound_type.h"
 #include <vector>
 
 /// Contains the game logic.
@@ -119,6 +120,12 @@ private:
 
   /// the shelters
   std::vector<shelter> m_shelters;
+
+  /// collision flag
+  bool m_collision_detected = false;
+
+  /// Vector of sounds to be played for the executed tick
+  std::vector<sound_type> m_sound_effects;
 
   /// starting x distance between players
   const int m_dist_x_pls = 300;

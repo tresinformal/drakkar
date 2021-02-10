@@ -174,7 +174,6 @@ void game::tick()
       kill_losing_player(*this);
     }
 
-
   // Moves the projectiles
   move_projectiles();
 

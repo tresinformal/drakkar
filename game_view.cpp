@@ -306,4 +306,3 @@ void test_game_view()//!OCLINT tests may be many
     }
 }
 
-

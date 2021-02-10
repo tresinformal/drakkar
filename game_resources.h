@@ -3,6 +3,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <sound_type.h>
 
 class game_resources
 {
@@ -58,6 +59,13 @@ public:
   // build to fail
   /// Get 'bump' sound
   sf::Music &get_bump() noexcept { return m_bump; }
+#endif // IS_ON_TRAVIS
+
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
+  /// Get sound and specify which sound to get
+    sf::Music& get_sound(sound_type sound);
 #endif // IS_ON_TRAVIS
 
 private:
