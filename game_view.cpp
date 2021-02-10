@@ -49,18 +49,6 @@ player player_input(player p, sf::Event event)
     return p;
 }
 
-void game_view::pl_1_input(sf::Event event) noexcept
-{
-    const key_action_map m = get_player_1_kam();
-    add_action(m_game.get_player(0), m.to_action(event.key.code));
-}
-
-void game_view::pl_2_input(sf::Event event) noexcept
-{
-    const key_action_map m = get_player_2_kam();
-    add_action(m_game.get_player(0), m.to_action(event.key.code));
-}
-
 void game_view::pl_1_stop_input(sf::Event event) noexcept
 {
     const key_action_map m = get_player_1_kam();
@@ -88,8 +76,10 @@ bool game_view::process_events()
 
         else if (event.type == sf::Event::KeyPressed)
         {
-            pl_1_input(event);
-            pl_2_input(event);
+            for(auto& player : m_game.get_v_player())
+            {
+                player_input(player,event);
+            }
         }
         else if (event.type == sf::Event::KeyReleased)
         {
@@ -261,10 +251,10 @@ key_action_map get_player_kam(const player& p)
         return
                 key_action_map
         {sf::Keyboard::P,
-        sf::Keyboard::P,
-        sf::Keyboard::P,
-        sf::Keyboard::P,
-        sf::Keyboard::P};
+                    sf::Keyboard::P,
+                    sf::Keyboard::P,
+                    sf::Keyboard::P,
+                    sf::Keyboard::P};
     }
 }
 
@@ -338,13 +328,13 @@ void test_game_view()//!OCLINT tests may be many
 #ifdef FIX_ISSUE_183
     ///given a player get_player_kam provides the correct player kam
     {
-     player p;
-     assert(p.get_ID() == "1");
-     assert(get_player_kam(p) == get_player_1_kam());
+        player p;
+        assert(p.get_ID() == "1");
+        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
 
-     p.set_ID("2");
-     assert(get_player_kam(p) != get_player_1_kam());
-     assert(get_player_kam(p) == get_player_2_kam());
+        p.set_ID("2");
+        assert(get_player_kam(p).get_raw_map() != get_player_1_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
 
     }
 #endif
@@ -356,8 +346,8 @@ void test_game_view()//!OCLINT tests may be many
         player p1;
         player p2;
 
-        sf::Event::KeyEvent move_forward_pl_1;
-        move_forward_pl_1.code = sf::Keyboard::A;
+        sf::Event move_forward_pl_1;
+        move_forward_pl_1.key.code = sf::Keyboard::A;
 
         player_input(p1,move_forward_pl_1);
         player_input(p2,move_forward_pl_1);
@@ -367,5 +357,6 @@ void test_game_view()//!OCLINT tests may be many
     }
 #endif
 }
+
 
 
