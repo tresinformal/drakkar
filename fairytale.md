@@ -4,7 +4,9 @@
 
 Once upon a time there was a dragon and a toothfairy and a goblin.
 
-They were both horses in disguise!
+They were both horses in disguise (can you imagine?)!
+
+Three fairytale protagonists in two horse bodies, what a quantum conundrum.
 
 They drank a lot of beer and flew into the sun
 
