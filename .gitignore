@@ -54,3 +54,4 @@ html/
 latex/
 game_on_travis
 gprof.log
+game_on_gha
