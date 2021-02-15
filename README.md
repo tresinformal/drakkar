@@ -65,20 +65,13 @@ Preferred role(s) are suggestions. If there is disagreement, we'll vote.
 
 Name      |GitHub username     |Preferred role(s)
 ----------|--------------------|------------------------------------------------
-?Apu      | @AparajithaRamesh  |
-?Giorgio  | @GiorgioBoccarella |Lead graphics
-?Marina   | @marinapapa        |Graphics, Game Design, Developer
-?Pedro    | @Neves-P           |Junior Developer, Sound
-Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
-?Sebastian| @sebmader          |Lead Sound
-?Shu      | @xieshu95          |
-Stefano   | @swom              |
-?Xiaoyan  |                    |
 Oliver    | @ollyturner        |
+Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
+Sebastian | @sebmader          |Lead Sound
+Stefano   | @swom              |
+Xiaoyan   |                    |
 
-
-:warning: due to a new team being formed, I added question marks before
-all team members' names
+:warning: this list may be incomplete :warning:
 
 ## Roles
 
@@ -114,9 +107,10 @@ Timespan    |Activity
 
 Date       |Activity
 -----------|--------------------------------------------------------------------------
-2021-02-03 |New C++ team starting
-.          |practice git branching
-.          |fixing tests
+2021-02-17 |practice git branching
+2021-02-17 |fixing tests
+.          |move to C++14
+.          |add clang tidy
 .          |pair programming
 
 ## I am a newbie developer. What must I do?
