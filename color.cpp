@@ -44,12 +44,21 @@ void test_color()
         assert(get_blueness(c1)==255);
         assert(get_opaqueness(c1)==10);
     }
-    // Test overloeaded operators
+    // operator==
     {
         const color c;
         const color c1;
         assert(c == c1);
     }
+    //#define FIX_ISSUE_198
+    #ifdef FIX_ISSUE_198
+    // operator!=
+    {
+      const color red{255, 0, 0};
+      const color green{255, 0, 0};
+      assert(red != green);
+    }
+    #endif
     {
         std::stringstream s;
         const color c;
