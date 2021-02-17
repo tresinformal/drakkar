@@ -19,6 +19,7 @@ game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelt
     {
       m_v_player[i] =
           player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
+      m_v_player[i].set_ID(std::to_string(i));
     }
   // Set color
   {
@@ -687,5 +688,14 @@ void test_game() //!OCLINT tests may be many
         assert(after-before > 0.0000000000000001);
       }
   }
+
+    ///Players in game are initialized with ID equal to their index
+    {
+        game g;
+        for(size_t i = 0; i != g.get_v_player().size(); i++)
+        {
+            assert(g.get_player(i).get_ID() == std::to_string(i));
+        }
+    }
 }
 

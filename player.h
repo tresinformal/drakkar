@@ -22,7 +22,7 @@ public:
            const double size = 100.0,
            const double turn_rate = 0.01,
            const color &any_color = color(),
-           const std::string& ID = "1" );
+           const std::string& ID = "0" );
 
 
     /// Get the acceleration of the player
