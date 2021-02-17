@@ -18,7 +18,6 @@ std::ostream &operator<<(std::ostream &os, const environment_type t);
 
 void test_individual_type();
 
-std::ostream &operator<<(std::ostream &os, const environment_type t);
 
 
 #endif // ENVIRONMENT_H
