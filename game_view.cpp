@@ -49,6 +49,13 @@ player player_input(player p, sf::Event event)
     return p;
 }
 
+player player_stop_input(player p, sf::Event event) noexcept
+{
+    const auto m = get_player_kam(p);
+    remove_action(p, m.to_action(event.key.code));
+    return p;
+}
+
 void game_view::pl_1_stop_input(sf::Event event) noexcept
 {
     const key_action_map m = get_player_1_kam();
@@ -339,7 +346,6 @@ void test_game_view()//!OCLINT tests may be many
     }
 #endif
 
-#ifdef FIX_ISSUE_183
     ///Given a player and an event
     ///player_input sees if any action has to be applied to the player
     {
@@ -359,7 +365,28 @@ void test_game_view()//!OCLINT tests may be many
         assert(p2.get_action_set() == std::set<action_type>{action_type::none} );
 
     }
-#endif
+
+    ///Given a player and an event
+    ///player_stop_input() sees if any action has to be removed from the player
+    {
+        player p1;
+        player p2;
+
+        p1.set_ID("1");
+        p2.set_ID("2");
+        add_action(p1,action_type::accelerate);
+        add_action(p2,action_type::accelerate);
+
+        sf::Event stop_move_forward_pl_1;
+        stop_move_forward_pl_1.key.code = sf::Keyboard::W;
+
+        p1 = player_stop_input(p1,stop_move_forward_pl_1);
+        p2 = player_stop_input(p2,stop_move_forward_pl_1);
+
+        assert(p1.get_action_set().empty());
+        assert(p2.get_action_set() == std::set<action_type>{action_type::accelerate} );
+
+    }
 }
 
 
