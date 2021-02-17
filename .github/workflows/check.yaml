@@ -13,17 +13,20 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
 
+      - name: Install SFML
+        run: sudo apt install libsfml-dev
+
       - name: Install Codecov
         run: sudo pip install codecov
 
       - name: qmake
-        run: qmake
+        run: qmake game_on_gha.pro
 
       - name: make
-        run: make --silent
+        run: make debug --silent
 
       - name: run
-        run: ./gha_qmake_gcc_cpp17_gcov
+        run: ./game_on_gha
 
       - name: Measure codecov
         run:

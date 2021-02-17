@@ -3,6 +3,7 @@
 #include <cassert>
 #include <sstream>
 #include <vector>
+#include <iostream>
 
 void test_enemy_behavior_type()
 {
@@ -14,6 +15,12 @@ void test_enemy_behavior_type()
     s << enemy_behavior_type::gezellig;
 
   }
+  //#define FIX_ISSUE_203
+  #ifdef FIX_ISSUE_203
+  {
+    std::cout << enemy_behavior_type::gezellig;
+  }
+  #endif // FIX_ISSUE_203
   {
     std::stringstream s;
     s<< enemy_behavior_type::shy;

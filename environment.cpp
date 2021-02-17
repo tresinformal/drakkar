@@ -39,5 +39,13 @@ void test_environment()
     assert(e.get_wall_s_side() - wall_short_side < 0.00001 &&
            e.get_wall_s_side() - wall_short_side > -0.00001);
   }
-
+  //#define FIX_ISSUE_204
+  #ifdef FIX_ISSUE_204
+  {
+    const environment e;
+    std::stringstream s;
+    s << e;
+    assert(!s.str().empty());
+  }
+  #endif // FIX_ISSUE_204
 }
