@@ -31,10 +31,10 @@ private:
 };
 
 /// Get the default key to action map for player 1
-key_action_map get_player_1_kam();
+key_action_map get_player_0_kam();
 
 /// Get the default key to action map for player 2
-key_action_map get_player_2_kam();
+key_action_map get_player_1_kam();
 
 /// Get the default key to action map for player 3
 //key_action_map get_player_3_kam();
