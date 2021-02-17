@@ -15,12 +15,9 @@ void test_enemy_behavior_type()
     s << enemy_behavior_type::gezellig;
 
   }
-  //#define FIX_ISSUE_203
-  #ifdef FIX_ISSUE_203
   {
     std::cout << enemy_behavior_type::gezellig;
   }
-  #endif // FIX_ISSUE_203
   {
     std::stringstream s;
     s<< enemy_behavior_type::shy;
@@ -35,11 +32,11 @@ void test_enemy_behavior_type()
 
 }
 
-std::stringstream& operator << (std::stringstream &out, const enemy_behavior_type &enemy_type)
+std::ostream &operator<< (std::ostream &out, const enemy_behavior_type &enemy_type)
 {
 
         if(enemy_type == enemy_behavior_type::gezellig)
-        out << "gezillig";
+        out << "gezellig";
         else if(enemy_type == enemy_behavior_type::shy)
         out << "shy";
         else
