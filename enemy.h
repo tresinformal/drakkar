@@ -27,4 +27,8 @@ void test_enemy();
 /// Implement stream operator
 std::stringstream& operator << (std::stringstream &out, const enemy &enemy);
 
+/// Implement equality operator
+bool operator==(const enemy& lhs, const enemy& rhs) noexcept;
+
+
 #endif // ENEMY_H
