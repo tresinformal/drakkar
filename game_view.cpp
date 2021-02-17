@@ -78,7 +78,7 @@ bool game_view::process_events()
         {
             for(auto& player : m_game.get_v_player())
             {
-                player_input(player,event);
+                player = player_input(player,event);
             }
         }
         else if (event.type == sf::Event::KeyReleased)
@@ -346,13 +346,17 @@ void test_game_view()//!OCLINT tests may be many
         player p1;
         player p2;
 
+        p1.set_ID("1");
+        p2.set_ID("2");
+
         sf::Event move_forward_pl_1;
-        move_forward_pl_1.key.code = sf::Keyboard::A;
+        move_forward_pl_1.key.code = sf::Keyboard::W;
 
-        player_input(p1,move_forward_pl_1);
-        player_input(p2,move_forward_pl_1);
+        p1 = player_input(p1,move_forward_pl_1);
+        p2 = player_input(p2,move_forward_pl_1);
 
-        assert(p1.get_y() != p2.get_y());
+        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p2.get_action_set() == std::set<action_type>{action_type::none} );
 
     }
 #endif
