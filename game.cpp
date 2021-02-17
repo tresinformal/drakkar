@@ -346,7 +346,8 @@ void test_game() //!OCLINT tests may be many
         const double before{g.get_player(i).get_direction()};
         g.do_action(i,action_type::turn_left);
         const double after{g.get_player(i).get_direction()};
-        assert(std::abs(before - after) > 0.01); // Should be different
+        //assert(std::abs(before - after) > 0.01); // Should be different
+        assert(std::abs(before - after) > 0.001);
       }
   }
   // A game responds to actions: player can turn right
@@ -357,7 +358,8 @@ void test_game() //!OCLINT tests may be many
         const double before{g.get_player(i).get_direction()};
         g.do_action(i, action_type::turn_right);
         const double after{g.get_player(i).get_direction()};
-        assert(std::abs(before - after) > 0.01); // Should be different
+        //assert(std::abs(before - after) > 0.01); // Should be different
+        assert(std::abs(before - after) > 0.001);
       }
   }
   // A game responds to actions: player can accelerate
@@ -477,7 +479,6 @@ void test_game() //!OCLINT tests may be many
   }
 
   // calling tick updates the counter and
-
   // callling tick() increases m_n_tick by one
   {
     game g;

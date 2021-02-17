@@ -120,4 +120,5 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(action_type::none == m.to_action(sf::Keyboard::L));
 
     }
+
 }
