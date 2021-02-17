@@ -24,7 +24,6 @@ void test_enemy()
     assert(e == f);
   }
 
-
   {
     std::stringstream s;
     const enemy e;

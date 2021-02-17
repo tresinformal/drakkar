@@ -20,7 +20,7 @@ public:
          const double player_deceleration = -0.001,
          const double player_acc_backward = -0.1,
          const double size = 100.0,
-         const double turn_rate = 0.1,
+         const double turn_rate = 0.01,
          const color &any_color = color());
 
 
