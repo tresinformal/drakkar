@@ -90,8 +90,10 @@ bool game_view::process_events()
         }
         else if (event.type == sf::Event::KeyReleased)
         {
-            pl_1_stop_input(event);
-            pl_2_stop_input(event);
+            for(auto& player : m_game.get_v_player())
+            {
+                player = player_stop_input(player,event);
+            }
         }
 
     }
