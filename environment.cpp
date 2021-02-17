@@ -45,6 +45,7 @@ void test_environment()
     const environment e;
     std::stringstream s;
     s << e;
+    assert(!s.str().empty());
   }
   #endif // FIX_ISSUE_204
 }
