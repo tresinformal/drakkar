@@ -50,15 +50,14 @@ void test_color()
         const color c1;
         assert(c == c1);
     }
-    //#define FIX_ISSUE_198
-    #ifdef FIX_ISSUE_198
-    // operator!=
+
+//     operator!=
     {
       const color red{255, 0, 0};
-      const color green{255, 0, 0};
+      const color green{0, 255, 0};
       assert(red != green);
     }
-    #endif
+
     {
         std::stringstream s;
         const color c;
@@ -73,6 +72,11 @@ bool operator==(const color& lhs, const color& rhs) noexcept
             && lhs.get_blue() == rhs.get_blue()
             && lhs.get_opaqueness() == rhs.get_opaqueness()
             ;
+}
+
+bool operator!=(const color& lhs, const color& rhs) noexcept
+{
+  return !(lhs == rhs);
 }
 
 std::stringstream& operator << (std::stringstream &out, const color &color)
