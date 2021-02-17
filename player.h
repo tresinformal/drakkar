@@ -20,7 +20,7 @@ public:
            const double player_deceleration = -0.001,
            const double player_acc_backward = -0.1,
            const double size = 100.0,
-           const double turn_rate = 0.1,
+           const double turn_rate = 0.01,
            const color &any_color = color(),
            const std::string& ID = "0" );
 
@@ -123,7 +123,7 @@ private:
     /// The player's color, will change depending on food items
     color m_color;
 
-    //The set of ongoing actions of a player
+  //The set of ongoing actions of a player
     std::set<action_type> m_action_set;
 
     /// When a player shoots, 'm_is_shooting' is true for one tick.
