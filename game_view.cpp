@@ -58,13 +58,13 @@ player player_stop_input(player p, sf::Event event) noexcept
 
 void game_view::pl_1_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_1_kam();
+    const key_action_map m = get_player_0_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
 void game_view::pl_2_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_2_kam();
+    const key_action_map m = get_player_1_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
@@ -246,13 +246,13 @@ void game_view::show() noexcept
 
 key_action_map get_player_kam(const player& p)
 {
-    if(p.get_ID() == "1")
+    if(p.get_ID() == "0")
     {
-        return get_player_1_kam();
+        return get_player_0_kam();
     }
-    else if(p.get_ID() == "2")
+    else if(p.get_ID() == "1")
     {
-        return  get_player_2_kam();
+        return  get_player_1_kam();
     }
     else
     {
@@ -338,12 +338,12 @@ void test_game_view()//!OCLINT tests may be many
     ///given a player get_player_kam provides the correct player kam
     {
         player p;
-        assert(p.get_ID() == "1");
-        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
+        assert(p.get_ID() == "0");
+        assert(get_player_kam(p).get_raw_map() == get_player_0_kam().get_raw_map());
 
-        p.set_ID("2");
-        assert(get_player_kam(p).get_raw_map() != get_player_1_kam().get_raw_map());
-        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
+        p.set_ID("1");
+        assert(get_player_kam(p).get_raw_map() != get_player_0_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
 
     }
 #endif
@@ -351,42 +351,43 @@ void test_game_view()//!OCLINT tests may be many
     ///Given a player and an event
     ///player_input sees if any action has to be applied to the player
     {
+        player p0;
         player p1;
-        player p2;
 
+        p0.set_ID("0");
         p1.set_ID("1");
-        p2.set_ID("2");
 
         sf::Event move_forward_pl_1;
         move_forward_pl_1.key.code = sf::Keyboard::W;
 
+        p0 = player_input(p0,move_forward_pl_1);
         p1 = player_input(p1,move_forward_pl_1);
-        p2 = player_input(p2,move_forward_pl_1);
 
-        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
-        assert(p2.get_action_set() == std::set<action_type>{action_type::none} );
+        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p1.get_action_set() == std::set<action_type>{action_type::none} );
 
     }
 
     ///Given a player and an event
     ///player_stop_input() sees if any action has to be removed from the player
     {
+        player p0;
         player p1;
-        player p2;
+
+        p0.set_ID("0");
+        add_action(p0,action_type::accelerate);
 
         p1.set_ID("1");
-        p2.set_ID("2");
         add_action(p1,action_type::accelerate);
-        add_action(p2,action_type::accelerate);
 
         sf::Event stop_move_forward_pl_1;
         stop_move_forward_pl_1.key.code = sf::Keyboard::W;
 
+        p0 = player_stop_input(p0,stop_move_forward_pl_1);
         p1 = player_stop_input(p1,stop_move_forward_pl_1);
-        p2 = player_stop_input(p2,stop_move_forward_pl_1);
 
-        assert(p1.get_action_set().empty());
-        assert(p2.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p0.get_action_set().empty());
+        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
 
     }
 }
