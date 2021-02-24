@@ -8,6 +8,8 @@ class optional
 {
 public:
   optional();
+  bool has_value() const;
+  int value() const;
 };
 
 /// Test our optional class
