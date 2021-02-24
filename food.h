@@ -13,8 +13,8 @@ public:
   double get_y() const noexcept ;
 
 private:
-  double f_x;
-  double f_y;
+  double m_x;
+  double m_y;
   color m_color;
 };
 
