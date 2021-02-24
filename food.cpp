@@ -4,12 +4,12 @@
 #include <sstream>
 
 food::food(const double x, const double y, const color &c)
-    : f_x{x}, f_y{y}, m_color{c}
+    : m_x{x}, m_y{y}, m_color{c}
 {
 }
 
-double food::get_x() const noexcept { return f_x; }
-double food::get_y() const noexcept { return f_y; }
+double food::get_x() const noexcept { return m_x; }
+double food::get_y() const noexcept { return m_y; }
 
 void test_food()
 {
