@@ -28,9 +28,12 @@ jobs:
       - name: run
         run: ./game_on_gha
 
-      - name: Measure codecov
-        run:
-          ./get_code_cov.sh >/dev/null
-          codecov >/dev/null
-          bash <(curl -s https://codecov.io/bash)
+      - name: Measure codecov 1
+        run: ./get_code_cov.sh
+
+      - name: Measure codecov 2
+        run: codecov
+
+      - name: Measure codecov 3
+        run: bash <(curl -s https://codecov.io/bash)
 
