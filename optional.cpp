@@ -1,6 +1,7 @@
 #include "optional.h"
 
 #include <cassert>
+#include <vector>
 
 void test_optional()
 {
@@ -37,3 +38,8 @@ void test_optional()
   #endif // FIX_ISSUE_189
 }
 
+optional::optional(const int value)
+
+  : m_value{std::vector(1, value)}
+{
+}
