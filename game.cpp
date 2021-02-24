@@ -19,6 +19,7 @@ game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelt
     {
       m_v_player[i] =
           player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
+      m_v_player[i].set_ID(std::to_string(i));
     }
   // Set color
   {
@@ -346,7 +347,8 @@ void test_game() //!OCLINT tests may be many
         const double before{g.get_player(i).get_direction()};
         g.do_action(i,action_type::turn_left);
         const double after{g.get_player(i).get_direction()};
-        assert(std::abs(before - after) > 0.01); // Should be different
+        //assert(std::abs(before - after) > 0.01); // Should be different
+        assert(std::abs(before - after) > 0.001);
       }
   }
   // A game responds to actions: player can turn right
@@ -357,7 +359,8 @@ void test_game() //!OCLINT tests may be many
         const double before{g.get_player(i).get_direction()};
         g.do_action(i, action_type::turn_right);
         const double after{g.get_player(i).get_direction()};
-        assert(std::abs(before - after) > 0.01); // Should be different
+        //assert(std::abs(before - after) > 0.01); // Should be different
+        assert(std::abs(before - after) > 0.001);
       }
   }
   // A game responds to actions: player can accelerate
@@ -477,7 +480,6 @@ void test_game() //!OCLINT tests may be many
   }
 
   // calling tick updates the counter and
-
   // callling tick() increases m_n_tick by one
   {
     game g;
@@ -686,5 +688,14 @@ void test_game() //!OCLINT tests may be many
         assert(after-before > 0.0000000000000001);
       }
   }
+
+    ///Players in game are initialized with ID equal to their index
+    {
+        game g;
+        for(size_t i = 0; i != g.get_v_player().size(); i++)
+        {
+            assert(g.get_player(i).get_ID() == std::to_string(i));
+        }
+    }
 }
 

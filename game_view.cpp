@@ -4,7 +4,6 @@
 #include "game_resources.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
-#include "key_action_map.h"
 
 game_view::game_view(game_options options) :
     m_window(sf::VideoMode(1280, 720), "tresinformal game"),
@@ -43,27 +42,29 @@ game_view::~game_view()
 #endif // IS_ON_TRAVIS
 }
 
-void game_view::pl_1_input(sf::Event event) noexcept
+player player_input(player p, sf::Event event)
 {
-    const key_action_map m = get_player_1_kam();
-    add_action(m_game.get_player(0), m.to_action(event.key.code));
+    auto m = get_player_kam(p);
+    add_action(p, m.to_action(event.key.code));
+    return p;
 }
 
-void game_view::pl_2_input(sf::Event event) noexcept
+player player_stop_input(player p, sf::Event event) noexcept
 {
-    const key_action_map m = get_player_2_kam();
-    add_action(m_game.get_player(0), m.to_action(event.key.code));
+    const auto m = get_player_kam(p);
+    remove_action(p, m.to_action(event.key.code));
+    return p;
 }
 
 void game_view::pl_1_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_1_kam();
+    const key_action_map m = get_player_0_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
 void game_view::pl_2_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_2_kam();
+    const key_action_map m = get_player_1_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
@@ -82,13 +83,17 @@ bool game_view::process_events()
 
         else if (event.type == sf::Event::KeyPressed)
         {
-            pl_1_input(event);
-            pl_2_input(event);
+            for(auto& player : m_game.get_v_player())
+            {
+                player = player_input(player,event);
+            }
         }
         else if (event.type == sf::Event::KeyReleased)
         {
-            pl_1_stop_input(event);
-            pl_2_stop_input(event);
+            for(auto& player : m_game.get_v_player())
+            {
+                player = player_stop_input(player,event);
+            }
         }
 
     }
@@ -239,6 +244,29 @@ void game_view::show() noexcept
     m_window.display();
 }
 
+key_action_map get_player_kam(const player& p)
+{
+    if(p.get_ID() == "0")
+    {
+        return get_player_0_kam();
+    }
+    else if(p.get_ID() == "1")
+    {
+        return  get_player_1_kam();
+    }
+    else
+    {
+        //for now return a weird action map
+        return
+                key_action_map
+        {sf::Keyboard::P,
+                    sf::Keyboard::P,
+                    sf::Keyboard::P,
+                    sf::Keyboard::P,
+                    sf::Keyboard::P};
+    }
+}
+
 
 void test_game_view()//!OCLINT tests may be many
 {
@@ -303,6 +331,64 @@ void test_game_view()//!OCLINT tests may be many
     {
         game_view v;
         assert(v.get_options().is_playing_music());
+    }
+
+#define FIX_ISSUE_183
+#ifdef FIX_ISSUE_183
+    ///given a player get_player_kam provides the correct player kam
+    {
+        player p;
+        assert(p.get_ID() == "0");
+        assert(get_player_kam(p).get_raw_map() == get_player_0_kam().get_raw_map());
+
+        p.set_ID("1");
+        assert(get_player_kam(p).get_raw_map() != get_player_0_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
+
+    }
+#endif
+
+    ///Given a player and an event
+    ///player_input sees if any action has to be applied to the player
+    {
+        player p0;
+        player p1;
+
+        p0.set_ID("0");
+        p1.set_ID("1");
+
+        sf::Event move_forward_pl_1;
+        move_forward_pl_1.key.code = sf::Keyboard::W;
+
+        p0 = player_input(p0,move_forward_pl_1);
+        p1 = player_input(p1,move_forward_pl_1);
+
+        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p1.get_action_set() == std::set<action_type>{action_type::none} );
+
+    }
+
+    ///Given a player and an event
+    ///player_stop_input() sees if any action has to be removed from the player
+    {
+        player p0;
+        player p1;
+
+        p0.set_ID("0");
+        add_action(p0,action_type::accelerate);
+
+        p1.set_ID("1");
+        add_action(p1,action_type::accelerate);
+
+        sf::Event stop_move_forward_pl_1;
+        stop_move_forward_pl_1.key.code = sf::Keyboard::W;
+
+        p0 = player_stop_input(p0,stop_move_forward_pl_1);
+        p1 = player_stop_input(p1,stop_move_forward_pl_1);
+
+        assert(p0.get_action_set().empty());
+        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
+
     }
 }
 

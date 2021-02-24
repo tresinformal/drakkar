@@ -36,3 +36,4 @@ void test_optional()
   }
   #endif // FIX_ISSUE_189
 }
+

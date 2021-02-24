@@ -13,6 +13,6 @@ enum class enemy_behavior_type
 void test_enemy_behavior_type();
 
 /// Implement stream operator
-std::stringstream& operator << (std::stringstream &out, const enemy_behavior_type &enemy_type);
+std::ostream &operator<< (std::ostream &out, const enemy_behavior_type &enemy_type);
 
 #endif // ENEMY_BEHAVIOR_TYPE_H

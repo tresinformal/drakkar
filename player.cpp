@@ -12,9 +12,12 @@ player::player(const double x,
                const double player_acc_backward,
                const double size,
                const double turn_rate,
-               const color &any_color)
+               const color &any_color,
+               const std::string& ID)
 
-    : m_color{any_color}, m_x{x},
+    : m_color{any_color},
+      m_ID{ID},
+      m_x{x},
       m_y{y},
       m_shape{shape},
       m_player_max_speed{player_max_speed},
@@ -428,5 +431,13 @@ void test_player() //!OCLINT tests may be long
         assert(get_blueness(p) == blueness);
         assert(get_redness(p) == redness);
         assert(get_greenness(p) == greenness);
+    }
+
+    ///A player has an ID
+    {
+        std::string ID = "1";
+        player p;
+        p.set_ID(ID);
+        assert(p.get_ID() == ID);
     }
 }

@@ -61,8 +61,11 @@ public:
   /// Gets the player direction
   double get_player_direction(int player_ind);
 
-  /// Get the vector of players
+  /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_v_player; }
+
+  /// Returns ref to the vector of players
+  std::vector<player>& get_v_player() { return m_v_player; }
 
   /// Get the projectiles
   const std::vector<projectile> &get_projectiles() const noexcept
