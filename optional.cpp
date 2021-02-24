@@ -12,7 +12,6 @@ void test_optional()
     assert(x.has_value());
     assert(x.value() == value);
   }
-#ifdef FIX_ISSUE_189
   // Reset the value
   {
     const int value = 42;
@@ -21,6 +20,7 @@ void test_optional()
     x = value;
     assert(x.value() == value);
   }
+#ifdef FIX_ISSUE_189
   // No value
   {
     const optional<int> x;
