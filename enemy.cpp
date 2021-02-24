@@ -5,7 +5,7 @@
 void test_enemy()
 {
   {
-    enemy e;
+    const enemy e;
     assert(e.get_x() == 0.0);
     assert(e.get_y() == 0.0);
   }
