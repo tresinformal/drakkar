@@ -5,7 +5,6 @@
 
 void test_optional()
 {
-  #ifdef FIX_ISSUE_189
   // Initialize with a value
   {
     const int value = 42;
@@ -13,6 +12,7 @@ void test_optional()
     assert(x.has_value());
     assert(x.value() == value);
   }
+#ifdef FIX_ISSUE_189
   // Reset the value
   {
     const int value = 42;
@@ -36,12 +36,6 @@ void test_optional()
     }
   }
   #endif // FIX_ISSUE_189
-}
-
-optional::optional(const int value)
-
-  : m_value{std::vector<int>(1, value)}
-{
 }
 
 

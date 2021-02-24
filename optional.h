@@ -6,14 +6,14 @@
 ///Class to mimic std::optional.
 ///We do not use std::experimental::optional,
 ///because we use C++11
-class optional
+template <class T> class optional
 {
 public:
-  optional(const int value);
-  bool has_value() const;
-  int value() const;
+  optional(const T value) : m_value{std::vector<T>(1, value)} {};
+  bool has_value() const { return !m_value.empty(); };
+  T value() const { return m_value[1]; };
 private:
-  std::vector<int> m_value;
+  std::vector<T> m_value;
 };
 
 /// Test our optional class
