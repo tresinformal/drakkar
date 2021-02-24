@@ -40,6 +40,8 @@ void test_optional()
 
 optional::optional(const int value)
 
-  : m_value{std::vector(1, value)}
+  : m_value{std::vector<int>(1, value)}
 {
 }
+
+
