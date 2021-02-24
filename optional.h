@@ -11,7 +11,7 @@ template <class T> class optional
 public:
   optional(const T value) : m_value{std::vector<T>(1, value)} {};
   bool has_value() const { return !m_value.empty(); };
-  T value() const { return m_value[1]; };
+  T value() const { return m_value[0]; };
 private:
   std::vector<T> m_value;
 };
