@@ -53,19 +53,19 @@ public:
   std::vector<food>& get_food()  noexcept { return m_food; }
 
   /// Get the player at a specified index in the vector of players
-  const player &get_player(int i) const { return m_v_player[static_cast<unsigned int>(i)]; }
+  const player &get_player(int i) const { return m_player[static_cast<unsigned int>(i)]; }
 
   /// Get reference to player to change some parameters
-  player &get_player(int i) { return m_v_player[static_cast<unsigned int>(i)]; }
+  player &get_player(int i) { return m_player[static_cast<unsigned int>(i)]; }
 
   /// Gets the player direction
   double get_player_direction(int player_ind);
 
   /// Returns const ref to the vector of players
-  const std::vector<player> &get_v_player() const { return m_v_player; }
+  const std::vector<player> &get_v_player() const { return m_player; }
 
   /// Returns ref to the vector of players
-  std::vector<player>& get_v_player() { return m_v_player; }
+  std::vector<player>& get_v_player() { return m_player; }
 
   /// Get the projectiles
   const std::vector<projectile> &get_projectiles() const noexcept
@@ -103,7 +103,7 @@ private:
   int m_n_ticks;
 
   /// Vector of players
-  std::vector<player> m_v_player;
+  std::vector<player> m_player;
 
   ///Vector of index of the players that collide
   std::vector<int> m_v_collisions_ind;

@@ -1,10 +1,10 @@
 #include "optional.h"
 
 #include <cassert>
+#include <vector>
 
 void test_optional()
 {
-  #ifdef FIX_ISSUE_189
   // Initialize with a value
   {
     const int value = 42;
@@ -20,6 +20,7 @@ void test_optional()
     x = value;
     assert(x.value() == value);
   }
+#ifdef FIX_ISSUE_189
   // No value
   {
     const optional<int> x;
@@ -36,4 +37,5 @@ void test_optional()
   }
   #endif // FIX_ISSUE_189
 }
+
 

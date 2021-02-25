@@ -1,5 +1,6 @@
 #include "environment.h"
 #include <cassert>
+#include <sstream>
 
 environment::environment(double wall_short_side, environment_type enviroment_type) :
   m_wall_short_side{wall_short_side},
@@ -12,6 +13,19 @@ environment::environment(double wall_short_side, environment_type enviroment_typ
 
 
 {
+}
+
+std::ostream &operator<<(std::ostream &os, const environment& e)
+{
+  os << "Max X : " << e.get_max_x()
+     << "Max Y : " << e.get_max_y()
+     << "Min X : " << e.get_min_x()
+     << "Min X : " << e.get_min_y()
+     << "Type : " << e.get_type()
+     << "Wall L Side : " << e.get_wall_l_side()
+     << "Wall S Side : " << e.get_wall_s_side();
+
+  return os;
 }
 
 void test_environment()
@@ -39,7 +53,7 @@ void test_environment()
     assert(e.get_wall_s_side() - wall_short_side < 0.00001 &&
            e.get_wall_s_side() - wall_short_side > -0.00001);
   }
-  //#define FIX_ISSUE_204
+  #define FIX_ISSUE_204
   #ifdef FIX_ISSUE_204
   {
     const environment e;
