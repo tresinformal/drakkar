@@ -9,22 +9,22 @@
 game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelters)
   :
     m_n_ticks{n_ticks},
-    m_v_player(static_cast<unsigned int>(num_players), player()),
+    m_player(static_cast<unsigned int>(num_players), player()),
     m_enemies{1},
     m_environment(wall_short_side),
     m_food{1},
     m_shelters(n_shelters)
 {
-  for (unsigned int i = 0; i != m_v_player.size(); ++i)
+  for (unsigned int i = 0; i != m_player.size(); ++i)
     {
-      m_v_player[i] =
+      m_player[i] =
           player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
-      m_v_player[i].set_ID(std::to_string(i));
+      m_player[i].set_ID(std::to_string(i));
     }
   // Set color
   {
     int i = 0;
-    for (auto &player : m_v_player)
+    for (auto &player : m_player)
       {
         player.set_color(color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
                                i % 3 == 2 ? 255 : 0));
@@ -65,8 +65,8 @@ int count_n_projectiles(const game &g) noexcept
 void game::do_action(const int player_index, action_type action)
 {
   assert(player_index >= 0);
-  assert(player_index < static_cast<int>(m_v_player.size()));
-  do_action(m_v_player[player_index], action);
+  assert(player_index < static_cast<int>(m_player.size()));
+  do_action(m_player[player_index], action);
 }
 
 void game::do_action( player& player, action_type action)
@@ -111,7 +111,7 @@ void game::do_action( player& player, action_type action)
 
 void game::do_actions() noexcept
 {
-  for(auto& player: m_v_player)
+  for(auto& player: m_player)
     {
       for(const auto& action : player.get_action_set())
         {
@@ -141,7 +141,7 @@ void game::set_collision_vector( int lhs,  int rhs)
 void game::apply_inertia()
 {
 
-  for (auto& player: m_v_player)
+  for (auto& player: m_player)
     {
       if (player.get_speed() != 0.0)
         {
@@ -189,7 +189,7 @@ void game::tick()
   do_actions();
 
   // players that shoot must generate projectiles
-  for (player &p : m_v_player)
+  for (player &p : m_player)
     {
       // When a player shoots, 'm_is_shooting' is true for one tick.
       // 'game' reads 'm_is_shooting' and if it is true,
@@ -306,9 +306,9 @@ void kill_losing_player(game &g)
 void game::kill_player(const int index)
 {
   assert(index >= 0);
-  assert(index < static_cast<int>(m_v_player.size()));
-  this->m_v_player.erase(
-        m_v_player.begin() + index
+  assert(index < static_cast<int>(m_player.size()));
+  this->m_player.erase(
+        m_player.begin() + index
         );
 }
 
