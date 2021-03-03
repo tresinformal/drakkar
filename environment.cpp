@@ -6,9 +6,9 @@ environment::environment(double wall_short_side, environment_type enviroment_typ
   m_wall_short_side{wall_short_side},
   m_wall_long_side{wall_short_side * 16 / 9},
   m_max_x{m_wall_long_side},
-  m_min_x{-m_wall_long_side},
+  m_min_x{0},
   m_max_y{m_wall_short_side},
-  m_min_y{-m_wall_short_side},
+  m_min_y{0},
   m_environment_type{enviroment_type}
 
 

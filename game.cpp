@@ -169,12 +169,10 @@ void game::move_projectiles()
 
 void game::tick()
 {
-  //if collision abort game
   if(has_collision(*this))
     {
       kill_losing_player(*this);
     }
-
 
   // Moves the projectiles
   move_projectiles();
@@ -188,10 +186,12 @@ void game::tick()
   //Actions issued by the players are executed
   do_actions();
 
+  //Check and resolve wall collisions
+  do_wall_collisions();
+
   // players that shoot must generate projectiles
   for (player &p : m_player)
     {
-      p = wall_collision(p);
       // When a player shoots, 'm_is_shooting' is true for one tick.
       // 'game' reads 'm_is_shooting' and if it is true,
       // it (1) creates a projectile, (2) sets 'm_is_shooting' to false
@@ -357,6 +357,14 @@ void game::kill_player(const int index)
   this->m_player.erase(
         m_player.begin() + index
         );
+}
+
+void game::do_wall_collisions()
+{
+  for(auto& player : m_player)
+    {
+      player = wall_collision(player);
+    }
 }
 
 player game::wall_collision(player p)
