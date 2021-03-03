@@ -18,8 +18,7 @@ public:
   T value() const {
     if(!this->has_value())
       {
-        std::cerr << "ERROR: this object does not contain a value!\n";
-        exit(EXIT_FAILURE);
+        throw std::logic_error("this object does not contain a value!\n");
       }
     return m_value[0];};
 
