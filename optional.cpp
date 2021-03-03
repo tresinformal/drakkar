@@ -22,8 +22,6 @@ void test_optional()
     assert(x.value() == value);
   }
   // No value
-  #define FIX_ISSUE_189
-  #ifdef FIX_ISSUE_189
   {
     const optional<int> x;
     assert(!x.has_value());
@@ -37,7 +35,6 @@ void test_optional()
       //Great! x should throw, as there is no value
     }
   }
-  #endif // FIX_ISSUE_189
 }
 
 
