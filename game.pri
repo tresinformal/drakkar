@@ -1,5 +1,6 @@
 # Files
 HEADERS += \
+    $$PWD/player_state.h \
     action_type.h \
     enemy.h \
     environment.h \
@@ -26,6 +27,7 @@ HEADERS += \
     optional.h
 
 SOURCES += \
+    $$PWD/player_state.cpp \
     action_type.cpp \
     enemy.cpp \
     environment.cpp \
