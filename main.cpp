@@ -15,6 +15,7 @@
 #include "player.h"
 #include "player_shape.h"
 #include "program_state.h"
+#include "player_state.h"
 #include "projectile.h"
 #include "sound_type.h"
 #include "optional.h"
@@ -46,6 +47,7 @@ void test()
   test_projectile_type();
   test_projectile();
   test_program_state();
+  test_player_state();
 
 #ifndef LOGIC_ONLY
   test_game_view();

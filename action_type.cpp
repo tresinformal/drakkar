@@ -1,4 +1,4 @@
-#include "action_type.h"
+  #include "action_type.h"
 #include <cassert>
 #include <sstream>
 
