@@ -98,6 +98,9 @@ public:
   /// Get initial x distance of players
   int get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
+  ///Manages collisons with walls
+  player wall_collision(player p);
+
 private:
   /// the number of ticks
   int m_n_ticks;
@@ -151,6 +154,9 @@ bool has_food_collision(const game &) noexcept;
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
 bool has_collision_with_projectile(const game &) noexcept;
+
+///Signal if a player hits a wall in an environment
+bool hits_wall(const player& p, const environment& e);
 
 std::vector<int> get_collision_members(const game &g) noexcept;
 

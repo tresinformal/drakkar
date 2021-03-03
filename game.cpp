@@ -6,14 +6,13 @@
 #include <cmath>
 #include <iostream>
 
-game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelters)
-  :
-    m_n_ticks{n_ticks},
-    m_player(static_cast<unsigned int>(num_players), player()),
-    m_enemies{1},
-    m_environment(wall_short_side),
-    m_food{1},
-    m_shelters(n_shelters)
+game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelters):
+  m_n_ticks{n_ticks},
+  m_player(static_cast<unsigned int>(num_players), player()),
+  m_enemies{1},
+  m_environment(wall_short_side),
+  m_food{1},
+  m_shelters(n_shelters)
 {
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
@@ -111,6 +110,7 @@ void game::do_action( player& player, action_type action)
 
 void game::do_actions() noexcept
 {
+
   for(auto& player: m_player)
     {
       for(const auto& action : player.get_action_set())
@@ -191,6 +191,7 @@ void game::tick()
   // players that shoot must generate projectiles
   for (player &p : m_player)
     {
+      p = wall_collision(p);
       // When a player shoots, 'm_is_shooting' is true for one tick.
       // 'game' reads 'm_is_shooting' and if it is true,
       // it (1) creates a projectile, (2) sets 'm_is_shooting' to false
@@ -253,6 +254,18 @@ bool has_collision_with_projectile(const game & g) noexcept
   return false;
 }
 
+bool has_wall_collision(const game& g)
+{
+  for(const auto& player : g.get_v_player())
+    {
+      if(hits_wall(player, g.get_env()))
+        {
+          return true;
+        }
+    }
+  return false;
+}
+
 bool has_enemy_collision(const game&)
 {
   return false;
@@ -260,6 +273,39 @@ bool has_enemy_collision(const game&)
 
 bool has_food_collision(const game &) noexcept
 {
+  return false;
+}
+
+
+bool hits_upper_wall(const player& p, const environment& e)
+{
+  return p.get_y() + p.get_diameter()/2 > e.get_max_y();
+}
+
+bool hits_lower_wall(const player& p, const environment& e)
+{
+  return p.get_y() - p.get_diameter()/2 < e.get_min_y();
+}
+
+bool hits_right_wall(const player& p, const environment& e)
+{
+  return p.get_x() + p.get_diameter()/2 > e.get_max_x();
+}
+
+bool hits_left_wall(const player& p, const environment& e)
+{
+  return p.get_x() - p.get_diameter()/2 < e.get_min_x();
+}
+
+bool hits_wall(const player& p, const environment& e)
+{
+  if(hits_left_wall(p,e)
+     ||hits_right_wall(p,e)
+     || hits_upper_wall(p,e)
+     || hits_lower_wall(p,e))
+    {
+      return true;
+    }
   return false;
 }
 
@@ -305,11 +351,37 @@ void kill_losing_player(game &g)
 
 void game::kill_player(const int index)
 {
+
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
   this->m_player.erase(
         m_player.begin() + index
         );
+}
+
+player game::wall_collision(player p)
+{
+  if(hits_upper_wall(p, m_environment))
+    {
+      p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
+    }
+
+  if(hits_lower_wall(p, m_environment))
+    {
+      p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
+    }
+
+  if(hits_right_wall(p, m_environment))
+    {
+      p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
+    }
+
+  if(hits_left_wall(p, m_environment))
+    {
+      p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
+    }
+
+  return p;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -689,13 +761,32 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-    ///Players in game are initialized with ID equal to their index
-    {
-        game g;
-        for(size_t i = 0; i != g.get_v_player().size(); i++)
-        {
-            assert(g.get_player(i).get_ID() == std::to_string(i));
-        }
-    }
+  ///Players in game are initialized with ID equal to their index
+  {
+    game g;
+    for(size_t i = 0; i != g.get_v_player().size(); i++)
+      {
+        assert(g.get_player(i).get_ID() == std::to_string(i));
+      }
+  }
+
+  ///Players cannot move past wall coordinates as defined in enviornment
+  {
+    game g;
+
+    //set a player very close to a wall
+    auto p = g.get_player(0);
+    p.set_x(g.get_env().get_max_x() - p.get_diameter()/2 - 0.01);
+    assert(!hits_wall(p,g.get_env()));
+
+    ///move the player into the wall
+    p.accelerate();
+    assert(hits_right_wall(p, g.get_env()));
+
+    /// manage the collision
+    p = g.wall_collision(p);
+
+    assert(!hits_wall(p,g.get_env()));
+  }
 }
 
