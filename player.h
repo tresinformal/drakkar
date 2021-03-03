@@ -4,6 +4,7 @@
 #include "action_type.h"
 #include "color.h"
 #include "player_shape.h"
+#include "player_state.h"
 #include <cmath>
 #include <vector>
 #include <set>
@@ -15,6 +16,7 @@ public:
     player(const double x = 0.0,
            const double y = 0.0,
            const player_shape shape = player_shape::rocket,
+           const player_state state = player_state::active,
            const double player_max_speed = 2,
            const double player_acceleration = 0.1,
            const double player_deceleration = -0.001,
@@ -40,14 +42,17 @@ public:
     /// Get the color of the player
     const color &get_color() const noexcept { return m_color; }
 
-    /// Get the X coordinat of the player
+    /// Get the X coordinate of the player
     double get_x() const noexcept;
 
-    /// Get the Y coordinat of the player
+    /// Get the Y coordinate of the player
     double get_y() const noexcept;
 
     /// Get the shape of the player
     player_shape get_shape() const noexcept { return m_shape; }
+
+    /// Get the state of the player
+    player_state get_state() const noexcept { return m_state; }
 
     /// Get the radius of the player
     double get_diameter() const noexcept;
@@ -134,14 +139,17 @@ private:
     ///ID of the player
     std::string m_ID;
 
-    /// The X coordinat of the player
+    /// The X coordinate of the player
     double m_x;
 
-    /// The Y coordinat of the player
+    /// The Y coordinate of the player
     double m_y;
 
     /// The shape of the player
     player_shape m_shape;
+
+    /// The state of the player
+    player_state m_state;
 
     /// The speed of the player
     double m_player_speed = 0;

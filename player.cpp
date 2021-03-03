@@ -1,11 +1,13 @@
 #include "player.h"
 #include "player_shape.h"
+#include "player_state.h"
 #include <cassert>
 #include <cmath>
 
 player::player(const double x,
                const double y,
                const player_shape shape,
+               const player_state state,
                const double player_max_speed,
                const double player_acceleration,
                const double player_deceleration,
@@ -20,6 +22,7 @@ player::player(const double x,
       m_x{x},
       m_y{y},
       m_shape{shape},
+      m_state{state},
       m_player_max_speed{player_max_speed},
       m_player_acceleration{player_acceleration},
       m_player_deceleration{player_deceleration},
@@ -30,10 +33,10 @@ player::player(const double x,
 {
 }
 
-/// Get the X coordinat of the player
+/// Get the X coordinate of the player
 double player::get_x() const noexcept { return m_x; }
 
-/// Get the Y coordinat of the player
+/// Get the Y coordinate of the player
 double player::get_y() const noexcept { return m_y; }
 
 /// Get the radius of the player
@@ -439,5 +442,5 @@ void test_player() //!OCLINT tests may be long
         player p;
         p.set_ID(ID);
         assert(p.get_ID() == ID);
-    }
+    }  
 }
