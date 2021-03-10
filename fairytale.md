@@ -24,11 +24,6 @@ Until the universe aged and entropy ripped the rest of
 their bodies apart and shredded them to bits like shredded wheat!
 
 Anticlimcatic you may think
-
-<<<<<<< HEAD
-=======
-# Fairytale
-
 Once upon a time there were a dragon and a toothfairy.
 
 They were both horses in disguise!
@@ -47,9 +42,6 @@ their bodies apart!
 Anticlimcatic you may think
 
 
-=======
-# Fairytale
-
 Once upon a time there were a dragon and a toothfairy.
 
 They were both horses in disguise!
@@ -66,6 +58,8 @@ Until the universe aged and entropy ripped the rest of
 their bodies apart!
 
 Anticlimcatic you may think. But wait till you hear what happened next.....
+
+it is really a long story...
 
 To be continued...
 
