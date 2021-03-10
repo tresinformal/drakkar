@@ -31,6 +31,5 @@ std::string to_str(player_shape this_player_shape)
 std::ostream& operator<<(std::ostream& os, const player_shape ps)
 {
    os << to_str(ps);
-   std::cout << to_str(ps) << std::endl;
    return os;
 }
