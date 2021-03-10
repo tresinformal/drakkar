@@ -442,5 +442,18 @@ void test_player() //!OCLINT tests may be long
         player p;
         p.set_ID(ID);
         assert(p.get_ID() == ID);
-    }  
+    }
+
+    //A player is by default initiated with state == "active
+     {
+       const player p{};
+       assert(p.get_state() == player_state::active);
+     }
+
+   // A player object can be initialized to a stunned state
+     {
+       const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
+       assert(p.get_state() ==  player_state::stunned);
+       assert(p.get_state() !=  player_state::active);
+     }
 }
