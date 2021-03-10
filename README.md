@@ -42,6 +42,13 @@ Break time!      | 18:00
 Lesson continues | 18:15
 End of lesson    | 19:00
 
+## Code of Conduct
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+In case it is undesirable to email Richel,
+contact ?[swom](https://github.com/swom).
+
 ## Game: 2D PvP chasing game
 
 A game where you are on a 2D surface with heterogeneous characteristics, as different terrains, resources etc. You start with a very small particle-like character, as you play you can gather resources scattered around and increase your size/mass, the more you grow the more your options increase(you can change shape, what matter composes you etc.), other players roam around as you do increasing size and having more options as they progress. The goal is to chase and eliminate the other players. It would be good to have multiple conditions(you have to be bigger, you need to be made of a certain material etc.) you need to satisfy to be able to eliminate the other players.e.
