@@ -440,6 +440,7 @@ void test_player() //!OCLINT tests may be long
     p.set_ID(ID);
     assert(p.get_ID() == ID);
   }
+
 #ifdef FIX_ISSUE_220
   ///A player can become stunned
   {
