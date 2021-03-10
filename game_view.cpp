@@ -277,11 +277,12 @@ void test_game_view()//!OCLINT tests may be many
         v.show();
     }
 #ifdef FIX_ISSUE_34
-    {
-        const game_view v;
-        assert(v.get_game().get_n_ticks() == 0);
-    }
-#endif
+  {
+    const game_view v;
+    // game has a member function called `get_n_ticks`, which returns zero upon construction
+    assert(v.get_game().get_n_ticks() == 0);
+  }
+  #endif
 
     //A game view is initialized with a number of views/cameras
     //Equal to the number of players
