@@ -85,7 +85,6 @@ void player::acc_backward() noexcept
         m_player_speed = -m_player_max_speed;
     }
     update_player_position();
-
 }
 
 void add_action(player& p, action_type action) noexcept
@@ -229,6 +228,34 @@ void test_player() //!OCLINT tests may be long
         const player p;
         assert(p.get_acceleration() - 0.1 < 0.00000000001);
     }
+//#define FIX_ISSUE_193
+#ifdef FIX_ISSUE_193
+    // A player increases its speed by one 'acceleration' per acceleration
+    {
+        player p;
+        p.accelerate();
+        assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
+    }
+    // A player increases its backward speed by one 'backward acceleration' per backward acceleration
+    // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
+    {
+        player p;
+        p.acc_backward();
+        assert(p.get_speed() - p.get_acceleration_backward() < 0.00000000001);
+    }
+    // A players speed after one 'acceleration' is less than max_speed
+    {
+        player p;
+        p.accelerate();
+        assert(p.get_speed() < p.get_max_s());
+    }
+    // A players speed after one 'backward acceleration' is more than negative max_speed
+    {
+        player p;
+        p.acc_backward();
+        assert(p.get_speed() > -p.get_max_s());
+    }
+#endif
     // A player has an initial size of one hundred
     {
         const player p{1.2, 3.4, player_shape::rocket};
