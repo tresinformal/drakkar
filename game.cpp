@@ -796,5 +796,27 @@ void test_game() //!OCLINT tests may be many
 
     assert(!hits_wall(p,g.get_env()));
   }
+
+  #ifdef FIX_ISSUE_218
+  ///A stunned player cannot perform actions
+  {
+    game g;
+    player p;
+
+    //When active a player can turn
+    auto start_direction = p.get_direction();
+
+    g.do_action(p, action_type::turn_right);
+    assert(start_direction != p.get_direction());
+
+    //When stunned a player cannot turn (or do any other action)
+
+    stun(p);
+    g.do_action(p, action_type::turn_left);
+    g.do_action(p, action_type::accelerate);
+    g.do_action(p, action_type::shoot);
+
+  }
+  #endif
 }
 
