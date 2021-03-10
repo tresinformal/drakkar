@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <vector>
+#include <exception>
 
 void test_optional()
 {
@@ -20,7 +21,6 @@ void test_optional()
     x = value;
     assert(x.value() == value);
   }
-#ifdef FIX_ISSUE_189
   // No value
   {
     const optional<int> x;
@@ -30,12 +30,11 @@ void test_optional()
       x.value();
       assert(!"Should not get here: there is no value");
     }
-    catch (const exception&)
+    catch (const std::exception&)
     {
       //Great! x should throw, as there is no value
     }
   }
-  #endif // FIX_ISSUE_189
 }
 
 

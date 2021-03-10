@@ -17,7 +17,7 @@
 class game
 {
 public:
-  game(double wall_short_side = 720, int num_players = 3, int n_ticks = 0, std::size_t n_shelters = 3);
+  game(double wall_short_side = 1600, int num_players = 3, int n_ticks = 0, std::size_t n_shelters = 3);
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -27,6 +27,9 @@ public:
 
   ///Executes all actions issued by all players, called in tick()
   void do_actions() noexcept;
+
+  ///Executes for wall collision for all players
+  void do_wall_collisions();
 
   ///returns the collision vector
   const std::vector<int>& get_collision_vec(){return m_v_collisions_ind;}
@@ -98,6 +101,9 @@ public:
   /// Get initial x distance of players
   int get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
+  ///Manages collisons with walls
+  player wall_collision(player p);
+
 private:
   /// the number of ticks
   int m_n_ticks;
@@ -151,6 +157,9 @@ bool has_food_collision(const game &) noexcept;
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
 bool has_collision_with_projectile(const game &) noexcept;
+
+///Signal if a player hits a wall in an environment
+bool hits_wall(const player& p, const environment& e);
 
 std::vector<int> get_collision_members(const game &g) noexcept;
 

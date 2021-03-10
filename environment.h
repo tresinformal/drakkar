@@ -5,7 +5,7 @@
 class environment
 {
 public:
-  environment(double wall_short_side = 720, environment_type environment_type = environment_type::empty);
+  environment(double wall_short_side = 1600, environment_type environment_type = environment_type::empty);
   double get_min_x() const noexcept { return m_min_x; }
   double get_min_y() const noexcept { return m_min_y; }
   double get_max_x() const noexcept { return m_max_x; }
