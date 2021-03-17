@@ -64,6 +64,7 @@ public:
     double get_speed() const noexcept { return m_player_speed; }
 
     /// Get the speed of the player
+    /// RJCB: I suggest to rename to get_max_speed
     double get_max_s() const noexcept { return m_player_max_speed; }
 
     /// Get the direction of player movement, in radians
