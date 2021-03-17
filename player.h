@@ -81,6 +81,9 @@ public:
     /// Set the color of the player
     void set_color(const color &c) noexcept { m_color = c; }
 
+    /// Set the color of the player
+    void set_state(const player_state &s) noexcept { m_state = s; }
+
     /// The player shoots, does nothing for now
     /// When a player shoots, 'm_is_shooting' is true for one tick.
     /// 'game' reads 'm_is_shooting' and if it is true,

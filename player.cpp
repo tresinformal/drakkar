@@ -145,7 +145,7 @@ bool is_red(const player & p) noexcept
 
 void stun(player &p) noexcept
 {
-    p.get_state() = player_state::stunned;
+    p.set_state(player_state::stunned);
 }
 
 bool is_active(const player & p) noexcept
@@ -517,6 +517,7 @@ void test_player() //!OCLINT tests may be long
        assert(p.get_state() == player_state::active);
    }
 
+#ifdef FIX_ISSUE_193
    // A player object can be initialized to a stunned state
    {
        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
@@ -525,7 +526,7 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_speed() + p.get_max_s() < 0.00001
            && p.get_speed() + p.get_max_s() > -0.00001);
   }
-
+#endif
   //It is possible to establish how bluish, reddish and greenish a player is
   {
     player p;
