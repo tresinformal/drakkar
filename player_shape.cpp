@@ -1,5 +1,8 @@
 #include "player_shape.h"
 #include <cassert>
+#include <sstream>
+#include <iostream>
+
 
 void test_player_shape()
 {
@@ -23,4 +26,10 @@ std::string to_str(player_shape this_player_shape)
   }
   assert(this_player_shape == player_shape::square);
   return "square";
+}
+
+std::ostream& operator<<(std::ostream& os, const player_shape ps)
+{
+   os << to_str(ps);
+   return os;
 }

@@ -796,5 +796,32 @@ void test_game() //!OCLINT tests may be many
 
     assert(!hits_wall(p,g.get_env()));
   }
+
+  #ifdef FIX_ISSUE_218
+  ///A stunned player cannot perform actions
+  {
+    game g;
+    player p;
+    //make a copy of the player in its initial state
+    player player_copy = p;
+
+    g.do_action(p, action_type::turn_right);
+    g.do_action(p, action_type::accelerate);
+    assert(player_copy.get_direction() != p.get_direction());
+    assert(player_copy.get_speed() != p.get_speed());
+
+    //Reset player back to initial conditions
+    p = player_copy;
+
+    //When stunned a player cannot turn (or do any other action)
+    stun(p);
+    g.do_action(p, action_type::turn_left);
+    g.do_action(p, action_type::accelerate);
+    g.do_action(p, action_type::shoot);
+    assert(!p.is_shooting());
+    assert(player_copy.get_direction() == p.get_direction());
+    assert(player_copy.get_speed() == p.get_speed());
+  }
+  #endif
 }
 
