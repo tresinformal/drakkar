@@ -146,6 +146,21 @@ bool is_red(const player & p) noexcept
             ;
 }
 
+void stun(player &p) noexcept
+{
+    p.get_state() = player_state::stunned;
+}
+
+bool is_active(const player & p) noexcept
+{
+    return p.get_state() == player_state::active;
+}
+
+bool is_stunned(const player & p) noexcept
+{
+    return p.get_state() == player_state::stunned;
+}
+
 int get_colorhash(const player &p) noexcept
 {
     assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);

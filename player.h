@@ -124,6 +124,8 @@ public:
     /// Accelerate the player backward
     void acc_backward() noexcept;
 
+
+
 private:
     /// The player's color, will change depending on food items
     color m_color;
@@ -203,6 +205,15 @@ bool is_green(const player &p) noexcept;
 
 /// Is a player red?
 bool is_red(const player &p) noexcept;
+
+/// Set player to stun
+void stun(player &p) noexcept;
+
+/// Is a player active?
+bool is_active(const player &p) noexcept;
+
+/// Is a player stunned?
+bool is_stunned(const player &p) noexcept;
 
 ///Get color index
 int get_colorhash(const player &p) noexcept;
