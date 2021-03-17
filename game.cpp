@@ -70,6 +70,8 @@ void game::do_action(const int player_index, action_type action)
 
 void game::do_action( player& player, action_type action)
 {
+  if(!(player.get_state() == player_state::stunned))
+  {
   switch (action)
 
     {
@@ -106,6 +108,7 @@ void game::do_action( player& player, action_type action)
     case action_type::none:
       return;
     }
+  }
 }
 
 void game::do_actions() noexcept
@@ -522,6 +525,18 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
+  #ifdef FIX_ISSUE_226
+  // A game responds to actions: player can be stunned
+  {
+    game g;
+    for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
+    {
+      assert(!is_stunned(g.get_player(i));
+      g.do_action(i, action_type::stun);
+      assert(is_stunned(g.get_player(i));
+    }
+  }
+  #endif //FIX_ISSUE_226
   // Projectiles move
   {
     game g;
@@ -795,6 +810,31 @@ void test_game() //!OCLINT tests may be many
     p = g.wall_collision(p);
 
     assert(!hits_wall(p,g.get_env()));
+  }
+
+  ///A stunned player cannot perform actions
+  {
+    game g;
+    player p;
+    //make a copy of the player in its initial state
+    player player_copy = p;
+
+    g.do_action(p, action_type::turn_right);
+    g.do_action(p, action_type::accelerate);
+    assert(player_copy.get_direction() != p.get_direction());
+    assert(player_copy.get_speed() != p.get_speed());
+
+    //Reset player back to initial conditions
+    p = player_copy;
+
+    //When stunned a player cannot turn (or do any other action)
+    stun(p);
+    g.do_action(p, action_type::turn_left);
+    g.do_action(p, action_type::accelerate);
+    g.do_action(p, action_type::shoot);
+    assert(!p.is_shooting());
+    assert(player_copy.get_direction() == p.get_direction());
+    assert(player_copy.get_speed() == p.get_speed());
   }
 }
 

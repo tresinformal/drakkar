@@ -6,6 +6,7 @@
 
 # All files are in here, the rest are just settings
 include(game.pri)
+include(game_view.pri)
 
 # Use the C++ version that all team members can use
 CONFIG += c++11
@@ -46,3 +47,5 @@ win32{
   LIBS += -lgdi32
   LIBS += -lwinmm
 }
+
+
