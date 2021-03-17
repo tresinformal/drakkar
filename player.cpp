@@ -1,11 +1,13 @@
 #include "player.h"
 #include "player_shape.h"
+#include "player_state.h"
 #include <cassert>
 #include <cmath>
 
 player::player(const double x,
                const double y,
                const player_shape shape,
+               const player_state state,
                const double player_max_speed,
                const double player_acceleration,
                const double player_deceleration,
@@ -14,26 +16,25 @@ player::player(const double x,
                const double turn_rate,
                const color &any_color,
                const std::string& ID)
-
   : m_color{any_color},
     m_ID{ID},
     m_x{x},
     m_y{y},
     m_shape{shape},
+    m_state{state},
     m_player_max_speed{player_max_speed},
     m_player_acceleration{player_acceleration},
     m_player_deceleration{player_deceleration},
     m_player_acc_backward{player_acc_backward},
     m_diameter{size},
     m_turn_rate{turn_rate}
-
 {
 }
 
-/// Get the X coordinat of the player
+/// Get the X coordinate of the player
 double player::get_x() const noexcept { return m_x; }
 
-/// Get the Y coordinat of the player
+/// Get the Y coordinate of the player
 double player::get_y() const noexcept { return m_y; }
 
 /// Get the radius of the player
@@ -140,6 +141,21 @@ bool is_red(const player & p) noexcept
       && p.get_color().get_green() == 0
       && p.get_color().get_blue() == 0
       ;
+}
+
+void stun(player &p) noexcept
+{
+    p.set_state(player_state::stunned);
+}
+
+bool is_active(const player & p) noexcept
+{
+    return p.get_state() == player_state::active;
+}
+
+bool is_stunned(const player & p) noexcept
+{
+    return p.get_state() == player_state::stunned;
 }
 
 int get_colorhash(const player &p) noexcept
@@ -435,14 +451,82 @@ void test_player() //!OCLINT tests may be long
     int n_of_accelerations = 1000;
     assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
     for(int i = 0; i != n_of_accelerations; i++ )
-      {
-        p.acc_backward();
-      }
+    {
+      p.acc_backward();
+      auto full_back_speed = p.get_speed();
+      assert (full_back_speed < 0);
+      p.brake();
+      auto brake_back_speed = p.get_speed();
+      assert(brake_back_speed > full_back_speed);
+    }
+  }
+    //A player cannot surpass its positive max_speed
+  {
+        player p;
+        int n_of_accelerations = 1000;
+        assert(p.get_acceleration() * n_of_accelerations > p.get_max_s());
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            p.accelerate();
+        }
+        assert(p.get_speed() - p.get_max_s() < 0.00001
+               && p.get_speed() - p.get_max_s() > -0.00001);
+  }
 
+  //A player cannot surpass its negative max_speed
+  {
+        player p;
+        int n_of_accelerations = 1000;
+        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            p.acc_backward();
+        }
+
+        assert(p.get_speed() + p.get_max_s() < 0.00001
+               && p.get_speed() + p.get_max_s() > -0.00001);
+  }
+
+  //It is possible to establish how bluish, reddish and greenish a player is
+  {
+        player p;
+        int blueness = 1;
+        int greenness = 1;
+        int redness = 1;
+        p.set_color(
+                    color{redness,
+                          greenness,
+                          blueness}
+                    );
+        assert(get_blueness(p) == blueness);
+        assert(get_redness(p) == redness);
+        assert(get_greenness(p) == greenness);
+  }
+
+  ///A player has an ID
+  {
+        std::string ID = "1";
+        player p;
+        p.set_ID(ID);
+        assert(p.get_ID() == ID);
+  }
+
+  //A player is by default initiated with state == "active
+  {
+       const player p{};
+       assert(p.get_state() == player_state::active);
+   }
+
+#ifdef FIX_ISSUE_193
+   // A player object can be initialized to a stunned state
+   {
+       const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
+       assert(p.get_state() ==  player_state::stunned);
+       assert(p.get_state() !=  player_state::active);
     assert(p.get_speed() + p.get_max_s() < 0.00001
            && p.get_speed() + p.get_max_s() > -0.00001);
   }
-
+#endif
   //It is possible to establish how bluish, reddish and greenish a player is
   {
     player p;
