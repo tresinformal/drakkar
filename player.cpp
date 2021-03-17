@@ -523,8 +523,6 @@ void test_player() //!OCLINT tests may be long
        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
        assert(p.get_state() ==  player_state::stunned);
        assert(p.get_state() !=  player_state::active);
-    assert(p.get_speed() + p.get_max_s() < 0.00001
-           && p.get_speed() + p.get_max_s() > -0.00001);
   }
 #endif
   //It is possible to establish how bluish, reddish and greenish a player is
