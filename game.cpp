@@ -70,6 +70,8 @@ void game::do_action(const int player_index, action_type action)
 
 void game::do_action( player& player, action_type action)
 {
+  if(!(player.get_state() == player_state::stunned))
+  {
   switch (action)
 
     {
@@ -106,6 +108,7 @@ void game::do_action( player& player, action_type action)
     case action_type::none:
       return;
     }
+  }
 }
 
 void game::do_actions() noexcept
@@ -797,7 +800,6 @@ void test_game() //!OCLINT tests may be many
     assert(!hits_wall(p,g.get_env()));
   }
 
-  #ifdef FIX_ISSUE_218
   ///A stunned player cannot perform actions
   {
     game g;
@@ -822,6 +824,5 @@ void test_game() //!OCLINT tests may be many
     assert(player_copy.get_direction() == p.get_direction());
     assert(player_copy.get_speed() == p.get_speed());
   }
-  #endif
 }
 
