@@ -540,7 +540,6 @@ void test_player() //!OCLINT tests may be long
         assert(get_redness(p) == redness);
         assert(get_greenness(p) == greenness);
   }
-
   ///A player has an ID
   {
         std::string ID = "1";
@@ -548,7 +547,6 @@ void test_player() //!OCLINT tests may be long
         p.set_ID(ID);
         assert(p.get_ID() == ID);
   }
-
   //A player is by default initiated with state == "active
   {
        const player p{};
