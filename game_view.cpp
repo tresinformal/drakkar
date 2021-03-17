@@ -142,6 +142,10 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 {
     for (const auto &player : m_game.get_v_player())
     {
+        if(is_dead(player))
+          {
+            break;
+          }
         // Type conversions that simplify notation
         const float r{static_cast<float>(player.get_diameter()) / 2.0f};
         const float x{static_cast<float>(player.get_x())};

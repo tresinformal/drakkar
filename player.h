@@ -212,8 +212,14 @@ bool is_red(const player &p) noexcept;
 /// Set player to stun
 void stun(player &p) noexcept;
 
+/// Is a player alive?
+bool is_alive(const player& p) noexcept;
+
 /// Is a player active?
 bool is_active(const player &p) noexcept;
+
+/// Is a player dead?
+bool is_dead(const player& p) noexcept;
 
 /// Is a player stunned?
 bool is_stunned(const player &p) noexcept;

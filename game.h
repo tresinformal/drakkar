@@ -142,6 +142,8 @@ void add_projectile(game& g, const projectile& p);
 /// Count the number of projectiles in the game
 int count_n_projectiles(const game &g) noexcept;
 
+int count_alive_players(const game& g) noexcept;
+
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
