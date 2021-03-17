@@ -517,14 +517,13 @@ void test_player() //!OCLINT tests may be long
        assert(p.get_state() == player_state::active);
    }
 
-#ifdef FIX_ISSUE_193
    // A player object can be initialized to a stunned state
    {
        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
        assert(p.get_state() ==  player_state::stunned);
        assert(p.get_state() !=  player_state::active);
   }
-#endif
+
   //It is possible to establish how bluish, reddish and greenish a player is
   {
     player p;
