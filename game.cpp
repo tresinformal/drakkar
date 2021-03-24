@@ -15,10 +15,10 @@ game::game(double wall_short_side,
            int n_food):
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
-  m_enemies{n_enemies},
+  m_enemies(n_enemies, enemy()),
   m_environment(wall_short_side),
-  m_food{n_food},
-  m_shelters(n_shelters)
+  m_food(n_food, food()),
+  m_shelters(n_shelters, shelter())
 {
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
