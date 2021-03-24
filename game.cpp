@@ -836,10 +836,7 @@ void test_game() //!OCLINT tests may be many
     assert(!hits_wall(p,g.get_env()));
   }
 
-<<<<<<< HEAD
-=======
-#ifdef FIX_ISSUE_218
->>>>>>> stefano
+
   ///A stunned player cannot perform actions
   {
     game g;
@@ -864,9 +861,7 @@ void test_game() //!OCLINT tests may be many
     assert(player_copy.get_direction() == p.get_direction());
     assert(player_copy.get_speed() == p.get_speed());
   }
-<<<<<<< HEAD
-=======
-#endif
+
 
   /// When a player is killed it stays in the player vector but its state is dead
   {
@@ -880,6 +875,5 @@ void test_game() //!OCLINT tests may be many
     assert(num_of_players_begin == g.get_v_player().size());
     assert(is_dead(g.get_player(0)));
   }
->>>>>>> stefano
 }
 
