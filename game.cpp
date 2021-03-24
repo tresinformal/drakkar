@@ -105,6 +105,11 @@ void game::do_action( player& player, action_type action)
         player.shoot();
         break;
       }
+  case action_type::stun:
+  {
+    stun(player);
+    break;
+  }
     case action_type::none:
       return;
     }
