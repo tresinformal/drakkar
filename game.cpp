@@ -634,7 +634,9 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g));
   }
-  // A collision destroys a player
+  #define FIX_ISSUE_233
+  #ifndef FIX_ISSUE_233
+  // [PRS] A collision destroys a player
   {
     game g;
     const auto n_players_before = g.get_v_player().size();
@@ -645,7 +647,7 @@ void test_game() //!OCLINT tests may be many
     const auto n_players_after = g.get_v_player().size();
     assert(n_players_after < n_players_before);
   }
-  // A collision destroy one of the colliding player
+  // [PRS]  A collision destroy one of the colliding player
   {
     game g;
     const auto n_players_before = g.get_v_player().size();
@@ -660,6 +662,23 @@ void test_game() //!OCLINT tests may be many
     const auto n_player_afteragain = g.get_v_player().size();
     assert(n_player_afteragain == n_players_after);
   }
+  #else // FIX_ISSUE_233
+  // [PRS] #233 make winning PRS player bigger
+  {
+    game g;
+    // Make player 1 and 2 overlap
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    const int winning_player_index = get_winning_player(
+      g.get_player(0), g.get_player(1))
+    );
+    const int size_ = g.get_player(winning_player_index).get_size().
+    g.tick();
+    const auto n_players_after = g.get_v_player().size();
+    assert(n_players_after < n_players_before);
+  }
+  #end // FIX_ISSUE_233
 
   // Blue (player index 2) defeats red (player index 0)
   {
