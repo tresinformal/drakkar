@@ -12,7 +12,8 @@ enum class action_type
   brake,
   acc_backward,
   shoot,
-  none
+  none,
+  stun
 };
 
 void test_action_type();
