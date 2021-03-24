@@ -7,12 +7,17 @@
 #include <algorithm>
 #include <iostream>
 
-game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelters):
+game::game(double wall_short_side,
+           int num_players,
+           int n_ticks,
+           size_t n_shelters,
+           int n_enemies,
+           int n_food):
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
-  m_enemies{1},
+  m_enemies{n_enemies},
   m_environment(wall_short_side),
-  m_food{1},
+  m_food{n_food},
   m_shelters(n_shelters)
 {
   for (unsigned int i = 0; i != m_player.size(); ++i)
@@ -299,6 +304,13 @@ bool has_food_collision(const game &) noexcept
   return false;
 }
 
+bool have_same_position(const player& p, const food& f)
+{
+  return p.get_x() - f.get_x() > 0.0001 &&
+      p.get_x() - f.get_x() < -0.0001 &&
+      p.get_y() - f.get_y() > 0.0001 &&
+      p.get_y() - f.get_y() < -0.0001;
+}
 
 bool hits_upper_wall(const player& p, const environment& e)
 {
@@ -875,5 +887,39 @@ void test_game() //!OCLINT tests may be many
     assert(num_of_players_begin == g.get_v_player().size());
     assert(is_dead(g.get_player(0)));
   }
+
+#ifdef FIX_ISSUE_236
+  //When a player touches food it destroys it
+  {
+
+    game g;
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    assert(has_food(g))
+    assert(has_player_food_collision(g));
+    g.tick();
+    assert(!has_food(g));
+
+  }
+#endif
+
+#ifdef FIX_ISSUE_237
+//Food and player can be overlapped
+  {
+    food f;
+    player p;
+    put_player_on_food(p, f);
+    assert(have_same_position(p,f));
+  }
+#endif
+
+#ifdef FIX_ISSUE_238
+//Food and player can be overlapped
+  {
+    game g;
+    assert(!has_player_food_collision(g));
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    assert(has_player_food_collision(g));
+  }
+#endif
 }
 
