@@ -392,7 +392,7 @@ void test_player() //!OCLINT tests may be long
     assert(!p.get_action_set().count(action1));
     assert(p.get_action_set().count(action2));
   }
-#define FIX_ISSUE_193
+
 #ifdef FIX_ISSUE_193
   // A player increases its speed by one 'acceleration' per acceleration
   {

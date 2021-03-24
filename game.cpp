@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <algorithm>
 #include <iostream>
 
 game::game(double wall_short_side,
@@ -59,6 +60,15 @@ game::game(double wall_short_side,
 void add_projectile(game &g, const projectile &p)
 {
   g.get_projectiles().push_back(p);
+}
+
+int count_alive_players(const game& g) noexcept
+{
+  return std::count_if(
+        g.get_v_player().begin(),
+        g.get_v_player().end(),
+        [](const player& p)
+  {return p.get_state() != player_state::dead;});
 }
 
 int count_n_projectiles(const game &g) noexcept
@@ -229,13 +239,23 @@ bool has_collision(const game &g) noexcept
   const auto n_players = static_cast<int>(g.get_v_player().size()) ;
   for (int i = 0; i < n_players; ++i)
     {
-      for (int j = i + 1; j < n_players; ++j)
+      auto& lhs_pl = g.get_player(i);
+
+      if(is_alive(lhs_pl))
         {
-          if (are_colliding(g.get_player(i), g.get_player(j)))
+          for (int j = i + 1; j < n_players; ++j)
             {
-              return true;
+              auto& rhs_pl = g.get_player(j);
+              if(is_alive(rhs_pl))
+                {
+                  if (are_colliding(lhs_pl, rhs_pl))
+                    {
+                      return true;
+                    }
+                }
             }
         }
+
     }
   return false;
 }
@@ -374,9 +394,7 @@ void game::kill_player(const int index)
 
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
-  this->m_player.erase(
-        m_player.begin() + index
-        );
+  get_player(index).set_state(player_state::dead);
 }
 
 void game::do_wall_collisions()
@@ -542,17 +560,18 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
+  #ifdef FIX_ISSUE_226
   // A game responds to actions: player can be stunned
   {
     game g;
     for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
     {
-      assert(!is_stunned(g.get_player(i)));
+      assert(!is_stunned(g.get_player(i));
       g.do_action(i, action_type::stun);
-      assert(is_stunned(g.get_player(i)));
+      assert(is_stunned(g.get_player(i));
     }
   }
-
+  #endif //FIX_ISSUE_226
   // Projectiles move
   {
     game g;
@@ -650,34 +669,34 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g));
   }
-  // A collision destroys a player
+  // A collision kills a player
   {
     game g;
-    const auto n_players_before = g.get_v_player().size();
+    const auto n_alive_players_before = count_alive_players(g);
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    const auto n_players_after = g.get_v_player().size();
-    assert(n_players_after < n_players_before);
+    const auto n_alive_players_after = count_alive_players(g);
+    assert(n_alive_players_after < n_alive_players_before);
   }
   // A collision destroy one of the colliding player
   {
     game g;
-    const auto n_players_before = g.get_v_player().size();
+    const auto n_players_before = count_alive_players(g);
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    const auto n_players_after = g.get_v_player().size();
+    const auto n_players_after = count_alive_players(g);
     assert(n_players_after < n_players_before);
     assert(!has_collision(g));
     g.tick();
-    const auto n_player_afteragain = g.get_v_player().size();
+    const auto n_player_afteragain = count_alive_players(g);
     assert(n_player_afteragain == n_players_after);
   }
 
-  // Blue (player index 2) defeats red (player index 0)
+  // Blue defeats red
   {
     game g;
     g.get_player(2).set_x(g.get_player(0).get_x());
@@ -688,9 +707,15 @@ void test_game() //!OCLINT tests may be many
     assert(is_blue(g.get_player(2)));
     assert(g.get_v_player().size() == 3); //All three still live
     g.tick();
-    assert(g.get_v_player().size() == 2); //Red has died!
-    assert(is_green(g.get_player(0)));
-    assert(is_blue(g.get_player(1)));
+    assert(count_alive_players(g) == 2);
+    //Red has died!
+    auto& red = g.get_player(0);
+    assert(is_dead(red) && is_red(red));
+    // Green and blue survive
+    auto& green = g.get_player(1);
+    auto& blue = g.get_player(2);
+    assert(is_alive(green) && is_green(green) &&
+           is_alive(blue) && is_blue(blue));
   }
 
 
@@ -760,8 +785,8 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    assert(is_red(g.get_player(0)));
-    assert(is_blue(g.get_player(1)));
+    assert(is_alive(g.get_player(0)));
+    assert(is_dead(g.get_player(1)));
   }
 #ifdef FIX_ISSUE_VALENTINES_DAY
   //If green eats blue then green survives
@@ -827,6 +852,7 @@ void test_game() //!OCLINT tests may be many
 
     assert(!hits_wall(p,g.get_env()));
   }
+
 
   ///A stunned player cannot perform actions
   {
