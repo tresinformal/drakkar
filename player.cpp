@@ -402,6 +402,8 @@ void test_player() //!OCLINT tests may be long
       assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
   }
 
+  //#define FIX_ISSUE_193
+  #ifdef FIX_ISSUE_193
   // A player increases its backward speed by one 'backward acceleration' per backward acceleration
   // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
   {
@@ -424,8 +426,6 @@ void test_player() //!OCLINT tests may be long
       p.acc_backward();
       assert(p.get_speed() > -p.get_max_s());
   }
-  //#define FIX_ISSUE_193
-  #ifdef FIX_ISSUE_193
   // RJCB: my suggested test
   // A players goes ?right/?up upon acceleraton
   {
@@ -556,17 +556,12 @@ void test_player() //!OCLINT tests may be long
        const player p{};
        assert(p.get_state() == player_state::active);
    }
-
-#ifdef FIX_ISSUE_193
    // A player object can be initialized to a stunned state
    {
        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
        assert(p.get_state() ==  player_state::stunned);
        assert(p.get_state() !=  player_state::active);
-    assert(p.get_speed() + p.get_max_s() < 0.00001
-           && p.get_speed() + p.get_max_s() > -0.00001);
   }
-#endif
   //It is possible to establish how bluish, reddish and greenish a player is
   {
     player p;
