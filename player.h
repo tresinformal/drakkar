@@ -4,6 +4,7 @@
 #include "action_type.h"
 #include "color.h"
 #include "player_shape.h"
+#include "player_state.h"
 #include <cmath>
 #include <vector>
 #include <set>
@@ -15,6 +16,7 @@ public:
     player(const double x = 0.0,
            const double y = 0.0,
            const player_shape shape = player_shape::rocket,
+           const player_state state = player_state::active,
            const double player_max_speed = 2,
            const double player_acceleration = 0.1,
            const double player_deceleration = -0.001,
@@ -40,14 +42,17 @@ public:
     /// Get the color of the player
     const color &get_color() const noexcept { return m_color; }
 
-    /// Get the X coordinat of the player
+    /// Get the X coordinate of the player
     double get_x() const noexcept;
 
-    /// Get the Y coordinat of the player
+    /// Get the Y coordinate of the player
     double get_y() const noexcept;
 
     /// Get the shape of the player
     player_shape get_shape() const noexcept { return m_shape; }
+
+    /// Get the state of the player
+    player_state get_state() const noexcept { return m_state; }
 
     /// Get the radius of the player
     double get_diameter() const noexcept;
@@ -59,6 +64,7 @@ public:
     double get_speed() const noexcept { return m_player_speed; }
 
     /// Get the speed of the player
+    /// RJCB: I suggest to rename to get_max_speed
     double get_max_s() const noexcept { return m_player_max_speed; }
 
     /// Get the direction of player movement, in radians
@@ -75,6 +81,9 @@ public:
 
     /// Set the color of the player
     void set_color(const color &c) noexcept { m_color = c; }
+
+    /// Set the color of the player
+    void set_state(const player_state &s) noexcept { m_state = s; }
 
     /// The player shoots, does nothing for now
     /// When a player shoots, 'm_is_shooting' is true for one tick.
@@ -119,6 +128,8 @@ public:
     /// Accelerate the player backward
     void acc_backward() noexcept;
 
+
+
 private:
     /// The player's color, will change depending on food items
     color m_color;
@@ -134,14 +145,17 @@ private:
     ///ID of the player
     std::string m_ID;
 
-    /// The X coordinat of the player
+    /// The X coordinate of the player
     double m_x;
 
-    /// The Y coordinat of the player
+    /// The Y coordinate of the player
     double m_y;
 
     /// The shape of the player
     player_shape m_shape;
+
+    /// The state of the player
+    player_state m_state;
 
     /// The speed of the player
     double m_player_speed = 0;
@@ -195,6 +209,15 @@ bool is_green(const player &p) noexcept;
 
 /// Is a player red?
 bool is_red(const player &p) noexcept;
+
+/// Set player to stun
+void stun(player &p) noexcept;
+
+/// Is a player active?
+bool is_active(const player &p) noexcept;
+
+/// Is a player stunned?
+bool is_stunned(const player &p) noexcept;
 
 ///Get color index
 int get_colorhash(const player &p) noexcept;

@@ -1,4 +1,4 @@
-#include "food.h"
+  #include "food.h"
 #include <cassert>
 #include <cmath>
 #include <sstream>
@@ -15,7 +15,7 @@ void test_food()
 {
 
   {
-    food f;
+    const food f;
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
   }

@@ -13,6 +13,9 @@ void test_action_type()
     assert(to_str(action_type::acc_backward) == "acc_backward");
     assert(to_str(action_type::shoot) == "shoot");
     assert(to_str(action_type::none) == "none");
+    #ifdef FIX_ISSUE_225
+    assert(to_str(action_type::stun) == "stun");
+    #endif // FIX_ISSUE_225
   }
   //
   {
