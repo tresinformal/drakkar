@@ -4,6 +4,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <algorithm>
 #include <iostream>
 
 game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelters):
@@ -54,6 +55,15 @@ game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelt
 void add_projectile(game &g, const projectile &p)
 {
   g.get_projectiles().push_back(p);
+}
+
+int count_alive_players(const game& g) noexcept
+{
+  return std::count_if(
+        g.get_v_player().begin(),
+        g.get_v_player().end(),
+        [](const player& p)
+  {return p.get_state() != player_state::dead;});
 }
 
 int count_n_projectiles(const game &g) noexcept
@@ -219,13 +229,23 @@ bool has_collision(const game &g) noexcept
   const auto n_players = static_cast<int>(g.get_v_player().size()) ;
   for (int i = 0; i < n_players; ++i)
     {
-      for (int j = i + 1; j < n_players; ++j)
+      auto& lhs_pl = g.get_player(i);
+
+      if(is_alive(lhs_pl))
         {
-          if (are_colliding(g.get_player(i), g.get_player(j)))
+          for (int j = i + 1; j < n_players; ++j)
             {
-              return true;
+              auto& rhs_pl = g.get_player(j);
+              if(is_alive(rhs_pl))
+                {
+                  if (are_colliding(lhs_pl, rhs_pl))
+                    {
+                      return true;
+                    }
+                }
             }
         }
+
     }
   return false;
 }
@@ -357,9 +377,7 @@ void game::kill_player(const int index)
 
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
-  this->m_player.erase(
-        m_player.begin() + index
-        );
+  get_player(index).set_state(player_state::dead);
 }
 
 void game::do_wall_collisions()
@@ -562,6 +580,19 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(b - a) < 0.0001);
       }
   }
+  #ifdef FIX_ISSUE_235
+  // Can get a player's size by using a free function
+  {
+    const game g;
+    const int n_players{static_cast<int>(g.get_v_player().size())}
+    for (int i = 0; i != n_players; ++i)
+    {
+      const double a{g.get_player(i).get_size()};
+      const double b{get_nth_player_size(g, i)};
+      assert(std::abs(b - a) < 0.0001);
+    }
+  }
+  #endif // FIX_ISSUE_235
   // game by default has a mix and max evironment size
   {
     game g;
@@ -634,32 +665,32 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g));
   }
-  #define FIX_ISSUE_233
+  //#define FIX_ISSUE_233
   #ifndef FIX_ISSUE_233
   // [PRS] A collision destroys a player
   {
     game g;
-    const auto n_players_before = g.get_v_player().size();
+    const auto n_alive_players_before = count_alive_players(g);
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    const auto n_players_after = g.get_v_player().size();
-    assert(n_players_after < n_players_before);
+    const auto n_alive_players_after = count_alive_players(g);
+    assert(n_alive_players_after < n_alive_players_before);
   }
   // [PRS]  A collision destroy one of the colliding player
   {
     game g;
-    const auto n_players_before = g.get_v_player().size();
+    const auto n_players_before = count_alive_players(g);
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    const auto n_players_after = g.get_v_player().size();
+    const auto n_players_after = count_alive_players(g);
     assert(n_players_after < n_players_before);
     assert(!has_collision(g));
     g.tick();
-    const auto n_player_afteragain = g.get_v_player().size();
+    const auto n_player_afteragain = count_alive_players(g);
     assert(n_player_afteragain == n_players_after);
   }
   #else // FIX_ISSUE_233
@@ -670,17 +701,38 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
-    const int winning_player_index = get_winning_player(
+    const int winning_player_index = get_winning_player_index(
       g.get_player(0), g.get_player(1))
     );
-    const int size_ = g.get_player(winning_player_index).get_size().
+    const int winning_player_size_before = g.get_player(winning_player_index).get_size();
+    const int winning_player_size_before = get_nth_player_size(g, winning_player_index);
+    // Here the magic happens
     g.tick();
-    const auto n_players_after = g.get_v_player().size();
-    assert(n_players_after < n_players_before);
+    const int winning_player_size_after = g.get_player(winning_player_index).get_size();
+    assert(winning_player_size_after > winning_player_size_before);
   }
-  #end // FIX_ISSUE_233
+  //#define FIX_ISSUE_234
+  #ifdef FIX_ISSUE_234
+  // [PRS] #234 make losing PRS player smaller
+  {
+    game g;
+    // Make player 1 and 2 overlap
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    const int losing_player_index = get_losing_player_index(
+      g.get_player(0), g.get_player(1))
+    );
+    const int losing_player_size_before = g.get_player(losing_player_index).get_size();
+    // Here the magic happens
+    g.tick();
+    const int losing_player_size_after = g.get_player(losing_player_index).get_size();
+    assert(losing_player_size_after < losing_player_size_before);
+  }
+  #endif // FIX_ISSUE_234
+  #endif // FIX_ISSUE_233
 
-  // Blue (player index 2) defeats red (player index 0)
+  // Blue defeats red
   {
     game g;
     g.get_player(2).set_x(g.get_player(0).get_x());
@@ -691,9 +743,15 @@ void test_game() //!OCLINT tests may be many
     assert(is_blue(g.get_player(2)));
     assert(g.get_v_player().size() == 3); //All three still live
     g.tick();
-    assert(g.get_v_player().size() == 2); //Red has died!
-    assert(is_green(g.get_player(0)));
-    assert(is_blue(g.get_player(1)));
+    assert(count_alive_players(g) == 2);
+    //Red has died!
+    auto& red = g.get_player(0);
+    assert(is_dead(red) && is_red(red));
+    // Green and blue survive
+    auto& green = g.get_player(1);
+    auto& blue = g.get_player(2);
+    assert(is_alive(green) && is_green(green) &&
+           is_alive(blue) && is_blue(blue));
   }
 
 
@@ -763,8 +821,8 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    assert(is_red(g.get_player(0)));
-    assert(is_blue(g.get_player(1)));
+    assert(is_alive(g.get_player(0)));
+    assert(is_dead(g.get_player(1)));
   }
 #ifdef FIX_ISSUE_VALENTINES_DAY
   //If green eats blue then green survives
@@ -831,6 +889,7 @@ void test_game() //!OCLINT tests may be many
     assert(!hits_wall(p,g.get_env()));
   }
 
+
   ///A stunned player cannot perform actions
   {
     game g;
@@ -854,6 +913,20 @@ void test_game() //!OCLINT tests may be many
     assert(!p.is_shooting());
     assert(player_copy.get_direction() == p.get_direction());
     assert(player_copy.get_speed() == p.get_speed());
+  }
+
+
+  /// When a player is killed it stays in the player vector but its state is dead
+  {
+    game g;
+
+    auto num_of_players_begin = g.get_v_player().size();
+
+    //kill the first player
+    g.kill_player(0);
+
+    assert(num_of_players_begin == g.get_v_player().size());
+    assert(is_dead(g.get_player(0)));
   }
 }
 
