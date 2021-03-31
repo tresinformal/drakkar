@@ -13,9 +13,7 @@ void test_action_type()
     assert(to_str(action_type::acc_backward) == "acc_backward");
     assert(to_str(action_type::shoot) == "shoot");
     assert(to_str(action_type::none) == "none");
-    #ifdef FIX_ISSUE_225
     assert(to_str(action_type::stun) == "stun");
-    #endif // FIX_ISSUE_225
   }
   //
   {
@@ -47,6 +45,8 @@ const std::string to_str(action_type this_action_type)
       return "acc_backward";
   case action_type::shoot:
       return "shoot";
+  case action_type::stun:
+      return "stun";
   default:
     assert(this_action_type == action_type::none );
   return "none";

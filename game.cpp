@@ -4,15 +4,21 @@
 
 #include <cassert>
 #include <cmath>
+#include <algorithm>
 #include <iostream>
 
-game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelters):
+game::game(double wall_short_side,
+           int num_players,
+           int n_ticks,
+           size_t n_shelters,
+           int n_enemies,
+           int n_food):
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
-  m_enemies{1},
+  m_enemies(n_enemies, enemy()),
   m_environment(wall_short_side),
-  m_food{1},
-  m_shelters(n_shelters)
+  m_food(n_food, food()),
+  m_shelters(n_shelters, shelter())
 {
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
@@ -54,6 +60,15 @@ game::game(double wall_short_side, int num_players, int n_ticks , size_t n_shelt
 void add_projectile(game &g, const projectile &p)
 {
   g.get_projectiles().push_back(p);
+}
+
+int count_alive_players(const game& g) noexcept
+{
+  return std::count_if(
+        g.get_v_player().begin(),
+        g.get_v_player().end(),
+        [](const player& p)
+  {return p.get_state() != player_state::dead;});
 }
 
 int count_n_projectiles(const game &g) noexcept
@@ -105,6 +120,11 @@ void game::do_action( player& player, action_type action)
         player.shoot();
         break;
       }
+  case action_type::stun:
+  {
+    stun(player);
+    break;
+  }
     case action_type::none:
       return;
     }
@@ -219,13 +239,23 @@ bool has_collision(const game &g) noexcept
   const auto n_players = static_cast<int>(g.get_v_player().size()) ;
   for (int i = 0; i < n_players; ++i)
     {
-      for (int j = i + 1; j < n_players; ++j)
+      auto& lhs_pl = g.get_player(i);
+
+      if(is_alive(lhs_pl))
         {
-          if (are_colliding(g.get_player(i), g.get_player(j)))
+          for (int j = i + 1; j < n_players; ++j)
             {
-              return true;
+              auto& rhs_pl = g.get_player(j);
+              if(is_alive(rhs_pl))
+                {
+                  if (are_colliding(lhs_pl, rhs_pl))
+                    {
+                      return true;
+                    }
+                }
             }
         }
+
     }
   return false;
 }
@@ -279,6 +309,13 @@ bool has_food_collision(const game &) noexcept
   return false;
 }
 
+bool have_same_position(const player& p, const food& f)
+{
+  return p.get_x() - f.get_x() > 0.0001 &&
+      p.get_x() - f.get_x() < -0.0001 &&
+      p.get_y() - f.get_y() > 0.0001 &&
+      p.get_y() - f.get_y() < -0.0001;
+}
 
 bool hits_upper_wall(const player& p, const environment& e)
 {
@@ -357,9 +394,7 @@ void game::kill_player(const int index)
 
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
-  this->m_player.erase(
-        m_player.begin() + index
-        );
+  get_player(index).set_state(player_state::dead);
 }
 
 void game::do_wall_collisions()
@@ -634,34 +669,34 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g));
   }
-  // A collision destroys a player
+  // A collision kills a player
   {
     game g;
-    const auto n_players_before = g.get_v_player().size();
+    const auto n_alive_players_before = count_alive_players(g);
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    const auto n_players_after = g.get_v_player().size();
-    assert(n_players_after < n_players_before);
+    const auto n_alive_players_after = count_alive_players(g);
+    assert(n_alive_players_after < n_alive_players_before);
   }
   // A collision destroy one of the colliding player
   {
     game g;
-    const auto n_players_before = g.get_v_player().size();
+    const auto n_players_before = count_alive_players(g);
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    const auto n_players_after = g.get_v_player().size();
+    const auto n_players_after = count_alive_players(g);
     assert(n_players_after < n_players_before);
     assert(!has_collision(g));
     g.tick();
-    const auto n_player_afteragain = g.get_v_player().size();
+    const auto n_player_afteragain = count_alive_players(g);
     assert(n_player_afteragain == n_players_after);
   }
 
-  // Blue (player index 2) defeats red (player index 0)
+  // Blue defeats red
   {
     game g;
     g.get_player(2).set_x(g.get_player(0).get_x());
@@ -672,9 +707,15 @@ void test_game() //!OCLINT tests may be many
     assert(is_blue(g.get_player(2)));
     assert(g.get_v_player().size() == 3); //All three still live
     g.tick();
-    assert(g.get_v_player().size() == 2); //Red has died!
-    assert(is_green(g.get_player(0)));
-    assert(is_blue(g.get_player(1)));
+    assert(count_alive_players(g) == 2);
+    //Red has died!
+    auto& red = g.get_player(0);
+    assert(is_dead(red) && is_red(red));
+    // Green and blue survive
+    auto& green = g.get_player(1);
+    auto& blue = g.get_player(2);
+    assert(is_alive(green) && is_green(green) &&
+           is_alive(blue) && is_blue(blue));
   }
 
 
@@ -744,8 +785,8 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
     g.tick();
-    assert(is_red(g.get_player(0)));
-    assert(is_blue(g.get_player(1)));
+    assert(is_alive(g.get_player(0)));
+    assert(is_dead(g.get_player(1)));
   }
 #ifdef FIX_ISSUE_VALENTINES_DAY
   //If green eats blue then green survives
@@ -812,6 +853,7 @@ void test_game() //!OCLINT tests may be many
     assert(!hits_wall(p,g.get_env()));
   }
 
+
   ///A stunned player cannot perform actions
   {
     game g;
@@ -836,5 +878,52 @@ void test_game() //!OCLINT tests may be many
     assert(player_copy.get_direction() == p.get_direction());
     assert(player_copy.get_speed() == p.get_speed());
   }
+
+  /// When a player is killed it stays in the player vector but its state is dead
+  {
+    game g;
+
+    auto num_of_players_begin = g.get_v_player().size();
+
+    //kill the first player
+    g.kill_player(0);
+
+    assert(num_of_players_begin == g.get_v_player().size());
+    assert(is_dead(g.get_player(0)));
+  }
+
+#ifdef FIX_ISSUE_236
+  //When a player touches food it destroys it
+  {
+
+    game g;
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    assert(has_food(g))
+    assert(has_player_food_collision(g));
+    g.tick();
+    assert(!has_food(g));
+
+  }
+#endif
+
+#ifdef FIX_ISSUE_237
+//Food and player can be overlapped
+  {
+    food f;
+    player p;
+    put_player_on_food(p, f);
+    assert(have_same_position(p,f));
+  }
+#endif
+
+#ifdef FIX_ISSUE_238
+//Food and player can be overlapped
+  {
+    game g;
+    assert(!has_player_food_collision(g));
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    assert(has_player_food_collision(g));
+  }
+#endif
 }
 

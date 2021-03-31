@@ -64,6 +64,7 @@ public:
     double get_speed() const noexcept { return m_player_speed; }
 
     /// Get the speed of the player
+    /// RJCB: I suggest to rename to get_max_speed
     double get_max_s() const noexcept { return m_player_max_speed; }
 
     /// Get the direction of player movement, in radians
@@ -212,8 +213,14 @@ bool is_red(const player &p) noexcept;
 /// Set player to stun
 void stun(player &p) noexcept;
 
+/// Is a player alive?
+bool is_alive(const player& p) noexcept;
+
 /// Is a player active?
 bool is_active(const player &p) noexcept;
+
+/// Is a player dead?
+bool is_dead(const player& p) noexcept;
 
 /// Is a player stunned?
 bool is_stunned(const player &p) noexcept;

@@ -148,9 +148,19 @@ void stun(player &p) noexcept
     p.set_state(player_state::stunned);
 }
 
+bool is_alive(const player& p) noexcept
+{
+  return !is_dead(p);
+}
+
 bool is_active(const player & p) noexcept
 {
     return p.get_state() == player_state::active;
+}
+
+bool is_dead(const player& p) noexcept
+{
+  return p.get_state() == player_state::dead;
 }
 
 bool is_stunned(const player & p) noexcept
@@ -382,10 +392,13 @@ void test_player() //!OCLINT tests may be long
     assert(!p.get_action_set().count(action1));
     assert(p.get_action_set().count(action2));
   }
-//#define FIX_ISSUE_193
+
 #ifdef FIX_ISSUE_193
   // A player increases its speed by one 'acceleration' per acceleration
   {
+      // RJCB: I see the point you try to make here:
+      // this is a prelude to the next test.
+      // I suggest to merge the two tests into one
       player p;
       p.accelerate();
       assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
@@ -395,6 +408,9 @@ void test_player() //!OCLINT tests may be long
   {
       player p;
       p.acc_backward();
+      // RJCB: I would prefer a
+      // stdd::abs(p.get_speed() - p.get_acceleration_backward())
+      // to show this is about a difference between twee values
       assert(p.get_speed() - p.get_acceleration_backward() < 0.00000000001);
   }
   // A players speed after one 'acceleration' is less than max_speed
@@ -408,6 +424,31 @@ void test_player() //!OCLINT tests may be long
       player p;
       p.acc_backward();
       assert(p.get_speed() > -p.get_max_s());
+  }
+  // RJCB: my suggested test
+  // A players goes ?right/?up upon acceleraton
+  {
+      player p_forward;
+      p_forward.accelerate();
+      assert(get_dx(p_forward) > 0.0); // Get the delta x, maybe needs to be added
+      assert(get_dy(p_forward) > 0.0); // Get the delta x, maybe needs to be added
+      player p_backward;
+      p_backward.acc_backward();
+      assert(get_dx(p_backward) < 0.0); // Signs should flip
+      assert(get_dy(p_backward) < 0.0); // Signs should flip
+  }
+  // RJCB: another suggested test
+  // A players actually goes backwards after some backwards accelerations
+  {
+      player p;
+      p.accelerate();
+      assert(get_dx(p) > 0.0); // Get the delta x, maybe needs to be added
+      assert(get_dy(p) > 0.0); // Get the delta x, maybe needs to be added
+      p.acc_backward();
+      p.acc_backward();
+      p.acc_backward();
+      assert(get_dx(p) < 0.0); // Signs should flip
+      assert(get_dy(p) < 0.0); // Signs should flip
   }
 #endif
   //When a player is standing still,
@@ -502,7 +543,6 @@ void test_player() //!OCLINT tests may be long
         assert(get_redness(p) == redness);
         assert(get_greenness(p) == greenness);
   }
-
   ///A player has an ID
   {
         std::string ID = "1";
@@ -510,20 +550,22 @@ void test_player() //!OCLINT tests may be long
         p.set_ID(ID);
         assert(p.get_ID() == ID);
   }
-
   //A player is by default initiated with state == "active
   {
        const player p{};
        assert(p.get_state() == player_state::active);
    }
 
+#ifdef FIX_ISSUE_193
    // A player object can be initialized to a stunned state
    {
        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
        assert(p.get_state() ==  player_state::stunned);
        assert(p.get_state() !=  player_state::active);
+    assert(p.get_speed() + p.get_max_s() < 0.00001
+           && p.get_speed() + p.get_max_s() > -0.00001);
   }
-
+#endif
   //It is possible to establish how bluish, reddish and greenish a player is
   {
     player p;
