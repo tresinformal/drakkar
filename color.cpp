@@ -70,7 +70,8 @@ void test_color()
         const color c;
         std::cout << c;
     }
-    #endif // FIX_ISSUE_211
+    #endif // FIX_ISSUE_211 //the code above seems already solved the issue
+
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept
