@@ -928,7 +928,6 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define  FIX_ISSUE_244
 #ifdef FIX_ISSUE_244
   {
     game g;
@@ -936,6 +935,18 @@ void test_game() //!OCLINT tests may be many
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_player(0).get_diameter() > init_player_size);
+
+  }
+#endif
+
+#define FIX_ISSUE_247
+#ifdef FIX_ISSUE_247
+  {
+    player p;
+    food f;
+    assert(!player_and_food_are_colliding(p,f));
+    put_player_on_food(p,f);
+    assert(player_and_food_are_colliding(p,f));
 
   }
 #endif
