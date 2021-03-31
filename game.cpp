@@ -788,6 +788,8 @@ void test_game() //!OCLINT tests may be many
     assert(is_alive(g.get_player(0)));
     assert(is_dead(g.get_player(1)));
   }
+
+#define FIX_ISSUE_VALENTINES_DAY
 #ifdef FIX_ISSUE_VALENTINES_DAY
   //If green eats blue then green survives
   {
@@ -923,6 +925,18 @@ void test_game() //!OCLINT tests may be many
     assert(!has_player_food_collision(g));
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     assert(has_player_food_collision(g));
+  }
+#endif
+
+#define  FIX_ISSUE_244
+#ifdef FIX_ISSUE_244
+  {
+    game g;
+    auto init_player_size = g.get_player(0).get_diameter();
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    g.tick();
+    assert(g.get_player(0).get_diameter() > init_player_size);
+
   }
 #endif
 }
