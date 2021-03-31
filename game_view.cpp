@@ -394,6 +394,18 @@ void test_game_view()//!OCLINT tests may be many
         assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
 
     }
+  //#define FIX_ISSUE_224
+  #ifdef FIX_ISSUE_224
+  // Pressing 1 stuns player 1
+  {
+    game_view g;
+    assert(!is_nth_player_stunned(g, 0));
+    g.press_key(sf::Keyboard::Num1);
+    g.process_events(); // Needed to process the event
+    assert(is_nth_player_stunned(g, 0));
+  }
+  #endif // FIX_ISSUE_224
+
 }
 
 
