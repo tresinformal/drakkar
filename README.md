@@ -9,6 +9,8 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=swom)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=swom)](https://codecov.io/github/tresinformal/game/branch/swom)
 `xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
+`theo`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
+
 
 :warning: due to a new team being formed, I added question marks before
 all team members' names
@@ -76,6 +78,7 @@ Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
 Sebastian | @sebmader          |Lead Sound
 Stefano   | @swom              |
 Xiaoyan   |                    |
+Theo 	  | @TheoPannetier     |Junior Developer, Game Design, Tester?
 
 :warning: this list may be incomplete :warning:
 
@@ -196,5 +199,4 @@ Most recent at the top.
 ![](pics/20191024.png) 
 
 ![](pics/20190929.png)
-
 
