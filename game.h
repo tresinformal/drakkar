@@ -17,7 +17,12 @@
 class game
 {
 public:
-  game(double wall_short_side = 1600, int num_players = 3, int n_ticks = 0, std::size_t n_shelters = 3);
+  game(double wall_short_side = 1600,
+       int num_players = 3,
+       int n_ticks = 0,
+       std::size_t n_shelters = 3,
+       int n_enemies = 1,
+       int n_food = 1);
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -142,6 +147,8 @@ void add_projectile(game& g, const projectile& p);
 /// Count the number of projectiles in the game
 int count_n_projectiles(const game &g) noexcept;
 
+int count_alive_players(const game& g) noexcept;
+
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
@@ -153,6 +160,9 @@ bool has_enemy_collision(const game& g);
 
 ///Checks if there are collisions with food items
 bool has_food_collision(const game &) noexcept;
+
+///Checks if a player and food have the same exact position
+bool have_same_position(const player& p, const food& f);
 
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
