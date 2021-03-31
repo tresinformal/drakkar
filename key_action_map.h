@@ -14,7 +14,8 @@ public:
     const sf::Keyboard::Key& key_to_go_right = sf::Keyboard::D,
     const sf::Keyboard::Key& key_to_accelerate = sf::Keyboard::W,
     const sf::Keyboard::Key& key_to_brake = sf::Keyboard::S,
-    const sf::Keyboard::Key& key_to_shoot = sf::Keyboard::Q
+    const sf::Keyboard::Key& key_to_shoot = sf::Keyboard::Q,
+    const sf::Keyboard::Key& key_to_stun = sf::Keyboard::Num1
   );
 
   ///Find out which action is triggered by that key

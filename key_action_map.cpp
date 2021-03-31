@@ -6,13 +6,15 @@ key_action_map::key_action_map(
         const sf::Keyboard::Key& key_to_go_right,
         const sf::Keyboard::Key& key_to_accelerate,
         const sf::Keyboard::Key& key_to_brake,
-        const sf::Keyboard::Key& key_to_shoot
+        const sf::Keyboard::Key& key_to_shoot,
+        const sf::Keyboard::Key& key_to_stun
         ) : m_map {
 {key_to_go_left, action_type::turn_left},
 {key_to_go_right, action_type::turn_right},
 {key_to_accelerate, action_type::accelerate},
 {key_to_brake, action_type::brake},
-{key_to_shoot, action_type::shoot}
+{key_to_shoot, action_type::shoot},
+{key_to_stun, action_type::stun}
                 }
 {
 }
@@ -65,9 +67,7 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(m.to_action(sf::Keyboard::W) == action_type::accelerate);
         assert(m.to_action(sf::Keyboard::S) == action_type::brake);
         assert(m.to_action(sf::Keyboard::Q) == action_type::shoot);
-        #ifdef FIX_ISSUE_242
         assert(m.to_action(sf::Keyboard::Num1) == action_type::stun);
-        #endif // FIX_ISSUE_242
     }
     {
         const key_action_map m = get_player_0_kam();
