@@ -77,6 +77,7 @@ Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
 Sebastian | @sebmader          |Lead Sound
 Stefano   | @swom              |
 Xiaoyan   |                    |
+Theo 	  | @TheoPannetier     |Junior Developer, Game Design, Tester?
 
 :warning: this list may be incomplete :warning:
 
