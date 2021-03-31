@@ -64,13 +64,13 @@ void test_color()
         const color c;
         s << c;
     }
-  //#define FIX_ISSUE_211
-  #ifdef FIX_ISSUE_211
-  {
-    const color c;
-    std::cout << c;
-  }
-  #endif // FIX_ISSUE_211
+    //#define FIX_ISSUE_211
+    #ifdef FIX_ISSUE_211
+    {
+        const color c;
+        std::cout << c;
+    }
+    #endif // FIX_ISSUE_211
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept
