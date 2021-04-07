@@ -718,14 +718,11 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
-    const int winning_player_index = get_winning_player_index(
-      g.get_player(0), g.get_player(1))
-    );
-    const int winning_player_size_before = g.get_player(winning_player_index).get_size();
+    const int winning_player_index = get_winning_player_index(g, 0, 1);
     const int winning_player_size_before = get_nth_player_size(g, winning_player_index);
     // Here the magic happens
     g.tick();
-    const int winning_player_size_after = g.get_player(winning_player_index).get_size();
+    const int winning_player_size_after = get_nth_player_size(g, winning_player_index);
     assert(winning_player_size_after > winning_player_size_before);
   }
   //#define FIX_ISSUE_234
@@ -737,9 +734,7 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
-    const int losing_player_index = get_losing_player_index(
-      g.get_player(0), g.get_player(1))
-    );
+    const int losing_player_index = get_losing_player_index(g, 0, 1);
     const int losing_player_size_before = get_nth_player_size(g, losing_player_index);
     // Here the magic happens
     g.tick();
