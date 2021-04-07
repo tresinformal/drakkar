@@ -26,6 +26,11 @@ void test_food_type()
     s << food_type::poison;
     assert(!s.str().empty());
   }
+    assert(to_str(food_type::rocket) == std::string("rocket"));
+    assert(to_str(food_type::potion_of_camouflage) == std::string("potion_of_camouflage"));
+    assert(to_str(food_type::neutral) == std::string("neutral"));
+    assert(to_str(food_type::laser) == std::string("laser"));
+    assert(to_str(food_type::poison) == std::string("poison"));
 }
 
 std::ostream &operator<<(std::ostream &os, const food_type t)
@@ -44,6 +49,8 @@ std::string to_str(food_type this_food_type) noexcept
   {
   case food_type::rocket:
     return "rocket";
+  case food_type::potion_of_camouflage:
+    return "potion_of_camouflage";
   case food_type::laser:
     return "laser";
   case food_type::poison:

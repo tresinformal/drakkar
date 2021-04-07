@@ -1007,5 +1007,14 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#ifdef FIX_ISSUE_254
+  {
+    game g;
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    g.tick();
+    assert(is_eaten(g.get_food()[0]))
+  }
+#endif
+
 }
 

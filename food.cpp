@@ -52,4 +52,11 @@ void test_food()
   }
 #endif
 
+#ifdef FIX_ISSUE_260
+  {
+    food f; //by default uneaten
+    assert(!is_eaten(f));
+  }
+#endif
+
 }
