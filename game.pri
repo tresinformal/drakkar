@@ -1,5 +1,6 @@
 # Files
 HEADERS += \
+    $$PWD/food_state.h \
     $$PWD/player_state.h \
     action_type.h \
     enemy.h \
@@ -25,6 +26,7 @@ HEADERS += \
     optional.h
 
 SOURCES += \
+    $$PWD/food_state.cpp \
     $$PWD/player_state.cpp \
     action_type.cpp \
     enemy.cpp \
