@@ -1016,5 +1016,14 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#ifdef FIX_ISSUE_261
+  {
+    game g; //by default one uneaten food
+    assert(has_food(g));
+    g.get_food().set_state(food_state::eaten);
+    assert(!has_food(g));
+  }
+#endif
+
 }
 
