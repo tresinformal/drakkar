@@ -904,6 +904,7 @@ void test_game() //!OCLINT tests may be many
     assert(has_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
+    assert(!has_player_food_collision(g));
 
   }
 #endif
@@ -931,7 +932,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_244
   {
     game g;
-    auto init_player_size = g.get_player(0).get_diameter();
+    const auto init_player_size = get_nth_player_diameter(g,0);
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_player(0).get_diameter() > init_player_size);
@@ -939,7 +940,6 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define FIX_ISSUE_247
 #ifdef FIX_ISSUE_247
   {
     player p;
@@ -950,5 +950,14 @@ void test_game() //!OCLINT tests may be many
 
   }
 #endif
+
+#ifdef FIX_ISSUE_248
+  {
+    game g;
+    auto first_player_diam = get_nth_player_diameter(g,0);
+    assert(first_player_diam = g.get_player(0).get_diameter());
+  }
+#endif
+
 }
 
