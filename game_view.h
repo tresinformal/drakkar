@@ -94,4 +94,6 @@ player player_input(player p, sf::Event event);
 
 void test_game_view();
 
+bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
+
 #endif // GAME_VIEW_H

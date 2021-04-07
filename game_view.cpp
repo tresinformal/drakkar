@@ -271,6 +271,12 @@ key_action_map get_player_kam(const player& p)
     }
 }
 
+bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
+{
+    game g1 = g.get_game();
+    player p1 = g1.get_player(p);
+    return is_stunned(p1);
+}
 
 void test_game_view()//!OCLINT tests may be many
 {
@@ -309,7 +315,7 @@ void test_game_view()//!OCLINT tests may be many
         }
     }
 
-    //Each view port will also be half the dimaensions of the render window
+    //Each view port will also be half the dimensions of the render window
     //View will be initialized for the three default player like this
     //     Screen.begin                                  Screen.end
     //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
@@ -321,7 +327,7 @@ void test_game_view()//!OCLINT tests may be many
     //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
     //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
     //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //!!!!this test looks tauthological to me. Do not knwo how to make it better @swom
+    //!!!!this test looks tauthological to me. Do not know how to make it better @swom
     {
         game_view v;
 
@@ -332,7 +338,7 @@ void test_game_view()//!OCLINT tests may be many
 
     //It is possible to access the game options
     //the command .is_playing_music() is irrelevant
-    //is just to see if get_options() correctlu returns the game options
+    //is just to see if get_options() correctly returns the game options
     {
         game_view v;
         assert(v.get_options().is_playing_music());
@@ -395,17 +401,20 @@ void test_game_view()//!OCLINT tests may be many
         assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
 
     }
+
+
   //#define FIX_ISSUE_224
-  #ifdef FIX_ISSUE_224
   // Pressing 1 stuns player 1
   {
     game_view g;
     assert(!is_nth_player_stunned(g, 0));
+    #ifdef FIX_ISSUE_224
     g.press_key(sf::Keyboard::Num1);
     g.process_events(); // Needed to process the event
     assert(is_nth_player_stunned(g, 0));
+#endif
+
   }
-  #endif // FIX_ISSUE_224
 
 }
 
