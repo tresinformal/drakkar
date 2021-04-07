@@ -740,10 +740,10 @@ void test_game() //!OCLINT tests may be many
     const int losing_player_index = get_losing_player_index(
       g.get_player(0), g.get_player(1))
     );
-    const int losing_player_size_before = g.get_player(losing_player_index).get_size();
+    const int losing_player_size_before = get_nth_player_size(g, losing_player_index);
     // Here the magic happens
     g.tick();
-    const int losing_player_size_after = g.get_player(losing_player_index).get_size();
+    const int losing_player_size_after = get_nth_player_size(g, losing_player_index);
     assert(losing_player_size_after < losing_player_size_before);
   }
   #endif // FIX_ISSUE_234
