@@ -26,6 +26,11 @@ void test_food_type()
     s << food_type::poison;
     assert(!s.str().empty());
   }
+    assert(to_str(food_type::rocket) == std::string("rocket"));
+    assert(to_str(food_type::potion_of_camouflage) == std::string("potion_of_camouflage"));
+    assert(to_str(food_type::neutral) == std::string("neutral"));
+    assert(to_str(food_type::laser) == std::string("laser"));
+    assert(to_str(food_type::poison) == std::string("poison"));
 }
 
 std::ostream &operator<<(std::ostream &os, const food_type t)
