@@ -13,6 +13,7 @@ color::color(const int r, const int g, const int b, const int a)
     assert(m_r <= 255);
     assert(m_g >= 0);
     assert(m_g <= 255);
+    assert(m_g <= 256);
     assert(m_b >= 0);
     assert(m_b <= 255);
     assert(m_a >= 0);
