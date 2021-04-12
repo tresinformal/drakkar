@@ -64,14 +64,10 @@ void test_color()
         const color c;
         s << c;
     }
-    //#define FIX_ISSUE_211
-    #ifdef FIX_ISSUE_211
     {
         const color c;
         std::cout << c;
     }
-    #endif // FIX_ISSUE_211 //the code above seems already solved the issue
-
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept
@@ -88,7 +84,7 @@ bool operator!=(const color& lhs, const color& rhs) noexcept
   return !(lhs == rhs);
 }
 
-std::stringstream& operator << (std::stringstream &out, const color &color)
+std::ostream& operator << (std::ostream &out, const color &color)
 {
     out << "Color(" << std::to_string(color.get_red()) <<
            ", " << std::to_string(color.get_green()) <<
