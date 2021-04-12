@@ -718,14 +718,11 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
-    const int winning_player_index = get_winning_player_index(
-      g.get_player(0), g.get_player(1))
-    );
-    const int winning_player_size_before = g.get_player(winning_player_index).get_size();
+    const int winning_player_index = get_winning_player_index(g, 0, 1);
     const int winning_player_size_before = get_nth_player_size(g, winning_player_index);
     // Here the magic happens
     g.tick();
-    const int winning_player_size_after = g.get_player(winning_player_index).get_size();
+    const int winning_player_size_after = get_nth_player_size(g, winning_player_index);
     assert(winning_player_size_after > winning_player_size_before);
   }
   //#define FIX_ISSUE_234
@@ -737,13 +734,11 @@ void test_game() //!OCLINT tests may be many
     g.get_player(1).set_x(g.get_player(0).get_x());
     g.get_player(1).set_y(g.get_player(0).get_y());
     assert(has_collision(g));
-    const int losing_player_index = get_losing_player_index(
-      g.get_player(0), g.get_player(1))
-    );
-    const int losing_player_size_before = g.get_player(losing_player_index).get_size();
+    const int losing_player_index = get_losing_player_index(g, 0, 1);
+    const int losing_player_size_before = get_nth_player_size(g, losing_player_index);
     // Here the magic happens
     g.tick();
-    const int losing_player_size_after = g.get_player(losing_player_index).get_size();
+    const int losing_player_size_after = get_nth_player_size(g, losing_player_index);
     assert(losing_player_size_after < losing_player_size_before);
   }
   #endif // FIX_ISSUE_234
@@ -841,6 +836,8 @@ void test_game() //!OCLINT tests may be many
     assert(is_alive(g.get_player(0)));
     assert(is_dead(g.get_player(1)));
   }
+
+#define FIX_ISSUE_VALENTINES_DAY
 #ifdef FIX_ISSUE_VALENTINES_DAY
   //If green eats blue then green survives
   {
@@ -955,6 +952,7 @@ void test_game() //!OCLINT tests may be many
     assert(has_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
+    assert(!has_player_food_collision(g));
 
   }
 #endif
@@ -978,5 +976,54 @@ void test_game() //!OCLINT tests may be many
     assert(has_player_food_collision(g));
   }
 #endif
+
+#ifdef FIX_ISSUE_244
+  {
+    game g;
+    const auto init_player_size = get_nth_player_diameter(g,0);
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    g.tick();
+    assert(g.get_player(0).get_diameter() > init_player_size);
+
+  }
+#endif
+
+#ifdef FIX_ISSUE_247
+  {
+    player p;
+    food f;
+    assert(!player_and_food_are_colliding(p,f));
+    put_player_on_food(p,f);
+    assert(player_and_food_are_colliding(p,f));
+
+  }
+#endif
+
+#ifdef FIX_ISSUE_248
+  {
+    game g;
+    auto first_player_diam = get_nth_player_diameter(g,0);
+    assert(first_player_diam = g.get_player(0).get_diameter());
+  }
+#endif
+
+#ifdef FIX_ISSUE_254
+  {
+    game g;
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    g.tick();
+    assert(is_eaten(g.get_food()[0]))
+  }
+#endif
+
+#ifdef FIX_ISSUE_261
+  {
+    game g; //by default one uneaten food
+    assert(has_food(g));
+    g.get_food().set_state(food_state::eaten);
+    assert(!has_food(g));
+  }
+#endif
+
 }
 
