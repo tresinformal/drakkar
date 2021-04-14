@@ -9,6 +9,7 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=swom)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=swom)](https://codecov.io/github/tresinformal/game/branch/swom)
 `xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
+`pavel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 
 :warning: due to a new team being formed, I added question marks before
 all team members' names
