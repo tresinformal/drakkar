@@ -123,7 +123,7 @@ Date       |Activity
 ## I am a newbie developer. What must I do?
 
 Welcome to the team! Here is a more-or-less-chronological (i.e. if you
-get stuck, start working on the next one) list what to do:
+get stuck, start working on the next one) list of what to do:
 
  * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
  * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)
