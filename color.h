@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 class color
 {
 public:
@@ -53,6 +54,6 @@ bool operator==(const color& lhs, const color& rhs) noexcept;
 bool operator!=(const color& lhs, const color& rhs) noexcept;
 
 /// Implement stream operator
-std::stringstream& operator << (std::stringstream &out, const color &color);
+std::ostream& operator << (std::ostream &out, const color &color);
 
 #endif // COLOR_H
