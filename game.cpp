@@ -457,6 +457,14 @@ void test_game() //!OCLINT tests may be many
     const game g;
     assert(!g.get_enemies().empty());
   }
+  //#define FIX_ISSUE_267
+  #ifdef FIX_ISSUE_267
+  // A game has game_options
+  {
+    const game g;
+    assert(g.get_game_options().is_playing_music());
+  }
+  #endif // FIX_ISSUE_267
   // A game responds to actions: player can turn left
   {
     game g;
