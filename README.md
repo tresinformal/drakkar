@@ -9,6 +9,7 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=swom)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=swom)](https://codecov.io/github/tresinformal/game/branch/swom)
 `xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
+`pavel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 
 :warning: due to a new team being formed, I added question marks before
 all team members' names
@@ -123,7 +124,7 @@ Date       |Activity
 ## I am a newbie developer. What must I do?
 
 Welcome to the team! Here is a more-or-less-chronological (i.e. if you
-get stuck, start working on the next one) list what to do:
+get stuck, start working on the next one) list of what to do:
 
  * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
  * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)
