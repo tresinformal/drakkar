@@ -136,6 +136,11 @@ void game_view::draw_food() noexcept
     m_window.draw(foodsprite);
 }
 
+void game_view::press_key(const sf::Keyboard::Key&)
+{
+    this->m_game.do_action(0,action_type::stun);
+}
+
 
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 //! shorten
@@ -408,12 +413,9 @@ void test_game_view()//!OCLINT tests may be many
   {
     game_view g;
     assert(!is_nth_player_stunned(g, 0));
-    #ifdef FIX_ISSUE_224
     g.press_key(sf::Keyboard::Num1);
     g.process_events(); // Needed to process the event
     assert(is_nth_player_stunned(g, 0));
-#endif
-
   }
 
 }

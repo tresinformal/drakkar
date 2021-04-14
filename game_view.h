@@ -51,6 +51,9 @@ public:
   ///Gets constant ref to sf::RenderWindow m_window
   const sf::RenderWindow& get_window() const noexcept {return m_window; }
 
+  ///Pushes key
+  void press_key(const sf::Keyboard::Key& k);
+
 private:
   /// The game logic
   game m_game;
@@ -84,7 +87,6 @@ private:
 
   /// Draws shelters
   void draw_shelters() noexcept;
-
 };
 
 key_action_map get_player_kam(const player& p);
