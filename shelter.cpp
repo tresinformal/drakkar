@@ -92,4 +92,13 @@ void test_shelter() //!OCLINT tests may be complex
     assert(get_opaqueness(s) == a);
     assert(get_redness(s) == r);
   }
+  //#define FIX_ISSUE_264
+  #ifdef FIX_ISSUE_264
+  // Conversion to string
+  {
+    const shelter s(1.2, 3.4, 5.6, color(7, 8, 9, 10));
+    const std::string t = to_str(s);
+    assert(!t.empty());
+  }
+  #endif // FIX_ISSUE_264
 }
