@@ -62,6 +62,11 @@ void add_projectile(game &g, const projectile &p)
   g.get_projectiles().push_back(p);
 }
 
+double get_nth_player_size(const game& g, const int i)
+{
+    return g.get_player(i).get_size();
+}
+
 int count_alive_players(const game& g) noexcept
 {
   return std::count_if(
@@ -597,7 +602,6 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(b - a) < 0.0001);
       }
   }
-  #ifdef FIX_ISSUE_235
   // Can get a player's size by using a free function
   {
     const game g;
@@ -609,7 +613,6 @@ void test_game() //!OCLINT tests may be many
       assert(std::abs(b - a) < 0.0001);
     }
   }
-  #endif // FIX_ISSUE_235
   // game by default has a mix and max evironment size
   {
     game g;
