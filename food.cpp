@@ -11,6 +11,13 @@ food::food(const double x, const double y, const color &c)
 double food::get_x() const noexcept { return m_x; }
 double food::get_y() const noexcept { return m_y; }
 
+std::ostream &operator<<(std::ostream &os, const food f)
+{
+  os << "x : "<<f.get_x()<<
+        "y : "<<f.get_y();
+  return os;
+}
+
 void test_food()
 {
 
@@ -34,15 +41,13 @@ void test_food()
     assert(std::abs(f.get_x() - x) < 0.00001);
     assert(std::abs(f.get_y() - y) < 0.00001);
   }
-  //#define FIX_ISSUE_206
-  #ifdef FIX_ISSUE_206
+
   {
     const food f(3.14, 2.71);
     std::stringstream s;
     s << f;
     assert(!s.str().empty());
   }
-  #endif // FIX_ISSUE_206
 
 #ifdef FIX_ISSUE_253
   //A food has a food_state member initialized to ::uneaten by default
@@ -67,4 +72,23 @@ void test_food()
   }
 #endif
 
+#ifdef FIX_ISSUE_258a
+  //A food has a regeneration time
+  {
+    food f;
+    assert(f.get_regeneration_time() || !f.get_regeneration_time());
+  }
+#endif
+
+#ifdef FIX_ISSUE_258b
+  //A food has a regeneration time member that cna be initialized, by default == 10
+  {
+    const int regeneration_time = 31415;
+    const food f2{0,0,color(), regeneration_time};
+    assert(f.get_regeneration_time() == regeneration_time);
+  }
+#endif
+
 }
+
+
