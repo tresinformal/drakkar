@@ -13,8 +13,10 @@ CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
 # High warning levels
-QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
+
 # A warning is an error
+QMAKE_CXXFLAGS += -Werror
 
 # Debug and release settings
 CONFIG += debug_and_release
