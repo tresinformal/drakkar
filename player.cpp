@@ -246,7 +246,7 @@ void test_player() //!OCLINT tests may be long
   // A player has a max_speed of 2(arbitrary value for now)
   {
     const player p;
-    assert(p.get_max_s() - 2 < 0.000000000001);
+    assert(p.get_max_speed() - 2 < 0.000000000001);
   }
   // A player has a default acceleration of 0.1 per frame
   {
@@ -508,20 +508,20 @@ void test_player() //!OCLINT tests may be long
   {
     player p;
     int n_of_accelerations = 1000;
-    assert(p.get_acceleration() * n_of_accelerations > p.get_max_s());
+    assert(p.get_acceleration() * n_of_accelerations > p.get_max_speed());
     for(int i = 0; i != n_of_accelerations; i++ )
       {
         p.accelerate();
       }
-    assert(p.get_speed() - p.get_max_s() < 0.00001
-           && p.get_speed() - p.get_max_s() > -0.00001);
+    assert(p.get_speed() - p.get_max_speed() < 0.00001
+           && p.get_speed() - p.get_max_speed() > -0.00001);
   }
 
   //A player cannot surpass its negative max_speed
   {
     player p;
     int n_of_accelerations = 1000;
-    assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
+    assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed());
     for(int i = 0; i != n_of_accelerations; i++ )
     {
       p.acc_backward();
@@ -536,27 +536,27 @@ void test_player() //!OCLINT tests may be long
   {
         player p;
         int n_of_accelerations = 1000;
-        assert(p.get_acceleration() * n_of_accelerations > p.get_max_s());
+        assert(p.get_acceleration() * n_of_accelerations > p.get_max_speed());
         for(int i = 0; i != n_of_accelerations; i++ )
         {
             p.accelerate();
         }
-        assert(p.get_speed() - p.get_max_s() < 0.00001
-               && p.get_speed() - p.get_max_s() > -0.00001);
+        assert(p.get_speed() - p.get_max_speed() < 0.00001
+               && p.get_speed() - p.get_max_speed() > -0.00001);
   }
 
   //A player cannot surpass its negative max_speed
   {
         player p;
         int n_of_accelerations = 1000;
-        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
+        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed());
         for(int i = 0; i != n_of_accelerations; i++ )
         {
             p.acc_backward();
         }
 
-        assert(p.get_speed() + p.get_max_s() < 0.00001
-               && p.get_speed() + p.get_max_s() > -0.00001);
+        assert(p.get_speed() + p.get_max_speed() < 0.00001
+               && p.get_speed() + p.get_max_speed() > -0.00001);
   }
 
   //It is possible to establish how bluish, reddish and greenish a player is
