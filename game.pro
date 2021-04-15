@@ -13,10 +13,8 @@ CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
 # High warning levels
-QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
-
+QMAKE_CXXFLAGS += -Wall
 # A warning is an error
-QMAKE_CXXFLAGS += -Werror
 
 # Debug and release settings
 CONFIG += debug_and_release
@@ -35,8 +33,10 @@ unix:!macx {
 win32{
   INCLUDEPATH += C:/Qt/sfml/include
   INCLUDEPATH += D:/Qt/sfml/include
+  INCLUDEPATH += C:/DEV/SFML-2.5.1/include
   LIBS += -LC:/Qt/sfml/lib
   LIBS += -LD:/Qt/sfml/lib
+  LIBS += -LC:/DEV/SFML-2.5.1/lib
   CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }
