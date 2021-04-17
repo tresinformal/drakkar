@@ -11,12 +11,9 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
 `xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
 
-:warning: due to a new team being formed, I added question marks before
-all team members' names
-
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
-The TRES video game.
+A video game, developed informally and professionally.
 
 ## Coding via Discord
 
