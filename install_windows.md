@@ -1,26 +1,27 @@
 # [Install](install.md) on Windows
 
+  0. Get the right version
   1. Download and install Qt Creator (once)
   2. Download and install SFML (once)
   3. Let Qt Creator find SFML library (once per project file)
 
-## Get the right version
+## 0. Get the right version
 
 The hardest part about the installation is to realize that using
 the correct version really matters,
-in all three cases. Here is a zoom-in off all three cases:
+in all three cases. Here is a zoom-in off all three cases.
+
+The SFML version:
 
 ![](sfml_version_zoom.png)
 
-> The SFML version
+The Qt version:
 
 ![](qt_maintenance_tool_1_zoom.png)
 
-> The Qt version
+The Qt tool version:
 
 ![](qt_maintenance_tool_2_zoom.png)
-
-> The Qt tools versions
 
 Look how nice they match :-)
 
