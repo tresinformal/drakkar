@@ -86,49 +86,49 @@ void game::do_action(const int player_index, action_type action)
 void game::do_action( player& player, action_type action)
 {
   if(!(player.get_state() == player_state::stunned))
-  {
-  switch (action)
-
     {
-    case action_type::turn_left:
-      {
-        player.turn_left();
-        break;
-      }
-    case action_type::turn_right:
-      {
-        player.turn_right();
-        break;
-      }
-    case action_type::accelerate:
-      {
-        player.accelerate();
-        break;
-      }
-    case action_type::brake:
-      {
-        player.brake();
-        break;
-      }
-    case action_type::acc_backward:
-      {
-        player.acc_backward();
-        break;
-      }
-    case action_type::shoot:
-      {
-        player.shoot();
-        break;
-      }
-  case action_type::stun:
-  {
-    stun(player);
-    break;
-  }
-    case action_type::none:
-      return;
+      switch (action)
+
+        {
+        case action_type::turn_left:
+          {
+            player.turn_left();
+            break;
+          }
+        case action_type::turn_right:
+          {
+            player.turn_right();
+            break;
+          }
+        case action_type::accelerate:
+          {
+            player.accelerate();
+            break;
+          }
+        case action_type::brake:
+          {
+            player.brake();
+            break;
+          }
+        case action_type::acc_backward:
+          {
+            player.acc_backward();
+            break;
+          }
+        case action_type::shoot:
+          {
+            player.shoot();
+            break;
+          }
+        case action_type::stun:
+          {
+            stun(player);
+            break;
+          }
+        case action_type::none:
+          return;
+        }
     }
-  }
 }
 
 void game::do_actions() noexcept
@@ -458,13 +458,13 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_enemies().empty());
   }
   //#define FIX_ISSUE_267
-  #ifdef FIX_ISSUE_267
+#ifdef FIX_ISSUE_267
   // A game has game_options
   {
     const game g;
     assert(g.get_game_options().is_playing_music());
   }
-  #endif // FIX_ISSUE_267
+#endif // FIX_ISSUE_267
   // A game responds to actions: player can turn left
   {
     game g;
@@ -568,18 +568,18 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
-  #ifdef FIX_ISSUE_226
+#ifdef FIX_ISSUE_226
   // A game responds to actions: player can be stunned
   {
     game g;
     for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
-    {
-      assert(!is_stunned(g.get_player(i));
-      g.do_action(i, action_type::stun);
-      assert(is_stunned(g.get_player(i));
-    }
+      {
+        assert(!is_stunned(g.get_player(i));
+            g.do_action(i, action_type::stun);
+        assert(is_stunned(g.get_player(i));
+      }
   }
-  #endif //FIX_ISSUE_226
+#endif //FIX_ISSUE_226
   // Projectiles move
   {
     game g;
@@ -605,19 +605,19 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(b - a) < 0.0001);
       }
   }
-  #ifdef FIX_ISSUE_235
+#ifdef FIX_ISSUE_235
   // Can get a player's size by using a free function
   {
     const game g;
     const int n_players{static_cast<int>(g.get_v_player().size())}
     for (int i = 0; i != n_players; ++i)
-    {
-      const double a{g.get_player(i).get_size()};
-      const double b{get_nth_player_size(g, i)};
-      assert(std::abs(b - a) < 0.0001);
-    }
+      {
+        const double a{g.get_player(i).get_size()};
+        const double b{get_nth_player_size(g, i)};
+        assert(std::abs(b - a) < 0.0001);
+      }
   }
-  #endif // FIX_ISSUE_235
+#endif // FIX_ISSUE_235
   // game by default has a mix and max evironment size
   {
     game g;
@@ -691,7 +691,7 @@ void test_game() //!OCLINT tests may be many
     assert(has_collision(g));
   }
   //#define FIX_ISSUE_233
-  #ifndef FIX_ISSUE_233
+#ifndef FIX_ISSUE_233
   // [PRS] A collision kills a player
   {
     game g;
@@ -718,7 +718,7 @@ void test_game() //!OCLINT tests may be many
     const auto n_player_afteragain = count_alive_players(g);
     assert(n_player_afteragain == n_players_after);
   }
-  #else // FIX_ISSUE_233
+#else // FIX_ISSUE_233
   // [PRS] #233 make winning PRS player bigger
   {
     game g;
@@ -734,7 +734,7 @@ void test_game() //!OCLINT tests may be many
     assert(winning_player_size_after > winning_player_size_before);
   }
   //#define FIX_ISSUE_234
-  #ifdef FIX_ISSUE_234
+#ifdef FIX_ISSUE_234
   // [PRS] #234 make losing PRS player smaller
   {
     game g;
@@ -749,8 +749,8 @@ void test_game() //!OCLINT tests may be many
     const int losing_player_size_after = get_nth_player_size(g, losing_player_index);
     assert(losing_player_size_after < losing_player_size_before);
   }
-  #endif // FIX_ISSUE_234
-  #endif // FIX_ISSUE_233
+#endif // FIX_ISSUE_234
+#endif // FIX_ISSUE_233
 
   // Blue defeats red
   {
@@ -957,7 +957,7 @@ void test_game() //!OCLINT tests may be many
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     assert(has_food(g))
-    assert(has_player_food_collision(g));
+        assert(has_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
     assert(!has_player_food_collision(g));
@@ -966,7 +966,7 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 #ifdef FIX_ISSUE_237
-//Food and player can be overlapped
+  //Food and player can be overlapped
   {
     food f;
     player p;
@@ -976,7 +976,7 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 #ifdef FIX_ISSUE_238
-//Food and player can be overlapped
+  //Food and player can be overlapped
   {
     game g;
     assert(!has_player_food_collision(g));
@@ -1027,9 +1027,49 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_261
   {
     game g; //by default one uneaten food
+    int n_food_items_begin = count_food_items(g);
     assert(has_food(g));
-    g.get_food().set_state(food_state::eaten);
+    eat_nth_food(g,0);
     assert(!has_food(g));
+    //number of food item stays the same only the state of food item changes after they are eaten
+    assert(n_food_items_begin == count_food_items)
+  }
+#endif
+
+#ifdef FIX_ISSUE_256
+
+  {
+    food f;
+    player p;
+    put_player_on_food(p, f);
+    assert(player_and_food_are_colliding(p,f));
+    eat_nth_food(g,0);
+    assert(!player_and_food_are_colliding(p,f));
+  }
+#endif
+
+#ifdef FIX_ISSUE_259
+  {
+    game g; //by default one uneaten food
+    assert(has_food(g));
+    auto initial_value_timer = get_nth_food_timer(g, 0);
+    eat_nth_food(g,0);
+    assert(!has_food(g));
+    g.tick();
+    assert(init_value_timer = get_nth_food_timer(g, 0));
+  }
+#endif
+
+#ifdef FIX_ISSUE_255
+  {
+    game g;
+    eat_nth_food(g, 0);
+    assert(nth_food_is_eaten(g,0));
+    for(int i = 0; i != get_nth_food_regeneration_time(g, 0); i++)
+      {
+        g.tick();
+      }
+    assert(!nth_food_is_eaten(g,0));
   }
 #endif
 
