@@ -433,17 +433,14 @@ void test_player() //!OCLINT tests may be long
       assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
   }
 
-  //#define FIX_ISSUE_193
-  #ifdef FIX_ISSUE_193
+  //#define FIX_ISSUE_270
+  #ifdef FIX_ISSUE_270
   // A player increases its backward speed by one 'backward acceleration' per backward acceleration
   // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
   {
       player p;
       p.acc_backward();
-      // RJCB: I would prefer a
-      // std::abs(p.get_speed() - p.get_acceleration_backward())
-      // to show this is about a difference between twee values
-      assert(p.get_speed() - p.get_acceleration_backward() < 0.00000000001);
+      assert(std::abs(p.get_speed() - p.get_acceleration_backward()) < 0.00000000001);
   }
   // A players speed after one 'acceleration' is less than max_speed
   {
@@ -482,7 +479,7 @@ void test_player() //!OCLINT tests may be long
       assert(get_dx(p) < 0.0); // Signs should flip
       assert(get_dy(p) < 0.0); // Signs should flip
   }
-#endif
+#endif //FIX_ISSUE_270
   //When a player is standing still,
   //braking will do nothing
   //counteract it by increasing its speed
