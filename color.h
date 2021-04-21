@@ -14,6 +14,7 @@ public:
   /// @param a alpha value or opaqueness (0 = transparant, 255 = opaque)
   color(const int r = 255, const int g = 255, const int b = 255,
         const int a = 255);
+  std::string to_str() const noexcept;
 
   int get_red() const noexcept { return m_r; }
   int get_green() const noexcept { return m_g; }

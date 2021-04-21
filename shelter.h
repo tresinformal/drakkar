@@ -3,6 +3,7 @@
 
 #include "color.h"
 #include <cmath>
+#include "string.h"
 class shelter
 {
 public:
@@ -13,6 +14,10 @@ public:
   double get_radius() const noexcept;
   double get_x() const noexcept;
   double get_y() const noexcept;
+  double get_speed() const noexcept;
+  double get_direction() const noexcept;
+  const std::string to_str() const noexcept;
+
 
   /// ?What does the update do?
   void update_shelter_position();
@@ -39,5 +44,6 @@ int get_opaqueness(const shelter &f) noexcept;
 
 /// Get the redness (from the color) of the shelter
 int get_redness(const shelter &f) noexcept;
+const std::string to_str(const shelter& in_shelter);
 
 #endif // SHELTER_H
