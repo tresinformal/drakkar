@@ -35,8 +35,10 @@ unix:!macx {
 win32{
   INCLUDEPATH += C:/Qt/sfml/include
   INCLUDEPATH += D:/Qt/sfml/include
+  INCLUDEPATH += C:/DEV/SFML-2.5.1/include
   LIBS += -LC:/Qt/sfml/lib
   LIBS += -LD:/Qt/sfml/lib
+  LIBS += -LC:/DEV/SFML-2.5.1/lib
   CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }

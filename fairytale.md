@@ -23,46 +23,11 @@ and they lived happily until their livers collapsed. Ande even then, they were h
 Until the universe aged and entropy ripped the rest of 
 their bodies apart and shredded them to bits like shredded wheat!
 
-Anticlimcatic you may think
-Once upon a time there were a dragon and a toothfairy.
+Anticlimcatic you may think But wait till you hear what happened next.....
 
-They were both horses in disguise!
+Climate change!!! The weather of North Finland became comparable to Southern France and alcohol having a low boiling temperature, all the beer evaporated. The continents were united again as the sea level receded... but despite of this all of the king's dragons and tooth fairies could not put the horses back together again.
 
-So they horsed around a lot; they drank a lot of beer and flew into the sun
-
-
-and they lived happily ever after (maybe).
-which is troublesome as it was winter and they were in North Finland...
-and they lived happily until their livers collapsed..
-
-
-Until the universe aged and entropy ripped the rest of 
-their bodies apart!
-
-Anticlimcatic you may think
-
-
-Once upon a time there were a dragon and a toothfairy.
-
-They were both horses in disguise!
-
-So they horsed around a lot; they drank a lot of beer and did some awful stupid shit while drunk....
-
-
-and they lived happily ever after (maybe).
-which is troublesome as it was winter and they were in North Finland...
-and they lived happily until their livers collapsed..
-
-
-Until the universe aged and entropy ripped the rest of 
-their bodies apart!
-
-Anticlimcatic you may think. But wait till you hear what happened next.....
-
-it is really a long story...
-
-far too long actually...
-
-To be continued...
+the story continues to the galaxy far far away
+dragons have been living on the earth's plane of existance, but the empire is invading earth with Darth Vader leading the army. brave dragons have once again stood up together, shoulder to shoulder to protect and save the humanity from the evil empire. They were fighting for 60 days and 80 nights in succession and in the end... 
 
 

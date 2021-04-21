@@ -13,6 +13,7 @@ color::color(const int r, const int g, const int b, const int a)
     assert(m_r <= 255);
     assert(m_g >= 0);
     assert(m_g <= 255);
+    assert(m_g <= 256);
     assert(m_b >= 0);
     assert(m_b <= 255);
     assert(m_a >= 0);
@@ -64,13 +65,10 @@ void test_color()
         const color c;
         s << c;
     }
-  //#define FIX_ISSUE_211
-  #ifdef FIX_ISSUE_211
-  {
-    const color c;
-    std::cout << c;
-  }
-  #endif // FIX_ISSUE_211
+    {
+        const color c;
+        std::cout << c;
+    }
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept
@@ -87,7 +85,7 @@ bool operator!=(const color& lhs, const color& rhs) noexcept
   return !(lhs == rhs);
 }
 
-std::stringstream& operator << (std::stringstream &out, const color &color)
+std::ostream& operator << (std::ostream &out, const color &color)
 {
     out << "Color(" << std::to_string(color.get_red()) <<
            ", " << std::to_string(color.get_green()) <<

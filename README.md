@@ -4,12 +4,11 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 -----------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
 `master`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 `develop`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
-`dirk`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=dirk)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=dirk)](https://codecov.io/github/tresinformal/game/branch/dirk)
-`jan`      |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=jan)      |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=jan)](https://codecov.io/github/tresinformal/game/branch/jan)
-`kirsten`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=kirsten)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=kirsten)](https://codecov.io/github/tresinformal/game/branch/kirsten)
+`pavel`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/game/branch/pavel)
 `richel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=richel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=swom)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=swom)](https://codecov.io/github/tresinformal/game/branch/swom)
+`theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
 `xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
 
 :warning: due to a new team being formed, I added question marks before
@@ -78,6 +77,7 @@ Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
 Sebastian | @sebmader          |Lead Sound
 Stefano   | @swom              |
 Xiaoyan   |                    |
+Theo 	  | @TheoPannetier     |Junior Developer, Game Design, Tester?
 
 :warning: this list may be incomplete :warning:
 
@@ -124,7 +124,7 @@ Date       |Activity
 ## I am a newbie developer. What must I do?
 
 Welcome to the team! Here is a more-or-less-chronological (i.e. if you
-get stuck, start working on the next one) list what to do:
+get stuck, start working on the next one) list of what to do:
 
  * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
  * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)

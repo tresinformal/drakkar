@@ -56,4 +56,13 @@ void test_game_options()
     music_on(o);
     assert(o.is_playing_music());
   }
+
+  //#define FIX_ISSUE_268
+  #ifdef FIX_ISSUE_268
+  // Player 1 has a key action map
+  {
+    const game_options a;
+    a.get_kam_1();
+  }
+  #endif // FIX_ISSUE_268
 }
