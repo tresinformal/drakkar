@@ -441,7 +441,7 @@ void test_player() //!OCLINT tests may be long
       player p;
       p.acc_backward();
       // RJCB: I would prefer a
-      // stdd::abs(p.get_speed() - p.get_acceleration_backward())
+      // std::abs(p.get_speed() - p.get_acceleration_backward())
       // to show this is about a difference between twee values
       assert(p.get_speed() - p.get_acceleration_backward() < 0.00000000001);
   }
@@ -449,13 +449,13 @@ void test_player() //!OCLINT tests may be long
   {
       player p;
       p.accelerate();
-      assert(p.get_speed() < p.get_max_s());
+      assert(p.get_speed() < p.get_max_speed());
   }
   // A players speed after one 'backward acceleration' is more than negative max_speed
   {
       player p;
       p.acc_backward();
-      assert(p.get_speed() > -p.get_max_s());
+      assert(p.get_speed() > -p.get_max_speed());
   }
   // RJCB: my suggested test
   // A players goes ?right/?up upon acceleraton
