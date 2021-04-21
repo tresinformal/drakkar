@@ -67,7 +67,7 @@ void test_food()
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
-    assert(f.get_timer_regeneration() == 1.0);
+    assert(f.get_timer_regeneration() == 0.0);
   }
 
 #ifdef FIX_ISSUE_258a
