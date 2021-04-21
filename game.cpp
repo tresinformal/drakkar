@@ -1056,7 +1056,7 @@ void test_game() //!OCLINT tests may be many
     eat_nth_food(g,0);
     assert(!has_food(g));
     g.tick();
-    assert(init_value_timer = get_nth_food_timer(g, 0));
+    assert(init_value_timer + 1  == get_nth_food_timer(g, 0));
   }
 #endif
 
