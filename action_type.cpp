@@ -29,7 +29,7 @@ std::ostream &operator<<(std::ostream &os, const action_type t)
   return os;
 }
 
-const std::string to_str(action_type this_action_type)
+std::string to_str(action_type this_action_type)
 {
   switch (this_action_type)
   {
