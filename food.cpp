@@ -68,7 +68,7 @@ void test_food()
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
-    assert(f.get_regeneration_timer() == 0);
+    assert(f.get_timer_regeneration() == 0);
   }
 #endif
 
@@ -88,6 +88,8 @@ void test_food()
     assert(f.get_regeneration_time() == regeneration_time);
   }
 #endif
+
+
 
 }
 
