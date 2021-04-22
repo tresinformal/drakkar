@@ -1,8 +1,29 @@
 # [Install](install.md) on Windows
 
+  0. Get the right version
   1. Download and install Qt Creator (once)
   2. Download and install SFML (once)
   3. Let Qt Creator find SFML library (once per project file)
+
+## 0. Get the right version
+
+The hardest part about the installation is to realize that using
+the correct version really matters,
+in all three cases. Here is a zoom-in off all three cases.
+
+The SFML version:
+
+![](sfml_version_zoom.png)
+
+The Qt version:
+
+![](qt_maintenance_tool_1_zoom.png)
+
+The Qt tool version:
+
+![](qt_maintenance_tool_2_zoom.png)
+
+Look how nice they match :-)
 
 ## 1. Download and install Qt Creator
 
@@ -23,6 +44,9 @@ Here, you will need to check two boxes:
  * Go to the SFML download page, 
    [https://www.sfml-dev.org/download/sfml/2.5.0/](https://www.sfml-dev.org/download/sfml/2.5.0/)
  * Pick the MinGW version you have installed and download the zip
+
+![](sfml_version_annotated.png)
+
  * Unpack the zip, it will create a folder called `SFML-2.X.Y` (where X and Y are version numbers)
  * Rename that folder to `sfml`
  * Move that folder to within `C:/Qt`. Its new path will be `C:/Qt/sfml`
