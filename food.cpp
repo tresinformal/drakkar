@@ -3,8 +3,8 @@
 #include <cmath>
 #include <sstream>
 
-food::food(const double x, const double y, const color &c)
-    : m_x{x}, m_y{y}, m_color{c}
+food::food(const double x, const double y, const color &c, const double timer)
+    : m_x{x}, m_y{y}, m_color{c},m_timer{timer}
 {
 }
 
@@ -64,13 +64,11 @@ void test_food()
   }
 #endif
 
-#ifdef FIX_ISSUE_251
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
-    assert(f.get_regeneration_timer() == 0);
+    assert(f.get_timer_regeneration() == 0.0);
   }
-#endif
 
 #ifdef FIX_ISSUE_258a
   //A food has a regeneration time
@@ -88,6 +86,8 @@ void test_food()
     assert(f.get_regeneration_time() == regeneration_time);
   }
 #endif
+
+
 
 }
 
