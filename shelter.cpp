@@ -1,7 +1,7 @@
 #include "shelter.h"
 #include <cassert>
 #include <cmath>
-#include "string.h"
+#include <string>
 
 shelter::shelter(const double x, const double y, const double radius,
                  const color &c, const double shelter_speed, const double direction)
@@ -72,7 +72,7 @@ const std::string to_str(const shelter& in_shelter)
     msg+="\t\tx= "+std::to_string(in_shelter.get_x())+"\n";
     msg+="\t\ty= "+std::to_string(in_shelter.get_y())+"\n";
     msg+="\tRadius:\n"+std::to_string(in_shelter.get_radius())+"\n";
-    msg+="\tColor:\n"+(in_shelter.get_color()).to_str()+"\n";
+    msg+="\tColor:\n"+to_str(in_shelter.get_color())+"\n";
     msg+="\tSpeed:\n"+std::to_string(in_shelter.get_speed())+"\n";
     msg+="\tDirection:\n"+std::to_string(in_shelter.get_direction())+"\n";
     return msg;
