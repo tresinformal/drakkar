@@ -51,9 +51,6 @@ public:
   ///Gets constant ref to sf::RenderWindow m_window
   const sf::RenderWindow& get_window() const noexcept {return m_window; }
 
-  ///Pushes key
-  void press_key(const sf::Keyboard::Key& k);
-
 private:
   /// The game logic
   game m_game;
@@ -87,6 +84,7 @@ private:
 
   /// Draws shelters
   void draw_shelters() noexcept;
+
 };
 
 key_action_map get_player_kam(const player& p);
@@ -95,7 +93,5 @@ key_action_map get_player_kam(const player& p);
 player player_input(player p, sf::Event event);
 
 void test_game_view();
-
-bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
 
 #endif // GAME_VIEW_H

@@ -6,17 +6,16 @@
 class food
 {
 public:
-  food(const double x = 0.0, const double y = 0.0, const color &c = color(),const double timer=0.0);
+  food(const double x = 0.0, const double y = 0.0, const color &c = color());
 
   const color &get_color() const noexcept { return m_color; }
   double get_x() const noexcept;
-  double get_y() const noexcept;
-  double get_timer_regeneration() const noexcept { return m_timer;}
+  double get_y() const noexcept ;
+
 private:
   double m_x;
   double m_y;
   color m_color;
-  double m_timer;
 };
 
 void test_food();
