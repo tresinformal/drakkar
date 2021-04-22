@@ -14,7 +14,6 @@ public:
   /// @param a alpha value or opaqueness (0 = transparant, 255 = opaque)
   color(const int r = 255, const int g = 255, const int b = 255,
         const int a = 255);
-  std::string to_str() const noexcept;
 
   int get_red() const noexcept { return m_r; }
   int get_green() const noexcept { return m_g; }
@@ -51,6 +50,7 @@ int get_redness(const color &c) noexcept;
 /// Test the color class
 void test_color();
 
+std::string to_str(const color& in_color) noexcept;
 bool operator==(const color& lhs, const color& rhs) noexcept;
 bool operator!=(const color& lhs, const color& rhs) noexcept;
 

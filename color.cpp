@@ -20,14 +20,6 @@ color::color(const int r, const int g, const int b, const int a)
     assert(m_a <= 255);
 }
 
-std::string color::to_str() const noexcept
-{
-    std::string msg = "["+std::to_string(m_r)+", ";
-    msg+=std::to_string(m_g)+", ";
-    msg+=std::to_string(m_b)+", ";
-    msg+=std::to_string(m_a)+"]";
-    return msg;
-}
 
 int get_blueness(const color &c) noexcept { return c.get_blue(); }
 
