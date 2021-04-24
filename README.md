@@ -129,10 +129,13 @@ Golden rules:
 
 ## I am a medior developer, what should I do?
 
-A medior developer writes tests and creates Issues for juniors and themselves.
-They work on more complex issues, such as improving the architecture of
-the code or improving the continuous integration tools (whatever those are :-))
-They see the bigger picture of the code and the team.
+A medior developer 
+
+ * writes tests and creates Issues for juniors and themselves
+ * does code reviews
+ * works on more complex issues, such as improving the architecture of
+   the code or improving the continuous integration tools (whatever those are :-))
+ * see the bigger picture of the code and the team.
 
 You know what to do :+1:
 
