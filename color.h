@@ -50,6 +50,7 @@ int get_redness(const color &c) noexcept;
 /// Test the color class
 void test_color();
 
+std::string to_str(const color& in_color) noexcept;
 bool operator==(const color& lhs, const color& rhs) noexcept;
 bool operator!=(const color& lhs, const color& rhs) noexcept;
 
