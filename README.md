@@ -45,7 +45,7 @@ End of lesson    | 19:00
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 In case it is undesirable to email Richel,
-contact ?[swom](https://github.com/swom).
+contact [Stefano 'swom' Tiso](https://github.com/swom).
 
 ## Game: 2D PvP chasing game
 
@@ -58,43 +58,6 @@ See [install.md](install.md).
 ## Links
 
 https://agar.io/, this game could give a good idea of how we would like this game to work. The game we think about though should allow more variation in determining how you grow and/or change shape, as well as could require different conditions than just being bigger than the other player to eliminate it.
-
-## Techical specs
-
- * C++
- * SFML
-
-## Team
-
-Preferred role(s) are suggestions. If there is disagreement, we'll vote.
-
-Name      |GitHub username     |Preferred role(s)
-----------|--------------------|------------------------------------------------
-Oliver    | @ollyturner        |
-Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
-Sebastian | @sebmader          |Lead Sound
-Stefano   | @swom              |
-Xiaoyan   |                    |
-Theo 	  | @TheoPannetier     |Junior Developer, Game Design, Tester?
-
-:warning: this list may be incomplete :warning:
-
-## Roles
-
-These are suggestions. Roles may be added or unfulfilled.
-
-Role name       |Ensures or tries to                           |Gets to decide
-----------------|----------------------------------------------|-----------------------------------------------------------------
-Chairman        |Have a productive meeting                     |Rules of the meeting
-Coordinator     |All team members know what to do              |Best order of what needs to be done
-Game Design     |The game is interesting and fun               |What game concepts needs to be added
-Graphics        |The game looks nice                           |The look and artwork of the game
-Junior Developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
-Medior Developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
-Senior Developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
-Sound           |The game sounds nice                          |The sound and music of the game
-Tester          |Verify an Issue has been done                 |If an Issue has been done
-[your]          |[suggestion]                                  |[here]
 
 ## Short-term schedule
 
@@ -115,9 +78,10 @@ Date       |Activity
 -----------|--------------------------------------------------------------------------
 2021-02-17 |practice git branching
 2021-02-17 |fixing tests
+2021-04-28 |merge to develop by code reviewed Pull Request
+.          |pair programming
 .          |move to C++14
 .          |add clang tidy
-.          |pair programming
 
 ## I am a newbie developer. What must I do?
 
@@ -165,13 +129,17 @@ Golden rules:
  * Whatever you work on, always be assigned to an Issue
  * Whatever code you develop, always be working to fix a test,
    unless you work on graphics
- * If all tests pass, we are -by definition- happy.
+ * If all tests pass, we are -by definition- happy
 
 ## I am a medior developer, what should I do?
 
-Medior developers are those that see the bigger picture
-of the code and the team. Next to programming, mediors will
-occasionally teach juniors.
+A medior developer 
+
+ * writes tests and creates Issues for juniors and themselves
+ * does code reviews
+ * works on more complex issues, such as improving the architecture of
+   the code or improving the continuous integration tools (whatever those are :-))
+ * see the bigger picture of the code and the team.
 
 You know what to do :+1:
 
@@ -200,7 +168,3 @@ Most recent at the top.
 ![](pics/20191024.png) 
 
 ![](pics/20190929.png)
-
-i think richel stinks
-
-
