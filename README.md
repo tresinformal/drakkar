@@ -59,43 +59,6 @@ See [install.md](install.md).
 
 https://agar.io/, this game could give a good idea of how we would like this game to work. The game we think about though should allow more variation in determining how you grow and/or change shape, as well as could require different conditions than just being bigger than the other player to eliminate it.
 
-## Techical specs
-
- * C++
- * SFML
-
-## Team
-
-Preferred role(s) are suggestions. If there is disagreement, we'll vote.
-
-Name      |GitHub username     |Preferred role(s)
-----------|--------------------|------------------------------------------------
-Oliver    | @ollyturner        |
-Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
-Sebastian | @sebmader          |Lead Sound
-Stefano   | @swom              |
-Xiaoyan   |                    |
-Theo 	  | @TheoPannetier     |Junior Developer, Game Design, Tester?
-
-:warning: this list may be incomplete :warning:
-
-## Roles
-
-These are suggestions. Roles may be added or unfulfilled.
-
-Role name       |Ensures or tries to                           |Gets to decide
-----------------|----------------------------------------------|-----------------------------------------------------------------
-Chairman        |Have a productive meeting                     |Rules of the meeting
-Coordinator     |All team members know what to do              |Best order of what needs to be done
-Game Design     |The game is interesting and fun               |What game concepts needs to be added
-Graphics        |The game looks nice                           |The look and artwork of the game
-Junior Developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
-Medior Developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
-Senior Developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
-Sound           |The game sounds nice                          |The sound and music of the game
-Tester          |Verify an Issue has been done                 |If an Issue has been done
-[your]          |[suggestion]                                  |[here]
-
 ## Short-term schedule
 
 Next meeting:
