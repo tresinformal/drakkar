@@ -78,9 +78,10 @@ Date       |Activity
 -----------|--------------------------------------------------------------------------
 2021-02-17 |practice git branching
 2021-02-17 |fixing tests
+2021-04-28 |merge to develop by code reviewed Pull Request
+.          |pair programming
 .          |move to C++14
 .          |add clang tidy
-.          |pair programming
 
 ## I am a newbie developer. What must I do?
 
@@ -124,13 +125,14 @@ Golden rules:
  * Whatever you work on, always be assigned to an Issue
  * Whatever code you develop, always be working to fix a test,
    unless you work on graphics
- * If all tests pass, we are -by definition- happy.
+ * If all tests pass, we are -by definition- happy
 
 ## I am a medior developer, what should I do?
 
-Medior developers are those that see the bigger picture
-of the code and the team. Next to programming, mediors will
-occasionally teach juniors.
+A medior developer writes tests and creates Issues for juniors and themselves.
+They work on more complex issues, such as improving the architecture of
+the code or improving the continuous integration tools (whatever those are :-))
+They see the bigger picture of the code and the team.
 
 You know what to do :+1:
 
