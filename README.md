@@ -45,7 +45,7 @@ End of lesson    | 19:00
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 In case it is undesirable to email Richel,
-contact ?[swom](https://github.com/swom).
+contact [Stefano 'swom' Tiso](https://github.com/swom).
 
 ## Game: 2D PvP chasing game
 
