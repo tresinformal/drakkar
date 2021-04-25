@@ -4,6 +4,7 @@
 #include "enemy_behavior_type.h"
 #include "food.h"
 #include "food_type.h"
+#include "food_state.h"
 #include "game.h"
 #include "game_options.h"
 #include "game_resources.h"
@@ -39,6 +40,7 @@ void test()
   test_individual_type();
   test_food();
   test_food_type();
+  test_food_state();
   test_key_action_map();
   test_menu();
   test_menu_button();

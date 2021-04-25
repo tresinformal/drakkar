@@ -246,7 +246,7 @@ void test_player() //!OCLINT tests may be long
   // A player has a max_speed of 2(arbitrary value for now)
   {
     const player p;
-    assert(p.get_max_s() - 2 < 0.000000000001);
+    assert(p.get_max_speed() - 2 < 0.000000000001);
   }
   // A player has a default acceleration of 0.1 per frame
   {
@@ -360,6 +360,37 @@ void test_player() //!OCLINT tests may be long
     assert(get_colorhash(p)!=1);
     assert(get_colorhash(p)==2);
   }
+  //#define FIX_ISSUE_231
+  #ifdef FIX_ISSUE_231
+  // The correct player must win
+  {
+    const player paper = create_red_player();
+    const player rock = create_green_player();
+    const player scissors = create_blue_player();
+    assert(is_first_player_winner(paper, rock));
+    assert(is_first_player_winner(scissors, paper));
+    assert(is_first_player_winner(rock, scissors));
+    assert(!is_first_player_winner(rock, paper));
+    assert(!is_first_player_winner(paper, scissors));
+    assert(!is_first_player_winner(scissors, rock));
+  }
+  #endif // FIX_ISSUE_231
+  //#define FIX_ISSUE_232
+  #ifdef FIX_ISSUE_232
+  // The correct player must lose
+  {
+    const player paper = create_red_player();
+    const player rock = create_green_player();
+    const player scissors = create_blue_player();
+    assert(!is_first_player_loser(paper, rock));
+    assert(!is_first_player_loser(scissors, paper));
+    assert(!is_first_player_loser(rock, scissors));
+    assert(is_first_player_loser(rock, paper));
+    assert(is_first_player_loser(paper, scissors));
+    assert(is_first_player_loser(scissors, rock));
+  }
+  #endif // FIX_ISSUE_232
+
   //A player is initialized with an empty action set
   {
     player p;
@@ -392,8 +423,6 @@ void test_player() //!OCLINT tests may be long
     assert(!p.get_action_set().count(action1));
     assert(p.get_action_set().count(action2));
   }
-
-#ifdef FIX_ISSUE_193
   // A player increases its speed by one 'acceleration' per acceleration
   {
       // RJCB: I see the point you try to make here:
@@ -403,27 +432,27 @@ void test_player() //!OCLINT tests may be long
       p.accelerate();
       assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
   }
+
+  //#define FIX_ISSUE_270
+  #ifdef FIX_ISSUE_270
   // A player increases its backward speed by one 'backward acceleration' per backward acceleration
   // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
   {
       player p;
       p.acc_backward();
-      // RJCB: I would prefer a
-      // stdd::abs(p.get_speed() - p.get_acceleration_backward())
-      // to show this is about a difference between twee values
-      assert(p.get_speed() - p.get_acceleration_backward() < 0.00000000001);
+      assert(std::abs(p.get_speed() - p.get_acceleration_backward()) < 0.00000000001);
   }
   // A players speed after one 'acceleration' is less than max_speed
   {
       player p;
       p.accelerate();
-      assert(p.get_speed() < p.get_max_s());
+      assert(p.get_speed() < p.get_max_speed());
   }
   // A players speed after one 'backward acceleration' is more than negative max_speed
   {
       player p;
       p.acc_backward();
-      assert(p.get_speed() > -p.get_max_s());
+      assert(p.get_speed() > -p.get_max_speed());
   }
   // RJCB: my suggested test
   // A players goes ?right/?up upon acceleraton
@@ -450,7 +479,7 @@ void test_player() //!OCLINT tests may be long
       assert(get_dx(p) < 0.0); // Signs should flip
       assert(get_dy(p) < 0.0); // Signs should flip
   }
-#endif
+#endif //FIX_ISSUE_270
   //When a player is standing still,
   //braking will do nothing
   //counteract it by increasing its speed
@@ -477,20 +506,20 @@ void test_player() //!OCLINT tests may be long
   {
     player p;
     int n_of_accelerations = 1000;
-    assert(p.get_acceleration() * n_of_accelerations > p.get_max_s());
+    assert(p.get_acceleration() * n_of_accelerations > p.get_max_speed());
     for(int i = 0; i != n_of_accelerations; i++ )
       {
         p.accelerate();
       }
-    assert(p.get_speed() - p.get_max_s() < 0.00001
-           && p.get_speed() - p.get_max_s() > -0.00001);
+    assert(p.get_speed() - p.get_max_speed() < 0.00001
+           && p.get_speed() - p.get_max_speed() > -0.00001);
   }
 
   //A player cannot surpass its negative max_speed
   {
     player p;
     int n_of_accelerations = 1000;
-    assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
+    assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed());
     for(int i = 0; i != n_of_accelerations; i++ )
     {
       p.acc_backward();
@@ -505,27 +534,27 @@ void test_player() //!OCLINT tests may be long
   {
         player p;
         int n_of_accelerations = 1000;
-        assert(p.get_acceleration() * n_of_accelerations > p.get_max_s());
+        assert(p.get_acceleration() * n_of_accelerations > p.get_max_speed());
         for(int i = 0; i != n_of_accelerations; i++ )
         {
             p.accelerate();
         }
-        assert(p.get_speed() - p.get_max_s() < 0.00001
-               && p.get_speed() - p.get_max_s() > -0.00001);
+        assert(p.get_speed() - p.get_max_speed() < 0.00001
+               && p.get_speed() - p.get_max_speed() > -0.00001);
   }
 
   //A player cannot surpass its negative max_speed
   {
         player p;
         int n_of_accelerations = 1000;
-        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_s());
+        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed());
         for(int i = 0; i != n_of_accelerations; i++ )
         {
             p.acc_backward();
         }
 
-        assert(p.get_speed() + p.get_max_s() < 0.00001
-               && p.get_speed() + p.get_max_s() > -0.00001);
+        assert(p.get_speed() + p.get_max_speed() < 0.00001
+               && p.get_speed() + p.get_max_speed() > -0.00001);
   }
 
   //It is possible to establish how bluish, reddish and greenish a player is
@@ -555,17 +584,12 @@ void test_player() //!OCLINT tests may be long
        const player p{};
        assert(p.get_state() == player_state::active);
    }
-
-#ifdef FIX_ISSUE_193
    // A player object can be initialized to a stunned state
    {
        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
        assert(p.get_state() ==  player_state::stunned);
        assert(p.get_state() !=  player_state::active);
-    assert(p.get_speed() + p.get_max_s() < 0.00001
-           && p.get_speed() + p.get_max_s() > -0.00001);
   }
-#endif
   //It is possible to establish how bluish, reddish and greenish a player is
   {
     player p;

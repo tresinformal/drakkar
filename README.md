@@ -4,18 +4,17 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 -----------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
 `master`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 `develop`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
+`ines`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=ines)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=ines)](https://codecov.io/github/tresinformal/game/branch/ines)
+`pavel`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/game/branch/pavel)
 `richel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=richel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=swom)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=swom)](https://codecov.io/github/tresinformal/game/branch/swom)
+`theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
 `xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
-`theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
-
-:warning: due to a new team being formed, I added question marks before
-all team members' names
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
-The TRES video game.
+A video game, developed informally and professionally.
 
 ## Coding via Discord
 
@@ -46,7 +45,7 @@ End of lesson    | 19:00
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 In case it is undesirable to email Richel,
-contact ?[swom](https://github.com/swom).
+contact [Stefano 'swom' Tiso](https://github.com/swom).
 
 ## Game: 2D PvP chasing game
 
@@ -59,43 +58,6 @@ See [install.md](install.md).
 ## Links
 
 https://agar.io/, this game could give a good idea of how we would like this game to work. The game we think about though should allow more variation in determining how you grow and/or change shape, as well as could require different conditions than just being bigger than the other player to eliminate it.
-
-## Techical specs
-
- * C++
- * SFML
-
-## Team
-
-Preferred role(s) are suggestions. If there is disagreement, we'll vote.
-
-Name      |GitHub username     |Preferred role(s)
-----------|--------------------|------------------------------------------------
-Oliver    | @ollyturner        |
-Richel    | @richelbilderbeek  |Senior Developer, Project Coordinator, Chairman
-Sebastian | @sebmader          |Lead Sound
-Stefano   | @swom              |
-Xiaoyan   |                    |
-Theo 	  | @TheoPannetier     |Junior Developer, Game Design, Tester?
-
-:warning: this list may be incomplete :warning:
-
-## Roles
-
-These are suggestions. Roles may be added or unfulfilled.
-
-Role name       |Ensures or tries to                           |Gets to decide
-----------------|----------------------------------------------|-----------------------------------------------------------------
-Chairman        |Have a productive meeting                     |Rules of the meeting
-Coordinator     |All team members know what to do              |Best order of what needs to be done
-Game Design     |The game is interesting and fun               |What game concepts needs to be added
-Graphics        |The game looks nice                           |The look and artwork of the game
-Junior Developer|Learn programming                             |How to implement simple Issues, e.g. function bodies 
-Medior Developer|Teach junior developers                       |How to implement more advanced Issues, e.g. software architecture. May merge `git` branches
-Senior Developer|Teach juniors and mediors                     |Direction of the software, by writing Issues. May merge `git` branches
-Sound           |The game sounds nice                          |The sound and music of the game
-Tester          |Verify an Issue has been done                 |If an Issue has been done
-[your]          |[suggestion]                                  |[here]
 
 ## Short-term schedule
 
@@ -116,14 +78,15 @@ Date       |Activity
 -----------|--------------------------------------------------------------------------
 2021-02-17 |practice git branching
 2021-02-17 |fixing tests
+2021-04-28 |merge to develop by code reviewed Pull Request
+.          |pair programming
 .          |move to C++14
 .          |add clang tidy
-.          |pair programming
 
 ## I am a newbie developer. What must I do?
 
 Welcome to the team! Here is a more-or-less-chronological (i.e. if you
-get stuck, start working on the next one) list what to do:
+get stuck, start working on the next one) list of what to do:
 
  * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
  * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)
@@ -139,6 +102,12 @@ When you feel comfortable with the workflow, you become a junior developer!
 Junior developers are those that feel comfortable enough with the workflow
 to write their own tests. Next to programming, juniors will
 occasionally teach newbies.
+
+You will be practicing:
+
+ * Team development workflow
+ * git an GitHub
+ * C++ and SFML entry level development
 
 Start from an idea of a visible change in the game,
 for example, 'The players should be able to do a little dance'.
@@ -162,13 +131,17 @@ Golden rules:
  * Whatever you work on, always be assigned to an Issue
  * Whatever code you develop, always be working to fix a test,
    unless you work on graphics
- * If all tests pass, we are -by definition- happy.
+ * If all tests pass, we are -by definition- happy
 
 ## I am a medior developer, what should I do?
 
-Medior developers are those that see the bigger picture
-of the code and the team. Next to programming, mediors will
-occasionally teach juniors.
+A medior developer 
+
+ * writes tests and creates Issues for juniors and themselves
+ * does code reviews
+ * works on more complex issues, such as improving the architecture of
+   the code or improving the continuous integration tools (whatever those are :-))
+ * see the bigger picture of the code and the team.
 
 You know what to do :+1:
 

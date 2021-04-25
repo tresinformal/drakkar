@@ -1,6 +1,7 @@
 #include "shelter.h"
 #include <cassert>
 #include <cmath>
+#include <string>
 
 shelter::shelter(const double x, const double y, const double radius,
                  const color &c, const double shelter_speed, const double direction)
@@ -34,6 +35,14 @@ void shelter::update_shelter_position()
   m_x += std::cos(rand());
   m_y += std::sin(rand());
 }
+double shelter::get_direction() const noexcept
+{
+    return m_direction;
+}
+double shelter::get_speed() const noexcept
+{
+    return m_speed;
+}
 
 int get_blueness(const shelter &f) noexcept
 {
@@ -55,6 +64,20 @@ int get_redness(const shelter &f) noexcept
   return get_redness(f.get_color());
 }
 
+const std::string to_str(const shelter& in_shelter)
+{
+    std::string msg;
+    msg+="shelter info:\n";
+    msg+="\tPosition:\n";
+    msg+="\t\tx= "+std::to_string(in_shelter.get_x())+"\n";
+    msg+="\t\ty= "+std::to_string(in_shelter.get_y())+"\n";
+    msg+="\tRadius:\n"+std::to_string(in_shelter.get_radius())+"\n";
+    msg+="\tColor:\n"+to_str(in_shelter.get_color())+"\n";
+    msg+="\tSpeed:\n"+std::to_string(in_shelter.get_speed())+"\n";
+    msg+="\tDirection:\n"+std::to_string(in_shelter.get_direction())+"\n";
+    return msg;
+
+}
 void test_shelter() //!OCLINT tests may be complex
 {
   {
@@ -92,4 +115,13 @@ void test_shelter() //!OCLINT tests may be complex
     assert(get_opaqueness(s) == a);
     assert(get_redness(s) == r);
   }
+  #define FIX_ISSUE_264
+  #ifdef FIX_ISSUE_264
+  // Conversion to string
+  {
+    const shelter s(1.2, 3.4, 5.6, color(7, 8, 9, 10));
+    const std::string t = to_str(s);
+    assert(!t.empty());
+  }
+  #endif // FIX_ISSUE_264
 }
