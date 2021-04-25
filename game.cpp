@@ -64,7 +64,7 @@ void add_projectile(game &g, const projectile &p)
 
 double get_nth_player_size(const game& g, const int i)
 {
-    return g.get_player(i).get_size();
+    return g.get_player(i).get_diameter();
 }
 
 int count_alive_players(const game& g) noexcept
@@ -605,10 +605,10 @@ void test_game() //!OCLINT tests may be many
   // Can get a player's size by using a free function
   {
     const game g;
-    const int n_players{static_cast<int>(g.get_v_player().size())}
+    const int n_players{static_cast<int>(g.get_v_player().size())};
     for (int i = 0; i != n_players; ++i)
     {
-      const double a{g.get_player(i).get_size()};
+      const double a{g.get_player(i).get_diameter()};
       const double b{get_nth_player_size(g, i)};
       assert(std::abs(b - a) < 0.0001);
     }
