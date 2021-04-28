@@ -416,6 +416,14 @@ void test_game_view()//!OCLINT tests may be many
     g.process_events(); // Needed to process the event
     assert(is_nth_player_stunned(g, 0));
   }
+  // Pressing the wrong key does not stun a player
+  {
+    game_view g;
+    assert(!is_nth_player_stunned(g, 0));
+    g.press_key(sf::Keyboard::Num2);
+    g.process_events(); // Needed to process the event
+    assert(!is_nth_player_stunned(g, 0));
+  }
 
 }
 
