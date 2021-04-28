@@ -102,11 +102,13 @@ When you feel comfortable with the workflow, you become a junior developer!
 Junior developers are those that feel comfortable enough with the workflow
 to write their own tests. Next to programming, juniors will
 occasionally teach newbies.
-touched topics for junior developers:
- ' team development workflow
- ' c++ entry level development
- ' working with qt library
- ' fun and games!
+
+You will be practicing:
+
+ * Team development workflow
+ * git an GitHub
+ * C++ and SFML entry level development
+
 Start from an idea of a visible change in the game,
 for example, 'The players should be able to do a little dance'.
 Create an Issue for that and assign yourself to it

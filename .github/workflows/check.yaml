@@ -37,3 +37,7 @@ jobs:
       - name: Measure codecov 3
         run: bash <(curl -s https://codecov.io/bash)
 
+      - name: Show contributors on all branches
+        run: git shortlog -s -n --all --no-merges
+
+

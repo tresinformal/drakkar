@@ -116,6 +116,5 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   game_view v(options);
   assert(options == v.get_options());
   v.exec();
-
 #endif // LOGIC_ONLY
 }

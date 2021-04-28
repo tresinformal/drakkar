@@ -29,6 +29,7 @@ player::player(const double x,
     m_diameter{size},
     m_turn_rate{turn_rate}
 {
+
 }
 
 /// Get the X coordinate of the player
