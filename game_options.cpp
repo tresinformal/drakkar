@@ -1,4 +1,5 @@
 #include "game_options.h"
+#include "key_action_map.h"
 #include <cassert>
 
 // Try to define the class 'game_options' yourself
@@ -62,7 +63,9 @@ void test_game_options()
   // Player 1 has a key action map
   {
     const game_options a;
-    a.get_kam_1();
+    const auto m = a.get_kam_1();
+    const auto m_again = get_player_0_kam(); // Naming is confusing, this is the KAM for the first player
+    assert(m == m_again);
   }
   #endif // FIX_ISSUE_268
 }

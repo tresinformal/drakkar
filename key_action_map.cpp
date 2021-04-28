@@ -123,5 +123,16 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(action_type::none == m.to_action(sf::Keyboard::L));
 
     }
-
+  #ifdef FIX_ISSUE_282
+  // operator==
+  {
+    const key_action_map a = get_player_0_kam();
+    const key_action_map b = get_player_0_kam();
+    const key_action_map c = get_player_1_kam();
+    assert(a == b);
+    assert(b == a);
+    assert(!(a == c));
+    assert(!(b == c));
+  }
+  #endif // FIX_ISSUE_282
 }
