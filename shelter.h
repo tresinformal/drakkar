@@ -16,8 +16,6 @@ public:
   double get_y() const noexcept;
   double get_speed() const noexcept;
   double get_direction() const noexcept;
-  const std::string to_str() const noexcept;
-
 
   /// ?What does the update do?
   void update_shelter_position();
@@ -29,6 +27,8 @@ private:
   double m_speed;
   double m_direction;
 };
+
+const std::string to_str(const shelter& in_shelter) noexcept;
 
 void test_shelter();
 
@@ -44,6 +44,6 @@ int get_opaqueness(const shelter &f) noexcept;
 
 /// Get the redness (from the color) of the shelter
 int get_redness(const shelter &f) noexcept;
-const std::string to_str(const shelter& in_shelter);
+const std::string to_str(const shelter& in_shelter) noexcept;
 
 #endif // SHELTER_H

@@ -973,6 +973,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
   //Food and player can be overlapped
   {

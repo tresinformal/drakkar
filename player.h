@@ -111,12 +111,9 @@ public:
     /// Turn the player right
     void turn_right() noexcept { m_direction_radians += m_turn_rate; }
 
-    /// Update the position of the player on the base of its speed and direction
-    void update_player_position() noexcept
-    {
-        m_x += cos(m_direction_radians) * m_player_speed;
-        m_y += sin(m_direction_radians) * m_player_speed;
-    }
+    //move a player
+    void move() noexcept;
+
 
     /// Accelerate the player
     void accelerate() noexcept;
