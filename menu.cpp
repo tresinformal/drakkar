@@ -16,7 +16,7 @@ int menu::get_w_width() const noexcept { return m_window_width; }
 int menu::get_height() const noexcept { return m_window_height; }
 
 /// Gets the vector of buttons
-std::vector<menu_button> &menu::get_m_v_buttons() noexcept { return m_v_buttons; }
+std::vector<menu_button> &menu::get_buttons() noexcept { return m_v_buttons; }
 
 menu_button &menu::get_button(int index)
 {
@@ -28,10 +28,10 @@ menu_button &menu::get_button(int index)
 
 void menu::put_buttons_tidy() noexcept
 {
-  for (unsigned int i = 0; i != get_m_v_buttons().size(); ++i)
+  for (unsigned int i = 0; i != get_buttons().size(); ++i)
     {
-      get_m_v_buttons()[i].set_x(m_window_width / 2);
-      get_m_v_buttons()[i].set_y(static_cast<int>((i + 1)) *
+      get_buttons()[i].set_x(m_window_width / 2);
+      get_buttons()[i].set_y(static_cast<int>((i + 1)) *
                                  (m_window_height)/
                                  (static_cast<int>(m_v_buttons.size()) + 1));
     }
@@ -67,10 +67,10 @@ void test_menu()
     int height = 1000;
     menu v(width, height);
     v.put_buttons_tidy();
-    for (unsigned int i = 0; i < v.get_m_v_buttons().size(); ++i)
-      assert(v.get_m_v_buttons()[i].get_y() -
+    for (unsigned int i = 0; i < v.get_buttons().size(); ++i)
+      assert(v.get_buttons()[i].get_y() -
              (static_cast<int>(i) + 1) * (width) /
-             (static_cast<int>(v.get_m_v_buttons().size()) + 1) <
+             (static_cast<int>(v.get_buttons().size()) + 1) <
              0.000001f);
   }
 }

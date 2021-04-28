@@ -31,6 +31,12 @@ player::player(const double x,
 {
 
 }
+//move a player
+void player::move() noexcept
+{
+    m_x += cos(m_direction_radians) * m_player_speed;
+    m_y += sin(m_direction_radians) * m_player_speed;
+}
 
 /// Get the X coordinate of the player
 double player::get_x() const noexcept { return m_x; }
@@ -59,7 +65,7 @@ void player::brake() noexcept
     {
       return;
     }
-  update_player_position();
+  move();
 
 }
 
@@ -73,7 +79,7 @@ void player::accelerate() noexcept
     {
       m_player_speed = m_player_max_speed;
     }
-  update_player_position();
+  move();
 }
 
 void player::acc_backward() noexcept
@@ -86,7 +92,7 @@ void player::acc_backward() noexcept
     {
       m_player_speed = -m_player_max_speed;
     }
-  update_player_position();
+  move();
 }
 
 void add_action(player& p, action_type action) noexcept
