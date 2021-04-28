@@ -236,7 +236,12 @@ void game::tick()
     }
 
   // and updates m_n_ticks
-  ++get_n_ticks();
+  increment_n_ticks();
+}
+
+void game::increment_n_ticks()
+{
+    ++m_n_ticks;
 }
 
 bool has_collision(const game &g) noexcept
