@@ -64,7 +64,8 @@ int get_redness(const shelter &f) noexcept
   return get_redness(f.get_color());
 }
 
-const std::string to_str(const shelter& in_shelter)
+//converting shelter to string in debugging purposes
+const std::string to_str(const shelter& in_shelter) noexcept
 {
     std::string msg;
     msg+="shelter info:\n";
