@@ -45,8 +45,8 @@ public:
   /// return the number of ticks
   int get_n_ticks() const noexcept { return m_n_ticks; }
 
-  /// Gets reference adress of number of ticks
-  int &get_n_ticks() noexcept { return m_n_ticks; }
+  /// Increment the number of ticks
+  void increment_n_ticks();
 
   /// Get environment size of the game
   const environment& get_env() const noexcept{ return m_environment; }
