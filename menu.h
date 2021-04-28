@@ -16,7 +16,7 @@ public:
   int get_height()const noexcept;
 
   /// Gets the vector of buttons
-  std::vector<menu_button> &get_m_v_buttons() noexcept;
+  std::vector<menu_button> &get_buttons() noexcept;
 
   /// Get one button at index i
   menu_button &get_button(int index);
