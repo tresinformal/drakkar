@@ -18,6 +18,7 @@ const sf::Vector2f &menu_button::get_body() const noexcept { return m_body; }
 
 void test_menu_button()
 {
+    #ifndef NDEBUG // no tests in release
     // buttons can be set to a certain position
     {
         float x = 1.2f;
@@ -39,4 +40,5 @@ void test_menu_button()
                 && m_b.get_body().y == height
                && m_b.get_name() == name);
     }
+#endif
 }

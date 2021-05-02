@@ -236,7 +236,12 @@ void game::tick()
     }
 
   // and updates m_n_ticks
-  ++get_n_ticks();
+  increment_n_ticks();
+}
+
+void game::increment_n_ticks()
+{
+    ++m_n_ticks;
 }
 
 bool has_collision(const game &g) noexcept
@@ -437,6 +442,7 @@ player game::wall_collision(player p)
 
 void test_game() //!OCLINT tests may be many
 {
+  #ifndef NDEBUG // no tests in release
   // The game has done zero ticks upon startup
   {
     const game g;
@@ -968,6 +974,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
   //Food and player can be overlapped
   {
@@ -1075,6 +1082,6 @@ void test_game() //!OCLINT tests may be many
     assert(!nth_food_is_eaten(g,0));
   }
 #endif
-
+#endif // no tests in release
 }
 

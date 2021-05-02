@@ -285,6 +285,7 @@ bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
 
 void test_game_view()//!OCLINT tests may be many
 {
+    #ifndef NDEBUG // no tests in release
     {
         // Show the game for one frame
         // (there will be a member function 'exec' for running the game)
@@ -424,7 +425,7 @@ void test_game_view()//!OCLINT tests may be many
     g.process_events(); // Needed to process the event
     assert(!is_nth_player_stunned(g, 0));
   }
-
+  #endif
 }
 
 

@@ -4,6 +4,7 @@
 
 void test_enemy()
 {
+  #ifndef NDEBUG // no tests is release
   {
     const enemy e;
     assert(e.get_x() == 0.0);
@@ -29,6 +30,7 @@ void test_enemy()
     const enemy e;
     s << e;
   }
+#endif
 }
 
 enemy::enemy(const double x, const double y) : m_x{x}, m_y{y} {}

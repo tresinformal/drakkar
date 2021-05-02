@@ -26,7 +26,7 @@ void music_on(game_options& o) noexcept
 
 void test_game_options()
 {
-
+  #ifndef NDEBUG // no tests in release
   // By default, music is played
   {
     const game_options g;
@@ -68,4 +68,5 @@ void test_game_options()
     assert(m == m_again);
   }
   #endif // FIX_ISSUE_268
+  #endif
 }

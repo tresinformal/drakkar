@@ -58,6 +58,7 @@ bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
 
 void test_key_action_map()//!OCLINT tests can be many
 {
+    #ifndef NDEBUG // no tests in release
     //It is possible to return an action type from a key being pressed
     //The keys are for now the ones pressed by player1 (position 0 in the player index)
     {
@@ -135,4 +136,5 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(!(b == c));
   }
   #endif // FIX_ISSUE_282
+  #endif
 }
