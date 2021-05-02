@@ -20,7 +20,7 @@ std::ostream &operator<<(std::ostream &os, const food f)
 
 void test_food()
 {
-
+  #ifndef NDEBUG // no tests in release
   {
     const food f;
     assert(f.get_x() == 0.0);
@@ -86,9 +86,7 @@ void test_food()
     assert(f.get_regeneration_time() == regeneration_time);
   }
 #endif
-
-
-
+#endif // no tests in release
 }
 
 

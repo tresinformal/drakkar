@@ -3,6 +3,7 @@
 
 void test_player_state()
 {
+  #ifndef NDEBUG // no tests in release
   assert(player_state::active != player_state::stunned);
   {
     assert(player_state::dead != player_state::stunned &&
@@ -16,4 +17,5 @@ void test_player_state()
     assert(to_str(player_state::stunned) == "stunned");
   }
   #endif // FIX_ISSUE_276
+  #endif
 }

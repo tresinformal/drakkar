@@ -30,6 +30,7 @@ std::ostream &operator<<(std::ostream &os, const environment& e)
 
 void test_environment()
 {
+  #ifndef NDEBUG // no tests is release
   // Minimal and maximal coordinats should make sense
   {
     const environment e;
@@ -62,4 +63,5 @@ void test_environment()
     assert(!s.str().empty());
   }
   #endif // FIX_ISSUE_204
+#endif // no tests in release
 }

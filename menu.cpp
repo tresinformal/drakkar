@@ -39,7 +39,7 @@ void menu::put_buttons_tidy() noexcept
 
 void test_menu()
 {
-
+  #ifndef NDEBUG // no tests in release
   // menu_view is built with values
   // for width and height of the screen
   {
@@ -73,4 +73,5 @@ void test_menu()
              (static_cast<int>(v.get_buttons().size()) + 1) <
              0.000001f);
   }
+  #endif
 }

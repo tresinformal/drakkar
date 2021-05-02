@@ -28,6 +28,7 @@
 /// All tests are called from here, only in debug mode
 void test()
 {
+#ifndef NDEBUG
   test_optional();
   test_action_type();
   test_player_shape();
@@ -56,6 +57,7 @@ void test()
   test_game_resources();
   test_sound_type();
 #endif // LOGIC_ONLY
+#endif
 }
 
 int main(int argc, char **argv) //!OCLINT tests may be long

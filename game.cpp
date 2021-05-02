@@ -442,6 +442,7 @@ player game::wall_collision(player p)
 
 void test_game() //!OCLINT tests may be many
 {
+  #ifndef NDEBUG // no tests in release
   // The game has done zero ticks upon startup
   {
     const game g;
@@ -1081,6 +1082,6 @@ void test_game() //!OCLINT tests may be many
     assert(!nth_food_is_eaten(g,0));
   }
 #endif
-
+#endif // no tests in release
 }
 
