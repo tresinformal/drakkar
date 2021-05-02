@@ -40,4 +40,12 @@ jobs:
       - name: Show contributors on all branches
         run: git shortlog -s -n --all --no-merges
 
+      - name: clean for release build
+        run: make clean
+
+      - name: qmake
+        run: qmake game_on_gha.pro
+
+      - name: make
+        run: make release --silent
 
