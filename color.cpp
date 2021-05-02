@@ -43,6 +43,7 @@ std::string to_str(const color& in_color) noexcept
 
 void test_color()
 {
+    #ifndef NDEBUG // no tests is release
     // Color is white by default
     {
         const color c;
@@ -82,6 +83,7 @@ void test_color()
         const color c;
         std::cout << c;
     }
+#endif
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept

@@ -81,6 +81,7 @@ const std::string to_str(const shelter& in_shelter) noexcept
 }
 void test_shelter() //!OCLINT tests may be complex
 {
+  #ifndef NDEBUG // no tests in release
   {
     shelter f;
     assert(f.get_x() == 0.0);
@@ -125,4 +126,5 @@ void test_shelter() //!OCLINT tests may be complex
     assert(!t.empty());
   }
   #endif // FIX_ISSUE_264
+  #endif
 }

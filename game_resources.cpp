@@ -162,12 +162,12 @@ game_resources::game_resources()
 
 void test_game_resources()
 {
+  #ifndef NDEBUG // no tests in release
   game_resources g;
   assert(g.get_heterogenous_landscape().getSize().x > 0.0);
 
   #ifdef FIX_ISSUE_136
   assert(g.get_sound(sound_type::shoot).getDuration().asMicroseconds() > 0.0);
   #endif
-
-
+  #endif
 }

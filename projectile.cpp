@@ -18,6 +18,7 @@ void projectile::move()
 
 void test_projectile()
 {
+  #ifndef NDEBUG // no tests in release
   // Constructor
   {
     const double x{1.2};
@@ -32,5 +33,5 @@ void test_projectile()
     assert(t == p.get_type());
     assert(r == p.get_radius());
   }
-
+  #endif
 }
