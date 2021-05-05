@@ -64,7 +64,7 @@ void add_projectile(game &g, const projectile &p)
 
 double get_nth_player_size(const game& g, const int i)
 {
-    return g.get_player(i).get_diameter();
+  return g.get_player(i).get_diameter();
 }
 
 int count_alive_players(const game& g) noexcept
@@ -241,7 +241,7 @@ void game::tick()
 
 void game::increment_n_ticks()
 {
-    ++m_n_ticks;
+  ++m_n_ticks;
 }
 
 bool has_collision(const game &g) noexcept
@@ -442,7 +442,7 @@ player game::wall_collision(player p)
 
 void test_game() //!OCLINT tests may be many
 {
-  #ifndef NDEBUG // no tests in release
+#ifndef NDEBUG // no tests in release
   // The game has done zero ticks upon startup
   {
     const game g;
@@ -621,11 +621,11 @@ void test_game() //!OCLINT tests may be many
     const game g;
     const int n_players{static_cast<int>(g.get_v_player().size())};
     for (int i = 0; i != n_players; ++i)
-    {
-      const double a{g.get_player(i).get_diameter()};
-      const double b{get_nth_player_size(g, i)};
-      assert(std::abs(b - a) < 0.0001);
-    }
+      {
+        const double a{g.get_player(i).get_diameter()};
+        const double b{get_nth_player_size(g, i)};
+        assert(std::abs(b - a) < 0.0001);
+      }
   }
   // game by default has a mix and max evironment size
   {
@@ -974,7 +974,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_237
+  //#define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
   //Food and player can be overlapped
   {
@@ -1082,6 +1082,37 @@ void test_game() //!OCLINT tests may be many
     assert(!nth_food_is_eaten(g,0));
   }
 #endif
+
+#ifdef FIX_ISSUE_250
+  //Food can be placed at a random location
+  {
+
+    game g;
+    std::vector<double> food_x;
+    std::vector<double> food_y;
+
+    int repeats = 1000;
+
+    for(int i = 0; i != repeats; i++)
+      {
+        place_nth_food_randomly(g,0);
+        food_x.push_back(get_nth_food_x(g,0));
+        food_y.push_back(get_nth_food_y(g,0));
+      }
+    auto mean_x = calc_mean(food_x);
+    auto mean_y = calc_mean(food_y);
+
+    assert(mean_x > -0.01 && mean_x < 0.01);
+    assert(mean_y > -0.01 && mean_y < 0.01);
+
+    auto var_x = calc_var(food_x, mean_x);
+    auto var_y = calc_var(food_y, mean_y);
+
+    assert(var_x < 0.01 && var_x > -0.01);
+    assert(var_y < 0.01 && var_y > -0.01);
+  }
+#endif
+
 #endif // no tests in release
 }
 
