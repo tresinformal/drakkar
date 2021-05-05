@@ -401,7 +401,6 @@ void kill_losing_player(game &g)
 
 void game::kill_player(const int index)
 {
-
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
   get_player(index).set_state(player_state::dead);
@@ -1113,7 +1112,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#ifdef FIX_ISSUE_285
+#ifdef FIX_ISSUE_286
   {
     std::vector<double> food_x;
     std::vector<double> food_y;
