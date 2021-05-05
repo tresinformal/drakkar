@@ -1,4 +1,7 @@
 #include "game_view.h"
+
+#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
@@ -428,5 +431,4 @@ void test_game_view()//!OCLINT tests may be many
   #endif
 }
 
-
-
+#endif // LOGIC_ONLY // that is, compiled on GitHub Actions

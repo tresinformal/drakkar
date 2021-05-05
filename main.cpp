@@ -85,6 +85,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
       perror("Do not profile in debug mode");
       abort();
 #else
+      #ifndef LOGIC_ONLY // that is, not compiled on GitHub Actions
       using namespace std::chrono;
       game_view v;
       double max_duration = 10;
@@ -98,6 +99,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
           time =  high_resolution_clock::now() - start;
       }
       std::cout << time.count() << '\n';
+      #endif // LOGIC_ONLY // that is, not compiled on GitHub Actions
 #endif
   }
 #ifndef LOGIC_ONLY
