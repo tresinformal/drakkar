@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <random>
 
 game::game(double wall_short_side,
            int num_players,
@@ -1136,6 +1137,35 @@ void test_game() //!OCLINT tests may be many
     assert(var_y < 0.01 && var_y > -0.01);
   }
 #endif
+
+#ifdef FIX_ISSUE_285
+  {
+    game g;
+    int repeats = 1000;
+    std::vector<double> numbers;
+    int min = 0;
+    int max = 100;
+    std::uniform_real_distribution<double> unif_dist(min, max);
+    double expected_mean = (max - min)/2;
+    for(int i = 0; i != repeats; i++)
+      {
+        numbers.push_back(distr(g.get_rng()));
+      }
+    auto mean = calc_mean(numbers);
+    assert(expected_mean - mean < 0.0001 && expected_mean - mean > -0.0001);
+  }
+#endif
+
+#ifdef FIX_ISSUE_288
+  {
+    int seed = 123456789;
+    game g{0,0,0,0,0,0, seed};
+    auto expected_rng = std::minstd_rand(seed);
+    assert(g.get_rng() - expected_rng() < 0.00001 &&
+           g.get_rng() - expected_rng() > -0.00001);
+  }
+#endif
+
 
 #endif // no tests in release
 }
