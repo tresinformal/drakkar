@@ -89,7 +89,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
       game_view v;
       double max_duration = 10;
       auto start = high_resolution_clock::now();
-      duration<double> time;
+      duration<double> time = high_resolution_clock::now() - start;
       while( time.count() < max_duration)
       {
           v.process_events();
@@ -97,6 +97,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
           v.show();
           time =  high_resolution_clock::now() - start;
       }
+      std::cout << time.count() << '\n';
 #endif
   }
 #ifndef LOGIC_ONLY
