@@ -1113,6 +1113,31 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#ifdef FIX_ISSUE_285
+  {
+    std::vector<double> food_x;
+    std::vector<double> food_y;
+    int repeats = 1000;
+    for(int rng_seed = 0; rng_seed != repeats; rng_seed++)
+      {
+        game g(1,1,1,1,1,1, rng_seed);
+        food_x.push_back(get_nth_food_x(g,0));
+        food_y.push_back(get_nth_food_y(g,0));
+      }
+    auto mean_x = calc_mean(food_x);
+    auto mean_y = calc_mean(food_y);
+
+    assert(mean_x > -0.01 && mean_x < 0.01);
+    assert(mean_y > -0.01 && mean_y < 0.01);
+
+    auto var_x = calc_var(food_x, mean_x);
+    auto var_y = calc_var(food_y, mean_y);
+
+    assert(var_x < 0.01 && var_x > -0.01);
+    assert(var_y < 0.01 && var_y > -0.01);
+  }
+#endif
+
 #endif // no tests in release
 }
 
