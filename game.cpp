@@ -1172,7 +1172,8 @@ void test_game() //!OCLINT tests may be many
       numbers.push_back(unif_dist(g.get_rng()));
     }
     auto mean = calc_mean(numbers);
-    assert(expected_mean - mean < 0.0001 && expected_mean - mean > -0.0001);
+    // The calculated mean should be around the expected mean
+    assert(std::abs(expected_mean - mean) < 1.0);
   }
 #endif
 
