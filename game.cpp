@@ -63,6 +63,14 @@ void add_projectile(game &g, const projectile &p)
   g.get_projectiles().push_back(p);
 }
 
+double calc_mean(const std::vector<double>& v)
+{
+  return std::accumulate(
+    std::begin(v),
+    std::end(v), 0.0
+  ) / std::size(v);
+}
+
 double get_nth_player_size(const game& g, const int i)
 {
   return g.get_player(i).get_diameter();
