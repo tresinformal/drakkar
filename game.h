@@ -12,6 +12,7 @@
 #include "shelter.h"
 #include <vector>
 #include "game_options.h"
+#include <random>
 
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
@@ -44,7 +45,7 @@ public:
   const game_options& get_game_options() const noexcept { return m_options; }
 
   /// Get the random number generator engine
-  get_rng
+  std::default_random_engine& get_rng() noexcept;
 
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);

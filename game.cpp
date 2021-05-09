@@ -440,6 +440,11 @@ player game::wall_collision(player p)
   return p;
 }
 
+ std::default_random_engine& get_rng() noexcept
+ {
+
+ }
+
 void test_game() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
