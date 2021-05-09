@@ -1142,7 +1142,13 @@ void test_game() //!OCLINT tests may be many
 
 #define FIX_ISSUE_285
   // Test calc_mean
-  {}
+  {
+        std::vector<double> numbers;
+        numbers.push_back(1);
+        numbers.push_back(2);
+        auto expected_mean = calc_mean(numbers);
+        assert(expected_mean - 1.5 < 0.0001 && expected_mean - 1.5 > -0.0001);
+  }
 
 #ifdef FIX_ISSUE_285
   {
