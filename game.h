@@ -11,6 +11,7 @@
 #include "projectile.h"
 #include "shelter.h"
 #include <vector>
+#include "game_options.h"
 
 /// Contains the game logic.
 /// All data types used by this class are STL and/or Boost
@@ -110,6 +111,10 @@ public:
   player wall_collision(player p);
 
 private:
+
+  /// the options of the game
+  game_options m_options;
+
   /// the number of ticks
   int m_n_ticks;
 
