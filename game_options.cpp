@@ -58,8 +58,6 @@ void test_game_options()
     assert(o.is_playing_music());
   }
 
-  #define FIX_ISSUE_268
-  #ifdef FIX_ISSUE_268
   // Player 1 has a key action map
   {
     const game_options a;
@@ -67,6 +65,5 @@ void test_game_options()
     const auto m_again = get_player_0_kam(); // Naming is confusing, this is the KAM for the first player
     assert(m == m_again);
   }
-  #endif // FIX_ISSUE_268
   #endif
 }
