@@ -410,8 +410,8 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-
-  //#define FIX_ISSUE_224
+   #ifdef FIX_ISSUE_224
+  // #define FIX_ISSUE_224
   // Pressing 1 stuns player 1
   {
     game_view g;
@@ -428,6 +428,7 @@ void test_game_view()//!OCLINT tests may be many
     g.process_events(); // Needed to process the event
     assert(!is_nth_player_stunned(g, 0));
   }
+  #endif
   #endif
 }
 
