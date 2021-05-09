@@ -1135,6 +1135,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_285
 #ifdef FIX_ISSUE_285
   {
     game g;
@@ -1146,7 +1147,7 @@ void test_game() //!OCLINT tests may be many
     double expected_mean = (max - min)/2;
     for(int i = 0; i != repeats; i++)
       {
-        numbers.push_back(distr(g.get_rng()));
+        numbers.push_back(unif_dist(g.get_rng()));
       }
     auto mean = calc_mean(numbers);
     assert(expected_mean - mean < 0.0001 && expected_mean - mean > -0.0001);

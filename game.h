@@ -43,6 +43,9 @@ public:
   /// Get the game's options
   const game_options& get_game_options() const noexcept { return m_options; }
 
+  /// Get the random number generator engine
+  get_rng
+
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);
 
