@@ -40,6 +40,9 @@ public:
   ///returns the collision vector
   const std::vector<int>& get_collision_vec(){return m_v_collisions_ind;}
 
+  /// Get the game's options
+  const game_options& get_game_options() const noexcept { return m_options; }
+
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);
 

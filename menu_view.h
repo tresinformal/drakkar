@@ -1,7 +1,7 @@
 #ifndef MENU_VIEW_H
 #define MENU_VIEW_H
 
-#ifdef LOGIC_ONLY // that is, compiled on GitHub Actions
+#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
 
 #include "SFML/Graphics.hpp"
 #include "menu.h"
