@@ -1,6 +1,6 @@
 #ifndef GAME_OPTIONS_H
 #define GAME_OPTIONS_H
-
+#include "key_action_map.h"
 // Try to declare the class 'game_options' here yourself
 class game_options
 {
@@ -16,8 +16,11 @@ public:
   ///Turns the flag m_play_music to true
   void play_music() noexcept {m_play_music = true;}
 
+  key_action_map get_kam_1;
+
 private:
   bool m_play_music = true;
+  key_action_map m_kam_1;
 };
 
 bool operator == (const game_options& lhs, const game_options& rhs) noexcept;
