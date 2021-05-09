@@ -16,7 +16,7 @@ public:
   ///Turns the flag m_play_music to true
   void play_music() noexcept {m_play_music = true;}
 
-  key_action_map get_kam_1;
+  const key_action_map& get_kam_1() const noexcept { return m_kam_1; };
 
 private:
   bool m_play_music = true;
