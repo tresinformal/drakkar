@@ -119,6 +119,9 @@ public:
 
 private:
 
+  /// The RNG engine
+  std::default_random_engine m_rng;
+
   /// the options of the game
   game_options m_options;
 

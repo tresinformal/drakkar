@@ -440,10 +440,10 @@ player game::wall_collision(player p)
   return p;
 }
 
- std::default_random_engine& get_rng() noexcept
- {
-
- }
+std::default_random_engine& game::get_rng() noexcept
+{
+  return m_rng;
+}
 
 void test_game() //!OCLINT tests may be many
 {
@@ -1141,6 +1141,9 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 #define FIX_ISSUE_285
+  // Test calc_mean
+  {}
+
 #ifdef FIX_ISSUE_285
   {
     game g;
@@ -1151,9 +1154,9 @@ void test_game() //!OCLINT tests may be many
     std::uniform_real_distribution<double> unif_dist(min, max);
     double expected_mean = (max - min)/2;
     for(int i = 0; i != repeats; i++)
-      {
-        numbers.push_back(unif_dist(g.get_rng()));
-      }
+    {
+      numbers.push_back(unif_dist(g.get_rng()));
+    }
     auto mean = calc_mean(numbers);
     assert(expected_mean - mean < 0.0001 && expected_mean - mean > -0.0001);
   }
