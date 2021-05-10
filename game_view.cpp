@@ -164,8 +164,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         sf::CircleShape circle;
         circle.setRadius(r);
         circle.setFillColor(sf::Color(red, green, blue));
-        circle.setOutlineColor(sf::Color(red / 2, green / 2, blue / 2));
-        circle.setOutlineThickness(2.0f);
+        circle.setTexture(&m_game_resources.get_dragon());
         circle.setOrigin(r, r);
         circle.setPosition(x, y);
         circle.setRotation(angle  * 180.0f / M_PI);
