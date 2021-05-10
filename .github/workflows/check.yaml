@@ -37,9 +37,6 @@ jobs:
       - name: Measure codecov 3
         run: bash <(curl -s https://codecov.io/bash)
 
-      - name: Show contributors on all branches
-        run: git shortlog -s -n --all --no-merges
-
       - name: clean for release build
         run: make clean
 
@@ -48,4 +45,7 @@ jobs:
 
       - name: make
         run: make release --silent
+
+      - name: Show contributors on all branches
+        run: git clone https://github.com/tresinformal/game.git ; cd game ; git shortlog -s -n --all --no-merges
 
