@@ -18,9 +18,12 @@ public:
 
   const key_action_map& get_kam_1() const noexcept { return m_kam_1; };
 
+  const key_action_map& get_kam_2() const noexcept { return m_kam_2; };
+
 private:
   bool m_play_music = true;
   key_action_map m_kam_1;
+  key_action_map m_kam_2;
 };
 
 bool operator == (const game_options& lhs, const game_options& rhs) noexcept;

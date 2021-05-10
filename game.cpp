@@ -63,6 +63,14 @@ void add_projectile(game &g, const projectile &p)
   g.get_projectiles().push_back(p);
 }
 
+double calc_mean(const std::vector<double>& v)
+{
+  return std::accumulate(
+    std::begin(v),
+    std::end(v), 0.0
+  ) / v.size();
+}
+
 double get_nth_player_size(const game& g, const int i)
 {
   return g.get_player(i).get_diameter();
@@ -438,6 +446,11 @@ player game::wall_collision(player p)
     }
 
   return p;
+}
+
+std::default_random_engine& game::get_rng() noexcept
+{
+  return m_rng;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1135,6 +1148,16 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_285
+  // Test calc_mean
+  {
+        std::vector<double> numbers;
+        numbers.push_back(1);
+        numbers.push_back(2);
+        auto expected_mean = calc_mean(numbers);
+        assert(expected_mean - 1.5 < 0.0001 && expected_mean - 1.5 > -0.0001);
+  }
+
 #ifdef FIX_ISSUE_285
   {
     game g;
@@ -1145,11 +1168,12 @@ void test_game() //!OCLINT tests may be many
     std::uniform_real_distribution<double> unif_dist(min, max);
     double expected_mean = (max - min)/2;
     for(int i = 0; i != repeats; i++)
-      {
-        numbers.push_back(distr(g.get_rng()));
-      }
+    {
+      numbers.push_back(unif_dist(g.get_rng()));
+    }
     auto mean = calc_mean(numbers);
-    assert(expected_mean - mean < 0.0001 && expected_mean - mean > -0.0001);
+    // The calculated mean should be around the expected mean
+    assert(std::abs(expected_mean - mean) < 1.0);
   }
 #endif
 

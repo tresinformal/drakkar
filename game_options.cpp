@@ -3,7 +3,14 @@
 #include <cassert>
 
 // Try to define the class 'game_options' yourself
-game_options::game_options(const bool play_music) : m_play_music{play_music} {}
+game_options::game_options(
+  const bool play_music
+) : m_play_music{play_music},
+    m_kam_1{get_player_0_kam()}, // Yes, naming of get_player_0_kam is confusing
+    m_kam_2{get_player_1_kam()}  // Yes, naming of get_player_1_kam is confusing
+{
+
+}
 
 bool operator == (const game_options& lhs, const game_options& rhs) noexcept {
   // Check if left-hand side is equal to the right-hand side
@@ -58,8 +65,6 @@ void test_game_options()
     assert(o.is_playing_music());
   }
 
-  #define FIX_ISSUE_268
-  #ifdef FIX_ISSUE_268
   // Player 1 has a key action map
   {
     const game_options a;
@@ -67,6 +72,21 @@ void test_game_options()
     const auto m_again = get_player_0_kam(); // Naming is confusing, this is the KAM for the first player
     assert(m == m_again);
   }
-  #endif // FIX_ISSUE_268
+  // Player 2 has a key action map
+  {
+    const game_options a;
+    const auto m = a.get_kam_2();
+    const auto m_again = get_player_1_kam(); // Naming is confusing, this is the KAM for the first player
+    assert(m == m_again);
+  }
+  #ifdef FIX_ISSUE_289
+  // Player 3 has a key action map
+  {
+    const game_options a;
+    const auto m = a.get_kam_3();
+    const auto m_again = get_player_2_kam(); // Naming is confusing, this is the KAM for the first player
+    assert(m == m_again);
+  }
+  #endif // FIX_ISSUE_289
   #endif
 }
