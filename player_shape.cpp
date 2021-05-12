@@ -6,12 +6,14 @@
 
 void test_player_shape()
 {
+  #ifndef NDEBUG // no tests in release
   // Conversion to string
   {
     assert(to_str(player_shape::circle) == "circle");
     assert(to_str(player_shape::rocket) == "rocket");
     assert(to_str(player_shape::square) == "square");
   }
+  #endif
 }
 
 std::string to_str(player_shape this_player_shape)

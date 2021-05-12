@@ -25,7 +25,7 @@ public:
   bool has_key(sf::Keyboard::Key key) const noexcept;
 
   ///Returns const ref of m_map
-  const std::map<sf::Keyboard::Key, action_type>& get_raw_map() noexcept {return m_map;}
+  const std::map<sf::Keyboard::Key, action_type>& get_raw_map() const noexcept {return m_map;}
 
 private:
   std::map<sf::Keyboard::Key, action_type> m_map;
@@ -38,7 +38,9 @@ key_action_map get_player_0_kam();
 key_action_map get_player_1_kam();
 
 /// Get the default key to action map for player 3
-//key_action_map get_player_3_kam();
+//key_action_map get_player_2_kam();
+
+bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 
 /// Check if key has action
 

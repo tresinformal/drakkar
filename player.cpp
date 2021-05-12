@@ -196,6 +196,7 @@ void remove_action(player& p, action_type action) noexcept
 
 void test_player() //!OCLINT tests may be long
 {
+  #ifndef NDEBUG // no tests in release
   // Can default construct a player
   {
     const player p;
@@ -630,4 +631,5 @@ void test_player() //!OCLINT tests may be long
     assert(is_stunned(p));
   }
 #endif
+#endif // no tests in release
 }

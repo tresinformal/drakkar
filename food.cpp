@@ -3,8 +3,8 @@
 #include <cmath>
 #include <sstream>
 
-food::food(const double x, const double y, const color &c, const double timer)
-    : m_x{x}, m_y{y}, m_color{c},m_timer{timer}
+food::food(const double x, const double y, const color &c, const double timer, food_state food_state)
+    : m_x{x}, m_y{y}, m_color{c},m_timer{timer},m_food_state{food_state}
 {
 }
 
@@ -20,7 +20,7 @@ std::ostream &operator<<(std::ostream &os, const food f)
 
 void test_food()
 {
-
+  #ifndef NDEBUG // no tests in release
   {
     const food f;
     assert(f.get_x() == 0.0);
@@ -49,13 +49,11 @@ void test_food()
     assert(!s.str().empty());
   }
 
-#ifdef FIX_ISSUE_253
   //A food has a food_state member initialized to ::uneaten by default
   {
     food f;
-    assert(f.get_state() == food_state::uneaten);
+    assert(f.get_food_state() == food_state::uneaten);
   }
-#endif
 
 #ifdef FIX_ISSUE_260
   {
@@ -63,7 +61,6 @@ void test_food()
     assert(!is_eaten(f));
   }
 #endif
-
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
@@ -86,9 +83,7 @@ void test_food()
     assert(f.get_regeneration_time() == regeneration_time);
   }
 #endif
-
-
-
+#endif // no tests in release
 }
 
 
