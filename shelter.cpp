@@ -64,7 +64,8 @@ int get_redness(const shelter &f) noexcept
   return get_redness(f.get_color());
 }
 
-const std::string to_str(const shelter& in_shelter)
+//converting shelter to string in debugging purposes
+const std::string to_str(const shelter& in_shelter) noexcept
 {
     std::string msg;
     msg+="shelter info:\n";
@@ -80,6 +81,7 @@ const std::string to_str(const shelter& in_shelter)
 }
 void test_shelter() //!OCLINT tests may be complex
 {
+  #ifndef NDEBUG // no tests in release
   {
     shelter f;
     assert(f.get_x() == 0.0);
@@ -124,4 +126,5 @@ void test_shelter() //!OCLINT tests may be complex
     assert(!t.empty());
   }
   #endif // FIX_ISSUE_264
+  #endif
 }
