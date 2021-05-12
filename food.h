@@ -34,6 +34,9 @@ int get_greenness(const food &f) noexcept;
 /// Get the redness (from the color) of the food
 int get_redness(const food &f) noexcept;
 
+/// Has food been eaten?
+bool is_eaten(const food &f) noexcept;
+
 /// Implement stream operator
 std::ostream& operator << (std::ostream &out, const food food);
 #endif // FOOD_H
