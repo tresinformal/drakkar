@@ -12,6 +12,7 @@ public:
   double get_x() const noexcept;
   double get_y() const noexcept;
   double get_timer_regeneration() const noexcept { return m_timer;}
+  bool is_eaten(const food f) const noexcept;
   /// Get the food state
   food_state get_food_state() const noexcept { return m_food_state;}
 private:
@@ -33,9 +34,6 @@ int get_greenness(const food &f) noexcept;
 
 /// Get the redness (from the color) of the food
 int get_redness(const food &f) noexcept;
-
-/// Has food been eaten?
-bool is_eaten(const food &f) noexcept;
 
 /// Implement stream operator
 std::ostream& operator << (std::ostream &out, const food food);
