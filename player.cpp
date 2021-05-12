@@ -196,14 +196,48 @@ void remove_action(player& p, action_type action) noexcept
 }
 
 
-player& create_red_player()
+player create_red_player()
 {
     player red_player;
     red_player.set_color(color(255,0,0));
     return red_player;
 }
-player& create_green_player();
-player& create_blue_player();
+player create_green_player()
+{
+    player green_player;
+    green_player.set_color(color(0,255,0));
+    return green_player;
+}
+player create_blue_player()
+{
+    player blue_player;
+    blue_player.set_color(color(0,0,255));
+    return blue_player;
+}
+bool is_first_player_loser(const player& player_one, const player& player_two)
+{
+    if(player_one.get_color()==color(255,0,0))
+    {
+        if(player_two.get_color()!=color(0,0,255))
+            return false;
+        else
+            return true;
+    }
+    if(player_one.get_color()==color(0,255,0))
+    {
+            if(player_two.get_color()!=color(255,0,0))
+                return false;
+            else
+                return true;
+    }
+    if(player_one.get_color()==color(0,0,255))
+    {
+            if(player_two.get_color()!=color(0,255,0))
+                return false;
+            else
+                return true;
+    }
+}
 void test_player() //!OCLINT tests may be long
 {
   #ifndef NDEBUG // no tests in release
