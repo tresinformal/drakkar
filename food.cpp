@@ -18,6 +18,11 @@ std::ostream &operator<<(std::ostream &os, const food f)
   return os;
 }
 
+bool is_eaten(const food &f) noexcept {
+    if (f.food_state == eaten) {};
+};
+
+
 void test_food()
 {
   #ifndef NDEBUG // no tests in release
