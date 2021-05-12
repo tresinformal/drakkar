@@ -55,12 +55,13 @@ void test_food()
     assert(f.get_food_state() == food_state::uneaten);
   }
 
-#ifdef FIX_ISSUE_260
+ifdef FIX_ISSUE_260
   {
     food f; //by default uneaten
     assert(!is_eaten(f));
   }
 #endif
+
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
