@@ -18,8 +18,8 @@ std::ostream &operator<<(std::ostream &os, const food f)
   return os;
 }
 
-bool food::is_eaten(const food &f) noexcept {
-    if (f.get_food_state() == food_state::eaten) {
+bool food::is_eaten() noexcept {
+    if (food::get_food_state() == food_state::eaten) {
         return true;
     } else {
         return false;
