@@ -2,7 +2,6 @@
 # Fairytale (For ages 3.14159 to 265358 years old)
 
 Once upon a time there was a dragon and a toothfairy and a goblin.
-
 They were both horses in disguise (can you imagine?)!
 
 Three fairytale protagonists in two horse bodies, what a quantum conundrum.
@@ -29,5 +28,5 @@ Climate change!!! The weather of North Finland became comparable to Southern Fra
 
 the story continues to the galaxy far far away
 dragons have been living on the earth's plane of existance, but the empire is invading earth with Darth Vader leading the army. brave dragons have once again stood up together, shoulder to shoulder to protect and save the humanity from the evil empire. They were fighting for 60 days and 80 nights in succession and in the end... 
-
+They lost. They lost?!
 
