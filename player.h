@@ -230,4 +230,9 @@ void remove_action(player& p, action_type) noexcept;
 /// Test the player class
 void test_player();
 
+/// Create player
+player& create_red_player();
+player& create_green_player();
+player& create_blue_player();
+
 #endif // PLAYER_H
