@@ -120,7 +120,7 @@ void game_view::draw_background() noexcept
     // Draw the background
     sf::Sprite background_sprite;
     background_sprite.setPosition(10.0, 10.0);
-    //background_sprite.setTexture(m_game_resources.get_grass_landscape());
+    // background_sprite.setTexture(m_game_resources.get_grass_landscape());
     background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
     background_sprite.setScale(16.0f, 16.0f);
     m_window.draw(background_sprite);
@@ -167,8 +167,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         sf::CircleShape circle;
         circle.setRadius(r);
         circle.setFillColor(sf::Color(red, green, blue));
-        circle.setOutlineColor(sf::Color(red / 2, green / 2, blue / 2));
-        circle.setOutlineThickness(2.0f);
+        circle.setTexture(&m_game_resources.get_dragon());
         circle.setOrigin(r, r);
         circle.setPosition(x, y);
         circle.setRotation(angle  * 180.0f / M_PI);

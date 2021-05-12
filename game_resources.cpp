@@ -26,6 +26,16 @@ game_resources::game_resources()
     }
   }
   {
+    const QString filename{"marjon_the_dragon.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_dragon.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+  {
     const QString filename{"cat.png"};
     QFile f(":/" + filename);
     f.copy(filename);
