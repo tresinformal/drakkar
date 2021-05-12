@@ -136,9 +136,11 @@ void game_view::draw_food() noexcept
     m_window.draw(foodsprite);
 }
 
-void game_view::press_key(const sf::Keyboard::Key&)
+void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    this->m_game.do_action(0,action_type::stun);
+    if(k == sf::Keyboard::Num1) {
+        this->m_game.do_action(0,action_type::stun);
+    }
 }
 
 
