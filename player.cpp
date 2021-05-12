@@ -237,6 +237,7 @@ bool is_first_player_loser(const player& player_one, const player& player_two)
             else
                 return true;
     }
+    return false;
 }
 void test_player() //!OCLINT tests may be long
 {
