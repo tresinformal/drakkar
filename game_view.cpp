@@ -172,7 +172,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         circle.setTexture(&m_game_resources.get_dragon());
         circle.setOrigin(r, r);
         circle.setPosition(x, y);
-        circle.setRotation(angle  * 180.0f / M_PI);
+        circle.setRotation((angle  * 180.0f / M_PI)+90);
 
 //        sf::RectangleShape rect;
 //        rect.setSize(sf::Vector2f(r, 2.0f));
