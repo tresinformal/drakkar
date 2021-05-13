@@ -1161,19 +1161,9 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_285
   {
     game g;
-    int repeats = 1000;
-    std::vector<double> numbers;
-    int min = 0;
-    int max = 100;
-    std::uniform_real_distribution<double> unif_dist(min, max);
-    double expected_mean = (max - min)/2;
-    for(int i = 0; i != repeats; i++)
-    {
-      numbers.push_back(unif_dist(g.get_rng()));
-    }
-    auto mean = calc_mean(numbers);
-    // The calculated mean should be around the expected mean
-    assert(std::abs(expected_mean - mean) < 1.0);
+    std::uniform_real_distribution<
+      double
+    >(0.0, 1.0)(g.get_rng());
   }
 #endif
 
