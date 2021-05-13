@@ -1,6 +1,7 @@
 #include "player.h"
 #include "player_shape.h"
 #include "player_state.h"
+#include "color.h"
 #include <cassert>
 #include <cmath>
 
@@ -31,6 +32,12 @@ player::player(const double x,
 {
 
 }
+//move a player
+void player::move() noexcept
+{
+    m_x += cos(m_direction_radians) * m_player_speed;
+    m_y += sin(m_direction_radians) * m_player_speed;
+}
 
 /// Get the X coordinate of the player
 double player::get_x() const noexcept { return m_x; }
@@ -59,7 +66,7 @@ void player::brake() noexcept
     {
       return;
     }
-  update_player_position();
+  move();
 
 }
 
@@ -73,7 +80,7 @@ void player::accelerate() noexcept
     {
       m_player_speed = m_player_max_speed;
     }
-  update_player_position();
+  move();
 }
 
 void player::acc_backward() noexcept
@@ -86,7 +93,7 @@ void player::acc_backward() noexcept
     {
       m_player_speed = -m_player_max_speed;
     }
-  update_player_position();
+  move();
 }
 
 void add_action(player& p, action_type action) noexcept
@@ -188,8 +195,53 @@ void remove_action(player& p, action_type action) noexcept
   p.get_action_set().erase(action);
 }
 
+
+player create_red_player()
+{
+    player red_player;
+    red_player.set_color(color(255,0,0));
+    return red_player;
+}
+player create_green_player()
+{
+    player green_player;
+    green_player.set_color(color(0,255,0));
+    return green_player;
+}
+player create_blue_player()
+{
+    player blue_player;
+    blue_player.set_color(color(0,0,255));
+    return blue_player;
+}
+bool is_first_player_loser(const player& player_one, const player& player_two)
+{
+    if(player_one.get_color()==color(255,0,0))
+    {
+        if(player_two.get_color()!=color(0,0,255))
+            return false;
+        else
+            return true;
+    }
+    if(player_one.get_color()==color(0,255,0))
+    {
+            if(player_two.get_color()!=color(255,0,0))
+                return false;
+            else
+                return true;
+    }
+    if(player_one.get_color()==color(0,0,255))
+    {
+            if(player_two.get_color()!=color(0,255,0))
+                return false;
+            else
+                return true;
+    }
+    return false;
+}
 void test_player() //!OCLINT tests may be long
 {
+  #ifndef NDEBUG // no tests in release
   // Can default construct a player
   {
     const player p;
@@ -377,7 +429,7 @@ void test_player() //!OCLINT tests may be long
   }
   #endif // FIX_ISSUE_231
   //#define FIX_ISSUE_232
-  #ifdef FIX_ISSUE_232
+  //#ifdef FIX_ISSUE_232
   // The correct player must lose
   {
     const player paper = create_red_player();
@@ -390,7 +442,7 @@ void test_player() //!OCLINT tests may be long
     assert(is_first_player_loser(paper, scissors));
     assert(is_first_player_loser(scissors, rock));
   }
-  #endif // FIX_ISSUE_232
+ // #endif // FIX_ISSUE_232
 
   //A player is initialized with an empty action set
   {
@@ -624,4 +676,5 @@ void test_player() //!OCLINT tests may be long
     assert(is_stunned(p));
   }
 #endif
+#endif // no tests in release
 }

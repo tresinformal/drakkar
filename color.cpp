@@ -29,6 +29,7 @@ int get_opaqueness(const color &c) noexcept { return c.get_opaqueness(); }
 
 int get_redness(const color &c) noexcept { return c.get_red(); }
 
+//convert color to string in debugging purposes
 std::string to_str(const color& in_color) noexcept
 {
     std::string msg = "[";
@@ -38,8 +39,11 @@ std::string to_str(const color& in_color) noexcept
     msg+=std::to_string(in_color.get_opaqueness())+"]";
     return msg;
 }
+
+
 void test_color()
 {
+    #ifndef NDEBUG // no tests is release
     // Color is white by default
     {
         const color c;
@@ -79,6 +83,7 @@ void test_color()
         const color c;
         std::cout << c;
     }
+#endif
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept

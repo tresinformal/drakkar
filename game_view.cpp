@@ -1,4 +1,7 @@
 #include "game_view.h"
+
+#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
@@ -117,7 +120,7 @@ void game_view::draw_background() noexcept
     // Draw the background
     sf::Sprite background_sprite;
     background_sprite.setPosition(10.0, 10.0);
-    //background_sprite.setTexture(m_game_resources.get_grass_landscape());
+    // background_sprite.setTexture(m_game_resources.get_grass_landscape());
     background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
     background_sprite.setScale(16.0f, 16.0f);
     m_window.draw(background_sprite);
@@ -166,8 +169,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         sf::CircleShape circle;
         circle.setRadius(r);
         circle.setFillColor(sf::Color(red, green, blue));
-        circle.setOutlineColor(sf::Color(red / 2, green / 2, blue / 2));
-        circle.setOutlineThickness(2.0f);
+        circle.setTexture(&m_game_resources.get_dragon());
         circle.setOrigin(r, r);
         circle.setPosition(x, y);
         circle.setRotation(angle  * 180.0f / M_PI);
@@ -287,6 +289,7 @@ bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
 
 void test_game_view()//!OCLINT tests may be many
 {
+    #ifndef NDEBUG // no tests in release
     {
         // Show the game for one frame
         // (there will be a member function 'exec' for running the game)
@@ -408,8 +411,8 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-
-  //#define FIX_ISSUE_224
+   #ifdef FIX_ISSUE_224
+  // #define FIX_ISSUE_224
   // Pressing 1 stuns player 1
   {
     game_view g;
@@ -426,8 +429,8 @@ void test_game_view()//!OCLINT tests may be many
     g.process_events(); // Needed to process the event
     assert(!is_nth_player_stunned(g, 0));
   }
-
+  #endif
+  #endif
 }
 
-
-
+#endif // LOGIC_ONLY // that is, compiled on GitHub Actions

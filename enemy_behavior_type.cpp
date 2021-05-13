@@ -7,6 +7,7 @@
 
 void test_enemy_behavior_type()
 {
+  #ifndef NDEBUG // no tests is release
   const enemy_behavior_type t{enemy_behavior_type::gezellig};
   const enemy_behavior_type u{enemy_behavior_type::shy};
   static_assert(t != u,"");
@@ -29,7 +30,7 @@ void test_enemy_behavior_type()
     std::stringstream s;
     assert(s.str().empty());
   }
-
+  #endif
 }
 
 std::ostream &operator<< (std::ostream &out, const enemy_behavior_type &enemy_type)

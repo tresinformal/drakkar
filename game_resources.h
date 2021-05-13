@@ -21,6 +21,9 @@ public:
   /// Get the texture of a the player
   sf::Texture &get_player_sprite() noexcept { return m_player_sprite; }
 
+  /// Get a picture of a Marjon the dragon
+  sf::Texture &get_dragon() noexcept { return m_dragon; }
+
   /// Get a picture of Franjo
   sf::Texture &get_franjo() noexcept { return m_franjo; }
 
@@ -63,6 +66,9 @@ public:
 private:
   /// Franjo
   sf::Texture m_franjo;
+
+  /// Dragon
+  sf::Texture m_dragon;
 
   /// Rocket
   sf::Texture m_rocket;

@@ -111,12 +111,9 @@ public:
     /// Turn the player right
     void turn_right() noexcept { m_direction_radians += m_turn_rate; }
 
-    /// Update the position of the player on the base of its speed and direction
-    void update_player_position() noexcept
-    {
-        m_x += cos(m_direction_radians) * m_player_speed;
-        m_y += sin(m_direction_radians) * m_player_speed;
-    }
+    //move a player
+    void move() noexcept;
+
 
     /// Accelerate the player
     void accelerate() noexcept;
@@ -233,4 +230,10 @@ void remove_action(player& p, action_type) noexcept;
 /// Test the player class
 void test_player();
 
+/// Create player
+player create_red_player();
+player create_green_player();
+player create_blue_player();
+//winning scenario
+bool is_first_player_loser(const player& player_one, const player& player_two);
 #endif // PLAYER_H

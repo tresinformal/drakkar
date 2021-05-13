@@ -25,6 +25,7 @@ std::string to_str(environment_type this_env_type)
 
 void test_individual_type()
 {
+  #ifndef NDEBUG // no tests is release
   // Conversion to string
   {
     assert(to_str(environment_type::empty) == "empty");
@@ -39,6 +40,7 @@ void test_individual_type()
     std::stringstream s;
     s << environment_type::empty;
  }
+#endif
 }
 
 std::ostream &operator<<(std::ostream &os, const environment_type t)

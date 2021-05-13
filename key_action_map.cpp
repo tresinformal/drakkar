@@ -56,8 +56,14 @@ bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
 
 }
 
+bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept
+{
+    return lhs.get_raw_map() == rhs.get_raw_map();
+}
+
 void test_key_action_map()//!OCLINT tests can be many
 {
+    #ifndef NDEBUG // no tests in release
     //It is possible to return an action type from a key being pressed
     //The keys are for now the ones pressed by player1 (position 0 in the player index)
     {
@@ -123,5 +129,18 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(action_type::none == m.to_action(sf::Keyboard::L));
 
     }
-
+  #define FIX_ISSUE_282
+  #ifdef FIX_ISSUE_282
+  // operator==
+  {
+    const key_action_map a = get_player_0_kam();
+    const key_action_map b = get_player_0_kam();
+    const key_action_map c = get_player_1_kam();
+    assert(a == b);
+    assert(b == a);
+    assert(!(a == c));
+    assert(!(b == c));
+  }
+  #endif // FIX_ISSUE_282
+  #endif
 }
