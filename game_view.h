@@ -41,8 +41,7 @@ public:
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
-  ///Gets option settings of the game
-  const game_options get_options() {return m_options;}
+
 
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
