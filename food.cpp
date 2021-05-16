@@ -67,6 +67,7 @@ void test_food()
     assert(f.get_timer_regeneration() == 0.0);
   }
 
+#define FIX_ISSUE_258a
 #ifdef FIX_ISSUE_258a
   //A food has a regeneration time
   {
