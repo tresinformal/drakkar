@@ -18,6 +18,15 @@ std::ostream &operator<<(std::ostream &os, const food f)
   return os;
 }
 
+bool food::is_eaten() const noexcept {
+    if (food::get_food_state() == food_state::eaten) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 void test_food()
 {
   #ifndef NDEBUG // no tests in release
@@ -55,12 +64,13 @@ void test_food()
     assert(f.get_food_state() == food_state::uneaten);
   }
 
-#ifdef FIX_ISSUE_260
+//#ifdef FIX_ISSUE_260
   {
     food f; //by default uneaten
-    assert(!is_eaten(f));
+    assert(!f.is_eaten());
   }
-#endif
+//#endif
+
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
