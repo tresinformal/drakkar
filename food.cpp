@@ -72,7 +72,7 @@ void test_food()
     food f;
     assert(f.get_regeneration_time() || !f.get_regeneration_time());
   }
-  //A food has a regeneration time member that cna be initialized, by default == 10
+  //A food has a regeneration time member that can be initialized, by default == 10
   {
     const int regeneration_time = 31415;
     const food f{0,0,color(), regeneration_time};
