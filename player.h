@@ -230,4 +230,10 @@ void remove_action(player& p, action_type) noexcept;
 /// Test the player class
 void test_player();
 
+/// Create player
+player create_red_player();
+player create_green_player();
+player create_blue_player();
+//winning scenario
+bool is_first_player_loser(const player& player_one, const player& player_two);
 #endif // PLAYER_H

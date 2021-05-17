@@ -12,6 +12,8 @@ public:
   double get_x() const noexcept;
   double get_y() const noexcept;
   double get_timer_regeneration() const noexcept { return m_timer;}
+  double get_regeneration_time() const noexcept { return m_timer;}
+  bool is_eaten() const noexcept;
   /// Get the food state
   food_state get_food_state() const noexcept { return m_food_state;}
 private:
