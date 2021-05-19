@@ -6,6 +6,7 @@
 
 void test_optional()
 {
+  #ifndef NDEBUG // no tests in release
   // Initialize with a value
   {
     const int value = 42;
@@ -35,6 +36,7 @@ void test_optional()
       //Great! x should throw, as there is no value
     }
   }
+  #endif
 }
 
 

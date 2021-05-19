@@ -4,6 +4,7 @@
 
 void test_action_type()
 {
+  #ifndef NDEBUG // no tests is release
   // to_str
   {
     assert(to_str(action_type::turn_left) == "turn_left");
@@ -21,6 +22,7 @@ void test_action_type()
     s << action_type::brake;
     assert(!s.str().empty());
   }
+#endif
 }
 
 std::ostream &operator<<(std::ostream &os, const action_type t)

@@ -2,21 +2,27 @@
 #define FOOD_H
 
 #include "color.h"
-
+#include "food_state.h"
 class food
 {
 public:
-  food(const double x = 0.0, const double y = 0.0, const color &c = color(),const double timer=0.0);
+  food(const double x = 0.0, const double y = 0.0, const color &c = color(), const double timer=0.0, food_state food_state = food_state::uneaten);
 
   const color &get_color() const noexcept { return m_color; }
   double get_x() const noexcept;
   double get_y() const noexcept;
   double get_timer_regeneration() const noexcept { return m_timer;}
+  double get_regeneration_time() const noexcept { return m_timer;}
+  bool is_eaten() const noexcept;
+  /// Get the food state
+  food_state get_food_state() const noexcept { return m_food_state;}
 private:
   double m_x;
   double m_y;
   color m_color;
   double m_timer;
+  /// the food state
+  food_state m_food_state;
 };
 
 void test_food();

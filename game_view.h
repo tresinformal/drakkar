@@ -1,6 +1,8 @@
 #ifndef GAME_VIEW_H
 #define GAME_VIEW_H
 
+#ifndef LOGIC_ONLY // that is, not compiled on GitHub Actions
+
 #include "game.h"
 #include "game_resources.h"
 #include "game_options.h"
@@ -39,8 +41,7 @@ public:
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
-  ///Gets option settings of the game
-  const game_options get_options() {return m_options;}
+
 
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
@@ -100,5 +101,7 @@ player player_input(player p, sf::Event event);
 void test_game_view();
 
 bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
+
+#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
 
 #endif // GAME_VIEW_H

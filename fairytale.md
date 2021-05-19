@@ -28,6 +28,5 @@ Anticlimcatic you may think But wait till you hear what happened next.....
 Climate change!!! The weather of North Finland became comparable to Southern France and alcohol having a low boiling temperature, all the beer evaporated. The continents were united again as the sea level receded... but despite of this all of the king's dragons and tooth fairies could not put the horses back together again.
 
 the story continues to the galaxy far far away
-dragons have been living on the earth's plane of existance, but the empire is invading earth with Darth Vader leading the army. brave dragons have once again stood up together, shoulder to shoulder to protect and save the humanity from the evil empire. They were fighting for 60 days and 80 nights in succession and in the end... 
-
+dragons have been living on the earth's plane of existance, but the empire is invading earth with Darth Vader leading the army. brave dragons have once again stood up together, shoulder to shoulder to protect and save the humanity from the evil empire. They were fighting for 60 days and 80 nights in succession and in the end... the dragons' fatal hit came not from their enemies but from the earth itself they had been disrespecting! A thunderstorm washed over the battlefield, putting out their fire after it barely left their roars! The empire soldiers found the pitiful attempts of the dragons to breathe fire as they sneezed so funny that they decided to call a truce instead. But peace was far from guaranteed.
 
