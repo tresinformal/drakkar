@@ -212,7 +212,7 @@ void game_view::draw_projectiles() noexcept
 
         if (projectile.get_type() == projectile_type::stun_rocket){
             // Create the projectile sprite
-            sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
+            sf::RectangleShape rect(sf::Vector2f(381.0, 83.0));
             rect.setRotation(static_cast<float>(90));
             rect.setPosition(projectile.get_x(), projectile.get_y());
             rect.setTexture(&m_game_resources.get_stun_rocket());
