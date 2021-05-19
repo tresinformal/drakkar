@@ -199,7 +199,7 @@ void game::move_projectiles()
 {
   for (auto &p : m_projectiles)
     {
-      p.set_type(projectile_type::rocket);
+//      p.set_type(projectile_type::rocket);
       p.move();
     }
 }
