@@ -644,13 +644,7 @@ void test_player() //!OCLINT tests may be long
         assert(get_redness(p) == redness);
         assert(get_greenness(p) == greenness);
     }
-    ///A player has an ID
-    {
-        std::string ID = "1";
-        player p;
-        p.set_ID(ID);
-        assert(p.get_ID() == ID);
-    }
+
     //A player is by default initiated with state == "active
     {
         const player p{};
@@ -679,12 +673,14 @@ void test_player() //!OCLINT tests may be long
     }
 
     ///A player has an ID
+    ///#1
     {
         const std::string id = "31415";
         const player p = create_player_with_id(id);
         assert(p.get_ID() == id);
     }
-
+///#2
+///
 #ifdef FIX_ISSUE_220
     ///A player can become stunned
     {

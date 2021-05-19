@@ -23,9 +23,17 @@ game::game(double wall_short_side,
 {
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
+      auto ID = std::to_string(i);
       m_player[i] =
-          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
-      m_player[i].set_ID(std::to_string(i));
+          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket,
+                 player_state::active,
+                 2,
+                 0,
+                 -0.0001,-0.1,
+                 100,
+                 0.01,
+                 color(),
+                 ID);
     }
   // Set color
   {
