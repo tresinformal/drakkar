@@ -691,3 +691,22 @@ void test_player() //!OCLINT tests may be long
 #endif
 #endif // no tests in release
 }
+
+player create_player_with_color(const color &in_color)
+{
+    {
+        return player{
+                    0.0,
+                    0.0,
+                    player_shape::rocket,
+                    player_state::active,
+                    2,
+                    0.1,
+                    -0.001,
+                    -0.1,
+                    100.0,
+                    0.01,
+                    in_color
+                    };
+    }
+}
