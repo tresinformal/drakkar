@@ -679,8 +679,7 @@ void test_player() //!OCLINT tests may be long
         const player p = create_player_with_id(id);
         assert(p.get_ID() == id);
     }
-///#2
-///
+
 #ifdef FIX_ISSUE_220
     ///A player can become stunned
     {
