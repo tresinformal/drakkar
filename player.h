@@ -96,9 +96,6 @@ public:
     /// it (1) creates a projectile, (2) makes the player stop shooting
     void stop_shooting() noexcept { m_is_shooting = false; }
 
-    ///Sets a player ID
-    void set_ID(std::string ID) noexcept {m_ID = ID;}
-
     /// Set a player x position
     void set_x(double x) noexcept { m_x = x; }
 
@@ -226,6 +223,8 @@ int get_colorhash(const player &p) noexcept;
 
 ///Removes an action from action set of the player
 void remove_action(player& p, action_type) noexcept;
+
+player create_player_with_id(const std::string& id);
 
 /// Test the player class
 void test_player();
