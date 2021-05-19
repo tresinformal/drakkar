@@ -5,8 +5,20 @@
 
 game_resources::game_resources()
 {
+  // Load the rocket sprite
   {
     const QString filename{"rocket_sprite.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_rocket.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+  // Load the stun rocket sprite
+  {
+    const QString filename{"stun_rocket_master.png"};
     QFile f(":/" + filename);
     f.copy(filename);
     if (!m_rocket.loadFromFile(filename.toStdString()))
