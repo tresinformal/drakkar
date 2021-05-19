@@ -1,5 +1,22 @@
 #include "player_state.h"
 #include <cassert>
+#include <sstream>
+
+std::string to_str(player_state this_player_state)
+{
+  switch (this_player_state)
+  {
+  case player_state::dead:
+    return "dead";
+  case player_state::stunned:
+    return "stunned";
+
+  default:
+    assert(this_player_state == player_state::active);
+    return "active";
+  }
+}
+
 
 void test_player_state()
 {
@@ -9,6 +26,11 @@ void test_player_state()
     assert(player_state::dead != player_state::stunned &&
               player_state::dead != player_state::active);
   }
+
+
+
+
+  #define FIX_ISSUE_276
   #ifdef FIX_ISSUE_276
   // Conversion to string
   {
