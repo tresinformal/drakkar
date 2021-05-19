@@ -1,5 +1,28 @@
 #include "player_state.h"
 #include <cassert>
+#include <sstream>
+
+std::string to_str(player_state this_env_type)
+{
+  switch (this_env_type)
+  {
+  case player_state::empty:
+    return "empty";
+  case player_state::quiet:
+    return "quiet";
+  case player_state::random:
+    return "random";
+  case player_state::attractive:
+    return "attractive";
+  case player_state::repellent:
+    return "repellent";
+
+  default:
+    assert(this_env_type == player_state::wormhole);
+    return "wormhole";
+  }
+}
+
 
 void test_player_state()
 {
@@ -9,6 +32,11 @@ void test_player_state()
     assert(player_state::dead != player_state::stunned &&
               player_state::dead != player_state::active);
   }
+
+
+
+
+  #define FIX_ISSUE_276
   #ifdef FIX_ISSUE_276
   // Conversion to string
   {
