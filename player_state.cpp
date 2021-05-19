@@ -2,24 +2,18 @@
 #include <cassert>
 #include <sstream>
 
-std::string to_str(player_state this_env_type)
+std::string to_str(player_state this_player_state)
 {
-  switch (this_env_type)
+  switch (this_player_state)
   {
-  case player_state::empty:
-    return "empty";
-  case player_state::quiet:
-    return "quiet";
-  case player_state::random:
-    return "random";
-  case player_state::attractive:
-    return "attractive";
-  case player_state::repellent:
-    return "repellent";
+  case player_state::dead:
+    return "dead";
+  case player_state::stunned:
+    return "stunned";
 
   default:
-    assert(this_env_type == player_state::wormhole);
-    return "wormhole";
+    assert(this_player_state == player_state::active);
+    return "active";
   }
 }
 
