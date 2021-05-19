@@ -64,13 +64,11 @@ void test_game_options()
     music_on(o);
     assert(o.is_playing_music());
   }
-  #ifdef FIX_ISSUE_294
   // A game options has a seed for the random number generator
   {
     const game_options a;
-    assert(a.get_rng_seed() == 0)
+    assert(a.get_rng_seed() == 0);
   }
-  #endif // FIX_ISSUE_294
   // Player 1 has a key action map
   {
     const game_options a;
