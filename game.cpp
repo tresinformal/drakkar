@@ -1177,6 +1177,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_288
 #ifdef FIX_ISSUE_288
   {
     int seed = 123456789;
