@@ -14,6 +14,7 @@
 #include "menu.h"
 #include "menu_view.h"
 #include "player.h"
+#include "player_factory.h"
 #include "player_shape.h"
 #include "program_state.h"
 #include "player_state.h"
@@ -51,6 +52,7 @@ void test()
   test_projectile();
   test_program_state();
   test_player_state();
+  test_player_factory();
 
 #ifndef LOGIC_ONLY
   test_game_view();

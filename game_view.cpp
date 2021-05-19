@@ -370,6 +370,10 @@ void test_game_view()//!OCLINT tests may be many
     {
         player p;
         assert(p.get_ID() == "0");
+        assert(get_player_kam(p).get_raw_map() == get_player_0_kam().get_raw_map());
+
+        p =  create_player_with_id("1");
+        assert(get_player_kam(p).get_raw_map() != get_player_0_kam().get_raw_map());
         assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
         p.set_ID("1");
         assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
@@ -385,8 +389,8 @@ void test_game_view()//!OCLINT tests may be many
         player p0;
         player p1;
 
-        p0.set_ID("0");
-        p1.set_ID("1");
+        p0 = create_player_with_id("0");
+        p1 = create_player_with_id("1");
 
         sf::Event move_forward_pl_1;
         move_forward_pl_1.key.code = sf::Keyboard::W;
@@ -405,10 +409,10 @@ void test_game_view()//!OCLINT tests may be many
         player p0;
         player p1;
 
-        p0.set_ID("0");
+        p0 = create_player_with_id("0");
         add_action(p0,action_type::accelerate);
 
-        p1.set_ID("1");
+        p1 = create_player_with_id("1");
         add_action(p1,action_type::accelerate);
 
         sf::Event stop_move_forward_pl_1;
