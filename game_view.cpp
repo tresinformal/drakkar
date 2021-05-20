@@ -372,8 +372,8 @@ void test_game_view()//!OCLINT tests may be many
         assert(p.get_ID() == "0");
         assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
 
-        assert(get_player_kam(p).get_raw_map() != get_player_1_kam().get_raw_map());
-        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() != get_player_3_kam().get_raw_map());
         p =  create_player_with_id("1");
         assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
         p =  create_player_with_id("2");
