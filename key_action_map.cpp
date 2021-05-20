@@ -145,10 +145,10 @@ void test_key_action_map()//!OCLINT tests can be many
   // operator==
   {
     const key_action_map a = get_player_1_kam();
-    const key_action_map b = get_player_2_kam();
+    const key_action_map b = get_player_1_kam();
     const key_action_map c = get_player_3_kam();
-    assert(!(a == b));
-    assert(!(b == a));
+    assert(a == b);
+    assert(b == a);
     assert(!(a == c));
     assert(!(b == c));
   }
