@@ -23,20 +23,22 @@ game::game(double wall_short_side,
 {
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
+
+      auto ID = std::to_string(i);
       m_player[i] =
-          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
-      m_player[i].set_ID(std::to_string(i));
+          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket,
+                 player_state::active,
+                 2,
+                 0.1,
+                 -0.0001,
+                 -0.1,
+                 100,
+                 0.01,
+                 color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+                                                i % 3 == 2 ? 255 : 0),
+                 ID);
     }
-  // Set color
-  {
-    int i = 0;
-    for (auto &player : m_player)
-      {
-        player.set_color(color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
-                               i % 3 == 2 ? 255 : 0));
-        ++i;
-      }
-  }
+
   // Set shelters
   {
     assert(m_shelters.size() == 3);

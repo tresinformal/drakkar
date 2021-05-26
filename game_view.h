@@ -74,6 +74,9 @@ private:
   /// Parses input for player 2
   void pl_2_stop_input(sf::Event event) noexcept;
 
+  /// Parses input for player 3
+  void pl_3_stop_input(sf::Event event) noexcept;
+
   /// The options of the game
   game_options m_options;
 

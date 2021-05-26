@@ -28,12 +28,12 @@ action_type key_action_map::to_action(sf::Keyboard::Key key) const noexcept
     return action_type::none;
 }
 
-key_action_map get_player_0_kam()
+key_action_map get_player_1_kam()
 {
     return key_action_map();
 }
 
-key_action_map get_player_1_kam()
+key_action_map get_player_2_kam()
 {
     return key_action_map(
                 sf::Keyboard::J,
@@ -42,6 +42,17 @@ key_action_map get_player_1_kam()
                 sf::Keyboard::K,
                 //sf::Keyboard::Comma,
                 sf::Keyboard::U
+                );
+}
+key_action_map get_player_3_kam()
+{
+    return key_action_map(
+                sf::Keyboard::Left,
+                sf::Keyboard::Right,
+                sf::Keyboard::Up,
+                sf::Keyboard::Down,
+                //sf::Keyboard::Comma,
+                sf::Keyboard::RControl
                 );
 }
 
@@ -76,7 +87,7 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(m.to_action(sf::Keyboard::Num1) == action_type::stun);
     }
     {
-        const key_action_map m = get_player_0_kam();
+        const key_action_map m = get_player_1_kam();
         assert(m.to_action(sf::Keyboard::A) == action_type::turn_left);
         assert(m.to_action(sf::Keyboard::D) == action_type::turn_right);
         assert(m.to_action(sf::Keyboard::W) == action_type::accelerate);
@@ -103,7 +114,7 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(m.to_action(key_to_shoot) == action_type::shoot);
     }
     {
-        const key_action_map m = get_player_1_kam();
+        const key_action_map m = get_player_2_kam();
         assert(m.to_action(sf::Keyboard::J) == action_type::turn_left);
         assert(m.to_action(sf::Keyboard::L) == action_type::turn_right);
         assert(m.to_action(sf::Keyboard::I) == action_type::accelerate);
@@ -112,7 +123,7 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(m.to_action(sf::Keyboard::U) == action_type::shoot);
     }
     {
-        const key_action_map m = get_player_0_kam();
+        const key_action_map m = get_player_1_kam();
         assert( m.has_key(sf::Keyboard::A));
         assert( m.has_key(sf::Keyboard::D));
         assert( m.has_key(sf::Keyboard::W));
@@ -124,7 +135,7 @@ void test_key_action_map()//!OCLINT tests can be many
     //Giving a key that is not in the map returns a action_type::none action
     //but does not crash the program
     {
-        const key_action_map m = get_player_0_kam();
+        const key_action_map m = get_player_1_kam();
         assert(!m.has_key(sf::Keyboard::L));
         assert(action_type::none == m.to_action(sf::Keyboard::L));
 
@@ -133,9 +144,9 @@ void test_key_action_map()//!OCLINT tests can be many
   #ifdef FIX_ISSUE_282
   // operator==
   {
-    const key_action_map a = get_player_0_kam();
-    const key_action_map b = get_player_0_kam();
-    const key_action_map c = get_player_1_kam();
+    const key_action_map a = get_player_1_kam();
+    const key_action_map b = get_player_1_kam();
+    const key_action_map c = get_player_3_kam();
     assert(a == b);
     assert(b == a);
     assert(!(a == c));
