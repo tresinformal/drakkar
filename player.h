@@ -131,7 +131,7 @@ private:
     bool m_is_shooting{false};
 
     ///ID of the player
-    const std::string m_ID;
+    std::string m_ID;
 
     /// The X coordinate of the player
     double m_x;
