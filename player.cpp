@@ -217,22 +217,18 @@ player create_player_with_id(const std::string& id)
 
 player create_red_player()
 {
-    player red_player;
-    red_player.set_color(color(255,0,0));
-    return red_player;
+    return  create_player_with_color(color(255,0,0));
+
 }
 player create_green_player()
 {
-    player green_player;
-    green_player.set_color(color(0,255,0));
-    return green_player;
+    return create_player_with_color(color(0,255,0));
 }
 player create_blue_player()
 {
-    player blue_player;
-    blue_player.set_color(color(0,0,255));
-    return blue_player;
+     return create_player_with_color(color(0,0,255));
 }
+
 bool is_first_player_loser(const player& player_one, const player& player_two)
 {
     if(player_one.get_color()==color(255,0,0))
@@ -381,16 +377,14 @@ void test_player() //!OCLINT tests may be long
     }
     // A player of RGB values (255, 0, 0) should be red, not green, not blue
     {
-        player p;
-        p.set_color(color(255, 0, 0));
+        player p = create_player_with_color(color(255, 0, 0));
         assert(is_red(p));
         assert(!is_green(p));
         assert(!is_blue(p));
     }
     // A player of RGB values (0, 255, 0) should be green, not red, not blue
     {
-        player p;
-        p.set_color(color(0, 255, 0));
+        player p = create_player_with_color(color(0, 255, 0));
         assert(!is_red(p));
         assert(is_green(p));
         assert(!is_blue(p));
@@ -398,8 +392,7 @@ void test_player() //!OCLINT tests may be long
     }
     // A player of RGB values (0, 0, 255) should be blue, not red, not green
     {
-        player p;
-        p.set_color(color(0, 0, 255));
+        player p = create_player_with_color(color(0, 0, 255));
         assert(!is_red(p));
         assert(!is_green(p));
         assert(is_blue(p));
@@ -408,8 +401,7 @@ void test_player() //!OCLINT tests may be long
     //A player with RGB values (255, 0, 0) should be red with colorhash1 ,not 2 or 3
     {
         //0 is red, 1 is blue, 2 is green
-        player p;
-        p.set_color(color(255, 0, 0));
+        player p = create_player_with_color(color(255, 0, 0));
         assert(get_colorhash(p)==0);
         assert(get_colorhash(p)!=1);
         assert(get_colorhash(p)!=2);
@@ -417,8 +409,7 @@ void test_player() //!OCLINT tests may be long
     //A player with RGB values (0,255, 0) should be blue with colorhash2 ,not 1 or 3
     {
         //0 is red, 1 is blue, 2 is green
-        player p;
-        p.set_color(color(0, 255, 0));
+        player p = create_player_with_color(color(0, 255, 0));
         assert(get_colorhash(p)!=0);
         assert(get_colorhash(p)==1);
         assert(get_colorhash(p)!=2);
@@ -426,8 +417,7 @@ void test_player() //!OCLINT tests may be long
     //A player with RGB values ( 0, 0, 255) should be green with colorhash3 ,not 1 or 2
     {
         //0 is red, 1 is blue, 2 is green
-        player p;
-        p.set_color(color(0, 0, 255));
+        player p = create_player_with_color(color(0, 0, 255));
         assert(get_colorhash(p)!=0);
         assert(get_colorhash(p)!=1);
         assert(get_colorhash(p)==2);
@@ -631,11 +621,11 @@ void test_player() //!OCLINT tests may be long
 
     //It is possible to establish how bluish, reddish and greenish a player is
     {
-        player p;
+
         int blueness = 1;
         int greenness = 1;
         int redness = 1;
-        p.set_color(
+        player p = create_player_with_color(
                     color{redness,
                           greenness,
                           blueness}
@@ -658,11 +648,11 @@ void test_player() //!OCLINT tests may be long
     }
     //It is possible to establish how bluish, reddish and greenish a player is
     {
-        player p;
+
         int blueness = 1;
         int greenness = 1;
         int redness = 1;
-        p.set_color(
+        player p = create_player_with_color(
                     color{redness,
                           greenness,
                           blueness}
@@ -690,4 +680,23 @@ void test_player() //!OCLINT tests may be long
     }
 #endif
 #endif // no tests in release
+}
+
+player create_player_with_color(const color &in_color)
+{
+    {
+        return player{
+                    0.0,
+                    0.0,
+                    player_shape::rocket,
+                    player_state::active,
+                    2,
+                    0.1,
+                    -0.001,
+                    -0.1,
+                    100.0,
+                    0.01,
+                    in_color
+                    };
+    }
 }

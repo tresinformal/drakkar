@@ -35,6 +35,17 @@ void test_food()
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
   }
+  //#define FIX_ISSUE_306
+  #ifdef FIX_ISSUE_306
+  //Can compare two foods for equality, operator==
+  {
+    const food a;
+    const food b;
+    const food c(1234.5678);
+    assert(a == b);
+    assert(!(a == c));
+  }
+  #endif // FIX_ISSUE_306
 
   {
     food f{1.0,2.0};

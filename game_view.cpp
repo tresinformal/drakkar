@@ -61,15 +61,22 @@ player player_stop_input(player p, sf::Event event) noexcept
 
 void game_view::pl_1_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_0_kam();
+    const key_action_map m = get_player_1_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
 void game_view::pl_2_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_1_kam();
+    const key_action_map m = get_player_2_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
+
+void game_view::pl_3_stop_input(sf::Event event) noexcept
+{
+    const key_action_map m = get_player_3_kam();
+    remove_action(m_game.get_player(0), m.to_action(event.key.code));
+}
+
 
 bool game_view::process_events()
 {
@@ -261,11 +268,15 @@ key_action_map get_player_kam(const player& p)
 {
     if(p.get_ID() == "0")
     {
-        return get_player_0_kam();
+        return get_player_1_kam();
     }
     else if(p.get_ID() == "1")
     {
-        return  get_player_1_kam();
+        return  get_player_2_kam();
+    }
+    else if(p.get_ID() == "2")
+    {
+        return  get_player_3_kam();
     }
     else
     {
@@ -359,11 +370,13 @@ void test_game_view()//!OCLINT tests may be many
     {
         player p;
         assert(p.get_ID() == "0");
-        assert(get_player_kam(p).get_raw_map() == get_player_0_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
 
         p =  create_player_with_id("1");
-        assert(get_player_kam(p).get_raw_map() != get_player_0_kam().get_raw_map());
-        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
+        p =  create_player_with_id("2");
+        assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
 
     }
 #endif

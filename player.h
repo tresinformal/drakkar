@@ -77,10 +77,6 @@ public:
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool is_shooting() const noexcept { return m_is_shooting; }
-
-    /// Set the color of the player
-    void set_color(const color &c) noexcept { m_color = c; }
-
     /// Set the color of the player
     void set_state(const player_state &s) noexcept { m_state = s; }
 
@@ -110,7 +106,6 @@ public:
 
     //move a player
     void move() noexcept;
-
 
     /// Accelerate the player
     void accelerate() noexcept;
@@ -178,12 +173,14 @@ private:
     /// construction
     double m_health = 1.0;
 };
-
 ///Adds an action to the action set
 void add_action(player& p, action_type action) noexcept;
 
 /// Checks if two players are colliding
 bool are_colliding(const player &p1, const player &p2) noexcept;
+
+///create a player with a set color
+player create_player_with_color(const color& in_color);
 
 /// Get the blueness (from the color) of the player
 int get_blueness(const player &p) noexcept;
