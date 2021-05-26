@@ -62,8 +62,45 @@ void test()
 #endif
 }
 
+class person
+{
+public:
+  person(const std::string& bsn);
+
+  const std::string& get_bsn() const noexcept { return m_bsn; }
+
+  void increase_age() {
+    // m_bsn = "wesifhwepifo";
+  }
+
+private:
+  const std::string m_bsn;
+};
+
+person::person(const std::string& bsn)
+  : m_bsn{bsn}
+{
+
+}
+
+
+
+
+#include <algorithm>
+#include <numeric>
+
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
+  {
+    person p("wergrweehio");
+
+    std::vector<person> v;
+    v.push_back(person("alpha"));
+    v.push_back(person("beta"));
+    std::swap(v[0], v[1]);
+  }
+  assert(1 == 2);
+
 #ifndef NDEBUG
   assert(0.1 > 0.0); //!OCLINT indeed a constant conditional
   test();
