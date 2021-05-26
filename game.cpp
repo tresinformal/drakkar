@@ -41,7 +41,7 @@ game::game(double wall_short_side,
 
   // Set shelters
   {
-    assert(m_shelters.size() == 3);
+    assert(m_shelters.size() == n_shelters);
     int i = 0;
     for (auto &this_shelter : m_shelters)
       {
@@ -889,6 +889,12 @@ void test_game() //!OCLINT tests may be many
     game g(wall_short_side);
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
+  }
+  // There are 42 shelters
+  {
+    const int n_shelters{42};
+    const game g(1600, 3, 0, n_shelters);
+    assert(g.get_shelters().size() == n_shelters);
   }
 
   //shelter moves with ever tick
