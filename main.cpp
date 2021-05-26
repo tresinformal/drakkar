@@ -62,9 +62,6 @@ void test()
 #endif
 }
 
-#include <algorithm>
-#include <numeric>
-
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
 #ifndef NDEBUG
