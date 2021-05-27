@@ -917,24 +917,14 @@ void test_game() //!OCLINT tests may be many
     const double after = g.get_shelters()[0].get_x();
     assert(std::abs(after - before) > 0.0);
   }
-  //
-  {
-    const game g;
-    //assert(count_n_shelters_with_x_below(g, 10000) >= 0);
-  }
-
+  #ifdef FIX_ISSUE_315
   // Initial shelters are at random locations over the whole arena
   {
     const game g;
     assert(g.get_shelters().size() > 0);
-    //const double mid_x = g.get_env().get_max_x() / 2.0;
-    //const double mid_y = g.get_env().get_max_y() / 2.0;
-    // TODO
-    //assert(count_n_shelters_with_x_below(g, mid_x) > 0);
-    //assert(count_n_shelters_with_x_above(g, mid_x) > 0);
-    //assert(count_n_shelters_with_y_below(g, mid_y) > 0);
-    //assert(count_n_shelters_with_y_above(g, mid_y) > 0);
+    // TODO: write test here
   }
+  #endif // FIX_ISSUE_315
 
   ///Players in game are initialized with ID equal to their index
   {
