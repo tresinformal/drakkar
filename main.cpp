@@ -13,12 +13,14 @@
 #include "menu_button.h"
 #include "menu.h"
 #include "menu_view.h"
+#include "optional.h"
 #include "player.h"
 #include "player_factory.h"
 #include "player_shape.h"
 #include "program_state.h"
 #include "player_state.h"
 #include "projectile.h"
+#include "read_only.h"
 #include "sound_type.h"
 #include "optional.h"
 #include <SFML/Graphics.hpp>
@@ -53,6 +55,7 @@ void test()
     test_program_state();
     test_player_state();
     test_player_factory();
+    test_read_only();
 
 #ifndef LOGIC_ONLY
     test_game_view();
