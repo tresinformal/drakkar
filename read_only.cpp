@@ -1,95 +1,40 @@
 #include "read_only.h"
-
 #include <cassert>
 #include <vector>
 #include <exception>
 
-bool operator==(const read_only<int>& lhs, const read_only<int>& rhs) noexcept
+template <typename T>
+bool operator==(const read_only<T>& lhs, const read_only<T>& rhs) noexcept
 {
     return lhs.get() == rhs.get();
 }
 
-bool operator==(const read_only<double>& lhs, const read_only<double>& rhs) noexcept
-{
-    return lhs.get() == rhs.get();
-}
-
-bool operator==(const read_only<std::string>& lhs, const read_only<std::string>& rhs) noexcept
-{
-    return lhs.get() == rhs.get();
-}
-
-bool operator!=(const read_only<int>& lhs, const read_only<int>& rhs) noexcept
+template <typename T>
+bool operator!=(const read_only<T>& lhs, const read_only<T>& rhs) noexcept
 {
     return lhs.get() != rhs.get();
 }
 
-bool operator!=(const read_only<double>& lhs, const read_only<double>& rhs) noexcept
-{
-    return lhs.get() != rhs.get();
-}
-
-bool operator!=(const read_only<std::string>& lhs, const read_only<std::string>& rhs) noexcept
-{
-    return lhs.get() != rhs.get();
-}
-
-bool operator<(const read_only<int>& lhs, const read_only<int>& rhs) noexcept
+template <typename T>
+bool operator<(const read_only<T>& lhs, const read_only<T>& rhs) noexcept
 {
     return lhs.get() < rhs.get();
 }
 
-bool operator<(const read_only<double>& lhs, const read_only<double>& rhs) noexcept
-{
-    return lhs.get() < rhs.get();
-}
-
-bool operator<(const read_only<std::string>& lhs, const read_only<std::string>& rhs) noexcept
-{
-    return lhs.get() < rhs.get();
-}
-
-bool operator>(const read_only<int>& lhs, const read_only<int>& rhs) noexcept
+template <typename T>
+bool operator>(const read_only<T>& lhs, const read_only<T>& rhs) noexcept
 {
     return lhs.get() > rhs.get();
 }
 
-bool operator>(const read_only<double>& lhs, const read_only<double>& rhs) noexcept
-{
-    return lhs.get() > rhs.get();
-}
-
-bool operator>(const read_only<std::string>& lhs, const read_only<std::string>& rhs) noexcept
-{
-    return lhs.get() > rhs.get();
-}
-
-bool operator<=(const read_only<int>& lhs, const read_only<int>& rhs) noexcept
+template <typename T>
+bool operator<=(const read_only<T>& lhs, const read_only<T>& rhs) noexcept
 {
     return lhs.get() <= rhs.get();
 }
 
-bool operator<=(const read_only<double>& lhs, const read_only<double>& rhs) noexcept
-{
-    return lhs.get() <= rhs.get();
-}
-
-bool operator<=(const read_only<std::string>& lhs, const read_only<std::string>& rhs) noexcept
-{
-    return lhs.get() <= rhs.get();
-}
-
-bool operator>=(const read_only<int>& lhs, const read_only<int>& rhs) noexcept
-{
-    return lhs.get() >= rhs.get();
-}
-
-bool operator>=(const read_only<double>& lhs, const read_only<double>& rhs) noexcept
-{
-    return lhs.get() >= rhs.get();
-}
-
-bool operator>=(const read_only<std::string>& lhs, const read_only<std::string>& rhs) noexcept
+template <typename T>
+bool operator>=(const read_only<T>& lhs, const read_only<T>& rhs) noexcept
 {
     return lhs.get() >= rhs.get();
 }

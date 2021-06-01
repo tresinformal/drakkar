@@ -1,7 +1,8 @@
 #include <vector>
 #include <iostream>
 
-template <class T> class read_only
+template <class T>
+class read_only
 {
 public:
   read_only() : m_value{std::vector<T>()} {};
@@ -19,7 +20,7 @@ public:
 
   void operator=( const T value ) { m_value[0] = value; };
 
-  T get() const noexcept { return m_value; };
+  T get() const noexcept { return m_value[0]; };
 
 private:
   std::vector<T> m_value;
