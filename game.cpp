@@ -340,32 +340,32 @@ bool have_same_position(const player& p, const food& f)
       p.get_y() - f.get_y() < -0.0001;
 }
 
-bool hits_bottom_wall(const player& p, const environment& e)
+bool hits_south_wall(const player& p, const environment& e)
 {
   return p.get_y() + p.get_diameter()/2 > e.get_max_y();
 }
 
-bool hits_top_wall(const player& p, const environment& e)
+bool hits_north_wall(const player& p, const environment& e)
 {
   return p.get_y() - p.get_diameter()/2 < e.get_min_y();
 }
 
-bool hits_right_wall(const player& p, const environment& e)
+bool hits_east_wall(const player& p, const environment& e)
 {
   return p.get_x() + p.get_diameter()/2 > e.get_max_x();
 }
 
-bool hits_left_wall(const player& p, const environment& e)
+bool hits_west_wall(const player& p, const environment& e)
 {
   return p.get_x() - p.get_diameter()/2 < e.get_min_x();
 }
 
 bool hits_wall(const player& p, const environment& e)
 {
-  if(hits_left_wall(p,e)
-     ||hits_right_wall(p,e)
-     || hits_bottom_wall(p,e)
-     || hits_top_wall(p,e))
+  if(hits_west_wall(p,e)
+     ||hits_east_wall(p,e)
+     || hits_north_wall(p,e)
+     || hits_south_wall(p,e))
     {
       return true;
     }
@@ -429,22 +429,22 @@ void game::do_wall_collisions()
 
 player game::wall_collision(player p)
 {
-  if(hits_bottom_wall(p, m_environment))
+  if(hits_south_wall(p, m_environment))
     {
       p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
     }
 
-  if(hits_top_wall(p, m_environment))
+  if(hits_north_wall(p, m_environment))
     {
       p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
     }
 
-  if(hits_right_wall(p, m_environment))
+  if(hits_east_wall(p, m_environment))
     {
       p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
     }
 
-  if(hits_left_wall(p, m_environment))
+  if(hits_west_wall(p, m_environment))
     {
       p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
     }
@@ -926,7 +926,7 @@ void test_game() //!OCLINT tests may be many
 
     ///move the player into the wall
     p.accelerate();
-    assert(hits_top_wall(p, g.get_env()));
+    assert(hits_north_wall(p, g.get_env()));
 
     /// manage the collision
     p = g.wall_collision(p);
