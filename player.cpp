@@ -302,7 +302,7 @@ void test_player() //!OCLINT tests may be long
     // A player has a direction of zero radians
     {
         const player p{1.2, 3.4, player_shape::rocket};
-        assert(std::abs(p.get_direction() - 0.0) < 0.00001);
+        assert(std::abs(p.get_direction() - 90.0) < 0.00001);
     }
 
     // A player has an initial speed of zero
@@ -335,8 +335,8 @@ void test_player() //!OCLINT tests may be long
         p.accelerate(); // move the player
         double b_x = p.get_x();
         double b_y = p.get_y();
-        assert(std::abs(a_x - b_x) > 0.0000001);
-        assert(std::abs(a_y - b_y) < 0.0000001);
+        assert(std::abs(a_x - b_x) < 0.0000001);
+        assert(std::abs(a_y - b_y) > 0.0000001);
     }
     {
         player p;
