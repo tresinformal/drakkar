@@ -26,7 +26,9 @@ game::game(double wall_short_side,
 
       auto ID = std::to_string(i);
       m_player[i] =
-          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket,
+          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i,
+                 400.0,
+                 player_shape::rocket,
                  player_state::active,
                  2,
                  0.1,
@@ -913,18 +915,18 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  ///Players cannot move past wall coordinates as defined in enviornment
+  ///Players cannot move past wall coordinates as defined in environment
   {
     game g;
 
-    //set a player very close to a wall
+    //set a player very close to the lower wall
     auto p = g.get_player(0);
-    p.set_x(g.get_env().get_max_x() - p.get_diameter()/2 - 0.01);
+    p.set_y(0.00 + p.get_diameter()/2 + 0.01);
     assert(!hits_wall(p,g.get_env()));
 
     ///move the player into the wall
     p.accelerate();
-    assert(hits_right_wall(p, g.get_env()));
+    assert(hits_lower_wall(p, g.get_env()));
 
     /// manage the collision
     p = g.wall_collision(p);
