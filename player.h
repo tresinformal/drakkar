@@ -164,7 +164,7 @@ private:
     double m_diameter;
 
     /// The direction of player in radians
-    double m_direction_radians = 90;
+    double m_direction_radians = 270 * M_PI / 180;
 
     /// The rate at which the player turns
     double m_turn_rate;
