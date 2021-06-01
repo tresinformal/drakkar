@@ -340,12 +340,12 @@ bool have_same_position(const player& p, const food& f)
       p.get_y() - f.get_y() < -0.0001;
 }
 
-bool hits_upper_wall(const player& p, const environment& e)
+bool hits_bottom_wall(const player& p, const environment& e)
 {
   return p.get_y() + p.get_diameter()/2 > e.get_max_y();
 }
 
-bool hits_lower_wall(const player& p, const environment& e)
+bool hits_top_wall(const player& p, const environment& e)
 {
   return p.get_y() - p.get_diameter()/2 < e.get_min_y();
 }
@@ -364,8 +364,8 @@ bool hits_wall(const player& p, const environment& e)
 {
   if(hits_left_wall(p,e)
      ||hits_right_wall(p,e)
-     || hits_upper_wall(p,e)
-     || hits_lower_wall(p,e))
+     || hits_bottom_wall(p,e)
+     || hits_top_wall(p,e))
     {
       return true;
     }
@@ -429,12 +429,12 @@ void game::do_wall_collisions()
 
 player game::wall_collision(player p)
 {
-  if(hits_upper_wall(p, m_environment))
+  if(hits_bottom_wall(p, m_environment))
     {
       p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
     }
 
-  if(hits_lower_wall(p, m_environment))
+  if(hits_top_wall(p, m_environment))
     {
       p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
     }
@@ -919,14 +919,14 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
 
-    //set a player very close to the lower wall
+    //set a player very close to the top wall (y = 0)
     auto p = g.get_player(0);
     p.set_y(0.00 + p.get_diameter()/2 + 0.01);
     assert(!hits_wall(p,g.get_env()));
 
     ///move the player into the wall
     p.accelerate();
-    assert(hits_lower_wall(p, g.get_env()));
+    assert(hits_top_wall(p, g.get_env()));
 
     /// manage the collision
     p = g.wall_collision(p);
