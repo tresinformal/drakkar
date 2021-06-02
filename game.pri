@@ -3,6 +3,7 @@ HEADERS += \
     $$PWD/food_state.h \
     $$PWD/player_factory.h \
     $$PWD/player_state.h \
+    $$PWD/read_only.h \
     action_type.h \
     enemy.h \
     environment.h \
@@ -30,6 +31,7 @@ SOURCES += \
     $$PWD/food_state.cpp \
     $$PWD/player_factory.cpp \
     $$PWD/player_state.cpp \
+    $$PWD/read_only.cpp \
     action_type.cpp \
     enemy.cpp \
     environment.cpp \
