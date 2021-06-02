@@ -1183,3 +1183,8 @@ void test_game() //!OCLINT tests may be many
 #endif // no tests in release
 }
 
+
+double get_nth_player_diameter(const game &in_game, const int &id)
+{
+    return in_game.get_player(id).get_diameter();
+}
