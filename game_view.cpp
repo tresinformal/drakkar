@@ -6,6 +6,7 @@
 #include "game.h"
 #include "game_resources.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <cmath>
 
 game_view::game_view(game_options options) :
@@ -257,6 +258,17 @@ void game_view::show() noexcept
         draw_projectiles();
 
         draw_shelters();
+    }
+
+
+    if (1 == 2)
+    {
+        sf::Text text;
+        text.setString("Hello world");
+        text.setPosition(10, 10);
+        text.setFont(game_resources().get_font());
+        text.setScale(100.0, 100.0);
+        m_window.draw(text);
     }
 
 
