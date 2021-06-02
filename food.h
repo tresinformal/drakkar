@@ -11,8 +11,7 @@ public:
   const color &get_color() const noexcept { return m_color; }
   double get_x() const noexcept;
   double get_y() const noexcept;
-  double get_timer_regeneration() const noexcept { return m_timer;}
-  double get_regeneration_time() const noexcept { return m_timer;}
+  double get_regeneration_time() const noexcept { return m_regeneration_time;}
   bool is_eaten() const noexcept;
   /// Get the food state
   food_state get_food_state() const noexcept { return m_food_state;}
@@ -20,7 +19,7 @@ private:
   double m_x;
   double m_y;
   color m_color;
-  double m_timer;
+  double m_regeneration_time;
   /// the food state
   food_state m_food_state;
 };
