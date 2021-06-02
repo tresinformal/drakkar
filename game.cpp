@@ -986,7 +986,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  //#define FIX_ISSUE_237
+#define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
   //Food and player can be overlapped
   {
@@ -1187,4 +1187,10 @@ void test_game() //!OCLINT tests may be many
 double get_nth_player_diameter(const game &in_game, const int &id)
 {
     return in_game.get_player(id).get_diameter();
+}
+
+void put_player_on_food(player &p, food &f)
+{
+  p.place_to_position(f.get_position());
+  return 0;
 }

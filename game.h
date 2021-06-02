@@ -197,6 +197,9 @@ double get_nth_player_diameter(const game& in_game,const int& id);
 /// Assumes there is a collision
 void kill_losing_player(game &);
 
+///Puts a player on food
+void put_player_on_food(player& p, food& f);
+
 void test_game();
 
 #endif // GAMELOGIC_H
