@@ -73,6 +73,10 @@ double calc_mean(const std::vector<double>& v)
   ) / v.size();
 }
 
+double get_nth_player_diameter(const game &in_game, const int &id)
+{
+    return in_game.get_player(id).get_diameter();
+}
 double get_nth_player_size(const game& g, const int i)
 {
   return g.get_player(i).get_diameter();
@@ -332,10 +336,10 @@ bool has_food_collision(const game &) noexcept
 
 bool have_same_position(const player& p, const food& f)
 {
-  return p.get_x() - f.get_x() > 0.0001 &&
-      p.get_x() - f.get_x() < -0.0001 &&
-      p.get_y() - f.get_y() > 0.0001 &&
-      p.get_y() - f.get_y() < -0.0001;
+  return p.get_x() - f.get_x() < 0.0001 &&
+      p.get_x() - f.get_x() > -0.0001 &&
+      p.get_y() - f.get_y() < 0.0001 &&
+      p.get_y() - f.get_y() > -0.0001;
 }
 
 bool hits_upper_wall(const player& p, const environment& e)
@@ -409,7 +413,10 @@ void kill_losing_player(game &g)
   else if(c1<c2)
     g.kill_player(first_player_index);
 }
-
+void put_player_on_food(player &p, const food &f)
+{
+    p.place_to_position(get_position(f));
+}
 void game::kill_player(const int index)
 {
   assert(index >= 0);
@@ -787,7 +794,15 @@ void test_game() //!OCLINT tests may be many
     assert(count_alive_players(g) == 2);
     //Red has died!
     auto& red = g.get_player(0);
-    assert(is_dead(red) && is_red(red));
+    assert(is_dead(red) && is_red(red));double get_nth_player_diameter(const game &in_game, const int &id)
+    {
+        return in_game.get_player(id).get_diameter();
+    }
+
+    void put_player_on_food(player &p, const food &f)
+    {
+        p.place_to_position(get_position(f));
+    }
     // Green and blue survive
     auto& green = g.get_player(1);
     auto& blue = g.get_player(2);
@@ -805,7 +820,15 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     const auto x = g.get_player(0).get_x();
-    const auto y = g.get_player(0).get_y();
+    const auto y = g.get_player(0).get_y()double get_nth_player_diameter(const game &in_game, const int &id)
+    {
+        return in_game.get_player(id).get_diameter();
+    }
+
+    void put_player_on_food(player &p, const food &f)
+    {
+        p.place_to_position(get_position(f));
+    };
     add_projectile(g, projectile(x, y));
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
@@ -937,7 +960,15 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     player p;
-    //make a copy of the player in its initial state
+    //make a copy of double get_nth_player_diameter(const game &in_game, const int &id)
+    {
+        return in_game.get_player(id).get_diameter();
+    }
+
+    void put_player_on_food(player &p, const food &f)
+    {
+        p.place_to_position(get_position(f));
+    }the player in its initial state
     player player_copy = p;
 
     g.do_action(p, action_type::turn_right);
@@ -999,7 +1030,15 @@ void test_game() //!OCLINT tests may be many
 
 #ifdef FIX_ISSUE_238
   //Food and player can be overlapped
-  {
+  {double get_nth_player_diameter(const game &in_game, const int &id)
+        {
+            return in_game.get_player(id).get_diameter();
+        }
+
+        void put_player_on_food(player &p, const food &f)
+        {
+            p.place_to_position(get_position(f));
+        }
     game g;
     assert(!has_player_food_collision(g));
     put_player_on_food(g.get_player(0), g.get_food()[0]);
@@ -1163,9 +1202,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_285
   {
     game g;
-    std::uniform_real_distribution<
-      double
-    >(0.0, 1.0)(g.get_rng());
+    std::uniform_real_distribution<double>(0.0, 1.0)(g.get_rng());
   }
 #endif
 
@@ -1178,19 +1215,24 @@ void test_game() //!OCLINT tests may be many
            g.get_rng() - expected_rng() > -0.00001);
   }
 #endif
+#ifdef FIX_ISSUE_321
+    {
+        Point Some_random_point(1,1);
+        food n_food;
+        player n_player;
+        projectile n_projectile;
 
+        n_food.set_position(Some_random_point);
+        n_player.set_position(Some_random_point);
+        n_projectile.set_position(Some_random_point);
+        assert(have_same_position(n_food,Some_random_point));
+        assert(have_same_position(n_player,Some_random_point));
+        assert(have_same_position(n_projectile,Some_random_point));
+    }
+#endif
 
 #endif // no tests in release
 }
 
 
-double get_nth_player_diameter(const game &in_game, const int &id)
-{
-    return in_game.get_player(id).get_diameter();
-}
 
-void put_player_on_food(player &p, food &f)
-{
-  p.place_to_position(f.get_position());
-  return 0;
-}

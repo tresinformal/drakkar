@@ -3,6 +3,7 @@
 
 #include "color.h"
 #include "food_state.h"
+#include <vector>
 class food
 {
 public:
@@ -26,7 +27,8 @@ private:
 };
 
 void test_food();
-
+///get the position of an inputted food object
+const std::vector<double> get_position(const food& in_food);
 /// Get the blueness (from the color) of the food
 int get_blueness(const food &f) noexcept;
 

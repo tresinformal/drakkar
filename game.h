@@ -198,7 +198,7 @@ double get_nth_player_diameter(const game& in_game,const int& id);
 void kill_losing_player(game &);
 
 ///Puts a player on food
-void put_player_on_food(player& p, food& f);
+void put_player_on_food(player& p, const food &f);
 
 void test_game();
 
