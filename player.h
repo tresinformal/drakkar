@@ -72,11 +72,17 @@ public:
     /// Get the player's health
     double get_health() const noexcept { return m_health; }
 
+
     /// Is the player shooting?
     /// When a player shoots, 'm_is_shooting' is true for one tick.
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool is_shooting() const noexcept { return m_is_shooting; }
+
+    ///Places a player to a given x,y poisition
+    void place_to_position(const std::vector<double>& position) noexcept{ m_x = position[0];
+                                                                          m_y = position[1];}
+
     /// Set the color of the player
     void set_state(const player_state &s) noexcept { m_state = s; }
 
