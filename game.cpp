@@ -794,15 +794,7 @@ void test_game() //!OCLINT tests may be many
     assert(count_alive_players(g) == 2);
     //Red has died!
     auto& red = g.get_player(0);
-    assert(is_dead(red) && is_red(red));double get_nth_player_diameter(const game &in_game, const int &id)
-    {
-        return in_game.get_player(id).get_diameter();
-    }
-
-    void put_player_on_food(player &p, const food &f)
-    {
-        p.place_to_position(get_position(f));
-    }
+    assert(is_dead(red) && is_red(red));
     // Green and blue survive
     auto& green = g.get_player(1);
     auto& blue = g.get_player(2);
@@ -820,15 +812,8 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     const auto x = g.get_player(0).get_x();
-    const auto y = g.get_player(0).get_y()double get_nth_player_diameter(const game &in_game, const int &id)
-    {
-        return in_game.get_player(id).get_diameter();
-    }
+    const auto y = g.get_player(0).get_y();
 
-    void put_player_on_food(player &p, const food &f)
-    {
-        p.place_to_position(get_position(f));
-    };
     add_projectile(g, projectile(x, y));
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
@@ -961,14 +946,8 @@ void test_game() //!OCLINT tests may be many
     game g;
     player p;
     //make a copy of double get_nth_player_diameter(const game &in_game, const int &id)
-    {
-        return in_game.get_player(id).get_diameter();
-    }
 
-    void put_player_on_food(player &p, const food &f)
-    {
-        p.place_to_position(get_position(f));
-    }the player in its initial state
+    //the player in its initial state
     player player_copy = p;
 
     g.do_action(p, action_type::turn_right);
@@ -1030,15 +1009,7 @@ void test_game() //!OCLINT tests may be many
 
 #ifdef FIX_ISSUE_238
   //Food and player can be overlapped
-  {double get_nth_player_diameter(const game &in_game, const int &id)
-        {
-            return in_game.get_player(id).get_diameter();
-        }
-
-        void put_player_on_food(player &p, const food &f)
-        {
-            p.place_to_position(get_position(f));
-        }
+  {
     game g;
     assert(!has_player_food_collision(g));
     put_player_on_food(g.get_player(0), g.get_food()[0]);
