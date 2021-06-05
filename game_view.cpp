@@ -7,6 +7,8 @@
 #include "game_resources.h"
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <string>
+#include <sstream>
 
 game_view::game_view(game_options options) :
     m_window(sf::VideoMode(1280, 720), "tresinformal game"),
@@ -235,6 +237,18 @@ void game_view::draw_shelters() noexcept
     }
 }
 
+void game_view::draw_player_coords() noexcept
+{
+    sf::Text text;
+    text.setFont(m_game_resources.get_font());
+
+    player p = m_game.get_player(0);
+    std::string str_player_coords;
+    str_player_coords += "Player 1 x:" + std::to_string(p.get_x());
+    str_player_coords += "\nPlayer 2 y:" + std::to_string(p.get_y());
+    text.setString(str_player_coords);
+}
+
 void game_view::show() noexcept
 {
     // Start drawing the new frame, by clearing the screen
@@ -266,6 +280,7 @@ void game_view::show() noexcept
     coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
     m_window.setView(coords_view);
 
+    draw_coords();
     draw_background();
     draw_players();
 

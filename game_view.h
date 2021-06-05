@@ -9,7 +9,6 @@
 #include <SFML/Graphics.hpp>
 #include "key_action_map.h"
 
-
 /// The game's main window
 /// Displays the game class
 class game_view
@@ -91,6 +90,9 @@ private:
 
   /// Draws shelters
   void draw_shelters() noexcept;
+
+  /// Draw player coordinates
+  void draw_player_coords() noexcept;
 };
 
 key_action_map get_player_kam(const player& p);
