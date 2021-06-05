@@ -14,13 +14,13 @@ game_view::game_view(game_options options) :
         m_game.get_v_player().size(),
         sf::View(
             sf::Vector2f(0,0),
-            sf::Vector2f(m_window.getSize().x/2,m_window.getSize().y/2)
+            sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
             )
         ),
     m_options(options)
 {
 
-    //Hardcoded postions of the three sf::views of the three players
+    //Hardcoded positions of the three sf::views of the three players
     m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
     m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
     m_v_views[2].setViewport(sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f));
@@ -219,7 +219,6 @@ void game_view::draw_projectiles() noexcept
 
     }
 
-
 }
 
 
@@ -259,6 +258,16 @@ void game_view::show() noexcept
         draw_shelters();
     }
 
+    // Set fourth view for players coordinates
+    sf::View coords_view(
+                sf::Vector2f(0.0f, 0.0f),
+                sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
+                );
+    coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
+    m_window.setView(coords_view);
+
+    draw_background();
+    draw_players();
 
     // Display all shapes
     m_window.display();
@@ -363,6 +372,22 @@ void test_game_view()//!OCLINT tests may be many
         game_view v;
         assert(v.get_options().is_playing_music());
     }
+
+#define FIX_ISSUE_167
+#ifdef FIX_ISSUE_167
+    ///given a player get_player_kam provides the correct player kam
+    {
+        player p;
+        assert(p.get_ID() == "0");
+        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
+
+        p =  create_player_with_id("1");
+        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
+        p =  create_player_with_id("2");
+        assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
+    }
+#endif
 
 #define FIX_ISSUE_183
 #ifdef FIX_ISSUE_183
