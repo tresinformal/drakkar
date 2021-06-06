@@ -94,16 +94,24 @@ void test_game_options()
   #endif // FIX_ISSUE_289
 
   #ifdef FIX_ISSUE_303
+  // Two random game options are the same, when the same seed is used
+  {
+    const int rng_seed = 271;
+    const game_options a = get_random_game_options(rng_seed);
+    const game_options b = get_random_game_options(rng_seed);
+    assert(a == b);
+  }
   // Two random game options differ in general
   {
-    const game_options a = get_random_game_options();
-    const game_options b = get_random_game_options();
+    const int rng_seed = 314;
+    const game_options a = get_random_game_options(rng_seed);
+    const game_options b = get_random_game_options(rng_seed + 1);
     assert(a != b);
   }
   // Two random game options differ in their key-action maps especially
   {
-    const game_options a = get_random_game_options();
-    const game_options b = get_random_game_options();
+    const game_options a = get_random_game_options(rng_seed);
+    const game_options b = get_random_game_options(rng_seed + 1);
     assert(a.get_kam_1() != b.get_kam_1());
     assert(a.get_kam_2() != b.get_kam_2());
   }
