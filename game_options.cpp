@@ -92,5 +92,22 @@ void test_game_options()
     assert(m == m_again);
   }
   #endif // FIX_ISSUE_289
-  #endif
+
+  #ifdef FIX_ISSUE_303
+  // Two random game options differ in general
+  {
+    const game_options a = get_random_game_options();
+    const game_options b = get_random_game_options();
+    assert(a != b);
+  }
+  // Two random game options differ in their key-action maps especially
+  {
+    const game_options a = get_random_game_options();
+    const game_options b = get_random_game_options();
+    assert(a.get_kam_1() != b.get_kam_1());
+    assert(a.get_kam_2() != b.get_kam_2());
+  }
+  //#endif // FIX_ISSUE_303
+
+  #endif // NDEBUG
 }
