@@ -242,11 +242,15 @@ void game_view::draw_player_coords() noexcept
     sf::Text text;
     text.setFont(m_game_resources.get_font());
 
-    player p = m_game.get_player(0);
+    // Concatenate player coordinates string
+    std::vector<player> v_player = m_game.get_v_player();
     std::string str_player_coords;
-    str_player_coords += "Player 1 x = " + std::to_string(p.get_x());
-    str_player_coords += "\nPlayer 1 y = " + std::to_string(p.get_y());
-
+    for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
+        player p = v_player[static_cast<unsigned int>(i)];
+        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(p.get_x()));
+        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(p.get_y()));
+        str_player_coords += "\n\n";
+    }
     text.setString(str_player_coords);
 
     m_window.draw(text);
@@ -276,6 +280,7 @@ void game_view::show() noexcept
     }
 
     // Set fourth view for players coordinates
+    #ifndef NDEBUG  // coordinates should not be visible in release
     sf::View player_coords_view(
                 sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
                 sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
@@ -283,9 +288,9 @@ void game_view::show() noexcept
     player_coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
     m_window.setView(player_coords_view);
 
+    // Display player coordinates on the fourth view
     draw_player_coords();
-    // draw_background();
-    draw_players();
+    #endif
 
     // Display all shapes
     m_window.display();
