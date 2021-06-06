@@ -244,9 +244,12 @@ void game_view::draw_player_coords() noexcept
 
     player p = m_game.get_player(0);
     std::string str_player_coords;
-    str_player_coords += "Player 1 x:" + std::to_string(p.get_x());
-    str_player_coords += "\nPlayer 2 y:" + std::to_string(p.get_y());
+    str_player_coords += "Player 1 x = " + std::to_string(p.get_x());
+    str_player_coords += "\nPlayer 1 y = " + std::to_string(p.get_y());
+
     text.setString(str_player_coords);
+
+    m_window.draw(text);
 }
 
 void game_view::show() noexcept
@@ -273,15 +276,15 @@ void game_view::show() noexcept
     }
 
     // Set fourth view for players coordinates
-    sf::View coords_view(
-                sf::Vector2f(0.0f, 0.0f),
+    sf::View player_coords_view(
+                sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
                 sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
                 );
-    coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
-    m_window.setView(coords_view);
+    player_coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
+    m_window.setView(player_coords_view);
 
-    draw_coords();
-    draw_background();
+    draw_player_coords();
+    // draw_background();
     draw_players();
 
     // Display all shapes
