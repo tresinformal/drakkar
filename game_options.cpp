@@ -115,7 +115,7 @@ void test_game_options()
     assert(a.get_kam_1() != b.get_kam_1());
     assert(a.get_kam_2() != b.get_kam_2());
   }
-  //#endif // FIX_ISSUE_303
+  #endif // FIX_ISSUE_303
 
   #endif // NDEBUG
 }
