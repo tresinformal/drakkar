@@ -72,14 +72,19 @@ public:
     /// Get the player's health
     double get_health() const noexcept { return m_health; }
 
+
     /// Is the player shooting?
     /// When a player shoots, 'm_is_shooting' is true for one tick.
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool is_shooting() const noexcept { return m_is_shooting; }
 
-    /// Set the color of the player
-    void set_color(const color &c) noexcept { m_color = c; }
+    ///Places a player to a given x,y poisition
+    void place_to_position(const std::vector<double>& position) noexcept
+    {
+        m_x = position[0];
+        m_y = position[1];
+    }
 
     /// Set the color of the player
     void set_state(const player_state &s) noexcept { m_state = s; }
@@ -96,9 +101,6 @@ public:
     /// it (1) creates a projectile, (2) makes the player stop shooting
     void stop_shooting() noexcept { m_is_shooting = false; }
 
-    ///Sets a player ID
-    void set_ID(std::string ID) noexcept {m_ID = ID;}
-
     /// Set a player x position
     void set_x(double x) noexcept { m_x = x; }
 
@@ -113,7 +115,6 @@ public:
 
     //move a player
     void move() noexcept;
-
 
     /// Accelerate the player
     void accelerate() noexcept;
@@ -172,7 +173,7 @@ private:
     double m_diameter;
 
     /// The direction of player in radians
-    double m_direction_radians = 0;
+    double m_direction_radians = 270 * M_PI / 180;
 
     /// The rate at which the player turns
     double m_turn_rate;
@@ -181,12 +182,14 @@ private:
     /// construction
     double m_health = 1.0;
 };
-
 ///Adds an action to the action set
 void add_action(player& p, action_type action) noexcept;
 
 /// Checks if two players are colliding
 bool are_colliding(const player &p1, const player &p2) noexcept;
+
+///create a player with a set color
+player create_player_with_color(const color& in_color);
 
 /// Get the blueness (from the color) of the player
 int get_blueness(const player &p) noexcept;
@@ -226,6 +229,8 @@ int get_colorhash(const player &p) noexcept;
 
 ///Removes an action from action set of the player
 void remove_action(player& p, action_type) noexcept;
+
+player create_player_with_id(const std::string& id);
 
 /// Test the player class
 void test_player();

@@ -4,7 +4,7 @@
 #include <sstream>
 
 food::food(const double x, const double y, const color &c, const double timer, food_state food_state)
-    : m_x{x}, m_y{y}, m_color{c},m_timer{timer},m_food_state{food_state}
+    : m_x{x}, m_y{y}, m_color{c},m_regeneration_time{timer},m_food_state{food_state}
 {
 }
 
@@ -26,6 +26,11 @@ bool food::is_eaten() const noexcept {
     }
 }
 
+bool operator==(const food& lhs, const food& rhs) noexcept
+{
+    return lhs.get_x() == rhs.get_x()
+            && lhs.get_y() == rhs.get_y() ;
+}
 
 void test_food()
 {
@@ -35,6 +40,18 @@ void test_food()
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
   }
+
+    //Can compare two foods for equality, operator==
+    {
+      const food a;
+      const food b;
+      const food c(1234.5678);
+      assert(a == b);
+      assert(!(a == c));
+    }
+
+
+
 
   {
     food f{1.0,2.0};
@@ -74,7 +91,7 @@ void test_food()
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
-    assert(f.get_timer_regeneration() == 0.0);
+    assert(f.get_regeneration_time() == 0.0);
   }
 
   //A food has a regeneration time
@@ -92,3 +109,8 @@ void test_food()
 }
 
 
+
+const std::vector<double> get_position(const food& in_food)
+{
+    return std::vector<double> {in_food.get_x(),in_food.get_y()};
+}

@@ -6,7 +6,10 @@
 #include "game.h"
 #include "game_resources.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <cmath>
+#include <string>
+#include <sstream>
 
 game_view::game_view(game_options options) :
     m_window(sf::VideoMode(1280, 720), "tresinformal game"),
@@ -14,13 +17,13 @@ game_view::game_view(game_options options) :
         m_game.get_v_player().size(),
         sf::View(
             sf::Vector2f(0,0),
-            sf::Vector2f(m_window.getSize().x/2,m_window.getSize().y/2)
+            sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
             )
         ),
     m_options(options)
 {
 
-    //Hardcoded postions of the three sf::views of the three players
+    //Hardcoded positions of the three sf::views of the three players
     m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
     m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
     m_v_views[2].setViewport(sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f));
@@ -61,15 +64,22 @@ player player_stop_input(player p, sf::Event event) noexcept
 
 void game_view::pl_1_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_0_kam();
+    const key_action_map m = get_player_1_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
 void game_view::pl_2_stop_input(sf::Event event) noexcept
 {
-    const key_action_map m = get_player_1_kam();
+    const key_action_map m = get_player_2_kam();
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
+
+void game_view::pl_3_stop_input(sf::Event event) noexcept
+{
+    const key_action_map m = get_player_3_kam();
+    remove_action(m_game.get_player(0), m.to_action(event.key.code));
+}
+
 
 bool game_view::process_events()
 {
@@ -120,9 +130,12 @@ void game_view::draw_background() noexcept
     // Draw the background
     sf::Sprite background_sprite;
     background_sprite.setPosition(10.0, 10.0);
-    // background_sprite.setTexture(m_game_resources.get_grass_landscape());
-    background_sprite.setTexture(m_game_resources.get_heterogenous_landscape());
-    background_sprite.setScale(16.0f, 16.0f);
+    sf::Texture background_texture = m_game_resources.get_coastal_world();
+    background_sprite.setTexture(background_texture);
+    // Scale background so it fits the entire environment
+    double scaling_factor_x = m_game.get_env().get_max_x() / background_texture.getSize().x;
+    double scaling_factor_y = m_game.get_env().get_max_y() / background_texture.getSize().y;
+    background_sprite.setScale(scaling_factor_x, scaling_factor_y);
     m_window.draw(background_sprite);
 }
 
@@ -172,7 +185,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         circle.setTexture(&m_game_resources.get_dragon());
         circle.setOrigin(r, r);
         circle.setPosition(x, y);
-        circle.setRotation((angle  * 180.0f / M_PI)+90);
+        circle.setRotation((angle  * 180.0f / M_PI) - 90);
 
 //        sf::RectangleShape rect;
 //        rect.setSize(sf::Vector2f(r, 2.0f));
@@ -212,7 +225,6 @@ void game_view::draw_projectiles() noexcept
 
     }
 
-
 }
 
 
@@ -227,6 +239,25 @@ void game_view::draw_shelters() noexcept
                                       get_opaqueness(shelter)));
         m_window.draw(circle);
     }
+}
+
+void game_view::draw_player_coords() noexcept
+{
+    sf::Text text;
+    text.setFont(m_game_resources.get_font());
+
+    // Concatenate player coordinates string
+    std::vector<player> v_player = m_game.get_v_player();
+    std::string str_player_coords;
+    for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
+        player p = v_player[static_cast<unsigned int>(i)];
+        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(p.get_x()));
+        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(p.get_y()));
+        str_player_coords += "\n\n";
+    }
+    text.setString(str_player_coords);
+
+    m_window.draw(text);
 }
 
 void game_view::show() noexcept
@@ -252,6 +283,29 @@ void game_view::show() noexcept
         draw_shelters();
     }
 
+    // Set fourth view for players coordinates
+    #ifndef NDEBUG  // coordinates should not be visible in release
+    sf::View player_coords_view(
+                sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
+                sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
+                );
+    player_coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
+    m_window.setView(player_coords_view);
+
+    // Display player coordinates on the fourth view
+    draw_player_coords();
+    #endif
+
+    if (1 == 2)
+    {
+        sf::Text text;
+        text.setString("Hello world");
+        text.setPosition(10, 10);
+        text.setFont(game_resources().get_font());
+        text.setScale(100.0, 100.0);
+        m_window.draw(text);
+    }
+
 
     // Display all shapes
     m_window.display();
@@ -261,11 +315,15 @@ key_action_map get_player_kam(const player& p)
 {
     if(p.get_ID() == "0")
     {
-        return get_player_0_kam();
+        return get_player_1_kam();
     }
     else if(p.get_ID() == "1")
     {
-        return  get_player_1_kam();
+        return  get_player_2_kam();
+    }
+    else if(p.get_ID() == "2")
+    {
+        return  get_player_3_kam();
     }
     else
     {
@@ -353,17 +411,35 @@ void test_game_view()//!OCLINT tests may be many
         assert(v.get_options().is_playing_music());
     }
 
+#define FIX_ISSUE_167
+#ifdef FIX_ISSUE_167
+    ///given a player get_player_kam provides the correct player kam
+    {
+        player p;
+        assert(p.get_ID() == "0");
+        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
+
+        p =  create_player_with_id("1");
+        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
+        p =  create_player_with_id("2");
+        assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
+    }
+#endif
+
 #define FIX_ISSUE_183
 #ifdef FIX_ISSUE_183
     ///given a player get_player_kam provides the correct player kam
     {
         player p;
         assert(p.get_ID() == "0");
-        assert(get_player_kam(p).get_raw_map() == get_player_0_kam().get_raw_map());
-
-        p.set_ID("1");
-        assert(get_player_kam(p).get_raw_map() != get_player_0_kam().get_raw_map());
         assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
+        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
+
+        p =  create_player_with_id("1");
+        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
+        p =  create_player_with_id("2");
+        assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
 
     }
 #endif
@@ -374,8 +450,8 @@ void test_game_view()//!OCLINT tests may be many
         player p0;
         player p1;
 
-        p0.set_ID("0");
-        p1.set_ID("1");
+        p0 = create_player_with_id("0");
+        p1 = create_player_with_id("1");
 
         sf::Event move_forward_pl_1;
         move_forward_pl_1.key.code = sf::Keyboard::W;
@@ -394,10 +470,10 @@ void test_game_view()//!OCLINT tests may be many
         player p0;
         player p1;
 
-        p0.set_ID("0");
+        p0 = create_player_with_id("0");
         add_action(p0,action_type::accelerate);
 
-        p1.set_ID("1");
+        p1 = create_player_with_id("1");
         add_action(p1,action_type::accelerate);
 
         sf::Event stop_move_forward_pl_1;
@@ -411,7 +487,6 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-   #ifdef FIX_ISSUE_224
   // #define FIX_ISSUE_224
   // Pressing 1 stuns player 1
   {
@@ -429,7 +504,6 @@ void test_game_view()//!OCLINT tests may be many
     g.process_events(); // Needed to process the event
     assert(!is_nth_player_stunned(g, 0));
   }
-  #endif
   #endif
 }
 
