@@ -106,6 +106,26 @@ void test_color()
   }
   #endif // FIX_ISSUE_322
 
+
+  //#define FIX_ISSUE_229
+  #ifdef FIX_ISSUE_229
+  // Colors have the correct hues
+  // See http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+  {
+    const color red = create_red_color();
+    assert(calc_hue(red) == 0.0);
+  }
+  {
+    const color green = create_green_color();
+    assert(calc_hue(red) == 120.0);
+  }
+  {
+    const color blue = create_blue_color();
+    assert(calc_hue(blue) == 240.0);
+  }
+  #endif // FIX_ISSUE_229
+
+
   //#define FIX_ISSUE_230
   #ifdef FIX_ISSUE_230
   // The correct color must win
