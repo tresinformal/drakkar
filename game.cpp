@@ -1208,7 +1208,6 @@ void test_game() //!OCLINT tests may be many
         game g; //by default one uneaten food
         int n_food_items_begin = count_food_items(g);
         assert(has_food(g));
-        assert(1 == 2);
         eat_nth_food(g,0);
         assert(!has_food(g));
         //number of food item stays the same only the state of food item changes after they are eaten
