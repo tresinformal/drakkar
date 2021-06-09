@@ -1,12 +1,13 @@
 #ifndef GAME_VIEW_H
 #define GAME_VIEW_H
 
+#ifndef LOGIC_ONLY // that is, not compiled on GitHub Actions
+
 #include "game.h"
 #include "game_resources.h"
 #include "game_options.h"
 #include <SFML/Graphics.hpp>
 #include "key_action_map.h"
-
 
 /// The game's main window
 /// Displays the game class
@@ -39,9 +40,6 @@ public:
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
-  ///Gets option settings of the game
-  const game_options get_options() {return m_options;}
-
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
 
@@ -73,6 +71,9 @@ private:
   /// Parses input for player 2
   void pl_2_stop_input(sf::Event event) noexcept;
 
+  /// Parses input for player 3
+  void pl_3_stop_input(sf::Event event) noexcept;
+
   /// The options of the game
   game_options m_options;
 
@@ -87,6 +88,9 @@ private:
 
   /// Draws shelters
   void draw_shelters() noexcept;
+
+  /// Draw player coordinates
+  void draw_player_coords() noexcept;
 };
 
 key_action_map get_player_kam(const player& p);
@@ -97,5 +101,7 @@ player player_input(player p, sf::Event event);
 void test_game_view();
 
 bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
+
+#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
 
 #endif // GAME_VIEW_H

@@ -26,6 +26,16 @@ game_resources::game_resources()
     }
   }
   {
+    const QString filename{"marjon_the_dragon.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_dragon.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+  {
     const QString filename{"cat.png"};
     QFile f(":/" + filename);
     f.copy(filename);
@@ -65,6 +75,16 @@ game_resources::game_resources()
       }
     }
     m_heterogenous_landscape.loadFromImage(image);
+  }
+  {
+    const QString filename{"coastal_world.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_coastal_world.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
   }
   {
     const QString filename{"grass_landscape.png"};
@@ -162,12 +182,12 @@ game_resources::game_resources()
 
 void test_game_resources()
 {
+  #ifndef NDEBUG // no tests in release
   game_resources g;
-  assert(g.get_heterogenous_landscape().getSize().x > 0.0);
+  assert(g.get_coastal_world().getSize().x > 0.0);
 
   #ifdef FIX_ISSUE_136
   assert(g.get_sound(sound_type::shoot).getDuration().asMicroseconds() > 0.0);
   #endif
-
-
+  #endif
 }

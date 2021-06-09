@@ -10,16 +10,19 @@ public:
   game_resources();
 
   /// Get the texture of a heterogenous landscape
-  sf::Texture &get_heterogenous_landscape() noexcept
-  {
-    return m_heterogenous_landscape;
-  }
+  sf::Texture &get_heterogenous_landscape() noexcept { return m_heterogenous_landscape; }
+
+  /// Get the texture of a heterogenous landscape
+  sf::Texture &get_coastal_world() noexcept { return m_coastal_world; }
 
   /// Get the texture of a heterogenous landscape
   sf::Texture &get_grass_landscape() noexcept { return m_grass_landscape; }
 
   /// Get the texture of a the player
   sf::Texture &get_player_sprite() noexcept { return m_player_sprite; }
+
+  /// Get a picture of a Marjon the dragon
+  sf::Texture &get_dragon() noexcept { return m_dragon; }
 
   /// Get a picture of Franjo
   sf::Texture &get_franjo() noexcept { return m_franjo; }
@@ -64,6 +67,9 @@ private:
   /// Franjo
   sf::Texture m_franjo;
 
+  /// Dragon
+  sf::Texture m_dragon;
+
   /// Rocket
   sf::Texture m_rocket;
 
@@ -75,6 +81,9 @@ private:
 
   /// A heterogenous landscape
   sf::Texture m_heterogenous_landscape;
+
+  /// A coastal world
+  sf::Texture m_coastal_world;
 
   /// Font
   sf::Font m_font;

@@ -1,13 +1,16 @@
 #ifndef GAME_OPTIONS_H
 #define GAME_OPTIONS_H
-
+#include "key_action_map.h"
 // Try to declare the class 'game_options' here yourself
 class game_options
 {
 public:
   game_options(const bool play_music = true);
 
-  ///checks if the game options have the m_play_music flag on
+  ///Get the RNG seed
+  int get_rng_seed() const noexcept { return m_rng_seed; }
+
+  ///Checks if the game options have the m_play_music flag on
   bool is_playing_music() const noexcept { return m_play_music; }
 
   ///Turns the flag m_play_music to false
@@ -16,8 +19,15 @@ public:
   ///Turns the flag m_play_music to true
   void play_music() noexcept {m_play_music = true;}
 
+  const key_action_map& get_kam_1() const noexcept { return m_kam_1; };
+
+  const key_action_map& get_kam_2() const noexcept { return m_kam_2; };
+
 private:
+  int m_rng_seed = 0;
   bool m_play_music = true;
+  key_action_map m_kam_1;
+  key_action_map m_kam_2;
 };
 
 bool operator == (const game_options& lhs, const game_options& rhs) noexcept;

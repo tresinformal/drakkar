@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <random>
 
 game::game(double wall_short_side,
            int num_players,
@@ -22,23 +23,27 @@ game::game(double wall_short_side,
 {
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
+
+      auto ID = std::to_string(i);
       m_player[i] =
-          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket);
-      m_player[i].set_ID(std::to_string(i));
+          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i,
+                 400.0,
+                 player_shape::rocket,
+                 player_state::active,
+                 2,
+                 0.1,
+                 -0.0001,
+                 -0.1,
+                 100,
+                 0.01,
+                 color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+                                                i % 3 == 2 ? 255 : 0),
+                 ID);
     }
-  // Set color
-  {
-    int i = 0;
-    for (auto &player : m_player)
-      {
-        player.set_color(color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
-                               i % 3 == 2 ? 255 : 0));
-        ++i;
-      }
-  }
+
   // Set shelters
   {
-    assert(m_shelters.size() == 3);
+    assert(m_shelters.size() == n_shelters);
     int i = 0;
     for (auto &this_shelter : m_shelters)
       {
@@ -62,9 +67,17 @@ void add_projectile(game &g, const projectile &p)
   g.get_projectiles().push_back(p);
 }
 
+double calc_mean(const std::vector<double>& v)
+{
+  return std::accumulate(
+    std::begin(v),
+    std::end(v), 0.0
+  ) / v.size();
+}
+
 double get_nth_player_size(const game& g, const int i)
 {
-    return g.get_player(i).get_diameter();
+  return g.get_player(i).get_diameter();
 }
 
 int count_alive_players(const game& g) noexcept
@@ -236,7 +249,12 @@ void game::tick()
     }
 
   // and updates m_n_ticks
-  ++get_n_ticks();
+  increment_n_ticks();
+}
+
+void game::increment_n_ticks()
+{
+  ++m_n_ticks;
 }
 
 bool has_collision(const game &g) noexcept
@@ -322,32 +340,32 @@ bool have_same_position(const player& p, const food& f)
       p.get_y() - f.get_y() < -0.0001;
 }
 
-bool hits_upper_wall(const player& p, const environment& e)
+bool hits_south_wall(const player& p, const environment& e)
 {
   return p.get_y() + p.get_diameter()/2 > e.get_max_y();
 }
 
-bool hits_lower_wall(const player& p, const environment& e)
+bool hits_north_wall(const player& p, const environment& e)
 {
   return p.get_y() - p.get_diameter()/2 < e.get_min_y();
 }
 
-bool hits_right_wall(const player& p, const environment& e)
+bool hits_east_wall(const player& p, const environment& e)
 {
   return p.get_x() + p.get_diameter()/2 > e.get_max_x();
 }
 
-bool hits_left_wall(const player& p, const environment& e)
+bool hits_west_wall(const player& p, const environment& e)
 {
   return p.get_x() - p.get_diameter()/2 < e.get_min_x();
 }
 
 bool hits_wall(const player& p, const environment& e)
 {
-  if(hits_left_wall(p,e)
-     ||hits_right_wall(p,e)
-     || hits_upper_wall(p,e)
-     || hits_lower_wall(p,e))
+  if(hits_west_wall(p,e)
+     ||hits_east_wall(p,e)
+     || hits_north_wall(p,e)
+     || hits_south_wall(p,e))
     {
       return true;
     }
@@ -396,7 +414,6 @@ void kill_losing_player(game &g)
 
 void game::kill_player(const int index)
 {
-
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
   get_player(index).set_state(player_state::dead);
@@ -412,22 +429,22 @@ void game::do_wall_collisions()
 
 player game::wall_collision(player p)
 {
-  if(hits_upper_wall(p, m_environment))
+  if(hits_south_wall(p, m_environment))
     {
       p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
     }
 
-  if(hits_lower_wall(p, m_environment))
+  if(hits_north_wall(p, m_environment))
     {
       p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
     }
 
-  if(hits_right_wall(p, m_environment))
+  if(hits_east_wall(p, m_environment))
     {
       p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
     }
 
-  if(hits_left_wall(p, m_environment))
+  if(hits_west_wall(p, m_environment))
     {
       p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
     }
@@ -435,8 +452,14 @@ player game::wall_collision(player p)
   return p;
 }
 
+std::default_random_engine& game::get_rng() noexcept
+{
+  return m_rng;
+}
+
 void test_game() //!OCLINT tests may be many
 {
+#ifndef NDEBUG // no tests in release
   // The game has done zero ticks upon startup
   {
     const game g;
@@ -462,14 +485,11 @@ void test_game() //!OCLINT tests may be many
     const game g;
     assert(!g.get_enemies().empty());
   }
-  //#define FIX_ISSUE_267
-#ifdef FIX_ISSUE_267
   // A game has game_options
   {
     const game g;
     assert(g.get_game_options().is_playing_music());
   }
-#endif // FIX_ISSUE_267
   // A game responds to actions: player can turn left
   {
     game g;
@@ -615,11 +635,11 @@ void test_game() //!OCLINT tests may be many
     const game g;
     const int n_players{static_cast<int>(g.get_v_player().size())};
     for (int i = 0; i != n_players; ++i)
-    {
-      const double a{g.get_player(i).get_diameter()};
-      const double b{get_nth_player_size(g, i)};
-      assert(std::abs(b - a) < 0.0001);
-    }
+      {
+        const double a{g.get_player(i).get_diameter()};
+        const double b{get_nth_player_size(g, i)};
+        assert(std::abs(b - a) < 0.0001);
+      }
   }
   // game by default has a mix and max evironment size
   {
@@ -872,19 +892,41 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
+  // The game has 42 shelters
+  {
+    const game g;
+    assert(g.get_shelters().size() == 42);
+  }
+  // There are 42 shelters
+  {
+    const int n_shelters{42};
+    const game g(1600, 3, 0, n_shelters);
+    assert(g.get_shelters().size() == n_shelters);
+  }
+  // All shelters have a different location
+//  {
+//    const int n_shelters{42};
+//    const game g(1600, 3, 0, n_shelters);
+//    assert(g.get_shelters().size() == n_shelters);
+//  }
 
-  //shelter moves with ever tick
+  //The first shelter moves with a tick
   {
     game g;
-    for (auto i = 0; i < static_cast<int>(g.get_shelters().size()); ++i)
-      {//selected shelter is moving with each tick
-        double before=g.get_shelters()[i].get_x();
-        g.tick();
-        g.tick();
-        double after=g.get_shelters()[i].get_x();
-        assert(after-before > 0.0000000000000001);
-      }
+    assert(g.get_shelters().size() > 0);
+    const double before = g.get_shelters()[0].get_x();
+    g.tick();
+    const double after = g.get_shelters()[0].get_x();
+    assert(std::abs(after - before) > 0.0);
   }
+  #ifdef FIX_ISSUE_315
+  // Initial shelters are at random locations over the whole arena
+  {
+    const game g;
+    assert(g.get_shelters().size() > 0);
+    // TODO: write test here
+  }
+  #endif // FIX_ISSUE_315
 
   ///Players in game are initialized with ID equal to their index
   {
@@ -895,18 +937,18 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  ///Players cannot move past wall coordinates as defined in enviornment
+  ///Players cannot move past wall coordinates as defined in environment
   {
     game g;
 
-    //set a player very close to a wall
+    //set a player very close to the top wall (y = 0)
     auto p = g.get_player(0);
-    p.set_x(g.get_env().get_max_x() - p.get_diameter()/2 - 0.01);
+    p.set_y(0.00 + p.get_diameter()/2 + 0.01);
     assert(!hits_wall(p,g.get_env()));
 
     ///move the player into the wall
     p.accelerate();
-    assert(hits_right_wall(p, g.get_env()));
+    assert(hits_north_wall(p, g.get_env()));
 
     /// manage the collision
     p = g.wall_collision(p);
@@ -968,6 +1010,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+  //#define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
   //Food and player can be overlapped
   {
@@ -1076,5 +1119,91 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#ifdef FIX_ISSUE_250
+  //Food can be placed at a random location
+  {
+
+    game g;
+    std::vector<double> food_x;
+    std::vector<double> food_y;
+
+    int repeats = 1000;
+
+    for(int i = 0; i != repeats; i++)
+      {
+        place_nth_food_randomly(g,0);
+        food_x.push_back(get_nth_food_x(g,0));
+        food_y.push_back(get_nth_food_y(g,0));
+      }
+    auto mean_x = calc_mean(food_x);
+    auto mean_y = calc_mean(food_y);
+
+    assert(mean_x > -0.01 && mean_x < 0.01);
+    assert(mean_y > -0.01 && mean_y < 0.01);
+
+    auto var_x = calc_var(food_x, mean_x);
+    auto var_y = calc_var(food_y, mean_y);
+
+    assert(var_x < 0.01 && var_x > -0.01);
+    assert(var_y < 0.01 && var_y > -0.01);
+  }
+#endif
+
+#ifdef FIX_ISSUE_286
+  {
+    std::vector<double> food_x;
+    std::vector<double> food_y;
+    int repeats = 1000;
+    for(int rng_seed = 0; rng_seed != repeats; rng_seed++)
+      {
+        game g(1,1,1,1,1,1, rng_seed);
+        food_x.push_back(get_nth_food_x(g,0));
+        food_y.push_back(get_nth_food_y(g,0));
+      }
+    auto mean_x = calc_mean(food_x);
+    auto mean_y = calc_mean(food_y);
+
+    assert(mean_x > -0.01 && mean_x < 0.01);
+    assert(mean_y > -0.01 && mean_y < 0.01);
+
+    auto var_x = calc_var(food_x, mean_x);
+    auto var_y = calc_var(food_y, mean_y);
+
+    assert(var_x < 0.01 && var_x > -0.01);
+    assert(var_y < 0.01 && var_y > -0.01);
+  }
+#endif
+
+#define FIX_ISSUE_285
+  // Test calc_mean
+  {
+        std::vector<double> numbers;
+        numbers.push_back(1);
+        numbers.push_back(2);
+        auto expected_mean = calc_mean(numbers);
+        assert(expected_mean - 1.5 < 0.0001 && expected_mean - 1.5 > -0.0001);
+  }
+
+#ifdef FIX_ISSUE_285
+  {
+    game g;
+    std::uniform_real_distribution<
+      double
+    >(0.0, 1.0)(g.get_rng());
+  }
+#endif
+
+#ifdef FIX_ISSUE_288
+  {
+    int seed = 123456789;
+    game g{0,0,0,0,0,0, seed};
+    auto expected_rng = std::minstd_rand(seed);
+    assert(g.get_rng() - expected_rng() < 0.00001 &&
+           g.get_rng() - expected_rng() > -0.00001);
+  }
+#endif
+
+
+#endif // no tests in release
 }
 

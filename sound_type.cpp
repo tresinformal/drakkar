@@ -3,6 +3,7 @@
 
 void test_sound_type()
 {
+  #ifndef NDEBUG // no tests in release
   static_assert(sound_type::shoot != sound_type::hit, "");
   //#define FIX_ISSUE_263
   #ifdef FIX_ISSUE_263
@@ -12,6 +13,6 @@ void test_sound_type()
     assert(to_str(sound_type::hit) == "hit");
   }
   #endif // FIX_ISSUE_263
-
+  #endif
 }
 

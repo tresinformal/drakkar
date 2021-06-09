@@ -20,7 +20,8 @@ public:
       {
         throw std::logic_error("this object does not contain a value!\n");
       }
-    return m_value[0];};
+    return m_value[0];
+  };
 
   void operator=( const T value ) { m_value[0] = value; };
 private:

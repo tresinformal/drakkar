@@ -4,6 +4,7 @@
 
 void test_projectile_type()
 {
+  #ifndef NDEBUG // no tests in release
   // String conversion
   {
     assert(to_str(projectile_type::cat) == "cat");
@@ -15,6 +16,7 @@ void test_projectile_type()
     s << projectile_type::rocket;
     assert(!s.str().empty());
   }
+  #endif
 }
 
 std::ostream &operator<<(std::ostream &os, const projectile_type t)
