@@ -96,19 +96,19 @@ int count_food_items(const game &g)
 //Checks if the game has food  -> should check if it has uneaten food instead
 bool has_food(const game &g)
 {
-    if (!count_food_items(g))
-    {
-        return false;
-    }
+    //if (!count_food_items(g))
+    //{
+    //    return false;
+    //}
     std::vector<food> v_food{g.get_food()};
     int count = 0;
-
-    for (unsigned int i = 0; i < v_food.size() ; i++){
-        if (!v_food[0].is_eaten())
+    for (unsigned int i = 0; i < v_food.size(); i++) {
+        if (!v_food[i].is_eaten())
         {
-            count+=1;
+            count++;
         }
     }
+    return count > 0 ;
 }
 
 void eat_nth_food(game &g, const int n)
@@ -1104,10 +1104,11 @@ void test_game() //!OCLINT tests may be many
         game g; //by default one uneaten food
         int n_food_items_begin = count_food_items(g);
         assert(has_food(g));
+        assert(1 == 2);
         eat_nth_food(g,0);
         assert(!has_food(g));
         //number of food item stays the same only the state of food item changes after they are eaten
-        assert(n_food_items_begin == count_food_items);
+        assert(n_food_items_begin == count_food_items(g));
     }
 #endif
 
