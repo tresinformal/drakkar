@@ -161,8 +161,8 @@ void test_key_action_map()//!OCLINT tests can be many
   }
   #endif // FIX_ISSUE_282
 
-  //#define FIX_ISSUE_305
-//  #ifdef FIX_ISSUE_305
+  #define FIX_ISSUE_305
+  #ifdef FIX_ISSUE_305
   // operator!=
   {
     const key_action_map a = get_player_1_kam();
@@ -173,7 +173,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(a != c);
     assert(b != c);
   }
-//  #endif // FIX_ISSUE_305
+  #endif // FIX_ISSUE_305
 
 
   #endif
