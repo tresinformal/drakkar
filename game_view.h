@@ -9,7 +9,6 @@
 #include <SFML/Graphics.hpp>
 #include "key_action_map.h"
 
-
 /// The game's main window
 /// Displays the game class
 class game_view
@@ -40,8 +39,6 @@ public:
 
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
-
-
 
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
@@ -91,6 +88,9 @@ private:
 
   /// Draws shelters
   void draw_shelters() noexcept;
+
+  /// Draw player coordinates
+  void draw_player_coords() noexcept;
 };
 
 key_action_map get_player_kam(const player& p);
