@@ -83,7 +83,24 @@ void test_color()
         const color c;
         std::cout << c;
     }
-#endif
+  //#define FIX_ISSUE_231
+  #ifdef FIX_ISSUE_231
+  // The correct color must win
+  {
+    const color paper = create_red_color();
+    const color rock = create_green_color();
+    const color scissors = create_blue_color();
+    assert(is_first_color_winner(paper, rock));
+    assert(is_first_color_winner(scissors, paper));
+    assert(is_first_color_winner(rock, scissors));
+    assert(!is_first_color_winner(rock, paper));
+    assert(!is_first_color_winner(paper, scissors));
+    assert(!is_first_color_winner(scissors, rock));
+  }
+  #endif // FIX_ISSUE_231
+
+
+#endif // NDEBUG
 }
 
 bool operator==(const color& lhs, const color& rhs) noexcept
