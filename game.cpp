@@ -41,7 +41,7 @@ game::game(double wall_short_side,
 
   // Set shelters
   {
-    assert(m_shelters.size() == 3);
+    assert(m_shelters.size() == n_shelters);
     int i = 0;
     for (auto &this_shelter : m_shelters)
       {
@@ -908,19 +908,41 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
+  // The game has 42 shelters
+  {
+    const game g;
+    assert(g.get_shelters().size() == 42);
+  }
+  // There are 42 shelters
+  {
+    const int n_shelters{42};
+    const game g(1600, 3, 0, n_shelters);
+    assert(g.get_shelters().size() == n_shelters);
+  }
+  // All shelters have a different location
+//  {
+//    const int n_shelters{42};
+//    const game g(1600, 3, 0, n_shelters);
+//    assert(g.get_shelters().size() == n_shelters);
+//  }
 
-  //shelter moves with ever tick
+  //The first shelter moves with a tick
   {
     game g;
-    for (auto i = 0; i < static_cast<int>(g.get_shelters().size()); ++i)
-      {//selected shelter is moving with each tick
-        double before=g.get_shelters()[i].get_x();
-        g.tick();
-        g.tick();
-        double after=g.get_shelters()[i].get_x();
-        assert(after-before > 0.0000000000000001);
-      }
+    assert(g.get_shelters().size() > 0);
+    const double before = g.get_shelters()[0].get_x();
+    g.tick();
+    const double after = g.get_shelters()[0].get_x();
+    assert(std::abs(after - before) > 0.0);
   }
+  #ifdef FIX_ISSUE_315
+  // Initial shelters are at random locations over the whole arena
+  {
+    const game g;
+    assert(g.get_shelters().size() > 0);
+    // TODO: write test here
+  }
+  #endif // FIX_ISSUE_315
 
   ///Players in game are initialized with ID equal to their index
   {
