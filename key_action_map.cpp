@@ -72,6 +72,10 @@ bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept
     return lhs.get_raw_map() == rhs.get_raw_map();
 }
 
+bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept
+{
+  return !(lhs.get_raw_map() == rhs.get_raw_map());
+}
 void test_key_action_map()//!OCLINT tests can be many
 {
     #ifndef NDEBUG // no tests in release
