@@ -131,6 +131,13 @@ void test_key_action_map()//!OCLINT tests can be many
         assert( m.has_key(sf::Keyboard::Q));
         assert(!m.has_key(sf::Keyboard::L));
     }
+    #ifdef FIX_ISSUE_304
+    //Get the stun key
+    {
+        const key_action_map m = get_player_1_kam();
+        assert(get_stun_key(m) == sf::Keyboard::Num1);
+    }
+    #endif // FIX_ISSUE_304
 
     //Giving a key that is not in the map returns a action_type::none action
     //but does not crash the program
