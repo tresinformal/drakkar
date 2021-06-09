@@ -83,8 +83,31 @@ void test_color()
         const color c;
         std::cout << c;
     }
-  //#define FIX_ISSUE_231
-  #ifdef FIX_ISSUE_231
+  //#define FIX_ISSUE_322
+  #ifdef FIX_ISSUE_322
+  // Colors have the correct RGB values
+  {
+    const color red = create_red_color();
+    assert(get_redness(red) == 255);
+    assert(get_greenness(red) == 0);
+    assert(get_blueness(red) == 0);
+  }
+  {
+    const color green = create_green_color();
+    assert(get_redness(green) == 0);
+    assert(get_greenness(green) == 255);
+    assert(get_blueness(green) == 0);
+  }
+  {
+    const color blue = create_blue_color();
+    assert(get_redness(blue) == 0);
+    assert(get_greenness(blue) == 0);
+    assert(get_blueness(blue) == 255);
+  }
+  #endif // FIX_ISSUE_322
+
+  //#define FIX_ISSUE_230
+  #ifdef FIX_ISSUE_230
   // The correct color must win
   {
     const color paper = create_red_color();
@@ -97,7 +120,7 @@ void test_color()
     assert(!is_first_color_winner(paper, scissors));
     assert(!is_first_color_winner(scissors, rock));
   }
-  #endif // FIX_ISSUE_231
+  #endif // FIX_ISSUE_230
 
 
 #endif // NDEBUG
