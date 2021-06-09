@@ -87,6 +87,24 @@ int count_alive_players(const game& g) noexcept
   {return p.get_state() != player_state::dead;});
 }
 
+//Counts how many food items have been generated
+int count_food_items(const game &g)
+{
+ return static_cast<int>(g.get_food().size());
+}
+
+//Checks if the game has food  -> should check if it has uneaten food instead
+bool has_food(const game &g)
+{if (!count_food_items(g)) return false;
+    else if
+}
+
+void eat_nth_food(game &g, const int n)
+{
+g.get_food()[n] ;
+
+}
+
 int count_n_projectiles(const game &g) noexcept
 {
   return static_cast<int>(g.get_projectiles().size());
@@ -1046,6 +1064,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_261
 #ifdef FIX_ISSUE_261
   {
     game g; //by default one uneaten food
@@ -1054,7 +1073,7 @@ void test_game() //!OCLINT tests may be many
     eat_nth_food(g,0);
     assert(!has_food(g));
     //number of food item stays the same only the state of food item changes after they are eaten
-    assert(n_food_items_begin == count_food_items)
+    assert(n_food_items_begin == count_food_items);
   }
 #endif
 
