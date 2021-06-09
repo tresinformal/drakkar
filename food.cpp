@@ -49,7 +49,7 @@ void test_food()
       assert(a == b);
       assert(!(a == c));
     }
-    #define FIX_ISSUE_329
+    //#define FIX_ISSUE_329
     #ifdef FIX_ISSUE_329
     {
       coordinate some_random_point(1,1);
