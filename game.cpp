@@ -1209,21 +1209,6 @@ void test_game() //!OCLINT tests may be many
            g.get_rng() - expected_rng() > -0.00001);
   }
 #endif
-#ifdef FIX_ISSUE_321
-    {
-        Point Some_random_point(1,1);
-        food n_food;
-        player n_player;
-        projectile n_projectile;
-
-        n_food.set_position(Some_random_point);
-        n_player.set_position(Some_random_point);
-        n_projectile.set_position(Some_random_point);
-        assert(have_same_position(n_food,Some_random_point));
-        assert(have_same_position(n_player,Some_random_point));
-        assert(have_same_position(n_projectile,Some_random_point));
-    }
-#endif
 
 #endif // no tests in release
 }

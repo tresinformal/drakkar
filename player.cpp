@@ -700,7 +700,7 @@ void test_player() //!OCLINT tests may be long
 
 #ifdef FIX_ISSUE_324
   {
-    Coordinate c{1.23456, 123456.789};
+    coordinate c{1.23456, 123456.789};
     player p{c};
     assert(p.get_position() == c);
   }

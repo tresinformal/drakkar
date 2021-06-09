@@ -37,7 +37,7 @@ void test_projectile()
 
 #ifdef FIX_ISSUE_327
   {
-    Coordinate c{1.23456, 123456.789};
+    coordinate c{1.23456, 123456.789};
     projectile p{c};
     assert(p.get_position() == c);
   }
