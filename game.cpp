@@ -95,8 +95,16 @@ int count_food_items(const game &g)
 
 //Checks if the game has food  -> should check if it has uneaten food instead
 bool has_food(const game &g)
-{if (!count_food_items(g)) return false;
-    else if
+{
+    if (!count_food_items(g)) {
+        return false;
+    }
+    std::vector<food> v_food{g.get_food()};
+
+    if (v_food[0].is_eaten())
+    {
+
+    }
 }
 
 void eat_nth_food(game &g, const int n)
