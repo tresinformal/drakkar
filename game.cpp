@@ -1159,9 +1159,8 @@ void test_game() //!OCLINT tests may be many
     assert(var_y < 0.01 && var_y > -0.01);
   }
 #endif
-
+// Test calc_mean
 #define FIX_ISSUE_285
-  // Test calc_mean
   {
         std::vector<double> numbers;
         numbers.push_back(1);
