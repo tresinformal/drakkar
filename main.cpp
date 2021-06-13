@@ -38,6 +38,7 @@ void test()
     test_player();
     test_game();
     test_game_options();
+    test_game_resources();
     test_enemy();
     test_enemy_behavior_type();
     test_environment();
