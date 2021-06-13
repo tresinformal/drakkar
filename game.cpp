@@ -596,18 +596,16 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
-#ifdef FIX_ISSUE_226
   // A game responds to actions: player can be stunned
   {
     game g;
     for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
       {
-        assert(!is_stunned(g.get_player(i));
+        assert(!is_stunned(g.get_player(i)));
             g.do_action(i, action_type::stun);
-        assert(is_stunned(g.get_player(i));
+        assert(is_stunned(g.get_player(i)));
       }
   }
-#endif //FIX_ISSUE_226
   // Projectiles move
   {
     game g;
