@@ -38,7 +38,6 @@ void test()
     test_player();
     test_game();
     test_game_options();
-    // test_game_resources(); // errors on GHA, see #191
     test_enemy();
     test_enemy_behavior_type();
     test_environment();

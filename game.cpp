@@ -75,10 +75,6 @@ double calc_mean(const std::vector<double>& v)
   ) / v.size();
 }
 
-double get_nth_player_diameter(const game &in_game, const int &id)
-{
-    return in_game.get_player(id).get_diameter();
-}
 double get_nth_player_size(const game& g, const int i)
 {
   return g.get_player(i).get_diameter();
@@ -969,7 +965,7 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     player p;
-    //make a copy of double get_nth_player_diameter(const game &in_game, const int &id)
+    //make a copy of double get_nth_player_size(const game &in_game, const int &id)
 
     //the player in its initial state
     player player_copy = p;
@@ -1044,7 +1040,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_244
   {
     game g;
-    const auto init_player_size = get_nth_player_diameter(g,0);
+    const auto init_player_size = get_nth_player_size(g,0);
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_player(0).get_diameter() > init_player_size);
@@ -1066,7 +1062,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_248
   {
     game g;
-    auto first_player_diam = get_nth_player_diameter(g,0);
+    auto first_player_diam = get_nth_player_size(g,0);
     assert(first_player_diam = g.get_player(0).get_diameter());
   }
 #endif
