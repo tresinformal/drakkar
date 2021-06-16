@@ -191,8 +191,6 @@ bool has_collision_with_projectile(const game &) noexcept;
 bool hits_wall(const player& p, const environment& e);
 
 std::vector<int> get_collision_members(const game &g) noexcept;
-///get the diametr of a player defined by "n" in a game
-double get_nth_player_diameter(const game& in_game,const int& id);
 /// Upon a collision, kills the player that loser
 /// Assumes there is a collision
 void kill_losing_player(game &);

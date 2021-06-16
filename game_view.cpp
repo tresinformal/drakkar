@@ -241,6 +241,16 @@ void game_view::draw_shelters() noexcept
     }
 }
 
+void game_view::set_player_coords_view() noexcept
+{
+    sf::View player_coords_view(
+                sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
+                sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
+                );
+    player_coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
+    m_window.setView(player_coords_view);
+}
+
 void game_view::draw_player_coords() noexcept
 {
     sf::Text text;
@@ -285,13 +295,7 @@ void game_view::show() noexcept
 
     // Set fourth view for players coordinates
     #ifndef NDEBUG  // coordinates should not be visible in release
-    sf::View player_coords_view(
-                sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
-                sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
-                );
-    player_coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
-    m_window.setView(player_coords_view);
-
+    set_player_coords_view();
     // Display player coordinates on the fourth view
     draw_player_coords();
     #endif
@@ -305,7 +309,6 @@ void game_view::show() noexcept
         text.setScale(100.0, 100.0);
         m_window.draw(text);
     }
-
 
     // Display all shapes
     m_window.display();
