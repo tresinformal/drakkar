@@ -115,12 +115,15 @@ bool game_view::process_events()
 
 void game_view::exec() noexcept
 {
+    assert(m_game.get_v_player()[0].get_action_set().count(action_type::stun) == 1);
     while (m_window.isOpen())
     {
         bool must_quit{process_events()};
         if (must_quit)
             return;
+        assert(m_game.get_v_player()[0].get_action_set().count(action_type::stun) == 1);
         m_game.tick();
+        assert(m_game.get_v_player()[0].get_action_set().count(action_type::stun) == 1);
         show();
     }
 }
