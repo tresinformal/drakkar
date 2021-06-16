@@ -21,7 +21,6 @@ game::game(double wall_short_side,
   m_food(n_food, food()),
   m_shelters(n_shelters, shelter())
 {
-    this->m_projectiles.push_back(projectile(0, 0, 0, projectile_type::stun_rocket));
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
 
