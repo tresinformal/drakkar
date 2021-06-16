@@ -104,49 +104,48 @@ void game::do_action(const int player_index, action_type action)
 void game::do_action( player& player, action_type action)
 {
   if(!(player.get_state() == player_state::stunned))
+  {
+    switch (action)
     {
-      switch (action)
-
-        {
-        case action_type::turn_left:
-          {
-            player.turn_left();
-            break;
-          }
-        case action_type::turn_right:
-          {
-            player.turn_right();
-            break;
-          }
-        case action_type::accelerate:
-          {
-            player.accelerate();
-            break;
-          }
-        case action_type::brake:
-          {
-            player.brake();
-            break;
-          }
-        case action_type::acc_backward:
-          {
-            player.acc_backward();
-            break;
-          }
-        case action_type::shoot:
-          {
-            player.shoot();
-            break;
-          }
-        case action_type::stun:
-          {
-            stun(player);
-            break;
-          }
-        case action_type::none:
-          return;
-        }
+      case action_type::turn_left:
+      {
+        player.turn_left();
+        break;
+      }
+      case action_type::turn_right:
+      {
+        player.turn_right();
+        break;
+      }
+      case action_type::accelerate:
+      {
+        player.accelerate();
+        break;
+      }
+      case action_type::brake:
+      {
+        player.brake();
+        break;
+      }
+      case action_type::acc_backward:
+      {
+        player.acc_backward();
+        break;
+      }
+      case action_type::shoot:
+      {
+        player.shoot();
+        break;
+      }
+      case action_type::stun:
+      {
+        stun(player);
+        break;
+      }
+      case action_type::none:
+        return;
     }
+  }
 }
 
 void game::do_actions() noexcept

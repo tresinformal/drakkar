@@ -115,17 +115,19 @@ bool game_view::process_events()
 
 void game_view::exec() noexcept
 {
-//    assert(m_game.get_v_player()[0].get_action_set().count(action_type::stun) == 1); //WIP
-    while (m_window.isOpen())
-    {
-        bool must_quit{process_events()};
-        if (must_quit)
-            return;
-//        assert(m_game.get_v_player()[0].get_action_set().count(action_type::stun) == 1); //WIP
-        m_game.tick();
-//        assert(m_game.get_v_player()[0].get_action_set().count(action_type::stun) == 1); //WIP
-        show();
-    }
+  assert(count_n_projectiles(m_game) == 0);
+  while (m_window.isOpen())
+  {
+    assert(count_n_projectiles(m_game) == 0);
+    const bool must_quit{process_events()}; // This is where stun is processed
+    assert(count_n_projectiles(m_game) == 0);
+    if (must_quit) return;
+    assert(count_n_projectiles(m_game) == 0);
+    m_game.tick();
+    assert(count_n_projectiles(m_game) == 0);
+    show();
+    assert(count_n_projectiles(m_game) == 0);
+  }
 }
 
 void game_view::draw_background() noexcept
