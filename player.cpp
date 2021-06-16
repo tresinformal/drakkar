@@ -276,6 +276,19 @@ bool is_first_player_loser(const player& player_one, const player& player_two)
 void test_player() //!OCLINT tests may be long
 {
 #ifndef NDEBUG // no tests in release
+//#define FIX_ISSUE_336
+  #ifdef FIX_ISSUE_336
+      {
+        player p;
+        cordinate predicted_player_position = predict_players_movement(p);
+        p.move();
+        assert(p.get_position()==predicted_player_position);
+        assert(((predicted_player_position.m_x - p.get_x())<0.001)&&(((predicted_player_position.m_x - p.get_x())>-0.001)));
+        assert(((predicted_player_position.m_x - p.get_y())<0.001)&&(((predicted_player_position.m_x - p.get_y())>-0.001)));
+      }
+  #endif
+
+  {}
     // Can default construct a player
     {
         const player p;

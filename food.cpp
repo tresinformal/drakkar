@@ -49,6 +49,15 @@ void test_food()
       assert(a == b);
       assert(!(a == c));
     }
+    //foods that are on the same coordinate point but with different colour Are equal, when this is not true
+    //#define FIX_ISSUE_341
+    #ifdef FIX_ISSUE_341
+    {
+      const food test_food_one(0.0f,0.0f,color());
+      const food test_food_two(0.0f,0.0f,color(0,0,0));
+      assert(not (test_food_one==test_food_two));
+    }
+    #endif
     //#define FIX_ISSUE_329
     #ifdef FIX_ISSUE_329
     {
