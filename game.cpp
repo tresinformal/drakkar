@@ -101,7 +101,7 @@ void game::do_action(const int player_index, action_type action)
   do_action(m_player[player_index], action);
 }
 
-void game::do_action( player& player, action_type action)
+void game::do_action(player& player, action_type action)
 {
   if(!(player.get_state() == player_state::stunned))
   {

@@ -82,8 +82,8 @@ void game_view::pl_3_stop_input(sf::Event event) noexcept
 
 int count_n_projectiles(const game_view &g) noexcept
 {
-count_n_projectiles()}
-
+  return count_n_projectiles(g.get_game());
+}
 
 bool game_view::process_events()
 {
@@ -512,10 +512,10 @@ void test_game_view()//!OCLINT tests may be many
   // Pressing 1 stuns player 1
   {
     game_view g;
-    assert(count_n_projectiles(g.get_game()));
+    assert(count_n_projectiles(g) == 0);
     g.press_key(sf::Keyboard::Num1);
     g.process_events(); // Needed to process the event
-    assert(is_nth_player_stunned(g, 0));
+    assert(count_n_projectiles(g) == 1);
   }
   #endif
 }
