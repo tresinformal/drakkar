@@ -27,7 +27,9 @@ game::game(double wall_short_side,
 
       auto ID = std::to_string(i);
       m_player[i] =
-          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket,
+          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i,
+                 400.0,
+                 player_shape::rocket,
                  player_state::active,
                  2,
                  0.1,
@@ -333,38 +335,38 @@ bool has_food_collision(const game &) noexcept
 
 bool have_same_position(const player& p, const food& f)
 {
-  return p.get_x() - f.get_x() > 0.0001 &&
-      p.get_x() - f.get_x() < -0.0001 &&
-      p.get_y() - f.get_y() > 0.0001 &&
-      p.get_y() - f.get_y() < -0.0001;
+  return p.get_x() - f.get_x() < 0.0001 &&
+      p.get_x() - f.get_x() > -0.0001 &&
+      p.get_y() - f.get_y() < 0.0001 &&
+      p.get_y() - f.get_y() > -0.0001;
 }
 
-bool hits_upper_wall(const player& p, const environment& e)
+bool hits_south_wall(const player& p, const environment& e)
 {
   return p.get_y() + p.get_diameter()/2 > e.get_max_y();
 }
 
-bool hits_lower_wall(const player& p, const environment& e)
+bool hits_north_wall(const player& p, const environment& e)
 {
   return p.get_y() - p.get_diameter()/2 < e.get_min_y();
 }
 
-bool hits_right_wall(const player& p, const environment& e)
+bool hits_east_wall(const player& p, const environment& e)
 {
   return p.get_x() + p.get_diameter()/2 > e.get_max_x();
 }
 
-bool hits_left_wall(const player& p, const environment& e)
+bool hits_west_wall(const player& p, const environment& e)
 {
   return p.get_x() - p.get_diameter()/2 < e.get_min_x();
 }
 
 bool hits_wall(const player& p, const environment& e)
 {
-  if(hits_left_wall(p,e)
-     ||hits_right_wall(p,e)
-     || hits_upper_wall(p,e)
-     || hits_lower_wall(p,e))
+  if(hits_west_wall(p,e)
+     ||hits_east_wall(p,e)
+     || hits_north_wall(p,e)
+     || hits_south_wall(p,e))
     {
       return true;
     }
@@ -410,7 +412,10 @@ void kill_losing_player(game &g)
   else if(c1<c2)
     g.kill_player(first_player_index);
 }
-
+void put_player_on_food(player &p, const food &f)
+{
+    p.place_to_position(get_position(f));
+}
 void game::kill_player(const int index)
 {
   assert(index >= 0);
@@ -428,22 +433,22 @@ void game::do_wall_collisions()
 
 player game::wall_collision(player p)
 {
-  if(hits_upper_wall(p, m_environment))
+  if(hits_south_wall(p, m_environment))
     {
       p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
     }
 
-  if(hits_lower_wall(p, m_environment))
+  if(hits_north_wall(p, m_environment))
     {
       p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
     }
 
-  if(hits_right_wall(p, m_environment))
+  if(hits_east_wall(p, m_environment))
     {
       p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
     }
 
-  if(hits_left_wall(p, m_environment))
+  if(hits_west_wall(p, m_environment))
     {
       p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
     }
@@ -592,18 +597,16 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
-#ifdef FIX_ISSUE_226
   // A game responds to actions: player can be stunned
   {
     game g;
     for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
       {
-        assert(!is_stunned(g.get_player(i));
+        assert(!is_stunned(g.get_player(i)));
             g.do_action(i, action_type::stun);
-        assert(is_stunned(g.get_player(i));
+        assert(is_stunned(g.get_player(i)));
       }
   }
-#endif //FIX_ISSUE_226
   // Projectiles move
   {
     game g;
@@ -807,6 +810,7 @@ void test_game() //!OCLINT tests may be many
     game g;
     const auto x = g.get_player(0).get_x();
     const auto y = g.get_player(0).get_y();
+
     add_projectile(g, projectile(x, y));
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
@@ -936,18 +940,18 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  ///Players cannot move past wall coordinates as defined in enviornment
+  ///Players cannot move past wall coordinates as defined in environment
   {
     game g;
 
-    //set a player very close to a wall
+    //set a player very close to the top wall (y = 0)
     auto p = g.get_player(0);
-    p.set_x(g.get_env().get_max_x() - p.get_diameter()/2 - 0.01);
+    p.set_y(0.00 + p.get_diameter()/2 + 0.01);
     assert(!hits_wall(p,g.get_env()));
 
     ///move the player into the wall
     p.accelerate();
-    assert(hits_right_wall(p, g.get_env()));
+    assert(hits_north_wall(p, g.get_env()));
 
     /// manage the collision
     p = g.wall_collision(p);
@@ -960,7 +964,9 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     player p;
-    //make a copy of the player in its initial state
+    //make a copy of double get_nth_player_size(const game &in_game, const int &id)
+
+    //the player in its initial state
     player player_copy = p;
 
     g.do_action(p, action_type::turn_right);
@@ -1009,7 +1015,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  //#define FIX_ISSUE_237
+#define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
   //Food and player can be overlapped
   {
@@ -1033,7 +1039,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_244
   {
     game g;
-    const auto init_player_size = get_nth_player_diameter(g,0);
+    const auto init_player_size = get_nth_player_size(g,0);
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_player(0).get_diameter() > init_player_size);
@@ -1055,7 +1061,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_248
   {
     game g;
-    auto first_player_diam = get_nth_player_diameter(g,0);
+    auto first_player_diam = get_nth_player_size(g,0);
     assert(first_player_diam = g.get_player(0).get_diameter());
   }
 #endif
@@ -1172,9 +1178,8 @@ void test_game() //!OCLINT tests may be many
     assert(var_y < 0.01 && var_y > -0.01);
   }
 #endif
-
+// Test calc_mean
 #define FIX_ISSUE_285
-  // Test calc_mean
   {
         std::vector<double> numbers;
         numbers.push_back(1);
@@ -1186,9 +1191,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_285
   {
     game g;
-    std::uniform_real_distribution<
-      double
-    >(0.0, 1.0)(g.get_rng());
+    std::uniform_real_distribution<double>(0.0, 1.0)(g.get_rng());
   }
 #endif
 
@@ -1201,8 +1204,27 @@ void test_game() //!OCLINT tests may be many
            g.get_rng() - expected_rng() > -0.00001);
   }
 #endif
+#ifdef FIX_ISSUE_321
+{
+    Coordinate Some_random_point(1,1);
+    food n_food;
+    player n_player;
+    projectile n_projectile;
+    shelter n_shelter;
+    enenemy n_enemy;
 
+
+    n_food.set_position(Some_random_point);
+    n_player.set_position(Some_random_point);
+    n_projectile.set_position(Some_random_point);
+    assert(have_same_position(n_food,Some_random_point));
+    assert(have_same_position(n_player,Some_random_point));
+    assert(have_same_position(n_projectile,Some_random_point));
+}
+#endif
 
 #endif // no tests in release
 }
+
+
 
