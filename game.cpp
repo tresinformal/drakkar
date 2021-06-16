@@ -76,7 +76,11 @@ double calc_mean(const std::vector<double>& v)
 }
 
 double calc_var(const std::vector<double>& v){
-  //return ;
+  double v_mean = calc_mean(v);
+  return std::accumulate(
+    std::begin(v),
+    std::end(v), 0.0
+  ) / v.size();
 }
 
 double get_nth_player_size(const game& g, const int i)
