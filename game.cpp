@@ -562,10 +562,11 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can shoot
   {
     game g;
-//    assert(count_n_projectiles(g) == 0);
+    const int n_projectiles_before{count_n_projectiles(g)};
     g.do_action(0, action_type::shoot);
     // Without a tick, no projectile is formed yet
-    assert(count_n_projectiles(g) == 0);
+    const int n_projectiles_after{count_n_projectiles(g)};
+    assert(n_projectiles_before == n_projectiles_after);
   }
   // A game responds to actions: player can do nothing
   {
@@ -610,9 +611,10 @@ void test_game() //!OCLINT tests may be many
   // Projectiles move
   {
     game g;
+    // Create 1 projectile for sure (there may be more)
     g.do_action(0, action_type::shoot);
     g.tick();
-    assert(count_n_projectiles(g) == 1);
+    assert(count_n_projectiles(g) >= 1);
     const double x_before{g.get_projectiles()[0].get_x()};
     const double y_before{g.get_projectiles()[0].get_y()};
     g.tick();
