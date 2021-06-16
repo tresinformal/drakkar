@@ -22,7 +22,7 @@ public:
   game(double wall_short_side = 1600,
        int num_players = 3,
        int n_ticks = 0,
-       std::size_t n_shelters = 3,
+       std::size_t n_shelters = 42,
        int n_enemies = 1,
        int n_food = 1);
 
@@ -191,10 +191,12 @@ bool has_collision_with_projectile(const game &) noexcept;
 bool hits_wall(const player& p, const environment& e);
 
 std::vector<int> get_collision_members(const game &g) noexcept;
-
 /// Upon a collision, kills the player that loser
 /// Assumes there is a collision
 void kill_losing_player(game &);
+
+///Puts a player on food
+void put_player_on_food(player& p, const food &f);
 
 void test_game();
 

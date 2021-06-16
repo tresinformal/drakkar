@@ -41,6 +41,7 @@ key_action_map get_player_2_kam();
 key_action_map get_player_3_kam();
 
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
+bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 
 /// Check if key has action
 

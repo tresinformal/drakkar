@@ -16,10 +16,12 @@ void test_player_factory()
         assert(p.get_ID() == id);
       }
 
-//  {   const color = {"31415"};
+//  {
+//      const color = {"31415"};
 //      player_factory f;
 //      f.set_id(id);
 //      const player p = f.create();
 //      assert(p.get_ID() == id);
 //    }
+
 }

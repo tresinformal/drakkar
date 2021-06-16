@@ -49,8 +49,14 @@ void test_food()
       assert(a == b);
       assert(!(a == c));
     }
-
-
+    //#define FIX_ISSUE_329
+    #ifdef FIX_ISSUE_329
+    {
+      coordinate some_random_point(1,1);
+      food n_food(some_random_point);
+      assert(food.get_position()==some_random_point);
+    }
+    #endif
 
 
   {
@@ -109,3 +115,8 @@ void test_food()
 }
 
 
+
+const std::vector<double> get_position(const food& in_food)
+{
+    return std::vector<double> {in_food.get_x(),in_food.get_y()};
+}
