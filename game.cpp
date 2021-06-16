@@ -21,7 +21,10 @@ game::game(double wall_short_side,
     m_food(n_food, food()),
     m_shelters(n_shelters, shelter())
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
 
@@ -99,19 +102,19 @@ int count_food_items(const game &g)
 //Checks if the game has food  -> should check if it has uneaten food instead
 bool has_food(const game &g)
 {
-    if (!count_food_items(g))
-    {
-        return false;
-    }
+    //if (!count_food_items(g))
+    //{
+    //    return false;
+    //}
     std::vector<food> v_food{g.get_food()};
     int count = 0;
-
-    for (unsigned int i = 0; i < v_food.size() ; i++){
-        if (!v_food[0].is_eaten())
+    for (unsigned int i = 0; i < v_food.size(); i++) {
+        if (!v_food[i].is_eaten())
         {
-            count+=1;
+            count++;
         }
     }
+    return count > 0 ;
 }
 
 void eat_nth_food(game &g, const int n)
@@ -393,7 +396,10 @@ bool hits_west_wall(const player& p, const environment& e)
 
 bool hits_wall(const player& p, const environment& e)
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   if(hits_west_wall(p,e)
      ||hits_east_wall(p,e)
      || hits_north_wall(p,e)
@@ -465,28 +471,43 @@ void game::do_wall_collisions()
 player game::wall_collision(player p)
 {
   if(hits_south_wall(p, m_environment))
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
     }
 
+<<<<<<< HEAD
 
   if(hits_north_wall(p, m_environment))
 
+=======
+  if(hits_north_wall(p, m_environment))
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
     }
 
+<<<<<<< HEAD
 
   if(hits_east_wall(p, m_environment))
 
+=======
+  if(hits_east_wall(p, m_environment))
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
     }
 
+<<<<<<< HEAD
 
   if(hits_west_wall(p, m_environment))
 
+=======
+  if(hits_west_wall(p, m_environment))
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
     }
@@ -815,6 +836,101 @@ void test_game() //!OCLINT tests may be many
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
 
+<<<<<<< HEAD
+=======
+    // Blue defeats red
+    {
+        game g;
+        g.get_player(2).set_x(g.get_player(0).get_x());
+        g.get_player(2).set_y(g.get_player(0).get_y());
+        assert(has_collision(g));
+        assert(is_red(g.get_player(0)));
+        assert(is_green(g.get_player(1)));
+        assert(is_blue(g.get_player(2)));
+        assert(g.get_v_player().size() == 3); //All three still live
+        g.tick();
+        assert(count_alive_players(g) == 2);
+        //Red has died!
+        auto& red = g.get_player(0);
+        assert(is_dead(red) && is_red(red));
+        // Green and blue survive
+        auto& green = g.get_player(1);
+        auto& blue = g.get_player(2);
+        assert(is_alive(green) && is_green(green) &&
+               is_alive(blue) && is_blue(blue));
+    }
+
+
+    //Initially, there is no collision with a projectile
+    {
+        game g;
+        assert(!has_collision_with_projectile(g));
+    }
+    //If a projectile is put on top of a player, there is a collision
+    {
+        game g;
+        const auto x = g.get_player(0).get_x();
+        const auto y = g.get_player(0).get_y();
+        add_projectile(g, projectile(x, y));
+        assert(!g.get_projectiles().empty());
+        assert(has_collision_with_projectile(g));
+    }
+    //If a projectile is 0.99 of its radius right of a player, there is a collision
+    {
+        game g;
+        const double radius = 12.34;
+        const auto x = g.get_player(0).get_x() + (0.99 * radius);
+        const auto y = g.get_player(0).get_y();
+        const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+        add_projectile(g, p);
+        assert(!g.get_projectiles().empty());
+        assert(has_collision_with_projectile(g));
+    }
+    //If a projectile is 1.01 of its radius right of a player, there is no collision
+    {
+        game g;
+        const double radius = 12.34;
+        const auto x = g.get_player(0).get_x() + (1.01*radius);
+        const auto y = g.get_player(0).get_y();
+        const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+        add_projectile(g, p);
+        assert(!g.get_projectiles().empty());
+        assert(has_collision_with_projectile(g));
+    }
+
+    // In the start of the game, there is no player-food collision
+    {
+        game g;
+        assert(!has_food_collision(g));
+    }
+
+    //Can modify food items, for example, delete all food items
+    {
+        game g;
+        g.get_food();
+        assert(!g.get_food().empty());
+        g.get_food().clear();
+        assert(g.get_food().empty());
+    }
+    // In the start of the game, there is no player-enemy collision
+    {
+        game g;
+        assert(!has_enemy_collision(g));
+    }
+    //If red eats green then red survives
+    {
+        game g;
+        assert(is_red(g.get_player(0)));
+        assert(is_green(g.get_player(1)));
+        assert(is_blue(g.get_player(2)));
+        g.get_player(1).set_x(g.get_player(0).get_x());
+        g.get_player(1).set_y(g.get_player(0).get_y());
+        assert(has_collision(g));
+        g.tick();
+        assert(is_alive(g.get_player(0)));
+        assert(is_dead(g.get_player(1)));
+    }
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   // Blue defeats red
   {
     game g;
@@ -1053,7 +1169,10 @@ void test_game() //!OCLINT tests may be many
     }
 #endif
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
 #define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
     //Food and player can be overlapped
@@ -1126,7 +1245,7 @@ void test_game() //!OCLINT tests may be many
         eat_nth_food(g,0);
         assert(!has_food(g));
         //number of food item stays the same only the state of food item changes after they are eaten
-        assert(n_food_items_begin == count_food_items);
+        assert(n_food_items_begin == count_food_items(g));
     }
 #endif
 
@@ -1223,9 +1342,13 @@ void test_game() //!OCLINT tests may be many
 #endif
 // Test calc_mean
 #define FIX_ISSUE_285
+<<<<<<< HEAD
 
   {
 
+=======
+  {
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
         std::vector<double> numbers;
         numbers.push_back(1);
         numbers.push_back(2);
@@ -1234,12 +1357,18 @@ void test_game() //!OCLINT tests may be many
     }
 
 #ifdef FIX_ISSUE_285
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   {
     game g;
     std::uniform_real_distribution<double>(0.0, 1.0)(g.get_rng());
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
 #endif
 
 #ifdef FIX_ISSUE_288
