@@ -139,7 +139,9 @@ void game::do_action(player& player, action_type action)
       }
       case action_type::stun:
       {
-        stun(player);
+        HIERO
+        player.shoot_stun_rocket();
+        // stun(player); // Old behavior
         break;
       }
       case action_type::none:
