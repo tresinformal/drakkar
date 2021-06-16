@@ -75,13 +75,13 @@ double calc_mean(const std::vector<double>& v)
   ) / v.size();
 }
 
-double calc_var(const std::vector<double>& v){
-  double v_mean = calc_mean(v);
+double calc_var(const std::vector<double>& v, double mean_v){
   double v_var;
   std::vector<double> sdm(v.size());
   for(unsigned int i = 0; i < v.size(); i++) {
-      sdm[i] = (v[i] - v_mean) * (v[i] - v_mean);
+      sdm[i] = (v[i] - mean_v) * (v[i] - mean_v);
   }
+  v_var = std::accumulate(std::begin(sdm), std::end(sdm), 0.0) / v.size();
   return v_var;
 }
 
