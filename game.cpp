@@ -1223,7 +1223,7 @@ void test_game() //!OCLINT tests may be many
       assert(e == std::logic_error);
     }
   }
-#endif FIX_ISSUE_339
+#endif
 
 #define FIX_ISSUE_261
 #ifdef FIX_ISSUE_261
