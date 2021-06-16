@@ -109,6 +109,7 @@ bool are_colliding(const player &lhs, const player &rhs) noexcept
     const double collision_distance = (lhs.get_diameter() + rhs.get_diameter()) / 2;
     return actual_distance < collision_distance;
 }
+
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
 
 int get_greenness(const player &p) noexcept
@@ -291,16 +292,12 @@ void test_player() //!OCLINT tests may be long
       // Must be the same
       assert(std::abs(p.get_x() - x) < 0.00001);
       assert(std::abs(p.get_y() - y) < 0.00001);
-  }
 #ifdef FIX_ISSUE_337
-  // A player has the same coordinats as set at construction
-  {
-     coordinate position{1.23, 4.56};
-      const player p(position);
-      // Must be the same
       assert(p.get_position() == position);
-  }
 #endif
+  }
+
+
     // A player constructed with a rocket shape, must have a rocket shape
     {
         const player p{1.2, 3.4, player_shape::rocket};
@@ -401,7 +398,12 @@ void test_player() //!OCLINT tests may be long
         // So, 90 pixels is a collision then
         const player p2(90.0, 0.0);
         assert(are_colliding(p1, p2));
+#ifdef FIX_ISSUE_338
+        assert(are_colliding(p1.get_position(),p2.get_position()));
+#endif
     }
+
+
     // A player of RGB values (255, 0, 0) should be red, not green, not blue
     {
         player p = create_player_with_color(color(255, 0, 0));
