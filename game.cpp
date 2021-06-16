@@ -745,6 +745,11 @@ void test_game() //!OCLINT tests may be many
     const auto n_player_afteragain = count_alive_players(g);
     assert(n_player_afteragain == n_players_after);
   }
+
+///  The stun rocket should not be fired at the very beginning
+
+
+
 #else // FIX_ISSUE_233
   // [PRS] #233 make winning PRS player bigger
   {
