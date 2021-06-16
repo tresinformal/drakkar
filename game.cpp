@@ -116,7 +116,6 @@ bool has_food(const game &g)
 
 void eat_nth_food(game &g, const int n)
 {
-  assert(g.get_food()[n].is_uneaten());
   g.get_food()[n].set_food_state(food_state::eaten) ;
 }
 
