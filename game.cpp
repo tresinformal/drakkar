@@ -77,8 +77,11 @@ double calc_mean(const std::vector<double>& v)
 
 double calc_var(const std::vector<double>& v){
   double v_mean = calc_mean(v);
-  double v_var ;
-  std::vector<double> sdm;
+  double v_var;
+  std::vector<double> sdm(v.size());
+  for(unsigned int i = 0; i < v.size(); i++) {
+      sdm[i] = (v[i] - v_mean) * (v[i] - v_mean);
+  }
   return v_var;
 }
 
