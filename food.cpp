@@ -26,6 +26,15 @@ bool food::is_eaten() const noexcept {
     }
 }
 
+bool food::is_uneaten() const noexcept {
+    if (food::get_food_state() == food_state::uneaten) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 bool operator==(const food& lhs, const food& rhs) noexcept
 {
     return lhs.get_x() == rhs.get_x()
