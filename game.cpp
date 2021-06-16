@@ -1134,7 +1134,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-// #ifdef FIX_ISSUE_250
+#ifdef FIX_ISSUE_250
   //Food can be placed at a random location
   {
 
@@ -1162,7 +1162,7 @@ void test_game() //!OCLINT tests may be many
     assert(var_x < 0.01 && var_x > -0.01);
     assert(var_y < 0.01 && var_y > -0.01);
   }
-// #endif
+#endif
 
 #ifdef FIX_ISSUE_286
   {
