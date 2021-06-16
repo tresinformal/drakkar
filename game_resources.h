@@ -10,10 +10,10 @@ public:
   game_resources();
 
   /// Get the texture of a heterogenous landscape
-  sf::Texture &get_heterogenous_landscape() noexcept
-  {
-    return m_heterogenous_landscape;
-  }
+  sf::Texture &get_heterogenous_landscape() noexcept { return m_heterogenous_landscape; }
+
+  /// Get the texture of a heterogenous landscape
+  sf::Texture &get_coastal_world() noexcept { return m_coastal_world; }
 
   /// Get the texture of a heterogenous landscape
   sf::Texture &get_grass_landscape() noexcept { return m_grass_landscape; }
@@ -81,6 +81,9 @@ private:
 
   /// A heterogenous landscape
   sf::Texture m_heterogenous_landscape;
+
+  /// A coastal world
+  sf::Texture m_coastal_world;
 
   /// Font
   sf::Font m_font;

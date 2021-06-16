@@ -21,43 +21,46 @@ game::game(double wall_short_side,
     m_food(n_food, food()),
     m_shelters(n_shelters, shelter())
 {
-    for (unsigned int i = 0; i != m_player.size(); ++i)
+
+  for (unsigned int i = 0; i != m_player.size(); ++i)
     {
 
-        auto ID = std::to_string(i);
-        m_player[i] =
-                player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i, 400.0, player_shape::rocket,
-                       player_state::active,
-                       2,
-                       0.1,
-                       -0.0001,
-                       -0.1,
-                       100,
-                       0.01,
-                       color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
-                             i % 3 == 2 ? 255 : 0),
-                       ID);
+      auto ID = std::to_string(i);
+      m_player[i] =
+          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i,
+                 400.0,
+                 player_shape::rocket,
+                 player_state::active,
+                 2,
+                 0.1,
+                 -0.0001,
+                 -0.1,
+                 100,
+                 0.01,
+                 color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+                                                i % 3 == 2 ? 255 : 0),
+                 ID);
     }
 
-    // Set shelters
-    {
-        assert(m_shelters.size() == n_shelters);
-        int i = 0;
-        for (auto &this_shelter : m_shelters)
-        {
-            const double angle{2.0 * M_PI * static_cast<double>(i) /
-                        static_cast<double>(m_shelters.size())};
-            const double mid_x{400.0};
-            const double mid_y{300.0};
-            const double radius{200.0};
-            const double x{mid_x + (std::sin(angle) * radius)};
-            const double y{mid_y - (std::cos(angle) * radius)};
-            const color c(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
-                          i % 3 == 2 ? 255 : 0, 128 + 64);
-            this_shelter = shelter(x, y, 100.0, c);
-            ++i;
-        }
-    }
+  // Set shelters
+  {
+    assert(m_shelters.size() == n_shelters);
+    int i = 0;
+    for (auto &this_shelter : m_shelters)
+      {
+        const double angle{2.0 * M_PI * static_cast<double>(i) /
+              static_cast<double>(m_shelters.size())};
+        const double mid_x{400.0};
+        const double mid_y{300.0};
+        const double radius{200.0};
+        const double x{mid_x + (std::sin(angle) * radius)};
+        const double y{mid_y - (std::cos(angle) * radius)};
+        const color c(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+                      i % 3 == 2 ? 255 : 0, 128 + 64);
+        this_shelter = shelter(x, y, 100.0, c);
+        ++i;
+      }
+  }
 }
 
 void add_projectile(game &g, const projectile &p)
@@ -362,38 +365,39 @@ bool has_food_collision(const game &) noexcept
 
 bool have_same_position(const player& p, const food& f)
 {
-    return p.get_x() - f.get_x() > 0.0001 &&
-            p.get_x() - f.get_x() < -0.0001 &&
-            p.get_y() - f.get_y() > 0.0001 &&
-            p.get_y() - f.get_y() < -0.0001;
+  return p.get_x() - f.get_x() < 0.0001 &&
+      p.get_x() - f.get_x() > -0.0001 &&
+      p.get_y() - f.get_y() < 0.0001 &&
+      p.get_y() - f.get_y() > -0.0001;
 }
 
-bool hits_upper_wall(const player& p, const environment& e)
+bool hits_south_wall(const player& p, const environment& e)
 {
     return p.get_y() + p.get_diameter()/2 > e.get_max_y();
 }
 
-bool hits_lower_wall(const player& p, const environment& e)
+bool hits_north_wall(const player& p, const environment& e)
 {
     return p.get_y() - p.get_diameter()/2 < e.get_min_y();
 }
 
-bool hits_right_wall(const player& p, const environment& e)
+bool hits_east_wall(const player& p, const environment& e)
 {
     return p.get_x() + p.get_diameter()/2 > e.get_max_x();
 }
 
-bool hits_left_wall(const player& p, const environment& e)
+bool hits_west_wall(const player& p, const environment& e)
 {
     return p.get_x() - p.get_diameter()/2 < e.get_min_x();
 }
 
 bool hits_wall(const player& p, const environment& e)
 {
-    if(hits_left_wall(p,e)
-            ||hits_right_wall(p,e)
-            || hits_upper_wall(p,e)
-            || hits_lower_wall(p,e))
+
+  if(hits_west_wall(p,e)
+     ||hits_east_wall(p,e)
+     || hits_north_wall(p,e)
+     || hits_south_wall(p,e))
     {
         return true;
     }
@@ -439,7 +443,10 @@ void kill_losing_player(game &g)
     else if(c1<c2)
         g.kill_player(first_player_index);
 }
-
+void put_player_on_food(player &p, const food &f)
+{
+    p.place_to_position(get_position(f));
+}
 void game::kill_player(const int index)
 {
     assert(index >= 0);
@@ -457,22 +464,29 @@ void game::do_wall_collisions()
 
 player game::wall_collision(player p)
 {
-    if(hits_upper_wall(p, m_environment))
+  if(hits_south_wall(p, m_environment))
+
     {
         p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
     }
 
-    if(hits_lower_wall(p, m_environment))
+
+  if(hits_north_wall(p, m_environment))
+
     {
         p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
     }
 
-    if(hits_right_wall(p, m_environment))
+
+  if(hits_east_wall(p, m_environment))
+
     {
         p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
     }
 
-    if(hits_left_wall(p, m_environment))
+
+  if(hits_west_wall(p, m_environment))
+
     {
         p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
     }
@@ -488,260 +502,258 @@ std::default_random_engine& game::get_rng() noexcept
 void test_game() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
-    // The game has done zero ticks upon startup
-    {
-        const game g;
-        // n_ticks is the number of times the game is displayed on screen
-        assert(g.get_n_ticks() == 0);
-    }
-    // A game has a vector of players
-    {
-        const game g;
-        // The value 1234.5 is irrelevant: just get this to compile
-        for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-        {
-            assert(g.get_player(static_cast<int>(i)).get_x() > -1234.5);
-        }
-    }
-    // A game has food items
-    {
-        const game g;
-        assert(!g.get_food().empty());
-    }
-    // A game has enemies
-    {
-        const game g;
-        assert(!g.get_enemies().empty());
-    }
-    // A game has game_options
-    {
-        const game g;
-        assert(g.get_game_options().is_playing_music());
-    }
-    // A game responds to actions: player can turn left
-    {
-        game g;
-        for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
-        {
-            const double before{g.get_player(i).get_direction()};
-            g.do_action(i,action_type::turn_left);
-            const double after{g.get_player(i).get_direction()};
-            //assert(std::abs(before - after) > 0.01); // Should be different
-            assert(std::abs(before - after) > 0.001);
-        }
-    }
-    // A game responds to actions: player can turn right
-    {
-        game g;
-        for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-        {
-            const double before{g.get_player(i).get_direction()};
-            g.do_action(i, action_type::turn_right);
-            const double after{g.get_player(i).get_direction()};
-            //assert(std::abs(before - after) > 0.01); // Should be different
-            assert(std::abs(before - after) > 0.001);
-        }
-    }
-    // A game responds to actions: player can accelerate
-    {
-        game g;
-        for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-        {
-            const double before{g.get_player(i).get_speed()};
-            g.do_action(i, action_type::accelerate);
-            const double after{g.get_player(i).get_speed()};
-            assert(before - after < 0.01); // After should be > than before
-        }
-    }
-    // A game responds to actions: player can break
-    {
-        game g;
-        for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+  // The game has done zero ticks upon startup
+  {
+    const game g;
+    // n_ticks is the number of times the game is displayed on screen
+    assert(g.get_n_ticks() == 0);
+  }
+  // A game has a vector of players
+  {
+    const game g;
+    // The value 1234.5 is irrelevant: just get this to compile
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+      {
+        assert(g.get_player(static_cast<int>(i)).get_x() > -1234.5);
+      }
+  }
+  // A game has food items
+  {
+    const game g;
+    assert(!g.get_food().empty());
+  }
+  // A game has enemies
+  {
+    const game g;
+    assert(!g.get_enemies().empty());
+  }
+  // A game has game_options
+  {
+    const game g;
+    assert(g.get_game_options().is_playing_music());
+  }
+  // A game responds to actions: player can turn left
+  {
+    game g;
+    for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
+      {
+        const double before{g.get_player(i).get_direction()};
+        g.do_action(i,action_type::turn_left);
+        const double after{g.get_player(i).get_direction()};
+        //assert(std::abs(before - after) > 0.01); // Should be different
+        assert(std::abs(before - after) > 0.001);
+      }
+  }
+  // A game responds to actions: player can turn right
+  {
+    game g;
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        const double before{g.get_player(i).get_direction()};
+        g.do_action(i, action_type::turn_right);
+        const double after{g.get_player(i).get_direction()};
+        //assert(std::abs(before - after) > 0.01); // Should be different
+        assert(std::abs(before - after) > 0.001);
+      }
+  }
+  // A game responds to actions: player can accelerate
+  {
+    game g;
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        const double before{g.get_player(i).get_speed()};
+        g.do_action(i, action_type::accelerate);
+        const double after{g.get_player(i).get_speed()};
+        assert(before - after < 0.01); // After should be > than before
+      }
+  }
+  // A game responds to actions: player can break
+  {
+    game g;
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
 
-        {
-            // give the player a speed of more than 0
-            g.do_action(i, action_type::accelerate);
-            const double before{g.get_player(i).get_speed()};
-            g.do_action(i, action_type::brake);
-            const double after{g.get_player(i).get_speed()};
-            assert(before > after);
-            // After should be < than before
-        }
-    }
+      {
+        // give the player a speed of more than 0
+        g.do_action(i, action_type::accelerate);
+        const double before{g.get_player(i).get_speed()};
+        g.do_action(i, action_type::brake);
+        const double after{g.get_player(i).get_speed()};
+        assert(before > after);
+        // After should be < than before
+      }
+  }
 
-    //A game responds to actions: player can accelerate backward
-    {
-        game g;
-        for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-        {
-            // the player has a speed of 0
-            const double before{g.get_player(i).get_speed()};
-            assert(before == 0.0);
-            g.do_action(i, action_type::acc_backward);
-            const double after{g.get_player(i).get_speed()};
-            assert(before - after > 0.0000000000000001);
-        }
-    }
+  //A game responds to actions: player can accelerate backward
+  {
+    game g;
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+      {
+        // the player has a speed of 0
+        const double before{g.get_player(i).get_speed()};
+        assert(before == 0.0);
+        g.do_action(i, action_type::acc_backward);
+        const double after{g.get_player(i).get_speed()};
+        assert(before - after > 0.0000000000000001);
+      }
+  }
 
-    // A game responds to actions: player can shoot
-    {
-        game g;
-        assert(count_n_projectiles(g) == 0);
-        g.do_action(0, action_type::shoot);
-        // Without a tick, no projectile is formed yet
-        assert(count_n_projectiles(g) == 0);
-    }
-    // A game responds to actions: player can do nothing
-    {
-        game g;
-        for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-        {
-            // the player has a speed of 0
-            const double before_sp{g.get_player(i).get_speed()};
-            //and a certain direction
-            const double before_dir{g.get_player(i).get_direction()};
-            //And an initial x and y position
-            const double before_x{g.get_player(i).get_x()};
-            const double before_y{g.get_player(i).get_y()};
+  // A game responds to actions: player can shoot
+  {
+    game g;
+    assert(count_n_projectiles(g) == 0);
+    g.do_action(0, action_type::shoot);
+    // Without a tick, no projectile is formed yet
+    assert(count_n_projectiles(g) == 0);
+  }
+  // A game responds to actions: player can do nothing
+  {
+    game g;
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+      {
+        // the player has a speed of 0
+        const double before_sp{g.get_player(i).get_speed()};
+        //and a certain direction
+        const double before_dir{g.get_player(i).get_direction()};
+        //And an initial x and y position
+        const double before_x{g.get_player(i).get_x()};
+        const double before_y{g.get_player(i).get_y()};
 
-            //action_type::none does not change anyhthing in the player
-            g.do_action(i, action_type::none);
-            const double after_sp{g.get_player(i).get_speed()};
-            const double after_dir{g.get_player(i).get_direction()};
-            const double after_x{g.get_player(i).get_x()};
-            const double after_y{g.get_player(i).get_y()};
+        //action_type::none does not change anyhthing in the player
+        g.do_action(i, action_type::none);
+        const double after_sp{g.get_player(i).get_speed()};
+        const double after_dir{g.get_player(i).get_direction()};
+        const double after_x{g.get_player(i).get_x()};
+        const double after_y{g.get_player(i).get_y()};
 
-            assert(before_sp - after_sp < 0.0000000000000001 &&
-                   before_sp - after_sp > -0.0000000000000001);
-            assert(before_dir - after_dir < 0.0000000000000001 &&
-                   before_dir - after_dir > -0.0000000000000001);
-            assert(before_x - after_x < 0.0000000000000001 &&
-                   before_x - after_x > -0.0000000000000001);
-            assert(before_y - after_y < 0.0000000000000001 &&
-                   before_y - after_y > -0.0000000000000001);
-        }
-    }
-#ifdef FIX_ISSUE_226
-    // A game responds to actions: player can be stunned
-    {
-        game g;
-        for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
-        {
-            assert(!is_stunned(g.get_player(i));
-                    g.do_action(i, action_type::stun);
-            assert(is_stunned(g.get_player(i));
-        }
-    }
-#endif //FIX_ISSUE_226
-    // Projectiles move
-    {
-        game g;
-        g.do_action(0, action_type::shoot);
-        g.tick();
-        assert(count_n_projectiles(g) == 1);
-        const double x_before{g.get_projectiles()[0].get_x()};
-        const double y_before{g.get_projectiles()[0].get_y()};
-        g.tick();
-        const double x_after{g.get_projectiles()[0].get_x()};
-        const double y_after{g.get_projectiles()[0].get_y()};
-        // coordinats should differ
-        assert(std::abs(x_before - x_after) > 0.01 ||
-               std::abs(y_before - y_after) > 0.01);
-    }
-    // Can get a player's direction by using a free function
-    {
-        const game g;
-        for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-        {
-            const double a{g.get_player(i).get_direction()};
-            const double b{get_player_direction(g, i)};
-            assert(std::abs(b - a) < 0.0001);
-        }
-    }
-    // Can get a player's size by using a free function
-    {
-        const game g;
-        const int n_players{static_cast<int>(g.get_v_player().size())};
-        for (int i = 0; i != n_players; ++i)
-        {
-            const double a{g.get_player(i).get_diameter()};
-            const double b{get_nth_player_size(g, i)};
-            assert(std::abs(b - a) < 0.0001);
-        }
-    }
-    // game by default has a mix and max evironment size
-    {
-        game g;
-        assert(g.get_env().get_max_x() > -56465214.0);
-    }
+        assert(before_sp - after_sp < 0.0000000000000001 &&
+               before_sp - after_sp > -0.0000000000000001);
+        assert(before_dir - after_dir < 0.0000000000000001 &&
+               before_dir - after_dir > -0.0000000000000001);
+        assert(before_x - after_x < 0.0000000000000001 &&
+               before_x - after_x > -0.0000000000000001);
+        assert(before_y - after_y < 0.0000000000000001 &&
+               before_y - after_y > -0.0000000000000001);
+      }
+  }
+  // A game responds to actions: player can be stunned
+  {
+    game g;
+    for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
+      {
+        assert(!is_stunned(g.get_player(i)));
+            g.do_action(i, action_type::stun);
+        assert(is_stunned(g.get_player(i)));
+      }
+  }
+  // Projectiles move
+  {
+    game g;
+    g.do_action(0, action_type::shoot);
+    g.tick();
+    assert(count_n_projectiles(g) == 1);
+    const double x_before{g.get_projectiles()[0].get_x()};
+    const double y_before{g.get_projectiles()[0].get_y()};
+    g.tick();
+    const double x_after{g.get_projectiles()[0].get_x()};
+    const double y_after{g.get_projectiles()[0].get_y()};
+    // coordinats should differ
+    assert(std::abs(x_before - x_after) > 0.01 ||
+           std::abs(y_before - y_after) > 0.01);
+  }
+  // Can get a player's direction by using a free function
+  {
+    const game g;
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        const double a{g.get_player(i).get_direction()};
+        const double b{get_player_direction(g, i)};
+        assert(std::abs(b - a) < 0.0001);
+      }
+  }
+  // Can get a player's size by using a free function
+  {
+    const game g;
+    const int n_players{static_cast<int>(g.get_v_player().size())};
+    for (int i = 0; i != n_players; ++i)
+      {
+        const double a{g.get_player(i).get_diameter()};
+        const double b{get_nth_player_size(g, i)};
+        assert(std::abs(b - a) < 0.0001);
+      }
+  }
+  // game by default has a mix and max evironment size
+  {
+    game g;
+    assert(g.get_env().get_max_x() > -56465214.0);
+  }
 
-    // A game has enemies
-    {
-        const game g;
-        assert(!g.get_enemies().empty());
-    }
+  // A game has enemies
+  {
+    const game g;
+    assert(!g.get_enemies().empty());
+  }
 
-    // calling tick updates the counter and
-    // callling tick() increases m_n_tick by one
-    {
-        game g;
-        const int before = g.get_n_ticks();
-        g.tick();
-        assert(g.get_n_ticks() - before == 1);
-    }
-    // inertia  slows down players
-    {
-        game g;
-        std::vector<double> before_v;
-        std::vector<double> after_v;
-        for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-        {
-            // give the player a speed of more than 0
-            g.do_action(i, action_type::accelerate);
-            before_v.push_back(g.get_player(i).get_speed());
-        }
-        g.apply_inertia();
-        for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-        {
-            after_v.push_back(g.get_player(i).get_speed());
-        }
-        for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-        {
-            assert(before_v[i] - after_v[i] > 0.0000000000000001);
-            // After should be < than before
-        }
+  // calling tick updates the counter and
+  // callling tick() increases m_n_tick by one
+  {
+    game g;
+    const int before = g.get_n_ticks();
+    g.tick();
+    assert(g.get_n_ticks() - before == 1);
+  }
+  // inertia  slows down players
+  {
+    game g;
+    std::vector<double> before_v;
+    std::vector<double> after_v;
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        // give the player a speed of more than 0
+        g.do_action(i, action_type::accelerate);
+        before_v.push_back(g.get_player(i).get_speed());
+      }
+    g.apply_inertia();
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        after_v.push_back(g.get_player(i).get_speed());
+      }
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+      {
+        assert(before_v[i] - after_v[i] > 0.0000000000000001);
+        // After should be < than before
+      }
 
-    }
+  }
 
-    // players are placed at dist of 300 points
-    // along the x axis at initialization
-    {
-        game g;
-        for (auto i = 0; i < static_cast<int>(g.get_v_player().size() - 1); ++i)
-        {
-            assert(g.get_player(i).get_x() - g.get_player(i + 1).get_x() +
-                   g.get_dist_x_pls() <
-                   0.000001 &&
-                   g.get_player(i).get_x() - g.get_player(i + 1).get_x() +
-                   g.get_dist_x_pls() >
-                   -0.000001);
-        }
-    }
+  // players are placed at dist of 300 points
+  // along the x axis at initialization
+  {
+    game g;
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size() - 1); ++i)
+      {
+        assert(g.get_player(i).get_x() - g.get_player(i + 1).get_x() +
+               g.get_dist_x_pls() <
+               0.000001 &&
+               g.get_player(i).get_x() - g.get_player(i + 1).get_x() +
+               g.get_dist_x_pls() >
+               -0.000001);
+      }
+  }
 
-    // In the start of the game no players are colliding
-    {
-        game g;
-        assert(!has_collision(g));
-    }
-    // two overlapping players signal a collision
-    {
-        game g;
-        g.get_player(1).set_x(g.get_player(0).get_x());
-        g.get_player(1).set_y(g.get_player(0).get_y());
+  // In the start of the game no players are colliding
+  {
+    game g;
+    assert(!has_collision(g));
+  }
+  // two overlapping players signal a collision
+  {
+    game g;
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
 
-        assert(has_collision(g));
-    }
-    //#define FIX_ISSUE_233
+    assert(has_collision(g));
+  }
+  //#define FIX_ISSUE_233
 #ifndef FIX_ISSUE_233
     // [PRS] A collision kills a player
     {
@@ -803,98 +815,99 @@ void test_game() //!OCLINT tests may be many
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
 
-    // Blue defeats red
-    {
-        game g;
-        g.get_player(2).set_x(g.get_player(0).get_x());
-        g.get_player(2).set_y(g.get_player(0).get_y());
-        assert(has_collision(g));
-        assert(is_red(g.get_player(0)));
-        assert(is_green(g.get_player(1)));
-        assert(is_blue(g.get_player(2)));
-        assert(g.get_v_player().size() == 3); //All three still live
-        g.tick();
-        assert(count_alive_players(g) == 2);
-        //Red has died!
-        auto& red = g.get_player(0);
-        assert(is_dead(red) && is_red(red));
-        // Green and blue survive
-        auto& green = g.get_player(1);
-        auto& blue = g.get_player(2);
-        assert(is_alive(green) && is_green(green) &&
-               is_alive(blue) && is_blue(blue));
-    }
+  // Blue defeats red
+  {
+    game g;
+    g.get_player(2).set_x(g.get_player(0).get_x());
+    g.get_player(2).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    assert(is_red(g.get_player(0)));
+    assert(is_green(g.get_player(1)));
+    assert(is_blue(g.get_player(2)));
+    assert(g.get_v_player().size() == 3); //All three still live
+    g.tick();
+    assert(count_alive_players(g) == 2);
+    //Red has died!
+    auto& red = g.get_player(0);
+    assert(is_dead(red) && is_red(red));
+    // Green and blue survive
+    auto& green = g.get_player(1);
+    auto& blue = g.get_player(2);
+    assert(is_alive(green) && is_green(green) &&
+           is_alive(blue) && is_blue(blue));
+  }
 
 
-    //Initially, there is no collision with a projectile
-    {
-        game g;
-        assert(!has_collision_with_projectile(g));
-    }
-    //If a projectile is put on top of a player, there is a collision
-    {
-        game g;
-        const auto x = g.get_player(0).get_x();
-        const auto y = g.get_player(0).get_y();
-        add_projectile(g, projectile(x, y));
-        assert(!g.get_projectiles().empty());
-        assert(has_collision_with_projectile(g));
-    }
-    //If a projectile is 0.99 of its radius right of a player, there is a collision
-    {
-        game g;
-        const double radius = 12.34;
-        const auto x = g.get_player(0).get_x() + (0.99 * radius);
-        const auto y = g.get_player(0).get_y();
-        const projectile p(x, y, 0.0, projectile_type::rocket, radius);
-        add_projectile(g, p);
-        assert(!g.get_projectiles().empty());
-        assert(has_collision_with_projectile(g));
-    }
-    //If a projectile is 1.01 of its radius right of a player, there is no collision
-    {
-        game g;
-        const double radius = 12.34;
-        const auto x = g.get_player(0).get_x() + (1.01*radius);
-        const auto y = g.get_player(0).get_y();
-        const projectile p(x, y, 0.0, projectile_type::rocket, radius);
-        add_projectile(g, p);
-        assert(!g.get_projectiles().empty());
-        assert(has_collision_with_projectile(g));
-    }
+  //Initially, there is no collision with a projectile
+  {
+    game g;
+    assert(!has_collision_with_projectile(g));
+  }
+  //If a projectile is put on top of a player, there is a collision
+  {
+    game g;
+    const auto x = g.get_player(0).get_x();
+    const auto y = g.get_player(0).get_y();
 
-    // In the start of the game, there is no player-food collision
-    {
-        game g;
-        assert(!has_food_collision(g));
-    }
+    add_projectile(g, projectile(x, y));
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+  //If a projectile is 0.99 of its radius right of a player, there is a collision
+  {
+    game g;
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (0.99 * radius);
+    const auto y = g.get_player(0).get_y();
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
+  //If a projectile is 1.01 of its radius right of a player, there is no collision
+  {
+    game g;
+    const double radius = 12.34;
+    const auto x = g.get_player(0).get_x() + (1.01*radius);
+    const auto y = g.get_player(0).get_y();
+    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    add_projectile(g, p);
+    assert(!g.get_projectiles().empty());
+    assert(has_collision_with_projectile(g));
+  }
 
-    //Can modify food items, for example, delete all food items
-    {
-        game g;
-        g.get_food();
-        assert(!g.get_food().empty());
-        g.get_food().clear();
-        assert(g.get_food().empty());
-    }
-    // In the start of the game, there is no player-enemy collision
-    {
-        game g;
-        assert(!has_enemy_collision(g));
-    }
-    //If red eats green then red survives
-    {
-        game g;
-        assert(is_red(g.get_player(0)));
-        assert(is_green(g.get_player(1)));
-        assert(is_blue(g.get_player(2)));
-        g.get_player(1).set_x(g.get_player(0).get_x());
-        g.get_player(1).set_y(g.get_player(0).get_y());
-        assert(has_collision(g));
-        g.tick();
-        assert(is_alive(g.get_player(0)));
-        assert(is_dead(g.get_player(1)));
-    }
+  // In the start of the game, there is no player-food collision
+  {
+    game g;
+    assert(!has_food_collision(g));
+  }
+
+  //Can modify food items, for example, delete all food items
+  {
+    game g;
+    g.get_food();
+    assert(!g.get_food().empty());
+    g.get_food().clear();
+    assert(g.get_food().empty());
+  }
+  // In the start of the game, there is no player-enemy collision
+  {
+    game g;
+    assert(!has_enemy_collision(g));
+  }
+  //If red eats green then red survives
+  {
+    game g;
+    assert(is_red(g.get_player(0)));
+    assert(is_green(g.get_player(1)));
+    assert(is_blue(g.get_player(2)));
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+    g.tick();
+    assert(is_alive(g.get_player(0)));
+    assert(is_dead(g.get_player(1)));
+  }
 
 #define FIX_ISSUE_VALENTINES_DAY
 #ifdef FIX_ISSUE_VALENTINES_DAY
@@ -911,117 +924,119 @@ void test_game() //!OCLINT tests may be many
     }
 #endif // FIX_ISSUE_VALENTINES_DAY
 
-    //A game is initialized with walls, the walls form a 16:9
-    //rectangle with center at coordinates of 0,0
-    //And short size = 720 by default;
-    {
-        auto wall_short_side = 720.0;
-        game g(wall_short_side);
-        assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
-               g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
-    }
-    // The game has 42 shelters
-    {
-        const game g;
-        assert(g.get_shelters().size() == 42);
-    }
-    // There are 42 shelters
-    {
-        const int n_shelters{42};
-        const game g(1600, 3, 0, n_shelters);
-        assert(g.get_shelters().size() == n_shelters);
-    }
-    // All shelters have a different location
-    //  {
-    //    const int n_shelters{42};
-    //    const game g(1600, 3, 0, n_shelters);
-    //    assert(g.get_shelters().size() == n_shelters);
-    //  }
+  //A game is initialized with walls, the walls form a 16:9
+  //rectangle with center at coordinates of 0,0
+  //And short size = 720 by default;
+  {
+    auto wall_short_side = 720.0;
+    game g(wall_short_side);
+    assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
+           g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
+  }
+  // The game has 42 shelters
+  {
+    const game g;
+    assert(g.get_shelters().size() == 42);
+  }
+  // There are 42 shelters
+  {
+    const int n_shelters{42};
+    const game g(1600, 3, 0, n_shelters);
+    assert(g.get_shelters().size() == n_shelters);
+  }
+  // All shelters have a different location
+//  {
+//    const int n_shelters{42};
+//    const game g(1600, 3, 0, n_shelters);
+//    assert(g.get_shelters().size() == n_shelters);
+//  }
 
-    //The first shelter moves with a tick
-    {
-        game g;
-        assert(g.get_shelters().size() > 0);
-        const double before = g.get_shelters()[0].get_x();
-        g.tick();
-        const double after = g.get_shelters()[0].get_x();
-        assert(std::abs(after - before) > 0.0);
-    }
-#ifdef FIX_ISSUE_315
-    // Initial shelters are at random locations over the whole arena
-    {
-        const game g;
-        assert(g.get_shelters().size() > 0);
-        // TODO: write test here
-    }
-#endif // FIX_ISSUE_315
+  //The first shelter moves with a tick
+  {
+    game g;
+    assert(g.get_shelters().size() > 0);
+    const double before = g.get_shelters()[0].get_x();
+    g.tick();
+    const double after = g.get_shelters()[0].get_x();
+    assert(std::abs(after - before) > 0.0);
+  }
+  #ifdef FIX_ISSUE_315
+  // Initial shelters are at random locations over the whole arena
+  {
+    const game g;
+    assert(g.get_shelters().size() > 0);
+    // TODO: write test here
+  }
+  #endif // FIX_ISSUE_315
 
-    ///Players in game are initialized with ID equal to their index
-    {
-        game g;
-        for(size_t i = 0; i != g.get_v_player().size(); i++)
-        {
-            assert(g.get_player(i).get_ID() == std::to_string(i));
-        }
-    }
+  ///Players in game are initialized with ID equal to their index
+  {
+    game g;
+    for(size_t i = 0; i != g.get_v_player().size(); i++)
+      {
+        assert(g.get_player(i).get_ID() == std::to_string(i));
+      }
+  }
 
-    ///Players cannot move past wall coordinates as defined in enviornment
-    {
-        game g;
+  ///Players cannot move past wall coordinates as defined in environment
+  {
+    game g;
 
-        //set a player very close to a wall
-        auto p = g.get_player(0);
-        p.set_x(g.get_env().get_max_x() - p.get_diameter()/2 - 0.01);
-        assert(!hits_wall(p,g.get_env()));
+    //set a player very close to the top wall (y = 0)
+    auto p = g.get_player(0);
+    p.set_y(0.00 + p.get_diameter()/2 + 0.01);
+    assert(!hits_wall(p,g.get_env()));
 
-        ///move the player into the wall
-        p.accelerate();
-        assert(hits_right_wall(p, g.get_env()));
+    ///move the player into the wall
+    p.accelerate();
+    assert(hits_north_wall(p, g.get_env()));
 
-        /// manage the collision
-        p = g.wall_collision(p);
+    /// manage the collision
+    p = g.wall_collision(p);
 
-        assert(!hits_wall(p,g.get_env()));
-    }
+    assert(!hits_wall(p,g.get_env()));
+  }
 
 
-    ///A stunned player cannot perform actions
-    {
-        game g;
-        player p;
-        //make a copy of the player in its initial state
-        player player_copy = p;
+  ///A stunned player cannot perform actions
+  {
+    game g;
+    player p;
+    //make a copy of double get_nth_player_size(const game &in_game, const int &id)
 
-        g.do_action(p, action_type::turn_right);
-        g.do_action(p, action_type::accelerate);
-        assert(player_copy.get_direction() != p.get_direction());
-        assert(player_copy.get_speed() != p.get_speed());
+    //the player in its initial state
+    player player_copy = p;
 
-        //Reset player back to initial conditions
-        p = player_copy;
+    g.do_action(p, action_type::turn_right);
+    g.do_action(p, action_type::accelerate);
+    assert(player_copy.get_direction() != p.get_direction());
+    assert(player_copy.get_speed() != p.get_speed());
 
-        //When stunned a player cannot turn (or do any other action)
-        stun(p);
-        g.do_action(p, action_type::turn_left);
-        g.do_action(p, action_type::accelerate);
-        g.do_action(p, action_type::shoot);
-        assert(!p.is_shooting());
-        assert(player_copy.get_direction() == p.get_direction());
-        assert(player_copy.get_speed() == p.get_speed());
-    }
+    //Reset player back to initial conditions
+    p = player_copy;
 
-    /// When a player is killed it stays in the player vector but its state is dead
-    {
-        game g;
+    //When stunned a player cannot turn (or do any other action)
+    stun(p);
+    g.do_action(p, action_type::turn_left);
+    g.do_action(p, action_type::accelerate);
+    g.do_action(p, action_type::shoot);
+    assert(!p.is_shooting());
+    assert(player_copy.get_direction() == p.get_direction());
+    assert(player_copy.get_speed() == p.get_speed());
+  }
 
-        auto num_of_players_begin = g.get_v_player().size();
+  /// When a player is killed it stays in the player vector but its state is dead
+  {
+    game g;
 
-        //kill the first player
-        g.kill_player(0);
+    auto num_of_players_begin = g.get_v_player().size();
 
-        assert(num_of_players_begin == g.get_v_player().size());
-        assert(is_dead(g.get_player(0)));
-    }
+    //kill the first player
+    g.kill_player(0);
+
+    assert(num_of_players_begin == g.get_v_player().size());
+    assert(is_dead(g.get_player(0)));
+  }
 
 #ifdef FIX_ISSUE_236
     //When a player touches food it destroys it
@@ -1038,7 +1053,8 @@ void test_game() //!OCLINT tests may be many
     }
 #endif
 
-    //#define FIX_ISSUE_237
+
+#define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
     //Food and player can be overlapped
     {
@@ -1060,14 +1076,16 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 #ifdef FIX_ISSUE_244
-    {
-        game g;
-        const auto init_player_size = get_nth_player_diameter(g,0);
-        put_player_on_food(g.get_player(0), g.get_food()[0]);
-        g.tick();
-        assert(g.get_player(0).get_diameter() > init_player_size);
 
-    }
+  {
+    game g;
+    const auto init_player_size = get_nth_player_size(g,0);
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    g.tick();
+    assert(g.get_player(0).get_diameter() > init_player_size);
+
+  }
+
 #endif
 
 #ifdef FIX_ISSUE_247
@@ -1082,11 +1100,12 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 #ifdef FIX_ISSUE_248
-    {
-        game g;
-        auto first_player_diam = get_nth_player_diameter(g,0);
-        assert(first_player_diam = g.get_player(0).get_diameter());
-    }
+
+  {
+    game g;
+    auto first_player_diam = get_nth_player_size(g,0);
+    assert(first_player_diam = g.get_player(0).get_diameter());
+  }
 #endif
 
 #ifdef FIX_ISSUE_254
@@ -1202,10 +1221,11 @@ void test_game() //!OCLINT tests may be many
         assert(var_y < 0.01 && var_y > -0.01);
     }
 #endif
-
+// Test calc_mean
 #define FIX_ISSUE_285
-    // Test calc_mean
-    {
+
+  {
+
         std::vector<double> numbers;
         numbers.push_back(1);
         numbers.push_back(2);
@@ -1214,12 +1234,12 @@ void test_game() //!OCLINT tests may be many
     }
 
 #ifdef FIX_ISSUE_285
-    {
-        game g;
-        std::uniform_real_distribution<
-                double
-                >(0.0, 1.0)(g.get_rng());
-    }
+
+  {
+    game g;
+    std::uniform_real_distribution<double>(0.0, 1.0)(g.get_rng());
+  }
+
 #endif
 
 #ifdef FIX_ISSUE_288
@@ -1231,8 +1251,27 @@ void test_game() //!OCLINT tests may be many
                g.get_rng() - expected_rng() > -0.00001);
     }
 #endif
+#ifdef FIX_ISSUE_321
+{
+    Coordinate Some_random_point(1,1);
+    food n_food;
+    player n_player;
+    projectile n_projectile;
+    shelter n_shelter;
+    enenemy n_enemy;
 
+
+    n_food.set_position(Some_random_point);
+    n_player.set_position(Some_random_point);
+    n_projectile.set_position(Some_random_point);
+    assert(have_same_position(n_food,Some_random_point));
+    assert(have_same_position(n_player,Some_random_point));
+    assert(have_same_position(n_projectile,Some_random_point));
+}
+#endif
 
 #endif // no tests in release
 }
+
+
 
