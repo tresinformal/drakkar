@@ -1208,9 +1208,9 @@ void test_game() //!OCLINT tests may be many
     }
 #endif
 
-//#define FIX_ISSUE_339
-#ifdef FIX_ISSUE_339
-// make sure that eat_nth_food() throws a logic_error
+//#define FIX_ISSUE_340
+#ifdef FIX_ISSUE_340
+// make sure that eat_nth_food() throws a logic_error when the food is already eaten
   {
     try {
       game g; //by default one uneaten food
@@ -1219,8 +1219,8 @@ void test_game() //!OCLINT tests may be many
       assert(!has_food(g));
       eat_nth_food(g,0); // throws exception
     }
-    catch ( const std::logic_error& e ) {
-      assert(e == std::logic_error);
+    catch ( const std::exception& e ) {
+      assert(e == std::logic_error); // this is still wrong: make sure the error caught is the same as the error thrown
     }
   }
 #endif
