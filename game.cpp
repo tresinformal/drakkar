@@ -21,10 +21,7 @@ game::game(double wall_short_side,
     m_food(n_food, food()),
     m_shelters(n_shelters, shelter())
 {
-<<<<<<< HEAD
 
-=======
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   for (unsigned int i = 0; i != m_player.size(); ++i)
     {
 
@@ -119,8 +116,8 @@ bool has_food(const game &g)
 
 void eat_nth_food(game &g, const int n)
 {
-    g.get_food()[n] ;
-
+  assert(g.get_food()[n].is_uneaten());
+  g.get_food()[n].is_uneaten() ;
 }
 
 int count_n_projectiles(const game &g) noexcept
@@ -396,10 +393,7 @@ bool hits_west_wall(const player& p, const environment& e)
 
 bool hits_wall(const player& p, const environment& e)
 {
-<<<<<<< HEAD
 
-=======
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   if(hits_west_wall(p,e)
      ||hits_east_wall(p,e)
      || hits_north_wall(p,e)
@@ -471,43 +465,25 @@ void game::do_wall_collisions()
 player game::wall_collision(player p)
 {
   if(hits_south_wall(p, m_environment))
-<<<<<<< HEAD
 
-=======
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
     }
 
-<<<<<<< HEAD
 
   if(hits_north_wall(p, m_environment))
-
-=======
-  if(hits_north_wall(p, m_environment))
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
     }
 
-<<<<<<< HEAD
 
   if(hits_east_wall(p, m_environment))
-
-=======
-  if(hits_east_wall(p, m_environment))
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
     }
 
-<<<<<<< HEAD
 
   if(hits_west_wall(p, m_environment))
-
-=======
-  if(hits_west_wall(p, m_environment))
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
     {
         p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
     }
@@ -836,8 +812,7 @@ void test_game() //!OCLINT tests may be many
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
 
-<<<<<<< HEAD
-=======
+
     // Blue defeats red
     {
         game g;
@@ -930,7 +905,6 @@ void test_game() //!OCLINT tests may be many
         assert(is_alive(g.get_player(0)));
         assert(is_dead(g.get_player(1)));
     }
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   // Blue defeats red
   {
     game g;
@@ -1169,10 +1143,6 @@ void test_game() //!OCLINT tests may be many
     }
 #endif
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
 #define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
     //Food and player can be overlapped
@@ -1342,13 +1312,8 @@ void test_game() //!OCLINT tests may be many
 #endif
 // Test calc_mean
 #define FIX_ISSUE_285
-<<<<<<< HEAD
 
   {
-
-=======
-  {
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
         std::vector<double> numbers;
         numbers.push_back(1);
         numbers.push_back(2);
@@ -1357,18 +1322,10 @@ void test_game() //!OCLINT tests may be many
     }
 
 #ifdef FIX_ISSUE_285
-<<<<<<< HEAD
-
-=======
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
   {
     game g;
     std::uniform_real_distribution<double>(0.0, 1.0)(g.get_rng());
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8f58e3d1ba5e2639b326a7dd42d02e32dabf69ab
 #endif
 
 #ifdef FIX_ISSUE_288
