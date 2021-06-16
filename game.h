@@ -160,6 +160,9 @@ private:
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
 
+/// Calculate the variance of a vector of numbers
+double calc_var(const std::vector<double>& v);
+
 /// Add a projectile to the game
 void add_projectile(game& g, const projectile& p);
 
