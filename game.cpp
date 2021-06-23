@@ -1203,6 +1203,7 @@ void test_game() //!OCLINT tests may be many
            g.get_rng() - expected_rng() > -0.00001);
   }
 #endif
+
 #ifdef FIX_ISSUE_321
 {
     Coordinate Some_random_point(1,1);
