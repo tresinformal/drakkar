@@ -119,7 +119,7 @@ void eat_nth_food(game &g, const int n)
   if(g.get_food()[n].is_eaten()) {
     throw std::logic_error("You cannot eat food that already has been eaten!");
   }
-  g.get_food()[n].set_food_state(food_state::eaten) ;
+  g.get_food()[n].set_food_state(food_state::eaten);
 }
 
 int count_n_projectiles(const game &g) noexcept
@@ -1208,19 +1208,19 @@ void test_game() //!OCLINT tests may be many
     }
 #endif
 
-//#define FIX_ISSUE_340
+#define FIX_ISSUE_340
 #ifdef FIX_ISSUE_340
 // make sure that eat_nth_food() throws a logic_error when the food is already eaten
   {
+    game g; //by default one uneaten food
+    assert(has_food(g));
+    eat_nth_food(g,0);
+    assert(!has_food(g));
     try {
-      game g; //by default one uneaten food
-      assert(has_food(g));
-      eat_nth_food(g,0);
-      assert(!has_food(g));
       eat_nth_food(g,0); // throws exception
     }
     catch ( const std::exception& e ) {
-      assert(e == std::logic_error); // this is still wrong: make sure the error caught is the same as the error thrown
+      assert(e.what() == "You cannot eat food that already has been eaten!");
     }
   }
 #endif
