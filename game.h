@@ -198,6 +198,9 @@ void kill_losing_player(game &);
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
 
+///Places a projectile in front of the player
+void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
+
 void test_game();
 
 #endif // GAMELOGIC_H
