@@ -99,10 +99,6 @@ int count_food_items(const game &g)
 //Checks if the game has food  -> should check if it has uneaten food instead
 bool has_food(const game &g)
 {
-    //if (!count_food_items(g))
-    //{
-    //    return false;
-    //}
     std::vector<food> v_food{g.get_food()};
     int count = 0;
     for (unsigned int i = 0; i < v_food.size(); i++) {
@@ -1382,6 +1378,5 @@ void test_game() //!OCLINT tests may be many
 
 #endif // no tests in release
 }
-
 
 
