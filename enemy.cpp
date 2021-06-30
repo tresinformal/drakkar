@@ -55,7 +55,6 @@ std::stringstream& operator << (std::stringstream &out, const enemy &enemy)
 bool operator==(const enemy& lhs, const enemy& rhs) noexcept
 {
     return lhs.get_x() == rhs.get_x()
-           && lhs.get_y() == rhs.get_y()
-            ;
+           && lhs.get_y() == rhs.get_y();
 }
 
