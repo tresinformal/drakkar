@@ -14,7 +14,6 @@ public:
   double get_y() const noexcept;
   double get_regeneration_time() const noexcept { return m_regeneration_time;}
   bool is_eaten() const noexcept;
-  bool is_uneaten() const noexcept;
   /// Get the food state
   food_state get_food_state() const noexcept { return m_food_state;}
   void set_food_state(const food_state &newState) noexcept { m_food_state = newState; }
