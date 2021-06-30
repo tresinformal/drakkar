@@ -238,11 +238,7 @@ void game::tick()
       // it (1) creates a projectile, (2) sets 'm_is_shooting' to false
       if (p.is_shooting())
         {
-          // Put the projectile just in front outside of the player
-          const double d{p.get_direction()};
-          const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
-          const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
-          m_projectiles.push_back(projectile(x, y, d));
+          put_projectile_in_front_of_player(m_projectiles, p);
         }
       p.stop_shooting();
       assert(!p.is_shooting());
@@ -415,6 +411,16 @@ void put_player_on_food(player &p, const food &f)
 {
     p.place_to_position(get_position(f));
 }
+
+void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p)
+{
+  // Put the projectile just in front outside of the player
+  const double d{p.get_direction()};
+  const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
+  const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
+  projectiles.push_back(projectile(x, y, d));
+}
+
 void game::kill_player(const int index)
 {
   assert(index >= 0);
