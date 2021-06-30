@@ -517,7 +517,7 @@ void test_game_view()//!OCLINT tests may be many
     g.process_events(); // Needed to process the event
     #ifdef FIX_ISSUE_239
       assert(count_n_projectiles(g) == 1);
-#endif
+    #endif
   }
   #endif
 }
