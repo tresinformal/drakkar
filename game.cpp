@@ -1208,7 +1208,7 @@ void test_game() //!OCLINT tests may be many
     }
 #endif
 
-#define FIX_ISSUE_340
+//#define FIX_ISSUE_340
 #ifdef FIX_ISSUE_340
 // make sure that eat_nth_food() throws a logic_error when the food is already eaten
   {
