@@ -23,6 +23,15 @@ We developing our game, while chatting on Discord.
 To join, send Richel a Discord Friend Request: `richelbilderbeek#9002`.
 He'll add you to the tresinformal server.
 
+Our Discord server has mostly obvious rules that follow from the categories:
+
+ * 4x 'Group Rooms': rooms for duos/triplets, open for questions
+ * 2x 'Offices With An Open Door': single room, open for questions
+ * 2x 'Offices With A Closed Door': single room, please do not disturb
+
+One rule that needs to be written down, however, is that members 
+are never allowed to silence another member, not even as a joke.
+
 See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [download (.OGG)](http://richelbilderbeek.nl/dutch_by_kids_students.ogv)
 
 ## Meetings
