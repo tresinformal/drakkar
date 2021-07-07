@@ -969,7 +969,12 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
   }
-
+  #ifdef FIX_ISSUE_348
+  {
+    const food f;
+    assert(f == f);
+  }
+  #endif
   // In the start of the game, there is no player-food collision
   {
     game g;
