@@ -252,7 +252,7 @@ void game::tick()
           const double d{p.get_direction()};
           const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
           const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
-          m_projectiles.push_back(projectile(x, y, d));
+          m_projectiles.push_back(projectile(x, y, d, projectile_type::stun_rocket));
         }
       p.stop_shooting_stun_rocket();
       assert(!p.is_shooting_stun_rocket());
