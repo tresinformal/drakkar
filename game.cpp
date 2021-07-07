@@ -76,6 +76,17 @@ double calc_mean(const std::vector<double>& v)
         ) / v.size();
 }
 
+double calc_var(const std::vector<double>& v, double mean_v){
+  double v_var;
+  std::vector<double> sdm(v.size());
+  for(unsigned int i = 0; i < v.size(); i++) {
+      sdm[i] = (v[i] - mean_v) * (v[i] - mean_v);
+  }
+  v_var = std::accumulate(std::begin(sdm), std::end(sdm), 0.0) / v.size();
+  return v_var;
+}
+
+
 double get_nth_player_size(const game& g, const int i)
 {
   return g.get_player(i).get_diameter();
@@ -1215,8 +1226,6 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  //#define FIX_ISSUE_340
-#ifdef FIX_ISSUE_340
   // make sure that eat_nth_food() throws a logic_error when the food is already eaten
   {
     game g; //by default one uneaten food
@@ -1227,31 +1236,22 @@ void test_game() //!OCLINT tests may be many
       eat_nth_food(g,0); // throws exception
     }
     catch ( const std::exception& e ) {
-      assert(e.what() == "You cannot eat food that already has been eaten!");
+      assert(std::string(e.what()) == std::string("You cannot eat food that already has been eaten!"));
     }
   }
-#endif
-
-#define FIX_ISSUE_261
-#ifdef FIX_ISSUE_261
+  // number of food item stays the same,
+  // only the state of food item changes after they are eaten
+  // eaten food items are ?probably removed by game::tick
   {
-    try {
-      game g; //by default one uneaten food
-      int n_food_items_begin = count_food_items(g);
-      assert(has_food(g));
-      eat_nth_food(g,0);
-      assert(!has_food(g));
-      //number of food item stays the same only the state of food item changes after they are eaten
-      assert(n_food_items_begin == count_food_items(g));
-    }
-    catch ( const std::logic_error& e ) {
-      std::cout << e.what();
-    }
+    game g; //by default one uneaten food
+    const int n_food_items_begin = count_food_items(g);
+    assert(has_food(g));
+    eat_nth_food(g,0);
+    assert(!has_food(g));
+    assert(n_food_items_begin == count_food_items(g));
   }
-#endif
 
 #ifdef FIX_ISSUE_256
-
   {
     food f;
     player p;
