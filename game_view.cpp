@@ -165,7 +165,7 @@ void game_view::press_key(const sf::Keyboard::Key& k)
 {
     if(k == sf::Keyboard::Num1) {
         ///stunning not shooting a rocket
-//        this->m_game.do_action(0,action_type::stun);
+        this->m_game.do_action(0,action_type::stun);
     }
 }
 
