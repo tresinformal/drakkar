@@ -41,15 +41,23 @@ void test_food()
     assert(f.get_y() == 0.0);
   }
 
-    //Can compare two foods for equality, operator==
-    {
-      const food a;
-      const food b;
-      const food c(1234.5678);
-      assert(a == b);
-      assert(!(a == c));
-    }
-    //foods that are on the same coordinate point but with different colour Are equal, when this is not true
+  //foods that are on the same coordinate point but with different colour Are equal, when this is not true
+  {
+    const food a;
+    const food b;
+    const food c(1234.5678);
+    assert(a == b);
+    assert(!(a == c));
+  }
+  //#define FIX_ISSUE_349
+  #ifdef FIX_ISSUE_349
+  //Can compare two foods for inequality, operator!=
+  {
+    const food a(1.2);
+    const food b(3.4);
+    assert(a != b);
+  }
+  #endif // FIX_ISSUE_349
     //#define FIX_ISSUE_341
     #ifdef FIX_ISSUE_341
     {
