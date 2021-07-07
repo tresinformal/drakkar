@@ -93,22 +93,22 @@ void menu_view::draw_buttons() noexcept
                      static_cast<float>(m_menu.get_button(i).get_y()));
 
 
-    // Draw the player
+    // Draw the rectangles
     m_window.draw(rect);
 
     //Add the text
     sf::Text text;
     text.setString("Hello world");
-    text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
+    //text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     sf::Color color_white = sf::Color::White;
-    text.setColor(color_white);
+    text.setFillColor(color_white);
 
-//    text.setPosition(m_menu.get_button(i).get_x(),
-//                     m_menu.get_button(i).get_y());
-    text.setPosition(0.0, 0.0);
+  text.setPosition(static_cast<float>(m_menu.get_button(i).get_x()),
+                     static_cast<float>(m_menu.get_button(i).get_y()));
+    //text.setPosition(0.0, 0.0);
 
     text.setFont(game_resources().get_font());
-    text.setScale(100.0, 100.0);
+    //text.setScale(100.0, 100.0);
     m_window.draw(text);
 
 
