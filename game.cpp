@@ -607,16 +607,6 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
-  // A game responds to actions: player can be stunned
-  {
-    game g;
-    for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
-      {
-        assert(!is_stunned(g.get_player(i)));
-            g.do_action(i, action_type::shoot_stun_rocket);
-        assert(is_stunned(g.get_player(i)));
-      }
-  }
   // Projectiles move
   {
     game g;
