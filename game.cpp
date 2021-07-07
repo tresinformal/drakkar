@@ -400,7 +400,7 @@ bool hits_wall(const player& p, const environment& e)
 {
 
   if(hits_west_wall(p,e)
-     ||hits_east_wall(p,e)
+     || hits_east_wall(p,e)
      || hits_north_wall(p,e)
      || hits_south_wall(p,e))
     {
