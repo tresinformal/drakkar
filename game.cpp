@@ -139,8 +139,8 @@ void game::do_action(player& player, action_type action)
       }
       case action_type::stun:
       {
-//        player.shoot_stun_rocket();
-         stun(player); // Old behavior
+        player.shoot_stun_rocket();
+        stun(player); // Old behavior
         break;
       }
       case action_type::none:
@@ -246,6 +246,17 @@ void game::tick()
         }
       p.stop_shooting();
       assert(!p.is_shooting());
+
+      if (p.is_shooting_stun_rocket())
+        {
+          // Put the projectile just in front outside of the player
+          const double d{p.get_direction()};
+          const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
+          const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
+          m_projectiles.push_back(projectile(x, y, d));
+        }
+      p.stop_shooting_stun_rocket();
+      assert(!p.is_shooting_stun_rocket());
     }
 
   // and updates m_n_ticks
