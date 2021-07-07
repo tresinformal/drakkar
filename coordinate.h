@@ -11,6 +11,7 @@ private:
 public:
   Coordinate();
   bool operator==(Coordinate in_coord);
+  bool operator!=(Coordinate in_coord);
 };
 
 #endif // COORDINATE_H
