@@ -5,7 +5,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "menu.h"
-
+#include "game_resources.h"
 class menu_view
 {
 public:
