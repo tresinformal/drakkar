@@ -122,3 +122,10 @@ void test_food()
   }
 #endif // no tests in release
 }
+
+
+
+const std::vector<double> get_position(const food& in_food)
+{
+    return std::vector<double> {in_food.get_x(),in_food.get_y()};
+}
