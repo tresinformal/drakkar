@@ -137,10 +137,9 @@ void game::do_action(player& player, action_type action)
         player.shoot();
         break;
       }
-      case action_type::stun:
+      case action_type::shoot_stun_rocket:
       {
         player.shoot_stun_rocket();
-        stun(player); // Old behavior
         break;
       }
       case action_type::none:
@@ -614,7 +613,7 @@ void test_game() //!OCLINT tests may be many
     for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
       {
         assert(!is_stunned(g.get_player(i)));
-            g.do_action(i, action_type::stun);
+            g.do_action(i, action_type::shoot_stun_rocket);
         assert(is_stunned(g.get_player(i)));
       }
   }

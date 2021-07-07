@@ -13,7 +13,7 @@ enum class action_type
   acc_backward,
   shoot,
   none,
-  stun
+  shoot_stun_rocket
 };
 
 void test_action_type();

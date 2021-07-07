@@ -14,7 +14,7 @@ key_action_map::key_action_map(
 {key_to_accelerate, action_type::accelerate},
 {key_to_brake, action_type::brake},
 {key_to_shoot, action_type::shoot},
-{key_to_stun, action_type::stun}
+{key_to_stun, action_type::shoot_stun_rocket}
                 }
 {
 }
@@ -88,7 +88,7 @@ void test_key_action_map()//!OCLINT tests can be many
         assert(m.to_action(sf::Keyboard::W) == action_type::accelerate);
         assert(m.to_action(sf::Keyboard::S) == action_type::brake);
         assert(m.to_action(sf::Keyboard::Q) == action_type::shoot);
-        assert(m.to_action(sf::Keyboard::Num1) == action_type::stun);
+        assert(m.to_action(sf::Keyboard::Num1) == action_type::shoot_stun_rocket);
     }
     {
         const key_action_map m = get_player_1_kam();

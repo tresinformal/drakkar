@@ -164,8 +164,8 @@ void game_view::draw_food() noexcept
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
     if(k == sf::Keyboard::Num1) {
-        ///stunning not shooting a rocket
-//        this->m_game.do_action(0,action_type::stun);
+      /// stunning not shooting a rocket
+      this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
 }
 
@@ -516,9 +516,9 @@ void test_game_view()//!OCLINT tests may be many
     assert(count_n_projectiles(g) == 0);
     g.press_key(sf::Keyboard::Num1);
     g.process_events(); // Needed to process the event
-//    #ifdef FIX_ISSUE_239
-//      assert(count_n_projectiles(g) == 1);
-//    #endif
+//  #ifdef FIX_ISSUE_239
+    assert(count_n_projectiles(g) == 1);
+//  #endif
   }
   #endif
 }
