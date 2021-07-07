@@ -76,6 +76,17 @@ double calc_mean(const std::vector<double>& v)
         ) / v.size();
 }
 
+double calc_var(const std::vector<double>& v, double mean_v){
+  double v_var;
+  std::vector<double> sdm(v.size());
+  for(unsigned int i = 0; i < v.size(); i++) {
+      sdm[i] = (v[i] - mean_v) * (v[i] - mean_v);
+  }
+  v_var = std::accumulate(std::begin(sdm), std::end(sdm), 0.0) / v.size();
+  return v_var;
+}
+
+
 double get_nth_player_size(const game& g, const int i)
 {
   return g.get_player(i).get_diameter();
