@@ -2,6 +2,10 @@
 
 Coordinate::Coordinate()
 {
-  double m_x = 0;
-  double m_y = 0;
+
 }
+
+bool Coordinate::operator==(Coordinate in_coord) {
+    return (m_x == in_coord.m_x) && (m_y == in_coord.m_y);
+}
+
