@@ -1399,11 +1399,23 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  ///Player 1 can stun player 2 with a stun rocket
+  //Player 1 can stun player 2 with a stun rocket
   {
     game g;
+    // Shoot the stun rocket
     g.do_action(0, action_type::shoot_stun_rocket);
-//    g.get_projectiles().back()
+    // Put the stun rocket on top of player 2 (at index 1)
+    g.get_projectiles().back().set_coordinate(g.get_v_player()[1].get_coordinate());
+
+    // Player 2 should not be stunned yet
+    assert(is_stunned(g.get_v_player()[1]));
+
+    assert(count_n_projectiles(g) == 1);
+
+    g.tick();
+
+    // Player 2 is now stunned yet
+    assert(is_stunned(g.get_v_player()[1]));
   }
 
 #endif // no tests in release
