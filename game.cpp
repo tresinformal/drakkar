@@ -256,26 +256,24 @@ void game::projectile_collision()
 
   for (int i = 0 ; i != n_projectiles ; ++i)
   {
-      //For every player...
-      for(int j = 0; j < get_v_player().size(); ++j) {
-          // if it is not the one that shot it ...
-          if(!(this->get_projectiles()[i].get_owner() == j))  {
-
-            }
-
+    //For every player...
+    const int n_players = static_cast<int>(get_v_player().size());
+    for(int j = 0; j != n_players; ++j)
+    {
+      // if it is not the one that shot it ...
+      #ifdef NEED_TO_WRITE_THIS_ISSUE_241
+      if(!(this->get_projectiles()[i].get_owner() == j))
+      {
 
       }
-  }
-
+      #endif // NEED_TO_WRITE_THIS_ISSUE_241
       // If the projectile touches the player ...
 
       // if the projectile is a stun rocket: stun the player
 
       // projectile disappears
-
-
+    }
   }
-
 }
 
 void game::tick()
@@ -1432,7 +1430,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  #define FIX_ISSUE_241
+  //#define FIX_ISSUE_241
   #ifdef FIX_ISSUE_241
   //Player 1 can stun player 2 with a stun rocket
   {
