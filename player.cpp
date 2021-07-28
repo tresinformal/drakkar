@@ -109,6 +109,7 @@ bool are_colliding(const player &lhs, const player &rhs) noexcept
     const double collision_distance = (lhs.get_diameter() + rhs.get_diameter()) / 2;
     return actual_distance < collision_distance;
 }
+
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }
 
 int get_greenness(const player &p) noexcept
@@ -214,6 +215,24 @@ player create_player_with_id(const std::string& id)
                 };
 }
 
+player create_player_with_color(const color &in_color)
+{
+    {
+        return player{
+                    0.0,
+                    0.0,
+                    player_shape::rocket,
+                    player_state::active,
+                    2,
+                    0.1,
+                    -0.001,
+                    -0.1,
+                    100.0,
+                    0.01,
+                    in_color
+                    };
+    }
+}
 
 player create_red_player()
 {
@@ -257,6 +276,19 @@ bool is_first_player_loser(const player& player_one, const player& player_two)
 void test_player() //!OCLINT tests may be long
 {
 #ifndef NDEBUG // no tests in release
+//#define FIX_ISSUE_336
+  #ifdef FIX_ISSUE_336
+      {
+        player p;
+        cordinate predicted_player_position = predict_players_movement(p);
+        p.move();
+        assert(p.get_position()==predicted_player_position);
+        assert(((predicted_player_position.m_x - p.get_x())<0.001)&&(((predicted_player_position.m_x - p.get_x())>-0.001)));
+        assert(((predicted_player_position.m_x - p.get_y())<0.001)&&(((predicted_player_position.m_x - p.get_y())>-0.001)));
+      }
+  #endif
+
+  {}
     // Can default construct a player
     {
         const player p;
@@ -264,16 +296,21 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_y() == 0.0);
         assert(p.get_shape() == player_shape::rocket); // Or your favorite shape
     }
-    // A player has the same coordinats as set at construction
-    {
-        const double x{12.34};
-        const double y{23.45};
-        const player_shape s{player_shape::rocket};
-        const player p(x, y, s);
-        // Must be the same
-        assert(std::abs(p.get_x() - x) < 0.00001);
-        assert(std::abs(p.get_y() - y) < 0.00001);
-    }
+  // A player has the same coordinats as set at construction
+  {
+      const double x{12.34};
+      const double y{23.45};
+      const player_shape s{player_shape::rocket};
+      const player p(x, y, s);
+      // Must be the same
+      assert(std::abs(p.get_x() - x) < 0.00001);
+      assert(std::abs(p.get_y() - y) < 0.00001);
+#ifdef FIX_ISSUE_337
+      assert(p.get_position() == position);
+#endif
+  }
+
+
     // A player constructed with a rocket shape, must have a rocket shape
     {
         const player p{1.2, 3.4, player_shape::rocket};
@@ -374,7 +411,12 @@ void test_player() //!OCLINT tests may be long
         // So, 90 pixels is a collision then
         const player p2(90.0, 0.0);
         assert(are_colliding(p1, p2));
+#ifdef FIX_ISSUE_338
+        assert(are_colliding(p1.get_position(),p2.get_position()));
+#endif
     }
+
+
     // A player of RGB values (255, 0, 0) should be red, not green, not blue
     {
         player p = create_player_with_color(color(255, 0, 0));
@@ -679,24 +721,20 @@ void test_player() //!OCLINT tests may be long
         assert(is_stunned(p));
     }
 #endif
+
+#ifdef FIX_ISSUE_324
+  {
+    coordinate c{1.23456, 123456.789};
+    player p{c};
+    assert(p.get_position() == c);
+  }
+#endif
+  #ifdef FIX_ISSUE_351
+  {
+    assert(to_str(player_state::active) == "active");
+  }
+  #endif
 #endif // no tests in release
 }
 
-player create_player_with_color(const color &in_color)
-{
-    {
-        return player{
-                    0.0,
-                    0.0,
-                    player_shape::rocket,
-                    player_state::active,
-                    2,
-                    0.1,
-                    -0.001,
-                    -0.1,
-                    100.0,
-                    0.01,
-                    in_color
-                    };
-    }
-}
+
