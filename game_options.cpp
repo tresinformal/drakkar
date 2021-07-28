@@ -31,6 +31,11 @@ void music_on(game_options& o) noexcept
   o.play_music();
 }
 
+game_options get_random_game_options(const int& rng_seed) {
+  game_options rgo;
+  return rgo;
+}
+
 void test_game_options()
 {
   #ifndef NDEBUG // no tests in release
@@ -93,7 +98,7 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_289
 
-  #ifdef FIX_ISSUE_303
+  // #ifdef FIX_ISSUE_303
   // Two random game options are the same, when the same seed is used
   {
     const int rng_seed = 271;
@@ -115,7 +120,7 @@ void test_game_options()
     assert(a.get_kam_1() != b.get_kam_1());
     assert(a.get_kam_2() != b.get_kam_2());
   }
-  #endif // FIX_ISSUE_303
+  // #endif // FIX_ISSUE_303
 
   #endif // NDEBUG
 }
