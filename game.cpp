@@ -1399,12 +1399,17 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+  #define FIX_ISSUE_241
   #ifdef FIX_ISSUE_241
   //Player 1 can stun player 2 with a stun rocket
   {
     game g;
+
     // Shoot the stun rocket
     g.do_action(0, action_type::shoot_stun_rocket);
+    g.tick();
+    assert(count_n_projectiles(g) == 1);
+
     // Put the stun rocket on top of player 2 (at index 1)
     g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
     g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
@@ -1412,7 +1417,7 @@ void test_game() //!OCLINT tests may be many
     // Player 2 should not be stunned yet
     assert(is_stunned(g.get_v_player()[1]));
 
-    // Stun rocket is still there
+    // Stun rocket is there
     assert(count_n_projectiles(g) == 1);
 
     g.tick();
