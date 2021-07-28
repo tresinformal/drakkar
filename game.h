@@ -154,6 +154,9 @@ private:
 
   /// Moves the projectiles
   void move_projectiles();
+
+  /// Processess the collsion between projectiles and players
+  void projectile_collision();
 };
 
 

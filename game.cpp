@@ -258,10 +258,13 @@ void game::tick()
   // Moves the projectiles
   move_projectiles();
 
-  // for now only applies inertia
+  //Projectiles hit the players
+  projectile_collision();
+
+  // For now only applies inertia
   apply_inertia();
 
-  //move shelters
+  //Move shelters
   move_shelter();
 
   //Actions issued by the players are executed
@@ -1415,7 +1418,7 @@ void test_game() //!OCLINT tests may be many
     g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
 
     // Player 2 should not be stunned yet
-    assert(is_stunned(g.get_v_player()[1]));
+    assert(!(is_stunned(g.get_v_player()[1])));
 
     // Stun rocket is there
     assert(count_n_projectiles(g) == 1);
