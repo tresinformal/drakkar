@@ -252,17 +252,26 @@ void game::projectile_collision()
 {
 
   const int n_projectiles = count_n_projectiles(*this);
+  // For every projectile ...
+
   for (int i = 0 ; i != n_projectiles ; ++i)
   {
-    // For every projectile ...
+      //For every player...
+      for(int j = 0; j < get_v_player().size(); ++j) {
+          // if it is not the one that shot it ...
+          if(!(this->get_projectiles()[i].get_owner() == j))  {
 
-    // If the projectile touches a player ...
+            }
 
-    // if it is not the one that shot it ...
+
+      }
+  }
+
+      // If the projectile touches the player ...
 
       // if the projectile is a stun rocket: stun the player
 
-      // projectile dissappears
+      // projectile disappears
 
 
   }
