@@ -120,18 +120,12 @@ bool game_view::process_events()
 
 void game_view::exec() noexcept
 {
-  assert(count_n_projectiles(m_game) == 0);
   while (m_window.isOpen())
   {
-    assert(count_n_projectiles(m_game) == 0);
     const bool must_quit{process_events()}; // This is where stun is processed
-    assert(count_n_projectiles(m_game) == 0);
     if (must_quit) return;
-    assert(count_n_projectiles(m_game) == 0);
     m_game.tick();
-    assert(count_n_projectiles(m_game) == 0);
     show();
-    assert(count_n_projectiles(m_game) == 0);
   }
 }
 
