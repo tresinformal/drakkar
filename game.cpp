@@ -1399,28 +1399,31 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+  #ifdef FIX_ISSUE_241
   //Player 1 can stun player 2 with a stun rocket
   {
     game g;
     // Shoot the stun rocket
     g.do_action(0, action_type::shoot_stun_rocket);
     // Put the stun rocket on top of player 2 (at index 1)
-    g.get_projectiles().back().set_coordinates(g.get_v_player()[1].get_coordinates());
+    g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
+    g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
 
     // Player 2 should not be stunned yet
     assert(is_stunned(g.get_v_player()[1]));
 
+    // Stun rocket is still there
     assert(count_n_projectiles(g) == 1);
 
     g.tick();
 
-    ///Stun Rocket should disappear
+    // Stun rocket should disappear
     assert(count_n_projectiles(g) == 0);
-
 
     // Player 2 is now stunned yet
     assert(is_stunned(g.get_v_player()[1]));
   }
+  #endif // FIX_ISSUE_241
 
 #endif // no tests in release
 }
