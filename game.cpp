@@ -1399,6 +1399,13 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+  ///Player 1 can stun player 2 with a stun rocket
+  {
+    game g;
+    g.do_action(0, action_type::shoot_stun_rocket);
+//    g.get_projectiles().back()
+  }
+
 #endif // no tests in release
 }
 
