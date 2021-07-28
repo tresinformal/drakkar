@@ -103,12 +103,12 @@ void menu_view::draw_buttons() noexcept
     sf::Color color_white = sf::Color::White;
     text.setFillColor(color_white);
 
-  text.setPosition(static_cast<float>(m_menu.get_button(i).get_x()),
-                     static_cast<float>(m_menu.get_button(i).get_y()));
+  text.setPosition(m_menu.get_button(i).get_x(),
+                     m_menu.get_button(i).get_y());
     //text.setPosition(0.0, 0.0);
 
     text.setFont(game_resources().get_font());
-    //text.setScale(100.0, 100.0);
+    //text.setCharacterSize(30.0);
     m_window.draw(text);
 
 
