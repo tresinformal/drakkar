@@ -32,6 +32,7 @@ void music_on(game_options& o) noexcept
 }
 
 game_options get_random_game_options(const int& rng_seed) {
+
   game_options rgo;
   return rgo;
 }
@@ -115,6 +116,7 @@ void test_game_options()
   }
   // Two random game options differ in their key-action maps especially
   {
+    const int rng_seed = 111;
     const game_options a = get_random_game_options(rng_seed);
     const game_options b = get_random_game_options(rng_seed + 1);
     assert(a.get_kam_1() != b.get_kam_1());

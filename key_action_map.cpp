@@ -56,6 +56,14 @@ key_action_map get_player_3_kam()
                 );
 }
 
+sf::Keyboard::Key draw_random_key()
+{
+  return static_cast<sf::Keyboard::Key>(
+        static_cast<int>(sf::Keyboard::Key::A) + (std::rand() % 26)
+        );
+  // return static_cast<sf::Keyboard::Key>(std::rand() % 26);
+}
+
 bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
 {
     if (m_map.find(key) != m_map.end())

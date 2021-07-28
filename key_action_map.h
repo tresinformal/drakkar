@@ -40,6 +40,9 @@ key_action_map get_player_2_kam();
 /// Get the default key to action map for player 3
 key_action_map get_player_3_kam();
 
+// Draw a rando mkey for testing purposes
+sf::Keyboard::Key draw_random_key();
+
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 
