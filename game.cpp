@@ -248,6 +248,11 @@ void game::move_projectiles()
     }
 }
 
+void game::projectile_collision()
+{
+
+}
+
 void game::tick()
 {
   if(has_collision(*this))
@@ -1402,7 +1407,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  #define FIX_ISSUE_241
+  //#define FIX_ISSUE_241
   #ifdef FIX_ISSUE_241
   //Player 1 can stun player 2 with a stun rocket
   {
