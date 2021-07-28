@@ -66,18 +66,27 @@ sf::Keyboard::Key get_random_key()
 
 key_action_map get_random_kam()
 {
-  std::vector<sf::Keyboard::Key>(6);
-  for (int i = 0; i < 6; i++)
-    {
-      // draw 6 keys and make sure they haven't been drawn yet
-    }
+  std::vector<sf::Keyboard::Key> v_random_keys;
+  while (v_random_keys.size() < 6)
+  {
+   sf::Keyboard::Key new_key = get_random_key();
+   auto key_match = std::find(
+         v_random_keys.begin(),
+         v_random_keys.end(),
+         new_key
+         );
+   if (key_match == v_random_keys.end())
+     {
+       v_random_keys.push_back(new_key);
+     }
+  }
   return key_action_map(
-        get_random_key(),
-        get_random_key(),
-        get_random_key(),
-        get_random_key(),
-        get_random_key(),
-        get_random_key()
+        v_random_keys[0],
+        v_random_keys[1],
+        v_random_keys[2],
+        v_random_keys[3],
+        v_random_keys[4],
+        v_random_keys[5]
         );
 }
 
