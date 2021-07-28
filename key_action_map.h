@@ -41,7 +41,7 @@ key_action_map get_player_2_kam();
 key_action_map get_player_3_kam();
 
 // Draw a rando mkey for testing purposes
-sf::Keyboard::Key draw_random_key();
+sf::Keyboard::Key get_random_key();
 
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;

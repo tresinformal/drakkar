@@ -56,13 +56,27 @@ key_action_map get_player_3_kam()
                 );
 }
 
-sf::Keyboard::Key draw_random_key()
+sf::Keyboard::Key get_random_key()
 {
   return static_cast<sf::Keyboard::Key>(
         static_cast<int>(sf::Keyboard::Key::A) + (std::rand() % 26)
         );
   // return static_cast<sf::Keyboard::Key>(std::rand() % 26);
 }
+
+key_action_map get_random_kam()
+{
+
+    return key_action_map(
+                get_random_key(),
+                get_random_key(),
+                get_random_key(),
+                get_random_key(),
+                get_random_key(),
+                get_random_key()
+                );
+}
+
 
 bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
 {
