@@ -28,6 +28,17 @@ action_type key_action_map::to_action(sf::Keyboard::Key key) const noexcept
   return action_type::none;
 }
 
+sf::Keyboard::Key key_action_map::to_key(action_type action) const noexcept
+{
+  for (auto& it : m_map)
+    {
+      if (it.second == action)
+        {
+          return it.first;
+        }
+    }
+  return sf::Keyboard::Key::Unknown;
+}
 bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
 {
   if (m_map.find(key) != m_map.end())
@@ -245,7 +256,7 @@ void test_key_action_map()//!OCLINT tests can be many
 #endif // FIX_ISSUE_303
 #endif
 
-// #define FIX_ISSUE_355
+#define FIX_ISSUE_355
 #ifdef FIX_ISSUE_355
   {
     const key_action_map kam = get_player_1_kam();

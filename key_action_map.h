@@ -21,6 +21,9 @@ public:
   ///Find out which action is triggered by that key
   action_type to_action(sf::Keyboard::Key key) const noexcept;
 
+  /// Find out which key triggers that action
+  sf::Keyboard::Key to_key(action_type action) const noexcept;
+
   ///Find out if the key is mapped
   bool has_key(sf::Keyboard::Key key) const noexcept;
 
