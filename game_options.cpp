@@ -4,12 +4,15 @@
 
 // Try to define the class 'game_options' yourself
 game_options::game_options(
+  const int rng_seed,
   const bool play_music,
   key_action_map player_1_kam,
   key_action_map player_2_kam
-) : m_play_music{play_music},
-    m_kam_1{player_1_kam},
-    m_kam_2{player_2_kam}
+) :
+  m_rng_seed{rng_seed},
+  m_play_music{play_music},
+  m_kam_1{player_1_kam},
+  m_kam_2{player_2_kam}
 {
 
 }
@@ -39,6 +42,7 @@ void music_on(game_options& o) noexcept
 game_options get_random_game_options(const int& rng_seed) {
   std::srand(rng_seed);
   game_options random_game_options = game_options(
+        rng_seed,
         true,
         get_random_kam(),
         get_random_kam()
@@ -59,7 +63,7 @@ void test_game_options()
   // Music can be switched off
   {
     const bool do_play_music = false;
-    const game_options g(do_play_music);
+    const game_options g(0, do_play_music);
     assert(!g.is_playing_music());
   }
 

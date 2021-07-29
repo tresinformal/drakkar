@@ -6,6 +6,7 @@ class game_options
 {
 public:
   game_options(
+      const int rng_seed = 0,
       const bool play_music = true,
       key_action_map player_1_kam = get_player_1_kam(),
       key_action_map player_2_kam = get_player_2_kam()
@@ -28,7 +29,7 @@ public:
   const key_action_map& get_kam_2() const noexcept { return m_kam_2; };
 
 private:
-  int m_rng_seed = 0;
+  int m_rng_seed;
   bool m_play_music = true;
   key_action_map m_kam_1;
   key_action_map m_kam_2;
