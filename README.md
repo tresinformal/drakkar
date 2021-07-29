@@ -159,6 +159,7 @@ You know what to do :+1:
 
 Most recent at the top.
 
+![](pics/20210728.png)
 
 ![](pics/20210527.png)
 
@@ -186,7 +187,3 @@ Most recent at the top.
 
 ![](pics/20190929.png)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
