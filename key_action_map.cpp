@@ -211,7 +211,36 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(b != c);
   }
 
-
+  // random keys - delete this test when issue 303 is closed
+  {
+  const int rng_seed = 271;
+  std::srand(rng_seed);
+  sf::Keyboard::Key a = get_random_key();
+  sf::Keyboard::Key b = get_random_key();
+  assert(a != b);
+  std::srand(rng_seed);
+  sf::Keyboard::Key c = get_random_key();
+  assert(a == c);
+  const int other_seed = 111;
+  std::srand(other_seed);
+  sf::Keyboard::Key d = get_random_key();
+  assert(a != d);
+  }
+  {
+  const int rng_seed = 271;
+  std::srand(rng_seed);
+  // random keyboards - delete this test when issue 303 is closed
+  key_action_map a = get_random_kam();
+  key_action_map b = get_random_kam();
+  assert(a != b);
+  std::srand(rng_seed);
+  key_action_map c = get_random_kam();
+  assert(a == c);
+  const int other_seed = 111;
+  std::srand(other_seed);
+  key_action_map d = get_random_kam();
+  assert(a != d);
+  }
 
 #endif
 }

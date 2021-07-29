@@ -5,7 +5,11 @@
 class game_options
 {
 public:
-  game_options(const bool play_music = true);
+  game_options(
+      const bool play_music = true,
+      key_action_map player_1_kam = get_player_1_kam(),
+      key_action_map player_2_kam = get_player_2_kam()
+      );
 
   ///Get the RNG seed
   int get_rng_seed() const noexcept { return m_rng_seed; }
