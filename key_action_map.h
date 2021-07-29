@@ -27,6 +27,9 @@ public:
   ///Returns const ref of m_map
   const std::map<sf::Keyboard::Key, action_type>& get_raw_map() const noexcept {return m_map;}
 
+  // Find the stun key
+  const sf::Keyboard::Key& get_stun_key();
+
 private:
   std::map<sf::Keyboard::Key, action_type> m_map;
 };

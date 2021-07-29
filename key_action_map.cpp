@@ -36,7 +36,6 @@ bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
     }
 
   return false;
-
 }
 
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept
@@ -170,12 +169,12 @@ void test_key_action_map()//!OCLINT tests can be many
     assert( m.has_key(sf::Keyboard::Q));
     assert(!m.has_key(sf::Keyboard::L));
   }
-#define FIX_ISSUE_304
+// #define FIX_ISSUE_304
 #ifdef FIX_ISSUE_304
   //Get the stun key
   {
     const key_action_map m = get_player_1_kam();
-    assert(get_stun_key(m) == sf::Keyboard::Num1);
+    assert(m.get_stun_key() == sf::Keyboard::Num1);
   }
 #endif // FIX_ISSUE_304
 
@@ -212,7 +211,8 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(b != c);
   }
 
-  // random keys - delete this test when issue 303 is closed
+#define FIX_ISSUE_282
+#ifdef FIX_ISSUE_282
   {
     const int rng_seed = 271;
     std::srand(rng_seed);
@@ -242,6 +242,19 @@ void test_key_action_map()//!OCLINT tests can be many
     key_action_map d = get_random_kam();
     assert(a != d);
   }
-
+#endif // FIX_ISSUE_303
 #endif
+
+// #define FIX_ISSUE_355
+#ifdef FIX_ISSUE_355
+  {
+    const key_action_map kam = get_player_1_kam();
+    assert(kam.to_key(action_type::turn_left) == sf::Keyboard::A);
+    assert(kam.to_key(action_type::turn_right) == sf::Keyboard::D);
+    assert(kam.to_key(action_type::accelerate) == sf::Keyboard::W);
+    assert(kam.to_key(action_type::brake) == sf::Keyboard::S);
+    assert(kam.to_key(action_type::shoot) == sf::Keyboard::Q);
+  }
+#endif // FIX_ISSUE_355
+
 }
