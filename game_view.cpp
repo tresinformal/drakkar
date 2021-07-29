@@ -80,6 +80,10 @@ void game_view::pl_3_stop_input(sf::Event event) noexcept
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
+int count_n_projectiles(const game_view &g) noexcept
+{
+  return count_n_projectiles(g.get_game());
+}
 
 bool game_view::process_events()
 {
@@ -110,19 +114,19 @@ bool game_view::process_events()
         }
 
     }
+    m_game.tick();
     return false; // if no events proceed with tick
 }
 
 void game_view::exec() noexcept
 {
-    while (m_window.isOpen())
-    {
-        bool must_quit{process_events()};
-        if (must_quit)
-            return;
-        m_game.tick();
-        show();
-    }
+  while (m_window.isOpen())
+  {
+    const bool must_quit{process_events()}; // This is where stun is processed
+    if (must_quit) return;
+    m_game.tick();
+    show();
+  }
 }
 
 void game_view::draw_background() noexcept
@@ -155,7 +159,8 @@ void game_view::draw_food() noexcept
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
     if(k == sf::Keyboard::Num1) {
-        this->m_game.do_action(0,action_type::stun);
+      /// stunning not shooting a rocket
+      this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
 }
 
@@ -219,6 +224,16 @@ void game_view::draw_projectiles() noexcept
             rect.setRotation(static_cast<float>(90));
             rect.setPosition(projectile.get_x(), projectile.get_y());
             rect.setTexture(&m_game_resources.get_rocket());
+            rect.rotate(projectile.get_direction() * 180 / M_PI);
+            m_window.draw(rect);
+        }
+
+        if (projectile.get_type() == projectile_type::stun_rocket){
+            // Create the projectile sprite
+            sf::RectangleShape rect(sf::Vector2f(381.0, 83.0));
+            rect.setRotation(static_cast<float>(90));
+            rect.setPosition(projectile.get_x(), projectile.get_y());
+            rect.setTexture(&m_game_resources.get_stun_rocket());
             rect.rotate(projectile.get_direction() * 180 / M_PI);
             m_window.draw(rect);
         }
@@ -490,22 +505,13 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-  // #define FIX_ISSUE_224
   // Pressing 1 stuns player 1
   {
     game_view g;
-    assert(!is_nth_player_stunned(g, 0));
+    assert(count_n_projectiles(g) == 0);
     g.press_key(sf::Keyboard::Num1);
     g.process_events(); // Needed to process the event
-    assert(is_nth_player_stunned(g, 0));
-  }
-  // Pressing the wrong key does not stun a player
-  {
-    game_view g;
-    assert(!is_nth_player_stunned(g, 0));
-    g.press_key(sf::Keyboard::Num2);
-    g.process_events(); // Needed to process the event
-    assert(!is_nth_player_stunned(g, 0));
+    assert(count_n_projectiles(g) == 1);
   }
   #endif
 }

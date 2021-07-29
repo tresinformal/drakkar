@@ -14,7 +14,7 @@ key_action_map::key_action_map(
 {key_to_accelerate, action_type::accelerate},
 {key_to_brake, action_type::brake},
 {key_to_shoot, action_type::shoot},
-{key_to_stun, action_type::stun}
+{key_to_stun, action_type::shoot_stun_rocket}
           }
 {
 }
@@ -68,26 +68,26 @@ key_action_map get_random_kam()
 {
   std::vector<sf::Keyboard::Key> v_random_keys;
   while (v_random_keys.size() < 6)
-  {
-   sf::Keyboard::Key new_key = get_random_key();
-   auto key_match = std::find(
-         v_random_keys.begin(),
-         v_random_keys.end(),
-         new_key
-         );
-   if (key_match == v_random_keys.end())
-     {
-       v_random_keys.push_back(new_key);
-     }
-  }
+    {
+      sf::Keyboard::Key new_key = get_random_key();
+      auto key_match = std::find(
+            v_random_keys.begin(),
+            v_random_keys.end(),
+            new_key
+            );
+      if (key_match == v_random_keys.end())
+        {
+          v_random_keys.push_back(new_key);
+        }
+    }
   return key_action_map(
         v_random_keys[0],
-        v_random_keys[1],
-        v_random_keys[2],
-        v_random_keys[3],
-        v_random_keys[4],
-        v_random_keys[5]
-        );
+      v_random_keys[1],
+      v_random_keys[2],
+      v_random_keys[3],
+      v_random_keys[4],
+      v_random_keys[5]
+      );
 }
 
 
@@ -123,7 +123,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(m.to_action(sf::Keyboard::W) == action_type::accelerate);
     assert(m.to_action(sf::Keyboard::S) == action_type::brake);
     assert(m.to_action(sf::Keyboard::Q) == action_type::shoot);
-    assert(m.to_action(sf::Keyboard::Num1) == action_type::stun);
+    assert(m.to_action(sf::Keyboard::Num1) == action_type::shoot_stun_rocket);
   }
   {
     const key_action_map m = get_player_1_kam();
@@ -213,33 +213,33 @@ void test_key_action_map()//!OCLINT tests can be many
 
   // random keys - delete this test when issue 303 is closed
   {
-  const int rng_seed = 271;
-  std::srand(rng_seed);
-  sf::Keyboard::Key a = get_random_key();
-  sf::Keyboard::Key b = get_random_key();
-  assert(a != b);
-  std::srand(rng_seed);
-  sf::Keyboard::Key c = get_random_key();
-  assert(a == c);
-  const int other_seed = 111;
-  std::srand(other_seed);
-  sf::Keyboard::Key d = get_random_key();
-  assert(a != d);
+    const int rng_seed = 271;
+    std::srand(rng_seed);
+    sf::Keyboard::Key a = get_random_key();
+    sf::Keyboard::Key b = get_random_key();
+    assert(a != b);
+    std::srand(rng_seed);
+    sf::Keyboard::Key c = get_random_key();
+    assert(a == c);
+    const int other_seed = 111;
+    std::srand(other_seed);
+    sf::Keyboard::Key d = get_random_key();
+    assert(a != d);
   }
   {
-  const int rng_seed = 271;
-  std::srand(rng_seed);
-  // random keyboards - delete this test when issue 303 is closed
-  key_action_map a = get_random_kam();
-  key_action_map b = get_random_kam();
-  assert(a != b);
-  std::srand(rng_seed);
-  key_action_map c = get_random_kam();
-  assert(a == c);
-  const int other_seed = 111;
-  std::srand(other_seed);
-  key_action_map d = get_random_kam();
-  assert(a != d);
+    const int rng_seed = 271;
+    std::srand(rng_seed);
+    // random keyboards - delete this test when issue 303 is closed
+    key_action_map a = get_random_kam();
+    key_action_map b = get_random_kam();
+    assert(a != b);
+    std::srand(rng_seed);
+    key_action_map c = get_random_kam();
+    assert(a == c);
+    const int other_seed = 111;
+    std::srand(other_seed);
+    key_action_map d = get_random_kam();
+    assert(a != d);
   }
 
 #endif

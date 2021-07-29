@@ -1,6 +1,7 @@
 #include "game.h"
 #include "projectile.h"
 #include "projectile_type.h"
+#include "action_type.h"
 
 #include <cassert>
 #include <cmath>
@@ -141,52 +142,51 @@ void game::do_action(const int player_index, action_type action)
   do_action(m_player[player_index], action);
 }
 
-void game::do_action( player& player, action_type action)
+void game::do_action(player& player, action_type action)
 {
   if(!(player.get_state() == player_state::stunned))
+  {
+    switch (action)
     {
-      switch (action)
-
-        {
-        case action_type::turn_left:
-          {
-            player.turn_left();
-            break;
-          }
-        case action_type::turn_right:
-          {
-            player.turn_right();
-            break;
-          }
-        case action_type::accelerate:
-          {
-            player.accelerate();
-            break;
-          }
-        case action_type::brake:
-          {
-            player.brake();
-            break;
-          }
-        case action_type::acc_backward:
-          {
-            player.acc_backward();
-            break;
-          }
-        case action_type::shoot:
-          {
-            player.shoot();
-            break;
-          }
-        case action_type::stun:
-          {
-            stun(player);
-            break;
-          }
-        case action_type::none:
-          return;
-        }
+      case action_type::turn_left:
+      {
+        player.turn_left();
+        break;
+      }
+      case action_type::turn_right:
+      {
+        player.turn_right();
+        break;
+      }
+      case action_type::accelerate:
+      {
+        player.accelerate();
+        break;
+      }
+      case action_type::brake:
+      {
+        player.brake();
+        break;
+      }
+      case action_type::acc_backward:
+      {
+        player.acc_backward();
+        break;
+      }
+      case action_type::shoot:
+      {
+        player.shoot();
+        break;
+      }
+      case action_type::shoot_stun_rocket:
+      {
+        player.shoot_stun_rocket();
+        break;
+      }
+      case action_type::none:
+        return;
     }
+  }
 }
 
 void game::do_actions() noexcept
@@ -243,9 +243,37 @@ void game::move_projectiles()
 {
   for (auto &p : m_projectiles)
     {
-      p.set_type(projectile_type::rocket);
+//      p.set_type(projectile_type::rocket);
       p.move();
     }
+}
+
+void game::projectile_collision()
+{
+
+  const int n_projectiles = count_n_projectiles(*this);
+  // For every projectile ...
+
+  for (int i = 0 ; i != n_projectiles ; ++i)
+  {
+    //For every player...
+    const int n_players = static_cast<int>(get_v_player().size());
+    for(int j = 0; j != n_players; ++j)
+    {
+      // if it is not the one that shot it ...
+      #ifdef NEED_TO_WRITE_THIS_ISSUE_241
+      if(!(this->get_projectiles()[i].get_owner() == j))
+      {
+
+      }
+      #endif // NEED_TO_WRITE_THIS_ISSUE_241
+      // If the projectile touches the player ...
+
+      // if the projectile is a stun rocket: stun the player
+
+      // projectile disappears
+    }
+  }
 }
 
 void game::tick()
@@ -258,10 +286,13 @@ void game::tick()
   // Moves the projectiles
   move_projectiles();
 
-  // for now only applies inertia
+  //Projectiles hit the players
+  projectile_collision();
+
+  // For now only applies inertia
   apply_inertia();
 
-  //move shelters
+  //Move shelters
   move_shelter();
 
   //Actions issued by the players are executed
@@ -282,6 +313,17 @@ void game::tick()
         }
       p.stop_shooting();
       assert(!p.is_shooting());
+
+      if (p.is_shooting_stun_rocket())
+        {
+          // Put the projectile just in front outside of the player
+          const double d{p.get_direction()};
+          const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
+          const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
+          m_projectiles.push_back(projectile(x, y, d, projectile_type::stun_rocket));
+        }
+      p.stop_shooting_stun_rocket();
+      assert(!p.is_shooting_stun_rocket());
     }
 
   // and updates m_n_ticks
@@ -612,10 +654,11 @@ void test_game() //!OCLINT tests may be many
   // A game responds to actions: player can shoot
   {
     game g;
-    assert(count_n_projectiles(g) == 0);
+    const int n_projectiles_before{count_n_projectiles(g)};
     g.do_action(0, action_type::shoot);
     // Without a tick, no projectile is formed yet
-    assert(count_n_projectiles(g) == 0);
+    const int n_projectiles_after{count_n_projectiles(g)};
+    assert(n_projectiles_before == n_projectiles_after);
   }
   // A game responds to actions: player can do nothing
   {
@@ -647,22 +690,14 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
-  // A game responds to actions: player can be stunned
-  {
-    game g;
-    for (auto i = 0; i < static_cast< int>(g.get_v_player().size()); ++i)
-      {
-        assert(!is_stunned(g.get_player(i)));
-        g.do_action(i, action_type::stun);
-        assert(is_stunned(g.get_player(i)));
-      }
-  }
+
   // Projectiles move
   {
     game g;
+    // Create 1 projectile for sure (there may be more)
     g.do_action(0, action_type::shoot);
     g.tick();
-    assert(count_n_projectiles(g) == 1);
+    assert(count_n_projectiles(g) >= 1);
     const double x_before{g.get_projectiles()[0].get_x()};
     const double y_before{g.get_projectiles()[0].get_y()};
     g.tick();
@@ -793,6 +828,13 @@ void test_game() //!OCLINT tests may be many
     const auto n_player_afteragain = count_alive_players(g);
     assert(n_player_afteragain == n_players_after);
   }
+
+  {
+  //  The stun rocket should not be fired at the very beginning
+  const game g;
+  assert(count_n_projectiles(g) == 0);
+  }
+
 #else // FIX_ISSUE_233
   // [PRS] #233 make winning PRS player bigger
   {
@@ -1387,6 +1429,37 @@ void test_game() //!OCLINT tests may be many
     assert(have_same_position(n_projectile,Some_random_point));
   }
 #endif
+
+  //#define FIX_ISSUE_241
+  #ifdef FIX_ISSUE_241
+  //Player 1 can stun player 2 with a stun rocket
+  {
+    game g;
+
+    // Shoot the stun rocket
+    g.do_action(0, action_type::shoot_stun_rocket);
+    g.tick();
+    assert(count_n_projectiles(g) == 1);
+
+    // Put the stun rocket on top of player 2 (at index 1)
+    g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
+    g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
+
+    // Player 2 should not be stunned yet
+    assert(!(is_stunned(g.get_v_player()[1])));
+
+    // Stun rocket is there
+    assert(count_n_projectiles(g) == 1);
+
+    g.tick();
+
+    // Stun rocket should disappear
+    assert(count_n_projectiles(g) == 0);
+
+    // Player 2 is now stunned yet
+    assert(is_stunned(g.get_v_player()[1]));
+  }
+  #endif // FIX_ISSUE_241
 
 #endif // no tests in release
 }
