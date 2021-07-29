@@ -135,5 +135,19 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_303
 
+  #ifdef FIX_ISSUE_353
+  {
+    // Random game options should not draw keys already used by another player
+    const int rng_seed = 271; // by default this will assign A to both players
+    const game_options rgo = get_random_game_options(rng_seed);
+    key_action_map map_1 = rgo.get_kam_1();
+    key_action_map map_2 = rgo.get_kam_2();
+    bool a = map_1.has_key(sf::Keyboard::Key::A);
+    bool b = map_2.has_key(sf::Keyboard::Key::A);
+    // Key A is in KAM1 or KAM2 but not both
+    assert(a != b);
+  }
+  #endif // FIX_ISSUE_353
+
   #endif // NDEBUG
 }
