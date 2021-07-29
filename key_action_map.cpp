@@ -180,14 +180,6 @@ void test_key_action_map()//!OCLINT tests can be many
     assert( m.has_key(sf::Keyboard::Q));
     assert(!m.has_key(sf::Keyboard::L));
   }
-// #define FIX_ISSUE_304
-#ifdef FIX_ISSUE_304
-  //Get the stun key
-  {
-    const key_action_map m = get_player_1_kam();
-    assert(m.get_stun_key() == sf::Keyboard::Num1);
-  }
-#endif // FIX_ISSUE_304
 
   //Giving a key that is not in the map returns a action_type::none action
   //but does not crash the program
@@ -265,6 +257,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(kam.to_key(action_type::accelerate) == sf::Keyboard::W);
     assert(kam.to_key(action_type::brake) == sf::Keyboard::S);
     assert(kam.to_key(action_type::shoot) == sf::Keyboard::Q);
+    assert(kam.to_key(action_type::shoot_stun_rocket) == sf::Keyboard::Num1);
   }
 #endif // FIX_ISSUE_355
 
