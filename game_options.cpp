@@ -14,12 +14,15 @@ game_options::game_options(
 
 }
 
-bool operator == (const game_options& lhs, const game_options& rhs) noexcept {
+bool operator== (const game_options& lhs, const game_options& rhs) noexcept {
   // Check if left-hand side is equal to the right-hand side
-  return lhs.is_playing_music()==rhs.is_playing_music();
+  return lhs.get_kam_1() == rhs.get_kam_1()
+      && lhs.get_kam_2() == rhs.get_kam_2()
+      && lhs.get_rng_seed() == rhs.get_rng_seed()
+      && lhs.is_playing_music() == rhs.is_playing_music();
 }
 
-bool operator != (const game_options& lhs, const game_options& rhs) noexcept {
+bool operator!= (const game_options& lhs, const game_options& rhs) noexcept {
   return !(lhs==rhs);
 }
 

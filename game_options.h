@@ -34,7 +34,8 @@ private:
   key_action_map m_kam_2;
 };
 
-bool operator == (const game_options& lhs, const game_options& rhs) noexcept;
+bool operator== (const game_options& lhs, const game_options& rhs) noexcept;
+bool operator!= (const game_options& lhs, const game_options& rhs) noexcept;
 
 ///Turns off the sound in options
 void music_off(game_options& o) noexcept;
