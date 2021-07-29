@@ -28,6 +28,27 @@ action_type key_action_map::to_action(sf::Keyboard::Key key) const noexcept
   return action_type::none;
 }
 
+bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
+{
+  if (m_map.find(key) != m_map.end())
+    {
+      return true;
+    }
+
+  return false;
+
+}
+
+bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept
+{
+  return lhs.get_raw_map() == rhs.get_raw_map();
+}
+
+bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept
+{
+  return !(lhs.get_raw_map() == rhs.get_raw_map());
+}
+
 key_action_map get_player_1_kam()
 {
   return key_action_map();
@@ -90,27 +111,6 @@ key_action_map get_random_kam()
       );
 }
 
-
-bool key_action_map::has_key(sf::Keyboard::Key key) const noexcept
-{
-  if (m_map.find(key) != m_map.end())
-    {
-      return true;
-    }
-
-  return false;
-
-}
-
-bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept
-{
-  return lhs.get_raw_map() == rhs.get_raw_map();
-}
-
-bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept
-{
-  return !(lhs.get_raw_map() == rhs.get_raw_map());
-}
 void test_key_action_map()//!OCLINT tests can be many
 {
 #ifndef NDEBUG // no tests in release
@@ -170,6 +170,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert( m.has_key(sf::Keyboard::Q));
     assert(!m.has_key(sf::Keyboard::L));
   }
+#define FIX_ISSUE_304
 #ifdef FIX_ISSUE_304
   //Get the stun key
   {
