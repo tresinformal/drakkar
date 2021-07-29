@@ -47,6 +47,11 @@ int get_opaqueness(const color &c) noexcept;
 /// Get the redness
 int get_redness(const color &c) noexcept;
 
+/// Ready-made colors
+color create_red_color();
+color create_green_color();
+color create_blue_color();
+
 /// Test the color class
 void test_color();
 
