@@ -130,7 +130,7 @@ void test_color()
     const color c;
     std::cout << c;
   }
-  //#define FIX_ISSUE_322
+#define FIX_ISSUE_322
 #ifdef FIX_ISSUE_322
   // Colors have the correct RGB values
   {
