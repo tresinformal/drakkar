@@ -63,7 +63,8 @@ void test_game_options()
   // Music can be switched off
   {
     const bool do_play_music = false;
-    const game_options g(0, do_play_music);
+    const int rng_seed = 0;
+    const game_options g(rng_seed, do_play_music);
     assert(!g.is_playing_music());
   }
 
@@ -139,6 +140,7 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_303
 
+  // #define FIX_ISSUE_353
   #ifdef FIX_ISSUE_353
   {
     // Random game options should not draw keys already used by another player
