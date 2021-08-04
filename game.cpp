@@ -1413,7 +1413,7 @@ void test_game() //!OCLINT tests may be many
 
 #ifdef FIX_ISSUE_321
   {
-    Coordinate Some_random_point(1,1);
+    coordinate Some_random_point(1,1);
     food n_food;
     player n_player;
     projectile n_projectile;

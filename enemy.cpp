@@ -35,7 +35,7 @@ void test_enemy()
     //#define FIX_ISSUE_328
     #ifdef FIX_ISSUE_328
     {
-      Coordinate some_random_point(1,1);
+      coordinate some_random_point(1,1);
       enemy n_enemy(some_random_point);
       assert(n_enemy.get_position()==some_random_point);
     }
