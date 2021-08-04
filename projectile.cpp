@@ -3,7 +3,7 @@
 #include <cmath>
 
 projectile::projectile(
-  const coordinate c, const double x, const double y, const double direction, const projectile_type p,
+  const double x, const double y, const double direction, const projectile_type p,
   const double radius)
   : m_x{x}, m_y{y}, m_direction{direction}, m_projectile_type{p}, m_radius{radius}
 
@@ -35,7 +35,7 @@ void test_projectile()
   }
   #endif
 
-#define FIX_ISSUE_327
+//#define FIX_ISSUE_327
 #ifdef FIX_ISSUE_327
   {
     coordinate c{1.23456, 123456.789};

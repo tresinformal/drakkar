@@ -7,8 +7,7 @@
 class projectile
 {
 public:
-  projectile(const coordinate c,
-             const double x = 0.0, const double y = 0.0,
+  projectile(const double x = 0.0, const double y = 0.0,
              const double direction = 0.0, projectile_type = projectile_type::rocket,
              const double radius = 100);
 

@@ -14,4 +14,6 @@ public:
   bool operator!=(coordinate in_coord);
 };
 
+void test_coordinate();
+
 #endif // COORDINATE_H
