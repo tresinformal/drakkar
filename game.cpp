@@ -1231,18 +1231,32 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_244
 #ifdef FIX_ISSUE_244
-
   {
     game g;
     const auto init_player_size = get_nth_player_size(g,0);
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_player(0).get_diameter() > init_player_size);
-
   }
 
 #endif
+
+//#define FIX_ISSUE_359
+#ifdef FIX_ISSUE_359
+  {
+    game g;
+    const auto init_nb_of_food = g.get_food().size();
+    // Food should not be consumed if nothing happens
+    g.tick();
+    assert(g.get_food().size() == init_nb_of_food);
+    // Food should be consumed if a player is on it
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    g.tick();
+    assert(g.get_food().size() == init_nb_of_food - 1);
+  }
+#endif // FIX_ISSUE_359
 
 #define FIX_ISSUE_247
 #ifdef FIX_ISSUE_247
@@ -1255,7 +1269,7 @@ void test_game() //!OCLINT tests may be many
     put_player_on_food(p,f);
     assert(player_and_food_are_colliding(p,f));
   }
-#endif
+#endif // FIX_ISSUE_247
 
 #ifdef FIX_ISSUE_248
 
