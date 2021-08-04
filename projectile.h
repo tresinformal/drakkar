@@ -1,12 +1,14 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 #include "projectile_type.h"
+#include "coordinate.h"
 
 /// A projectile has the virtual shape of a circle
 class projectile
 {
 public:
-  projectile(const double x = 0.0, const double y = 0.0,
+  projectile(const coordinate c,
+             const double x = 0.0, const double y = 0.0,
              const double direction = 0.0, projectile_type = projectile_type::rocket,
              const double radius = 100);
 
