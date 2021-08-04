@@ -495,6 +495,11 @@ void put_player_on_food(player &p, const food &f)
   p.place_to_position(get_position(f));
 }
 
+bool player_and_food_are_colliding(const player &p, const food &f)
+{
+  return p.get_x() == f.get_x() && p.get_y() == f.get_y();
+}
+
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p)
 {
   // Put the projectile just in front outside of the player
@@ -1239,14 +1244,16 @@ void test_game() //!OCLINT tests may be many
 
 #endif
 
+#define FIX_ISSUE_247
 #ifdef FIX_ISSUE_247
   {
-    player p;
-    food f;
+    double p_x = 12.3;
+    double f_x = p_x + 1.0;
+    player p{p_x};
+    food f{f_x};
     assert(!player_and_food_are_colliding(p,f));
     put_player_on_food(p,f);
     assert(player_and_food_are_colliding(p,f));
-
   }
 #endif
 
