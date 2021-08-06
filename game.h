@@ -155,8 +155,11 @@ private:
   /// Moves the projectiles
   void move_projectiles();
 
-  /// Processess the collsion between projectiles and players
+  /// Processess the collision between projectiles and players
   void projectile_collision();
+
+  // Make players eat food items they are on top of
+  void make_players_eat_food();
 };
 
 

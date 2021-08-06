@@ -301,6 +301,9 @@ void game::tick()
   //Check and resolve wall collisions
   do_wall_collisions();
 
+  // Make players eat food
+  make_players_eat_food();
+
   // players that shoot must generate projectiles
   for (player &p : m_player)
     {
@@ -551,6 +554,21 @@ player game::wall_collision(player p)
     }
 
   return p;
+}
+
+void game::make_players_eat_food()
+{
+  for(auto& player : m_player)
+    {
+      for(auto& food : m_food)
+       {
+          if (player_and_food_are_colliding(player, food))
+            {
+              eat_food(food);
+              make_player_grow(player);
+            }
+       }
+    }
 }
 
 std::default_random_engine& game::get_rng() noexcept
