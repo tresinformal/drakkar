@@ -1248,13 +1248,14 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+// #define FIX_ISSUE_238
 #ifdef FIX_ISSUE_238
-  //Food and player can be overlapped
+  // The game can be checked for any collision between food and players
   {
     game g;
-    assert(!has_player_food_collision(g));
+    assert(!any_player_food_collision(g));
     put_player_on_food(g.get_player(0), g.get_food()[0]);
-    assert(has_player_food_collision(g));
+    assert(any_player_food_collision(g));
   }
 #endif
 
