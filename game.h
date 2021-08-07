@@ -160,6 +160,9 @@ private:
 
   // Make players eat food items they are on top of
   void make_players_eat_food();
+
+  // Switch a food item's state to eaten
+  void eat_food(food& f);
 };
 
 

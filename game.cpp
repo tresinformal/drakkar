@@ -562,13 +562,22 @@ void game::make_players_eat_food()
     {
       for(auto& food : m_food)
        {
-          if (player_and_food_are_colliding(player, food))
+          if (player_and_food_are_colliding(player, food)
+              && !food.is_eaten())
             {
               eat_food(food);
-              make_player_grow(player);
+              player.grow();
             }
        }
     }
+}
+
+void game::eat_food(food& f)
+{
+  if(f.is_eaten()) {
+      throw std::logic_error("You cannot eat food that already has been eaten!");
+    }
+  f.set_food_state(food_state::eaten);
 }
 
 std::default_random_engine& game::get_rng() noexcept
