@@ -413,6 +413,21 @@ bool has_food_collision(const game &) noexcept
   return false;
 }
 
+bool any_player_food_collision(const game& g)
+{
+  for (auto& p : g.get_v_player())
+    {
+      for(auto& f : g.get_food())
+        {
+          if (player_and_food_are_colliding(p, f))
+            {
+              return true;
+            }
+        }
+    }
+  return false;
+}
+
 bool have_same_position(const player& p, const food& f)
 {
   return p.get_x() - f.get_x() < 0.0001 &&
@@ -1223,16 +1238,15 @@ void test_game() //!OCLINT tests may be many
   }
 
 #ifdef FIX_ISSUE_236
-  //When a player touches food it destroys it
+  //When a player touches food it eats it
   {
-
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     assert(has_food(g))
-        assert(has_player_food_collision(g));
+        assert(any_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
-    assert(!has_player_food_collision(g));
+    assert(!any_player_food_collision(g));
 
   }
 #endif
@@ -1248,7 +1262,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-// #define FIX_ISSUE_238
+#define FIX_ISSUE_238
 #ifdef FIX_ISSUE_238
   // The game can be checked for any collision between food and players
   {
