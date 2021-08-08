@@ -1216,7 +1216,7 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(g.get_player(0)));
   }
 
-// #define FIX_ISSUE_236
+#define FIX_ISSUE_236
 #ifdef FIX_ISSUE_236
   //When a player touches food it eats it
   {
