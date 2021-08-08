@@ -570,7 +570,7 @@ void game::make_players_eat_food()
           if (in_contact_with_uneaten_food(player, get_food()[i]))
             {
               eat_nth_food(i);
-              // player.grow();
+              player.grow();
             }
        }
     }
@@ -1252,7 +1252,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-// #define FIX_ISSUE_244
+#define FIX_ISSUE_244
 #ifdef FIX_ISSUE_244
   {
     game g;
