@@ -570,7 +570,7 @@ void game::make_players_eat_food()
           if (in_contact_with_uneaten_food(player, get_food()[i]))
             {
               eat_nth_food(i);
-              player.grow();
+              // player.grow();
             }
        }
     }
