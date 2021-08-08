@@ -562,14 +562,14 @@ player game::wall_collision(player p)
 
 void game::make_players_eat_food()
 {
+  int n_food = static_cast<int>(get_food().size());
   for(auto& player : m_player)
     {
-      for(auto& food : m_food)
+      for(int i = 0; i < n_food; ++i)
        {
-          if (in_contact_with_uneaten_food(player, food)
-              && !food.is_eaten())
+          if (in_contact_with_uneaten_food(player, get_food()[i]))
             {
-              eat_food(food);
+              eat_nth_food(i);
               player.grow();
             }
        }
@@ -1216,7 +1216,7 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(g.get_player(0)));
   }
 
-#define FIX_ISSUE_236
+// #define FIX_ISSUE_236
 #ifdef FIX_ISSUE_236
   //When a player touches food it eats it
   {
@@ -1286,12 +1286,13 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+// #define FIX_ISSUE_254
 #ifdef FIX_ISSUE_254
   {
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
-    assert(is_eaten(g.get_food()[0]))
+    assert(g.get_food()[0].is_eaten());
   }
 #endif
 
@@ -1324,13 +1325,14 @@ void test_game() //!OCLINT tests may be many
     assert(n_food_items_begin == count_food_items(g));
   }
 
+#define FIX_ISSUE_256
 #ifdef FIX_ISSUE_256
   {
     food f;
     player p;
     put_player_on_food(p, f);
     assert(in_contact_with_uneaten_food(p,f));
-    g.eat_nth_food(0);
+    f.set_food_state(food_state::eaten);
     assert(!in_contact_with_uneaten_food(p,f));
   }
 #endif
