@@ -189,9 +189,6 @@ bool has_collision(const player& pl, const projectile& p);
 /// Is there a collision between an enemy and player?
 bool has_enemy_collision(const game& g);
 
-///Checks if there are collisions with food items
-bool has_food_collision(const game &) noexcept;
-
 ///Checks if a player and food have the same exact position
 bool have_same_position(const player& p, const food& f);
 
@@ -212,6 +209,9 @@ void put_player_on_food(player& p, const food &f);
 
 /// Check that player and food are on top of one another
 bool player_and_food_are_colliding(const player &p, const food &f);
+
+/// Check the game for any collision between food and players
+bool any_player_food_collision(const game& g);
 
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);

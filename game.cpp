@@ -112,14 +112,13 @@ int count_food_items(const game &g)
 bool has_food(const game &g)
 {
   std::vector<food> v_food{g.get_food()};
-  int count = 0;
   for (unsigned int i = 0; i < v_food.size(); i++) {
       if (!v_food[i].is_eaten())
         {
-          count++;
+          return true;
         }
     }
-  return count > 0 ;
+  return false ;
 }
 
 void eat_nth_food(game &g, const int n)
@@ -404,11 +403,6 @@ bool has_wall_collision(const game& g)
 }
 
 bool has_enemy_collision(const game&)
-{
-  return false;
-}
-
-bool has_food_collision(const game &) noexcept
 {
   return false;
 }
@@ -980,7 +974,7 @@ void test_game() //!OCLINT tests may be many
   // In the start of the game, there is no player-food collision
   {
     game g;
-    assert(!has_food_collision(g));
+    assert(!any_player_food_collision(g));
   }
 
   //Can modify food items, for example, delete all food items
@@ -1078,7 +1072,7 @@ void test_game() //!OCLINT tests may be many
   // In the start of the game, there is no player-food collision
   {
     game g;
-    assert(!has_food_collision(g));
+    assert(!any_player_food_collision(g));
   }
 
   //Can modify food items, for example, delete all food items
@@ -1237,17 +1231,17 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(g.get_player(0)));
   }
 
+#define FIX_ISSUE_236
 #ifdef FIX_ISSUE_236
   //When a player touches food it eats it
   {
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
-    assert(has_food(g))
-        assert(any_player_food_collision(g));
+    assert(has_food(g));
+    assert(any_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
     assert(!any_player_food_collision(g));
-
   }
 #endif
 
@@ -1273,7 +1267,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define FIX_ISSUE_244
+// #define FIX_ISSUE_244
 #ifdef FIX_ISSUE_244
   {
     game g;
