@@ -1286,7 +1286,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-// #define FIX_ISSUE_254
+#define FIX_ISSUE_254
 #ifdef FIX_ISSUE_254
   {
     game g;
