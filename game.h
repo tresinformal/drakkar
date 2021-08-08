@@ -205,7 +205,7 @@ void kill_losing_player(game &);
 void put_player_on_food(player& p, const food &f);
 
 /// Check that player and food are on top of one another
-bool player_and_food_are_colliding(const player &p, const food &f);
+bool in_contact_with_uneaten_food(const player &p, const food &f);
 
 /// Check the game for any collision between food and players
 bool any_player_food_collision(const game& g);

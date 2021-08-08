@@ -402,29 +402,6 @@ bool has_wall_collision(const game& g)
   return false;
 }
 
-bool any_player_food_collision(const game& g)
-{
-  for (auto& p : g.get_v_player())
-    {
-      for(auto& f : g.get_food())
-        {
-          if (in_contact_with_uneaten_food(p, f))
-            {
-              return true;
-            }
-        }
-    }
-  return false;
-}
-
-bool have_same_position(const player& p, const food& f)
-{
-  return p.get_x() - f.get_x() < 0.0001 &&
-      p.get_x() - f.get_x() > -0.0001 &&
-      p.get_y() - f.get_y() < 0.0001 &&
-      p.get_y() - f.get_y() > -0.0001;
-}
-
 bool hits_south_wall(const player& p, const environment& e)
 {
   return p.get_y() + p.get_diameter()/2 > e.get_max_y();
@@ -502,9 +479,32 @@ void put_player_on_food(player &p, const food &f)
   p.place_to_position(get_position(f));
 }
 
+bool have_same_position(const player& p, const food& f)
+{
+  return p.get_x() - f.get_x() < 0.0001 &&
+      p.get_x() - f.get_x() > -0.0001 &&
+      p.get_y() - f.get_y() < 0.0001 &&
+      p.get_y() - f.get_y() > -0.0001;
+}
+
 bool in_contact_with_uneaten_food(const player &p, const food &f)
 {
-  return p.get_x() == f.get_x() && p.get_y() == f.get_y();
+  return have_same_position(p, f) && !f.is_eaten();
+}
+
+bool any_player_food_collision(const game& g)
+{
+  for (auto& p : g.get_v_player())
+    {
+      for(auto& f : g.get_food())
+        {
+          if (in_contact_with_uneaten_food(p, f))
+            {
+              return true;
+            }
+        }
+    }
+  return false;
 }
 
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p)
