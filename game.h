@@ -117,6 +117,9 @@ public:
   ///Manages collisons with walls
   player wall_collision(player p);
 
+  // Eat nth food item
+  void eat_nth_food(const int n);
+
 private:
 
   /// The RNG engine
