@@ -402,11 +402,6 @@ bool has_wall_collision(const game& g)
   return false;
 }
 
-bool has_enemy_collision(const game&)
-{
-  return false;
-}
-
 bool any_player_food_collision(const game& g)
 {
   for (auto& p : g.get_v_player())
@@ -985,11 +980,6 @@ void test_game() //!OCLINT tests may be many
     g.get_food().clear();
     assert(g.get_food().empty());
   }
-  // In the start of the game, there is no player-enemy collision
-  {
-    game g;
-    assert(!has_enemy_collision(g));
-  }
   //If red eats green then red survives
   {
     game g;
@@ -1082,11 +1072,6 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_food().empty());
     g.get_food().clear();
     assert(g.get_food().empty());
-  }
-  // In the start of the game, there is no player-enemy collision
-  {
-    game g;
-    assert(!has_enemy_collision(g));
   }
   //If red eats green then red survives
   {
