@@ -186,9 +186,6 @@ bool has_collision(const game &g) noexcept;
 /// Determines if the player and projectile collide
 bool has_collision(const player& pl, const projectile& p);
 
-/// Is there a collision between an enemy and player?
-bool has_enemy_collision(const game& g);
-
 ///Checks if a player and food have the same exact position
 bool have_same_position(const player& p, const food& f);
 

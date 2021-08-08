@@ -408,7 +408,7 @@ bool any_player_food_collision(const game& g)
     {
       for(auto& f : g.get_food())
         {
-          if (player_and_food_are_colliding(p, f))
+          if (in_contact_with_uneaten_food(p, f))
             {
               return true;
             }
@@ -502,7 +502,7 @@ void put_player_on_food(player &p, const food &f)
   p.place_to_position(get_position(f));
 }
 
-bool player_and_food_are_colliding(const player &p, const food &f)
+bool in_contact_with_uneaten_food(const player &p, const food &f)
 {
   return p.get_x() == f.get_x() && p.get_y() == f.get_y();
 }
@@ -566,7 +566,7 @@ void game::make_players_eat_food()
     {
       for(auto& food : m_food)
        {
-          if (player_and_food_are_colliding(player, food)
+          if (in_contact_with_uneaten_food(player, food)
               && !food.is_eaten())
             {
               eat_food(food);
@@ -1271,9 +1271,9 @@ void test_game() //!OCLINT tests may be many
     double f_x = p_x + 1.0;
     player p{p_x};
     food f{f_x};
-    assert(!player_and_food_are_colliding(p,f));
+    assert(!in_contact_with_uneaten_food(p,f));
     put_player_on_food(p,f);
-    assert(player_and_food_are_colliding(p,f));
+    assert(in_contact_with_uneaten_food(p,f));
   }
 #endif // FIX_ISSUE_247
 
@@ -1329,9 +1329,9 @@ void test_game() //!OCLINT tests may be many
     food f;
     player p;
     put_player_on_food(p, f);
-    assert(player_and_food_are_colliding(p,f));
+    assert(in_contact_with_uneaten_food(p,f));
     eat_nth_food(g,0);
-    assert(!player_and_food_are_colliding(p,f));
+    assert(!in_contact_with_uneaten_food(p,f));
   }
 #endif
 
