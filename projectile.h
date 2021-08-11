@@ -7,9 +7,11 @@
 class projectile
 {
 public:
-  projectile(const double x = 0.0, const double y = 0.0,
+  projectile(const coordinate c, const double x = 0.0, const double y = 0.0,
              const double direction = 0.0, projectile_type = projectile_type::rocket,
              const double radius = 100);
+
+  coordinate get_position() const noexcept { return m_coordinate; }
 
   double get_x() const noexcept { return m_x; }
   double get_y() const noexcept { return m_y; }
@@ -34,6 +36,9 @@ public:
   void set_y(const double y) { m_y = y; }
 
 private:
+  /// The coordinate
+  coordinate m_coordinate;
+
   /// The x coordinat
   double m_x;
 
