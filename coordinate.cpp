@@ -27,5 +27,18 @@ void test_coordinate() {
     assert(c.get_y() == 123456.789);
   }
   #endif // FIX_ISSUE_356
+
+  #define FIX_ISSUE_331
+  #ifdef FIX_ISSUE_331
+  {
+    double x = 1.23456;
+    double y = 123456.789;
+    coordinate c1{x, y};
+    coordinate c2{x, y};
+    assert(c1 == c2);
+    coordinate c3{x + 1.0, y};
+    assert(c1 != c3);
+  }
+  #endif
 }
 
