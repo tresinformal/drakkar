@@ -13,8 +13,7 @@ public:
 
   coordinate get_position() const noexcept { return m_coordinate; }
 
-  double get_x() const noexcept { return m_x; }
-  double get_y() const noexcept { return m_y; }
+
 
   /// Get the direction of player movement
   double get_direction() const noexcept { return m_direction; }
@@ -30,6 +29,12 @@ public:
   projectile_type get_type() const { return m_projectile_type; }
 
   void set_type(const projectile_type &p_type) noexcept { m_projectile_type = p_type; }
+
+//  const double get_x() { return m_coordinate.get_x(); }
+//  const double get_y() { return m_coordinate.get_y(); }
+
+  double get_x() const noexcept { return m_coordinate.get_x();}
+  double get_y() const noexcept { return m_coordinate.get_y();}
 
 
   void set_x(const double x) { m_coordinate.set_x(x); }

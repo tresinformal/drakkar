@@ -12,8 +12,8 @@ projectile::projectile(
 
 void projectile::move()
 {
-  m_x += std::cos(m_direction);
-  m_y += std::sin(m_direction);
+  m_coordinate.set_x(m_coordinate.get_x() + std::cos(m_direction));
+  m_coordinate.set_y(m_coordinate.get_y() + std::sin(m_direction));
 }
 
 void test_projectile()

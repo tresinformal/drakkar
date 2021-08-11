@@ -320,7 +320,8 @@ void game::tick()
           const double d{p.get_direction()};
           const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
           const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
-          m_projectiles.push_back(projectile(x, y, d, projectile_type::stun_rocket));
+          const coordinate c{x ,y};
+          m_projectiles.push_back(projectile(c, d, projectile_type::stun_rocket));
         }
       p.stop_shooting_stun_rocket();
       assert(!p.is_shooting_stun_rocket());
@@ -501,7 +502,8 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
   const double d{p.get_direction()};
   const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
   const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
-  projectiles.push_back(projectile(x, y, d));
+  const coordinate c{x, y};
+  projectiles.push_back(projectile(c, d));
 }
 
 void game::kill_player(const int index)
