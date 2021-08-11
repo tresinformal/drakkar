@@ -7,7 +7,7 @@
 class projectile
 {
 public:
-  projectile(const coordinate c, const double x = 0.0, const double y = 0.0,
+  projectile(const coordinate c,
              const double direction = 0.0, projectile_type = projectile_type::rocket,
              const double radius = 100);
 
@@ -32,18 +32,12 @@ public:
   void set_type(const projectile_type &p_type) noexcept { m_projectile_type = p_type; }
 
 
-  void set_x(const double x) { m_x = x; }
-  void set_y(const double y) { m_y = y; }
+  void set_x(const double x) { m_coordinate.set_x(x); }
+  void set_y(const double y) { m_coordinate.set_y(y); }
 
 private:
   /// The coordinate
   coordinate m_coordinate;
-
-  /// The x coordinat
-  double m_x;
-
-  /// The y coordinat
-  double m_y;
 
   /// The direction of projectile in radians
   double m_direction;

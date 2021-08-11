@@ -23,10 +23,11 @@ void test_projectile()
   {
     const double x{1.2};
     const double y{3.4};
+    const coordinate c{x, y};
     const double d{5.6};
     const projectile_type t = projectile_type::cat;
     const double r{7.8};
-    const projectile p(x, y, d, t, r);
+    const projectile p(c, d, t, r);
     assert(x == p.get_x());
     assert(y == p.get_y());
     assert(d == p.get_direction());
