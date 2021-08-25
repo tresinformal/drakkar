@@ -251,10 +251,9 @@ void game::move_projectiles()
 void game::projectile_collision()
 {
 
-  const int n_projectiles = count_n_projectiles(*this);
   // For every projectile ...
 
-  for (int i = 0 ; i != n_projectiles ; ++i)
+  for (int i = 0 ; i != count_n_projectiles(*this) ; ++i)
   {
     //For every player...
     const int n_players = static_cast<int>(get_v_player().size());
@@ -279,8 +278,7 @@ void game::projectile_collision()
                   std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()-1]);
                   this-> m_projectiles.pop_back();
 
-                }
-
+              }
           }
       }
 
