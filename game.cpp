@@ -276,7 +276,7 @@ void game::projectile_collision()
                   this-> m_player[j].set_state(player_state::stunned);
 
                   // projectile disappears
-                  std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()]);
+                  std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()-1]);
                   this-> m_projectiles.pop_back();
 
                 }
