@@ -268,10 +268,21 @@ void game::projectile_collision()
       }
       #endif // NEED_TO_WRITE_THIS_ISSUE_241
       // If the projectile touches the player ...
+      if(this-> m_projectiles[i].get_x() == this-> m_player[j].get_x())  {
+          if(this-> m_projectiles[i].get_y() == this-> m_player[j].get_y())  {
 
-      // if the projectile is a stun rocket: stun the player
+              // if the projectile is a stun rocket: stun the player
+              if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
+                  this-> m_player[j].set_state(player_state::stunned);
 
-      // projectile disappears
+                  // projectile disappears
+
+
+                }
+
+          }
+      }
+
     }
   }
 }
@@ -1430,7 +1441,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  //#define FIX_ISSUE_241
+  #define FIX_ISSUE_241
   #ifdef FIX_ISSUE_241
   //Player 1 can stun player 2 with a stun rocket
   {
@@ -1454,6 +1465,7 @@ void test_game() //!OCLINT tests may be many
     g.tick();
 
     // Stun rocket should disappear
+    //THIS LINE DOESN't WORK
     assert(count_n_projectiles(g) == 0);
 
     // Player 2 is now stunned yet
