@@ -114,7 +114,7 @@ void test_color()
     assert(c == c1);
   }
 
-  //     operator!=
+  // operator!=
   {
     const color red{255, 0, 0};
     const color green{0, 255, 0};

@@ -89,10 +89,7 @@ key_action_map get_player_3_kam()
 
 sf::Keyboard::Key get_random_key()
 {
-  return static_cast<sf::Keyboard::Key>(
-        static_cast<int>(sf::Keyboard::Key::A) + (std::rand() % 26)
-        );
-  // return static_cast<sf::Keyboard::Key>(std::rand() % 26);
+  return static_cast<sf::Keyboard::Key>(std::rand() % 26);
 }
 
 key_action_map get_random_kam()
@@ -247,6 +244,15 @@ void test_key_action_map()//!OCLINT tests can be many
   }
 #endif // FIX_ISSUE_303
 #endif
+
+// #define FIX_ISSUE_304
+#ifdef FIX_ISSUE_304
+    //Get the stun key (Num1 by default)
+    {
+        const key_action_map m = get_player_1_kam();
+        assert(m.get_stun_key() == sf::Keyboard::Num1);
+    }
+#endif // FIX_ISSUE_304
 
 #define FIX_ISSUE_355
 #ifdef FIX_ISSUE_355
