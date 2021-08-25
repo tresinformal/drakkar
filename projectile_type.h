@@ -3,10 +3,10 @@
 #include <iosfwd>
 
 enum class projectile_type
-
 {
   rocket,
-  cat
+  cat,
+  stun_rocket
 };
 
 std::ostream &operator<<(std::ostream &os, const projectile_type t);

@@ -729,7 +729,11 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_position() == c);
   }
 #endif
-
+  #ifdef FIX_ISSUE_351
+  {
+    assert(to_str(player_state::active) == "active");
+  }
+  #endif
 #endif // no tests in release
 }
 

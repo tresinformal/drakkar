@@ -96,6 +96,9 @@ private:
   void draw_player_coords() noexcept;
 };
 
+/// Count the number of projectiles
+int count_n_projectiles(const game_view &g) noexcept;
+
 key_action_map get_player_kam(const player& p);
 
 /// Parses input for a player
