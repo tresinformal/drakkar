@@ -268,15 +268,16 @@ void game::projectile_collision()
       }
       #endif // NEED_TO_WRITE_THIS_ISSUE_241
       // If the projectile touches the player ...
-      if(this-> m_projectiles[i].get_x() == this-> m_player[j].get_x())  {
-          if(this-> m_projectiles[i].get_y() == this-> m_player[j].get_y())  {
+      if(this-> m_projectiles[i].get_x() > this-> m_player[j].get_x() - 2.0 && this-> m_projectiles[i].get_x() < this-> m_player[j].get_x() + 2.0)  {
+          if(this-> m_projectiles[i].get_y() > this-> m_player[j].get_y() - 2.0 && this-> m_projectiles[i].get_y() < this-> m_player[j].get_y() + 2.0)  {
 
               // if the projectile is a stun rocket: stun the player
               if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
                   this-> m_player[j].set_state(player_state::stunned);
 
                   // projectile disappears
-
+                  std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()]);
+                  this-> m_projectiles.pop_back();
 
                 }
 
@@ -1455,6 +1456,9 @@ void test_game() //!OCLINT tests may be many
     // Put the stun rocket on top of player 2 (at index 1)
     g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
     g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
+
+    assert(g.get_projectiles().back().get_x() == g.get_v_player()[1].get_x());
+    assert(g.get_projectiles().back().get_y() == g.get_v_player()[1].get_y());
 
     // Player 2 should not be stunned yet
     assert(!(is_stunned(g.get_v_player()[1])));
