@@ -89,9 +89,15 @@ private:
   /// Draws shelters
   void draw_shelters() noexcept;
 
+  /// Set fourth view for players coordinates
+  void set_player_coords_view() noexcept;
+
   /// Draw player coordinates
   void draw_player_coords() noexcept;
 };
+
+/// Count the number of projectiles
+int count_n_projectiles(const game_view &g) noexcept;
 
 key_action_map get_player_kam(const player& p);
 

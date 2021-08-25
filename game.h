@@ -154,11 +154,17 @@ private:
 
   /// Moves the projectiles
   void move_projectiles();
+
+  /// Processess the collsion between projectiles and players
+  void projectile_collision();
 };
 
 
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
+
+/// Calculate the variance of a vector of numbers
+double calc_var(const std::vector<double>& v);
 
 /// Add a projectile to the game
 void add_projectile(game& g, const projectile& p);
@@ -191,14 +197,15 @@ bool has_collision_with_projectile(const game &) noexcept;
 bool hits_wall(const player& p, const environment& e);
 
 std::vector<int> get_collision_members(const game &g) noexcept;
-///get the diametr of a player defined by "n" in a game
-double get_nth_player_diameter(const game& in_game,const int& id);
 /// Upon a collision, kills the player that loser
 /// Assumes there is a collision
 void kill_losing_player(game &);
 
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
+
+///Places a projectile in front of the player
+void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
 
 void test_game();
 

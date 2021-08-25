@@ -30,6 +30,9 @@ public:
   /// Get a picture of Rocket
   sf::Texture &get_rocket() noexcept { return m_rocket; }
 
+  /// Get a picture of stun rocket
+  sf::Texture &get_stun_rocket() noexcept { return m_stun_rocket; }
+
   /// Get a picture of a Cat
   sf::Texture &get_cat() noexcept { return m_cat; }
 
@@ -72,6 +75,9 @@ private:
 
   /// Rocket
   sf::Texture m_rocket;
+
+  /// Stun rocket
+  sf::Texture m_stun_rocket;
 
   /// A grass landscape
   sf::Texture m_grass_landscape;

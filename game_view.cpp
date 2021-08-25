@@ -80,6 +80,10 @@ void game_view::pl_3_stop_input(sf::Event event) noexcept
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
+int count_n_projectiles(const game_view &g) noexcept
+{
+  return count_n_projectiles(g.get_game());
+}
 
 bool game_view::process_events()
 {
@@ -110,19 +114,19 @@ bool game_view::process_events()
         }
 
     }
+    m_game.tick();
     return false; // if no events proceed with tick
 }
 
 void game_view::exec() noexcept
 {
-    while (m_window.isOpen())
-    {
-        bool must_quit{process_events()};
-        if (must_quit)
-            return;
-        m_game.tick();
-        show();
-    }
+  while (m_window.isOpen())
+  {
+    const bool must_quit{process_events()}; // This is where stun is processed
+    if (must_quit) return;
+    m_game.tick();
+    show();
+  }
 }
 
 void game_view::draw_background() noexcept
@@ -155,7 +159,8 @@ void game_view::draw_food() noexcept
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
     if(k == sf::Keyboard::Num1) {
-        this->m_game.do_action(0,action_type::stun);
+      /// stunning not shooting a rocket
+      this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
 }
 
@@ -223,6 +228,16 @@ void game_view::draw_projectiles() noexcept
             m_window.draw(rect);
         }
 
+        if (projectile.get_type() == projectile_type::stun_rocket){
+            // Create the projectile sprite
+            sf::RectangleShape rect(sf::Vector2f(381.0, 83.0));
+            rect.setRotation(static_cast<float>(90));
+            rect.setPosition(projectile.get_x(), projectile.get_y());
+            rect.setTexture(&m_game_resources.get_stun_rocket());
+            rect.rotate(projectile.get_direction() * 180 / M_PI);
+            m_window.draw(rect);
+        }
+
     }
 
 }
@@ -239,6 +254,16 @@ void game_view::draw_shelters() noexcept
                                       get_opaqueness(shelter)));
         m_window.draw(circle);
     }
+}
+
+void game_view::set_player_coords_view() noexcept
+{
+    sf::View player_coords_view(
+                sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
+                sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
+                );
+    player_coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
+    m_window.setView(player_coords_view);
 }
 
 void game_view::draw_player_coords() noexcept
@@ -285,13 +310,7 @@ void game_view::show() noexcept
 
     // Set fourth view for players coordinates
     #ifndef NDEBUG  // coordinates should not be visible in release
-    sf::View player_coords_view(
-                sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
-                sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
-                );
-    player_coords_view.setViewport(sf::FloatRect(0.5f, 0.0f, 0.5f, 0.5f));
-    m_window.setView(player_coords_view);
-
+    set_player_coords_view();
     // Display player coordinates on the fourth view
     draw_player_coords();
     #endif
@@ -305,7 +324,6 @@ void game_view::show() noexcept
         text.setScale(100.0, 100.0);
         m_window.draw(text);
     }
-
 
     // Display all shapes
     m_window.display();
@@ -487,22 +505,13 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-  // #define FIX_ISSUE_224
   // Pressing 1 stuns player 1
   {
     game_view g;
-    assert(!is_nth_player_stunned(g, 0));
+    assert(count_n_projectiles(g) == 0);
     g.press_key(sf::Keyboard::Num1);
     g.process_events(); // Needed to process the event
-    assert(is_nth_player_stunned(g, 0));
-  }
-  // Pressing the wrong key does not stun a player
-  {
-    game_view g;
-    assert(!is_nth_player_stunned(g, 0));
-    g.press_key(sf::Keyboard::Num2);
-    g.process_events(); // Needed to process the event
-    assert(!is_nth_player_stunned(g, 0));
+    assert(count_n_projectiles(g) == 1);
   }
   #endif
 }

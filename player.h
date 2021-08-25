@@ -79,6 +79,8 @@ public:
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool is_shooting() const noexcept { return m_is_shooting; }
 
+    bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
+
     ///Places a player to a given x,y poisition
     void place_to_position(const std::vector<double>& position) noexcept
     {
@@ -100,6 +102,10 @@ public:
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) makes the player stop shooting
     void stop_shooting() noexcept { m_is_shooting = false; }
+
+    void shoot_stun_rocket() noexcept { m_is_shooting_stun_rocket = true; }
+
+    void stop_shooting_stun_rocket() noexcept { m_is_shooting_stun_rocket = false; }
 
     /// Set a player x position
     void set_x(double x) noexcept { m_x = x; }
@@ -138,6 +144,8 @@ private:
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool m_is_shooting{false};
+
+    bool m_is_shooting_stun_rocket{false};
 
     ///ID of the player
     std::string m_ID;
