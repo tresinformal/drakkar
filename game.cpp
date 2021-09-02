@@ -278,6 +278,16 @@ void game::projectile_collision()
                   std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()-1]);
                   this-> m_projectiles.pop_back();
 
+                  // i can be invalid now, that is i can equal the number of projectiles
+                  // one option is:
+                  //
+                  //  --i;
+                  //
+                  // but this would be dangerous if the last project has disappeared
+                  //
+                  // a simple solution is:
+                  return;
+
               }
           }
       }
