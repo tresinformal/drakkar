@@ -2,10 +2,13 @@
 
 menu::menu( int w_width,  int w_height,
             std::string button1, std::string button2,
-            std::string button3)
+            std::string button3, std::string text1,
+            std::string text2, std::string text3)
   : m_window_width{w_width}, m_window_height{w_height},
-    m_v_buttons{menu_button(button1), menu_button(button2),
-                menu_button(button3)}
+    m_v_buttons{menu_button(button1),
+                menu_button(button2),
+                menu_button(button3)},
+    m_button_text{text1,text2,text3}
 {
   put_buttons_tidy();
 }

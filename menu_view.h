@@ -18,6 +18,9 @@ private:
   menu m_menu;
   sf::RenderWindow m_window;
 
+  /// The resources (images, sounds, etc.) of the game
+  game_resources m_game_resources;
+
   ///
   bool process_events();
 

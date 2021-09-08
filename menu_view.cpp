@@ -98,12 +98,13 @@ void menu_view::draw_buttons() noexcept
 
     //Add the text
     sf::Text text;
+    text.setFont(m_game_resources.get_font());
     text.setString("Hello world");
     //text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     sf::Color color_white = sf::Color::White;
     text.setFillColor(color_white);
 
-  text.setPosition(m_menu.get_button(i).get_x(),
+    text.setPosition(m_menu.get_button(i).get_x(),
                      m_menu.get_button(i).get_y());
     //text.setPosition(0.0, 0.0);
 
