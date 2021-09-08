@@ -1,4 +1,4 @@
-  #include "food.h"
+#include "food.h"
 #include <cassert>
 #include <cmath>
 #include <sstream>

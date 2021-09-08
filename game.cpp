@@ -340,7 +340,8 @@ void game::tick()
           const double d{p.get_direction()};
           const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
           const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
-          m_projectiles.push_back(projectile(x, y, d, projectile_type::stun_rocket));
+          const coordinate c{x ,y};
+          m_projectiles.push_back(projectile(c, d, projectile_type::stun_rocket));
         }
       p.stop_shooting_stun_rocket();
       assert(!p.is_shooting_stun_rocket());
@@ -521,7 +522,8 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
   const double d{p.get_direction()};
   const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
   const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
-  projectiles.push_back(projectile(x, y, d));
+  const coordinate c{x, y};
+  projectiles.push_back(projectile(c, d));
 }
 
 void game::kill_player(const int index)
@@ -923,7 +925,8 @@ void test_game() //!OCLINT tests may be many
     game g;
     const auto x = g.get_player(0).get_x();
     const auto y = g.get_player(0).get_y();
-    add_projectile(g, projectile(x, y));
+    const coordinate c{x, y};
+    add_projectile(g, projectile(c));
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
   }
@@ -933,7 +936,8 @@ void test_game() //!OCLINT tests may be many
     const double radius = 12.34;
     const auto x = g.get_player(0).get_x() + (0.99 * radius);
     const auto y = g.get_player(0).get_y();
-    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    const coordinate c{x, y};
+    const projectile p(c, 0.0, projectile_type::rocket, radius);
     add_projectile(g, p);
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
@@ -944,7 +948,8 @@ void test_game() //!OCLINT tests may be many
     const double radius = 12.34;
     const auto x = g.get_player(0).get_x() + (1.01*radius);
     const auto y = g.get_player(0).get_y();
-    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    const coordinate c{x, y};
+    const projectile p(c, 0.0, projectile_type::rocket, radius);
     add_projectile(g, p);
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
@@ -1015,8 +1020,8 @@ void test_game() //!OCLINT tests may be many
     game g;
     const auto x = g.get_player(0).get_x();
     const auto y = g.get_player(0).get_y();
-
-    add_projectile(g, projectile(x, y));
+    const coordinate c{x, y};
+    add_projectile(g, projectile(c));
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
   }
@@ -1026,7 +1031,8 @@ void test_game() //!OCLINT tests may be many
     const double radius = 12.34;
     const auto x = g.get_player(0).get_x() + (0.99 * radius);
     const auto y = g.get_player(0).get_y();
-    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    const coordinate c{x, y};
+    const projectile p(c, 0.0, projectile_type::rocket, radius);
     add_projectile(g, p);
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
@@ -1037,7 +1043,8 @@ void test_game() //!OCLINT tests may be many
     const double radius = 12.34;
     const auto x = g.get_player(0).get_x() + (1.01*radius);
     const auto y = g.get_player(0).get_y();
-    const projectile p(x, y, 0.0, projectile_type::rocket, radius);
+    const coordinate c{x, y};
+    const projectile p(c, 0.0, projectile_type::rocket, radius);
     add_projectile(g, p);
     assert(!g.get_projectiles().empty());
     assert(has_collision_with_projectile(g));
@@ -1433,7 +1440,7 @@ void test_game() //!OCLINT tests may be many
 
 #ifdef FIX_ISSUE_321
   {
-    Coordinate Some_random_point(1,1);
+    coordinate Some_random_point(1,1);
     food n_food;
     player n_player;
     projectile n_projectile;

@@ -1,3 +1,4 @@
+#include "coordinate.h"
 #include "enemy.h"
 #include "environment.h"
 #include "environment_type.h"
@@ -56,6 +57,7 @@ void test()
     test_player_state();
     test_player_factory();
     test_read_only();
+    test_coordinate();
 
 #ifndef LOGIC_ONLY
     test_game_view();
