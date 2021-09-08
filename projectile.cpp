@@ -12,8 +12,7 @@ projectile::projectile(
 
 void projectile::move()
 {
-  m_coordinate.set_x(m_coordinate.get_x() + std::cos(m_direction));
-  m_coordinate.set_y(m_coordinate.get_y() + std::sin(m_direction));
+  m_coordinate.move(m_direction);
 }
 
 double get_x(const projectile& p)  noexcept { return p.get_position().get_x();}
@@ -49,10 +48,14 @@ void test_projectile()
 #endif
 
 
-#define FIX_ISSUE_364
+//#define FIX_ISSUE_364
 #ifdef FIX_ISSUE_364
   {
-
+    auto init_position = coordinate{0, 0};
+    double direction{0};
+    projectile p{init_position, direction};
+    p.move();
+    assert(p.get_position() != init_position);
   }
 #endif
 
