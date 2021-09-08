@@ -30,6 +30,7 @@ private:
   int m_window_width;
   int m_window_height;
   std::vector<menu_button> m_v_buttons;
+  sf::Text m_button_text;
 
   /// mock button to signal if button that does not exist is called
   menu_button m_mock_button =
