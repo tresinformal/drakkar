@@ -53,9 +53,9 @@ void menu_view::show()
 
 void menu_view::draw_buttons() noexcept
 {
-  sf::Color color;
   for ( int i = 0; i < static_cast<int>(m_menu.get_buttons().size()); ++i)
   {
+    sf::Color color;
     // assign different color for buttons
     // i = 0: Action "Green"
     // i = 1: About  "Blue"
@@ -97,16 +97,17 @@ void menu_view::draw_buttons() noexcept
     m_window.draw(rect);
 
     //Add the text
-    m_button_text.setString("Hello world");
-    m_button_text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    sf::Color color_white = sf::Color::White;
-    m_button_text.setFillColor(color_white);
-//    m_button_text.setPosition(m_menu.get_button(i).get_x(),
-//                     m_menu.get_button(i).get_y());
-    m_button_text.setPosition(2.0, 2.0);
-
     m_button_text.setFont(game_resources().get_font());
+    m_button_text.setString("Hello world");
     m_button_text.setCharacterSize(30.0);
+    m_button_text.setFillColor(sf::Color::White);
+    m_button_text.setStyle(sf::Text::Bold);
+    m_button_text.setPosition(
+      static_cast<float>(m_menu.get_button(i).get_x()),
+      static_cast<float>(m_menu.get_button(i).get_y())
+    );
+    //m_button_text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
+    //m_button_text.setScale(2.0, 2.0);
     m_window.draw(m_button_text);
   }
 }
