@@ -49,4 +49,11 @@ void test_projectile()
 #endif
 
 
+#define FIX_ISSUE_364
+#ifdef FIX_ISSUE_364
+  {
+
+  }
+#endif
+
 }
