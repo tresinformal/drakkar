@@ -207,11 +207,11 @@ void kill_losing_player(game &);
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
 
-/// Check that player and food are on top of one another
-bool in_contact_with_uneaten_food(const player &p, const food &f);
+/// Check that player and food are in collision, i.e. same position and food uneaten
+bool are_colliding(const player &p, const food &f);
 
 /// Check the game for any collision between food and players
-bool any_player_food_collision(const game& g);
+bool has_any_player_food_collision(const game& g);
 
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);

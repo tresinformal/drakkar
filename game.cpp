@@ -487,18 +487,18 @@ bool have_same_position(const player& p, const food& f)
       p.get_y() - f.get_y() > -0.0001;
 }
 
-bool in_contact_with_uneaten_food(const player &p, const food &f)
+bool are_colliding(const player &p, const food &f)
 {
   return have_same_position(p, f) && !f.is_eaten();
 }
 
-bool any_player_food_collision(const game& g)
+bool has_any_player_food_collision(const game& g)
 {
   for (auto& p : g.get_v_player())
     {
       for(auto& f : g.get_food())
         {
-          if (in_contact_with_uneaten_food(p, f))
+          if (are_colliding(p, f))
             {
               return true;
             }
@@ -567,7 +567,7 @@ void game::make_players_eat_food()
     {
       for(int i = 0; i < n_food; ++i)
        {
-          if (in_contact_with_uneaten_food(player, get_food()[i]))
+          if (are_colliding(player, get_food()[i]))
             {
               eat_nth_food(i);
               player.grow();
@@ -969,7 +969,7 @@ void test_game() //!OCLINT tests may be many
   // In the start of the game, there is no player-food collision
   {
     game g;
-    assert(!any_player_food_collision(g));
+    assert(!has_any_player_food_collision(g));
   }
 
   //Can modify food items, for example, delete all food items
@@ -1062,7 +1062,7 @@ void test_game() //!OCLINT tests may be many
   // In the start of the game, there is no player-food collision
   {
     game g;
-    assert(!any_player_food_collision(g));
+    assert(!has_any_player_food_collision(g));
   }
 
   //Can modify food items, for example, delete all food items
@@ -1223,10 +1223,10 @@ void test_game() //!OCLINT tests may be many
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     assert(has_food(g));
-    assert(any_player_food_collision(g));
+    assert(has_any_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
-    assert(!any_player_food_collision(g));
+    assert(!has_any_player_food_collision(g));
   }
 #endif
 
@@ -1246,9 +1246,9 @@ void test_game() //!OCLINT tests may be many
   // The game can be checked for any collision between food and players
   {
     game g;
-    assert(!any_player_food_collision(g));
+    assert(!has_any_player_food_collision(g));
     put_player_on_food(g.get_player(0), g.get_food()[0]);
-    assert(any_player_food_collision(g));
+    assert(has_any_player_food_collision(g));
   }
 #endif
 
@@ -1267,13 +1267,11 @@ void test_game() //!OCLINT tests may be many
 #define FIX_ISSUE_247
 #ifdef FIX_ISSUE_247
   {
-    double p_x = 12.3;
-    double f_x = p_x + 1.0;
-    player p{p_x};
-    food f{f_x};
-    assert(!in_contact_with_uneaten_food(p,f));
+    player p{12.3};
+    food f{12.3 + 1.0};
+    assert(!are_colliding(p,f));
     put_player_on_food(p,f);
-    assert(in_contact_with_uneaten_food(p,f));
+    assert(are_colliding(p,f));
   }
 #endif // FIX_ISSUE_247
 
@@ -1331,9 +1329,9 @@ void test_game() //!OCLINT tests may be many
     food f;
     player p;
     put_player_on_food(p, f);
-    assert(in_contact_with_uneaten_food(p,f));
+    assert(are_colliding(p,f));
     f.set_food_state(food_state::eaten);
-    assert(!in_contact_with_uneaten_food(p,f));
+    assert(!are_colliding(p,f));
   }
 #endif
 
