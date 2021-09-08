@@ -97,20 +97,16 @@ void menu_view::draw_buttons() noexcept
     m_window.draw(rect);
 
     //Add the text
-    sf::Text text;
-    text.setString("Hello world");
-    //text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
+    m_button_text.setString("Hello world");
+    m_button_text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     sf::Color color_white = sf::Color::White;
-    text.setFillColor(color_white);
+    m_button_text.setFillColor(color_white);
+//    m_button_text.setPosition(m_menu.get_button(i).get_x(),
+//                     m_menu.get_button(i).get_y());
+    m_button_text.setPosition(2.0, 2.0);
 
-    text.setPosition(m_menu.get_button(i).get_x(),
-                     m_menu.get_button(i).get_y());
-    //text.setPosition(0.0, 0.0);
-
-    text.setFont(game_resources().get_font());
-    //text.setCharacterSize(30.0);
-    m_window.draw(text);
-
-
+    m_button_text.setFont(game_resources().get_font());
+    m_button_text.setCharacterSize(30.0);
+    m_window.draw(m_button_text);
   }
 }

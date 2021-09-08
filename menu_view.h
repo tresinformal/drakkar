@@ -26,7 +26,10 @@ private:
 
   /// Shows the menu
   void show();
+
+  sf::Text m_button_text;
 };
+
 
 #endif // LOGIC_ONLY // that is, compiled on GitHub Actions
 
