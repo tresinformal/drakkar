@@ -16,6 +16,9 @@ void projectile::move()
   m_coordinate.set_y(m_coordinate.get_y() + std::sin(m_direction));
 }
 
+double get_x(const projectile& p)  noexcept { return p.get_position().get_x();}
+double get_y(const projectile& p)  noexcept { return p.get_position().get_y();}
+
 void test_projectile()
 {
   #ifndef NDEBUG // no tests in release
@@ -28,8 +31,8 @@ void test_projectile()
     const projectile_type t = projectile_type::cat;
     const double r{7.8};
     const projectile p(c, d, t, r);
-    assert(x == p.get_x());
-    assert(y == p.get_y());
+    assert(x == get_x(p));
+    assert(y == get_y(p));
     assert(d == p.get_direction());
     assert(t == p.get_type());
     assert(r == p.get_radius());

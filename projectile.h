@@ -33,12 +33,6 @@ public:
 //  const double get_x() { return m_coordinate.get_x(); }
 //  const double get_y() { return m_coordinate.get_y(); }
 
-  double get_x() const noexcept { return m_coordinate.get_x();}
-  double get_y() const noexcept { return m_coordinate.get_y();}
-
-
-  void set_x(const double x) { m_coordinate.set_x(x); }
-  void set_y(const double y) { m_coordinate.set_y(y); }
 
 private:
   /// The coordinate
@@ -53,6 +47,11 @@ private:
   /// The projectile is a circle
   double m_radius;
 };
+
+
+//get only x or y coordinate of a projectile
+double get_x(const projectile& p)  noexcept;
+double get_y(const projectile& p)  noexcept;
 
 void test_projectile();
 
