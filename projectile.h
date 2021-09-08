@@ -28,6 +28,10 @@ public:
 
   void set_type(const projectile_type &p_type) noexcept { m_projectile_type = p_type; }
 
+
+  void set_x(const double x) { m_x = x; }
+  void set_y(const double y) { m_y = y; }
+
 private:
   /// The x coordinat
   double m_x;

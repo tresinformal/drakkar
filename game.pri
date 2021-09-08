@@ -1,5 +1,6 @@
 # Files
 HEADERS += \
+    $$PWD/coordinate.h \
     $$PWD/food_state.h \
     $$PWD/player_factory.h \
     $$PWD/player_state.h \
@@ -28,6 +29,7 @@ HEADERS += \
     optional.h
 
 SOURCES += \
+    $$PWD/coordinate.cpp \
     $$PWD/food_state.cpp \
     $$PWD/player_factory.cpp \
     $$PWD/player_state.cpp \
