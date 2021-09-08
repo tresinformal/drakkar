@@ -251,10 +251,9 @@ void game::move_projectiles()
 void game::projectile_collision()
 {
 
-  const int n_projectiles = count_n_projectiles(*this);
   // For every projectile ...
 
-  for (int i = 0 ; i != n_projectiles ; ++i)
+  for (int i = 0 ; i != count_n_projectiles(*this) ; ++i)
   {
     //For every player...
     const int n_players = static_cast<int>(get_v_player().size());
@@ -268,10 +267,31 @@ void game::projectile_collision()
       }
       #endif // NEED_TO_WRITE_THIS_ISSUE_241
       // If the projectile touches the player ...
+      if(this-> m_projectiles[i].get_x() > this-> m_player[j].get_x() - 2.0 && this-> m_projectiles[i].get_x() < this-> m_player[j].get_x() + 2.0)  {
+          if(this-> m_projectiles[i].get_y() > this-> m_player[j].get_y() - 2.0 && this-> m_projectiles[i].get_y() < this-> m_player[j].get_y() + 2.0)  {
 
-      // if the projectile is a stun rocket: stun the player
+              // if the projectile is a stun rocket: stun the player
+              if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
+                  this-> m_player[j].set_state(player_state::stunned);
 
-      // projectile disappears
+                  // projectile disappears
+                  std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()-1]);
+                  this-> m_projectiles.pop_back();
+
+                  // i can be invalid now, that is i can equal the number of projectiles
+                  // one option is:
+                  //
+                  //  --i;
+                  //
+                  // but this would be dangerous if the last project has disappeared
+                  //
+                  // a simple solution is:
+                  return;
+
+              }
+          }
+      }
+
     }
   }
 }
@@ -1430,7 +1450,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  //#define FIX_ISSUE_241
+  #define FIX_ISSUE_241
   #ifdef FIX_ISSUE_241
   //Player 1 can stun player 2 with a stun rocket
   {
@@ -1445,6 +1465,9 @@ void test_game() //!OCLINT tests may be many
     g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
     g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
 
+    assert(g.get_projectiles().back().get_x() == g.get_v_player()[1].get_x());
+    assert(g.get_projectiles().back().get_y() == g.get_v_player()[1].get_y());
+
     // Player 2 should not be stunned yet
     assert(!(is_stunned(g.get_v_player()[1])));
 
@@ -1454,6 +1477,7 @@ void test_game() //!OCLINT tests may be many
     g.tick();
 
     // Stun rocket should disappear
+    //THIS LINE DOESN't WORK
     assert(count_n_projectiles(g) == 0);
 
     // Player 2 is now stunned yet
