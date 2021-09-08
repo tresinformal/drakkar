@@ -121,14 +121,6 @@ bool has_food(const game &g)
   return false ;
 }
 
-void game::eat_nth_food(const int n)
-{
-  if(get_food()[n].is_eaten()) {
-      throw std::logic_error("You cannot eat food that already has been eaten!");
-    }
-  get_food()[n].set_food_state(food_state::eaten);
-}
-
 int count_n_projectiles(const game &g) noexcept
 {
   return static_cast<int>(g.get_projectiles().size());
@@ -569,7 +561,7 @@ void game::make_players_eat_food()
        {
           if (are_colliding(player, get_food()[i]))
             {
-              eat_nth_food(i);
+              eat_food(get_food()[i]);
               player.grow();
             }
        }
@@ -582,6 +574,14 @@ void game::eat_food(food& f)
       throw std::logic_error("You cannot eat food that already has been eaten!");
     }
   f.set_food_state(food_state::eaten);
+}
+
+void eat_nth_food(game& g, const int n)
+{
+    if(g.get_food()[n].is_eaten()) {
+        throw std::logic_error("You cannot eat food that already has been eaten!");
+    }
+    g.eat_food(g.get_food()[n]);
 }
 
 std::default_random_engine& game::get_rng() noexcept
@@ -1300,10 +1300,10 @@ void test_game() //!OCLINT tests may be many
   {
     game g; //by default one uneaten food
     assert(has_food(g));
-    g.eat_nth_food(0);
+    eat_nth_food(g, 0);
     assert(!has_food(g));
     try {
-      g.eat_nth_food(0); // throws exception
+      eat_nth_food(g, 0); // throws exception
     }
     catch ( const std::exception& e ) {
       assert(std::string(e.what()) == std::string("You cannot eat food that already has been eaten!"));
@@ -1318,7 +1318,7 @@ void test_game() //!OCLINT tests may be many
     game g; //by default one uneaten food
     const int n_food_items_begin = count_food_items(g);
     assert(has_food(g));
-    g.eat_nth_food(0);
+    eat_nth_food(g, 0);
     assert(!has_food(g));
     assert(n_food_items_begin == count_food_items(g));
   }
@@ -1340,7 +1340,7 @@ void test_game() //!OCLINT tests may be many
     game g; //by default one uneaten food
     assert(has_food(g));
     auto initial_value_timer = get_nth_food_timer(g, 0);
-    g.eat_nth_food(0);
+    eat_nth_food(g, 0);
     assert(!has_food(g));
     g.tick();
     assert(init_value_timer + 1  == get_nth_food_timer(g, 0));
@@ -1350,7 +1350,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_255
   {
     game g;
-    g.eat_nth_food(0);
+    eat_nth_food(g, 0);
     assert(nth_food_is_eaten(g,0));
     for(int i = 0; i != get_nth_food_regeneration_time(g, 0); i++)
       {

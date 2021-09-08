@@ -55,6 +55,9 @@ public:
 
   /// Increment the number of ticks
   void increment_n_ticks();
+    
+  // Switch a food item's state to eaten
+  void eat_food(food& f);
 
   /// Get environment size of the game
   const environment& get_env() const noexcept{ return m_environment; }
@@ -117,9 +120,6 @@ public:
   ///Manages collisons with walls
   player wall_collision(player p);
 
-  // Eat nth food item
-  void eat_nth_food(const int n);
-
 private:
 
   /// The RNG engine
@@ -164,8 +164,6 @@ private:
   // Make players eat food items they are on top of
   void make_players_eat_food();
 
-  // Switch a food item's state to eaten
-  void eat_food(food& f);
 };
 
 
@@ -182,6 +180,9 @@ void add_projectile(game& g, const projectile& p);
 int count_n_projectiles(const game &g) noexcept;
 
 int count_alive_players(const game& g) noexcept;
+
+// Eat nth food item
+void eat_nth_food(game& g, const int n);
 
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
