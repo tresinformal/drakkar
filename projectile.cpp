@@ -12,7 +12,9 @@ projectile::projectile(
 
 void projectile::move()
 {
-  m_coordinate.move(m_direction);
+  m_coordinate.set_x(m_coordinate.get_x() + std::cos(m_direction));
+  m_coordinate.set_y(m_coordinate.get_y() + std::sin(m_direction));
+  //m_coordinate.move(m_direction);
 }
 
 double get_x(const projectile& p)  noexcept { return p.get_position().get_x();}
