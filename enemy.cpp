@@ -45,12 +45,11 @@ void test_enemy()
     assert(get_x(e) - x < 0.000001);
     assert(get_y(e) - y < 0.000001);
   }
-  #define FIX_ISSUE_345
+  //#define FIX_ISSUE_345
   #ifdef FIX_ISSUE_345
   {
-    auto coord = coordinate{1.2, 3.4};
-    const enemy e{coord};
-    const enemy f{coord};
+    const enemy e{1.2, 3.4};
+    const enemy f{1.2, 3.4};
     assert(e == f);
   }
   #endif
