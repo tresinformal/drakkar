@@ -1466,14 +1466,15 @@ void test_game() //!OCLINT tests may be many
     // Shoot the stun rocket
     g.do_action(0, action_type::shoot_stun_rocket);
     g.tick();
-    assert(count_n_projectiles(g) == 1);
+    assert(count_n_projectiles(g) == 1 &&
+           g.get_projectiles().back().get_type() == projectile_type::stun_rocket);
 
     // Put the stun rocket on top of player 2 (at index 1)
     g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
     g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
 
-    assert(g.get_projectiles().back().get_x() == g.get_v_player()[1].get_x());
-    assert(g.get_projectiles().back().get_y() == g.get_v_player()[1].get_y());
+    assert(get_x(g.get_projectiles().back()) == g.get_v_player()[1].get_x());
+    assert(get_y(g.get_projectiles().back()) == g.get_v_player()[1].get_y());
 
     // Player 2 should not be stunned yet
     assert(!(is_stunned(g.get_v_player()[1])));
