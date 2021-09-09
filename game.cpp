@@ -387,8 +387,8 @@ bool has_collision(const player& pl, const projectile& p)
   //Player and projectile are circularal, so use pythagoras
   const double player_radius{pl.get_diameter()};
   const double projectile_radius{p.get_radius()};
-  const double dx = std::abs(p.get_x() - pl.get_x());
-  const double dy = std::abs(p.get_y() - pl.get_y());
+  const double dx = std::abs(get_x(p) - pl.get_x());
+  const double dy = std::abs(get_y(p) - pl.get_y());
   const double dist = std::sqrt((dx * dx) + (dy * dy));
   const double radii = player_radius + projectile_radius;
   return dist < radii;
@@ -720,11 +720,11 @@ void test_game() //!OCLINT tests may be many
     g.do_action(0, action_type::shoot);
     g.tick();
     assert(count_n_projectiles(g) >= 1);
-    const double x_before{g.get_projectiles()[0].get_x()};
-    const double y_before{g.get_projectiles()[0].get_y()};
+    const double x_before{get_x(g.get_projectiles()[0])};
+    const double y_before{get_y(g.get_projectiles()[0])};
     g.tick();
-    const double x_after{g.get_projectiles()[0].get_x()};
-    const double y_after{g.get_projectiles()[0].get_y()};
+    const double x_after{get_x(g.get_projectiles()[0])};
+    const double y_after{get_y(g.get_projectiles()[0])};
     // coordinats should differ
     assert(std::abs(x_before - x_after) > 0.01 ||
            std::abs(y_before - y_after) > 0.01);
