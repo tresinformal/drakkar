@@ -107,7 +107,7 @@ void menu_view::draw_buttons() noexcept
       static_cast<float>(m_menu.get_button(i).get_y())
     );
     //m_button_text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    //m_button_text.setScale(2.0, 2.0);
+    m_button_text.setScale(2.0, 2.0);
     m_window.draw(m_button_text);
   }
 }
