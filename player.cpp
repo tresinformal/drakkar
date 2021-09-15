@@ -48,6 +48,12 @@ double player::get_y() const noexcept { return m_y; }
 /// Get the radius of the player
 double player::get_diameter() const noexcept { return m_diameter; }
 
+/// Make the player grow
+void player::grow()
+{
+  m_diameter *= m_growth_factor;
+}
+
 /// Get the direction of player movement, in radians
 double player::get_direction() const noexcept { return m_direction_radians; }
 
