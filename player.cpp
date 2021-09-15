@@ -54,6 +54,13 @@ void player::grow()
   m_diameter *= m_growth_factor;
 }
 
+/// Make the player shrink
+void player::shrink()
+{
+  m_diameter /= m_growth_factor;
+}
+
+
 /// Get the direction of player movement, in radians
 double player::get_direction() const noexcept { return m_direction_radians; }
 

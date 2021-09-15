@@ -103,6 +103,17 @@ int get_winning_player_index(const game& g, const int i1, const int i2)
     }
 }
 
+int get_losing_player_index(const game& g, const int i1, const int i2)
+{
+    if (is_first_player_winner(g.get_player(i1), g.get_player(i2))) {
+        return i2;
+    }
+    else {
+        return i1;
+    }
+}
+
+
 int count_alive_players(const game& g) noexcept
 {
   return std::count_if(
@@ -301,8 +312,9 @@ void game::tick()
 {
   if(has_collision(*this))
     {
-      kill_losing_player(*this);
+      //kill_losing_player(*this);
       grow_winning_player(*this);
+      shrink_losing_player(*this);
     }
 
   // Moves the projectiles
@@ -507,6 +519,16 @@ void grow_winning_player(game &g)
   const int winner_index = get_winning_player_index(g, first_player_index, second_player_index);
   player& winning_player = g.get_player(winner_index);
   winning_player.grow();
+}
+
+void shrink_losing_player(game &g)
+{
+  const int first_player_index = get_collision_members(g)[0];
+  const int second_player_index = get_collision_members(g)[1];
+
+  const int loser_index = get_losing_player_index(g, first_player_index, second_player_index);
+  player& losing_player = g.get_player(loser_index);
+  losing_player.shrink();
 }
 
 
@@ -931,7 +953,7 @@ void test_game() //!OCLINT tests may be many
     const int winning_player_size_after = get_nth_player_size(g, winning_player_index);
     assert(winning_player_size_after > winning_player_size_before);
   }
-  //#define FIX_ISSUE_234
+#define FIX_ISSUE_234
 #ifdef FIX_ISSUE_234
   // [PRS] #234 make losing PRS player smaller
   {
@@ -949,29 +971,6 @@ void test_game() //!OCLINT tests may be many
   }
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
-
-
-  // Blue defeats red
-  {
-    game g;
-    g.get_player(2).set_x(g.get_player(0).get_x());
-    g.get_player(2).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    assert(g.get_v_player().size() == 3); //All three still live
-    g.tick();
-    assert(count_alive_players(g) == 2);
-    //Red has died!
-    auto& red = g.get_player(0);
-    assert(is_dead(red) && is_red(red));
-    // Green and blue survive
-    auto& green = g.get_player(1);
-    auto& blue = g.get_player(2);
-    assert(is_alive(green) && is_green(green) &&
-           is_alive(blue) && is_blue(blue));
-  }
 
 
   //Initially, there is no collision with a projectile
@@ -1027,40 +1026,6 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_food().empty());
     g.get_food().clear();
     assert(g.get_food().empty());
-  }
-  //If red eats green then red survives
-  {
-    game g;
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    g.get_player(1).set_x(g.get_player(0).get_x());
-    g.get_player(1).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    g.tick();
-    assert(is_alive(g.get_player(0)));
-    assert(is_dead(g.get_player(1)));
-  }
-  // Blue defeats red
-  {
-    game g;
-    g.get_player(2).set_x(g.get_player(0).get_x());
-    g.get_player(2).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    assert(g.get_v_player().size() == 3); //All three still live
-    g.tick();
-    assert(count_alive_players(g) == 2);
-    //Red has died!
-    auto& red = g.get_player(0);
-    assert(is_dead(red) && is_red(red));
-    // Green and blue survive
-    auto& green = g.get_player(1);
-    auto& blue = g.get_player(2);
-    assert(is_alive(green) && is_green(green) &&
-           is_alive(blue) && is_blue(blue));
   }
 
 
@@ -1123,19 +1088,7 @@ void test_game() //!OCLINT tests may be many
     g.get_food().clear();
     assert(g.get_food().empty());
   }
-  //If red eats green then red survives
-  {
-    game g;
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    g.get_player(1).set_x(g.get_player(0).get_x());
-    g.get_player(1).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    g.tick();
-    assert(is_alive(g.get_player(0)));
-    assert(is_dead(g.get_player(1)));
-  }
+
 
 #define FIX_ISSUE_VALENTINES_DAY
 #ifdef FIX_ISSUE_VALENTINES_DAY

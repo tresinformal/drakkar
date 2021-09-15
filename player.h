@@ -134,6 +134,9 @@ public:
     /// Make the player grow
     void grow();
 
+    /// Make the player shrink
+    void shrink();
+
 private:
     /// The player's color, will change depending on food items
     color m_color;
