@@ -243,7 +243,6 @@ void game::projectile_collision()
 {
 
   // For every projectile ...
-
   for (int i = 0 ; i != count_n_projectiles(*this) ; ++i)
   {
     //For every player...
@@ -258,8 +257,12 @@ void game::projectile_collision()
       }
       #endif // NEED_TO_WRITE_THIS_ISSUE_241
       // If the projectile touches the player ...
-      if(this-> m_projectiles[i].get_x() > this-> m_player[j].get_x() - 2.0 && this-> m_projectiles[i].get_x() < this-> m_player[j].get_x() + 2.0)  {
-          if(this-> m_projectiles[i].get_y() > this-> m_player[j].get_y() - 2.0 && this-> m_projectiles[i].get_y() < this-> m_player[j].get_y() + 2.0)  {
+      if( get_x(this->m_projectiles[i]) > this-> m_player[j].get_x() - 2.0 &&
+          get_x(this-> m_projectiles[i]) < this-> m_player[j].get_x() + 2.0)
+        {
+          if(get_y(this-> m_projectiles[i]) > this-> m_player[j].get_y() - 2.0 &&
+             get_y(this-> m_projectiles[i]) < this-> m_player[j].get_y() + 2.0)
+            {
 
               // if the projectile is a stun rocket: stun the player
               if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
@@ -381,8 +384,8 @@ bool has_collision(const player& pl, const projectile& p)
   //Player and projectile are circularal, so use pythagoras
   const double player_radius{pl.get_diameter()};
   const double projectile_radius{p.get_radius()};
-  const double dx = std::abs(p.get_x() - pl.get_x());
-  const double dy = std::abs(p.get_y() - pl.get_y());
+  const double dx = std::abs(get_x(p) - pl.get_x());
+  const double dy = std::abs(get_y(p) - pl.get_y());
   const double dist = std::sqrt((dx * dx) + (dy * dy));
   const double radii = player_radius + projectile_radius;
   return dist < radii;
@@ -756,11 +759,11 @@ void test_game() //!OCLINT tests may be many
     g.do_action(0, action_type::shoot);
     g.tick();
     assert(count_n_projectiles(g) >= 1);
-    const double x_before{g.get_projectiles()[0].get_x()};
-    const double y_before{g.get_projectiles()[0].get_y()};
+    const double x_before{get_x(g.get_projectiles()[0])};
+    const double y_before{get_y(g.get_projectiles()[0])};
     g.tick();
-    const double x_after{g.get_projectiles()[0].get_x()};
-    const double y_after{g.get_projectiles()[0].get_y()};
+    const double x_after{get_x(g.get_projectiles()[0])};
+    const double y_after{get_y(g.get_projectiles()[0])};
     // coordinats should differ
     assert(std::abs(x_before - x_after) > 0.01 ||
            std::abs(y_before - y_after) > 0.01);
@@ -1497,14 +1500,15 @@ void test_game() //!OCLINT tests may be many
     // Shoot the stun rocket
     g.do_action(0, action_type::shoot_stun_rocket);
     g.tick();
-    assert(count_n_projectiles(g) == 1);
+
+    assert(count_n_projectiles(g) == 1 &&
+           g.get_projectiles().back().get_type() == projectile_type::stun_rocket);
 
     // Put the stun rocket on top of player 2 (at index 1)
-    g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
-    g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
+    g.get_projectiles().back().place({g.get_v_player()[1].get_x(), g.get_v_player()[1].get_y()});
 
-    assert(g.get_projectiles().back().get_x() == g.get_v_player()[1].get_x());
-    assert(g.get_projectiles().back().get_y() == g.get_v_player()[1].get_y());
+    assert(get_x(g.get_projectiles().back()) == g.get_v_player()[1].get_x());
+    assert(get_y(g.get_projectiles().back()) == g.get_v_player()[1].get_y());
 
     // Player 2 should not be stunned yet
     assert(!(is_stunned(g.get_v_player()[1])));
