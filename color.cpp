@@ -87,6 +87,13 @@ std::string to_str(const color& in_color) noexcept
   return msg;
 }
 
+bool is_first_color_winner(const color& c1, const color& c2)
+{
+    double hue1 = calc_hue(c1);
+    double hue2 = calc_hue(c2);
+
+    return (hue1 == 0.0 && hue2 == 120.0) || (hue1 == 120.0 && hue2 == 240.0) || (hue1 == 240.0 && hue2 == 0.0);
+}
 
 void test_color()
 {
@@ -173,7 +180,7 @@ void test_color()
 #endif // FIX_ISSUE_229
 
 
-  //#define FIX_ISSUE_230
+#define FIX_ISSUE_230
 #ifdef FIX_ISSUE_230
   // The correct color must win
   {
