@@ -302,6 +302,7 @@ void game::tick()
   if(has_collision(*this))
     {
       kill_losing_player(*this);
+      grow_winning_player(*this);
     }
 
   // Moves the projectiles
@@ -500,6 +501,12 @@ void kill_losing_player(game &g)
 
 void grow_winning_player(game &g)
 {
+  const int first_player_index = get_collision_members(g)[0];
+  const int second_player_index = get_collision_members(g)[1];
+
+  const int winner_index = get_winning_player_index(g, first_player_index, second_player_index);
+  player& winning_player = g.get_player(winner_index);
+  winning_player.grow();
 }
 
 

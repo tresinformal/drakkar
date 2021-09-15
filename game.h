@@ -208,6 +208,8 @@ std::vector<int> get_collision_members(const game &g) noexcept;
 /// Assumes there is a collision
 void kill_losing_player(game &);
 
+///Upon a collision, grows the size of the winning player
+void grow_winning_player(game &g);
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
 
