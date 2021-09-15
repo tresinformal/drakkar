@@ -131,7 +131,8 @@ public:
     /// Accelerate the player backward
     void acc_backward() noexcept;
 
-
+    /// Make the player grow
+    void grow();
 
 private:
     /// The player's color, will change depending on food items
@@ -179,6 +180,9 @@ private:
 
     /// The size of the player
     double m_diameter;
+
+    /// How much a player grows when growing
+    double m_growth_factor = 1.1;
 
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
