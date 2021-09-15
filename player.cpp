@@ -735,11 +735,36 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_position() == c);
   }
 #endif
-  #ifdef FIX_ISSUE_351
+#ifdef FIX_ISSUE_351
   {
     assert(to_str(player_state::active) == "active");
   }
-  #endif
+#endif
+//#define FIX_ISSUE_367
+#ifdef FIX_ISSUE_367
+  {
+    player p;
+    const coordinate starting_position = p.get_position();
+    assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
+    p.move();
+    assert(starting_position == p.get_position());
+    p.accelerate();
+    assert(p.get_speed() > 0.0000000001 || p.get_speed() < -0.00000000001);
+    p.move();
+    assert(starting_position != p.get_postition());
+    // a player with direction 0 and speed 1 moves one unit of space along the x-axis
+    while(p.get_speed() != 1) {
+        p.accelerate();
+      }
+    assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
+    const coordinate new_position = p.get_position();
+    p.move();
+    const double delta_x = get_x(new_position) - get_x(p.get_position());
+    const double delta_y = get_y(new_position) - get_y(p.get_position());
+    assert(delta_x < 1.00000000000001 && delta_x < 0.999999999999999);
+    assert(delta_y < 0.00000000000001 && delta_y < -0.00000000000001);
+  }
+#endif
 #endif // no tests in release
 }
 
