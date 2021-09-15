@@ -93,6 +93,16 @@ double get_nth_player_size(const game& g, const int i)
   return g.get_player(i).get_diameter();
 }
 
+int get_winning_player_index(const game& g, const int i1, const int i2)
+{
+    if (is_first_player_winner(g.get_player(i1), g.get_player(i2))) {
+        return i1;
+    }
+    else {
+        return i2;
+    }
+}
+
 int count_alive_players(const game& g) noexcept
 {
   return std::count_if(
@@ -487,6 +497,12 @@ void kill_losing_player(game &g)
   else if(c1<c2)
     g.kill_player(first_player_index);
 }
+
+void grow_winning_player(game &g)
+{
+}
+
+
 void put_player_on_food(player &p, const food &f)
 {
   p.place_to_position(get_position(f));
@@ -858,7 +874,7 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g));
   }
-  //#define FIX_ISSUE_233
+#define FIX_ISSUE_233
 #ifndef FIX_ISSUE_233
   // [PRS] A collision kills a player
   {
