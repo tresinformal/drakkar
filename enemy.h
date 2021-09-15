@@ -1,26 +1,27 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-
+#include "coordinate.h"
 #include <string>
 
 class enemy
 {
 public:
-  enemy(const double x = 0.0, const double y = 0.0);
+  enemy(const coordinate c = coordinate(0.0, 0.0));
 
-  /// Get the X coordinat of the player
-  double get_x() const noexcept { return m_x; }
-
-  /// Get the Y coordinat of the player
-  double get_y() const noexcept { return m_y; }
+  /// Get the coordinate object of the player
+  coordinate get_position() const noexcept { return m_coordinate;}
 
 private:
-  /// The X coordinat of the enemy
-  double m_x;
-
-  /// The Y coordinat of the enemy
-  double m_y;
+  /// The coordinates of the enemy
+  coordinate m_coordinate;
 };
+
+/// Get the X coordinate of the player
+double get_x(const enemy& e) noexcept;
+
+/// Get the Y coordinate of the player
+double get_y(const enemy& e) noexcept;
+
 
 void test_enemy();
 
