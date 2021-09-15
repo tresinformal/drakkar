@@ -25,6 +25,9 @@ public:
   /// is facing
   void move();
 
+  ///Places a projectile at a given coordinate
+  void place(const coordinate& c);
+
   /// Get projectile type of the game
   projectile_type get_type() const { return m_projectile_type; }
 

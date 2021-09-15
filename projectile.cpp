@@ -17,6 +17,11 @@ void projectile::move()
   //m_coordinate.move(m_direction);
 }
 
+void projectile::place(const coordinate& c)
+{
+  m_coordinate = c;
+}
+
 double get_x(const projectile& p)  noexcept { return p.get_position().get_x();}
 double get_y(const projectile& p)  noexcept { return p.get_position().get_y();}
 
