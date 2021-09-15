@@ -55,6 +55,9 @@ public:
 
   /// Increment the number of ticks
   void increment_n_ticks();
+    
+  // Switch a food item's state to eaten
+  void eat_food(food& f);
 
   /// Get environment size of the game
   const environment& get_env() const noexcept{ return m_environment; }
@@ -155,8 +158,12 @@ private:
   /// Moves the projectiles
   void move_projectiles();
 
-  /// Processess the collsion between projectiles and players
+  /// Processess the collision between projectiles and players
   void projectile_collision();
+
+  // Make players eat food items they are on top of
+  void make_players_eat_food();
+
 };
 
 
@@ -174,17 +181,14 @@ int count_n_projectiles(const game &g) noexcept;
 
 int count_alive_players(const game& g) noexcept;
 
+// Eat nth food item
+void eat_nth_food(game& g, const int n);
+
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
 /// Determines if the player and projectile collide
 bool has_collision(const player& pl, const projectile& p);
-
-/// Is there a collision between an enemy and player?
-bool has_enemy_collision(const game& g);
-
-///Checks if there are collisions with food items
-bool has_food_collision(const game &) noexcept;
 
 ///Checks if a player and food have the same exact position
 bool have_same_position(const player& p, const food& f);
@@ -203,6 +207,12 @@ void kill_losing_player(game &);
 
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
+
+/// Check that player and food are in collision, i.e. same position and food uneaten
+bool are_colliding(const player &p, const food &f);
+
+/// Check the game for any collision between food and players
+bool has_any_player_food_collision(const game& g);
 
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);

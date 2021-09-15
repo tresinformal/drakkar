@@ -112,22 +112,13 @@ int count_food_items(const game &g)
 bool has_food(const game &g)
 {
   std::vector<food> v_food{g.get_food()};
-  int count = 0;
   for (unsigned int i = 0; i < v_food.size(); i++) {
       if (!v_food[i].is_eaten())
         {
-          count++;
+          return true;
         }
     }
-  return count > 0 ;
-}
-
-void eat_nth_food(game &g, const int n)
-{
-  if(g.get_food()[n].is_eaten()) {
-      throw std::logic_error("You cannot eat food that already has been eaten!");
-    }
-  g.get_food()[n].set_food_state(food_state::eaten);
+  return false ;
 }
 
 int count_n_projectiles(const game &g) noexcept
@@ -321,6 +312,9 @@ void game::tick()
   //Check and resolve wall collisions
   do_wall_collisions();
 
+  // Make players eat food
+  make_players_eat_food();
+
   // players that shoot must generate projectiles
   for (player &p : m_player)
     {
@@ -421,24 +415,6 @@ bool has_wall_collision(const game& g)
   return false;
 }
 
-bool has_enemy_collision(const game&)
-{
-  return false;
-}
-
-bool has_food_collision(const game &) noexcept
-{
-  return false;
-}
-
-bool have_same_position(const player& p, const food& f)
-{
-  return p.get_x() - f.get_x() < 0.0001 &&
-      p.get_x() - f.get_x() > -0.0001 &&
-      p.get_y() - f.get_y() < 0.0001 &&
-      p.get_y() - f.get_y() > -0.0001;
-}
-
 bool hits_south_wall(const player& p, const environment& e)
 {
   return p.get_y() + p.get_diameter()/2 > e.get_max_y();
@@ -516,6 +492,34 @@ void put_player_on_food(player &p, const food &f)
   p.place_to_position(get_position(f));
 }
 
+bool have_same_position(const player& p, const food& f)
+{
+  return p.get_x() - f.get_x() < 0.0001 &&
+      p.get_x() - f.get_x() > -0.0001 &&
+      p.get_y() - f.get_y() < 0.0001 &&
+      p.get_y() - f.get_y() > -0.0001;
+}
+
+bool are_colliding(const player &p, const food &f)
+{
+  return have_same_position(p, f) && !f.is_eaten();
+}
+
+bool has_any_player_food_collision(const game& g)
+{
+  for (auto& p : g.get_v_player())
+    {
+      for(auto& f : g.get_food())
+        {
+          if (are_colliding(p, f))
+            {
+              return true;
+            }
+        }
+    }
+  return false;
+}
+
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p)
 {
   // Put the projectile just in front outside of the player
@@ -568,6 +572,38 @@ player game::wall_collision(player p)
     }
 
   return p;
+}
+
+void game::make_players_eat_food()
+{
+  int n_food = static_cast<int>(get_food().size());
+  for(auto& player : m_player)
+    {
+      for(int i = 0; i < n_food; ++i)
+       {
+          if (are_colliding(player, get_food()[i]))
+            {
+              eat_food(get_food()[i]);
+              player.grow();
+            }
+       }
+    }
+}
+
+void game::eat_food(food& f)
+{
+  if(f.is_eaten()) {
+      throw std::logic_error("You cannot eat food that already has been eaten!");
+    }
+  f.set_food_state(food_state::eaten);
+}
+
+void eat_nth_food(game& g, const int n)
+{
+    if(g.get_food()[n].is_eaten()) {
+        throw std::logic_error("You cannot eat food that already has been eaten!");
+    }
+    g.eat_food(g.get_food()[n]);
 }
 
 std::default_random_engine& game::get_rng() noexcept
@@ -958,7 +994,7 @@ void test_game() //!OCLINT tests may be many
   // In the start of the game, there is no player-food collision
   {
     game g;
-    assert(!has_food_collision(g));
+    assert(!has_any_player_food_collision(g));
   }
 
   //Can modify food items, for example, delete all food items
@@ -968,11 +1004,6 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_food().empty());
     g.get_food().clear();
     assert(g.get_food().empty());
-  }
-  // In the start of the game, there is no player-enemy collision
-  {
-    game g;
-    assert(!has_enemy_collision(g));
   }
   //If red eats green then red survives
   {
@@ -1058,7 +1089,7 @@ void test_game() //!OCLINT tests may be many
   // In the start of the game, there is no player-food collision
   {
     game g;
-    assert(!has_food_collision(g));
+    assert(!has_any_player_food_collision(g));
   }
 
   //Can modify food items, for example, delete all food items
@@ -1068,11 +1099,6 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_food().empty());
     g.get_food().clear();
     assert(g.get_food().empty());
-  }
-  // In the start of the game, there is no player-enemy collision
-  {
-    game g;
-    assert(!has_enemy_collision(g));
   }
   //If red eats green then red survives
   {
@@ -1217,18 +1243,17 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(g.get_player(0)));
   }
 
+#define FIX_ISSUE_236
 #ifdef FIX_ISSUE_236
-  //When a player touches food it destroys it
+  //When a player touches food it eats it
   {
-
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
-    assert(has_food(g))
-        assert(has_player_food_collision(g));
+    assert(has_food(g));
+    assert(has_any_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
-    assert(!has_player_food_collision(g));
-
+    assert(!has_any_player_food_collision(g));
   }
 #endif
 
@@ -1243,39 +1268,39 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_238
 #ifdef FIX_ISSUE_238
-  //Food and player can be overlapped
+  // The game can be checked for any collision between food and players
   {
     game g;
-    assert(!has_player_food_collision(g));
+    assert(!has_any_player_food_collision(g));
     put_player_on_food(g.get_player(0), g.get_food()[0]);
-    assert(has_player_food_collision(g));
+    assert(has_any_player_food_collision(g));
   }
 #endif
 
+#define FIX_ISSUE_244
 #ifdef FIX_ISSUE_244
-
   {
     game g;
     const auto init_player_size = get_nth_player_size(g,0);
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_player(0).get_diameter() > init_player_size);
-
   }
 
 #endif
 
+#define FIX_ISSUE_247
 #ifdef FIX_ISSUE_247
   {
-    player p;
-    food f;
-    assert(!player_and_food_are_colliding(p,f));
+    player p{12.3};
+    food f{12.3 + 1.0};
+    assert(!are_colliding(p,f));
     put_player_on_food(p,f);
-    assert(player_and_food_are_colliding(p,f));
-
+    assert(are_colliding(p,f));
   }
-#endif
+#endif // FIX_ISSUE_247
 
 #ifdef FIX_ISSUE_248
 
@@ -1286,28 +1311,33 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_254
 #ifdef FIX_ISSUE_254
   {
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
-    assert(is_eaten(g.get_food()[0]))
+    assert(g.get_food()[0].is_eaten());
   }
 #endif
 
+  #define FIX_ISSUE_340
+  #ifdef FIX_ISSUE_340
   // make sure that eat_nth_food() throws a logic_error when the food is already eaten
   {
     game g; //by default one uneaten food
     assert(has_food(g));
-    eat_nth_food(g,0);
+    eat_nth_food(g, 0);
     assert(!has_food(g));
     try {
-      eat_nth_food(g,0); // throws exception
+      eat_nth_food(g, 0); // throws exception
     }
     catch ( const std::exception& e ) {
       assert(std::string(e.what()) == std::string("You cannot eat food that already has been eaten!"));
     }
   }
+  #endif // FIX_ISSUE_340
+
   // number of food item stays the same,
   // only the state of food item changes after they are eaten
   // eaten food items are ?probably removed by game::tick
@@ -1315,19 +1345,20 @@ void test_game() //!OCLINT tests may be many
     game g; //by default one uneaten food
     const int n_food_items_begin = count_food_items(g);
     assert(has_food(g));
-    eat_nth_food(g,0);
+    eat_nth_food(g, 0);
     assert(!has_food(g));
     assert(n_food_items_begin == count_food_items(g));
   }
 
+#define FIX_ISSUE_256
 #ifdef FIX_ISSUE_256
   {
     food f;
     player p;
     put_player_on_food(p, f);
-    assert(player_and_food_are_colliding(p,f));
-    eat_nth_food(g,0);
-    assert(!player_and_food_are_colliding(p,f));
+    assert(are_colliding(p,f));
+    f.set_food_state(food_state::eaten);
+    assert(!are_colliding(p,f));
   }
 #endif
 
@@ -1336,7 +1367,7 @@ void test_game() //!OCLINT tests may be many
     game g; //by default one uneaten food
     assert(has_food(g));
     auto initial_value_timer = get_nth_food_timer(g, 0);
-    eat_nth_food(g,0);
+    eat_nth_food(g, 0);
     assert(!has_food(g));
     g.tick();
     assert(init_value_timer + 1  == get_nth_food_timer(g, 0));
