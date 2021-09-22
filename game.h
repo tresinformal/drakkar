@@ -38,6 +38,13 @@ public:
   ///Executes for wall collision for all players
   void do_wall_collisions();
 
+  ///Get the index of the winner of the players with the given indices
+  int get_winning_player_index(const game& g, const int i1, const int i2);
+
+
+  ///Get the index of the loser of the players with the given indices
+  int get_losing_player_index(const game& g, const int i1, const int i2);
+
   ///returns the collision vector
   const std::vector<int>& get_collision_vec(){return m_v_collisions_ind;}
 
@@ -204,6 +211,12 @@ std::vector<int> get_collision_members(const game &g) noexcept;
 /// Upon a collision, kills the player that loser
 /// Assumes there is a collision
 void kill_losing_player(game &);
+
+///Upon a collision, grows the size of the winning player
+void grow_winning_player(game &g);
+
+///Upon a collision, shrink the size of the losing player
+void shrink_losing_player(game &g);
 
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);

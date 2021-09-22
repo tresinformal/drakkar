@@ -134,6 +134,9 @@ public:
     /// Make the player grow
     void grow();
 
+    /// Make the player shrink
+    void shrink();
+
 private:
     /// The player's color, will change depending on food items
     color m_color;
@@ -253,4 +256,5 @@ player create_green_player();
 player create_blue_player();
 //winning scenario
 bool is_first_player_loser(const player& player_one, const player& player_two);
+bool is_first_player_winner (const player& player_one, const player& player_two);
 #endif // PLAYER_H
