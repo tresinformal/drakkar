@@ -48,6 +48,19 @@ double player::get_y() const noexcept { return m_y; }
 /// Get the radius of the player
 double player::get_diameter() const noexcept { return m_diameter; }
 
+/// Make the player grow
+void player::grow()
+{
+  m_diameter *= m_growth_factor;
+}
+
+/// Make the player shrink
+void player::shrink()
+{
+  m_diameter /= m_growth_factor;
+}
+
+
 /// Get the direction of player movement, in radians
 double player::get_direction() const noexcept { return m_direction_radians; }
 
@@ -273,6 +286,14 @@ bool is_first_player_loser(const player& player_one, const player& player_two)
     }
     return false;
 }
+
+bool is_first_player_winner (const player& player_one, const player& player_two)
+{
+ const color color1 = player_one.get_color();
+ const color color2 = player_two.get_color();
+ return is_first_color_winner(color1,color2);
+}
+
 void test_player() //!OCLINT tests may be long
 {
 #ifndef NDEBUG // no tests in release
@@ -464,7 +485,7 @@ void test_player() //!OCLINT tests may be long
         assert(get_colorhash(p)!=1);
         assert(get_colorhash(p)==2);
     }
-    //#define FIX_ISSUE_231
+#define FIX_ISSUE_231
 #ifdef FIX_ISSUE_231
     // The correct player must win
     {
@@ -479,6 +500,7 @@ void test_player() //!OCLINT tests may be long
         assert(!is_first_player_winner(scissors, rock));
     }
 #endif // FIX_ISSUE_231
+
     //#define FIX_ISSUE_232
     //#ifdef FIX_ISSUE_232
     // The correct player must lose

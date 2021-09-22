@@ -131,7 +131,11 @@ public:
     /// Accelerate the player backward
     void acc_backward() noexcept;
 
+    /// Make the player grow
+    void grow();
 
+    /// Make the player shrink
+    void shrink();
 
 private:
     /// The player's color, will change depending on food items
@@ -179,6 +183,9 @@ private:
 
     /// The size of the player
     double m_diameter;
+
+    /// How much a player grows when growing
+    double m_growth_factor = 1.1;
 
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
@@ -249,4 +256,5 @@ player create_green_player();
 player create_blue_player();
 //winning scenario
 bool is_first_player_loser(const player& player_one, const player& player_two);
+bool is_first_player_winner (const player& player_one, const player& player_two);
 #endif // PLAYER_H

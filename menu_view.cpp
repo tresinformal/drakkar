@@ -91,6 +91,15 @@ void menu_view::draw_buttons() noexcept
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     rect.setPosition(static_cast<float>(m_menu.get_button(i).get_x()),
                      static_cast<float>(m_menu.get_button(i).get_y()));
+
+
+    sf::Text text;
+    text.setString("Hello world");
+    text.setPosition(10, 10);
+    text.setFont(game_resources().get_font());
+    text.setScale(100.0, 100.0);
+    m_window.draw(text);
+
     // Draw the player
     m_window.draw(rect);
   }

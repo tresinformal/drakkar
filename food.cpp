@@ -1,4 +1,4 @@
-  #include "food.h"
+#include "food.h"
 #include <cassert>
 #include <cmath>
 #include <sstream>
@@ -37,8 +37,8 @@ void test_food()
   #ifndef NDEBUG // no tests in release
   {
     const food f;
-    assert(f.get_x() == 0.0);
-    assert(f.get_y() == 0.0);
+    assert(f.get_x() == 2000.0);
+    assert(f.get_y() == 1000.0);
   }
 
   //foods that are on the same coordinate point but with different colour Are equal, when this is not true
