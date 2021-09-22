@@ -12,8 +12,6 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/stefano)
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
-`xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
-
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
