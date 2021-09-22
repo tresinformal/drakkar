@@ -975,6 +975,38 @@ void test_game() //!OCLINT tests may be many
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
 
+#ifdef FIX_ISSUE_381
+  ///A player can become invulnerable
+  {
+    game g;
+
+    assert(is_active(g.get_player(0));
+    become_invulnerable(g.get_player(0));
+    assert(is_invulnerable(g.get_player(0)));
+
+  }
+#endif
+
+#ifdef FIX_ISSUE_382
+  ///An invulnerable player cannot shrink
+  {
+    game g;
+
+    //Make the first player invulnerable
+    become_invulnerable(g.get_player(0));
+
+    // Make player 1 and 2 overlap
+    g.get_player(1).set_x(g.get_player(0).get_x());
+    g.get_player(1).set_y(g.get_player(0).get_y());
+    assert(has_collision(g));
+
+    // After a tick, invulnerable player does not shrink
+    const int inv_player_size_before =  get_nth_player_size(g, 0);
+    g.tick();
+    const int inv_player_size_after =  get_nth_player_size(g, 0);
+    assert(inv_player_size_after == inv_player_size_before);
+  }
+#endif
 
   //Initially, there is no collision with a projectile
   {
