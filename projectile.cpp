@@ -2,9 +2,10 @@
 #include <cassert>
 #include <cmath>
 
+
 projectile::projectile(
   const coordinate c, const double direction, const projectile_type p,
-  const double radius)
+  const double radius, const std::string ownerID)
   : m_coordinate{c}, m_direction{direction}, m_projectile_type{p}, m_radius{radius}
 
 {
