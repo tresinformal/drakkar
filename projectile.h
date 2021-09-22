@@ -2,6 +2,8 @@
 #define PROJECTILE_H
 #include "projectile_type.h"
 #include "coordinate.h"
+#include "color.h"
+
 
 /// A projectile has the virtual shape of a circle
 class projectile
@@ -9,7 +11,7 @@ class projectile
 public:
   projectile(const coordinate c,
              const double direction = 0.0, projectile_type = projectile_type::rocket,
-             const double radius = 100, const std::string& ownerID = "-1");
+             const double radius = 100, const std::string& ID = "-1");
 
   coordinate get_position() const noexcept { return m_coordinate; }
 
