@@ -93,6 +93,27 @@ double get_nth_player_size(const game& g, const int i)
   return g.get_player(i).get_diameter();
 }
 
+int get_winning_player_index(const game& g, const int i1, const int i2)
+{
+    if (is_first_player_winner(g.get_player(i1), g.get_player(i2))) {
+        return i1;
+    }
+    else {
+        return i2;
+    }
+}
+
+int get_losing_player_index(const game& g, const int i1, const int i2)
+{
+    if (is_first_player_winner(g.get_player(i1), g.get_player(i2))) {
+        return i2;
+    }
+    else {
+        return i1;
+    }
+}
+
+
 int count_alive_players(const game& g) noexcept
 {
   return std::count_if(
@@ -243,7 +264,6 @@ void game::projectile_collision()
 {
 
   // For every projectile ...
-
   for (int i = 0 ; i != count_n_projectiles(*this) ; ++i)
   {
     //For every player...
@@ -258,8 +278,12 @@ void game::projectile_collision()
       }
       #endif // NEED_TO_WRITE_THIS_ISSUE_241
       // If the projectile touches the player ...
-      if(this-> m_projectiles[i].get_x() > this-> m_player[j].get_x() - 2.0 && this-> m_projectiles[i].get_x() < this-> m_player[j].get_x() + 2.0)  {
-          if(this-> m_projectiles[i].get_y() > this-> m_player[j].get_y() - 2.0 && this-> m_projectiles[i].get_y() < this-> m_player[j].get_y() + 2.0)  {
+      if( get_x(this->m_projectiles[i]) > this-> m_player[j].get_x() - 2.0 &&
+          get_x(this-> m_projectiles[i]) < this-> m_player[j].get_x() + 2.0)
+        {
+          if(get_y(this-> m_projectiles[i]) > this-> m_player[j].get_y() - 2.0 &&
+             get_y(this-> m_projectiles[i]) < this-> m_player[j].get_y() + 2.0)
+            {
 
               // if the projectile is a stun rocket: stun the player
               if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
@@ -291,7 +315,9 @@ void game::tick()
 {
   if(has_collision(*this))
     {
-      kill_losing_player(*this);
+      //kill_losing_player(*this);
+      grow_winning_player(*this);
+      shrink_losing_player(*this);
     }
 
   // Moves the projectiles
@@ -381,8 +407,8 @@ bool has_collision(const player& pl, const projectile& p)
   //Player and projectile are circularal, so use pythagoras
   const double player_radius{pl.get_diameter()};
   const double projectile_radius{p.get_radius()};
-  const double dx = std::abs(p.get_x() - pl.get_x());
-  const double dy = std::abs(p.get_y() - pl.get_y());
+  const double dx = std::abs(get_x(p) - pl.get_x());
+  const double dy = std::abs(get_y(p) - pl.get_y());
   const double dist = std::sqrt((dx * dx) + (dy * dy));
   const double radii = player_radius + projectile_radius;
   return dist < radii;
@@ -487,6 +513,28 @@ void kill_losing_player(game &g)
   else if(c1<c2)
     g.kill_player(first_player_index);
 }
+
+void grow_winning_player(game &g)
+{
+  const int first_player_index = get_collision_members(g)[0];
+  const int second_player_index = get_collision_members(g)[1];
+
+  const int winner_index = get_winning_player_index(g, first_player_index, second_player_index);
+  player& winning_player = g.get_player(winner_index);
+  winning_player.grow();
+}
+
+void shrink_losing_player(game &g)
+{
+  const int first_player_index = get_collision_members(g)[0];
+  const int second_player_index = get_collision_members(g)[1];
+
+  const int loser_index = get_losing_player_index(g, first_player_index, second_player_index);
+  player& losing_player = g.get_player(loser_index);
+  losing_player.shrink();
+}
+
+
 void put_player_on_food(player &p, const food &f)
 {
   p.place_to_position(get_position(f));
@@ -756,11 +804,11 @@ void test_game() //!OCLINT tests may be many
     g.do_action(0, action_type::shoot);
     g.tick();
     assert(count_n_projectiles(g) >= 1);
-    const double x_before{g.get_projectiles()[0].get_x()};
-    const double y_before{g.get_projectiles()[0].get_y()};
+    const double x_before{get_x(g.get_projectiles()[0])};
+    const double y_before{get_y(g.get_projectiles()[0])};
     g.tick();
-    const double x_after{g.get_projectiles()[0].get_x()};
-    const double y_after{g.get_projectiles()[0].get_y()};
+    const double x_after{get_x(g.get_projectiles()[0])};
+    const double y_after{get_y(g.get_projectiles()[0])};
     // coordinats should differ
     assert(std::abs(x_before - x_after) > 0.01 ||
            std::abs(y_before - y_after) > 0.01);
@@ -858,7 +906,7 @@ void test_game() //!OCLINT tests may be many
 
     assert(has_collision(g));
   }
-  //#define FIX_ISSUE_233
+#define FIX_ISSUE_233
 #ifndef FIX_ISSUE_233
   // [PRS] A collision kills a player
   {
@@ -908,7 +956,7 @@ void test_game() //!OCLINT tests may be many
     const int winning_player_size_after = get_nth_player_size(g, winning_player_index);
     assert(winning_player_size_after > winning_player_size_before);
   }
-  //#define FIX_ISSUE_234
+#define FIX_ISSUE_234
 #ifdef FIX_ISSUE_234
   // [PRS] #234 make losing PRS player smaller
   {
@@ -926,29 +974,6 @@ void test_game() //!OCLINT tests may be many
   }
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
-
-
-  // Blue defeats red
-  {
-    game g;
-    g.get_player(2).set_x(g.get_player(0).get_x());
-    g.get_player(2).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    assert(g.get_v_player().size() == 3); //All three still live
-    g.tick();
-    assert(count_alive_players(g) == 2);
-    //Red has died!
-    auto& red = g.get_player(0);
-    assert(is_dead(red) && is_red(red));
-    // Green and blue survive
-    auto& green = g.get_player(1);
-    auto& blue = g.get_player(2);
-    assert(is_alive(green) && is_green(green) &&
-           is_alive(blue) && is_blue(blue));
-  }
 
 
   //Initially, there is no collision with a projectile
@@ -1004,40 +1029,6 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_food().empty());
     g.get_food().clear();
     assert(g.get_food().empty());
-  }
-  //If red eats green then red survives
-  {
-    game g;
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    g.get_player(1).set_x(g.get_player(0).get_x());
-    g.get_player(1).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    g.tick();
-    assert(is_alive(g.get_player(0)));
-    assert(is_dead(g.get_player(1)));
-  }
-  // Blue defeats red
-  {
-    game g;
-    g.get_player(2).set_x(g.get_player(0).get_x());
-    g.get_player(2).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    assert(g.get_v_player().size() == 3); //All three still live
-    g.tick();
-    assert(count_alive_players(g) == 2);
-    //Red has died!
-    auto& red = g.get_player(0);
-    assert(is_dead(red) && is_red(red));
-    // Green and blue survive
-    auto& green = g.get_player(1);
-    auto& blue = g.get_player(2);
-    assert(is_alive(green) && is_green(green) &&
-           is_alive(blue) && is_blue(blue));
   }
 
 
@@ -1100,19 +1091,7 @@ void test_game() //!OCLINT tests may be many
     g.get_food().clear();
     assert(g.get_food().empty());
   }
-  //If red eats green then red survives
-  {
-    game g;
-    assert(is_red(g.get_player(0)));
-    assert(is_green(g.get_player(1)));
-    assert(is_blue(g.get_player(2)));
-    g.get_player(1).set_x(g.get_player(0).get_x());
-    g.get_player(1).set_y(g.get_player(0).get_y());
-    assert(has_collision(g));
-    g.tick();
-    assert(is_alive(g.get_player(0)));
-    assert(is_dead(g.get_player(1)));
-  }
+
 
 #define FIX_ISSUE_VALENTINES_DAY
 #ifdef FIX_ISSUE_VALENTINES_DAY
@@ -1497,14 +1476,15 @@ void test_game() //!OCLINT tests may be many
     // Shoot the stun rocket
     g.do_action(0, action_type::shoot_stun_rocket);
     g.tick();
-    assert(count_n_projectiles(g) == 1);
+
+    assert(count_n_projectiles(g) == 1 &&
+           g.get_projectiles().back().get_type() == projectile_type::stun_rocket);
 
     // Put the stun rocket on top of player 2 (at index 1)
-    g.get_projectiles().back().set_x(g.get_v_player()[1].get_x());
-    g.get_projectiles().back().set_y(g.get_v_player()[1].get_y());
+    g.get_projectiles().back().place({g.get_v_player()[1].get_x(), g.get_v_player()[1].get_y()});
 
-    assert(g.get_projectiles().back().get_x() == g.get_v_player()[1].get_x());
-    assert(g.get_projectiles().back().get_y() == g.get_v_player()[1].get_y());
+    assert(get_x(g.get_projectiles().back()) == g.get_v_player()[1].get_x());
+    assert(get_y(g.get_projectiles().back()) == g.get_v_player()[1].get_y());
 
     // Player 2 should not be stunned yet
     assert(!(is_stunned(g.get_v_player()[1])));
