@@ -278,8 +278,8 @@ void game::projectile_collision()
       }
       #endif // NEED_TO_WRITE_THIS_ISSUE_241
       // If the projectile touches the player ...
-      if( get_x(this->m_projectiles[i]) > this-> m_player[j].get_x() - 2.0 &&
-          get_x(this-> m_projectiles[i]) < this-> m_player[j].get_x() + 2.0)
+      if( get_x(this->m_projectiles[i]) > this-> m_player[j].get_x() - m_player[j].get_diameter() &&
+          get_x(this-> m_projectiles[i]) < this-> m_player[j].get_x() + m_player[j].get_diameter())
         {
           if(get_y(this-> m_projectiles[i]) > this-> m_player[j].get_y() - 2.0 &&
              get_y(this-> m_projectiles[i]) < this-> m_player[j].get_y() + 2.0)
