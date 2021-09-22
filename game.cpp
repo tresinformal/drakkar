@@ -271,12 +271,12 @@ void game::projectile_collision()
     for(int j = 0; j != n_players; ++j)
     {
       // if it is not the one that shot it ...
-      #ifdef NEED_TO_WRITE_THIS_ISSUE_362
+//      #ifdef NEED_TO_WRITE_THIS_ISSUE_362
       if(!(this->get_projectiles()[i].get_owner() == j))
       {
 
       }
-      #endif // NEED_TO_WRITE_THIS_ISSUE_362
+//      #endif // NEED_TO_WRITE_THIS_ISSUE_362
       double player_radius = m_player[j].get_diameter() / 2.0;
       // If the projectile touches the player ...
       if( get_x(this->m_projectiles[i]) > this-> m_player[j].get_x() - player_radius &&
