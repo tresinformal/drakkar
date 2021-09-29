@@ -48,6 +48,19 @@ double player::get_y() const noexcept { return m_y; }
 /// Get the radius of the player
 double player::get_diameter() const noexcept { return m_diameter; }
 
+/// Make the player grow
+void player::grow()
+{
+  m_diameter *= m_growth_factor;
+}
+
+/// Make the player shrink
+void player::shrink()
+{
+  m_diameter /= m_growth_factor;
+}
+
+
 /// Get the direction of player movement, in radians
 double player::get_direction() const noexcept { return m_direction_radians; }
 
@@ -273,6 +286,14 @@ bool is_first_player_loser(const player& player_one, const player& player_two)
     }
     return false;
 }
+
+bool is_first_player_winner (const player& player_one, const player& player_two)
+{
+ const color color1 = player_one.get_color();
+ const color color2 = player_two.get_color();
+ return is_first_color_winner(color1,color2);
+}
+
 void test_player() //!OCLINT tests may be long
 {
 #ifndef NDEBUG // no tests in release
@@ -365,6 +386,7 @@ void test_player() //!OCLINT tests may be long
     }
     // A player can update its position
     {
+        // TP: delete this test when assigning #367
         player p;
         // with initial position only x will change since sin of 0 is 0
         double a_x = p.get_x();
@@ -376,6 +398,7 @@ void test_player() //!OCLINT tests may be long
         assert(std::abs(a_y - b_y) > 0.0000001);
     }
     {
+        // TP: delete this test when assigning #367
         player p;
         p.turn_left();
         // change direction a little bit
@@ -464,7 +487,7 @@ void test_player() //!OCLINT tests may be long
         assert(get_colorhash(p)!=1);
         assert(get_colorhash(p)==2);
     }
-    //#define FIX_ISSUE_231
+#define FIX_ISSUE_231
 #ifdef FIX_ISSUE_231
     // The correct player must win
     {
@@ -479,6 +502,7 @@ void test_player() //!OCLINT tests may be long
         assert(!is_first_player_winner(scissors, rock));
     }
 #endif // FIX_ISSUE_231
+
     //#define FIX_ISSUE_232
     //#ifdef FIX_ISSUE_232
     // The correct player must lose
@@ -732,7 +756,61 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_position() == c);
   }
 #endif
+#ifdef FIX_ISSUE_351
+  {
+    assert(to_str(player_state::active) == "active");
+  }
+#endif
+//#define FIX_ISSUE_367
+#ifdef FIX_ISSUE_367
+  {
+    {
+      player p;
+      const coordinate starting_position = p.get_position();
+      assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
+      p.move();
+      assert(starting_position == p.get_position());
+      p.turn_left();
+      assert(starting_position == p.get_position());
+    }
+    {
+      player p;
+      const coordinate starting_position = p.get_position();
+      assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
 
+      // a player with direction 0 and speed 1 moves one unit of space along the x-axis
+      while(p.get_speed() < 1) {
+          p.accelerate();
+        }
+      // acceleration alone should not change player position
+      assert(starting_position == p.get_position());
+      assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
+      p.move();
+      const double delta_x = get_x(starting_position) - get_x(p.get_position());
+      const double delta_y = get_y(starting_position) - get_y(p.get_position());
+      assert(delta_x < 1.00000000000001 && delta_x > 0.999999999999999);
+      assert(delta_y < 0.00000000000001 && delta_y > -0.00000000000001);
+    }
+    {
+      player p;
+      const coordinate starting_position = p.get_position();
+      assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
+
+      // a player with direction 0 and speed 1 moves one unit of space along the x-axis
+      while(p.get_speed() < 1) {
+          p.accelerate();
+        }
+      // acceleration alone should not change player position
+      assert(starting_position == p.get_position());
+      assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
+      p.move();
+      const double delta_x = get_x(starting_position) - get_x(p.get_position());
+      const double delta_y = get_y(starting_position) - get_y(p.get_position());
+      assert(delta_x < 1.00000000000001 && delta_x > 0.999999999999999);
+      assert(delta_y < 0.00000000000001 && delta_y > -0.00000000000001);
+    }
+  }
+#endif
 #endif // no tests in release
 }
 

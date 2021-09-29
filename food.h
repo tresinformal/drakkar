@@ -7,7 +7,7 @@
 class food
 {
 public:
-  food(const double x = 0.0, const double y = 0.0, const color &c = color(), const double timer=0.0, food_state food_state = food_state::uneaten);
+  food(const double x = 2000.0, const double y = 1000.0, const color &c = color(), const double timer=0.0, food_state food_state = food_state::uneaten);
 
   const color &get_color() const noexcept { return m_color; }
   double get_x() const noexcept;

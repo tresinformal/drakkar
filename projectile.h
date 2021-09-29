@@ -1,17 +1,21 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 #include "projectile_type.h"
+#include "coordinate.h"
+#include "color.h"
+#include <string>
 
 /// A projectile has the virtual shape of a circle
 class projectile
 {
 public:
-  projectile(const double x = 0.0, const double y = 0.0,
+  projectile(const coordinate c,
              const double direction = 0.0, projectile_type = projectile_type::rocket,
-             const double radius = 100);
+             const double radius = 100, const std::string& owner_id = "-1");
 
-  double get_x() const noexcept { return m_x; }
-  double get_y() const noexcept { return m_y; }
+  coordinate get_position() const noexcept { return m_coordinate; }
+
+
 
   /// Get the direction of player movement
   double get_direction() const noexcept { return m_direction; }
@@ -23,17 +27,25 @@ public:
   /// is facing
   void move();
 
+  ///Places a projectile at a given coordinate
+  void place(const coordinate& c);
+
   /// Get projectile type of the game
   projectile_type get_type() const { return m_projectile_type; }
 
   void set_type(const projectile_type &p_type) noexcept { m_projectile_type = p_type; }
 
-private:
-  /// The x coordinat
-  double m_x;
+  std::string get_owner_id() noexcept;
 
-  /// The y coordinat
-  double m_y;
+
+//  const double get_x() { return m_coordinate.get_x(); }
+//  const double get_y() { return m_coordinate.get_y(); }
+
+
+
+private:
+  /// The coordinate
+  coordinate m_coordinate;
 
   /// The direction of projectile in radians
   double m_direction;
@@ -43,7 +55,18 @@ private:
 
   /// The projectile is a circle
   double m_radius;
+
+  /// The owner of the projectile
+  std::string m_owner_id;
+
 };
+
+
+//get only x or y coordinate of a projectile
+double get_x(const projectile& p)  noexcept;
+double get_y(const projectile& p)  noexcept;
+
+
 
 void test_projectile();
 
