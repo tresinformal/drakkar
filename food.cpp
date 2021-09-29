@@ -128,6 +128,13 @@ void test_food()
     const food f{0,0,color(), regeneration_time};
     assert(f.get_regeneration_time() == regeneration_time);
   }
+  // A food has a radius member
+  #ifdef FIX_ISSUE_389
+  {
+    const food f;
+    assert(f.get_radius() >= 0.0);
+  }
+  #endif
 #endif // no tests in release
 }
 
