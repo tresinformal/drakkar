@@ -589,8 +589,11 @@ void test_player() //!OCLINT tests may be long
         const coordinate c_before = get_coordinate(p_forward);
         p_forward.accelerate();
         const coordinate c_after = get_coordinate(p_forward);
-        assert(get_x(c_after) - get_x(c_before) > 0.0);
-        assert(get_y(c_after) - get_y(c_before) > 0.0);
+        assert(p_forward.get_direction() > -0.00000000001 && p_forward.get_direction() < 0.00000000001);
+        double dx = get_x(c_after) - get_x(c_before);
+        double dy = get_y(c_after) - get_y(c_before);
+        assert(dx > 0.0);
+        assert(dy > -0.00000000001 && dy < 0.00000000001);
 
         player p_backward;
         p_backward.acc_backward();
