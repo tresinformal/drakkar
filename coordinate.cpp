@@ -26,7 +26,7 @@ void test_coordinate() {
     assert(c.get_x() == 1.23456);
     assert(c.get_y() == 123456.789);
   }
-  #endif // FIX_ISSUE_356
+  #endif
 
   #define FIX_ISSUE_331
   #ifdef FIX_ISSUE_331
@@ -40,5 +40,35 @@ void test_coordinate() {
     assert(c1 != c3);
   }
   #endif
+
+//#define FIX_ISSUE_366
+#ifdef FIX_ISSUE_366
+  {
+    coordinate c{0,0};
+    double default_speed = 1;
+    double direction = 0;
+    c.move(direction);
+    assert(c.get_x() == default_speed);
+    assert(c.get_y() == 0 );
+
+    c.reset_coords_to_zero();
+    double speed = 2;
+    c.move(direction, speed);
+    assert(c.get_x() == speed );
+    assert(c.get_y() == 0 );
+
+    c.reset_coords_to_zero();
+    double speed = 0.5;
+    c.move(direction, speed);
+    assert(c.get_x() == speed );
+    assert(c.get_y() == 0 );
+
+    c.reset_coords_to_zero();
+    double speed = -1;
+    c.move(direction, speed);
+    assert(c.get_x() == speed );
+    assert(c.get_y() == 0 );
+  }
+#endif
 }
 
