@@ -561,7 +561,7 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
     }
 
-   #define FIX_ISSUE_270
+  // #define FIX_ISSUE_270
 #ifdef FIX_ISSUE_270
     // A player increases its backward speed by one 'backward acceleration' per backward acceleration
     // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
@@ -586,9 +586,9 @@ void test_player() //!OCLINT tests may be long
     // A players goes ?right/?up upon acceleraton
     {
         player p_forward;
-        const coordinate c_before = get_coordinate(p_forward);
+        coordinate c_before = get_coordinate(p_forward);
         p_forward.accelerate();
-        const coordinate c_after = get_coordinate(p_forward);
+        coordinate c_after = get_coordinate(p_forward);
         assert(p_forward.get_direction() > -0.00000000001 && p_forward.get_direction() < 0.00000000001);
         double dx = get_x(c_after) - get_x(c_before);
         double dy = get_y(c_after) - get_y(c_before);
@@ -596,22 +596,36 @@ void test_player() //!OCLINT tests may be long
         assert(dy > -0.00000000001 && dy < 0.00000000001);
 
         player p_backward;
+        c_before = get_coordinate(p_backward);
         p_backward.acc_backward();
-        assert(get_dx(p_backward) < 0.0); // Signs should flip
-        assert(get_dy(p_backward) < 0.0); // Signs should flip
+        c_after = get_coordinate(p_backward);
+        assert(p_backward.get_direction() > -0.00000000001 && p_backward.get_direction() < 0.00000000001);
+        double dx = get_x(c_after) - get_x(c_before);
+        double dy = get_y(c_after) - get_y(c_before);
+        assert(dx < 0.0);
+        assert(dy > -0.00000000001 && dy < 0.00000000001);
+
     }
     // RJCB: another suggested test
     // A players actually goes backwards after some backwards accelerations
     {
         player p;
+        coordinate c_before = get_coordinate(p);
         p.accelerate();
-        assert(get_dx(p) > 0.0); // Get the delta x, maybe needs to be added
-        assert(get_dy(p) > 0.0); // Get the delta x, maybe needs to be added
+        coordinate c_inbetween = get_coordinate(p);
+        double dx_a = get_x(c_inbetween) - get_x(c_before);
+        double dy_a = get_y(c_inbetween) - get_y(c_before);
+        assert(dx_a > 0.0); // Get the delta x
+        assert(dy_a > -0.00000000001 && dy_a < 0.00000000001);
         p.acc_backward();
         p.acc_backward();
         p.acc_backward();
-        assert(get_dx(p) < 0.0); // Signs should flip
-        assert(get_dy(p) < 0.0); // Signs should flip
+        coordinate c_after = get_coordinate(p);
+        double dx_b = get_x(c_after) - get_x(c_inbetween);
+        double dy_b = get_y(c_after) - get_y(c_inbetween);
+        assert(dx_b < 0.0); // Signs should flip
+        // it should not change in the y direction if the assumption about initial direction is correct
+        assert(dy_b > -0.00000000001 && dy_b < 0.00000000001);
     }
 #endif //FIX_ISSUE_270
     //When a player is standing still,
