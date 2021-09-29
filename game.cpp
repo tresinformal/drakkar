@@ -271,12 +271,8 @@ void game::projectile_collision()
     for(int j = 0; j != n_players; ++j)
     {
       // if it is not the one that shot it ...
-//      #ifdef NEED_TO_WRITE_THIS_ISSUE_362
-//      if(!(this->get_projectiles()[i].get_owner_id() == j))
-//     {
-
-//     }
-//      #endif // NEED_TO_WRITE_THIS_ISSUE_362
+      if(!(this->get_projectiles()[i].get_owner_id() == m_player[j].get_ID()))
+     {
       double player_radius = m_player[j].get_diameter() / 2.0;
       // If the projectile touches the player ...
       if( get_x(this->m_projectiles[i]) > this-> m_player[j].get_x() - player_radius &&
@@ -304,10 +300,10 @@ void game::projectile_collision()
                   // a simple solution is:
                   return;
 
-              }
+            }
           }
+        }
       }
-
     }
   }
 }
@@ -362,7 +358,7 @@ void game::tick()
           const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
           const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
           const coordinate c{x ,y};
-          m_projectiles.push_back(projectile(c, d, projectile_type::stun_rocket));
+          m_projectiles.push_back(projectile(c, d, projectile_type::stun_rocket, 100, p.get_ID()));
         }
       p.stop_shooting_stun_rocket();
       assert(!p.is_shooting_stun_rocket());
