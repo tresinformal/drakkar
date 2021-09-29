@@ -68,7 +68,7 @@ void test_coordinate() {
 
     ///Test along y axis
     ///When direction is 0 player should
-    ///only move along the x axis
+    ///only move along the y axis
     direction = M_PI/2;
 
     double default_speed = 1;
