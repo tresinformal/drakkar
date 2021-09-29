@@ -93,7 +93,6 @@ void player::accelerate() noexcept
     {
         m_player_speed = m_player_max_speed;
     }
-    move();
 }
 
 void player::acc_backward() noexcept
@@ -387,10 +386,12 @@ void test_player() //!OCLINT tests may be long
     // A player can update its position
     {
         player p;
+        //give some speed to the player
+        p.accelerate();
         // with initial position only x will change since sin of 0 is 0
         double a_x = p.get_x();
         double a_y = p.get_y();
-        p.accelerate(); // move the player
+        p.move(); // move the player
         double b_x = p.get_x();
         double b_y = p.get_y();
         assert(std::abs(a_x - b_x) < 0.0000001);
@@ -398,13 +399,16 @@ void test_player() //!OCLINT tests may be long
     }
     {
         player p;
-        p.turn_left();
+        //give some speed to the player
+        p.accelerate();
         // change direction a little bit
         // otherwise default direction would not show
         // a change in y
+        p.turn_left();
+
         double a_x = p.get_x();
         double a_y = p.get_y();
-        p.accelerate(); // move the player
+        p.move(); // move the player
         double b_x = p.get_x();
         double b_y = p.get_y();
         assert(std::abs(a_x - b_x) > 0.0000001);

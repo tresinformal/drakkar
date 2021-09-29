@@ -238,7 +238,9 @@ void game::apply_inertia()
     {
       if (player.get_speed() != 0.0)
         {
-          // And should this function take some value from environment?
+          //Player moves based on its speed and position
+          player.move();
+          //Then its speed gets decreased by attrition
           player.brake();
 
         }
@@ -1203,8 +1205,10 @@ void test_game() //!OCLINT tests may be many
     p.set_y(0.00 + p.get_diameter()/2 + 0.01);
     assert(!hits_wall(p,g.get_env()));
 
-    ///move the player into the wall
+    //give the player some speed
     p.accelerate();
+    //Move the player into a wall
+    p.move();
     assert(hits_north_wall(p, g.get_env()));
 
     /// manage the collision
