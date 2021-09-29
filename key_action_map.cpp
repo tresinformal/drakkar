@@ -266,5 +266,12 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(kam.to_key(action_type::shoot_stun_rocket) == sf::Keyboard::Num1);
   }
 #endif // FIX_ISSUE_355
-
+#define FIX_ISSUE_370
+#ifdef FIX_ISSUE_370
+  // Can
+  {
+    //euguerbhdsiuefbirg()
+    sf::Keyboard::Key get_stun_key(const key_action_map& m);
+  }
+#endif // FIX_ISSUE_370
 }
