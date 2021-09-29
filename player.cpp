@@ -537,7 +537,7 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
     }
 
-    //#define FIX_ISSUE_270
+   #define FIX_ISSUE_270
 #ifdef FIX_ISSUE_270
     // A player increases its backward speed by one 'backward acceleration' per backward acceleration
     // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
@@ -562,9 +562,12 @@ void test_player() //!OCLINT tests may be long
     // A players goes ?right/?up upon acceleraton
     {
         player p_forward;
+        coordinate c_before = get_coordinate(p_forward);
         p_forward.accelerate();
-        assert(get_dx(p_forward) > 0.0); // Get the delta x, maybe needs to be added
-        assert(get_dy(p_forward) > 0.0); // Get the delta x, maybe needs to be added
+        coordinate c_after = get_coordinate(p_forward);
+        assert(get_x(c_after) - get_x(c_before) > 0.0);
+        assert(get_y(c_after) - get_y(c_before) > 0.0);
+
         player p_backward;
         p_backward.acc_backward();
         assert(get_dx(p_backward) < 0.0); // Signs should flip
