@@ -586,9 +586,9 @@ void test_player() //!OCLINT tests may be long
     // A players goes ?right/?up upon acceleraton
     {
         player p_forward;
-        coordinate c_before = get_coordinate(p_forward);
+        const coordinate c_before = get_coordinate(p_forward);
         p_forward.accelerate();
-        coordinate c_after = get_coordinate(p_forward);
+        const coordinate c_after = get_coordinate(p_forward);
         assert(get_x(c_after) - get_x(c_before) > 0.0);
         assert(get_y(c_after) - get_y(c_before) > 0.0);
 
