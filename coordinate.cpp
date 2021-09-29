@@ -43,7 +43,7 @@ void test_coordinate() {
   }
 #endif
 
-#define FIX_ISSUE_366
+//#define FIX_ISSUE_366
 #ifdef FIX_ISSUE_366
   {
     coordinate c{0,0};
