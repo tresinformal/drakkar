@@ -604,7 +604,6 @@ void test_player() //!OCLINT tests may be long
         double dy = get_y(c_after) - get_y(c_before);
         assert(dx < 0.0);
         assert(dy > -0.00000000001 && dy < 0.00000000001);
-
     }
     // RJCB: another suggested test
     // A players actually goes backwards after some backwards accelerations
