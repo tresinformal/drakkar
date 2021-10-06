@@ -543,7 +543,7 @@ void put_player_near_food(player &p, const food &f, const double distance)
 {
   std::vector<double> food_position = get_position(f);
   food_position[0] += distance;
-  p.place_to_position(get_position(f));
+  p.place_to_position(food_position);
 }
 
 bool have_same_position(const player& p, const food& f)
