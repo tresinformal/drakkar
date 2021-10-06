@@ -3,14 +3,14 @@
 #include <cmath>
 #include <sstream>
 
-food::food(const double x, const double y, const color &c, const double timer, food_state food_state)
-    : m_x{x}, m_y{y}, m_color{c},m_regeneration_time{timer},m_food_state{food_state}
+food::food(const double x, const double y, const color &c, const double timer, food_state food_state, double radius)
+  : m_x{x}, m_y{y}, m_color{c},m_regeneration_time{timer},m_food_state{food_state}, m_radius{radius}
 {
 }
 
 double food::get_x() const noexcept { return m_x; }
 double food::get_y() const noexcept { return m_y; }
-
+double food::get_radius() const noexcept {return m_radius;}
 std::ostream &operator<<(std::ostream &os, const food f)
 {
   os << "x : "<<f.get_x()<<
@@ -128,7 +128,8 @@ void test_food()
     const food f{0,0,color(), regeneration_time};
     assert(f.get_regeneration_time() == regeneration_time);
   }
-  // A food has a radius member
+//   A food has a radius member
+  #define FIX_ISSUE_389
   #ifdef FIX_ISSUE_389
   {
     const food f;
