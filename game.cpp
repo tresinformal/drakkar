@@ -1269,6 +1269,23 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_392
+#ifdef FIX_ISSUE_392
+  //When a player gets within the radius of food it eats it
+  {
+    game g;
+    food f = g.get_food()[0];
+    put_player_on_food(g.get_player(0), f);
+    double food_radius = f.get_radius();
+
+    assert(has_food(g));
+    assert(has_any_player_food_collision(g));
+    g.tick();
+    assert(!has_food(g));
+    assert(!has_any_player_food_collision(g));
+  }
+#endif
+
 #define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
   //Food and player can be overlapped
