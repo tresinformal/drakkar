@@ -150,10 +150,13 @@ void game_view::draw_food() noexcept
     // Get position of food
     std::vector<food> foods = m_game.get_food();
     // Position in landscape
-    foodsprite.setPosition(static_cast<float>(foods[0].get_x()),
-            static_cast<float>(foods[0].get_y()));
+    food f = foods[0];
+    foodsprite.setPosition(static_cast<float>(f.get_x()),
+            static_cast<float>(f.get_y()));
     foodsprite.setFillColor(sf::Color(0, 0, 0));
-    m_window.draw(foodsprite);
+    if (!f.is_eaten()) {
+        m_window.draw(foodsprite);
+      }
 }
 
 void game_view::press_key(const sf::Keyboard::Key& k)
