@@ -541,6 +541,8 @@ void put_player_on_food(player &p, const food &f)
 
 void put_player_near_food(player &p, const food &f, const double distance)
 {
+  std::vector<double> food_position = get_position(f);
+  food_position[0] += distance;
   p.place_to_position(get_position(f));
 }
 
@@ -1275,15 +1277,19 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 //#define FIX_ISSUE_392
-//#ifdef FIX_ISSUE_392
+#ifdef FIX_ISSUE_392
   //When a player gets within the radius of food it eats it
   {
     game g;
     food f = g.get_food()[0];
-    put_player_on_food(g.get_player(0), f);
     double food_radius = f.get_radius();
-
+    // Player beyond food radius should not trigger collision
+    put_player_near_food(g.get_player(0), f, food_radius + 1.0);
+    assert(!has_any_player_food_collision(g));
+    g.tick();
     assert(has_food(g));
+    // Player within food radius should trigger collision
+    put_player_near_food(g.get_player(0), f, food_radius - 1.0);
     assert(has_any_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
