@@ -221,6 +221,9 @@ void shrink_losing_player(game &g);
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
 
+///Puts a player on food
+void put_player_near_food(player& p, const food &f, const double distance = 0.0);
+
 /// Check that player and food are in collision, i.e. same position and food uneaten
 bool are_colliding(const player &p, const food &f);
 
