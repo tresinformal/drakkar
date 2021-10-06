@@ -548,10 +548,9 @@ void put_player_near_food(player &p, const food &f, const double distance)
 
 bool have_same_position(const player& p, const food& f)
 {
-  return p.get_x() - f.get_x() < 0.0001 &&
-      p.get_x() - f.get_x() > -0.0001 &&
-      p.get_y() - f.get_y() < 0.0001 &&
-      p.get_y() - f.get_y() > -0.0001;
+  double f_radius = f.get_radius();
+  return abs(p.get_x() - f.get_x()) < f_radius &&
+      abs(p.get_y() - f.get_y()) < f_radius;
 }
 
 bool are_colliding(const player &p, const food &f)
@@ -1276,7 +1275,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_392
+#define FIX_ISSUE_392
 #ifdef FIX_ISSUE_392
   //When a player gets within the radius of food it eats it
   {
@@ -1295,7 +1294,7 @@ void test_game() //!OCLINT tests may be many
     assert(!has_food(g));
     assert(!has_any_player_food_collision(g));
   }
-//#endif
+#endif
 
 #define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
