@@ -670,6 +670,16 @@ void eat_nth_food(game& g, const int n)
     g.eat_food(g.get_food()[n]);
 }
 
+bool nth_food_is_eaten(const game &g, const int &n)
+{
+  return g.get_food()[n].is_eaten();
+}
+
+int get_nth_food_regeneration_time(const game &g, const int &n)
+{
+  return g.get_food()[n].get_regeneration_time();
+}
+
 std::default_random_engine& game::get_rng() noexcept
 {
   return m_rng;
@@ -1425,6 +1435,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_255
 #ifdef FIX_ISSUE_255
   {
     game g;

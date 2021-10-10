@@ -190,6 +190,10 @@ int count_alive_players(const game& g) noexcept;
 // Eat nth food item
 void eat_nth_food(game& g, const int n);
 
+bool nth_food_is_eaten(const game &g, const int &n);
+
+int get_nth_food_regeneration_time(const game &g, const int &n);
+
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
