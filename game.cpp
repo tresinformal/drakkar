@@ -583,6 +583,11 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
   projectiles.push_back(projectile(c, d));
 }
 
+int get_nth_food_timer(const game &g, const int &n)
+{
+  return g.get_food()[n].get_timer();
+}
+
 void game::kill_player(const int index)
 {
   assert(index >= 0);
@@ -1401,6 +1406,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_259
 #ifdef FIX_ISSUE_259
   {
     game g; //by default one uneaten food
@@ -1409,7 +1415,7 @@ void test_game() //!OCLINT tests may be many
     eat_nth_food(g, 0);
     assert(!has_food(g));
     g.tick();
-    assert(init_value_timer + 1  == get_nth_food_timer(g, 0));
+    assert(initial_value_timer + 1  == get_nth_food_timer(g, 0));
   }
 #endif
 

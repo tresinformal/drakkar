@@ -233,6 +233,8 @@ bool has_any_player_food_collision(const game& g);
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
 
+int get_nth_food_timer(const game &g, const int &n);
+
 void test_game();
 
 #endif // GAMELOGIC_H

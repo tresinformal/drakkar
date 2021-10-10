@@ -3,8 +3,8 @@
 #include <cmath>
 #include <sstream>
 
-food::food(const double x, const double y, const color &c, const double timer, food_state food_state, double radius)
-  : m_x{x}, m_y{y}, m_color{c},m_regeneration_time{timer},m_food_state{food_state}, m_radius{radius}
+food::food(const double x, const double y, const color &c, const int regeneration_time, food_state food_state, double radius)
+  : m_x{x}, m_y{y}, m_color{c}, m_regeneration_time{regeneration_time}, m_food_state{food_state}, m_radius{radius}
 {
 }
 
@@ -30,6 +30,11 @@ bool operator==(const food& lhs, const food& rhs) noexcept
 {
     return lhs.get_x() == rhs.get_x()
             && lhs.get_y() == rhs.get_y() ;
+}
+
+const std::vector<double> get_position(const food& in_food)
+{
+    return std::vector<double> {in_food.get_x(),in_food.get_y()};
 }
 
 void test_food()
@@ -139,9 +144,3 @@ void test_food()
 #endif // no tests in release
 }
 
-
-
-const std::vector<double> get_position(const food& in_food)
-{
-    return std::vector<double> {in_food.get_x(),in_food.get_y()};
-}
