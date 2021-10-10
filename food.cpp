@@ -37,6 +37,11 @@ const std::vector<double> get_position(const food& in_food)
     return std::vector<double> {in_food.get_x(),in_food.get_y()};
 }
 
+void food::increment_timer()
+{
+  ++m_timer;
+}
+
 void test_food()
 {
   #ifndef NDEBUG // no tests in release

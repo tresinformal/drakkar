@@ -20,6 +20,7 @@ public:
   void set_food_state(const food_state &newState) noexcept { m_food_state = newState; }
   double get_radius() const noexcept;
   int get_timer() const noexcept { return m_timer; }
+  void increment_timer();
 
 private:
   double m_x;

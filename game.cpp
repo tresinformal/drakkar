@@ -337,6 +337,12 @@ void game::tick()
   //Check and resolve wall collisions
   do_wall_collisions();
 
+  // Increment timers of all food elements
+  for (food &f : m_food)
+    {
+      f.increment_timer();
+    }
+
   // Make players eat food
   make_players_eat_food();
 
