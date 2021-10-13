@@ -130,9 +130,6 @@ public:
 
 private:
 
-  /// Seed for the RNG
-  int m_seed;
-
   /// The RNG engine
   std::default_random_engine m_rng = std::minstd_rand(seed);
 

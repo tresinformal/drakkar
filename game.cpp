@@ -16,7 +16,6 @@ game::game(double wall_short_side,
            int n_enemies,
            int n_food,
            int seed):
-  m_seed{seed},
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
