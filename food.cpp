@@ -42,6 +42,11 @@ void food::increment_timer()
   ++m_timer;
 }
 
+void food::reset_timer()
+{
+  m_timer = 0;
+}
+
 void test_food()
 {
   #ifndef NDEBUG // no tests in release
@@ -124,7 +129,7 @@ void test_food()
   //Food has a regeneration timer member, set to 0 by default
   {
     food f;
-    assert(f.get_regeneration_time() == 0.0);
+    assert(f.get_regeneration_time() == 100);
   }
 
   //A food has a regeneration time

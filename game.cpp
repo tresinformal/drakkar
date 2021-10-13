@@ -348,6 +348,13 @@ void game::tick()
   // Make players eat food
   make_players_eat_food();
 
+  // Regenerate food items
+  for (food &f : m_food)
+    {
+      if (f.is_eaten() && f.get_timer() >= f.get_regeneration_time())
+      f.set_food_state(food_state::uneaten);
+    }
+
   // players that shoot must generate projectiles
   for (player &p : m_player)
     {
@@ -662,6 +669,7 @@ void game::eat_food(food& f)
       throw std::logic_error("You cannot eat food that already has been eaten!");
     }
   f.set_food_state(food_state::eaten);
+  f.reset_timer();
 }
 
 void eat_nth_food(game& g, const int n)
@@ -1447,6 +1455,34 @@ void test_game() //!OCLINT tests may be many
       {
         g.tick();
       }
+    assert(!nth_food_is_eaten(g,0));
+  }
+#endif
+
+
+#define FIX_ISSUE_394
+#ifdef FIX_ISSUE_394
+  {
+    game g;
+    food f = g.get_food()[0];
+    int f_regen_time = f.get_regeneration_time();
+
+    // Player on top of food should eat it
+    assert(!nth_food_is_eaten(g, 0));
+    put_player_on_food(g.get_player(0), f);
+    g.tick();
+    assert(nth_food_is_eaten(g, 0));
+    // Get player away so it does not eat food again
+    put_player_near_food(g.get_player(0), f, f.get_radius() * 2.0);
+
+    // Food item should not regen before the regeneration time
+    for(int i = 0; i != f_regen_time - 1; i++)
+      {
+        g.tick();
+      }
+    assert(nth_food_is_eaten(g,0));
+    g.tick();
+    // Food item should regen on the regeneration time
     assert(!nth_food_is_eaten(g,0));
   }
 #endif

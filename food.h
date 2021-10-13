@@ -7,7 +7,7 @@
 class food
 {
 public:
-  food(const double x = 2000.0, const double y = 1000.0, const color &c = color(), const int regeneration_time = 0, food_state food_state = food_state::uneaten, const double radius = 25.0);
+  food(const double x = 2000.0, const double y = 1000.0, const color &c = color(), const int regeneration_time = 100, food_state food_state = food_state::uneaten, const double radius = 25.0);
 
   const color &get_color() const noexcept { return m_color; }
   double get_x() const noexcept;
@@ -21,13 +21,14 @@ public:
   double get_radius() const noexcept;
   int get_timer() const noexcept { return m_timer; }
   void increment_timer();
+  void reset_timer();
 
 private:
   double m_x;
   double m_y;
   color m_color;
   int m_regeneration_time;
-  int m_timer = 1;
+  int m_timer = 0;
   /// the food state
   food_state m_food_state;
   double m_radius;
