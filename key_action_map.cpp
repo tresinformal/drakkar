@@ -83,7 +83,8 @@ key_action_map get_player_3_kam()
         sf::Keyboard::Up,
         sf::Keyboard::Down,
         //sf::Keyboard::Comma,
-        sf::Keyboard::RControl
+        sf::Keyboard::RControl,
+        sf::Keyboard::RShift
         );
 }
 
