@@ -565,7 +565,7 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
     }
 
-  // #define FIX_ISSUE_270
+//#define FIX_ISSUE_270
 #ifdef FIX_ISSUE_270
     // A player increases its backward speed by one 'backward acceleration' per backward acceleration
     // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
@@ -587,26 +587,28 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_speed() > -p.get_max_speed());
     }
     // RJCB: my suggested test
-    // A players goes ?right/?up upon acceleraton
+    // A players goes right/up upon acceleraton
     {
         player p_forward;
         coordinate c_before = get_coordinate(p_forward);
         p_forward.accelerate();
+        p_forward.move();
         coordinate c_after = get_coordinate(p_forward);
         assert(p_forward.get_direction() > -0.00000000001 && p_forward.get_direction() < 0.00000000001);
         double dx = get_x(c_after) - get_x(c_before);
         double dy = get_y(c_after) - get_y(c_before);
-        assert(dx > 0.0);
+        assert(dx > 0.00000000001);
         assert(dy > -0.00000000001 && dy < 0.00000000001);
 
         player p_backward;
         c_before = get_coordinate(p_backward);
         p_backward.acc_backward();
+        p_backward.move();
         c_after = get_coordinate(p_backward);
         assert(p_backward.get_direction() > -0.00000000001 && p_backward.get_direction() < 0.00000000001);
         double dx = get_x(c_after) - get_x(c_before);
         double dy = get_y(c_after) - get_y(c_before);
-        assert(dx < 0.0);
+        assert(dx < -0.00000000001);
         assert(dy > -0.00000000001 && dy < 0.00000000001);
     }
     // RJCB: another suggested test
@@ -615,18 +617,22 @@ void test_player() //!OCLINT tests may be long
         player p;
         coordinate c_before = get_coordinate(p);
         p.accelerate();
+        p.move();
         coordinate c_inbetween = get_coordinate(p);
         double dx_a = get_x(c_inbetween) - get_x(c_before);
         double dy_a = get_y(c_inbetween) - get_y(c_before);
-        assert(dx_a > 0.0); // Get the delta x
+        assert(dx_a > 0.00000000001); // Get the delta x
         assert(dy_a > -0.00000000001 && dy_a < 0.00000000001);
         p.acc_backward();
+        p.move();
         p.acc_backward();
+        p.move();
         p.acc_backward();
+        p.move();
         coordinate c_after = get_coordinate(p);
         double dx_b = get_x(c_after) - get_x(c_inbetween);
         double dy_b = get_y(c_after) - get_y(c_inbetween);
-        assert(dx_b < 0.0); // Signs should flip
+        assert(dx_b < -0.00000000001); // Signs should flip
         // it should not change in the y direction if the assumption about initial direction is correct
         assert(dy_b > -0.00000000001 && dy_b < 0.00000000001);
     }
