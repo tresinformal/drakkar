@@ -24,7 +24,8 @@ public:
        int n_ticks = 0,
        std::size_t n_shelters = 42,
        int n_enemies = 1,
-       int n_food = 1);
+       int n_food = 1,
+       int seed = 0);
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -130,7 +131,7 @@ public:
 private:
 
   /// The RNG engine
-  std::default_random_engine m_rng;
+  std::default_random_engine m_rng = std::minstd_rand(seed);
 
   /// the options of the game
   game_options m_options;

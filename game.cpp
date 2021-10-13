@@ -14,7 +14,8 @@ game::game(double wall_short_side,
            int n_ticks,
            size_t n_shelters,
            int n_enemies,
-           int n_food):
+           int n_food,
+           int seed):
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
@@ -1557,7 +1558,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-///#define FIX_ISSUE_288
+#define FIX_ISSUE_288
 #ifdef FIX_ISSUE_288
   {
     int seed = 123456789;
