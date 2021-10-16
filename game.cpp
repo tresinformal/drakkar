@@ -344,11 +344,7 @@ void game::tick()
   make_players_eat_food();
 
   // Regenerate food items
-  for (food &f : m_food)
-    {
-      if (f.is_eaten() && f.get_timer() >= f.get_regeneration_time())
-      f.set_food_state(food_state::uneaten);
-    }
+  regenerate_food_items();
 
   // players that shoot must generate projectiles
   for (player &p : m_player)
@@ -650,6 +646,15 @@ void game::increment_food_timers()
     {
       f.increment_timer();
     }
+}
+
+void game::regenerate_food_items()
+{
+  for (food &f : m_food)
+    {
+      if (f.is_eaten() && f.get_timer() >= f.get_regeneration_time())
+     f.set_food_state(food_state::uneaten);
+   }
 }
 
 void game::make_players_eat_food()
