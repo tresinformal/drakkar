@@ -370,8 +370,8 @@ void game::tick()
         {
           // Put the projectile just in front outside of the player
           const double d{p.get_direction()};
-          const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 1.1)};
-          const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 1.1)};
+          const double x{p.get_x() + (std::cos(d) * p.get_diameter() * 0.5)};
+          const double y{p.get_y() + (std::sin(d) * p.get_diameter() * 0.5)};
           const coordinate c{x ,y};
           m_projectiles.push_back(projectile(c, d, projectile_type::stun_rocket, 100, p.get_ID()));
         }
