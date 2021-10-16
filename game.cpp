@@ -546,17 +546,19 @@ void shrink_losing_player(game &g)
   losing_player.shrink();
 }
 
-
 void put_player_on_food(player &p, const food &f)
 {
-  p.place_to_position(get_position(f));
+  coordinate f_p = f.get_position();
+  std::vector<double> new_position = {f_p.get_x(), f_p.get_y()};
+  p.place_to_position(new_position);
 }
 
 void put_player_near_food(player &p, const food &f, const double distance)
 {
-  std::vector<double> food_position = get_position(f);
-  food_position[0] += distance;
-  p.place_to_position(food_position);
+  coordinate f_p = f.get_position();
+  std::vector<double> new_position = {f_p.get_x(), f_p.get_y()};
+  new_position[0] += distance;
+  p.place_to_position(new_position);
 }
 
 bool have_same_position(const player& p, const food& f)
@@ -1362,11 +1364,12 @@ void test_game() //!OCLINT tests may be many
 #define FIX_ISSUE_247
 #ifdef FIX_ISSUE_247
   {
-    player p{12.3};
-    food f{12.3 + 1.0};
-    assert(!are_colliding(p,f));
-    put_player_on_food(p,f);
-    assert(are_colliding(p,f));
+    player p(0, 0);
+    coordinate c_f(1000, 0);
+    food f{c_f};
+    assert(!are_colliding(p, f));
+    put_player_on_food(p, f);
+    assert(are_colliding(p, f));
   }
 #endif // FIX_ISSUE_247
 
@@ -1571,7 +1574,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_321
   {
     coordinate Some_random_point(1,1);
-    food n_food;
+    food n_;
     player n_player;
     projectile n_projectile;
     shelter n_shelter;

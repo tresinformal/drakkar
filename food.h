@@ -1,17 +1,19 @@
 #ifndef FOOD_H
 #define FOOD_H
 
+#include "coordinate.h"
 #include "color.h"
 #include "food_state.h"
 #include <vector>
 class food
 {
 public:
-  food(const double x = 2000.0, const double y = 1000.0, const color &c = color(), const int regeneration_time = 100, food_state food_state = food_state::uneaten, const double radius = 25.0);
+  food(const coordinate c = coordinate(2000.0, 1000.0), const color &col = color(), const int regeneration_time = 100, food_state food_state = food_state::uneaten, const double radius = 25.0);
 
   const color &get_color() const noexcept { return m_color; }
   double get_x() const noexcept;
   double get_y() const noexcept;
+  coordinate get_position() const noexcept { return m_c; }
   // int get_food_timer() const noexcept
   int get_regeneration_time() const noexcept { return m_regeneration_time;}
   bool is_eaten() const noexcept;
@@ -24,8 +26,7 @@ public:
   void reset_timer();
 
 private:
-  double m_x;
-  double m_y;
+  coordinate m_c;
   color m_color;
   int m_regeneration_time;
   int m_timer = 0;
@@ -36,7 +37,7 @@ private:
 
 void test_food();
 ///get the position of an inputted food object
-const std::vector<double> get_position(const food& in_food);
+const coordinate get_position(const food& in_food);
 /// Get the blueness (from the color) of the food
 int get_blueness(const food &f) noexcept;
 
