@@ -209,6 +209,8 @@ bool has_collision(const player& pl, const projectile& p);
 ///Checks if a player and food have the same exact position
 bool have_same_position(const player& p, const food& f);
 
+bool is_in_food_radius(const player p, const food f) noexcept;
+
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
 bool has_collision_with_projectile(const game &) noexcept;

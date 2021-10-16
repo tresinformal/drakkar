@@ -556,14 +556,24 @@ void put_player_near_food(player &p, const food &f, const double distance)
 
 bool have_same_position(const player& p, const food& f)
 {
-  double f_radius = f.get_radius();
-  return abs(p.get_x() - f.get_x()) < f_radius &&
-      abs(p.get_y() - f.get_y()) < f_radius;
+  return p.get_x() - f.get_x() < 0.0001 &&
+        p.get_x() - f.get_x() > -0.0001 &&
+        p.get_y() - f.get_y() < 0.0001 &&
+        p.get_y() - f.get_y() > -0.0001;
+}
+
+bool is_in_food_radius(const player p, const food f) noexcept
+{
+    const double dx = std::abs(p.get_x() - f.get_x());
+    const double dy = std::abs(p.get_y() - f.get_y());
+    const double actual_distance = std::sqrt((dx * dx) + (dy * dy));
+    const double collision_distance = p.get_diameter() / 2 + f.get_radius();
+    return actual_distance < collision_distance;
 }
 
 bool are_colliding(const player &p, const food &f)
 {
-  return have_same_position(p, f) && !f.is_eaten();
+  return is_in_food_radius(p, f) && !f.is_eaten();
 }
 
 bool has_any_player_food_collision(const game& g)
@@ -1323,13 +1333,16 @@ void test_game() //!OCLINT tests may be many
     game g;
     food f = g.get_food()[0];
     double food_radius = f.get_radius();
-    // Player beyond food radius should not trigger collision
-    put_player_near_food(g.get_player(0), f, food_radius + 1.0);
+    double player_radius = get_nth_player_size(g, 0) / 2;
+    double collision_distance = food_radius + player_radius;
+
+    // Player at food radius should not trigger collision
+    put_player_near_food(g.get_player(0), f, collision_distance);
     assert(!has_any_player_food_collision(g));
     g.tick();
     assert(has_food(g));
     // Player within food radius should trigger collision
-    put_player_near_food(g.get_player(0), f, food_radius - 1.0);
+    put_player_near_food(g.get_player(0), f, collision_distance - 1.0);
     assert(has_any_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
