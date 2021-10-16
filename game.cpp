@@ -1487,12 +1487,11 @@ void test_game() //!OCLINT tests may be many
     put_player_near_food(g.get_player(0), f, f.get_radius() * 2.0);
 
     // Food item should not regen before the regeneration time
-    for(int i = 0; i != f_regen_time - 1; i++)
+    for(int i = 0; i != f_regen_time; i++)
       {
+        assert(nth_food_is_eaten(g,0));
         g.tick();
       }
-    assert(nth_food_is_eaten(g,0));
-    g.tick();
     // Food item should regen on the regeneration time
     assert(!nth_food_is_eaten(g,0));
   }
