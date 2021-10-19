@@ -805,9 +805,7 @@ void test_player() //!OCLINT tests may be long
       assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
 
       // a player with direction 0 and speed 1 moves one unit of space along the x-axis
-      while(p.get_speed() < 1) {
-          p.accelerate();
-        }
+      p.set_speed_to_a_given_value_for_test(1.0)
       // acceleration alone should not change player position
       assert(starting_position == p.get_position());
       assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
