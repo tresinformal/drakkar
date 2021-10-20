@@ -763,6 +763,34 @@ void test_player() //!OCLINT tests may be long
     assert(to_str(player_state::active) == "active");
   }
   #endif
+
+//#define FIX_ISSUE_401
+#ifdef FIX_ISSUE_401
+    {
+        auto x = 1.23456;
+        auto  y = 123456.789;
+        coordinate c{x, y};
+        player p{c};
+        assert(get_position(p) == c);
+    }
+#endif
+
+//#define FIX_ISSUE_402
+#ifdef FIX_ISSUE_402
+    {
+        auto x = 1.23456;
+        auto  y = 123456.789;
+        coordinate c{x, y};
+        player p{c};
+
+        ///you HAVE TO use the get_position(player)
+        /// to implement get_x(player) and get_y(player)
+        ///I do not know how to make it explicit in the test @Richel
+        assert(get_x(p) == c.get_x());
+        assert(get_y(p) == c.get_y());
+    }
+#endif
+
 #endif // no tests in release
 }
 
