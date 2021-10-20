@@ -754,8 +754,8 @@ void test_player() //!OCLINT tests may be long
         auto x = 1.23456;
         auto  y = 123456.789;
         coordinate c{x, y};
-        player p2{x,y};
-        assert(p2.get_position() == c);
+        player p{c};
+        assert(p.get_position() == c);
   }
 #endif
   #ifdef FIX_ISSUE_351
