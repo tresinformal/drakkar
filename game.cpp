@@ -1562,7 +1562,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define FIX_ISSUE_286
+// #define FIX_ISSUE_286
 #ifdef FIX_ISSUE_286
   {
     std::vector<double> food_x;
@@ -1629,11 +1629,26 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-///#define FIX_ISSUE_288
+//#define FIX_ISSUE_288
 #ifdef FIX_ISSUE_288
   {
+    // default game arguments
+    double short_wall_side = 1600;
+    int n_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 0;
+    int n_enemies = 0;
+    int n_food = 0;
+
     int seed = 123456789;
-    game g{0,0,0,0,0,0, seed};
+    game g(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           seed
+           );
     auto expected_rng = std::minstd_rand(seed);
     assert(g.get_rng() - expected_rng() < 0.00001 &&
            g.get_rng() - expected_rng() > -0.00001);
