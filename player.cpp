@@ -748,11 +748,14 @@ void test_player() //!OCLINT tests may be long
     }
 #endif
 
+//#define FIX_ISSUE_324
 #ifdef FIX_ISSUE_324
   {
-    coordinate c{1.23456, 123456.789};
-    player p{c};
-    assert(p.get_position() == c);
+        auto x = 1.23456;
+        auto  y = 123456.789;
+        coordinate c{x, y};
+        player p2{x,y};
+        assert(p2.get_position() == c);
   }
 #endif
   #ifdef FIX_ISSUE_351
