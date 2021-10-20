@@ -3,6 +3,7 @@
 
 #include "action_type.h"
 #include "color.h"
+#include "coordinate.h"
 #include "player_shape.h"
 #include "player_state.h"
 #include <cmath>
@@ -82,10 +83,10 @@ public:
     bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
 
     ///Places a player to a given x,y poisition
-    void place_to_position(const std::vector<double>& position) noexcept
+    void place_to_position(const coordinate& position) noexcept
     {
-        m_x = position[0];
-        m_y = position[1];
+        m_x = position.get_x();
+        m_y = position.get_y();
     }
 
     /// Set the color of the player

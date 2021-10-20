@@ -541,16 +541,14 @@ void shrink_losing_player(game &g)
 
 void put_player_on_food(player &p, const food &f)
 {
-  auto f_p = f.get_position();
-  std::vector<double> new_position = {f_p.get_x(), f_p.get_y()};
+  auto new_position = f.get_position();
   p.place_to_position(new_position);
 }
 
 void put_player_near_food(player &p, const food &f, const double distance)
 {
-  coordinate f_p = f.get_position();
-  std::vector<double> new_position = {f_p.get_x(), f_p.get_y()};
-  new_position[0] += distance;
+  auto f_p = f.get_position();
+  coordinate new_position = coordinate(f_p.get_x() + distance, f_p.get_y());
   p.place_to_position(new_position);
 }
 
