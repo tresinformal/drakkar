@@ -1566,6 +1566,16 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_257
   {
     // A food that returns to the uneaten state is relocated at random
+    game g;
+    assert(!is_nth_food_eaten(g, 0));
+    coordinate food_coord_before = get_nth_food_position(g, 0);
+    eat_nth_food(g, 0);
+    // Tick until food regens
+    while (is_nth_food_eaten(g, 0)) {
+      g.tick();
+    }
+    coordinate food_coord_after = get_nth_food_position(g, 0);
+    assert(food_coord_after != food_coord_before);
   }
 #endif
 
