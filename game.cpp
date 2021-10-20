@@ -1334,7 +1334,7 @@ void test_game() //!OCLINT tests may be many
     food f = g.get_food()[0];
     double food_radius = f.get_radius();
     double player_radius = get_nth_player_size(g, 0) / 2;
-    double collision_distance = food_radius + player_radius;
+    double no_collision_distance = food_radius + player_radius;
 
     // Player at food radius should not trigger collision
     put_player_near_food(g.get_player(0), f, collision_distance);
