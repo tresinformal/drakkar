@@ -541,7 +541,7 @@ void shrink_losing_player(game &g)
 
 void put_player_on_food(player &p, const food &f)
 {
-  coordinate f_p = f.get_position();
+  auto f_p = f.get_position();
   std::vector<double> new_position = {f_p.get_x(), f_p.get_y()};
   p.place_to_position(new_position);
 }
@@ -1337,12 +1337,12 @@ void test_game() //!OCLINT tests may be many
     double no_collision_distance = food_radius + player_radius;
 
     // Player at food radius should not trigger collision
-    put_player_near_food(g.get_player(0), f, collision_distance);
+    put_player_near_food(g.get_player(0), f, no_collision_distance);
     assert(!has_any_player_food_collision(g));
     g.tick();
     assert(has_food(g));
     // Player within food radius should trigger collision
-    put_player_near_food(g.get_player(0), f, collision_distance - 1.0);
+    put_player_near_food(g.get_player(0), f, no_collision_distance - 1.0);
     assert(has_any_player_food_collision(g));
     g.tick();
     assert(!has_food(g));
@@ -1596,7 +1596,7 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_321
   {
     coordinate Some_random_point(1,1);
-    food n_;
+    food n_food;
     player n_player;
     projectile n_projectile;
     shelter n_shelter;
