@@ -785,7 +785,7 @@ void test_player() //!OCLINT tests may be long
 
         ///you HAVE TO use the get_position(player)
         /// to implement get_x(player) and get_y(player)
-        ///I do not know how to make it explicit in the test @Richel
+        /// I do not know how to make it explicit in the test @Richel
         assert(get_x(p) == c.get_x());
         assert(get_y(p) == c.get_y());
     }
