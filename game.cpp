@@ -1562,20 +1562,41 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+  // #define FIX_ISSUE_403
+  #ifdef FIX_ISSUE_403
+  {
+    // Food item's state can be accessed easily
+    game g;
+    assert(!is_nth_food_eaten(g, 0));
+    eat_nth_food(g, 0);
+    assert(is_nth_food_eaten(g, 0));
+  }
+  #endif
+
+  // #define FIX_ISSUE_404
+  #ifdef FIX_ISSUE_404
+  {
+    // Food item position can be accessed easily
+    game g;
+    coordinate default_food_position = coordinate(2000, 1000);
+    assert(get_nth_food_position(g, 0) == default_food_position);
+  }
+  #endif
+
 // #define FIX_ISSUE_257
 #ifdef FIX_ISSUE_257
   {
     // A food that returns to the uneaten state is relocated at random
     game g;
     assert(!is_nth_food_eaten(g, 0));
-    coordinate food_coord_before = get_nth_food_position(g, 0);
+    coordinate food_pos_before = get_nth_food_position(g, 0);
     eat_nth_food(g, 0);
     // Tick until food regens
     while (is_nth_food_eaten(g, 0)) {
       g.tick();
     }
-    coordinate food_coord_after = get_nth_food_position(g, 0);
-    assert(food_coord_after != food_coord_before);
+    coordinate food_pos_after = get_nth_food_position(g, 0);
+    assert(food_pos_after != food_pos_before);
   }
 #endif
 
