@@ -1510,6 +1510,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+// #define FIX_ISSUE_250
 #ifdef FIX_ISSUE_250
   //Food can be placed at a random location
   {
@@ -1529,14 +1530,20 @@ void test_game() //!OCLINT tests may be many
     auto mean_x = calc_mean(food_x);
     auto mean_y = calc_mean(food_y);
 
-    assert(mean_x > -0.01 && mean_x < 0.01);
-    assert(mean_y > -0.01 && mean_y < 0.01);
+    // Mean position of food items should be center of game environment
+    double expected_mean_x = (get_max_x(g) + get_min_x(g)) / 2.0;
+    double expected_mean_y = (get_max_y(g) + get_min_y(g)) / 2.0;
+    double d_mean_x = abs(expected_mean_x - mean_x);
+    double d_mean_y = abs(expected_mean_y - mean_y);
+
+    assert(d_mean_x < 0.01);
+    assert(d_mean_x < 0.01);
 
     auto var_x = calc_var(food_x, mean_x);
     auto var_y = calc_var(food_y, mean_y);
 
-    assert(var_x < 0.01 && var_x > -0.01);
-    assert(var_y < 0.01 && var_y > -0.01);
+    assert(var_x > 0.01);
+    assert(var_y > 0.01);
   }
 #endif
 
