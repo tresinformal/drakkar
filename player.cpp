@@ -557,9 +557,6 @@ void test_player() //!OCLINT tests may be long
     }
     // A player increases its speed by one 'acceleration' per acceleration
     {
-        // RJCB: I see the point you try to make here:
-        // this is a prelude to the next test.
-        // I suggest to merge the two tests into one
         player p;
         p.accelerate();
         assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
@@ -586,7 +583,6 @@ void test_player() //!OCLINT tests may be long
         p.acc_backward();
         assert(p.get_speed() > -p.get_max_speed());
     }
-    // RJCB: my suggested test
     // A players goes right/up upon acceleraton
     {
         player p_forward;
@@ -611,8 +607,7 @@ void test_player() //!OCLINT tests may be long
         assert(dx < -0.00000000001);
         assert(dy > -0.00000000001 && dy < 0.00000000001);
     }
-    // RJCB: another suggested test
-    // A players actually goes backwards after some backwards accelerations
+    // A players actually goes backwards after some backwards movements
     {
         player p;
         coordinate c_before = get_coordinate(p);
@@ -621,7 +616,7 @@ void test_player() //!OCLINT tests may be long
         coordinate c_inbetween = get_coordinate(p);
         double dx_a = get_x(c_inbetween) - get_x(c_before);
         double dy_a = get_y(c_inbetween) - get_y(c_before);
-        assert(dx_a > 0.00000000001); // Get the delta x
+        assert(dx_a > 0.00000000001);
         assert(dy_a > -0.00000000001 && dy_a < 0.00000000001);
         p.acc_backward();
         p.move();
@@ -791,6 +786,7 @@ void test_player() //!OCLINT tests may be long
 #ifdef FIX_ISSUE_367
   {
     {
+      // Moving or turning with speed = 0 does not change position
       player p;
       const coordinate starting_position = p.get_position();
       assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
@@ -805,7 +801,10 @@ void test_player() //!OCLINT tests may be long
       assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
 
       // a player with direction 0 and speed 1 moves one unit of space along the x-axis
-      p.set_speed_to_a_given_value_for_test(1.0)
+      while(p.get_speed() <= 1) {
+          p.accelerate();
+      }
+      assert(p.get_speed() < 1.00000000000001 && p.get_speed() > 0.999999999999999);
       // acceleration alone should not change player position
       assert(starting_position == p.get_position());
       assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
