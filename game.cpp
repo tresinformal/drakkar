@@ -1562,6 +1562,13 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+// #define FIX_ISSUE_257
+#ifdef FIX_ISSUE_257
+  {
+    // A food that returns to the uneaten state is relocated at random
+  }
+#endif
+
 // #define FIX_ISSUE_286
 #ifdef FIX_ISSUE_286
   {
