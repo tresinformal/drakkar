@@ -1508,6 +1508,23 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+// #define FIX_ISSUE_400
+#ifdef FIX_ISSUE_400
+  // A game's min and max coordinates can be accessed quickly
+  {
+    game g;
+    double max_x = get_max_x(g);
+    assert(max_x == g.get_env().get_max_x());
+    double min_x = get_min_x(g);
+    assert(min_x == g.get_env().get_min_x());
+    double max_y = get_max_y(g);
+    assert(max_y == g.get_env().get_max_y());
+    double min_y = get_min_y(g);
+    assert(min_y == g.get_env().get_min_y());
+  }
+#endif
+
+
 // #define FIX_ISSUE_250
 #ifdef FIX_ISSUE_250
   //Food can be placed at a random location
