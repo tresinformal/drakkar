@@ -1562,28 +1562,53 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#define FIX_ISSUE_286
 #ifdef FIX_ISSUE_286
   {
     std::vector<double> food_x;
     std::vector<double> food_y;
+
+    // default game arguments
+    double short_wall_side = 1600;
+    int n_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 0;
+    int n_enemies = 0;
+    int n_food = 1;
+
+    game g(short_wall_side); // just for getting min and max coordinates below
+
     int repeats = 1000;
     for(int rng_seed = 0; rng_seed != repeats; rng_seed++)
       {
-        game g(1,1,1,1,1,1, rng_seed);
-        food_x.push_back(get_nth_food_x(g,0));
-        food_y.push_back(get_nth_food_y(g,0));
+        game g(short_wall_side,
+               n_players,
+               n_ticks,
+               n_shelters,
+               n_enemies,
+               n_food,
+               rng_seed
+               );
+        food_x.push_back(get_nth_food_x(g, 0));
+        food_y.push_back(get_nth_food_y(g, 0));
       }
     auto mean_x = calc_mean(food_x);
     auto mean_y = calc_mean(food_y);
 
-    assert(mean_x > -0.01 && mean_x < 0.01);
-    assert(mean_y > -0.01 && mean_y < 0.01);
+    // Mean position of food items should be center of game environment
+    double expected_mean_x = (get_max_x(g) + get_min_x(g)) / 2.0;
+    double expected_mean_y = (get_max_y(g) + get_min_y(g)) / 2.0;
+    double d_mean_x = abs(expected_mean_x - mean_x);
+    double d_mean_y = abs(expected_mean_y - mean_y);
+
+    assert(d_mean_x < 0.01);
+    assert(d_mean_x < 0.01);
 
     auto var_x = calc_var(food_x, mean_x);
     auto var_y = calc_var(food_y, mean_y);
 
-    assert(var_x < 0.01 && var_x > -0.01);
-    assert(var_y < 0.01 && var_y > -0.01);
+    assert(var_x > 0.01);
+    assert(var_y > 0.01);
   }
 #endif
   // Test calc_mean
