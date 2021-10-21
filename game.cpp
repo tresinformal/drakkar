@@ -14,13 +14,15 @@ game::game(double wall_short_side,
            int n_ticks,
            size_t n_shelters,
            int n_enemies,
-           int n_food):
+           int n_food,
+           int seed):
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
   m_environment(wall_short_side),
   m_food(n_food, food()),
-  m_shelters(n_shelters, shelter())
+  m_rng(seed),
+  m_shelters(n_shelters, shelter()),
 {
 
   for (unsigned int i = 0; i != m_player.size(); ++i)
@@ -1667,7 +1669,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_288
+#define FIX_ISSUE_288
 #ifdef FIX_ISSUE_288
   {
     // default game arguments
@@ -1688,6 +1690,7 @@ void test_game() //!OCLINT tests may be many
            seed
            );
     auto expected_rng = std::minstd_rand(seed);
+    expected_rng - std::minstd_rand(seed);
     assert(g.get_rng() - expected_rng() < 0.00001 &&
            g.get_rng() - expected_rng() > -0.00001);
   }
