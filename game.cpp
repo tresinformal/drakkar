@@ -1248,6 +1248,35 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
+  //#define FIX_ISSUE_406
+  #ifdef FIX_ISSUE_406
+  {
+    // the position of all shelters can be obtained
+
+    double wall_short_side = 1600;
+    int num_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 5;
+
+    game g(wall_short_side, num_players, n_ticks, n_shelters);
+
+    std::vector<coordinate> expected_shelter_positions;
+    for (int n = 0; n < n_shelters; ++n)
+      {
+        coordinate nth_shelter_position = get_nth_shelter_position(g, n);
+        expected_shelter_positions.push_back(nth_shelter_position);
+      }
+
+    std::vector<coordinate> shelter_positions = get_all_shelter_positions(g);
+
+    assert(shelter_positions.size() == expected_shelter_positions.size());
+    for (int n = 0; n < n_shelters; ++n)
+      {
+        assert(shelter_positions[n] == expected_shelter_positions[n]);
+      }
+  }
+  #endif
+
 #ifdef FIX_ISSUE_315
   // Initial shelters are at random locations over the whole arena
   {
