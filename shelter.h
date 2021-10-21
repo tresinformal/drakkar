@@ -2,28 +2,32 @@
 #define SHELTER_H
 
 #include "color.h"
+#include "coordinate.h"
 #include <cmath>
 #include "string.h"
 class shelter
 {
 public:
-  shelter(const double x = 0.0, const double y = 0.0,
-          const double radius = 100.0, const color &c = color(),
-          const double speed = 0.1, const double direction =1.0 );
+  shelter(const coordinate c = coordinate(0.0, 0.0),
+          const double radius = 100.0,
+          const color &col = color(),
+          const double speed = 0.1,
+          const double direction = 1.0);
+
   const color &get_color() const noexcept;
   double get_radius() const noexcept;
+  coordinate get_position() const noexcept;
   double get_x() const noexcept;
   double get_y() const noexcept;
   double get_speed() const noexcept;
   double get_direction() const noexcept;
+  // Make shelter drift in a random direction
+  void make_shelter_drift();
 
-  /// ?What does the update do?
-  void update_shelter_position();
 private:
   color m_color;
   double m_radius;
-  double m_x;
-  double m_y;
+  coordinate m_c;
   double m_speed;
   double m_direction;
 };
