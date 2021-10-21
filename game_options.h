@@ -9,7 +9,8 @@ public:
       const int rng_seed = 0,
       const bool play_music = true,
       key_action_map player_1_kam = get_player_1_kam(),
-      key_action_map player_2_kam = get_player_2_kam()
+      key_action_map player_2_kam = get_player_2_kam(),
+      key_action_map player_3_kam = get_player_3_kam()
       );
 
   ///Get the RNG seed
@@ -28,11 +29,15 @@ public:
 
   const key_action_map& get_kam_2() const noexcept { return m_kam_2; };
 
+  const key_action_map& get_kam_3() const noexcept { return m_kam_3; };
+
 private:
   int m_rng_seed;
   bool m_play_music = true;
   key_action_map m_kam_1;
   key_action_map m_kam_2;
+  key_action_map m_kam_3;
+
 };
 
 bool operator== (const game_options& lhs, const game_options& rhs) noexcept;
