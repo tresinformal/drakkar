@@ -53,14 +53,16 @@ game::game(double wall_short_side,
       {
         const double angle{2.0 * M_PI * static_cast<double>(i) /
               static_cast<double>(m_shelters.size())};
-        const double mid_x{400.0};
-        const double mid_y{300.0};
-        const double radius{200.0};
-        const double x{mid_x + (std::sin(angle) * radius)};
-        const double y{mid_y - (std::cos(angle) * radius)};
-        const color c(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+        const double mid_x{1000.0};
+        const double mid_y{500.0};
+        const double spread{500.0};
+        const double x{mid_x + (std::sin(angle) * spread)};
+        const double y{mid_y - (std::cos(angle) * spread)};
+        const coordinate c{x, y};
+        const double radius{50.0};
+        const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
                       i % 3 == 2 ? 255 : 0, 128 + 64);
-        this_shelter = shelter(x, y, 100.0, c);
+        this_shelter = shelter(c, radius, col);
         ++i;
       }
   }
@@ -252,7 +254,7 @@ void game::apply_inertia()
 void game::move_shelter()
 {
   for (auto & shelter: m_shelters)
-    shelter.update_shelter_position();
+    shelter.make_shelter_drift();
 }
 
 void game::move_projectiles()
@@ -1227,6 +1229,51 @@ void test_game() //!OCLINT tests may be many
     const double after = g.get_shelters()[0].get_x();
     assert(std::abs(after - before) > 0.0);
   }
+
+  // #define FIX_ISSUE_405
+  #ifdef FIX_ISSUE_405
+  {
+    // nth shelter position can be obtained
+    game g;
+    int n = 0;
+    shelter first_shelter = g.get_shelters()[n];
+    coordinate expected_c = first_shelter.get_position();
+
+    coordinate c = get_nth_shelter_position(g, n);
+
+    assert(c == expected_c);
+  }
+  #endif
+
+  //#define FIX_ISSUE_406
+  #ifdef FIX_ISSUE_406
+  {
+    // the position of all shelters can be obtained
+
+    double wall_short_side = 1600;
+    int num_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 5;
+
+    game g(wall_short_side, num_players, n_ticks, n_shelters);
+
+    std::vector<coordinate> expected_shelter_positions;
+    for (int n = 0; n < n_shelters; ++n)
+      {
+        coordinate nth_shelter_position = get_nth_shelter_position(g, n);
+        expected_shelter_positions.push_back(nth_shelter_position);
+      }
+
+    std::vector<coordinate> shelter_positions = get_all_shelter_positions(g);
+
+    assert(shelter_positions.size() == expected_shelter_positions.size());
+    for (int n = 0; n < n_shelters; ++n)
+      {
+        assert(shelter_positions[n] == expected_shelter_positions[n]);
+      }
+  }
+  #endif
+
 #ifdef FIX_ISSUE_315
   // Initial shelters are at random locations over the whole arena
   {

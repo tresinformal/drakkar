@@ -1,11 +1,12 @@
+#include "coordinate.h"
 #include "shelter.h"
 #include <cassert>
 #include <cmath>
 #include <string>
 
-shelter::shelter(const double x, const double y, const double radius,
-                 const color &c, const double shelter_speed, const double direction)
-    : m_color{c}, m_radius{radius}, m_x{x}, m_y{y},m_speed {shelter_speed},
+shelter::shelter(const coordinate c, const double radius,
+                 const color &col, const double shelter_speed, const double direction)
+    : m_color{col}, m_radius{radius}, m_c{c}, m_speed{shelter_speed},
       m_direction{direction}
 {
 }
@@ -20,25 +21,33 @@ double shelter::get_radius() const noexcept
   return m_radius;
 }
 
+coordinate shelter::get_position() const noexcept
+{
+  return m_c;
+}
+
 double shelter::get_x() const noexcept
 {
-  return m_x;
+  return m_c.get_x();
 }
 
 double shelter::get_y() const noexcept
 {
-  return m_y;
+  return m_c.get_y();
 }
 
-void shelter::update_shelter_position()
+void shelter::make_shelter_drift()
 {
-  m_x += std::cos(rand());
-  m_y += std::sin(rand());
+  double new_x = m_c.get_x() + std::cos(rand());
+  double new_y = m_c.get_y() + std::sin(rand());
+  m_c = coordinate(new_x, new_y);
 }
+
 double shelter::get_direction() const noexcept
 {
     return m_direction;
 }
+
 double shelter::get_speed() const noexcept
 {
     return m_speed;
@@ -89,19 +98,18 @@ void test_shelter() //!OCLINT tests may be complex
   }
   // X and Y work as expected
   {
-    const double x{12.34};
-    const double y{23.45};
-    const shelter f(x, y);
-    assert(std::abs(f.get_x() - x) < 0.00001);
-    assert(std::abs(f.get_y() - y) < 0.00001);
+    const coordinate c{12.34, 23.45};
+    const shelter f(c);
+    assert(std::abs(f.get_x() - c.get_x()) < 0.00001);
+    assert(std::abs(f.get_y() - c.get_y()) < 0.00001);
   }
   //test that shelter moves with each tick
   {
     shelter f;
     assert(f.get_x() == 0.0);
     assert(f.get_y() == 0.0);
-    f.update_shelter_position();
-    f.update_shelter_position(); //move shelter
+    f.make_shelter_drift();
+    f.make_shelter_drift(); //move shelter
     assert(f.get_x() != 0.0); //see that shelter moves
   }
   // Colors
@@ -110,26 +118,28 @@ void test_shelter() //!OCLINT tests may be complex
     const int g{2};
     const int b{3};
     const int a{4};
-    const color c(r, g, b, a);
-    const shelter s(0.0, 0.0, 100.0, c);
+    coordinate c{0.0, 0.0};
+    const color col(r, g, b, a);
+    const shelter s(c, 100.0, col);
     assert(get_blueness(s) == b);
     assert(get_greenness(s) == g);
     assert(get_opaqueness(s) == a);
     assert(get_redness(s) == r);
   }
-  //#define FIX_ISSUE_325
+  #define FIX_ISSUE_325
   #ifdef FIX_ISSUE_325
     {
-        coordinate some_random_point(1,1);
-        shelter n_shelter(some_random_point);
-        assert(n_shelter.get_position()==some_random_point);
+      coordinate some_random_point(1, 1);
+      shelter n_shelter(some_random_point);
+      assert(n_shelter.get_position() == some_random_point);
     }
   #endif
   #define FIX_ISSUE_264
   #ifdef FIX_ISSUE_264
   // Conversion to string
   {
-    const shelter s(1.2, 3.4, 5.6, color(7, 8, 9, 10));
+    coordinate c{1.2, 3.4};
+    const shelter s(c, 5.6, color(7, 8, 9, 10));
     const std::string t = to_str(s);
     assert(!t.empty());
   }
