@@ -16,13 +16,13 @@ game::game(double wall_short_side,
            int n_enemies,
            int n_food,
            int seed):
+  m_seed{seed},
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
   m_environment(wall_short_side),
   m_food(n_food, food()),
-  m_rng(seed),
-  m_shelters(n_shelters, shelter()),
+  m_shelters(n_shelters, shelter())
 {
 
   for (unsigned int i = 0; i != m_player.size(); ++i)
@@ -708,11 +708,6 @@ bool nth_food_is_eaten(const game &g, const int &n)
 int get_nth_food_regeneration_time(const game &g, const int &n)
 {
   return g.get_food()[n].get_regeneration_time();
-}
-
-std::default_random_engine& game::get_rng() noexcept
-{
-  return m_rng;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1690,9 +1685,8 @@ void test_game() //!OCLINT tests may be many
            seed
            );
     auto expected_rng = std::minstd_rand(seed);
-    expected_rng - std::minstd_rand(seed);
-    assert(g.get_rng() - expected_rng() < 0.00001 &&
-           g.get_rng() - expected_rng() > -0.00001);
+    assert(g.get_rng()() - expected_rng() < 0.00001 &&
+           g.get_rng()() - expected_rng() > -0.00001);
   }
 #endif
 
