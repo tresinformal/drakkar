@@ -17,6 +17,7 @@ game::game(double wall_short_side,
            int n_food,
            int seed):
   m_seed{seed},
+  m_rng(seed),
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
@@ -1731,7 +1732,7 @@ void test_game() //!OCLINT tests may be many
            n_food,
            seed
            );
-    auto expected_rng = std::minstd_rand(seed);
+    std::mt19937 expected_rng(seed);
     assert(g.get_rng()() - expected_rng() < 0.00001 &&
            g.get_rng()() - expected_rng() > -0.00001);
   }

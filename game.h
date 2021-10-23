@@ -53,7 +53,7 @@ public:
   const game_options& get_game_options() const noexcept { return m_options; }
 
   /// Get the random number generator engine
-  std::minstd_rand get_rng() noexcept { return m_rng; }
+  std::mt19937& get_rng() noexcept { return m_rng; }
 
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);
@@ -134,7 +134,7 @@ private:
   int m_seed;
 
   /// The RNG engine
-  std::minstd_rand m_rng = std::minstd_rand(m_seed);
+  std::mt19937 m_rng;
 
   /// the options of the game
   game_options m_options;
