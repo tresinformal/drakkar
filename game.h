@@ -24,7 +24,8 @@ public:
        int n_ticks = 0,
        std::size_t n_shelters = 42,
        int n_enemies = 1,
-       int n_food = 1);
+       int n_food = 1,
+       int seed = 0);
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -52,7 +53,7 @@ public:
   const game_options& get_game_options() const noexcept { return m_options; }
 
   /// Get the random number generator engine
-  std::default_random_engine& get_rng() noexcept;
+  std::mt19937& get_rng() noexcept { return m_rng; }
 
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);
@@ -129,8 +130,11 @@ public:
 
 private:
 
+  /// The seed
+  int m_seed;
+
   /// The RNG engine
-  std::default_random_engine m_rng;
+  std::mt19937 m_rng;
 
   /// the options of the game
   game_options m_options;
