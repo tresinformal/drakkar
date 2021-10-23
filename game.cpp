@@ -1277,13 +1277,45 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
+// #define FIX_ISSUE_315
 #ifdef FIX_ISSUE_315
   // Initial shelters are at random locations over the whole arena
   {
-    const game g;
-    assert(g.get_shelters().size() > 0);
-    // TODO: write test here
-  }
+    // default game arguments
+    double short_wall_side = 1600;
+    int n_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 10;
+    int n_enemies = 0;
+    int n_food = 0;
+
+    int a_seed = 2;
+    const game a_game(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           a_seed
+           );
+
+    int another_seed = 3;
+    const game another_game(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           another_seed
+           );
+
+    const std::vector<coordinate> some_shelter_positions = get_all_shelter_positions(a_game);
+    assert(some_shelter_positions.size() == n_shelters);
+    const std::vector<coordinate> other_shelter_positions = get_all_shelter_positions(another_game);
+    assert(other_shelter_positions.size() == n_shelters);
+
+    assert(!all_positions_equal(some_shelter_positions, other_shelter_positions));
+   }
 #endif // FIX_ISSUE_315
 
   ///Players in game are initialized with ID equal to their index
