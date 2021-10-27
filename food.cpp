@@ -33,6 +33,11 @@ bool operator==(const food& lhs, const food& rhs) noexcept
             && lhs.get_y() == rhs.get_y() ;
 }
 
+void food::place_randomly(){
+    //coordinate new_c(x, y);
+
+}
+
 void food::increment_timer()
 {
   ++m_timer;
