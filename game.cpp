@@ -1583,7 +1583,7 @@ void test_game() //!OCLINT tests may be many
     double d_mean_y = abs(expected_mean_y - mean_y);
 
     assert(d_mean_x < 0.01);
-    assert(d_mean_x < 0.01);
+    assert(d_mean_y < 0.01);
 
     auto var_x = calc_var(food_x, mean_x);
     auto var_y = calc_var(food_y, mean_y);
