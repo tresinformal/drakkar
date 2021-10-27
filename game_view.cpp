@@ -150,20 +150,21 @@ void game_view::draw_food() noexcept
     // Get position of food
     std::vector<food> foods = m_game.get_food();
     // Position in landscape
-    foodsprite.setPosition(static_cast<float>(foods[0].get_x()),
-            static_cast<float>(foods[0].get_y()));
+    food f = foods[0];
+    foodsprite.setPosition(static_cast<float>(f.get_x()),
+            static_cast<float>(f.get_y()));
     foodsprite.setFillColor(sf::Color(0, 0, 0));
-    m_window.draw(foodsprite);
+    if (!f.is_eaten()) {
+        m_window.draw(foodsprite);
+      }
 }
 
-void game_view::press_key(const sf::Keyboard::Key& /*k*/)
+void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    /*
-    if(k == sf::Keyboard::Num1) {
+    if(k == sf::Keyboard::E) {
       /// stunning not shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
-    */
 }
 
 
@@ -233,7 +234,7 @@ void game_view::draw_projectiles() noexcept
         if (projectile.get_type() == projectile_type::stun_rocket){
             // Create the projectile sprite
             sf::RectangleShape rect(sf::Vector2f(381.0, 83.0));
-            rect.setRotation(static_cast<float>(90));
+            rect.setRotation(static_cast<float>(0));
             rect.setPosition(get_x(projectile), get_y(projectile));
             rect.setTexture(&m_game_resources.get_stun_rocket());
             rect.rotate(projectile.get_direction() * 180 / M_PI);
@@ -511,7 +512,7 @@ void test_game_view()//!OCLINT tests may be many
   {
     game_view g;
     assert(count_n_projectiles(g) == 0);
-    g.press_key(sf::Keyboard::Num1);
+    g.press_key(sf::Keyboard::E);
     g.process_events(); // Needed to process the event
     assert(count_n_projectiles(g) == 1);
   }
