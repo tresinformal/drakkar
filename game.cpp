@@ -85,6 +85,15 @@ double get_min_y(const game &g){
     return g.get_env().get_min_y();
 }
 
+double get_nth_food_x(const game &g, const int n)
+{
+  return g.get_food()[n].get_x();
+}
+
+double get_nth_food_y(const game &g, const int n)
+{
+  return g.get_food()[n].get_y();
+}
 
 double calc_mean(const std::vector<double>& v)
 {
@@ -1542,7 +1551,7 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 
-// #define FIX_ISSUE_250
+#define FIX_ISSUE_250
 #ifdef FIX_ISSUE_250
   //Food can be placed at a random location
   {

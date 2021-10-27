@@ -184,6 +184,10 @@ double get_min_x(const game &g);
 double get_max_y(const game &g);
 double get_min_y(const game &g);
 
+/// Get x or y of a food item within game
+double get_nth_food_x(const game &g, const int n);
+double get_nth_food_y(const game &g, const int n);
+
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
 
