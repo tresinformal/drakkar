@@ -32,9 +32,11 @@ game::game(double wall_short_side,
     {
 
       auto ID = std::to_string(i);
+      coordinate player_position(
+            300.0 + static_cast<unsigned int>(m_dist_x_pls) * i,
+            400.0);
       m_player[i] =
-          player(300.0 + static_cast<unsigned int>(m_dist_x_pls) * i,
-                 400.0,
+          player(player_position,
                  player_shape::rocket,
                  player_state::active,
                  2,
@@ -1464,7 +1466,8 @@ void test_game() //!OCLINT tests may be many
 #define FIX_ISSUE_247
 #ifdef FIX_ISSUE_247
   {
-    player p(0, 0);
+    coordinate c_p(0, 0);
+    player p(c_p);
     coordinate c_f(1000, 0);
     food f{c_f};
     assert(!are_colliding(p, f));
