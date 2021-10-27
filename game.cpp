@@ -734,6 +734,11 @@ int get_nth_food_regeneration_time(const game &g, const int &n)
   return g.get_food()[n].get_regeneration_time();
 }
 
+void place_nth_food_randomly(const game &g, const int &n)
+{
+  g.get_food()[n].place_randomly();
+}
+
 std::default_random_engine& game::get_rng() noexcept
 {
   return m_rng;
