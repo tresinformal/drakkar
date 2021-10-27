@@ -788,16 +788,16 @@ void test_player() //!OCLINT tests may be long
     {
       // Moving or turning with speed = 0 does not change position
       player p;
-      const coordinate starting_position = p.get_position();
+      const coordinate starting_position = p.get_coordinate();
       assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
       p.move();
-      assert(starting_position == p.get_position());
+      assert(starting_position == p.get_coordinate());
       p.turn_left();
-      assert(starting_position == p.get_position());
+      assert(starting_position == p.get_coordinate());
     }
     {
       player p;
-      const coordinate starting_position = p.get_position();
+      const coordinate starting_position = p.get_coordinate();
       assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
 
       // a player with direction 0 and speed 1 moves one unit of space along the x-axis
@@ -806,11 +806,11 @@ void test_player() //!OCLINT tests may be long
       }
       assert(p.get_speed() < 1.00000000000001 && p.get_speed() > 0.999999999999999);
       // acceleration alone should not change player position
-      assert(starting_position == p.get_position());
+      assert(starting_position == p.get_coordinate());
       assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
       p.move();
-      const double delta_x = get_x(starting_position) - get_x(p.get_position());
-      const double delta_y = get_y(starting_position) - get_y(p.get_position());
+      const double delta_x = get_x(starting_position) - get_x(p.get_coordinate());
+      const double delta_y = get_y(starting_position) - get_y(p.get_coordinate());
       assert(delta_x < 1.00000000000001 && delta_x > 0.999999999999999);
       assert(delta_y < 0.00000000000001 && delta_y > -0.00000000000001);
     }
