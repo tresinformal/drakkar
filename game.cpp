@@ -734,7 +734,7 @@ int get_nth_food_regeneration_time(const game &g, const int &n)
   return g.get_food()[n].get_regeneration_time();
 }
 
-void place_nth_food_randomly(const game &g, const int &n)
+void place_nth_food_randomly(game &g, const int &n)
 {
   g.get_food()[n].place_randomly(get_min_x(g), get_max_x(g), get_min_y(g), get_max_y(g));
 }
