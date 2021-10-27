@@ -433,9 +433,6 @@ void test_player() //!OCLINT tests may be long
         // So, 90 pixels is a collision then
         const player p2(coordinate(90.0, 0.0));
         assert(are_colliding(p1, p2));
-#ifdef FIX_ISSUE_338
-        assert(are_colliding(p1.get_position(),p2.get_position()));
-#endif
     }
 
 
