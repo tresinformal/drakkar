@@ -561,12 +561,13 @@ void put_player_near_food(player &p, const food &f, const double distance)
   p.place_to_position(new_position);
 }
 
-bool have_same_position(const player& p, const food& f)
+template <typename L, typename R>
+bool have_same_position(const L& lhs, const R& rhs)
 {
-  return p.get_x() - f.get_x() < 0.0001 &&
-        p.get_x() - f.get_x() > -0.0001 &&
-        p.get_y() - f.get_y() < 0.0001 &&
-        p.get_y() - f.get_y() > -0.0001;
+  return lhs.get_x() - rhs.get_x() < 0.0001 &&
+        lhs.get_x() - rhs.get_x() > -0.0001 &&
+        lhs.get_y() - rhs.get_y() < 0.0001 &&
+        lhs.get_y() - rhs.get_y() > -0.0001;
 }
 
 bool is_in_food_radius(const player p, const food f) noexcept
@@ -1775,7 +1776,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-// #define FIX_ISSUE_321
+#define FIX_ISSUE_321
 #ifdef FIX_ISSUE_321
   {
     coordinate Some_random_point(1,1);

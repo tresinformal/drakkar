@@ -14,8 +14,8 @@ public:
              const double radius = 100, const std::string& owner_id = "-1");
 
   coordinate get_position() const noexcept { return m_coordinate; }
-
-
+  double get_x() const noexcept { return m_coordinate.get_x(); }
+  double get_y() const noexcept { return m_coordinate.get_y(); }
 
   /// Get the direction of player movement
   double get_direction() const noexcept { return m_direction; }
