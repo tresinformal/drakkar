@@ -385,7 +385,6 @@ void test_player() //!OCLINT tests may be long
     }
     // A player can update its position
     {
-        // TP: delete this test when assigning #367
         player p;
         //give some speed to the player
         p.accelerate();
@@ -399,7 +398,6 @@ void test_player() //!OCLINT tests may be long
         assert(std::abs(a_y - b_y) > 0.0000001);
     }
     {
-        // TP: delete this test when assigning #367
         player p;
         //give some speed to the player
         p.accelerate();
