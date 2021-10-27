@@ -69,6 +69,23 @@ void add_projectile(game &g, const projectile &p)
   g.get_projectiles().push_back(p);
 }
 
+
+double get_max_x(const game &g) {
+    return g.get_env().get_max_x();
+}
+
+double get_min_x(const game &g){
+    return g.get_env().get_min_x();
+}
+
+double get_max_y(const game &g){
+    return g.get_env().get_max_y();
+}
+double get_min_y(const game &g){
+    return g.get_env().get_min_y();
+}
+
+
 double calc_mean(const std::vector<double>& v)
 {
   return std::accumulate(
@@ -1508,7 +1525,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-// #define FIX_ISSUE_400
+#define FIX_ISSUE_400
 #ifdef FIX_ISSUE_400
   // A game's min and max coordinates can be accessed quickly
   {

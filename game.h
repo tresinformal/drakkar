@@ -178,6 +178,11 @@ private:
   void regenerate_food_items();
 };
 
+/// Get min and max coordinates of the game
+double get_max_x(const game &g);
+double get_min_x(const game &g);
+double get_max_y(const game &g);
+double get_min_y(const game &g);
 
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
