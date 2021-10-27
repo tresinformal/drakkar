@@ -168,9 +168,14 @@ private:
   /// Processess the collision between projectiles and players
   void projectile_collision();
 
+  // Increment timers of food items
+  void increment_food_timers();
+
   // Make players eat food items they are on top of
   void make_players_eat_food();
 
+  // Regenerate food items where relevant
+  void regenerate_food_items();
 };
 
 
@@ -191,6 +196,10 @@ int count_alive_players(const game& g) noexcept;
 // Eat nth food item
 void eat_nth_food(game& g, const int n);
 
+bool nth_food_is_eaten(const game &g, const int &n);
+
+int get_nth_food_regeneration_time(const game &g, const int &n);
+
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
@@ -199,6 +208,8 @@ bool has_collision(const player& pl, const projectile& p);
 
 ///Checks if a player and food have the same exact position
 bool have_same_position(const player& p, const food& f);
+
+bool is_in_food_radius(const player p, const food f) noexcept;
 
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
@@ -221,6 +232,9 @@ void shrink_losing_player(game &g);
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
 
+///Puts a player on food
+void put_player_near_food(player& p, const food &f, const double distance = 0.0);
+
 /// Check that player and food are in collision, i.e. same position and food uneaten
 bool are_colliding(const player &p, const food &f);
 
@@ -229,6 +243,8 @@ bool has_any_player_food_collision(const game& g);
 
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
+
+int get_nth_food_timer(const game &g, const int &n);
 
 void test_game();
 
