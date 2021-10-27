@@ -321,8 +321,9 @@ void test_player() //!OCLINT tests may be long
       // Must be the same
       assert(std::abs(p.get_x() - c.get_x()) < 0.00001);
       assert(std::abs(p.get_y() - c.get_y()) < 0.00001);
+#define FIX_ISSUE_337
 #ifdef FIX_ISSUE_337
-      assert(p.get_position() == position);
+      assert(p.get_position() == c);
 #endif
   }
 
