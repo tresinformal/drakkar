@@ -25,7 +25,7 @@ The Qt tool version:
 
 Look how nice they match :-)
 
-## 1. Download and install Qt Creator
+## 1. Download and install Qt Creator ([here](https://www.sfml-dev.org/files/SFML-2.5.1-macOS-clang.tar.gz))
 
 Use all defaults, up until the Qt Maintenance tool is started.
 Here, you will need to check two boxes:
