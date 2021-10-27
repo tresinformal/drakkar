@@ -3,7 +3,7 @@
   1. Download and install Qt Creator (once)
   2. Download and install SFML (once)
 
-## 1. Download and install Qt Creator
+## 1. Download and install Qt Creator (![here](https://www.qt.io/download-open-source?hsCtaTracking=9f6a2170-a938-42df-a8e2-a9f0b1d6cdce%7C6cb0de4f-9bb5-4778-ab02-bfb62735f3e5))
 
 Use all defaults, up until the Qt Maintenance tool is started.
 Here, you will need to check two boxes:
