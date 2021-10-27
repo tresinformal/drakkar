@@ -5,6 +5,7 @@
 #include "color.h"
 #include "food_state.h"
 #include <vector>
+#include <random>
 class food
 {
 public:
@@ -20,7 +21,7 @@ public:
   /// Get the food state
   food_state get_food_state() const noexcept { return m_food_state;}
   void set_food_state(const food_state &newState) noexcept { m_food_state = newState; }
-  void place_randomly();
+  void place_randomly(const double min_x, const double max_x, const double min_y, const double max_y);
   double get_radius() const noexcept;
   int get_timer() const noexcept { return m_timer; }
   void increment_timer();
@@ -34,6 +35,8 @@ private:
   /// the food state
   food_state m_food_state;
   double m_radius;
+  std::random_device rd;  // Will be used to obtain a seed for the random number engine
+  std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
 };
 
 void test_food();
