@@ -1775,22 +1775,19 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+// #define FIX_ISSUE_321
 #ifdef FIX_ISSUE_321
   {
     coordinate Some_random_point(1,1);
-    food n_food;
-    player n_player;
-    projectile n_projectile;
-    shelter n_shelter;
-    enenemy n_enemy;
+    food n_food(Some_random_point);
+    player n_player(Some_random_point);
+    projectile n_projectile(Some_random_point);
+    shelter n_shelter(Some_random_point);
+    enemy n_enemy(Some_random_point);
 
-
-    n_food.set_position(Some_random_point);
-    n_player.set_position(Some_random_point);
-    n_projectile.set_position(Some_random_point);
-    assert(have_same_position(n_food,Some_random_point));
-    assert(have_same_position(n_player,Some_random_point));
-    assert(have_same_position(n_projectile,Some_random_point));
+    assert(have_same_position(n_food, Some_random_point));
+    assert(have_same_position(n_player, Some_random_point));
+    assert(have_same_position(n_projectile, Some_random_point));
   }
 #endif
 
