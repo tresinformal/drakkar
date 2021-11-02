@@ -211,7 +211,8 @@ bool has_collision(const game &g) noexcept;
 bool has_collision(const player& pl, const projectile& p);
 
 ///Checks if a player and food have the same exact position
-bool have_same_position(const player& p, const food& f);
+template <typename L, typename R>
+bool have_same_position(const L& lhs, const R& rhs);
 
 bool is_in_food_radius(const player p, const food f) noexcept;
 
