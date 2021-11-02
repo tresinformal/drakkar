@@ -549,15 +549,12 @@ void test_player() //!OCLINT tests may be long
     }
     // A player increases its speed by one 'acceleration' per acceleration
     {
-        // RJCB: I see the point you try to make here:
-        // this is a prelude to the next test.
-        // I suggest to merge the two tests into one
         player p;
         p.accelerate();
         assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
     }
 
-    //#define FIX_ISSUE_270
+//#define FIX_ISSUE_270
 #ifdef FIX_ISSUE_270
     // A player increases its backward speed by one 'backward acceleration' per backward acceleration
     // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
@@ -578,30 +575,53 @@ void test_player() //!OCLINT tests may be long
         p.acc_backward();
         assert(p.get_speed() > -p.get_max_speed());
     }
-    // RJCB: my suggested test
-    // A players goes ?right/?up upon acceleraton
+    // A players goes right/up upon acceleraton
     {
         player p_forward;
+        coordinate c_before = get_coordinate(p_forward);
         p_forward.accelerate();
-        assert(get_dx(p_forward) > 0.0); // Get the delta x, maybe needs to be added
-        assert(get_dy(p_forward) > 0.0); // Get the delta x, maybe needs to be added
+        p_forward.move();
+        coordinate c_after = get_coordinate(p_forward);
+        assert(p_forward.get_direction() > -0.00000000001 && p_forward.get_direction() < 0.00000000001);
+        double dx = get_x(c_after) - get_x(c_before);
+        double dy = get_y(c_after) - get_y(c_before);
+        assert(dx > 0.00000000001);
+        assert(dy > -0.00000000001 && dy < 0.00000000001);
+
         player p_backward;
+        c_before = get_coordinate(p_backward);
         p_backward.acc_backward();
-        assert(get_dx(p_backward) < 0.0); // Signs should flip
-        assert(get_dy(p_backward) < 0.0); // Signs should flip
+        p_backward.move();
+        c_after = get_coordinate(p_backward);
+        assert(p_backward.get_direction() > -0.00000000001 && p_backward.get_direction() < 0.00000000001);
+        double dx = get_x(c_after) - get_x(c_before);
+        double dy = get_y(c_after) - get_y(c_before);
+        assert(dx < -0.00000000001);
+        assert(dy > -0.00000000001 && dy < 0.00000000001);
     }
-    // RJCB: another suggested test
-    // A players actually goes backwards after some backwards accelerations
+    // A players actually goes backwards after some backwards movements
     {
         player p;
+        coordinate c_before = get_coordinate(p);
         p.accelerate();
-        assert(get_dx(p) > 0.0); // Get the delta x, maybe needs to be added
-        assert(get_dy(p) > 0.0); // Get the delta x, maybe needs to be added
+        p.move();
+        coordinate c_inbetween = get_coordinate(p);
+        double dx_a = get_x(c_inbetween) - get_x(c_before);
+        double dy_a = get_y(c_inbetween) - get_y(c_before);
+        assert(dx_a > 0.00000000001);
+        assert(dy_a > -0.00000000001 && dy_a < 0.00000000001);
         p.acc_backward();
+        p.move();
         p.acc_backward();
+        p.move();
         p.acc_backward();
-        assert(get_dx(p) < 0.0); // Signs should flip
-        assert(get_dy(p) < 0.0); // Signs should flip
+        p.move();
+        coordinate c_after = get_coordinate(p);
+        double dx_b = get_x(c_after) - get_x(c_inbetween);
+        double dy_b = get_y(c_after) - get_y(c_inbetween);
+        assert(dx_b < -0.00000000001); // Signs should flip
+        // it should not change in the y direction if the assumption about initial direction is correct
+        assert(dy_b > -0.00000000001 && dy_b < 0.00000000001);
     }
 #endif //FIX_ISSUE_270
     //When a player is standing still,
@@ -750,11 +770,45 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_position() == c);
   }
 #endif
-  #ifdef FIX_ISSUE_351
+#ifdef FIX_ISSUE_351
   {
     assert(to_str(player_state::active) == "active");
   }
-  #endif
+#endif
+//#define FIX_ISSUE_367
+#ifdef FIX_ISSUE_367
+  {
+    {
+      // Moving or turning with speed = 0 does not change position
+      player p;
+      const coordinate starting_position = p.get_coordinate();
+      assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
+      p.move();
+      assert(starting_position == p.get_coordinate());
+      p.turn_left();
+      assert(starting_position == p.get_coordinate());
+    }
+    {
+      player p;
+      const coordinate starting_position = p.get_coordinate();
+      assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
+
+      // a player with direction 0 and speed 1 moves one unit of space along the x-axis
+      while(p.get_speed() <= 1) {
+          p.accelerate();
+      }
+      assert(p.get_speed() < 1.00000000000001 && p.get_speed() > 0.999999999999999);
+      // acceleration alone should not change player position
+      assert(starting_position == p.get_coordinate());
+      assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
+      p.move();
+      const double delta_x = get_x(starting_position) - get_x(p.get_coordinate());
+      const double delta_y = get_y(starting_position) - get_y(p.get_coordinate());
+      assert(delta_x < 1.00000000000001 && delta_x > 0.999999999999999);
+      assert(delta_y < 0.00000000000001 && delta_y > -0.00000000000001);
+    }
+  }
+#endif
 #endif // no tests in release
 }
 
