@@ -1580,9 +1580,13 @@ void test_game() //!OCLINT tests may be many
     assert(get_nth_food_x(g, 0) == get_nth_food_x(g, 1));
     assert(get_nth_food_y(g, 0) == get_nth_food_y(g, 1));
 
-    place_nth_food_randomly(g,0);
-    // place_nth_food_randomly(g,1); // Overkill
+    place_nth_food_randomly(g, 0);
+    // Food item 0 is no longer on the same spot
+    assert(get_nth_food_x(g, 0) != get_nth_food_x(g, 1));
+    assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
 
+    place_nth_food_randomly(g, 1);
+    // Food item 0 and 1 are not placed on the same spot
     assert(get_nth_food_x(g, 0) != get_nth_food_x(g, 1));
     assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
   }

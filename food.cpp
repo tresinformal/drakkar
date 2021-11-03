@@ -36,17 +36,10 @@ bool operator==(const food& lhs, const food& rhs) noexcept
 
 void food::place_randomly(std::default_random_engine &rng, const double min_x, const double max_x, const double min_y, const double max_y){
 
-  //std::random_device rd;  // Will be used to obtain a seed for the random number engine
-  //std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-
   std::uniform_real_distribution<> dis_x(min_x, max_x);
   std::uniform_real_distribution<> dis_y(min_y, max_y);
 
-  double new_x = dis_x(rng);
-  double new_y = dis_y(rng);
-
-  coordinate new_c(new_x, new_y);
-
+  m_c = coordinate(dis_x(rng), dis_y(rng));
 }
 
 void food::increment_timer()
