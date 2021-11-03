@@ -1562,34 +1562,12 @@ void test_game() //!OCLINT tests may be many
   {
 
     game g;
-    std::vector<double> food_x;
-    std::vector<double> food_y;
 
-    int repeats = 1000;
+    place_nth_food_randomly(g,0);
+    place_nth_food_randomly(g,1);
 
-    for(int i = 0; i != repeats; i++)
-      {
-        place_nth_food_randomly(g,0);
-        food_x.push_back(get_nth_food_x(g,0));
-        food_y.push_back(get_nth_food_y(g,0));
-      }
-    auto mean_x = calc_mean(food_x);
-    auto mean_y = calc_mean(food_y);
-
-    // Mean position of food items should be center of game environment
-    double expected_mean_x = (get_max_x(g) + get_min_x(g)) / 2.0;
-    double expected_mean_y = (get_max_y(g) + get_min_y(g)) / 2.0;
-    double d_mean_x = abs(expected_mean_x - mean_x);
-    double d_mean_y = abs(expected_mean_y - mean_y);
-
-    assert(d_mean_x < 0.01);
-    assert(d_mean_y < 0.01);
-
-    auto var_x = calc_var(food_x, mean_x);
-    auto var_y = calc_var(food_y, mean_y);
-
-    assert(var_x > 0.01);
-    assert(var_y > 0.01);
+    assert(get_nth_food_x(g, 0) != get_nth_food_x(g, 1));
+    assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
   }
 #endif
 
