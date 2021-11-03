@@ -34,7 +34,7 @@ bool operator==(const food& lhs, const food& rhs) noexcept
             && lhs.get_y() == rhs.get_y() ;
 }
 
-void food::place_randomly(std::default_random_engine &rng, const double min_x, const double max_x, const double min_y, const double max_y){
+void food::place_randomly(std::mt19937 &rng, const double min_x, const double max_x, const double min_y, const double max_y){
 
   std::uniform_real_distribution<> dis_x(min_x, max_x);
   std::uniform_real_distribution<> dis_y(min_y, max_y);
