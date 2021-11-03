@@ -1560,13 +1560,29 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_250
   //Food can be placed at a random location
   {
+    const double wall_short_side = 1600;
+    const int num_players = 3;
+    const int n_ticks = 0;
+    const std::size_t n_shelters = 42;
+    const int n_enemies = 1;
+    const int n_food = 2;
+    game g(
+      wall_short_side,
+      num_players,
+      n_ticks,
+      n_shelters,
+      n_enemies,
+      n_food
+    );
+    assert(g.get_food().size() >= 2);
 
-    game g;
+    // The two food items are still in the same spot
+    assert(get_nth_food_x(g, 0) == get_nth_food_x(g, 1));
+    assert(get_nth_food_y(g, 0) == get_nth_food_y(g, 1));
 
     place_nth_food_randomly(g,0);
-    place_nth_food_randomly(g,1);
+    // place_nth_food_randomly(g,1); // Overkill
 
-    assert(g.get_food().size() >= 2);
     assert(get_nth_food_x(g, 0) != get_nth_food_x(g, 1));
     assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
   }
