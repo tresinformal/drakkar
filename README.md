@@ -140,7 +140,7 @@ Golden rules:
  * Whatever you work on, always be assigned to an Issue
  * Whatever code you develop, always be working to fix a test,
    unless you work on graphics
- * If all tests pass, we are -by definition- happy
+ * If all tests pass, we are -by definition- happy :)
 
 ## I am a medior developer, what should I do?
 
