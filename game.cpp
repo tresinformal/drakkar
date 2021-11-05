@@ -9,8 +9,6 @@
 #include <iostream>
 #include <random>
 
-// no progress at all
-
 game::game(double wall_short_side,
            int num_players,
            int n_ticks,
