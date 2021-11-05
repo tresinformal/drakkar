@@ -1,4 +1,5 @@
 #include "enemy.h"
+#include "game.h"
 #include "coordinate.h"
 #include <cassert>
 #include <sstream>
@@ -22,11 +23,6 @@ bool operator==(const enemy& lhs, const enemy& rhs) noexcept
     return get_x(lhs) == get_x(rhs)
            && get_y(lhs) == get_y(rhs);
 }
-
-double get_x(const enemy& e) noexcept { return e.get_position().get_x(); }
-
-double get_y(const enemy& e) noexcept { return e.get_position().get_y(); }
-
 
 void test_enemy()
 {

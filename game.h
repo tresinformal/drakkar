@@ -182,24 +182,6 @@ private:
   void regenerate_food_items();
 };
 
-// Get position (coordinate) or x y of an item
-// works on any class with a .get_position() member
-template <typename T>
-double get_position(const T& item)
-{
-    return item.get_position();
-}
-template <typename T>
-double get_x(const T& item)
-{
-    return get_position(item).get_x();
-}
-template <typename T>
-double  get_y(const T& item)
-{
-    return get_position(item).get_y();
-}
-
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
 

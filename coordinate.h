@@ -20,6 +20,24 @@ private:
     double m_y = 0;
 };
 
+// Get position (coordinate) or x y of an item
+// works on any class with a .get_position() member
+template <typename T>
+double get_position(const T& item)
+{
+    return item.get_position();
+}
+template <typename T>
+double get_x(const T& item)
+{
+    return item.get_x();
+}
+template <typename T>
+double  get_y(const T& item)
+{
+    return item.get_y();
+}
+
 void test_coordinate();
 
 #endif // COORDINATE_H

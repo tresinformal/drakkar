@@ -1,4 +1,5 @@
 #include "coordinate.h"
+#include "game.h"
 #include "food.h"
 #include <cassert>
 #include <cmath>
@@ -14,8 +15,8 @@ double food::get_y() const noexcept { return m_c.get_y(); }
 double food::get_radius() const noexcept {return m_radius;}
 std::ostream &operator<<(std::ostream &os, const food f)
 {
-  os << "x : "<<f.get_x()<<
-        "y : "<<f.get_y();
+  os << "x : "<< get_x(f)<<
+        "y : "<< get_y(f);
   return os;
 }
 
@@ -29,8 +30,8 @@ bool food::is_eaten() const noexcept {
 
 bool operator==(const food& lhs, const food& rhs) noexcept
 {
-    return lhs.get_x() == rhs.get_x()
-            && lhs.get_y() == rhs.get_y() ;
+    return get_x(lhs) == get_x(rhs)
+            && get_y(lhs) == get_y(rhs) ;
 }
 
 void food::increment_timer()
@@ -48,8 +49,8 @@ void test_food()
   #ifndef NDEBUG // no tests in release
   {
     const food f;
-    assert(f.get_x() == 2000.0);
-    assert(f.get_y() == 1000.0);
+    assert(get_x(f) == 2000.0);
+    assert(get_y(f) == 1000.0);
   }
 
   //foods that are on the same coordinate point but with different colour Are equal, when this is not true
@@ -93,16 +94,16 @@ void test_food()
   {
     coordinate c(1.0, 2.0);
     food f{c};
-    assert(f.get_x() == 1.0);
-    assert(f.get_y() == 2.0);
+    assert(get_x(f) == 1.0);
+    assert(get_y(f) == 2.0);
   }
 
   // X and Y work as expected
   {
     const coordinate c(12.34, 23.45);
     const food f(c);
-    assert(std::abs(f.get_x() - c.get_x()) < 0.00001);
-    assert(std::abs(f.get_y() - c.get_y()) < 0.00001);
+    assert(std::abs(get_x(f) - get_x(c)) < 0.00001);
+    assert(std::abs(get_y(f) - get_y(c)) < 0.00001);
   }
 
   {
