@@ -114,8 +114,8 @@ void add_action(player& p, action_type action) noexcept
 
 bool are_colliding(const player &lhs, const player &rhs) noexcept
 {
-    const double dx = std::abs(lhs.get_x() - rhs.get_x());
-    const double dy = std::abs(lhs.get_y() - rhs.get_y());
+    const double dx = std::abs(get_x(lhs) - get_x(rhs));
+    const double dy = std::abs(get_y(lhs) - get_y(rhs));
     const double actual_distance = std::sqrt((dx * dx) + (dy * dy));
     const double collision_distance = (lhs.get_diameter() + rhs.get_diameter()) / 2;
     return actual_distance < collision_distance;
@@ -300,8 +300,8 @@ void test_player() //!OCLINT tests may be long
         cordinate predicted_player_position = predict_players_movement(p);
         p.move();
         assert(p.get_position()==predicted_player_position);
-        assert(((predicted_player_position.m_x - p.get_x())<0.001)&&(((predicted_player_position.m_x - p.get_x())>-0.001)));
-        assert(((predicted_player_position.m_x - p.get_y())<0.001)&&(((predicted_player_position.m_x - p.get_y())>-0.001)));
+        assert(((predicted_player_position.m_x - get_x(p))<0.001)&&(((predicted_player_position.m_x - get_x(p))>-0.001)));
+        assert(((predicted_player_position.m_x - get_y(p))<0.001)&&(((predicted_player_position.m_x - get_y(p))>-0.001)));
       }
   #endif
 
@@ -309,8 +309,8 @@ void test_player() //!OCLINT tests may be long
     // Can default construct a player
     {
         const player p;
-        assert(p.get_x() == 0.0);
-        assert(p.get_y() == 0.0);
+        assert(get_x(p) == 0.0);
+        assert(get_y(p) == 0.0);
         assert(p.get_shape() == player_shape::rocket); // Or your favorite shape
     }
   // A player has the same coordinats as set at construction
@@ -319,8 +319,8 @@ void test_player() //!OCLINT tests may be long
       const player_shape s{player_shape::rocket};
       const player p(c, s);
       // Must be the same
-      assert(std::abs(p.get_x() - c.get_x()) < 0.00001);
-      assert(std::abs(p.get_y() - c.get_y()) < 0.00001);
+      assert(std::abs(get_x(p) - c.get_x()) < 0.00001);
+      assert(std::abs(get_y(p) - c.get_y()) < 0.00001);
 #define FIX_ISSUE_337
 #ifdef FIX_ISSUE_337
       assert(p.get_position() == c);
@@ -386,11 +386,11 @@ void test_player() //!OCLINT tests may be long
         //give some speed to the player
         p.accelerate();
         // with initial position only x will change since sin of 0 is 0
-        double a_x = p.get_x();
-        double a_y = p.get_y();
+        double a_x = get_x(p);
+        double a_y = get_y(p);
         p.move(); // move the player
-        double b_x = p.get_x();
-        double b_y = p.get_y();
+        double b_x = get_x(p);
+        double b_y = get_y(p);
         assert(std::abs(a_x - b_x) < 0.0000001);
         assert(std::abs(a_y - b_y) > 0.0000001);
     }
@@ -403,11 +403,11 @@ void test_player() //!OCLINT tests may be long
         // a change in y
         p.turn_left();
 
-        double a_x = p.get_x();
-        double a_y = p.get_y();
+        double a_x = get_x(p);
+        double a_y = get_y(p);
         p.move(); // move the player
-        double b_x = p.get_x();
-        double b_y = p.get_y();
+        double b_x = get_x(p);
+        double b_y = get_y(p);
         assert(std::abs(a_x - b_x) > 0.0000001);
         assert(std::abs(a_y - b_y) > 0.0000001);
     }

@@ -1,4 +1,5 @@
 #include "game.h"
+#include "coordinate.h"
 #include "projectile.h"
 #include "projectile_type.h"
 #include "action_type.h"
@@ -284,11 +285,11 @@ void game::projectile_collision()
      {
       double player_radius = m_player[j].get_diameter() / 2.0;
       // If the projectile touches the player ...
-      if( get_x(this->m_projectiles[i]) > this-> m_player[j].get_x() - player_radius &&
-          get_x(this-> m_projectiles[i]) < this-> m_player[j].get_x() + player_radius)
+      if( this->m_projectiles[i].get_x() > this-> m_player[j].get_x() - player_radius &&
+          this-> m_projectiles[i].get_x() < this-> m_player[j].get_x() + player_radius)
         {
-          if(get_y(this-> m_projectiles[i]) > this-> m_player[j].get_y() - player_radius &&
-             get_y(this-> m_projectiles[i]) < this-> m_player[j].get_y() + player_radius)
+          if(this-> m_projectiles[i].get_y() > this-> m_player[j].get_y() - player_radius &&
+             this-> m_projectiles[i].get_y() < this-> m_player[j].get_y() + player_radius)
             {
 
               // if the projectile is a stun rocket: stun the player
@@ -969,8 +970,8 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     const auto n_alive_players_before = count_alive_players(g);
-    g.get_player(1).set_x(g.get_player(0).get_x());
-    g.get_player(1).set_y(g.get_player(0).get_y());
+    g.get_player(1).set_x(get_x(g.get_player(0)));
+    g.get_player(1).set_y(get_y(g.get_player(0)));
     assert(has_collision(g));
     g.tick();
     const auto n_alive_players_after = count_alive_players(g);
@@ -980,8 +981,8 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     const auto n_players_before = count_alive_players(g);
-    g.get_player(1).set_x(g.get_player(0).get_x());
-    g.get_player(1).set_y(g.get_player(0).get_y());
+    g.get_player(1).set_x(get_x(g.get_player(0)));
+    g.get_player(1).set_y(get_y(g.get_player(0)));
     assert(has_collision(g));
     g.tick();
     const auto n_players_after = count_alive_players(g);

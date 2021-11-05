@@ -21,7 +21,6 @@ private:
 };
 
 // Get position (coordinate) or x y of an item
-// works on any class with a .get_position() member
 template <typename T>
 double get_position(const T& item)
 {

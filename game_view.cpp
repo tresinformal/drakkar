@@ -151,8 +151,8 @@ void game_view::draw_food() noexcept
     std::vector<food> foods = m_game.get_food();
     // Position in landscape
     food f = foods[0];
-    foodsprite.setPosition(static_cast<float>(f.get_x()),
-            static_cast<float>(f.get_y()));
+    foodsprite.setPosition(static_cast<float>(get_x(f)),
+            static_cast<float>(get_y(f)));
     foodsprite.setFillColor(sf::Color(0, 0, 0));
     if (!f.is_eaten()) {
         m_window.draw(foodsprite);
@@ -179,8 +179,8 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
           }
         // Type conversions that simplify notation
         const float r{static_cast<float>(player.get_diameter()) / 2.0f};
-        const float x{static_cast<float>(player.get_x())};
-        const float y{static_cast<float>(player.get_y())};
+        const float x{static_cast<float>(get_x(player))};
+        const float y{static_cast<float>(get_y(player))};
         const float angle{static_cast<float>(player.get_direction())};
         const sf::Uint8 red{static_cast<sf::Uint8>(get_redness(player))};
         const sf::Uint8 green{static_cast<sf::Uint8>(get_greenness(player))};
@@ -251,7 +251,7 @@ void game_view::draw_shelters() noexcept
     for (const auto &shelter : m_game.get_shelters())
     {
         sf::CircleShape circle(shelter.get_radius());
-        circle.setPosition(shelter.get_x(), shelter.get_y());
+        circle.setPosition(get_x(shelter), get_y(shelter));
         circle.setFillColor(sf::Color(get_redness(shelter), get_greenness(shelter),
                                       get_blueness(shelter),
                                       get_opaqueness(shelter)));
@@ -279,8 +279,8 @@ void game_view::draw_player_coords() noexcept
     std::string str_player_coords;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(p.get_x()));
-        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(p.get_y()));
+        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(get_x(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(get_y(p)));
         str_player_coords += "\n\n";
     }
     text.setString(str_player_coords);
@@ -296,8 +296,8 @@ void game_view::show() noexcept
     for(int i = 0; i != static_cast<int>(m_v_views.size()); i++){
 
         m_v_views[static_cast<unsigned int>(i)].setCenter(
-                    static_cast<float>(m_game.get_player(i).get_x()),
-                    static_cast<float>(m_game.get_player(i).get_y()));
+                    static_cast<float>(get_x(m_game.get_player(i))),
+                    static_cast<float>(get_y(m_game.get_player(i))));
         m_window.setView(m_v_views[static_cast<unsigned int>(i)]);
 
         draw_background();
