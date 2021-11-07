@@ -250,6 +250,9 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
 
 int get_nth_food_timer(const game &g, const int &n);
 
+bool is_nth_food_eaten(const game &g, const int &n);
+
+
 void test_game();
 
 #endif // GAMELOGIC_H

@@ -717,6 +717,11 @@ int get_nth_food_regeneration_time(const game &g, const int &n)
   return g.get_food()[n].get_regeneration_time();
 }
 
+bool is_nth_food_eaten(const game& g, const int &n)
+{
+  return g.get_food()[n].is_eaten();
+}
+
 void test_game() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release

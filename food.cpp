@@ -1,5 +1,4 @@
 #include "coordinate.h"
-#include "game.h"
 #include "food.h"
 #include <cassert>
 #include <cmath>
@@ -44,10 +43,7 @@ void food::reset_timer()
   m_timer = 0;
 }
 
-bool is_nth_food_eaten(const game& g, const int &n) noexcept
-{
-  return g.get_food()[n].is_eaten();
-}
+
 
 
 void test_food()

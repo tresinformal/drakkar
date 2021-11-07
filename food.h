@@ -1,7 +1,6 @@
 #ifndef FOOD_H
 #define FOOD_H
 
-#include "game.h"
 #include "coordinate.h"
 #include "color.h"
 #include "food_state.h"
@@ -48,7 +47,7 @@ int get_greenness(const food &f) noexcept;
 /// Get the redness (from the color) of the food
 int get_redness(const food &f) noexcept;
 
-bool is_nth_food_eaten(const game &g, const int &n);
+
 
 /// Implement stream operator
 std::ostream& operator << (std::ostream &out, const food food);
