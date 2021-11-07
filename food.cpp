@@ -34,10 +34,10 @@ bool operator==(const food& lhs, const food& rhs) noexcept
             && get_y(lhs) == get_y(rhs) ;
 }
 
-void food::place_randomly(std::mt19937 &rng, const double min_x, const double max_x, const double min_y, const double max_y){
+void food::place_randomly(std::mt19937 &rng, const coordinate& top_left, const coordinate& bottom_right){
 
-  std::uniform_real_distribution<> dis_x(min_x, max_x);
-  std::uniform_real_distribution<> dis_y(min_y, max_y);
+  std::uniform_real_distribution<> dis_x(top_left.get_x(), bottom_right.get_x());
+  std::uniform_real_distribution<> dis_y(top_left.get_y(), bottom_right.get_y());
 
   m_c = coordinate(dis_x(rng), dis_y(rng));
 }

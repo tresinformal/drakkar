@@ -696,7 +696,10 @@ void game::regenerate_food_items()
   for (food &f : m_food)
     {
       if (f.is_eaten() && f.get_timer() >= f.get_regeneration_time())
-     f.set_food_state(food_state::uneaten);
+        {
+          f.set_food_state(food_state::uneaten);
+          f.place_randomly(get_rng(), {get_min_x(*this), get_max_x(*this)}, {get_min_y(*this), get_max_y(*this)});
+        }
    }
 }
 
@@ -754,7 +757,7 @@ coordinate get_nth_food_position(const game& g, const int& food_id)
 }
 void place_nth_food_randomly(game &g, const int &n)
 {
-  g.get_food()[n].place_randomly(g.get_rng(), get_min_x(g), get_max_x(g), get_min_y(g), get_max_y(g));
+  g.get_food()[n].place_randomly(g.get_rng(), {get_min_x(g), get_max_x(g)}, {get_min_y(g), get_max_y(g)});
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1704,7 +1707,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-// #define FIX_ISSUE_257
+#define FIX_ISSUE_257
 #ifdef FIX_ISSUE_257
   {
     // A food that returns to the uneaten state is relocated at random

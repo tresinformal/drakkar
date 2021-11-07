@@ -283,6 +283,11 @@ void game_view::draw_player_coords() noexcept
         str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(get_y(p)));
         str_player_coords += "\n\n";
     }
+    food f = m_game.get_food()[0];
+    str_player_coords += "Food x = " + std::to_string(trunc(get_x(f)));
+    str_player_coords += "y = " + std::to_string(trunc(get_y(f)));
+    str_player_coords += "\n\n";
+
     text.setString(str_player_coords);
 
     m_window.draw(text);
