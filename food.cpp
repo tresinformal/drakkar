@@ -4,6 +4,7 @@
 #include <cmath>
 #include <sstream>
 
+
 food::food(const coordinate c, const color &col, const int regeneration_time, food_state food_state, double radius)
   : m_c{c}, m_color{col}, m_regeneration_time{regeneration_time}, m_food_state{food_state}, m_radius{radius}
 {
@@ -31,6 +32,14 @@ bool operator==(const food& lhs, const food& rhs) noexcept
 {
     return get_x(lhs) == get_x(rhs)
             && get_y(lhs) == get_y(rhs) ;
+}
+
+void food::place_randomly(std::mt19937 &rng, const double min_x, const double max_x, const double min_y, const double max_y){
+
+  std::uniform_real_distribution<> dis_x(min_x, max_x);
+  std::uniform_real_distribution<> dis_y(min_y, max_y);
+
+  m_c = coordinate(dis_x(rng), dis_y(rng));
 }
 
 void food::increment_timer()

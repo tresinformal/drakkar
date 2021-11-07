@@ -77,6 +77,32 @@ void add_projectile(game &g, const projectile &p)
   g.get_projectiles().push_back(p);
 }
 
+
+double get_max_x(const game &g) {
+    return g.get_env().get_max_x();
+}
+
+double get_min_x(const game &g){
+    return g.get_env().get_min_x();
+}
+
+double get_max_y(const game &g){
+    return g.get_env().get_max_y();
+}
+double get_min_y(const game &g){
+    return g.get_env().get_min_y();
+}
+
+double get_nth_food_x(const game &g, const int n)
+{
+  return g.get_food()[n].get_x();
+}
+
+double get_nth_food_y(const game &g, const int n)
+{
+  return g.get_food()[n].get_y();
+}
+
 double calc_mean(const std::vector<double>& v)
 {
   return std::accumulate(
@@ -725,6 +751,10 @@ bool is_nth_food_eaten(const game& g, const int &n)
 coordinate get_nth_food_position(const game& g, const int& food_id)
 {
   return g.get_food()[food_id].get_position();
+}
+void place_nth_food_randomly(game &g, const int &n)
+{
+  g.get_food()[n].place_randomly(g.get_rng(), get_min_x(g), get_max_x(g), get_min_y(g), get_max_y(g));
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1600,7 +1630,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-// #define FIX_ISSUE_400
+#define FIX_ISSUE_400
 #ifdef FIX_ISSUE_400
   // A game's min and max coordinates can be accessed quickly
   {
@@ -1617,40 +1647,39 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 
-// #define FIX_ISSUE_250
+#define FIX_ISSUE_250
 #ifdef FIX_ISSUE_250
   //Food can be placed at a random location
   {
+    const double wall_short_side = 1600;
+    const int num_players = 3;
+    const int n_ticks = 0;
+    const std::size_t n_shelters = 42;
+    const int n_enemies = 1;
+    const int n_food = 2;
+    game g(
+      wall_short_side,
+      num_players,
+      n_ticks,
+      n_shelters,
+      n_enemies,
+      n_food
+    );
+    assert(g.get_food().size() >= 2);
 
-    game g;
-    std::vector<double> food_x;
-    std::vector<double> food_y;
+    // The two food items are still in the same spot
+    assert(get_nth_food_x(g, 0) == get_nth_food_x(g, 1));
+    assert(get_nth_food_y(g, 0) == get_nth_food_y(g, 1));
 
-    int repeats = 1000;
+    place_nth_food_randomly(g, 0);
+    // Food item 0 is no longer on the same spot
+    assert(get_nth_food_x(g, 0) != get_nth_food_x(g, 1));
+    assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
 
-    for(int i = 0; i != repeats; i++)
-      {
-        place_nth_food_randomly(g,0);
-        food_x.push_back(get_nth_food_x(g,0));
-        food_y.push_back(get_nth_food_y(g,0));
-      }
-    auto mean_x = calc_mean(food_x);
-    auto mean_y = calc_mean(food_y);
-
-    // Mean position of food items should be center of game environment
-    double expected_mean_x = (get_max_x(g) + get_min_x(g)) / 2.0;
-    double expected_mean_y = (get_max_y(g) + get_min_y(g)) / 2.0;
-    double d_mean_x = abs(expected_mean_x - mean_x);
-    double d_mean_y = abs(expected_mean_y - mean_y);
-
-    assert(d_mean_x < 0.01);
-    assert(d_mean_x < 0.01);
-
-    auto var_x = calc_var(food_x, mean_x);
-    auto var_y = calc_var(food_y, mean_y);
-
-    assert(var_x > 0.01);
-    assert(var_y > 0.01);
+    place_nth_food_randomly(g, 1);
+    // Food item 0 and 1 are not placed on the same spot
+    assert(get_nth_food_x(g, 0) != get_nth_food_x(g, 1));
+    assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
   }
 #endif
 
