@@ -252,6 +252,7 @@ int get_nth_food_timer(const game &g, const int &n);
 
 bool is_nth_food_eaten(const game &g, const int &n);
 
+coordinate get_nth_food_position(const game& g, const int& food_id);
 
 void test_game();
 

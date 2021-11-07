@@ -722,6 +722,11 @@ bool is_nth_food_eaten(const game& g, const int &n)
   return g.get_food()[n].is_eaten();
 }
 
+coordinate get_nth_food_position(const game& g, const int& food_id)
+{
+  return g.get_food()[food_id].get_position();
+}
+
 void test_game() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
@@ -1660,7 +1665,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  // #define FIX_ISSUE_404
+  #define FIX_ISSUE_404
   #ifdef FIX_ISSUE_404
   {
     // Food item position can be accessed easily
