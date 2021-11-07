@@ -1644,7 +1644,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  // #define FIX_ISSUE_403
+  #define FIX_ISSUE_403
   #ifdef FIX_ISSUE_403
   {
     // Food item's state can be accessed easily
