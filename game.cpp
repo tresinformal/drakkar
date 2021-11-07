@@ -698,7 +698,7 @@ void game::regenerate_food_items()
       if (f.is_eaten() && f.get_timer() >= f.get_regeneration_time())
         {
           f.set_food_state(food_state::uneaten);
-          f.place_randomly(get_rng(), {get_min_x(*this), get_max_x(*this)}, {get_min_y(*this), get_max_y(*this)});
+          f.place_randomly(get_rng(), {get_min_x(*this), get_max_x(*this)-500}, {get_min_y(*this), get_max_y(*this)-1000});
         }
    }
 }
