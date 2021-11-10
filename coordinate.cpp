@@ -86,5 +86,26 @@ void test_coordinate() {
       }
   }
 #endif
+
+//#define FIX_ISSUE_408
+#ifdef FIX_ISSUE_408
+{
+  // Two vectors of coordinates can be checked for strict equality
+  const coordinate a{1.0, 1.0};
+  const coordinate b{2.0, 1.0};
+  const coordinate c{3.0, 1.5};
+  const coordinate d{1.0, 0.0};
+  const std::vector<coordinate> some_coordinates{a, b, c};
+  const std::vector<coordinate> same_coordinates{a, b, c};
+  const std::vector<coordinate> other_coordinates{a, b, d};
+  const std::vector<coordinate> less_coordinates{a, b};
+  const std::vector<coordinate> shuffled_coordinates{b, a, c};
+
+  assert(all_positions_equal(some_coordinates, same_coordinates));
+  assert(!all_positions_equal(some_coordinates, other_coordinates));
+  assert(!all_positions_equal(some_coordinates, less_coordinates));
+  assert(!all_positions_equal(some_coordinates, shuffled_coordinates));
+}
+#endif
 }
 

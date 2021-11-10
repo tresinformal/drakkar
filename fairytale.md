@@ -35,3 +35,5 @@ They lost. They lost?!
 
 The penguins were pleased when news reached them about the events. They had been expecting this for a while.
 >>>>>>> develop
+
+They all died of climate change.
