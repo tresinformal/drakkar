@@ -812,8 +812,7 @@ void test_player() //!OCLINT tests may be long
     }
 #endif
 
-=======
-#endif
+
 //#define FIX_ISSUE_367
 #ifdef FIX_ISSUE_367
   {
@@ -848,7 +847,6 @@ void test_player() //!OCLINT tests may be long
     }
   }
 #endif
->>>>>>> 9b9d05d97fc6be48c50e8ae10409fb9ecef3b241
 #endif // no tests in release
 }
 
