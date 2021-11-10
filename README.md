@@ -5,13 +5,13 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `master`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 `develop`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
 `clem`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=clem)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=clem)](https://codecov.io/github/tresinformal/game/branch/clem)
-`gina`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=gina)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=gina)](https://codecov.io/github/tresinformal/game/branch/gina)
+`kristiina`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=kristiina)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=kristiina)](https://codecov.io/github/tresinformal/game/branch/kristiina)
 `pavel`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/game/branch/pavel)
 `richel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=richel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/stefano)
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
-`xiaoyan`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=xiaoyan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=xiaoyan)](https://codecov.io/github/tresinformal/game/branch/xiaoyan)
+`christiaan`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=christiaan)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=christiaan)](https://codecov.io/github/tresinformal/game/branch/christiaan)
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
@@ -22,6 +22,15 @@ A video game, developed informally and professionally.
 We developing our game, while chatting on Discord.
 To join, send Richel a Discord Friend Request: `richelbilderbeek#9002`.
 He'll add you to the tresinformal server.
+
+Our Discord server has mostly obvious rules that follow from the categories:
+
+ * 4x 'Group Rooms': rooms for duos/triplets, open for questions
+ * 2x 'Offices With An Open Door': single room, open for questions
+ * 2x 'Offices With A Closed Door': single room, please do not disturb
+
+One rule that needs to be written down, however, is that members 
+are never allowed to silence another member, not even as a joke.
 
 See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [download (.OGG)](http://richelbilderbeek.nl/dutch_by_kids_students.ogv)
 
@@ -146,10 +155,15 @@ A medior developer
 
 You know what to do :+1:
 
+
+
 ## Screenshots
 
 Most recent at the top.
 
+![](pics/20210728.png)
+
+![](pics/20210922.png)
 
 ![](pics/20210527.png)
 
@@ -177,7 +191,3 @@ Most recent at the top.
 
 ![](pics/20190929.png)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> develop

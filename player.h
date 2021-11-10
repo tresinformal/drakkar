@@ -3,6 +3,7 @@
 
 #include "action_type.h"
 #include "color.h"
+#include "coordinate.h"
 #include "player_shape.h"
 #include "player_state.h"
 #include <cmath>
@@ -82,10 +83,10 @@ public:
     bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
 
     ///Places a player to a given x,y poisition
-    void place_to_position(const std::vector<double>& position) noexcept
+    void place_to_position(const coordinate& position) noexcept
     {
-        m_x = position[0];
-        m_y = position[1];
+        m_x = position.get_x();
+        m_y = position.get_y();
     }
 
     /// Set the color of the player
@@ -131,7 +132,11 @@ public:
     /// Accelerate the player backward
     void acc_backward() noexcept;
 
+    /// Make the player grow
+    void grow();
 
+    /// Make the player shrink
+    void shrink();
 
 private:
     /// The player's color, will change depending on food items
@@ -179,6 +184,9 @@ private:
 
     /// The size of the player
     double m_diameter;
+
+    /// How much a player grows when growing
+    double m_growth_factor = 1.1;
 
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
@@ -249,4 +257,5 @@ player create_green_player();
 player create_blue_player();
 //winning scenario
 bool is_first_player_loser(const player& player_one, const player& player_two);
+bool is_first_player_winner (const player& player_one, const player& player_two);
 #endif // PLAYER_H

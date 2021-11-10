@@ -114,23 +114,18 @@ bool game_view::process_events()
         }
 
     }
+    m_game.tick();
     return false; // if no events proceed with tick
 }
 
 void game_view::exec() noexcept
 {
-  assert(count_n_projectiles(m_game) == 0);
   while (m_window.isOpen())
   {
-    assert(count_n_projectiles(m_game) == 0);
     const bool must_quit{process_events()}; // This is where stun is processed
-    assert(count_n_projectiles(m_game) == 0);
     if (must_quit) return;
-    assert(count_n_projectiles(m_game) == 0);
     m_game.tick();
-    assert(count_n_projectiles(m_game) == 0);
     show();
-    assert(count_n_projectiles(m_game) == 0);
   }
 }
 
@@ -155,15 +150,18 @@ void game_view::draw_food() noexcept
     // Get position of food
     std::vector<food> foods = m_game.get_food();
     // Position in landscape
-    foodsprite.setPosition(static_cast<float>(foods[0].get_x()),
-            static_cast<float>(foods[0].get_y()));
+    food f = foods[0];
+    foodsprite.setPosition(static_cast<float>(f.get_x()),
+            static_cast<float>(f.get_y()));
     foodsprite.setFillColor(sf::Color(0, 0, 0));
-    m_window.draw(foodsprite);
+    if (!f.is_eaten()) {
+        m_window.draw(foodsprite);
+      }
 }
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    if(k == sf::Keyboard::Num1) {
+    if(k == sf::Keyboard::E) {
       /// stunning not shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
@@ -217,7 +215,7 @@ void game_view::draw_projectiles() noexcept
             // Create the projectile sprite
             sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
             rect.setRotation(static_cast<float>(90));
-            rect.setPosition(projectile.get_x(), projectile.get_y());
+            rect.setPosition(get_x(projectile), get_y(projectile));
             rect.setTexture(&m_game_resources.get_cat());
             rect.rotate(projectile.get_direction() * 180 / M_PI);
             m_window.draw(rect);
@@ -227,7 +225,7 @@ void game_view::draw_projectiles() noexcept
             // Create the projectile sprite
             sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
             rect.setRotation(static_cast<float>(90));
-            rect.setPosition(projectile.get_x(), projectile.get_y());
+            rect.setPosition(get_x(projectile), get_y(projectile));
             rect.setTexture(&m_game_resources.get_rocket());
             rect.rotate(projectile.get_direction() * 180 / M_PI);
             m_window.draw(rect);
@@ -236,8 +234,8 @@ void game_view::draw_projectiles() noexcept
         if (projectile.get_type() == projectile_type::stun_rocket){
             // Create the projectile sprite
             sf::RectangleShape rect(sf::Vector2f(381.0, 83.0));
-            rect.setRotation(static_cast<float>(90));
-            rect.setPosition(projectile.get_x(), projectile.get_y());
+            rect.setRotation(static_cast<float>(0));
+            rect.setPosition(get_x(projectile), get_y(projectile));
             rect.setTexture(&m_game_resources.get_stun_rocket());
             rect.rotate(projectile.get_direction() * 180 / M_PI);
             m_window.draw(rect);
@@ -514,12 +512,10 @@ void test_game_view()//!OCLINT tests may be many
   {
     game_view g;
     assert(count_n_projectiles(g) == 0);
-    g.press_key(sf::Keyboard::Num1);
+    g.press_key(sf::Keyboard::E);
     g.process_events(); // Needed to process the event
-    // tick the game?
     //  #ifdef FIX_ISSUE_239
     assert(count_n_projectiles(g) == 1);
-//  #endif
   }
   #endif
 }

@@ -24,7 +24,8 @@ public:
        int n_ticks = 0,
        std::size_t n_shelters = 42,
        int n_enemies = 1,
-       int n_food = 1);
+       int n_food = 1,
+       int seed = 0);
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -38,6 +39,13 @@ public:
   ///Executes for wall collision for all players
   void do_wall_collisions();
 
+  ///Get the index of the winner of the players with the given indices
+  int get_winning_player_index(const game& g, const int i1, const int i2);
+
+
+  ///Get the index of the loser of the players with the given indices
+  int get_losing_player_index(const game& g, const int i1, const int i2);
+
   ///returns the collision vector
   const std::vector<int>& get_collision_vec(){return m_v_collisions_ind;}
 
@@ -45,7 +53,7 @@ public:
   const game_options& get_game_options() const noexcept { return m_options; }
 
   /// Get the random number generator engine
-  std::default_random_engine& get_rng() noexcept;
+  std::mt19937& get_rng() noexcept { return m_rng; }
 
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);
@@ -55,6 +63,9 @@ public:
 
   /// Increment the number of ticks
   void increment_n_ticks();
+    
+  // Switch a food item's state to eaten
+  void eat_food(food& f);
 
   /// Get environment size of the game
   const environment& get_env() const noexcept{ return m_environment; }
@@ -119,8 +130,11 @@ public:
 
 private:
 
+  /// The seed
+  int m_seed;
+
   /// The RNG engine
-  std::default_random_engine m_rng;
+  std::mt19937 m_rng;
 
   /// the options of the game
   game_options m_options;
@@ -154,11 +168,26 @@ private:
 
   /// Moves the projectiles
   void move_projectiles();
+
+  /// Processess the collision between projectiles and players
+  void projectile_collision();
+
+  // Increment timers of food items
+  void increment_food_timers();
+
+  // Make players eat food items they are on top of
+  void make_players_eat_food();
+
+  // Regenerate food items where relevant
+  void regenerate_food_items();
 };
 
 
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
+
+/// Calculate the variance of a vector of numbers
+double calc_var(const std::vector<double>& v);
 
 /// Add a projectile to the game
 void add_projectile(game& g, const projectile& p);
@@ -168,20 +197,23 @@ int count_n_projectiles(const game &g) noexcept;
 
 int count_alive_players(const game& g) noexcept;
 
+// Eat nth food item
+void eat_nth_food(game& g, const int n);
+
+bool nth_food_is_eaten(const game &g, const int &n);
+
+int get_nth_food_regeneration_time(const game &g, const int &n);
+
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
 /// Determines if the player and projectile collide
 bool has_collision(const player& pl, const projectile& p);
 
-/// Is there a collision between an enemy and player?
-bool has_enemy_collision(const game& g);
-
-///Checks if there are collisions with food items
-bool has_food_collision(const game &) noexcept;
-
 ///Checks if a player and food have the same exact position
 bool have_same_position(const player& p, const food& f);
+
+bool is_in_food_radius(const player p, const food f) noexcept;
 
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
@@ -195,8 +227,28 @@ std::vector<int> get_collision_members(const game &g) noexcept;
 /// Assumes there is a collision
 void kill_losing_player(game &);
 
+///Upon a collision, grows the size of the winning player
+void grow_winning_player(game &g);
+
+///Upon a collision, shrink the size of the losing player
+void shrink_losing_player(game &g);
+
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
+
+///Puts a player on food
+void put_player_near_food(player& p, const food &f, const double distance = 0.0);
+
+/// Check that player and food are in collision, i.e. same position and food uneaten
+bool are_colliding(const player &p, const food &f);
+
+/// Check the game for any collision between food and players
+bool has_any_player_food_collision(const game& g);
+
+///Places a projectile in front of the player
+void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
+
+int get_nth_food_timer(const game &g, const int &n);
 
 void test_game();
 

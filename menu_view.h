@@ -4,6 +4,7 @@
 #ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
 
 #include "SFML/Graphics.hpp"
+#include "game_resources.h"
 #include "menu.h"
 
 class menu_view

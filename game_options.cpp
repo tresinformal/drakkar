@@ -4,20 +4,31 @@
 
 // Try to define the class 'game_options' yourself
 game_options::game_options(
-  const bool play_music
-) : m_play_music{play_music},
-    m_kam_1{get_player_1_kam()},
-    m_kam_2{get_player_2_kam()}
+  const int rng_seed,
+  const bool play_music,
+  key_action_map player_1_kam,
+  key_action_map player_2_kam,
+  key_action_map player_3_kam
+) :
+  m_rng_seed{rng_seed},
+  m_play_music{play_music},
+  m_kam_1{player_1_kam},
+  m_kam_2{player_2_kam},
+  m_kam_3{player_3_kam}
 {
 
 }
 
-bool operator == (const game_options& lhs, const game_options& rhs) noexcept {
+bool operator== (const game_options& lhs, const game_options& rhs) noexcept {
   // Check if left-hand side is equal to the right-hand side
-  return lhs.is_playing_music()==rhs.is_playing_music();
+  return lhs.get_kam_1() == rhs.get_kam_1()
+      && lhs.get_kam_2() == rhs.get_kam_2()
+      && lhs.get_kam_3() == rhs.get_kam_3()
+      && lhs.get_rng_seed() == rhs.get_rng_seed()
+      && lhs.is_playing_music() == rhs.is_playing_music();
 }
 
-bool operator != (const game_options& lhs, const game_options& rhs) noexcept {
+bool operator!= (const game_options& lhs, const game_options& rhs) noexcept {
   return !(lhs==rhs);
 }
 
@@ -29,6 +40,18 @@ void music_off(game_options& o) noexcept
 void music_on(game_options& o) noexcept
 {
   o.play_music();
+}
+
+game_options get_random_game_options(const int& rng_seed) {
+  std::srand(rng_seed);
+  game_options random_game_options = game_options(
+        rng_seed,
+        true,
+        get_random_kam(),
+        get_random_kam()
+        );
+  // assert that kam 1 and kam 2 don't have the same keys
+  return random_game_options;
 }
 
 void test_game_options()
@@ -43,7 +66,8 @@ void test_game_options()
   // Music can be switched off
   {
     const bool do_play_music = false;
-    const game_options g(do_play_music);
+    const int rng_seed = 0;
+    const game_options g(rng_seed, do_play_music);
     assert(!g.is_playing_music());
   }
 
@@ -83,6 +107,7 @@ void test_game_options()
     const auto m_again = get_player_2_kam(); // Naming is confusing, this is the KAM for the first player
     assert(m == m_again);
   }
+  #define FIX_ISSUE_289
   #ifdef FIX_ISSUE_289
   // Player 3 has a key action map
   {
@@ -93,6 +118,7 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_289
 
+  #define FIX_ISSUE_303
   #ifdef FIX_ISSUE_303
   // Two random game options are the same, when the same seed is used
   {
@@ -110,12 +136,28 @@ void test_game_options()
   }
   // Two random game options differ in their key-action maps especially
   {
+    const int rng_seed = 111;
     const game_options a = get_random_game_options(rng_seed);
     const game_options b = get_random_game_options(rng_seed + 1);
     assert(a.get_kam_1() != b.get_kam_1());
     assert(a.get_kam_2() != b.get_kam_2());
   }
   #endif // FIX_ISSUE_303
+
+  // #define FIX_ISSUE_353
+  #ifdef FIX_ISSUE_353
+  {
+    // Random game options should not draw keys already used by another player
+    const int rng_seed = 271; // by default this will assign A to both players
+    const game_options rgo = get_random_game_options(rng_seed);
+    key_action_map map_1 = rgo.get_kam_1();
+    key_action_map map_2 = rgo.get_kam_2();
+    bool a = map_1.has_key(sf::Keyboard::Key::A);
+    bool b = map_2.has_key(sf::Keyboard::Key::A);
+    // Key A is in KAM1 or KAM2 but not both
+    assert(a != b);
+  }
+  #endif // FIX_ISSUE_353
 
   #endif // NDEBUG
 }
