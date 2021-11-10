@@ -12,7 +12,8 @@ public:
       const bool play_music = true,
       key_action_map player_1_kam = get_player_1_kam(),
       key_action_map player_2_kam = get_player_2_kam(),
-      key_action_map player_3_kam = get_player_3_kam()
+      key_action_map player_3_kam = get_player_3_kam(),
+      environment_type env_type = environment_type::empty
       );
 
   ///Get the RNG seed
@@ -33,7 +34,7 @@ public:
 
   const key_action_map& get_kam_3() const noexcept { return m_kam_3; };
 
-  const key_action_map& get_environment_type() const noexcept { return m_environment_type; };
+  const environment_type& get_environment_type() const noexcept { return m_environment_type; };
 
 
 private:
@@ -43,7 +44,6 @@ private:
   key_action_map m_kam_2;
   key_action_map m_kam_3;
   environment_type m_environment_type;
-
 };
 
 bool operator== (const game_options& lhs, const game_options& rhs) noexcept;
