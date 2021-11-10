@@ -247,14 +247,14 @@ void test_key_action_map()//!OCLINT tests can be many
 #endif // FIX_ISSUE_303
 #endif
 
-// #define FIX_ISSUE_304
-#ifdef FIX_ISSUE_304
+ #define FIX_ISSUE_304
+//#ifdef FIX_ISSUE_304
     //Get the stun key (Num1 by default)
     {
         const key_action_map m = get_player_1_kam();
-        assert(m.get_stun_key() == sf::Keyboard::Num1);
+        assert(get_stun_key(m) == sf::Keyboard::E);
     }
-#endif // FIX_ISSUE_304
+//#endif // FIX_ISSUE_304
 
 #define FIX_ISSUE_355
 #ifdef FIX_ISSUE_355
