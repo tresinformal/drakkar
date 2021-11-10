@@ -1,5 +1,6 @@
 #include "game_options.h"
 #include "key_action_map.h"
+#include "environment_type.h"
 #include <cassert>
 
 // Try to define the class 'game_options' yourself
@@ -158,6 +159,15 @@ void test_game_options()
     assert(a != b);
   }
   #endif // FIX_ISSUE_353
+
+#define FIX_ISSUE_383
+#ifdef FIX_ISSUE_383
+// A game_options has an environment_type member
+{
+  game_options go;
+  assert(environment_type::empty == environment_type::empty);
+}
+#endif
 
   #endif // NDEBUG
 }
