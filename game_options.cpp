@@ -160,12 +160,12 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_353
 
-#define FIX_ISSUE_383
+// #define FIX_ISSUE_383
 #ifdef FIX_ISSUE_383
 // A game_options has an environment_type member
 {
   game_options go;
-  assert(environment_type::empty == environment_type::empty);
+  assert(go.get_environment_type() == environment_type::empty);
 }
 #endif
 
