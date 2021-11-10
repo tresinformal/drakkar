@@ -1,5 +1,8 @@
 ignore:
 -"main.cpp"
--"game_view.*"
--"game_resources.*"
--"menu_view.*"
+-"game_view.cpp"
+-"game_resources.cpp"
+-"menu_view.cpp"
+-"game_view.h"
+-"game_resources.h"
+-"menu_view.h"
