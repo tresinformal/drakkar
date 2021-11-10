@@ -160,7 +160,7 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_353
 
-// #define FIX_ISSUE_383
+ #define FIX_ISSUE_383
 #ifdef FIX_ISSUE_383
 // A game_options has an environment_type member
 {

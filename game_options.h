@@ -1,6 +1,8 @@
 #ifndef GAME_OPTIONS_H
 #define GAME_OPTIONS_H
 #include "key_action_map.h"
+#include "environment_type.h"
+
 // Try to declare the class 'game_options' here yourself
 class game_options
 {
@@ -31,12 +33,16 @@ public:
 
   const key_action_map& get_kam_3() const noexcept { return m_kam_3; };
 
+  const key_action_map& get_environment_type() const noexcept { return m_environment_type; };
+
+
 private:
   int m_rng_seed;
   bool m_play_music = true;
   key_action_map m_kam_1;
   key_action_map m_kam_2;
   key_action_map m_kam_3;
+  environment_type m_environment_type;
 
 };
 
