@@ -9,12 +9,17 @@
 #include <iostream>
 #include <random>
 
+// no progress at all
+
 game::game(double wall_short_side,
            int num_players,
            int n_ticks,
            size_t n_shelters,
            int n_enemies,
-           int n_food):
+           int n_food,
+           int seed):
+  m_seed{seed},
+  m_rng(seed),
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
@@ -51,14 +56,16 @@ game::game(double wall_short_side,
       {
         const double angle{2.0 * M_PI * static_cast<double>(i) /
               static_cast<double>(m_shelters.size())};
-        const double mid_x{400.0};
-        const double mid_y{300.0};
-        const double radius{200.0};
-        const double x{mid_x + (std::sin(angle) * radius)};
-        const double y{mid_y - (std::cos(angle) * radius)};
-        const color c(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+        const double mid_x{1000.0};
+        const double mid_y{500.0};
+        const double spread{500.0};
+        const double x{mid_x + (std::sin(angle) * spread)};
+        const double y{mid_y - (std::cos(angle) * spread)};
+        const coordinate c{x, y};
+        const double radius{50.0};
+        const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
                       i % 3 == 2 ? 255 : 0, 128 + 64);
-        this_shelter = shelter(x, y, 100.0, c);
+        this_shelter = shelter(c, radius, col);
         ++i;
       }
   }
@@ -250,7 +257,7 @@ void game::apply_inertia()
 void game::move_shelter()
 {
   for (auto & shelter: m_shelters)
-    shelter.update_shelter_position();
+    shelter.make_shelter_drift();
 }
 
 void game::move_projectiles()
@@ -706,11 +713,6 @@ bool nth_food_is_eaten(const game &g, const int &n)
 int get_nth_food_regeneration_time(const game &g, const int &n)
 {
   return g.get_food()[n].get_regeneration_time();
-}
-
-std::default_random_engine& game::get_rng() noexcept
-{
-  return m_rng;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1230,13 +1232,90 @@ void test_game() //!OCLINT tests may be many
     const double after = g.get_shelters()[0].get_x();
     assert(std::abs(after - before) > 0.0);
   }
+
+  // #define FIX_ISSUE_405
+  #ifdef FIX_ISSUE_405
+  {
+    // nth shelter position can be obtained
+    game g;
+    int n = 0;
+    shelter first_shelter = g.get_shelters()[n];
+    coordinate expected_c = first_shelter.get_position();
+
+    coordinate c = get_nth_shelter_position(g, n);
+
+    assert(c == expected_c);
+  }
+  #endif
+
+  //#define FIX_ISSUE_406
+  #ifdef FIX_ISSUE_406
+  {
+    // the position of all shelters can be obtained
+
+    double wall_short_side = 1600;
+    int num_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 5;
+
+    game g(wall_short_side, num_players, n_ticks, n_shelters);
+
+    std::vector<coordinate> expected_shelter_positions;
+    for (int n = 0; n < n_shelters; ++n)
+      {
+        coordinate nth_shelter_position = get_nth_shelter_position(g, n);
+        expected_shelter_positions.push_back(nth_shelter_position);
+      }
+
+    std::vector<coordinate> shelter_positions = get_all_shelter_positions(g);
+
+    assert(shelter_positions.size() == expected_shelter_positions.size());
+    for (int n = 0; n < n_shelters; ++n)
+      {
+        assert(shelter_positions[n] == expected_shelter_positions[n]);
+      }
+  }
+  #endif
+
+// #define FIX_ISSUE_315
 #ifdef FIX_ISSUE_315
   // Initial shelters are at random locations over the whole arena
   {
-    const game g;
-    assert(g.get_shelters().size() > 0);
-    // TODO: write test here
-  }
+    // default game arguments
+    double short_wall_side = 1600;
+    int n_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 10;
+    int n_enemies = 0;
+    int n_food = 0;
+
+    int a_seed = 2;
+    const game a_game(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           a_seed
+           );
+
+    int another_seed = 3;
+    const game another_game(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           another_seed
+           );
+
+    const std::vector<coordinate> some_shelter_positions = get_all_shelter_positions(a_game);
+    assert(some_shelter_positions.size() == n_shelters);
+    const std::vector<coordinate> other_shelter_positions = get_all_shelter_positions(another_game);
+    assert(other_shelter_positions.size() == n_shelters);
+
+    assert(!all_positions_equal(some_shelter_positions, other_shelter_positions));
+   }
 #endif // FIX_ISSUE_315
 
   ///Players in game are initialized with ID equal to their index
@@ -1562,28 +1641,91 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+  // #define FIX_ISSUE_403
+  #ifdef FIX_ISSUE_403
+  {
+    // Food item's state can be accessed easily
+    game g;
+    assert(!is_nth_food_eaten(g, 0));
+    eat_nth_food(g, 0);
+    assert(is_nth_food_eaten(g, 0));
+  }
+  #endif
+
+  // #define FIX_ISSUE_404
+  #ifdef FIX_ISSUE_404
+  {
+    // Food item position can be accessed easily
+    game g;
+    coordinate default_food_position = coordinate(2000, 1000);
+    assert(get_nth_food_position(g, 0) == default_food_position);
+  }
+  #endif
+
+// #define FIX_ISSUE_257
+#ifdef FIX_ISSUE_257
+  {
+    // A food that returns to the uneaten state is relocated at random
+    game g;
+    assert(!is_nth_food_eaten(g, 0));
+    coordinate food_pos_before = get_nth_food_position(g, 0);
+    eat_nth_food(g, 0);
+    // Tick until food regens
+    while (is_nth_food_eaten(g, 0)) {
+      g.tick();
+    }
+    coordinate food_pos_after = get_nth_food_position(g, 0);
+    assert(food_pos_after != food_pos_before);
+  }
+#endif
+
+// #define FIX_ISSUE_286
 #ifdef FIX_ISSUE_286
   {
     std::vector<double> food_x;
     std::vector<double> food_y;
+
+    // default game arguments
+    double short_wall_side = 1600;
+    int n_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 0;
+    int n_enemies = 0;
+    int n_food = 1;
+
+    game g(short_wall_side); // just for getting min and max coordinates below
+
     int repeats = 1000;
     for(int rng_seed = 0; rng_seed != repeats; rng_seed++)
       {
-        game g(1,1,1,1,1,1, rng_seed);
-        food_x.push_back(get_nth_food_x(g,0));
-        food_y.push_back(get_nth_food_y(g,0));
+        game g(short_wall_side,
+               n_players,
+               n_ticks,
+               n_shelters,
+               n_enemies,
+               n_food,
+               rng_seed
+               );
+        food_x.push_back(get_nth_food_x(g, 0));
+        food_y.push_back(get_nth_food_y(g, 0));
       }
     auto mean_x = calc_mean(food_x);
     auto mean_y = calc_mean(food_y);
 
-    assert(mean_x > -0.01 && mean_x < 0.01);
-    assert(mean_y > -0.01 && mean_y < 0.01);
+    // Mean position of food items should be center of game environment
+    double expected_mean_x = (get_max_x(g) + get_min_x(g)) / 2.0;
+    double expected_mean_y = (get_max_y(g) + get_min_y(g)) / 2.0;
+    double d_mean_x = abs(expected_mean_x - mean_x);
+    double d_mean_y = abs(expected_mean_y - mean_y);
+
+    assert(d_mean_x < 0.01);
+    assert(d_mean_x < 0.01);
 
     auto var_x = calc_var(food_x, mean_x);
     auto var_y = calc_var(food_y, mean_y);
 
-    assert(var_x < 0.01 && var_x > -0.01);
-    assert(var_y < 0.01 && var_y > -0.01);
+    assert(var_x > 0.01);
+    assert(var_y > 0.01);
   }
 #endif
   // Test calc_mean
@@ -1604,14 +1746,29 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-///#define FIX_ISSUE_288
+#define FIX_ISSUE_288
 #ifdef FIX_ISSUE_288
   {
+    // default game arguments
+    double short_wall_side = 1600;
+    int n_players = 0;
+    int n_ticks = 0;
+    int n_shelters = 0;
+    int n_enemies = 0;
+    int n_food = 0;
+
     int seed = 123456789;
-    game g{0,0,0,0,0,0, seed};
-    auto expected_rng = std::minstd_rand(seed);
-    assert(g.get_rng() - expected_rng() < 0.00001 &&
-           g.get_rng() - expected_rng() > -0.00001);
+    game g(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           seed
+           );
+    std::mt19937 expected_rng(seed);
+    assert(g.get_rng()() - expected_rng() < 0.00001 &&
+           g.get_rng()() - expected_rng() > -0.00001);
   }
 #endif
 

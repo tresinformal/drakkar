@@ -1,5 +1,6 @@
 #include "game_options.h"
 #include "key_action_map.h"
+#include "environment_type.h"
 #include <cassert>
 
 // Try to define the class 'game_options' yourself
@@ -7,12 +8,16 @@ game_options::game_options(
   const int rng_seed,
   const bool play_music,
   key_action_map player_1_kam,
-  key_action_map player_2_kam
+  key_action_map player_2_kam,
+  key_action_map player_3_kam,
+  environment_type env_type
 ) :
   m_rng_seed{rng_seed},
   m_play_music{play_music},
   m_kam_1{player_1_kam},
-  m_kam_2{player_2_kam}
+  m_kam_2{player_2_kam},
+  m_kam_3{player_3_kam},
+  m_environment_type{env_type}
 {
 
 }
@@ -21,6 +26,7 @@ bool operator== (const game_options& lhs, const game_options& rhs) noexcept {
   // Check if left-hand side is equal to the right-hand side
   return lhs.get_kam_1() == rhs.get_kam_1()
       && lhs.get_kam_2() == rhs.get_kam_2()
+      && lhs.get_kam_3() == rhs.get_kam_3()
       && lhs.get_rng_seed() == rhs.get_rng_seed()
       && lhs.is_playing_music() == rhs.is_playing_music();
 }
@@ -104,6 +110,7 @@ void test_game_options()
     const auto m_again = get_player_2_kam(); // Naming is confusing, this is the KAM for the first player
     assert(m == m_again);
   }
+  #define FIX_ISSUE_289
   #ifdef FIX_ISSUE_289
   // Player 3 has a key action map
   {
@@ -154,6 +161,15 @@ void test_game_options()
     assert(a != b);
   }
   #endif // FIX_ISSUE_353
+
+ #define FIX_ISSUE_383
+#ifdef FIX_ISSUE_383
+// A game_options has an environment_type member
+{
+  game_options go;
+  assert(go.get_environment_type() == environment_type::empty);
+}
+#endif
 
   #endif // NDEBUG
 }

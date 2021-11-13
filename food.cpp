@@ -30,7 +30,8 @@ bool food::is_eaten() const noexcept {
 bool operator==(const food& lhs, const food& rhs) noexcept
 {
     return lhs.get_x() == rhs.get_x()
-            && lhs.get_y() == rhs.get_y() ;
+            && lhs.get_y() == rhs.get_y()
+            && lhs.get_color() == rhs.get_color();
 }
 
 void food::increment_timer()
@@ -72,7 +73,7 @@ void test_food()
   }
   #endif // FIX_ISSUE_349
 
-    //#define FIX_ISSUE_341
+    #define FIX_ISSUE_341
     #ifdef FIX_ISSUE_341
     {
       coordinate c(0.0f, 0.0f);
