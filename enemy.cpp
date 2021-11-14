@@ -1,5 +1,4 @@
 #include "enemy.h"
-#include "game.h"
 #include "coordinate.h"
 #include <cassert>
 #include <sstream>
