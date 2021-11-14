@@ -762,11 +762,7 @@ void test_player() //!OCLINT tests may be long
     }
 #endif
 
-<<<<<<< HEAD
 #define FIX_ISSUE_324
-=======
-//#define FIX_ISSUE_324
->>>>>>> develop
 #ifdef FIX_ISSUE_324
   {
         auto x = 1.23456;
@@ -780,7 +776,6 @@ void test_player() //!OCLINT tests may be long
   {
     assert(to_str(player_state::active) == "active");
   }
-<<<<<<< HEAD
   #endif
 
 //#define FIX_ISSUE_401

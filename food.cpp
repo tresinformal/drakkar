@@ -33,8 +33,15 @@ bool food::is_eaten() const noexcept {
 
 bool operator==(const food& lhs, const food& rhs) noexcept
 {
-    return get_x(lhs) == get_x(rhs)
-            && get_y(lhs) == get_y(rhs) ;
+    bool is_color_equal = (lhs.get_color() == rhs.get_color());
+    return get_x(lhs) == get_x(rhs) &&
+          (get_y(lhs) == get_y(rhs)) &&
+           is_color_equal;
+}
+
+bool operator!=(const food& lhs, const food& rhs) noexcept
+{
+    return !(lhs == rhs);
 }
 
 
@@ -93,7 +100,7 @@ void test_food()
       coordinate c(0.0f, 0.0f);
       const food test_food_one(c, color());
       const food test_food_two(c, color(0, 0, 0));
-      assert(not (test_food_one == test_food_two));
+      assert(test_food_one != test_food_two);
     }
     #endif
     #define FIX_ISSUE_329

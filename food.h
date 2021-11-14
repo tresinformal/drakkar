@@ -53,4 +53,11 @@ int get_redness(const food &f) noexcept;
 
 /// Implement stream operator
 std::ostream& operator << (std::ostream &out, const food food);
+
+///equality operator to check if foods have the same colour and position
+bool operator==(const food& lhs, const food& rhs) noexcept;
+
+///inequality operator -||-
+bool operator!=(const food& lhs, const food& rhs) noexcept;
+
 #endif // FOOD_H
