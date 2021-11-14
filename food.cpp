@@ -29,7 +29,8 @@ bool food::is_eaten() const noexcept {
 
 bool operator==(const food& lhs, const food& rhs) noexcept
 {
-    bool is_color_equal = (lhs.get_color() == rhs.get_color());
+    bool is_color_equal = lhs.get_color() == rhs.get_color();
+
     return get_x(lhs) == get_x(rhs) &&
           (get_y(lhs) == get_y(rhs)) &&
            is_color_equal;
