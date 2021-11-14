@@ -25,10 +25,6 @@ void projectile::place(const coordinate& c)
 
 std::string projectile::get_owner_id() noexcept { return m_owner_id;}
 
-
-double get_x(const projectile& p)  noexcept { return p.get_position().get_x();}
-double get_y(const projectile& p)  noexcept { return p.get_position().get_y();}
-
 void test_projectile()
 {
   #ifndef NDEBUG // no tests in release

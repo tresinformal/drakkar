@@ -14,8 +14,8 @@ double food::get_y() const noexcept { return m_c.get_y(); }
 double food::get_radius() const noexcept {return m_radius;}
 std::ostream &operator<<(std::ostream &os, const food f)
 {
-  os << "x : "<<f.get_x()<<
-        "y : "<<f.get_y();
+  os << "x : "<< get_x(f)<<
+        "y : "<< get_y(f);
   return os;
 }
 
@@ -29,9 +29,25 @@ bool food::is_eaten() const noexcept {
 
 bool operator==(const food& lhs, const food& rhs) noexcept
 {
-    return lhs.get_x() == rhs.get_x()
-            && lhs.get_y() == rhs.get_y()
-            && lhs.get_color() == rhs.get_color();
+    bool is_color_equal = lhs.get_color() == rhs.get_color();
+
+    return get_x(lhs) == get_x(rhs) &&
+          get_y(lhs) == get_y(rhs) &&
+
+           is_color_equal;
+}
+
+bool operator!=(const food& lhs, const food& rhs) noexcept
+{
+    return !(lhs == rhs);
+}
+
+
+void food::place_randomly(std::mt19937 &rng, const coordinate& top_left, const coordinate& bottom_right)
+{
+  std::uniform_real_distribution<> dis_x(top_left.get_x(), bottom_right.get_x());
+  std::uniform_real_distribution<> dis_y(top_left.get_y(), bottom_right.get_y());
+  m_c = coordinate(dis_x(rng), dis_y(rng));
 }
 
 void food::increment_timer()
@@ -44,13 +60,16 @@ void food::reset_timer()
   m_timer = 0;
 }
 
+
+
+
 void test_food()
 {
   #ifndef NDEBUG // no tests in release
   {
     const food f;
-    assert(f.get_x() == 2000.0);
-    assert(f.get_y() == 1000.0);
+    assert(get_x(f) == 2000.0);
+    assert(get_y(f) == 1000.0);
   }
 
   //foods that are on the same coordinate point but with different colour Are equal, when this is not true
@@ -79,7 +98,7 @@ void test_food()
       coordinate c(0.0f, 0.0f);
       const food test_food_one(c, color());
       const food test_food_two(c, color(0, 0, 0));
-      assert(not (test_food_one == test_food_two));
+      assert(test_food_one != test_food_two);
     }
     #endif
     #define FIX_ISSUE_329
@@ -94,16 +113,16 @@ void test_food()
   {
     coordinate c(1.0, 2.0);
     food f{c};
-    assert(f.get_x() == 1.0);
-    assert(f.get_y() == 2.0);
+    assert(get_x(f) == 1.0);
+    assert(get_y(f) == 2.0);
   }
 
   // X and Y work as expected
   {
     const coordinate c(12.34, 23.45);
     const food f(c);
-    assert(std::abs(f.get_x() - c.get_x()) < 0.00001);
-    assert(std::abs(f.get_y() - c.get_y()) < 0.00001);
+    assert(std::abs(get_x(f) - get_x(c)) < 0.00001);
+    assert(std::abs(get_y(f) - get_y(c)) < 0.00001);
   }
 
   {

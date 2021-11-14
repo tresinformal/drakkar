@@ -5,8 +5,7 @@
 #include <cassert>
 #include <cmath>
 
-player::player(const double x,
-               const double y,
+player::player(const coordinate c,
                const player_shape shape,
                const player_state state,
                const double player_max_speed,
@@ -19,8 +18,7 @@ player::player(const double x,
                const std::string& ID)
     : m_color{any_color},
       m_ID{ID},
-      m_x{x},
-      m_y{y},
+      m_c{c},
       m_shape{shape},
       m_state{state},
       m_player_max_speed{player_max_speed},
@@ -35,15 +33,16 @@ player::player(const double x,
 //move a player
 void player::move() noexcept
 {
-    m_x += cos(m_direction_radians) * m_player_speed;
-    m_y += sin(m_direction_radians) * m_player_speed;
+    double new_x = m_c.get_x() + cos(m_direction_radians) * m_player_speed;
+    double new_y = m_c.get_y() + sin(m_direction_radians) * m_player_speed;
+    m_c = coordinate(new_x, new_y);
 }
 
 /// Get the X coordinate of the player
-double player::get_x() const noexcept { return m_x; }
+double player::get_x() const noexcept { return m_c.get_x(); }
 
 /// Get the Y coordinate of the player
-double player::get_y() const noexcept { return m_y; }
+double player::get_y() const noexcept { return m_c.get_y(); }
 
 /// Get the radius of the player
 double player::get_diameter() const noexcept { return m_diameter; }
@@ -115,8 +114,8 @@ void add_action(player& p, action_type action) noexcept
 
 bool are_colliding(const player &lhs, const player &rhs) noexcept
 {
-    const double dx = std::abs(lhs.get_x() - rhs.get_x());
-    const double dy = std::abs(lhs.get_y() - rhs.get_y());
+    const double dx = std::abs(get_x(lhs) - get_x(rhs));
+    const double dy = std::abs(get_y(lhs) - get_y(rhs));
     const double actual_distance = std::sqrt((dx * dx) + (dy * dy));
     const double collision_distance = (lhs.get_diameter() + rhs.get_diameter()) / 2;
     return actual_distance < collision_distance;
@@ -212,8 +211,7 @@ player create_player_with_id(const std::string& id)
 
 {
     return player{
-                0.0,
-                0.0,
+                coordinate(0.0, 0.0),
                 player_shape::rocket,
                 player_state::active,
                 2,
@@ -231,8 +229,7 @@ player create_player_with_color(const color &in_color)
 {
     {
         return player{
-                    0.0,
-                    0.0,
+                    coordinate(0.0, 0.0),
                     player_shape::rocket,
                     player_state::active,
                     2,
@@ -303,8 +300,8 @@ void test_player() //!OCLINT tests may be long
         cordinate predicted_player_position = predict_players_movement(p);
         p.move();
         assert(p.get_position()==predicted_player_position);
-        assert(((predicted_player_position.m_x - p.get_x())<0.001)&&(((predicted_player_position.m_x - p.get_x())>-0.001)));
-        assert(((predicted_player_position.m_x - p.get_y())<0.001)&&(((predicted_player_position.m_x - p.get_y())>-0.001)));
+        assert(((predicted_player_position.m_x - get_x(p))<0.001)&&(((predicted_player_position.m_x - get_x(p))>-0.001)));
+        assert(((predicted_player_position.m_x - get_y(p))<0.001)&&(((predicted_player_position.m_x - get_y(p))>-0.001)));
       }
   #endif
 
@@ -312,59 +309,59 @@ void test_player() //!OCLINT tests may be long
     // Can default construct a player
     {
         const player p;
-        assert(p.get_x() == 0.0);
-        assert(p.get_y() == 0.0);
+        assert(get_x(p) == 0.0);
+        assert(get_y(p) == 0.0);
         assert(p.get_shape() == player_shape::rocket); // Or your favorite shape
     }
   // A player has the same coordinats as set at construction
   {
-      const double x{12.34};
-      const double y{23.45};
+      const coordinate c{12.34, 23.45};
       const player_shape s{player_shape::rocket};
-      const player p(x, y, s);
+      const player p(c, s);
       // Must be the same
-      assert(std::abs(p.get_x() - x) < 0.00001);
-      assert(std::abs(p.get_y() - y) < 0.00001);
+      assert(std::abs(get_x(p) - c.get_x()) < 0.00001);
+      assert(std::abs(get_y(p) - c.get_y()) < 0.00001);
+#define FIX_ISSUE_337
 #ifdef FIX_ISSUE_337
-      assert(p.get_position() == position);
+      assert(p.get_position() == c);
 #endif
   }
 
 
     // A player constructed with a rocket shape, must have a rocket shape
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(p.get_shape() == player_shape::rocket);
     }
     // A player constructed with a circle shape, must have a circle shape
     {
-        const player p{1.2, 3.4, player_shape::circle};
+        const player p{coordinate(1.2, 3.4), player_shape::circle};
         assert(p.get_shape() == player_shape::circle);
     }
 #define FIX_ISSUE_36
 #ifdef FIX_ISSUE_36
     // A player starts with 1.0 (that is, 100%) health
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         // Health is 100% by default
         assert(std::abs(p.get_health() - 1.0) < 0.00001);
     }
 #endif
     // A player has a speed of zero
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_speed() - 0.0) < 0.00001);
     }
 
     // A player has an initial direction of 270 degrees (facing up)
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_direction() - 270 * M_PI / 180) < 0.00001);
     }
 
     // A player has an initial speed of zero
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_speed() - 0.0) < 0.00001);
     }
 
@@ -380,7 +377,7 @@ void test_player() //!OCLINT tests may be long
     }
     // A player has an initial size of one hundred
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_diameter() - 100.0) < 0.00001);
     }
     // A player can update its position
@@ -389,11 +386,11 @@ void test_player() //!OCLINT tests may be long
         //give some speed to the player
         p.accelerate();
         // with initial position only x will change since sin of 0 is 0
-        double a_x = p.get_x();
-        double a_y = p.get_y();
+        double a_x = get_x(p);
+        double a_y = get_y(p);
         p.move(); // move the player
-        double b_x = p.get_x();
-        double b_y = p.get_y();
+        double b_x = get_x(p);
+        double b_y = get_y(p);
         assert(std::abs(a_x - b_x) < 0.0000001);
         assert(std::abs(a_y - b_y) > 0.0000001);
     }
@@ -406,11 +403,11 @@ void test_player() //!OCLINT tests may be long
         // a change in y
         p.turn_left();
 
-        double a_x = p.get_x();
-        double a_y = p.get_y();
+        double a_x = get_x(p);
+        double a_y = get_y(p);
         p.move(); // move the player
-        double b_x = p.get_x();
-        double b_y = p.get_y();
+        double b_x = get_x(p);
+        double b_y = get_y(p);
         assert(std::abs(a_x - b_x) > 0.0000001);
         assert(std::abs(a_y - b_y) > 0.0000001);
     }
@@ -431,14 +428,11 @@ void test_player() //!OCLINT tests may be long
     // two players(assuming they are not rotated) collide when they are less than
     // their size away
     {
-        const player p1(0.0, 0.0);
+        const player p1(coordinate(0.0, 0.0));
         assert(p1.get_diameter() == 100.0);
         // So, 90 pixels is a collision then
-        const player p2(90.0, 0.0);
+        const player p2(coordinate(90.0, 0.0));
         assert(are_colliding(p1, p2));
-#ifdef FIX_ISSUE_338
-        assert(are_colliding(p1.get_position(),p2.get_position()));
-#endif
     }
 
 
@@ -730,7 +724,7 @@ void test_player() //!OCLINT tests may be long
     }
     // A player object can be initialized to a stunned state
     {
-        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
+        const player p{coordinate(1.2, 3.4), player_shape::circle, player_state::stunned};
         assert(p.get_state() ==  player_state::stunned);
         assert(p.get_state() !=  player_state::active);
     }
@@ -768,7 +762,7 @@ void test_player() //!OCLINT tests may be long
     }
 #endif
 
-//#define FIX_ISSUE_324
+#define FIX_ISSUE_324
 #ifdef FIX_ISSUE_324
   {
         auto x = 1.23456;
@@ -782,7 +776,6 @@ void test_player() //!OCLINT tests may be long
   {
     assert(to_str(player_state::active) == "active");
   }
-<<<<<<< HEAD
   #endif
 
 //#define FIX_ISSUE_401
