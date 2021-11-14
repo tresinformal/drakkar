@@ -40,16 +40,9 @@ bool operator==(const food& lhs, const food& rhs) noexcept
 
 void food::place_randomly(std::mt19937 &rng, const coordinate& top_left, const coordinate& bottom_right)
 {
-
   std::uniform_real_distribution<> dis_x(top_left.get_x(), bottom_right.get_x());
   std::uniform_real_distribution<> dis_y(top_left.get_y(), bottom_right.get_y());
-  //
-  srand (0);
-  double rand_x = rand() % 2700;
-  double rand_y = rand() % 1500;
-  m_c = coordinate(rand_x, rand_y);
-  coordinate ssmth = coordinate(dis_x(rng), dis_y(rng));
-  std::cout<< ssmth;
+  m_c = coordinate(dis_x(rng), dis_y(rng));
 }
 
 void food::increment_timer()
