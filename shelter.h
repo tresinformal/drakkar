@@ -32,7 +32,7 @@ private:
   double m_direction;
 };
 
-const std::string to_str(const shelter& in_shelter) noexcept;
+std::string to_str(const shelter& in_shelter) noexcept;
 
 void test_shelter();
 
@@ -48,6 +48,6 @@ int get_opaqueness(const shelter &f) noexcept;
 
 /// Get the redness (from the color) of the shelter
 int get_redness(const shelter &f) noexcept;
-const std::string to_str(const shelter& in_shelter) noexcept;
+std::string to_str(const shelter& in_shelter) noexcept;
 
 #endif // SHELTER_H
