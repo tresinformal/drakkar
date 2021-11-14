@@ -94,7 +94,7 @@ void test_food()
   }
   #endif // FIX_ISSUE_349
 
-    //#define FIX_ISSUE_341
+    #define FIX_ISSUE_341
     #ifdef FIX_ISSUE_341
     {
       coordinate c(0.0f, 0.0f);
