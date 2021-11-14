@@ -1,5 +1,4 @@
 #include "coordinate.h"
-#include "game.h"
 #include <cmath>
 #include <cassert>
 #include <vector>
