@@ -3,10 +3,6 @@
 #include <cassert>
 #include <cmath>
 #include <sstream>
-#include <stdio.h>      /* printf, scanf, puts, NULL */
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>
-#include <iostream>
 
 food::food(const coordinate c, const color &col, const int regeneration_time, food_state food_state, double radius)
   : m_c{c}, m_color{col}, m_regeneration_time{regeneration_time}, m_food_state{food_state}, m_radius{radius}
