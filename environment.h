@@ -1,5 +1,7 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
+
+#include "coordinate.h"
 #include "environment_type.h"
 
 class environment

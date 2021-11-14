@@ -54,6 +54,19 @@ void test_environment()
     assert(e.get_wall_s_side() - wall_short_side < 0.00001 &&
            e.get_wall_s_side() - wall_short_side > -0.00001);
   }
+
+//#define FIX_ISSUE_424
+#ifdef FIX_ISSUE_424
+    {
+        environment e;
+        coordinate top_left = e.get_top_left();
+        coordinate bottom_right = e.get_bottom_right();
+        assert(top_left == coordinate(0,0));
+        assert(bottom_right == coordinate(e.get_wall_l_side() + top_left.get_x(), e.get_wall_s_side() + top_left.get_y()));
+
+    }
+#endif
+
   #define FIX_ISSUE_204
   #ifdef FIX_ISSUE_204
   {
@@ -63,5 +76,6 @@ void test_environment()
     assert(!s.str().empty());
   }
   #endif // FIX_ISSUE_204
+
 #endif // no tests in release
 }
