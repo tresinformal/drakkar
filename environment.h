@@ -25,25 +25,13 @@ private:
   environment_type m_environment_type;
 };
 
-double get_max_x(const environment& e)
-{
-  return e.get_bottom_right().get_x();
-}
+double get_max_x(const environment& e);
 
-double get_max_y(const environment& e)
-{
-  return e.get_bottom_right().get_y();
-}
+double get_max_y(const environment& e);
 
-double get_min_x(const environment& e)
-{
-  return e.get_top_left().get_x();
-}
+double get_min_x(const environment& e);
 
-double get_min_y(const environment& e)
-{
-  return e.get_top_left().get_y();
-}
+double get_min_y(const environment& e);
 
 void test_environment();
 

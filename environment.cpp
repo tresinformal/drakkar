@@ -11,6 +11,25 @@ environment::environment(double wall_short_side, environment_type environment_ty
 {
 }
 
+double get_max_x(const environment& e)
+{
+  return e.get_bottom_right().get_x();
+}
+
+double get_max_y(const environment& e)
+{
+  return e.get_bottom_right().get_y();
+}
+
+double get_min_x(const environment& e)
+{
+  return e.get_top_left().get_x();
+}
+
+double get_min_y(const environment& e)
+{
+  return e.get_top_left().get_y();
+}
 
 std::ostream &operator<<(std::ostream &os, const environment& e)
 {
