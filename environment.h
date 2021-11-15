@@ -14,6 +14,9 @@ public:
   double get_max_y() const noexcept { return m_max_y; }
   double get_wall_s_side() const noexcept { return m_wall_short_side;}
   double get_wall_l_side() const noexcept { return m_wall_long_side;}
+  coordinate get_top_left() const noexcept;
+  coordinate get_bottom_right() const noexcept;
+
   /// Get environment type of the game
   environment_type get_type() const { return m_environment_type; }
 

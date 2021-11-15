@@ -15,6 +15,17 @@ environment::environment(double wall_short_side, environment_type enviroment_typ
 {
 }
 
+coordinate environment::get_top_left() const noexcept
+{
+  return coordinate(m_min_x, m_min_y);
+}
+
+coordinate environment::get_bottom_right() const noexcept
+{
+  return coordinate(m_max_x, m_max_y);
+}
+
+
 std::ostream &operator<<(std::ostream &os, const environment& e)
 {
   os << "Max X : " << e.get_max_x()
@@ -55,7 +66,7 @@ void test_environment()
            e.get_wall_s_side() - wall_short_side > -0.00001);
   }
 
-//#define FIX_ISSUE_424
+#define FIX_ISSUE_424
 #ifdef FIX_ISSUE_424
     {
         environment e;
@@ -63,7 +74,6 @@ void test_environment()
         coordinate bottom_right = e.get_bottom_right();
         assert(top_left == coordinate(0,0));
         assert(bottom_right == coordinate(e.get_wall_l_side() + top_left.get_x(), e.get_wall_s_side() + top_left.get_y()));
-
     }
 #endif
 
