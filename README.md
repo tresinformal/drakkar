@@ -7,6 +7,7 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `clem`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=clem)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=clem)](https://codecov.io/github/tresinformal/game/branch/clem)
 `kristiina`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=kristiina)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=kristiina)](https://codecov.io/github/tresinformal/game/branch/kristiina)
 `pavel`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/game/branch/pavel)
+`oliver`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=oliver)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=oliver)](https://codecov.io/github/tresinformal/game/branch/pavel)
 `richel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=richel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/stefano)
@@ -141,7 +142,7 @@ Golden rules:
  * Whatever you work on, always be assigned to an Issue
  * Whatever code you develop, always be working to fix a test,
    unless you work on graphics
- * If all tests pass, we are -by definition- happy
+ * If all tests pass, we are -by definition- happy :)
 
 ## I am a medior developer, what should I do?
 
