@@ -32,5 +32,6 @@ They lost. They lost?!
 
 The penguins were pleased when news reached them about the events. They had been expecting this for a while.
 
-Suddenly, a herd of minimammoths appeared.
+They all died of climate change.
 
+Suddenly, a herd of minimammoths appeared.

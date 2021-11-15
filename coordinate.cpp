@@ -25,8 +25,8 @@ void test_coordinate() {
 #ifdef FIX_ISSUE_356
   {
     coordinate c{1.23456, 123456.789};
-    assert(c.get_x() == 1.23456);
-    assert(c.get_y() == 123456.789);
+    assert(get_x(c) == 1.23456);
+    assert(get_y(c) == 123456.789);
   }
 #endif
 
@@ -54,16 +54,16 @@ void test_coordinate() {
 
     double default_speed = 1;
     c.move(direction);
-    assert(c.get_x() == default_speed);
-    assert(c.get_y() == 0 );
+    assert(get_x(c) == default_speed);
+    assert(get_y(c) == 0 );
 
     std::vector<double> speeds{0.1,0.5,2,-0.1,-0.2,-1};
     for(const auto& speed : speeds)
       {
         c.reset_coords_to_zero();
         c.move(direction, speed);
-        assert(c.get_x() == speed );
-        assert(c.get_y() == 0 );
+        assert(get_x(c) == speed );
+        assert(get_y(c) == 0 );
       }
 
     ///Test along y axis
@@ -73,18 +73,39 @@ void test_coordinate() {
 
     double default_speed = 1;
     c.move(direction);
-    assert(c.get_x() == 0);
-    assert(c.get_y() == default_speed );
+    assert(get_x(c) == 0);
+    assert(get_y(c) == default_speed );
 
     std::vector<double> speeds{0.1,0.5,2,-0.1,-0.2,-1};
     for(const auto& speed : speeds)
       {
         c.reset_coords_to_zero();
         c.move(direction, speed);
-        assert(c.get_x() == 0 );
-        assert(c.get_y() == speed );
+        assert(get_x(c) == 0 );
+        assert(get_y(c) == speed );
       }
   }
+#endif
+
+//#define FIX_ISSUE_408
+#ifdef FIX_ISSUE_408
+{
+  // Two vectors of coordinates can be checked for strict equality
+  const coordinate a{1.0, 1.0};
+  const coordinate b{2.0, 1.0};
+  const coordinate c{3.0, 1.5};
+  const coordinate d{1.0, 0.0};
+  const std::vector<coordinate> some_coordinates{a, b, c};
+  const std::vector<coordinate> same_coordinates{a, b, c};
+  const std::vector<coordinate> other_coordinates{a, b, d};
+  const std::vector<coordinate> less_coordinates{a, b};
+  const std::vector<coordinate> shuffled_coordinates{b, a, c};
+
+  assert(all_positions_equal(some_coordinates, same_coordinates));
+  assert(!all_positions_equal(some_coordinates, other_coordinates));
+  assert(!all_positions_equal(some_coordinates, less_coordinates));
+  assert(!all_positions_equal(some_coordinates, shuffled_coordinates));
+}
 #endif
 }
 

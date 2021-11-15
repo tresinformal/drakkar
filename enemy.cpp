@@ -23,11 +23,6 @@ bool operator==(const enemy& lhs, const enemy& rhs) noexcept
            && get_y(lhs) == get_y(rhs);
 }
 
-double get_x(const enemy& e) noexcept { return e.get_position().get_x(); }
-
-double get_y(const enemy& e) noexcept { return e.get_position().get_y(); }
-
-
 void test_enemy()
 {
   #ifndef NDEBUG // no tests is release

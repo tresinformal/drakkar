@@ -5,8 +5,7 @@
 #include <cassert>
 #include <cmath>
 
-player::player(const double x,
-               const double y,
+player::player(const coordinate c,
                const player_shape shape,
                const player_state state,
                const double player_max_speed,
@@ -19,8 +18,7 @@ player::player(const double x,
                const std::string& ID)
     : m_color{any_color},
       m_ID{ID},
-      m_x{x},
-      m_y{y},
+      m_c{c},
       m_shape{shape},
       m_state{state},
       m_player_max_speed{player_max_speed},
@@ -35,15 +33,16 @@ player::player(const double x,
 //move a player
 void player::move() noexcept
 {
-    m_x += cos(m_direction_radians) * m_player_speed;
-    m_y += sin(m_direction_radians) * m_player_speed;
+    double new_x = m_c.get_x() + cos(m_direction_radians) * m_player_speed;
+    double new_y = m_c.get_y() + sin(m_direction_radians) * m_player_speed;
+    m_c = coordinate(new_x, new_y);
 }
 
 /// Get the X coordinate of the player
-double player::get_x() const noexcept { return m_x; }
+double player::get_x() const noexcept { return m_c.get_x(); }
 
 /// Get the Y coordinate of the player
-double player::get_y() const noexcept { return m_y; }
+double player::get_y() const noexcept { return m_c.get_y(); }
 
 /// Get the radius of the player
 double player::get_diameter() const noexcept { return m_diameter; }
@@ -115,8 +114,8 @@ void add_action(player& p, action_type action) noexcept
 
 bool are_colliding(const player &lhs, const player &rhs) noexcept
 {
-    const double dx = std::abs(lhs.get_x() - rhs.get_x());
-    const double dy = std::abs(lhs.get_y() - rhs.get_y());
+    const double dx = std::abs(get_x(lhs) - get_x(rhs));
+    const double dy = std::abs(get_y(lhs) - get_y(rhs));
     const double actual_distance = std::sqrt((dx * dx) + (dy * dy));
     const double collision_distance = (lhs.get_diameter() + rhs.get_diameter()) / 2;
     return actual_distance < collision_distance;
@@ -212,8 +211,7 @@ player create_player_with_id(const std::string& id)
 
 {
     return player{
-                0.0,
-                0.0,
+                coordinate(0.0, 0.0),
                 player_shape::rocket,
                 player_state::active,
                 2,
@@ -231,8 +229,7 @@ player create_player_with_color(const color &in_color)
 {
     {
         return player{
-                    0.0,
-                    0.0,
+                    coordinate(0.0, 0.0),
                     player_shape::rocket,
                     player_state::active,
                     2,
@@ -303,8 +300,8 @@ void test_player() //!OCLINT tests may be long
         cordinate predicted_player_position = predict_players_movement(p);
         p.move();
         assert(p.get_position()==predicted_player_position);
-        assert(((predicted_player_position.m_x - p.get_x())<0.001)&&(((predicted_player_position.m_x - p.get_x())>-0.001)));
-        assert(((predicted_player_position.m_x - p.get_y())<0.001)&&(((predicted_player_position.m_x - p.get_y())>-0.001)));
+        assert(((predicted_player_position.m_x - get_x(p))<0.001)&&(((predicted_player_position.m_x - get_x(p))>-0.001)));
+        assert(((predicted_player_position.m_x - get_y(p))<0.001)&&(((predicted_player_position.m_x - get_y(p))>-0.001)));
       }
   #endif
 
@@ -312,59 +309,59 @@ void test_player() //!OCLINT tests may be long
     // Can default construct a player
     {
         const player p;
-        assert(p.get_x() == 0.0);
-        assert(p.get_y() == 0.0);
+        assert(get_x(p) == 0.0);
+        assert(get_y(p) == 0.0);
         assert(p.get_shape() == player_shape::rocket); // Or your favorite shape
     }
   // A player has the same coordinats as set at construction
   {
-      const double x{12.34};
-      const double y{23.45};
+      const coordinate c{12.34, 23.45};
       const player_shape s{player_shape::rocket};
-      const player p(x, y, s);
+      const player p(c, s);
       // Must be the same
-      assert(std::abs(p.get_x() - x) < 0.00001);
-      assert(std::abs(p.get_y() - y) < 0.00001);
+      assert(std::abs(get_x(p) - c.get_x()) < 0.00001);
+      assert(std::abs(get_y(p) - c.get_y()) < 0.00001);
+#define FIX_ISSUE_337
 #ifdef FIX_ISSUE_337
-      assert(p.get_position() == position);
+      assert(p.get_position() == c);
 #endif
   }
 
 
     // A player constructed with a rocket shape, must have a rocket shape
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(p.get_shape() == player_shape::rocket);
     }
     // A player constructed with a circle shape, must have a circle shape
     {
-        const player p{1.2, 3.4, player_shape::circle};
+        const player p{coordinate(1.2, 3.4), player_shape::circle};
         assert(p.get_shape() == player_shape::circle);
     }
 #define FIX_ISSUE_36
 #ifdef FIX_ISSUE_36
     // A player starts with 1.0 (that is, 100%) health
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         // Health is 100% by default
         assert(std::abs(p.get_health() - 1.0) < 0.00001);
     }
 #endif
     // A player has a speed of zero
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_speed() - 0.0) < 0.00001);
     }
 
     // A player has an initial direction of 270 degrees (facing up)
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_direction() - 270 * M_PI / 180) < 0.00001);
     }
 
     // A player has an initial speed of zero
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_speed() - 0.0) < 0.00001);
     }
 
@@ -380,7 +377,7 @@ void test_player() //!OCLINT tests may be long
     }
     // A player has an initial size of one hundred
     {
-        const player p{1.2, 3.4, player_shape::rocket};
+        const player p{coordinate(1.2, 3.4), player_shape::rocket};
         assert(std::abs(p.get_diameter() - 100.0) < 0.00001);
     }
     // A player can update its position
@@ -389,11 +386,11 @@ void test_player() //!OCLINT tests may be long
         //give some speed to the player
         p.accelerate();
         // with initial position only x will change since sin of 0 is 0
-        double a_x = p.get_x();
-        double a_y = p.get_y();
+        double a_x = get_x(p);
+        double a_y = get_y(p);
         p.move(); // move the player
-        double b_x = p.get_x();
-        double b_y = p.get_y();
+        double b_x = get_x(p);
+        double b_y = get_y(p);
         assert(std::abs(a_x - b_x) < 0.0000001);
         assert(std::abs(a_y - b_y) > 0.0000001);
     }
@@ -406,11 +403,11 @@ void test_player() //!OCLINT tests may be long
         // a change in y
         p.turn_left();
 
-        double a_x = p.get_x();
-        double a_y = p.get_y();
+        double a_x = get_x(p);
+        double a_y = get_y(p);
         p.move(); // move the player
-        double b_x = p.get_x();
-        double b_y = p.get_y();
+        double b_x = get_x(p);
+        double b_y = get_y(p);
         assert(std::abs(a_x - b_x) > 0.0000001);
         assert(std::abs(a_y - b_y) > 0.0000001);
     }
@@ -431,14 +428,11 @@ void test_player() //!OCLINT tests may be long
     // two players(assuming they are not rotated) collide when they are less than
     // their size away
     {
-        const player p1(0.0, 0.0);
+        const player p1(coordinate(0.0, 0.0));
         assert(p1.get_diameter() == 100.0);
         // So, 90 pixels is a collision then
-        const player p2(90.0, 0.0);
+        const player p2(coordinate(90.0, 0.0));
         assert(are_colliding(p1, p2));
-#ifdef FIX_ISSUE_338
-        assert(are_colliding(p1.get_position(),p2.get_position()));
-#endif
     }
 
 
@@ -555,15 +549,12 @@ void test_player() //!OCLINT tests may be long
     }
     // A player increases its speed by one 'acceleration' per acceleration
     {
-        // RJCB: I see the point you try to make here:
-        // this is a prelude to the next test.
-        // I suggest to merge the two tests into one
         player p;
         p.accelerate();
         assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
     }
 
-    //#define FIX_ISSUE_270
+//#define FIX_ISSUE_270
 #ifdef FIX_ISSUE_270
     // A player increases its backward speed by one 'backward acceleration' per backward acceleration
     // or: a player decreases its speed by one 'backward acceleration' per backward acceleration
@@ -584,30 +575,53 @@ void test_player() //!OCLINT tests may be long
         p.acc_backward();
         assert(p.get_speed() > -p.get_max_speed());
     }
-    // RJCB: my suggested test
-    // A players goes ?right/?up upon acceleraton
+    // A players goes right/up upon acceleraton
     {
         player p_forward;
+        coordinate c_before = get_coordinate(p_forward);
         p_forward.accelerate();
-        assert(get_dx(p_forward) > 0.0); // Get the delta x, maybe needs to be added
-        assert(get_dy(p_forward) > 0.0); // Get the delta x, maybe needs to be added
+        p_forward.move();
+        coordinate c_after = get_coordinate(p_forward);
+        assert(p_forward.get_direction() > -0.00000000001 && p_forward.get_direction() < 0.00000000001);
+        double dx = get_x(c_after) - get_x(c_before);
+        double dy = get_y(c_after) - get_y(c_before);
+        assert(dx > 0.00000000001);
+        assert(dy > -0.00000000001 && dy < 0.00000000001);
+
         player p_backward;
+        c_before = get_coordinate(p_backward);
         p_backward.acc_backward();
-        assert(get_dx(p_backward) < 0.0); // Signs should flip
-        assert(get_dy(p_backward) < 0.0); // Signs should flip
+        p_backward.move();
+        c_after = get_coordinate(p_backward);
+        assert(p_backward.get_direction() > -0.00000000001 && p_backward.get_direction() < 0.00000000001);
+        double dx = get_x(c_after) - get_x(c_before);
+        double dy = get_y(c_after) - get_y(c_before);
+        assert(dx < -0.00000000001);
+        assert(dy > -0.00000000001 && dy < 0.00000000001);
     }
-    // RJCB: another suggested test
-    // A players actually goes backwards after some backwards accelerations
+    // A players actually goes backwards after some backwards movements
     {
         player p;
+        coordinate c_before = get_coordinate(p);
         p.accelerate();
-        assert(get_dx(p) > 0.0); // Get the delta x, maybe needs to be added
-        assert(get_dy(p) > 0.0); // Get the delta x, maybe needs to be added
+        p.move();
+        coordinate c_inbetween = get_coordinate(p);
+        double dx_a = get_x(c_inbetween) - get_x(c_before);
+        double dy_a = get_y(c_inbetween) - get_y(c_before);
+        assert(dx_a > 0.00000000001);
+        assert(dy_a > -0.00000000001 && dy_a < 0.00000000001);
         p.acc_backward();
+        p.move();
         p.acc_backward();
+        p.move();
         p.acc_backward();
-        assert(get_dx(p) < 0.0); // Signs should flip
-        assert(get_dy(p) < 0.0); // Signs should flip
+        p.move();
+        coordinate c_after = get_coordinate(p);
+        double dx_b = get_x(c_after) - get_x(c_inbetween);
+        double dy_b = get_y(c_after) - get_y(c_inbetween);
+        assert(dx_b < -0.00000000001); // Signs should flip
+        // it should not change in the y direction if the assumption about initial direction is correct
+        assert(dy_b > -0.00000000001 && dy_b < 0.00000000001);
     }
 #endif //FIX_ISSUE_270
     //When a player is standing still,
@@ -710,7 +724,7 @@ void test_player() //!OCLINT tests may be long
     }
     // A player object can be initialized to a stunned state
     {
-        const player p{1.2, 3.4, player_shape::circle, player_state::stunned};
+        const player p{coordinate(1.2, 3.4), player_shape::circle, player_state::stunned};
         assert(p.get_state() ==  player_state::stunned);
         assert(p.get_state() !=  player_state::active);
     }
@@ -748,18 +762,84 @@ void test_player() //!OCLINT tests may be long
     }
 #endif
 
+#define FIX_ISSUE_324
 #ifdef FIX_ISSUE_324
   {
-    coordinate c{1.23456, 123456.789};
-    player p{c};
-    assert(p.get_position() == c);
+        auto x = 1.23456;
+        auto  y = 123456.789;
+        coordinate c{x, y};
+        player p{c};
+        assert(p.get_position() == c);
   }
 #endif
-  #ifdef FIX_ISSUE_351
+#ifdef FIX_ISSUE_351
   {
     assert(to_str(player_state::active) == "active");
   }
   #endif
+
+//#define FIX_ISSUE_401
+#ifdef FIX_ISSUE_401
+    {
+        auto x = 1.23456;
+        auto  y = 123456.789;
+        coordinate c{x, y};
+        player p{c};
+        assert(get_position(p) == c);
+    }
+#endif
+
+//#define FIX_ISSUE_402
+#ifdef FIX_ISSUE_402
+    {
+        auto x = 1.23456;
+        auto  y = 123456.789;
+        coordinate c{x, y};
+        player p{c};
+
+        ///you HAVE TO use the get_position(player)
+        /// to implement get_x(player) and get_y(player)
+        /// I do not know how to make it explicit in the test @Richel
+        assert(get_x(p) == c.get_x());
+        assert(get_y(p) == c.get_y());
+    }
+#endif
+
+
+//#define FIX_ISSUE_367
+#ifdef FIX_ISSUE_367
+  {
+    {
+      // Moving or turning with speed = 0 does not change position
+      player p;
+      const coordinate starting_position = p.get_coordinate();
+      assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
+      p.move();
+      assert(starting_position == p.get_coordinate());
+      p.turn_left();
+      assert(starting_position == p.get_coordinate());
+    }
+    {
+      player p;
+      const coordinate starting_position = p.get_coordinate();
+      assert(p.get_speed() < 0.0000000001 && p.get_speed() > -0.00000000001);
+
+      // a player with direction 0 and speed 1 moves one unit of space along the x-axis
+      while(p.get_speed() <= 1) {
+          p.accelerate();
+      }
+      assert(p.get_speed() < 1.00000000000001 && p.get_speed() > 0.999999999999999);
+      // acceleration alone should not change player position
+      assert(starting_position == p.get_coordinate());
+      assert(p.get_direction() < 0.0000000001 && p.get_direction() > -0.00000000001);
+      p.move();
+      const double delta_x = get_x(starting_position) - get_x(p.get_coordinate());
+      const double delta_y = get_y(starting_position) - get_y(p.get_coordinate());
+      assert(delta_x < 1.00000000000001 && delta_x > 0.999999999999999);
+      assert(delta_y < 0.00000000000001 && delta_y > -0.00000000000001);
+    }
+  }
+#endif
 #endif // no tests in release
 }
 
