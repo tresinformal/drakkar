@@ -30,6 +30,14 @@
 #include <iostream>
 
 
+bool is_valid_arg(const std::string& s)
+{
+  return s == "--help"
+    || s == "--menu"
+    || s == "--no-sound"
+  ;
+}
+
 /// Checks if the command-line arguments for
 /// the game are valid
 bool are_args_valid(std::vector<std::string> args) {
