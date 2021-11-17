@@ -771,7 +771,7 @@ std::vector<coordinate> get_all_shelter_positions(const game& g)
 {
   std::vector<shelter> all_shelters = g.get_shelters();
   std::vector<coordinate> all_shelter_positions;
-  for (;;)
+  for (unsigned int i = 0;all_shelters.size() != i;)
     {
 
     }
