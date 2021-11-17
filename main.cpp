@@ -32,18 +32,11 @@
 /// Checks if the command-line arguments for
 /// the game are valid
 bool are_args_valid(std::vector<std::string> args) {
-  if (args.size() > 1)
-  {
-      return args[1] == "--help";
-  }
-  else if (args.empty())
-  {
-      return false;
-  }
-  else
-  {
-      return true;
-  }
+  if (args.empty()) return false;
+  if (args.size() == 1) return true;
+  return args[1] == "--help"
+    || args[1] == "--menu"
+  ;
 }
 
 void test_main()
