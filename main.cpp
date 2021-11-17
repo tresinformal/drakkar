@@ -33,9 +33,10 @@
 bool is_valid_arg(const std::string& s)
 {
   return s == "--help"
-    || s == "--menu"
-    || s == "--no-sound"
-  ;
+      || s == "--menu"
+      || s == "--no-sound"
+      || s == "--about"
+      ;
 }
 
 /// Checks if the command-line arguments for
@@ -46,7 +47,7 @@ bool are_args_valid(std::vector<std::string> args) {
 
   for (size_t i = 1; i < args.size(); i++) {
       if (!is_valid_arg(args[i])) return false;
-  }
+    }
   return true;
 }
 
@@ -59,8 +60,6 @@ void test_main()
   assert(are_args_valid({"path","--menu"}));
   assert(are_args_valid({"path","--no-sound", "--menu"}));
   assert(is_valid_arg("--menu"));
-
-
   assert(are_args_valid({"path","--about"}));
 }
 
