@@ -34,11 +34,15 @@
 bool are_args_valid(std::vector<std::string> args) {
   if (args.size() > 1)
   {
-    return args[1] == "--help";
+      return args[1] == "--help";
+  }
+  else if (args.empty())
+  {
+      return false;
   }
   else
   {
-    return true;
+      return true;
   }
 }
 
