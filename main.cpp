@@ -61,8 +61,7 @@ void test_main()
   assert(is_valid_arg("--menu"));
 
 
-  //assert(are_args_valid({"path","--no-sound"}));
-  //assert(are_args_valid({"path","--about"}));
+  assert(are_args_valid({"path","--about"}));
 }
 
 /// All tests are called from here, only in debug mode
