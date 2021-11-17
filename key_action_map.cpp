@@ -120,6 +120,40 @@ key_action_map get_random_kam()
       );
 }
 
+std::vector<key_action_map> get_n_random_kams(int n)
+{
+  std::vector<key_action_map> vector_kam;
+
+  for(int i = 0; i != n; ++i){
+    std::vector<sf::Keyboard::Key> v_random_keys;
+    while (v_random_keys.size() < 6)
+      {
+        sf::Keyboard::Key new_key = get_random_key();
+        auto key_match = std::find(
+              v_random_keys.begin(),
+              v_random_keys.end(),
+              new_key
+              );
+        if (key_match == v_random_keys.end())
+        {
+            v_random_keys.push_back(new_key);
+        }
+      }
+    vector_kam.push_back(key_action_map(
+                                        v_random_keys[0],
+                                        v_random_keys[1],
+                                        v_random_keys[2],
+                                        v_random_keys[3],
+                                        v_random_keys[4],
+                                        v_random_keys[5]));
+    }
+
+
+  return vector_kam;
+}
+
+
+
 sf::Keyboard::Key get_stun_key(const key_action_map& m)
 {
   return m.to_key(action_type::shoot_stun_rocket);
