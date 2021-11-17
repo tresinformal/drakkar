@@ -33,8 +33,13 @@
 /// the game are valid
 bool are_args_valid(std::vector<std::string> args) {
 
-    return args[1] == "--help";
-}
+    if (args.size() > 1) {
+        return args[1] == "--help";
+    }
+    else {
+        return true;
+    }
+  }
 
 void test_main()
 {
@@ -42,7 +47,7 @@ void test_main()
 
   assert(!are_args_valid({"path","nonsense"}));
 
-  assert(!are_args_valid({"path"}));
+  assert(are_args_valid({"path"}));
 
   //assert(are_args_valid({"path","--menu"}));
   //assert(are_args_valid({"path","--no-sound"}));
