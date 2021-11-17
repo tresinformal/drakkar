@@ -31,21 +31,21 @@
 
 /// Checks if the command-line arguments for
 /// the game are valid
-bool are_args_valid(std::vector<std::string>) {
+bool are_args_valid(std::vector<std::string> args) {
 
-    return true;
+    return args[1] == "--help";
 }
 
 void test_main()
 {
-  assert(are_args_valid({"--help"}));
+  assert(are_args_valid({"path", "--help"}));
 
-  assert(!are_args_valid({"nonsense"}));
+  assert(!are_args_valid({"path","nonsense"}));
 
-  //assert(are_args_valid({"--menu"}));
-  //assert(are_args_valid({"--no-sound"}));
-  //assert(are_args_valid({"--no-sound", "--menu"}));
-  //assert(are_args_valid({"--about"}));
+  //assert(are_args_valid({"path","--menu"}));
+  //assert(are_args_valid({"path","--no-sound"}));
+  //assert(are_args_valid({"path","--no-sound", "--menu"}));
+  //assert(are_args_valid({"path","--about"}));
 }
 
 /// All tests are called from here, only in debug mode
