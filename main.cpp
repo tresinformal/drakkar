@@ -29,6 +29,7 @@
 #include <chrono>
 #include <iostream>
 
+
 /// Checks if the command-line arguments for
 /// the game are valid
 bool are_args_valid(std::vector<std::string> args) {
@@ -46,7 +47,9 @@ void test_main()
   assert(are_args_valid({"path"}));
   assert(!are_args_valid({}));
   assert(are_args_valid({"path","--menu"}));
-  assert(are_args_valid({"path","--no-sound", "--menu"}));
+  //assert(are_args_valid({"path","--no-sound", "--menu"}));
+  assert(is_valid_arg("--menu"));
+
 
   //assert(are_args_valid({"path","--no-sound"}));
   //assert(are_args_valid({"path","--about"}));
