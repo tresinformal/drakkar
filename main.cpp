@@ -68,6 +68,11 @@ void test()
 #endif
 }
 
+bool are_args_valid(std::vector<std::string>) {
+
+    return true;
+}
+
 void test_main()
 {
   assert(are_args_valid({"--help"}));
@@ -94,7 +99,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 
     const std::vector<std::string> args(argv, argv + argc);
 
-    check_args(args);
+    assert(are_args_valid(args));
 
     // We've already tested, so the program is done
     if (args.size() > 1 && args[1] == "--test")
@@ -130,14 +135,6 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     if (args.size() > 1 && args[1] == "--menu")
     {
         menu_view v;
-        v.exec();
-        return 0;
-    }
-
-    // Shows the About screen, quits after (for now)
-    if (args.size() > 1 && args[1] == "--about")
-    {
-        about_view v;
         v.exec();
         return 0;
     }
