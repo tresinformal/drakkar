@@ -29,45 +29,8 @@
 #include <chrono>
 #include <iostream>
 
-/// All tests are called from here, only in debug mode
-void test()
-{
-#ifndef NDEBUG
-    test_optional();
-    test_action_type();
-    test_player_shape();
-    test_player();
-    test_game();
-    test_game_options();
-    test_enemy();
-    test_enemy_behavior_type();
-    test_environment();
-    test_individual_type();
-    test_food();
-    test_food_type();
-    test_food_state();
-    test_key_action_map();
-    test_menu();
-    test_menu_button();
-    test_shelter();
-    test_color();
-    test_projectile_type();
-    test_projectile();
-    test_program_state();
-    test_player_state();
-    test_player_factory();
-    test_read_only();
-    test_coordinate();
-    test_sound_type();
-
-
-#ifndef LOGIC_ONLY
-    test_game_view();
-    test_game_resources();
-#endif // LOGIC_ONLY
-#endif
-}
-
+/// Checks if the command-line arguments for
+/// the game are valid
 bool are_args_valid(std::vector<std::string>) {
 
     return true;
@@ -77,12 +40,53 @@ void test_main()
 {
   assert(are_args_valid({"--help"}));
 
+  assert(!are_args_valid({"nonsense"}));
+
   //assert(are_args_valid({"--menu"}));
   //assert(are_args_valid({"--no-sound"}));
   //assert(are_args_valid({"--no-sound", "--menu"}));
   //assert(are_args_valid({"--about"}));
-  //assert(!are_args_valid({"--nonsense"}));
 }
+
+/// All tests are called from here, only in debug mode
+void test()
+{
+#ifndef NDEBUG
+  test_optional();
+  test_action_type();
+  test_player_shape();
+  test_player();
+  test_game();
+  test_game_options();
+  test_enemy();
+  test_enemy_behavior_type();
+  test_environment();
+  test_individual_type();
+  test_food();
+  test_food_type();
+  test_food_state();
+  test_key_action_map();
+  test_menu();
+  test_menu_button();
+  test_shelter();
+  test_color();
+  test_projectile_type();
+  test_projectile();
+  test_program_state();
+  test_player_state();
+  test_player_factory();
+  test_read_only();
+  test_coordinate();
+  test_sound_type();
+  test_main();
+
+#ifndef LOGIC_ONLY
+  test_game_view();
+  test_game_resources();
+#endif // LOGIC_ONLY
+#endif
+}
+
 
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
