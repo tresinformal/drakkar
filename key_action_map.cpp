@@ -135,7 +135,7 @@ std::vector<key_action_map> get_n_random_kams(int n)
               storage_key.end(),
               new_key
               );
-        if (key_match == v_random_keys.end())
+        if (key_match == storage_key.end())
         {
             v_random_keys.push_back(new_key);
             storage_key.push_back(new_key);
