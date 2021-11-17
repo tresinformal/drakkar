@@ -49,13 +49,11 @@ bool are_args_valid(std::vector<std::string> args) {
 void test_main()
 {
   assert(are_args_valid({"path", "--help"}));
-
   assert(!are_args_valid({"path","nonsense"}));
-
   assert(are_args_valid({"path"}));
   assert(!are_args_valid({}));
+  assert(are_args_valid({"path","--menu"}));
 
-  //assert(are_args_valid({"path","--menu"}));
   //assert(are_args_valid({"path","--no-sound"}));
   //assert(are_args_valid({"path","--no-sound", "--menu"}));
   //assert(are_args_valid({"path","--about"}));
