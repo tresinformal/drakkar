@@ -250,6 +250,8 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
 
 int get_nth_food_timer(const game &g, const int &n);
 
+coordinate get_nth_shelter_position(const game &g, const int &n);
+
 void test_game();
 
 #endif // GAMELOGIC_H

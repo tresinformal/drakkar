@@ -715,6 +715,12 @@ int get_nth_food_regeneration_time(const game &g, const int &n)
   return g.get_food()[n].get_regeneration_time();
 }
 
+coordinate get_nth_shelter_position(const game &g, const int &n)
+{
+  return g.get_shelters()[n].get_position();
+}
+
+
 void test_game() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
@@ -1233,7 +1239,7 @@ void test_game() //!OCLINT tests may be many
     assert(std::abs(after - before) > 0.0);
   }
 
-  // #define FIX_ISSUE_405
+  #define FIX_ISSUE_405
   #ifdef FIX_ISSUE_405
   {
     // nth shelter position can be obtained
