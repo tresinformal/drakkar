@@ -106,9 +106,9 @@ key_action_map get_random_kam()
             new_key
             );
       if (key_match == v_random_keys.end())
-        {
+      {
           v_random_keys.push_back(new_key);
-        }
+      }
     }
   return key_action_map(
         v_random_keys[0],

@@ -49,8 +49,11 @@ sf::Keyboard::Key get_random_key();
 /// Draw the key to shoot a stun rocket
 sf::Keyboard::Key get_stun_key(const key_action_map& m);
 
-// Draw a random key action map, for testing purposes
+/// Draw a random key action map, for testing purposes
 key_action_map get_random_kam();
+
+/// Draw at random 2 kams for testing purposes
+
 
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;

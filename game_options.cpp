@@ -147,7 +147,7 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_303
 
-  // #define FIX_ISSUE_353
+   #define FIX_ISSUE_353
   #ifdef FIX_ISSUE_353
   {
     // Random game options should not draw keys already used by another player
