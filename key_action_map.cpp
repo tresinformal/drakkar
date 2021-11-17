@@ -123,6 +123,7 @@ key_action_map get_random_kam()
 std::vector<key_action_map> get_n_random_kams(int n)
 {
   std::vector<key_action_map> vector_kam;
+  std::vector<sf::Keyboard::Key> storage_key;
 
   for(int i = 0; i != n; ++i){
     std::vector<sf::Keyboard::Key> v_random_keys;
@@ -130,14 +131,16 @@ std::vector<key_action_map> get_n_random_kams(int n)
       {
         sf::Keyboard::Key new_key = get_random_key();
         auto key_match = std::find(
-              v_random_keys.begin(),
-              v_random_keys.end(),
+              storage_key.begin(),
+              storage_key.end(),
               new_key
               );
         if (key_match == v_random_keys.end())
         {
             v_random_keys.push_back(new_key);
+            storage_key.push_back(new_key);
         }
+
       }
     vector_kam.push_back(key_action_map(
                                         v_random_keys[0],

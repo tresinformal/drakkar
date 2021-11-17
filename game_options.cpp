@@ -50,12 +50,13 @@ game_options get_random_game_options(const int& rng_seed) {
   game_options random_game_options = game_options(
         rng_seed,
         true,
-        get_random_kam(),
-        get_random_kam()
+        get_n_random_kams(2)
         );
   // assert that kam 1 and kam 2 don't have the same keys
   return random_game_options;
 }
+
+
 
 void test_game_options()
 {
