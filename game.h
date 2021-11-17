@@ -182,6 +182,9 @@ private:
   void regenerate_food_items();
 };
 
+/// Get all shelter positions
+coordinate get_all_shelter_positions(game g);
+
 /// Get min and max coordinates of the game
 double get_max_x(const game &g);
 double get_min_x(const game &g);

@@ -1301,7 +1301,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  //#define FIX_ISSUE_406
+  #define FIX_ISSUE_406
   #ifdef FIX_ISSUE_406
   {
     // the position of all shelters can be obtained
