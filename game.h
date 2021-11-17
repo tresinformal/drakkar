@@ -260,11 +260,15 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
 
 int get_nth_food_timer(const game &g, const int &n);
 
+
 bool is_nth_food_eaten(const game &g, const int &n);
 
 coordinate get_nth_food_position(const game& g, const int& food_id);
 // Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);
+
+coordinate get_nth_shelter_position(const game &g, const int &n);
+
 
 void test_game();
 
