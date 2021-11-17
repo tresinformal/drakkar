@@ -3,6 +3,7 @@
 #include "projectile.h"
 #include "projectile_type.h"
 #include "action_type.h"
+#include "environment.h"
 
 #include <cassert>
 #include <cmath>
@@ -79,18 +80,18 @@ void add_projectile(game &g, const projectile &p)
 
 
 double get_max_x(const game &g) {
-    return g.get_env().get_max_x();
+    return get_max_x(g.get_env());
 }
 
 double get_min_x(const game &g){
-    return g.get_env().get_min_x();
+    return get_min_x(g.get_env());
 }
 
 double get_max_y(const game &g){
-    return g.get_env().get_max_y();
+    return get_max_y(g.get_env());
 }
 double get_min_y(const game &g){
-    return g.get_env().get_min_y();
+    return get_min_y(g.get_env());
 }
 
 double get_nth_food_x(const game &g, const int n)
@@ -482,22 +483,22 @@ bool has_wall_collision(const game& g)
 
 bool hits_south_wall(const player& p, const environment& e)
 {
-  return get_y(p) + p.get_diameter()/2 > e.get_max_y();
+  return get_y(p) + p.get_diameter()/2 > get_max_y(e);
 }
 
 bool hits_north_wall(const player& p, const environment& e)
 {
-  return get_y(p) - p.get_diameter()/2 < e.get_min_y();
+  return get_y(p) - p.get_diameter()/2 < get_min_y(e);
 }
 
 bool hits_east_wall(const player& p, const environment& e)
 {
-  return get_x(p) + p.get_diameter()/2 > e.get_max_x();
+  return get_x(p) + p.get_diameter()/2 > get_max_x(e);
 }
 
 bool hits_west_wall(const player& p, const environment& e)
 {
-  return get_x(p) - p.get_diameter()/2 < e.get_min_x();
+  return get_x(p) - p.get_diameter()/2 < get_min_x(e);
 }
 
 bool hits_wall(const player& p, const environment& e)
@@ -659,25 +660,25 @@ player game::wall_collision(player p)
   if(hits_south_wall(p, m_environment))
 
     {
-      p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
+      p.set_y(get_max_y(m_environment) - p.get_diameter()/2);
     }
 
 
   if(hits_north_wall(p, m_environment))
     {
-      p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
+      p.set_y(get_min_y(m_environment) + p.get_diameter()/2);
     }
 
 
   if(hits_east_wall(p, m_environment))
     {
-      p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
+      p.set_x(get_max_x(m_environment) - p.get_diameter()/2);
     }
 
 
   if(hits_west_wall(p, m_environment))
     {
-      p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
+      p.set_x(get_min_x(m_environment) + p.get_diameter()/2);
     }
 
   return p;
@@ -938,7 +939,7 @@ void test_game() //!OCLINT tests may be many
   // game by default has a mix and max evironment size
   {
     game g;
-    assert(g.get_env().get_max_x() > -56465214.0);
+    assert(get_max_x(g.get_env()) > -56465214.0);
   }
 
   // A game has enemies
@@ -1639,13 +1640,13 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     double max_x = get_max_x(g);
-    assert(max_x == g.get_env().get_max_x());
+    assert(max_x == get_max_x(g.get_env()));
     double min_x = get_min_x(g);
-    assert(min_x == g.get_env().get_min_x());
+    assert(min_x == get_min_x(g.get_env()));
     double max_y = get_max_y(g);
-    assert(max_y == g.get_env().get_max_y());
+    assert(max_y == get_max_y(g.get_env()));
     double min_y = get_min_y(g);
-    assert(min_y == g.get_env().get_min_y());
+    assert(min_y == get_min_y(g.get_env()));
   }
 #endif
 
