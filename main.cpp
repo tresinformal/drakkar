@@ -118,7 +118,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 
     const std::vector<std::string> args(argv, argv + argc);
 
-    assert(true || are_args_valid(args));
+    assert(are_args_valid(args));
 
     // We've already tested, so the program is done
     if (args.size() > 1 && args[1] == "--test")
