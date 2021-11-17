@@ -43,9 +43,11 @@ bool is_valid_arg(const std::string& s)
 bool are_args_valid(std::vector<std::string> args) {
   if (args.empty()) return false;
   if (args.size() == 1) return true;
-  return args[1] == "--help"
-    || args[1] == "--menu"
-  ;
+
+  for (size_t i = 1; i < args.size(); i++) {
+      if (!is_valid_arg(args[i])) return false;
+  }
+  return true;
 }
 
 void test_main()
