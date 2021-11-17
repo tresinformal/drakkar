@@ -47,10 +47,12 @@ void music_on(game_options& o) noexcept
 
 game_options get_random_game_options(const int& rng_seed) {
   std::srand(rng_seed);
+  std::vector<key_action_map> random_kams = get_n_random_kams(2);
   game_options random_game_options = game_options(
         rng_seed,
         true,
-        get_n_random_kams(2)
+        random_kams[0],
+        random_kams[1]
         );
   // assert that kam 1 and kam 2 don't have the same keys
   return random_game_options;
