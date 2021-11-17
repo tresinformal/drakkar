@@ -5,6 +5,7 @@
 #include "color.h"
 #include "food_state.h"
 #include <vector>
+#include <random>
 class food
 {
 public:
@@ -20,6 +21,7 @@ public:
   /// Get the food state
   food_state get_food_state() const noexcept { return m_food_state;}
   void set_food_state(const food_state &newState) noexcept { m_food_state = newState; }
+  void place_randomly(std::mt19937 &rng, const coordinate& top_left, const coordinate& bottom_right);
   double get_radius() const noexcept;
   int get_timer() const noexcept { return m_timer; }
   void increment_timer();
@@ -49,4 +51,11 @@ int get_redness(const food &f) noexcept;
 
 /// Implement stream operator
 std::ostream& operator << (std::ostream &out, const food food);
+
+///equality operator to check if foods have the same colour and position
+bool operator==(const food& lhs, const food& rhs) noexcept;
+
+///inequality operator -||-
+bool operator!=(const food& lhs, const food& rhs) noexcept;
+
 #endif // FOOD_H

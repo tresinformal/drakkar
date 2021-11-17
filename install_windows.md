@@ -25,7 +25,7 @@ The Qt tool version:
 
 Look how nice they match :-)
 
-## 1. Download and install Qt Creator
+## 1. Download and install Qt Creator ([here](https://www.qt.io/download-open-source?hsCtaTracking=9f6a2170-a938-42df-a8e2-a9f0b1d6cdce%7C6cb0de4f-9bb5-4778-ab02-bfb62735f3e5))
 
 Use all defaults, up until the Qt Maintenance tool is started.
 Here, you will need to check two boxes:
@@ -39,7 +39,7 @@ Here, you will need to check two boxes:
 
 ![](qt_maintenance_tool_2.png)
 
-## 2. Download and install SFML
+## 2. Download and install SFML ([here](https://www.sfml-dev.org/files/SFML-2.5.1-macOS-clang.tar.gz))
 
  * Go to the SFML download page, 
    [https://www.sfml-dev.org/download/sfml/2.5.0/](https://www.sfml-dev.org/download/sfml/2.5.0/)

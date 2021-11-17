@@ -14,8 +14,8 @@ public:
              const double radius = 100, const std::string& owner_id = "-1");
 
   coordinate get_position() const noexcept { return m_coordinate; }
-
-
+  double get_x() const noexcept { return m_coordinate.get_x(); }
+  double get_y() const noexcept { return m_coordinate.get_y(); }
 
   /// Get the direction of player movement
   double get_direction() const noexcept { return m_direction; }
@@ -37,12 +37,6 @@ public:
 
   std::string get_owner_id() noexcept;
 
-
-//  const double get_x() { return m_coordinate.get_x(); }
-//  const double get_y() { return m_coordinate.get_y(); }
-
-
-
 private:
   /// The coordinate
   coordinate m_coordinate;
@@ -60,13 +54,6 @@ private:
   std::string m_owner_id;
 
 };
-
-
-//get only x or y coordinate of a projectile
-double get_x(const projectile& p)  noexcept;
-double get_y(const projectile& p)  noexcept;
-
-
 
 void test_projectile();
 

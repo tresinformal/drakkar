@@ -79,8 +79,8 @@ std::string to_str(const shelter& in_shelter) noexcept
     std::string msg;
     msg+="shelter info:\n";
     msg+="\tPosition:\n";
-    msg+="\t\tx= "+std::to_string(in_shelter.get_x())+"\n";
-    msg+="\t\ty= "+std::to_string(in_shelter.get_y())+"\n";
+    msg+="\t\tx= "+std::to_string(get_x(in_shelter))+"\n";
+    msg+="\t\ty= "+std::to_string(get_y(in_shelter))+"\n";
     msg+="\tRadius:\n"+std::to_string(in_shelter.get_radius())+"\n";
     msg+="\tColor:\n"+to_str(in_shelter.get_color())+"\n";
     msg+="\tSpeed:\n"+std::to_string(in_shelter.get_speed())+"\n";
@@ -93,24 +93,24 @@ void test_shelter() //!OCLINT tests may be complex
   #ifndef NDEBUG // no tests in release
   {
     shelter f;
-    assert(f.get_x() == 0.0);
-    assert(f.get_y() == 0.0);
+    assert(get_x(f) == 0.0);
+    assert(get_y(f) == 0.0);
   }
   // X and Y work as expected
   {
     const coordinate c{12.34, 23.45};
     const shelter f(c);
-    assert(std::abs(f.get_x() - c.get_x()) < 0.00001);
-    assert(std::abs(f.get_y() - c.get_y()) < 0.00001);
+    assert(std::abs(get_x(f) - c.get_x()) < 0.00001);
+    assert(std::abs(get_y(f) - c.get_y()) < 0.00001);
   }
   //test that shelter moves with each tick
   {
     shelter f;
-    assert(f.get_x() == 0.0);
-    assert(f.get_y() == 0.0);
+    assert(get_x(f) == 0.0);
+    assert(get_y(f) == 0.0);
     f.make_shelter_drift();
     f.make_shelter_drift(); //move shelter
-    assert(f.get_x() != 0.0); //see that shelter moves
+    assert(get_x(f) != 0.0); //see that shelter moves
   }
   // Colors
   {
