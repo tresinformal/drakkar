@@ -11,7 +11,7 @@
 #include <iostream>
 #include <random>
 
-game::game(double wall_short_side,
+game::game(const environment& the_environment,
            int num_players,
            int n_ticks,
            size_t n_shelters,
@@ -23,7 +23,7 @@ game::game(double wall_short_side,
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
-  m_environment(wall_short_side),
+  m_environment{the_environment},
   m_food(n_food, food()),
   m_shelters(n_shelters, shelter())
 {
@@ -747,6 +747,7 @@ int get_nth_food_regeneration_time(const game &g, const int &n)
   return g.get_food()[n].get_regeneration_time();
 }
 
+
 bool is_nth_food_eaten(const game& g, const int &n)
 {
   return g.get_food()[n].is_eaten();
@@ -759,6 +760,24 @@ coordinate get_nth_food_position(const game& g, const int& food_id)
 void place_nth_food_randomly(game &g, const int &n)
 {
   g.get_food()[n].place_randomly(g.get_rng(), {get_min_x(g), get_min_y(g)}, {get_max_x(g), get_max_y(g)});
+}
+
+coordinate get_nth_shelter_position(const game &g, const int &n)
+{
+  assert(n >= 0);
+  return g.get_shelters()[n].get_position();
+}
+
+/// Get all shelter positions
+std::vector<coordinate> get_all_shelter_positions(const game& g)
+{
+  int n_shelters = g.get_shelters().size();
+  std::vector<coordinate> all_shelter_positions;
+  for (int i = 0; i < n_shelters; ++i)
+    {
+      all_shelter_positions.push_back(get_nth_shelter_position(g, i));
+    }
+  return all_shelter_positions;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1077,12 +1096,13 @@ void test_game() //!OCLINT tests may be many
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
 
+//#define FIX_ISSUE_381
 #ifdef FIX_ISSUE_381
   ///A player can become invulnerable
   {
     game g;
 
-    assert(is_active(g.get_player(0));
+    assert(is_active(g.get_player(0)));
     become_invulnerable(g.get_player(0));
     assert(is_invulnerable(g.get_player(0)));
 
@@ -1246,8 +1266,9 @@ void test_game() //!OCLINT tests may be many
   //rectangle with center at coordinates of 0,0
   //And short size = 720 by default;
   {
-    auto wall_short_side = 720.0;
-    game g(wall_short_side);
+    double wall_short_side = 720.0;
+    environment some_environment = environment(wall_short_side);
+    game g(some_environment);
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
@@ -1279,7 +1300,7 @@ void test_game() //!OCLINT tests may be many
     assert(std::abs(after - before) > 0.0);
   }
 
-  // #define FIX_ISSUE_405
+  #define FIX_ISSUE_405
   #ifdef FIX_ISSUE_405
   {
     // nth shelter position can be obtained
@@ -1294,7 +1315,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  //#define FIX_ISSUE_406
+  #define FIX_ISSUE_406
   #ifdef FIX_ISSUE_406
   {
     // the position of all shelters can be obtained
