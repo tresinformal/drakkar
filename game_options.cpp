@@ -47,6 +47,7 @@ void music_on(game_options& o) noexcept
 
 game_options get_random_game_options(const int& rng_seed) {
   std::srand(rng_seed);
+// Need to create all KAMs at once to ensure all keys are unique over all KAMs
   std::vector<key_action_map> random_kams = get_n_random_kams(2);
   game_options random_game_options = game_options(
         rng_seed,

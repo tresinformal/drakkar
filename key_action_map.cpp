@@ -122,6 +122,7 @@ key_action_map get_random_kam()
 
 std::vector<key_action_map> get_n_random_kams(int n)
 {
+  assert(n >= 0);
   std::vector<key_action_map> vector_kam;
   std::vector<sf::Keyboard::Key> storage_key;
 
