@@ -1,6 +1,6 @@
 #ifndef GAME_RESOURCES_H
 #define GAME_RESOURCES_H
-
+#include <Audio.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 

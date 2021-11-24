@@ -32,6 +32,20 @@ unix:!macx {
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 }
 
+macx {
+  QMAKE_POST_LINK += $(MKDIR) $${CONFIG_APP_NAME}.app/Contents/Frameworks &&
+  QMAKE_POST_LINK += $${QMAKE_COPY} -r $${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib/* $${CONFIG_APP_NAME}.app/Contents/Frameworks
+  INCLUDEPATH += "$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/include"
+  INCLUDEPATH += "/Library/Frameworks/SFML.framework/Versions/2.5.1/Headers"
+  LIBS += -L"$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib" \
+      -lsfml-system \
+      -lsfml-window \
+      -lsfml-graphics \
+      -lsfml-audio \
+      -lsfml-network
+  #LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+}
+
 win32{
   INCLUDEPATH += C:/Qt/sfml/include
   INCLUDEPATH += D:/Qt/sfml/include
