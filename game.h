@@ -19,13 +19,14 @@
 class game
 {
 public:
-  game(double wall_short_side = 1600,
-       int num_players = 3,
+  game(environment the_environment = environment(),
+      int num_players = 3,
        int n_ticks = 0,
        std::size_t n_shelters = 42,
        int n_enemies = 1,
        int n_food = 1,
-       int seed = 0);
+       int seed = 0
+       );
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);

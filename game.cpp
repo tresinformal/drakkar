@@ -11,20 +11,19 @@
 #include <iostream>
 #include <random>
 
-game::game(double wall_short_side,
+game::game(environment the_environment,
            int num_players,
            int n_ticks,
            size_t n_shelters,
            int n_enemies,
            int n_food,
-           int seed,
-           environment environment):
+           int seed):
   m_seed{seed},
   m_rng(seed),
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
-  m_environment(wall_short_side),
+  m_environment{the_environment},
   m_food(n_food, food()),
   m_shelters(n_shelters, shelter())
 {
@@ -1265,8 +1264,9 @@ void test_game() //!OCLINT tests may be many
   //rectangle with center at coordinates of 0,0
   //And short size = 720 by default;
   {
-    auto wall_short_side = 720.0;
-    game g(wall_short_side);
+    double wall_short_side = 720.0;
+    environment some_environment = environment(wall_short_side);
+    game g(some_environment);
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
