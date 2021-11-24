@@ -6,7 +6,11 @@
 #include "game.h"
 #include "game_resources.h"
 #include "game_options.h"
-#include <SFML/Graphics.hpp>
+#ifdef USE_MAC
+  #include <Graphics.hpp>
+#else
+  #include <SFML/Graphics.hpp>
+#endif
 #include "key_action_map.h"
 
 /// The game's main window

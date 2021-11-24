@@ -5,8 +5,13 @@
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Text.hpp>
+#ifdef USE_MAC
+  #include <Graphics.hpp>
+  #include <Graphics/Text.hpp>
+#else
+  #include <SFML/Graphics.hpp>
+  #include <SFML/Graphics/Text.hpp>
+#endif
 #include <cmath>
 #include <string>
 #include <sstream>

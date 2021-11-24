@@ -24,7 +24,13 @@
 #include "read_only.h"
 #include "sound_type.h"
 #include "optional.h"
-#include <SFML/Graphics.hpp>
+
+#ifdef USE_MAC
+  #include <Graphics.hpp>
+#else
+  #include <SFML/Graphics.hpp>
+#endif
+
 #include <cassert>
 #include <chrono>
 #include <iostream>

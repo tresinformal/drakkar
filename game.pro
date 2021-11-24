@@ -33,6 +33,8 @@ unix:!macx {
 }
 
 macx {
+  # Needed for the #includes to work for our beloved Mac users
+  DEFINES += USE_MAC
   QMAKE_POST_LINK += $(MKDIR) $${CONFIG_APP_NAME}.app/Contents/Frameworks &&
   QMAKE_POST_LINK += $${QMAKE_COPY} -r $${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib/* $${CONFIG_APP_NAME}.app/Contents/Frameworks
   INCLUDEPATH += "$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/include"

@@ -1,6 +1,11 @@
 #ifndef MENU_BUTTON_H
 #define MENU_BUTTON_H
-#include <SFML/Graphics.hpp>
+
+#ifdef USE_MAC
+  #include <Graphics.hpp>
+#else
+  #include <SFML/Graphics.hpp>
+#endif
 #include <cassert>
 #include <string>
 
