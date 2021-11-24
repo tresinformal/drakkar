@@ -156,17 +156,14 @@ void test_game_options()
   {
     // Random game options should not draw keys already used by another player
     const int rng_seed = 271;
-    for (int seed = 0; seed < 1000; seed++)
+    const game_options rgo = get_random_game_options(rng_seed);
+    key_action_map map_1 = rgo.get_kam_1();
+    key_action_map map_2 = rgo.get_kam_2();
+    std::vector<sf::Keyboard::Key> keys_in_1;
+    for (auto& this_row : map_1.get_raw_map())
       {
-        const game_options rgo = get_random_game_options(rng_seed);
-        key_action_map map_1 = rgo.get_kam_1();
-        key_action_map map_2 = rgo.get_kam_2();
-        std::vector<sf::Keyboard::Key> keys_in_1;
-        for (auto& this_row : map_1.get_raw_map())
-          {
-            sf::Keyboard::Key key_in_1 = this_row.first;
-            assert(!map_2.has_key(key_in_1));
-          }
+        sf::Keyboard::Key key_in_1 = this_row.first;
+        assert(!map_2.has_key(key_in_1));
       }
   }
   #endif // FIX_ISSUE_353
