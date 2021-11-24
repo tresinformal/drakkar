@@ -771,19 +771,14 @@ coordinate get_nth_shelter_position(const game &g, const int &n)
 /// Get all shelter positions
 std::vector<coordinate> get_all_shelter_positions(const game& g)
 {
-  std::vector<shelter> all_shelters = g.get_shelters();
+  int n_shelters = g.get_shelters().size();
   std::vector<coordinate> all_shelter_positions;
-  for (unsigned int i = 0;all_shelters.size() != i;)
+  for (int i = 0; i < n_shelters; ++i)
     {
-
+      all_shelter_positions.push_back(get_nth_shelter_position(g, i));
     }
-  int n = 0;
-  coordinate nth_shelter_position = get_nth_shelter_position(g, n);
   return all_shelter_positions;
 }
-
-
-
 
 void test_game() //!OCLINT tests may be many
 {

@@ -183,7 +183,7 @@ private:
 };
 
 /// Get all shelter positions
-coordinate get_all_shelter_positions(game g);
+std::vector<coordinate> get_all_shelter_positions(const game& g);
 
 /// Get min and max coordinates of the game
 double get_max_x(const game &g);
