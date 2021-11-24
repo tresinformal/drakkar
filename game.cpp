@@ -11,7 +11,7 @@
 #include <iostream>
 #include <random>
 
-game::game(environment the_environment,
+game::game(const environment& the_environment,
            int num_players,
            int n_ticks,
            size_t n_shelters,
@@ -764,6 +764,7 @@ void place_nth_food_randomly(game &g, const int &n)
 
 coordinate get_nth_shelter_position(const game &g, const int &n)
 {
+  assert(n >= 0);
   return g.get_shelters()[n].get_position();
 }
 

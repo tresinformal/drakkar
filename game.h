@@ -19,7 +19,7 @@
 class game
 {
 public:
-  game(environment the_environment = environment(),
+  game(const environment& the_environment = environment(),
       int num_players = 3,
        int n_ticks = 0,
        std::size_t n_shelters = 42,
