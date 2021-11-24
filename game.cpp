@@ -1095,12 +1095,13 @@ void test_game() //!OCLINT tests may be many
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
 
+#define FIX_ISSUE_381
 #ifdef FIX_ISSUE_381
   ///A player can become invulnerable
   {
     game g;
 
-    assert(is_active(g.get_player(0));
+    assert(is_active(g.get_player(0)));
     become_invulnerable(g.get_player(0));
     assert(is_invulnerable(g.get_player(0)));
 

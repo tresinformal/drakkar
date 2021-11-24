@@ -196,6 +196,9 @@ private:
     /// construction
     double m_health = 1.0;
 };
+
+bool is_invulnerable(const player& p);
+
 ///Adds an action to the action set
 void add_action(player& p, action_type action) noexcept;
 
