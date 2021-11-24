@@ -17,7 +17,8 @@ game::game(double wall_short_side,
            size_t n_shelters,
            int n_enemies,
            int n_food,
-           int seed):
+           int seed,
+           environment environment):
   m_seed{seed},
   m_rng(seed),
   m_n_ticks{n_ticks},
