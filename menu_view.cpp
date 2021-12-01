@@ -94,10 +94,10 @@ void menu_view::draw_buttons() noexcept
 
 
     sf::Text text;
+    text.setFont(m_game_resources.get_font());
     text.setString("Hello world");
     text.setPosition(10, 10);
-    text.setFont(game_resources().get_font());
-    text.setScale(100.0, 100.0);
+    text.setCharacterSize(15);
     text.setFillColor(sf::Color::White);
     m_window.draw(text);
 
