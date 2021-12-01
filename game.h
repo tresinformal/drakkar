@@ -40,13 +40,6 @@ public:
   ///Executes for wall collision for all players
   void do_wall_collisions();
 
-  ///Get the index of the winner of the players with the given indices
-  int get_winning_player_index(const game& g, const int i1, const int i2);
-
-
-  ///Get the index of the loser of the players with the given indices
-  int get_losing_player_index(const game& g, const int i1, const int i2);
-
   ///returns the collision vector
   const std::vector<int>& get_collision_vec(){return m_v_collisions_ind;}
 
