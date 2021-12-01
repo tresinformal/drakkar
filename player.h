@@ -91,7 +91,7 @@ public:
         m_c = position;
     }
 
-    /// Set the color of the player
+    /// Set the state of the player
     void set_state(const player_state &s) noexcept { m_state = s; }
 
     /// The player shoots, does nothing for now
