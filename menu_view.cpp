@@ -98,6 +98,7 @@ void menu_view::draw_buttons() noexcept
     text.setPosition(10, 10);
     text.setFont(game_resources().get_font());
     text.setScale(100.0, 100.0);
+    text.setFillColor(sf::Color::White);
     m_window.draw(text);
 
     // Draw the player
