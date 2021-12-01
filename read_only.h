@@ -1,3 +1,7 @@
+// #include guard :-)
+#ifndef READ_ONLY_H
+#define READ_ONLY_H
+
 #include <vector>
 #include <iostream>
 
@@ -28,3 +32,5 @@ private:
 
 /// Test our read_only class
 void test_read_only();
+
+#endif // READ_ONLY_H
