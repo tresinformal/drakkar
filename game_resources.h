@@ -1,13 +1,8 @@
 #ifndef GAME_RESOURCES_H
 #define GAME_RESOURCES_H
 
-#ifdef USE_MAC
-  #include <Audio.hpp>
-  #include <Graphics.hpp>
-#else
-  #include <SFML/Audio.hpp>
-  #include <SFML/Graphics.hpp>
-#endif
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 class game_resources
 {

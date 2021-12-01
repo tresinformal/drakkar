@@ -25,11 +25,7 @@
 #include "sound_type.h"
 #include "optional.h"
 
-#ifdef USE_MAC
-  #include <Graphics.hpp>
-#else
-  #include <SFML/Graphics.hpp>
-#endif
+#include <SFML/Graphics.hpp>
 
 #include <cassert>
 #include <chrono>
