@@ -1,6 +1,16 @@
 #include "sound_type.h"
 #include "cassert"
 
+std::string to_str(const sound_type this_sound_type) noexcept
+{
+  if (this_sound_type == sound_type::rocket)
+  {
+    return "rocket";
+  }
+  assert(this_sound_type == sound_type::cat);
+  return "cat";
+}
+
 void test_sound_type()
 {
   #ifndef NDEBUG // no tests in release
