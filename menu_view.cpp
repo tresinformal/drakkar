@@ -1,4 +1,5 @@
 #include "menu_view.h"
+#include "coordinate.h"
 
 menu_view::menu_view()
     : m_window(
@@ -85,23 +86,27 @@ void menu_view::draw_buttons() noexcept
     }
     }
 
+    coordinate button_position(m_menu.get_button(i).get_x(),
+                               m_menu.get_button(i).get_y());
+
     // Create the button sprite
     sf::RectangleShape rect(m_menu.get_button(i).get_body());
     rect.setFillColor(color);
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(static_cast<float>(m_menu.get_button(i).get_x()),
-                     static_cast<float>(m_menu.get_button(i).get_y()));
-
+    rect.setPosition(static_cast<float>(button_position.get_x()),
+                     static_cast<float>(button_position.get_y()));
 
     sf::Text text;
     text.setFont(m_game_resources.get_font());
     text.setString("Hello world");
-    text.setPosition(10, 10);
+    text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
+    text.setPosition(static_cast<float>(button_position.get_x()),
+                     static_cast<float>(button_position.get_y()));
     text.setCharacterSize(15);
     text.setFillColor(sf::Color::White);
-    m_window.draw(text);
 
-    // Draw the player
+    // Draw the buttons
     m_window.draw(rect);
+    m_window.draw(text);
   }
 }
