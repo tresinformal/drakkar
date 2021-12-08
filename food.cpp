@@ -80,9 +80,8 @@ void test_food()
     assert(a == b);
     assert(!(a == c));
   }
-  //#define FIX_ISSUE_349
-  #ifdef FIX_ISSUE_349
-  //Can compare two foods for inequality, operator!=
+
+  //Can compare two foods for inequality, operator!= #349
   {
     coordinate c_a(1.2, 0);
     coordinate c_b(3.4, 0);
@@ -90,7 +89,6 @@ void test_food()
     const food b(c_b);
     assert(a != b);
   }
-  #endif // FIX_ISSUE_349
 
     #define FIX_ISSUE_341
     #ifdef FIX_ISSUE_341
