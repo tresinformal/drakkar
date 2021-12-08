@@ -99,10 +99,10 @@ void menu_view::draw_buttons() noexcept
     sf::Text text;
     text.setFont(m_game_resources.get_font());
     text.setString("Hello world");
-    text.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
+    text.setOrigin(100, 100);
     text.setPosition(static_cast<float>(button_position.get_x()),
                      static_cast<float>(button_position.get_y()));
-    text.setCharacterSize(15);
+    text.setCharacterSize(30);
     text.setFillColor(sf::Color::White);
 
     // Draw the buttons
