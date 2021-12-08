@@ -11,7 +11,7 @@ template <class T> class optional
 {
 public:
   optional() : m_value{std::vector<T>()} {};
-  optional(const T value) : m_value{std::vector<T>(1, value)} {};
+  optional(const T& value) : m_value{std::vector<T>(1, value)} {};
 
   bool has_value() const { return !m_value.empty(); };
 
@@ -23,7 +23,7 @@ public:
     return m_value[0];
   };
 
-  void operator=( const T value ) { m_value[0] = value; };
+  void operator=( const T& value ) { m_value[0] = value; };
 private:
   std::vector<T> m_value;
 };

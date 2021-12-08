@@ -1,6 +1,8 @@
 #ifndef MENU_BUTTON_H
 #define MENU_BUTTON_H
+
 #include <SFML/Graphics.hpp>
+
 #include <cassert>
 #include <string>
 

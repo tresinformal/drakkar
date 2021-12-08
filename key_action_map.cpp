@@ -106,9 +106,9 @@ key_action_map get_random_kam()
             new_key
             );
       if (key_match == v_random_keys.end())
-        {
+      {
           v_random_keys.push_back(new_key);
-        }
+      }
     }
   return key_action_map(
         v_random_keys[0],
@@ -119,6 +119,44 @@ key_action_map get_random_kam()
       v_random_keys[5]
       );
 }
+
+std::vector<key_action_map> get_n_random_kams(int n)
+{
+  assert(n >= 0);
+  std::vector<key_action_map> vector_kam;
+  std::vector<sf::Keyboard::Key> storage_key;
+
+  for(int i = 0; i != n; ++i){
+    std::vector<sf::Keyboard::Key> v_random_keys;
+    while (v_random_keys.size() < 6)
+      {
+        sf::Keyboard::Key new_key = get_random_key();
+        auto key_match = std::find(
+              storage_key.begin(),
+              storage_key.end(),
+              new_key
+              );
+        if (key_match == storage_key.end())
+        {
+            v_random_keys.push_back(new_key);
+            storage_key.push_back(new_key);
+        }
+
+      }
+    vector_kam.push_back(key_action_map(
+                                        v_random_keys[0],
+                                        v_random_keys[1],
+                                        v_random_keys[2],
+                                        v_random_keys[3],
+                                        v_random_keys[4],
+                                        v_random_keys[5]));
+    }
+
+
+  return vector_kam;
+}
+
+
 
 sf::Keyboard::Key get_stun_key(const key_action_map& m)
 {

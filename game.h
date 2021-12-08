@@ -19,13 +19,14 @@
 class game
 {
 public:
-  game(double wall_short_side = 1600,
-       int num_players = 3,
+  game(const environment& the_environment = environment(),
+      int num_players = 3,
        int n_ticks = 0,
        std::size_t n_shelters = 42,
        int n_enemies = 1,
        int n_food = 1,
-       int seed = 0);
+       int seed = 0
+       );
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -182,6 +183,9 @@ private:
   void regenerate_food_items();
 };
 
+/// Get all shelter positions
+std::vector<coordinate> get_all_shelter_positions(const game& g);
+
 /// Get min and max coordinates of the game
 double get_max_x(const game &g);
 double get_min_x(const game &g);
@@ -260,11 +264,15 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
 
 int get_nth_food_timer(const game &g, const int &n);
 
+
 bool is_nth_food_eaten(const game &g, const int &n);
 
 coordinate get_nth_food_position(const game& g, const int& food_id);
 // Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);
+
+coordinate get_nth_shelter_position(const game &g, const int &n);
+
 
 void test_game();
 

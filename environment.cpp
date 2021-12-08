@@ -2,25 +2,41 @@
 #include <cassert>
 #include <sstream>
 
-environment::environment(double wall_short_side, environment_type enviroment_type) :
+environment::environment(double wall_short_side, environment_type environment_type) :
   m_wall_short_side{wall_short_side},
   m_wall_long_side{wall_short_side * 16 / 9},
-  m_max_x{m_wall_long_side},
-  m_min_x{0},
-  m_max_y{m_wall_short_side},
-  m_min_y{0},
-  m_environment_type{enviroment_type}
-
-
+  m_top_left_position{coordinate(0, 0)},
+  m_bottom_right_position{coordinate(m_wall_long_side, m_wall_short_side)},
+  m_environment_type{environment_type}
 {
+}
+
+double get_max_x(const environment& e)
+{
+  return e.get_bottom_right().get_x();
+}
+
+double get_max_y(const environment& e)
+{
+  return e.get_bottom_right().get_y();
+}
+
+double get_min_x(const environment& e)
+{
+  return e.get_top_left().get_x();
+}
+
+double get_min_y(const environment& e)
+{
+  return e.get_top_left().get_y();
 }
 
 std::ostream &operator<<(std::ostream &os, const environment& e)
 {
-  os << "Max X : " << e.get_max_x()
-     << "Max Y : " << e.get_max_y()
-     << "Min X : " << e.get_min_x()
-     << "Min X : " << e.get_min_y()
+  os << "Max X : " << get_max_x(e)
+     << "Max Y : " << get_max_y(e)
+     << "Min X : " << get_min_x(e)
+     << "Min X : " << get_min_y(e)
      << "Type : " << e.get_type()
      << "Wall L Side : " << e.get_wall_l_side()
      << "Wall S Side : " << e.get_wall_s_side();
@@ -34,8 +50,8 @@ void test_environment()
   // Minimal and maximal coordinats should make sense
   {
     const environment e;
-    assert(e.get_min_x() < e.get_max_x());
-    assert(e.get_min_y() < e.get_max_y());
+    assert(get_min_x(e) < get_max_x(e));
+    assert(get_min_y(e) < get_max_y(e));
   }
 
   // An environment has a type
@@ -55,7 +71,7 @@ void test_environment()
            e.get_wall_s_side() - wall_short_side > -0.00001);
   }
 
-//#define FIX_ISSUE_424
+#define FIX_ISSUE_424
 #ifdef FIX_ISSUE_424
     {
         environment e;
@@ -63,7 +79,6 @@ void test_environment()
         coordinate bottom_right = e.get_bottom_right();
         assert(top_left == coordinate(0,0));
         assert(bottom_right == coordinate(e.get_wall_l_side() + top_left.get_x(), e.get_wall_s_side() + top_left.get_y()));
-
     }
 #endif
 

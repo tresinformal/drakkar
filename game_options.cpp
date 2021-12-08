@@ -47,15 +47,19 @@ void music_on(game_options& o) noexcept
 
 game_options get_random_game_options(const int& rng_seed) {
   std::srand(rng_seed);
+// Need to create all KAMs at once to ensure all keys are unique over all KAMs
+  std::vector<key_action_map> random_kams = get_n_random_kams(2);
   game_options random_game_options = game_options(
         rng_seed,
         true,
-        get_random_kam(),
-        get_random_kam()
+        random_kams[0],
+        random_kams[1]
         );
   // assert that kam 1 and kam 2 don't have the same keys
   return random_game_options;
 }
+
+
 
 void test_game_options()
 {
@@ -147,18 +151,20 @@ void test_game_options()
   }
   #endif // FIX_ISSUE_303
 
-  // #define FIX_ISSUE_353
+  #define FIX_ISSUE_353
   #ifdef FIX_ISSUE_353
   {
     // Random game options should not draw keys already used by another player
-    const int rng_seed = 271; // by default this will assign A to both players
+    const int rng_seed = 271;
     const game_options rgo = get_random_game_options(rng_seed);
     key_action_map map_1 = rgo.get_kam_1();
     key_action_map map_2 = rgo.get_kam_2();
-    bool a = map_1.has_key(sf::Keyboard::Key::A);
-    bool b = map_2.has_key(sf::Keyboard::Key::A);
-    // Key A is in KAM1 or KAM2 but not both
-    assert(a != b);
+    std::vector<sf::Keyboard::Key> keys_in_1;
+    for (auto& this_row : map_1.get_raw_map())
+      {
+        sf::Keyboard::Key key_in_1 = this_row.first;
+        assert(!map_2.has_key(key_in_1));
+      }
   }
   #endif // FIX_ISSUE_353
 

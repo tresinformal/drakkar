@@ -3,6 +3,7 @@
 #include "projectile.h"
 #include "projectile_type.h"
 #include "action_type.h"
+#include "environment.h"
 
 #include <cassert>
 #include <cmath>
@@ -10,7 +11,7 @@
 #include <iostream>
 #include <random>
 
-game::game(double wall_short_side,
+game::game(const environment& the_environment,
            int num_players,
            int n_ticks,
            size_t n_shelters,
@@ -22,7 +23,7 @@ game::game(double wall_short_side,
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
-  m_environment(wall_short_side),
+  m_environment{the_environment},
   m_food(n_food, food()),
   m_shelters(n_shelters, shelter())
 {
@@ -79,18 +80,18 @@ void add_projectile(game &g, const projectile &p)
 
 
 double get_max_x(const game &g) {
-    return g.get_env().get_max_x();
+    return get_max_x(g.get_env());
 }
 
 double get_min_x(const game &g){
-    return g.get_env().get_min_x();
+    return get_min_x(g.get_env());
 }
 
 double get_max_y(const game &g){
-    return g.get_env().get_max_y();
+    return get_max_y(g.get_env());
 }
 double get_min_y(const game &g){
-    return g.get_env().get_min_y();
+    return get_min_y(g.get_env());
 }
 
 double get_nth_food_x(const game &g, const int n)
@@ -347,11 +348,11 @@ void game::projectile_collision()
 void game::tick()
 {
   if(has_collision(*this))
-    {
-      //kill_losing_player(*this);
-      grow_winning_player(*this);
-      shrink_losing_player(*this);
-    }
+  {
+    //kill_losing_player(*this);
+    grow_winning_player(*this);
+    shrink_losing_player(*this);
+  }
 
   // Moves the projectiles
   move_projectiles();
@@ -482,22 +483,22 @@ bool has_wall_collision(const game& g)
 
 bool hits_south_wall(const player& p, const environment& e)
 {
-  return get_y(p) + p.get_diameter()/2 > e.get_max_y();
+  return get_y(p) + p.get_diameter()/2 > get_max_y(e);
 }
 
 bool hits_north_wall(const player& p, const environment& e)
 {
-  return get_y(p) - p.get_diameter()/2 < e.get_min_y();
+  return get_y(p) - p.get_diameter()/2 < get_min_y(e);
 }
 
 bool hits_east_wall(const player& p, const environment& e)
 {
-  return get_x(p) + p.get_diameter()/2 > e.get_max_x();
+  return get_x(p) + p.get_diameter()/2 > get_max_x(e);
 }
 
 bool hits_west_wall(const player& p, const environment& e)
 {
-  return get_x(p) - p.get_diameter()/2 < e.get_min_x();
+  return get_x(p) - p.get_diameter()/2 < get_min_x(e);
 }
 
 bool hits_wall(const player& p, const environment& e)
@@ -659,25 +660,25 @@ player game::wall_collision(player p)
   if(hits_south_wall(p, m_environment))
 
     {
-      p.set_y(m_environment.get_max_y() - p.get_diameter()/2);
+      p.set_y(get_max_y(m_environment) - p.get_diameter()/2);
     }
 
 
   if(hits_north_wall(p, m_environment))
     {
-      p.set_y(m_environment.get_min_y() + p.get_diameter()/2);
+      p.set_y(get_min_y(m_environment) + p.get_diameter()/2);
     }
 
 
   if(hits_east_wall(p, m_environment))
     {
-      p.set_x(m_environment.get_max_x() - p.get_diameter()/2);
+      p.set_x(get_max_x(m_environment) - p.get_diameter()/2);
     }
 
 
   if(hits_west_wall(p, m_environment))
     {
-      p.set_x(m_environment.get_min_x() + p.get_diameter()/2);
+      p.set_x(get_min_x(m_environment) + p.get_diameter()/2);
     }
 
   return p;
@@ -705,18 +706,22 @@ void game::regenerate_food_items()
 
 void game::make_players_eat_food()
 {
-  int n_food = static_cast<int>(get_food().size());
   for(auto& player : m_player)
+  {
+    const int n_food = static_cast<int>(get_food().size());
+    for(int i = 0; i < n_food; ++i)
     {
-      for(int i = 0; i < n_food; ++i)
-       {
-          if (are_colliding(player, get_food()[i]))
-            {
-              eat_food(get_food()[i]);
-              player.grow();
-            }
-       }
+      if (are_colliding(player, get_food()[i]))
+      {
+        eat_food(get_food()[i]);
+        player.grow();
+        #ifdef FIX_ISSUE_440
+        // #440 Food changes the color of the player
+        player.set_color(get_food()[i].get_color());
+        #endif // FIX_ISSUE_440
+      }
     }
+  }
 }
 
 void game::eat_food(food& f)
@@ -746,6 +751,7 @@ int get_nth_food_regeneration_time(const game &g, const int &n)
   return g.get_food()[n].get_regeneration_time();
 }
 
+
 bool is_nth_food_eaten(const game& g, const int &n)
 {
   return g.get_food()[n].is_eaten();
@@ -758,6 +764,24 @@ coordinate get_nth_food_position(const game& g, const int& food_id)
 void place_nth_food_randomly(game &g, const int &n)
 {
   g.get_food()[n].place_randomly(g.get_rng(), {get_min_x(g), get_min_y(g)}, {get_max_x(g), get_max_y(g)});
+}
+
+coordinate get_nth_shelter_position(const game &g, const int &n)
+{
+  assert(n >= 0);
+  return g.get_shelters()[n].get_position();
+}
+
+/// Get all shelter positions
+std::vector<coordinate> get_all_shelter_positions(const game& g)
+{
+  int n_shelters = g.get_shelters().size();
+  std::vector<coordinate> all_shelter_positions;
+  for (int i = 0; i < n_shelters; ++i)
+    {
+      all_shelter_positions.push_back(get_nth_shelter_position(g, i));
+    }
+  return all_shelter_positions;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -828,7 +852,7 @@ void test_game() //!OCLINT tests may be many
         assert(before - after < 0.01); // After should be > than before
       }
   }
-  // A game responds to actions: player can break
+  // A game responds to actions: player can brake
   {
     game g;
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
@@ -938,7 +962,7 @@ void test_game() //!OCLINT tests may be many
   // game by default has a mix and max evironment size
   {
     game g;
-    assert(g.get_env().get_max_x() > -56465214.0);
+    assert(get_max_x(g.get_env()) > -56465214.0);
   }
 
   // A game has enemies
@@ -1076,12 +1100,13 @@ void test_game() //!OCLINT tests may be many
 #endif // FIX_ISSUE_234
 #endif // FIX_ISSUE_233
 
+//#define FIX_ISSUE_381
 #ifdef FIX_ISSUE_381
   ///A player can become invulnerable
   {
     game g;
 
-    assert(is_active(g.get_player(0));
+    assert(is_active(g.get_player(0)));
     become_invulnerable(g.get_player(0));
     assert(is_invulnerable(g.get_player(0)));
 
@@ -1245,8 +1270,9 @@ void test_game() //!OCLINT tests may be many
   //rectangle with center at coordinates of 0,0
   //And short size = 720 by default;
   {
-    auto wall_short_side = 720.0;
-    game g(wall_short_side);
+    double wall_short_side = 720.0;
+    environment some_environment = environment(wall_short_side);
+    game g(some_environment);
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
@@ -1278,7 +1304,7 @@ void test_game() //!OCLINT tests may be many
     assert(std::abs(after - before) > 0.0);
   }
 
-  // #define FIX_ISSUE_405
+  #define FIX_ISSUE_405
   #ifdef FIX_ISSUE_405
   {
     // nth shelter position can be obtained
@@ -1293,7 +1319,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  //#define FIX_ISSUE_406
+  #define FIX_ISSUE_406
   #ifdef FIX_ISSUE_406
   {
     // the position of all shelters can be obtained
@@ -1448,9 +1474,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define FIX_ISSUE_392
-#ifdef FIX_ISSUE_392
-  //When a player gets within the radius of food it eats it
+  // #392: When a player gets within the radius of food it eats it
   {
     game g;
     food f = g.get_food()[0];
@@ -1469,8 +1493,28 @@ void test_game() //!OCLINT tests may be many
     g.tick();
     assert(!has_food(g));
     assert(!has_any_player_food_collision(g));
+
   }
-#endif
+  #ifdef FIX_ISSUE_440
+  // #440: Food changes the color of the player
+  {
+    game g;
+    const food f = g.get_food()[0];
+    // Food must be of a different color than the player,
+    // else nothing happens to the color of the player
+    const color food_color = f.get_color();
+    const color player_color = g.get_player(0).get_color();
+    assert(food_color != player_color);
+
+    const color color_before = player_color;
+
+    put_player_on_food(g.get_player(0), f);
+    g.tick();
+
+    const color color_after = g.get_player(0).get_color();
+    assert(color_before != color_after);
+  }
+  #endif // FIX_ISSUE_440
 
 #define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
@@ -1639,13 +1683,13 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     double max_x = get_max_x(g);
-    assert(max_x == g.get_env().get_max_x());
+    assert(max_x == get_max_x(g.get_env()));
     double min_x = get_min_x(g);
-    assert(min_x == g.get_env().get_min_x());
+    assert(min_x == get_min_x(g.get_env()));
     double max_y = get_max_y(g);
-    assert(max_y == g.get_env().get_max_y());
+    assert(max_y == get_max_y(g.get_env()));
     double min_y = get_min_y(g);
-    assert(min_y == g.get_env().get_min_y());
+    assert(min_y == get_min_y(g.get_env()));
   }
 #endif
 

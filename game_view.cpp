@@ -137,8 +137,8 @@ void game_view::draw_background() noexcept
     sf::Texture background_texture = m_game_resources.get_coastal_world();
     background_sprite.setTexture(background_texture);
     // Scale background so it fits the entire environment
-    double scaling_factor_x = m_game.get_env().get_max_x() / background_texture.getSize().x;
-    double scaling_factor_y = m_game.get_env().get_max_y() / background_texture.getSize().y;
+    double scaling_factor_x = get_max_x(m_game.get_env()) / background_texture.getSize().x;
+    double scaling_factor_y = get_max_y(m_game.get_env()) / background_texture.getSize().y;
     background_sprite.setScale(scaling_factor_x, scaling_factor_y);
     m_window.draw(background_sprite);
 }

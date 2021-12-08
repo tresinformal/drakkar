@@ -6,6 +6,7 @@
 #include "coordinate.h"
 #include "player_shape.h"
 #include "player_state.h"
+#include "read_only.h"
 #include <cmath>
 #include <vector>
 #include <set>
@@ -61,7 +62,7 @@ public:
     double get_diameter() const noexcept;
 
     ///Gets the ID of a player
-    const std::string& get_ID() const noexcept {return m_ID;}
+    std::string get_ID() const noexcept {return m_ID.get_value(); }
 
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
@@ -90,7 +91,7 @@ public:
         m_c = position;
     }
 
-    /// Set the color of the player
+    /// Set the state of the player
     void set_state(const player_state &s) noexcept { m_state = s; }
 
     /// The player shoots, does nothing for now
@@ -154,7 +155,7 @@ private:
     bool m_is_shooting_stun_rocket{false};
 
     ///ID of the player
-    std::string m_ID;
+    read_only<std::string> m_ID;
 
     /// The coordinate of the player
     coordinate m_c;
@@ -196,6 +197,7 @@ private:
     /// construction
     double m_health = 1.0;
 };
+
 ///Adds an action to the action set
 void add_action(player& p, action_type action) noexcept;
 
