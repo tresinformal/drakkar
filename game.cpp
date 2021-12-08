@@ -1502,16 +1502,16 @@ void test_game() //!OCLINT tests may be many
     const food f = g.get_food()[0];
     // Food must be of a different color than the player,
     // else nothing happens to the color of the player
-    const auto food_color = f.get_color();
-    const auto player_color = g.get_player(0).get_color();
+    const color food_color = f.get_color();
+    const color player_color = g.get_player(0).get_color();
     assert(food_color != player_color);
 
-    const auto color_before = player_color;
+    const color color_before = player_color;
 
     put_player_on_food(g.get_player(0), f);
     g.tick();
 
-    const auto color_after = g.get_player(0).get_color();
+    const color color_after = g.get_player(0).get_color();
     assert(color_before != color_after);
   }
   #endif // FIX_ISSUE_440
