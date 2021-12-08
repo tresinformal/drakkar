@@ -24,7 +24,9 @@
 #include "read_only.h"
 #include "sound_type.h"
 #include "optional.h"
+
 #include <SFML/Graphics.hpp>
+
 #include <cassert>
 #include <chrono>
 #include <iostream>
