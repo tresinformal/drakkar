@@ -62,7 +62,7 @@ public:
     double get_diameter() const noexcept;
 
     ///Gets the ID of a player
-    std::string get_ID() const noexcept {return m_ID.get();}
+    std::string get_ID() const noexcept {return m_ID.get_value(); }
 
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
