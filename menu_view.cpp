@@ -98,8 +98,8 @@ void menu_view::draw_buttons() noexcept
 
     sf::Text text;
     text.setFont(m_game_resources.get_font());
-    text.setString("Hello world");
-    text.setOrigin(100, 100);
+    text.setString("HOIDSHIODSHOIDHOIDSHIO");
+    text.setOrigin(75, 20);
     text.setPosition(static_cast<float>(button_position.get_x()),
                      static_cast<float>(button_position.get_y()));
     text.setCharacterSize(30);
