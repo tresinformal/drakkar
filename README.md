@@ -62,6 +62,19 @@ contact [Stefano 'swom' Tiso](https://github.com/swom).
 
 A game where you are on a 2D surface with heterogeneous characteristics, as different terrains, resources etc. You start with a very small particle-like character, as you play you can gather resources scattered around and increase your size/mass, the more you grow the more your options increase(you can change shape, what matter composes you etc.), other players roam around as you do increasing size and having more options as they progress. The goal is to chase and eliminate the other players. It would be good to have multiple conditions(you have to be bigger, you need to be made of a certain material etc.) you need to satisfy to be able to eliminate the other players.e.
 
+Ideas:
+
+Issue                                                 |Idea
+------------------------------------------------------|------------------------
+[https://github.com/tresinformal/game/issues/221](221)|-1. Rock-Paper-Scissor dynamics
+[https://github.com/tresinformal/game/issues/219](219)|0. Food
+[https://github.com/tresinformal/game/issues/208](208)|1. Stun
+[https://github.com/tresinformal/game/issues/209](209)|2. Poison
+[https://github.com/tresinformal/game/issues/210](210)|3. Regenerating walls
+[https://github.com/tresinformal/game/issues/212](212)|4. Heal
+[https://github.com/tresinformal/game/issues/222](222)|5. Targeting system
+[https://github.com/tresinformal/game/issues/223](223)|6. Minimap
+
 ## [Installation](install.md)
 
 See [install.md](install.md).

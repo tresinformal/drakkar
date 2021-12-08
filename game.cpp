@@ -348,11 +348,11 @@ void game::projectile_collision()
 void game::tick()
 {
   if(has_collision(*this))
-    {
-      //kill_losing_player(*this);
-      grow_winning_player(*this);
-      shrink_losing_player(*this);
-    }
+  {
+    //kill_losing_player(*this);
+    grow_winning_player(*this);
+    shrink_losing_player(*this);
+  }
 
   // Moves the projectiles
   move_projectiles();
@@ -706,18 +706,22 @@ void game::regenerate_food_items()
 
 void game::make_players_eat_food()
 {
-  int n_food = static_cast<int>(get_food().size());
   for(auto& player : m_player)
+  {
+    const int n_food = static_cast<int>(get_food().size());
+    for(int i = 0; i < n_food; ++i)
     {
-      for(int i = 0; i < n_food; ++i)
-       {
-          if (are_colliding(player, get_food()[i]))
-            {
-              eat_food(get_food()[i]);
-              player.grow();
-            }
-       }
+      if (are_colliding(player, get_food()[i]))
+      {
+        eat_food(get_food()[i]);
+        player.grow();
+        #ifdef FIX_ISSUE_440
+        // #440 Food changes the color of the player
+        player.set_color(get_food()[i].get_color());
+        #endif // FIX_ISSUE_440
+      }
     }
+  }
 }
 
 void game::eat_food(food& f)
@@ -848,7 +852,7 @@ void test_game() //!OCLINT tests may be many
         assert(before - after < 0.01); // After should be > than before
       }
   }
-  // A game responds to actions: player can break
+  // A game responds to actions: player can brake
   {
     game g;
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
@@ -1470,9 +1474,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define FIX_ISSUE_392
-#ifdef FIX_ISSUE_392
-  //When a player gets within the radius of food it eats it
+  // #392: When a player gets within the radius of food it eats it
   {
     game g;
     food f = g.get_food()[0];
@@ -1491,8 +1493,28 @@ void test_game() //!OCLINT tests may be many
     g.tick();
     assert(!has_food(g));
     assert(!has_any_player_food_collision(g));
+
   }
-#endif
+  #ifdef FIX_ISSUE_440
+  // #440: Food changes the color of the player
+  {
+    game g;
+    const food f = g.get_food()[0];
+    // Food must be of a different color than the player,
+    // else nothing happens to the color of the player
+    const color food_color = f.get_color();
+    const color player_color = g.get_player(0).get_color();
+    assert(food_color != player_color);
+
+    const color color_before = player_color;
+
+    put_player_on_food(g.get_player(0), f);
+    g.tick();
+
+    const color color_after = g.get_player(0).get_color();
+    assert(color_before != color_after);
+  }
+  #endif // FIX_ISSUE_440
 
 #define FIX_ISSUE_237
 #ifdef FIX_ISSUE_237
