@@ -840,6 +840,20 @@ void test_player() //!OCLINT tests may be long
     }
   }
 #endif
+
+  #define FIX_ISSUE_441
+  #ifdef FIX_ISSUE_441
+    {
+      // #441 A player's color can be set
+      player p;
+      // Turn the player green
+      p.set_color(create_green_color());
+      assert()
+      // Turn the player red
+
+    }
+  #endif
+
 #endif // no tests in release
 }
 
