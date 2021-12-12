@@ -59,11 +59,3 @@ win32{
   LIBS += -lgdi32
   LIBS += -lwinmm
 }
-
-HEADERS += \
-  options_view.h
-
-SOURCES += \
-  options_view.cpp
-
-
