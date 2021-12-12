@@ -14,6 +14,7 @@
 #include "menu_button.h"
 #include "menu.h"
 #include "menu_view.h"
+#include "options_view.h"
 #include "optional.h"
 #include "player.h"
 #include "player_factory.h"
@@ -38,6 +39,7 @@ bool is_valid_arg(const std::string& s)
       || s == "--menu"
       || s == "--no-sound"
       || s == "--about"
+      || s == "--options"
       ;
 }
 
@@ -63,6 +65,7 @@ void test_main()
   assert(are_args_valid({"path","--no-sound", "--menu"}));
   assert(is_valid_arg("--menu"));
   assert(are_args_valid({"path","--about"}));
+  assert(is_valid_arg("--options"));
 }
 
 /// All tests are called from here, only in debug mode
@@ -108,65 +111,70 @@ void test()
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
 #ifndef NDEBUG
-    assert(0.1 > 0.0); //!OCLINT indeed a constant conditional
-    test();
+  assert(0.1 > 0.0); //!OCLINT indeed a constant conditional
+  test();
 #else
-    // In release mode, all asserts are removed from the code
-    assert(1 == 2);
+  // In release mode, all asserts are removed from the code
+  assert(1 == 2);
 #endif
 #ifdef LOGIC_ONLY
-    std::cout << "Compiled with LOGIC_ONLY\n";
+  std::cout << "Compiled with LOGIC_ONLY\n";
 #endif
 
-    const std::vector<std::string> args(argv, argv + argc);
+  const std::vector<std::string> args(argv, argv + argc);
 
-    assert(are_args_valid(args));
+  assert(are_args_valid(args));
 
-    // We've already tested, so the program is done
-    if (args.size() > 1 && args[1] == "--test")
-        return 0;
+  // We've already tested, so the program is done
+  if (args.size() > 1 && args[1] == "--test")
+    return 0;
 
-    else  if (args.size() > 1 && args[1] == "--profile")
+  else  if (args.size() > 1 && args[1] == "--profile")
     {
 #ifndef NDEBUG
-        perror("Do not profile in debug mode");
-        abort();
+      perror("Do not profile in debug mode");
+      abort();
 #else
 #ifndef LOGIC_ONLY // that is, not compiled on GitHub Actions
-        using namespace std::chrono;
-        game_view v;
-        double max_duration = 10;
-        auto start = high_resolution_clock::now();
-        duration<double> time = high_resolution_clock::now() - start;
-        while( time.count() < max_duration)
+      using namespace std::chrono;
+      game_view v;
+      double max_duration = 10;
+      auto start = high_resolution_clock::now();
+      duration<double> time = high_resolution_clock::now() - start;
+      while( time.count() < max_duration)
         {
-            v.process_events();
-            v.get_game().tick();
-            v.show();
-            time =  high_resolution_clock::now() - start;
+          v.process_events();
+          v.get_game().tick();
+          v.show();
+          time =  high_resolution_clock::now() - start;
         }
-        std::cout << time.count() << '\n';
+      std::cout << time.count() << '\n';
 #endif // LOGIC_ONLY // that is, not compiled on GitHub Actions
 #endif
     }
 #ifndef LOGIC_ONLY
 
 
-    // Show the menu, quits after (for now)
-    if (args.size() > 1 && args[1] == "--menu")
+  // Show the menu, quits after (for now)
+  if (args.size() > 1 && args[1] == "--menu")
     {
-        menu_view v;
-        v.exec();
-        return 0;
+      menu_view v;
+      v.exec();
+      return 0;
+    } else if (args.size() > 1 && args[1] == "--options")
+    {
+      options_view v;
+      v.exec();
+      return 0;
     }
 
-    game_options options;
-    if (args.size() > 1 && args[1] == "--no-sound")
+  game_options options;
+  if (args.size() > 1 && args[1] == "--no-sound")
     {
-        music_off(options);
+      music_off(options);
     }
-    game_view v(options);
-    assert(options == v.get_options());
-    v.exec();
+  game_view v(options);
+  assert(options == v.get_options());
+  v.exec();
 #endif // LOGIC_ONLY
 }

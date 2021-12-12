@@ -2,7 +2,7 @@
 
 options_view::options_view()
     :  m_window(
-          sf::VideoMode(720, 1280),
+          sf::VideoMode(1280, 720),
           "tresinformal game options")
 {
 }
@@ -38,19 +38,22 @@ void options_view::show()
   m_window.clear();
 
   // Draw the background
-  sf::Vector2f bg_dim(m_height, m_width);
+  sf::Vector2f bg_dim(m_width, m_height);
   sf::RectangleShape background_sprite(bg_dim);
-  background_sprite.setPosition(10.0, 10.0);
-  auto bg_color = sf::Color{ 0x000066 }; // dark blue
+  auto bg_color = sf::Color{ 0, 0, 230, 255 }; // dark blue
   background_sprite.setFillColor(bg_color);
   m_window.draw(background_sprite);
 
   // Placeholder text
   sf::Text placeholder;
   placeholder.setFont(m_game_resources.get_font());
-  placeholder.setString("Options were never an option.");
+  placeholder.setString("Exit status 1 was never an option.");
+  placeholder.setCharacterSize(40);
+  sf::FloatRect text_area = placeholder.getLocalBounds();
+  placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
   placeholder.setFillColor(sf::Color::Yellow);
   placeholder.setPosition(m_width / 2.0, m_height / 2.0);
+  m_window.draw(placeholder);
 
   // Display all shapes
   m_window.display();
