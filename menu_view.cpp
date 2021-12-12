@@ -54,7 +54,8 @@ void menu_view::show()
 
 void menu_view::draw_buttons() noexcept
 {
-  sf::Color color;
+  sf::Color button_color;
+  std::string button_label;
   for ( int i = 0; i < static_cast<int>(m_menu.get_buttons().size()); ++i)
   {
     // assign different color for buttons
@@ -66,22 +67,26 @@ void menu_view::draw_buttons() noexcept
     {
     case 0:
     {
-      color = sf::Color::Green;
+      button_color = sf::Color::Green;
+      button_label = "Option 1";
       break;
     }
     case 1:
     {
-      color = sf::Color::Blue;
+      button_color = sf::Color::Blue;
+      button_label = "Option 2";
       break;
     }
     case 2:
     {
-      color = sf::Color::Red;
+      button_color = sf::Color::Red;
+      button_label = "Option 3";
       break;
     }
     default:
     {
-      color = sf::Color::Black;
+      button_color = sf::Color::Black;
+      button_label = "";
       break;
     }
     }
@@ -91,22 +96,24 @@ void menu_view::draw_buttons() noexcept
 
     // Create the button sprite
     sf::RectangleShape rect(m_menu.get_button(i).get_body());
-    rect.setFillColor(color);
-    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
+    rect.setFillColor(button_color);
+    rect.setOrigin(rect.getSize().x / 2.0, rect.getSize().y / 2.0);
     rect.setPosition(static_cast<float>(button_position.get_x()),
                      static_cast<float>(button_position.get_y()));
 
-    sf::Text text;
-    text.setFont(m_game_resources.get_font());
-    text.setString("HOIDSHIODSHOIDHOIDSHIO");
-    text.setOrigin(75, 20);
-    text.setPosition(static_cast<float>(button_position.get_x()),
+    // Create the button text
+    sf::Text button_text;
+    button_text.setString(button_label);
+    button_text.setFont(m_game_resources.get_font());
+    sf::FloatRect text_area = button_text.getLocalBounds();
+    button_text.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
+    button_text.setPosition(static_cast<float>(button_position.get_x()),
                      static_cast<float>(button_position.get_y()));
-    text.setCharacterSize(30);
-    text.setFillColor(sf::Color::White);
+    button_text.setCharacterSize(30);
+    button_text.setFillColor(sf::Color::White);
 
     // Draw the buttons
     m_window.draw(rect);
-    m_window.draw(text);
+    m_window.draw(button_text);
   }
 }
