@@ -1,9 +1,9 @@
 #include "options_view.h"
 
 options_view::options_view()
-    : m_window(
-          sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
-          "tresinformal game_menu")
+    :  m_window(
+          sf::VideoMode(720, 1280),
+          "tresinformal game options")
 {
 }
 
@@ -38,11 +38,19 @@ void options_view::show()
   m_window.clear();
 
   // Draw the background
-  sf::Vector2f bg_dim(m_menu.get_height(), m_menu.get_height());
+  sf::Vector2f bg_dim(m_height, m_width);
   sf::RectangleShape background_sprite(bg_dim);
   background_sprite.setPosition(10.0, 10.0);
-  background_sprite.setFillColor(sf::Color::Black);
+  auto bg_color = sf::Color{ 0x000066 }; // dark blue
+  background_sprite.setFillColor(bg_color);
   m_window.draw(background_sprite);
+
+  // Placeholder text
+  sf::Text placeholder;
+  placeholder.setFont(m_game_resources.get_font());
+  placeholder.setString("Options were never an option.");
+  placeholder.setFillColor(sf::Color::Yellow);
+  placeholder.setPosition(m_width / 2.0, m_height / 2.0);
 
   // Display all shapes
   m_window.display();
