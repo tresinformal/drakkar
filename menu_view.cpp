@@ -68,19 +68,19 @@ void menu_view::draw_buttons() noexcept
     case 0:
     {
       button_color = sf::Color::Green;
-      button_label = "Option 1";
+      button_label = "Play game";
       break;
     }
     case 1:
     {
       button_color = sf::Color::Blue;
-      button_label = "Option 2";
+      button_label = "Options";
       break;
     }
     case 2:
     {
       button_color = sf::Color::Red;
-      button_label = "Option 3";
+      button_label = "About";
       break;
     }
     default:
