@@ -58,11 +58,6 @@ void menu_view::draw_buttons() noexcept
   std::string button_label;
   for ( int i = 0; i < static_cast<int>(m_menu.get_buttons().size()); ++i)
   {
-    // assign different color for buttons
-    // i = 0: Action "Green"
-    // i = 1: About  "Blue"
-    // i = 2: Quit   "Red"
-    // Only three buttons implemented
     switch (i)
     {
     case 0:
@@ -74,13 +69,13 @@ void menu_view::draw_buttons() noexcept
     case 1:
     {
       button_color = sf::Color::Blue;
-      button_label = "Options";
+      button_label = "About";
       break;
     }
     case 2:
     {
       button_color = sf::Color::Red;
-      button_label = "About";
+      button_label = "Quit";
       break;
     }
     default:
