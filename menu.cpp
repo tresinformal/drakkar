@@ -1,11 +1,19 @@
 #include "menu.h"
 
-menu::menu( int w_width,  int w_height,
-            std::string button1, std::string button2,
-            std::string button3)
+menu::menu( int w_width,
+            int w_height,
+            std::string label_button1,
+            color color_button1,
+            std::string label_button2,
+            color color_button2,
+            std::string label_button3,
+            color color_button3)
   : m_window_width{w_width}, m_window_height{w_height},
-    m_v_buttons{menu_button(button1), menu_button(button2),
-                menu_button(button3)}
+    m_v_buttons{
+      menu_button(label_button1, color_button1),
+      menu_button(label_button2, color_button2),
+      menu_button(label_button3, color_button3)
+      }
 {
   put_buttons_tidy();
 }

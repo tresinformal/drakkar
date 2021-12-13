@@ -5,9 +5,15 @@
 class menu
 {
 public:
-  menu(int w_width = 1280, int w_height = 720,
-             std::string button1 = "action", std::string button2 = "about",
-             std::string button3 = "quit");
+  menu(int w_width = 1280,
+       int w_height = 720,
+       std::string label_button1 = "action",
+       color color_button_1 = create_green_color(),
+       std::string label_button2 = "about",
+       color color_button_2 = create_blue_color(),
+       std::string label_button3 = "quit",
+       color color_button_3 = create_red_color()
+      );
 
   /// Gets the width of the screen
   int get_w_width() const noexcept;
@@ -34,7 +40,9 @@ private:
   /// mock button to signal if button that does not exist is called
   menu_button m_mock_button =
       menu_button("INVALID INDEX!"
-                  " Trying to get a button that does not exist");
+                  " Trying to get a button that does not exist",
+                  color() // black
+                  );
 };
 
 void test_menu();

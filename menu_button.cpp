@@ -1,10 +1,13 @@
 #include "menu_button.h"
+#include "color.h"
 
 menu_button::menu_button(std::string name,
+                         color b_color,
                          float width,
                          float height)
     : m_body{width, height},
-      m_name{name}
+      m_name{name},
+      m_color{b_color}
 {
 }
 /// Get x pos of a button
@@ -23,7 +26,8 @@ void test_menu_button()
     {
         float x = 1.2f;
         float y = 3.4f;
-        menu_button m_b("test");
+        color c = create_blue_color();
+        menu_button m_b("test", c);
         m_b.set_x(x);
         m_b.set_y(y);
         assert(m_b.get_x() - x < 0.00000001f);
@@ -34,8 +38,9 @@ void test_menu_button()
     {
         auto width = 3.14f;
         auto height = 42.0f;
+        color c = create_blue_color();
         std::string name = "Frank";
-        menu_button m_b{name, width, height};
+        menu_button m_b{name, c, width, height};
         assert(m_b.get_body().x == width
                 && m_b.get_body().y == height
                && m_b.get_name() == name);
