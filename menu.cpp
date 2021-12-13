@@ -81,5 +81,16 @@ void test_menu()
              (static_cast<int>(v.get_buttons().size()) + 1) <
              0.000001f);
   }
+
+  #define FIX_ISSUE_446
+  #ifdef FIX_ISSUE_446
+  // Add an "Options" button to the menu
+  {
+     menu m;
+     assert(m.get_buttons().size() == 4);
+     assert(m.get_button(1).get_name() == "options");
+  }
+  #endif // FIX_ISSUE_446
+
   #endif
 }
