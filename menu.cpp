@@ -82,7 +82,7 @@ void test_menu()
              0.000001f);
   }
 
-  #define FIX_ISSUE_446
+  //#define FIX_ISSUE_446
   #ifdef FIX_ISSUE_446
   // Add an "Options" button to the menu
   {
