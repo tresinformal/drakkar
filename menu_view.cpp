@@ -54,37 +54,20 @@ void menu_view::show()
 
 void menu_view::draw_buttons() noexcept
 {
-  sf::Color button_color;
-  std::string button_label;
+
   for ( int i = 0; i < static_cast<int>(m_menu.get_buttons().size()); ++i)
   {
-    switch (i)
-    {
-    case 0:
-    {
-      button_color = sf::Color::Green;
-      button_label = "Play game";
-      break;
-    }
-    case 1:
-    {
-      button_color = sf::Color::Blue;
-      button_label = "About";
-      break;
-    }
-    case 2:
-    {
-      button_color = sf::Color::Red;
-      button_label = "Quit";
-      break;
-    }
-    default:
-    {
-      button_color = sf::Color::Black;
-      button_label = "";
-      break;
-    }
-    }
+    // Extract button's attributes
+    menu_button this_button = m_menu.get_button(i);
+    std::string button_label = this_button.get_name();
+
+    int r = this_button.get_color().get_red();
+    int g = this_button.get_color().get_green();
+    int b = this_button.get_color().get_blue();
+    const sf::Uint8 red{static_cast<sf::Uint8>(r)};
+    const sf::Uint8 green{static_cast<sf::Uint8>(g)};
+    const sf::Uint8 blue{static_cast<sf::Uint8>(b)};
+    sf::Color button_color(red, green, blue);
 
     coordinate button_position(m_menu.get_button(i).get_x(),
                                m_menu.get_button(i).get_y());
