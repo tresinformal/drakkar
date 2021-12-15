@@ -33,7 +33,7 @@ std::vector<std::string> about::get_contributors() const noexcept
     "Kirsten Ferwerda",
     "Tim Temizyuerek",
     "Jan Derk Kotlarski",
-    "Timo",
+    "Timo van Eldijk",
     "Paula",
     "Sergio Gonmoll",
     "Marina Papadopoulou"
