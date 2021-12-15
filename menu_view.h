@@ -18,6 +18,7 @@ public:
 private:
   menu m_menu;
   sf::RenderWindow m_window;
+  game_resources m_game_resources;
 
   ///
   bool process_events();
