@@ -841,7 +841,7 @@ void test_player() //!OCLINT tests may be long
   }
 #endif
 
-//  #define FIX_ISSUE_441
+  #define FIX_ISSUE_441
   #ifdef FIX_ISSUE_441
     {
       // #441 A player's color can be set

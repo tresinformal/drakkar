@@ -91,6 +91,9 @@ public:
         m_c = position;
     }
 
+    ///Set the color of the player
+    void set_color(const color &c) {m_color = c;}
+
     /// Set the state of the player
     void set_state(const player_state &s) noexcept { m_state = s; }
 
