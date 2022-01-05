@@ -116,7 +116,7 @@ You will be practicing:
 Start from an idea of a visible change in the game,
 for example, 'The players should be able to do a little dance'.
 Create an Issue for that and assign yourself to it
-Work from big to small, in TDD fashion.
+Work from big to small, in TDD ('Test-Driven Development') fashion.
 
 For a big Issue:
 
