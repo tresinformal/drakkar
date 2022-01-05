@@ -1,6 +1,7 @@
 # FAQ
 
- * I want to join the team. What must I do?
+ * Joing
+ * Team rules
  * Who is in the team?
  * Do I need to know C++ before joining?
  * Do I need to be present every meeting?
@@ -74,6 +75,9 @@ He/she will add you to the `tresinformal` Discord server.
 
 Our Discord server has mostly obvious rules that follow from the categories:
 
+ * 'the-big-table': here we gather
+ * 'serious-stuff': serious stuff, mostly schedules and results from meeting
+ * 'outside': here we go in the breaks
  * 4x 'Group Rooms': rooms for duos/triplets, open for questions
  * 2x 'Offices With An Open Door': single room, open for questions
  * 2x 'Offices With A Closed Door': single room, please do not disturb
