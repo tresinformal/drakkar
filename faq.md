@@ -110,7 +110,7 @@ occasionally teach newbies.
 You will be practicing:
 
  * Team development workflow
- * git an GitHub
+ * git and GitHub
  * C++ and SFML entry level development
 
 Start from an idea of a visible change in the game,
