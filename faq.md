@@ -1,8 +1,16 @@
 # FAQ
 
  * I want to join the team. What must I do?
+ * Who is in the team?
+ * Do I need to know C++ before joining?
+ * Do I need to be present every meeting?
+ * Do I need to work on the game in my free time?
  * How to contact the team?
  * How is Discord used?
+ * I am a newbie developer. What must I do?
+ * I am a junior developer, what should I do?
+ * I am a medior developer, what should I do?
+ * How do I leave the team?
 
 ## I want to join the team. What must I do?
 
@@ -28,9 +36,25 @@ Things you may wonder:
 
 ## Who is in the team?
 
-Active team members have their own git branch (whatever that is),
+Active team members have their own git branch (whatever a git branch is :-) ),
 so [https://github.com/tresinformal/game#game](https://github.com/tresinformal/game#game)
 gives a nice overview of all team members.
+
+## Do I need to know C++ before joining?
+
+Nope, the team will teach you.
+
+## Do I need to be present every meeting?
+
+Nope, you will not need to be present every meeting. 
+
+It is appreciated to let
+the team know you will be absent. You do not need to give a reason for
+your absence: we trust/hope you do something useful/fun :-)
+
+## Do I need to work on the game in my free time?
+
+Nope, there is no 'homework': we work only when we can and want to.
 
 ## How to contact the team?
 
@@ -119,4 +143,20 @@ A medior developer
  * see the bigger picture of the code and the team.
 
 You know what to do :+1:
+
+## How do I leave the team?
+
+Just let a team member know. You do not need to give a reason:
+we trust/hope you do something else useful/fun :-)
+
+You will be contacted to verify we can:
+
+ * remove you from the Discord `tresinformal` server
+ * delete your git branch
+
+After that, you will be removed from the Discord `tresinformal` server
+and your git branch will be deleted.
+
+You will always be welcome to join the team again in the future!
+
 
