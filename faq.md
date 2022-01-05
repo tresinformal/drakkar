@@ -10,6 +10,7 @@
  * I am a newbie developer. What must I do?
  * I am a junior developer, what should I do?
  * I am a medior developer, what should I do?
+ * What is the 4x4 rule?
  * How do I leave the team?
 
 ## I want to join the team. What must I do?
@@ -143,6 +144,16 @@ A medior developer
  * see the bigger picture of the code and the team.
 
 You know what to do :+1:
+
+## What is the 4x4 rule?
+
+The 4x4 rule is the following rule:
+
+If at 4 subsequent meetings, there were less than 4 other team members, Richel leaves.
+
+The goal of the rule is to determine when the team has gotten awkwardly small
+and should be dissolved. Of course, someone else can take over the lead,
+but this has never happened until now (see e.g. [the informalr team](https://github.com/informalr)).
 
 ## How do I leave the team?
 
