@@ -149,7 +149,7 @@ You know what to do :+1:
 
 The 4x4 rule is the following rule:
 
-If at 4 subsequent meetings, there were less than 4 other team members, Richel leaves.
+If at 4 subsequent meetings, there were less than 4 other team members at the start, Richel leaves.
 
 The goal of the rule is to determine when the team has gotten awkwardly small
 and should be dissolved. Of course, someone else can take over the lead,
