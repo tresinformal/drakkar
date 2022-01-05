@@ -36,5 +36,5 @@ Hard to achieve, I would be open to more suggestions.
 
  * Monthly C++ core guideline - How tos, max 5 mins
 
-I added this to the schedule as a Montryly event on Discord.
+I added this to the schedule as a Monthly event on Discord.
 
