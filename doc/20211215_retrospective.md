@@ -34,7 +34,7 @@ Also, some people want to be excluded to work on their own once in a while.
 
 Hard to achieve, I would be open to more suggestions.
 
- * Monthly C++ core guideline - How tos, max 5 mins
+ * Monthly C++ core guideline - How to's, max 5 mins
 
 I added this to the schedule as a Monthly event on Discord.
 
