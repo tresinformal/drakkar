@@ -49,14 +49,14 @@ Ideas:
 
 Issue                                                 |Idea
 ------------------------------------------------------|------------------------
-[https://github.com/tresinformal/game/issues/221](221)|-1. Rock-Paper-Scissor dynamics
-[https://github.com/tresinformal/game/issues/219](219)|0. Food
-[https://github.com/tresinformal/game/issues/208](208)|1. Stun
-[https://github.com/tresinformal/game/issues/209](209)|2. Poison
-[https://github.com/tresinformal/game/issues/210](210)|3. Regenerating walls
-[https://github.com/tresinformal/game/issues/212](212)|4. Heal
-[https://github.com/tresinformal/game/issues/222](222)|5. Targeting system
-[https://github.com/tresinformal/game/issues/223](223)|6. Minimap
+[221](https://github.com/tresinformal/game/issues/221)|-1. Rock-Paper-Scissor dynamics
+[219](https://github.com/tresinformal/game/issues/219)|0. Food
+[208](https://github.com/tresinformal/game/issues/208)|1. Stun
+[209](https://github.com/tresinformal/game/issues/209)|2. Poison
+[210](https://github.com/tresinformal/game/issues/210)|3. Regenerating walls
+[212](https://github.com/tresinformal/game/issues/212)|4. Heal
+[222](https://github.com/tresinformal/game/issues/222)|5. Targeting system
+[223](https://github.com/tresinformal/game/issues/223)|6. Minimap
 
 ## [Installation](install.md)
 
