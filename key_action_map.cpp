@@ -72,7 +72,8 @@ key_action_map get_player_2_kam()
         sf::Keyboard::I,
         sf::Keyboard::K,
         //sf::Keyboard::Comma,
-        sf::Keyboard::U
+        sf::Keyboard::U,
+        sf::Keyboard::O
         );
 }
 key_action_map get_player_3_kam()
@@ -83,7 +84,8 @@ key_action_map get_player_3_kam()
         sf::Keyboard::Up,
         sf::Keyboard::Down,
         //sf::Keyboard::Comma,
-        sf::Keyboard::RControl
+        sf::Keyboard::RControl,
+        sf::Keyboard::Return
         );
 }
 
@@ -104,9 +106,9 @@ key_action_map get_random_kam()
             new_key
             );
       if (key_match == v_random_keys.end())
-        {
+      {
           v_random_keys.push_back(new_key);
-        }
+      }
     }
   return key_action_map(
         v_random_keys[0],
@@ -116,6 +118,49 @@ key_action_map get_random_kam()
       v_random_keys[4],
       v_random_keys[5]
       );
+}
+
+std::vector<key_action_map> get_n_random_kams(int n)
+{
+  assert(n >= 0);
+  std::vector<key_action_map> vector_kam;
+  std::vector<sf::Keyboard::Key> storage_key;
+
+  for(int i = 0; i != n; ++i){
+    std::vector<sf::Keyboard::Key> v_random_keys;
+    while (v_random_keys.size() < 6)
+      {
+        sf::Keyboard::Key new_key = get_random_key();
+        auto key_match = std::find(
+              storage_key.begin(),
+              storage_key.end(),
+              new_key
+              );
+        if (key_match == storage_key.end())
+        {
+            v_random_keys.push_back(new_key);
+            storage_key.push_back(new_key);
+        }
+
+      }
+    vector_kam.push_back(key_action_map(
+                                        v_random_keys[0],
+                                        v_random_keys[1],
+                                        v_random_keys[2],
+                                        v_random_keys[3],
+                                        v_random_keys[4],
+                                        v_random_keys[5]));
+    }
+
+
+  return vector_kam;
+}
+
+
+
+sf::Keyboard::Key get_stun_key(const key_action_map& m)
+{
+  return m.to_key(action_type::shoot_stun_rocket);
 }
 
 void test_key_action_map()//!OCLINT tests can be many
@@ -130,7 +175,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(m.to_action(sf::Keyboard::W) == action_type::accelerate);
     assert(m.to_action(sf::Keyboard::S) == action_type::brake);
     assert(m.to_action(sf::Keyboard::Q) == action_type::shoot);
-    assert(m.to_action(sf::Keyboard::Num1) == action_type::shoot_stun_rocket);
+    assert(m.to_action(sf::Keyboard::E) == action_type::shoot_stun_rocket);
   }
   {
     const key_action_map m = get_player_1_kam();
@@ -245,14 +290,14 @@ void test_key_action_map()//!OCLINT tests can be many
 #endif // FIX_ISSUE_303
 #endif
 
-// #define FIX_ISSUE_304
-#ifdef FIX_ISSUE_304
+ #define FIX_ISSUE_304
+//#ifdef FIX_ISSUE_304
     //Get the stun key (Num1 by default)
     {
         const key_action_map m = get_player_1_kam();
-        assert(m.get_stun_key() == sf::Keyboard::Num1);
+        assert(get_stun_key(m) == sf::Keyboard::E);
     }
-#endif // FIX_ISSUE_304
+//#endif // FIX_ISSUE_304
 
 #define FIX_ISSUE_355
 #ifdef FIX_ISSUE_355
@@ -263,8 +308,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(kam.to_key(action_type::accelerate) == sf::Keyboard::W);
     assert(kam.to_key(action_type::brake) == sf::Keyboard::S);
     assert(kam.to_key(action_type::shoot) == sf::Keyboard::Q);
-    assert(kam.to_key(action_type::shoot_stun_rocket) == sf::Keyboard::Num1);
+    assert(kam.to_key(action_type::shoot_stun_rocket) == sf::Keyboard::E);
   }
 #endif // FIX_ISSUE_355
-
 }

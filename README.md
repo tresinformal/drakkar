@@ -5,13 +5,14 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `master`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 `develop`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
 `clem`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=clem)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=clem)](https://codecov.io/github/tresinformal/game/branch/clem)
-`gina`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=gina)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=gina)](https://codecov.io/github/tresinformal/game/branch/gina)
 `kristiina`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=kristiina)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=kristiina)](https://codecov.io/github/tresinformal/game/branch/kristiina)
 `pavel`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/game/branch/pavel)
+`oliver`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=oliver)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=oliver)](https://codecov.io/github/tresinformal/game/branch/pavel)
 `richel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=richel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/stefano)
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
+`christiaan`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=christiaan)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=christiaan)](https://codecov.io/github/tresinformal/game/branch/christiaan)
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
@@ -60,6 +61,19 @@ contact [Stefano 'swom' Tiso](https://github.com/swom).
 ## Game: 2D PvP chasing game
 
 A game where you are on a 2D surface with heterogeneous characteristics, as different terrains, resources etc. You start with a very small particle-like character, as you play you can gather resources scattered around and increase your size/mass, the more you grow the more your options increase(you can change shape, what matter composes you etc.), other players roam around as you do increasing size and having more options as they progress. The goal is to chase and eliminate the other players. It would be good to have multiple conditions(you have to be bigger, you need to be made of a certain material etc.) you need to satisfy to be able to eliminate the other players.e.
+
+Ideas:
+
+Issue                                                 |Idea
+------------------------------------------------------|------------------------
+[221](https://github.com/tresinformal/game/issues/221)|-1. Rock-Paper-Scissor dynamics
+[219](https://github.com/tresinformal/game/issues/219)|0. Food
+[208](https://github.com/tresinformal/game/issues/208)|1. Stun
+[209](https://github.com/tresinformal/game/issues/209)|2. Poison
+[210](https://github.com/tresinformal/game/issues/210)|3. Regenerating walls
+[212](https://github.com/tresinformal/game/issues/212)|4. Heal
+[222](https://github.com/tresinformal/game/issues/222)|5. Targeting system
+[223](https://github.com/tresinformal/game/issues/223)|6. Minimap
 
 ## [Installation](install.md)
 
@@ -141,7 +155,7 @@ Golden rules:
  * Whatever you work on, always be assigned to an Issue
  * Whatever code you develop, always be working to fix a test,
    unless you work on graphics
- * If all tests pass, we are -by definition- happy
+ * If all tests pass, we are -by definition- happy :)
 
 ## I am a medior developer, what should I do?
 

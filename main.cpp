@@ -24,48 +24,86 @@
 #include "read_only.h"
 #include "sound_type.h"
 #include "optional.h"
+
 #include <SFML/Graphics.hpp>
+
 #include <cassert>
 #include <chrono>
 #include <iostream>
+
+
+bool is_valid_arg(const std::string& s)
+{
+  return s == "--help"
+      || s == "--menu"
+      || s == "--no-sound"
+      || s == "--about"
+      ;
+}
+
+/// Checks if the command-line arguments for
+/// the game are valid
+bool are_args_valid(std::vector<std::string> args) {
+  if (args.empty()) return false;
+  if (args.size() == 1) return true;
+
+  for (size_t i = 1; i < args.size(); i++) {
+      if (!is_valid_arg(args[i])) return false;
+    }
+  return true;
+}
+
+void test_main()
+{
+  assert(are_args_valid({"path", "--help"}));
+  assert(!are_args_valid({"path","nonsense"}));
+  assert(are_args_valid({"path"}));
+  assert(!are_args_valid({}));
+  assert(are_args_valid({"path","--menu"}));
+  assert(are_args_valid({"path","--no-sound", "--menu"}));
+  assert(is_valid_arg("--menu"));
+  assert(are_args_valid({"path","--about"}));
+}
 
 /// All tests are called from here, only in debug mode
 void test()
 {
 #ifndef NDEBUG
-    test_optional();
-    test_action_type();
-    test_player_shape();
-    test_player();
-    test_game();
-    test_game_options();
-    test_enemy();
-    test_enemy_behavior_type();
-    test_environment();
-    test_individual_type();
-    test_food();
-    test_food_type();
-    test_food_state();
-    test_key_action_map();
-    test_menu();
-    test_menu_button();
-    test_shelter();
-    test_color();
-    test_projectile_type();
-    test_projectile();
-    test_program_state();
-    test_player_state();
-    test_player_factory();
-    test_read_only();
-    test_coordinate();
+  test_optional();
+  test_action_type();
+  test_player_shape();
+  test_player();
+  test_game();
+  test_game_options();
+  test_enemy();
+  test_enemy_behavior_type();
+  test_environment();
+  test_individual_type();
+  test_food();
+  test_food_type();
+  test_food_state();
+  test_key_action_map();
+  test_menu();
+  test_menu_button();
+  test_shelter();
+  test_color();
+  test_projectile_type();
+  test_projectile();
+  test_program_state();
+  test_player_state();
+  test_player_factory();
+  test_read_only();
+  test_coordinate();
+  test_sound_type();
+  test_main();
 
 #ifndef LOGIC_ONLY
-    test_game_view();
-    test_game_resources();
-    test_sound_type();
+  test_game_view();
+  test_game_resources();
 #endif // LOGIC_ONLY
 #endif
 }
+
 
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
@@ -81,6 +119,8 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 #endif
 
     const std::vector<std::string> args(argv, argv + argc);
+
+    assert(are_args_valid(args));
 
     // We've already tested, so the program is done
     if (args.size() > 1 && args[1] == "--test")

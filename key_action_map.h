@@ -15,7 +15,7 @@ public:
     const sf::Keyboard::Key& key_to_accelerate = sf::Keyboard::W,
     const sf::Keyboard::Key& key_to_brake = sf::Keyboard::S,
     const sf::Keyboard::Key& key_to_shoot = sf::Keyboard::Q,
-    const sf::Keyboard::Key& key_to_stun = sf::Keyboard::Num1
+    const sf::Keyboard::Key& key_to_stun = sf::Keyboard::E
   );
 
   ///Find out which action is triggered by that key
@@ -43,11 +43,18 @@ key_action_map get_player_2_kam();
 /// Get the default key to action map for player 3
 key_action_map get_player_3_kam();
 
-// Draw a random key, for testing purposes
+/// Draw a random key, for testing purposes
 sf::Keyboard::Key get_random_key();
 
-// Draw a random key action map, for testing purposes
+/// Draw the key to shoot a stun rocket
+sf::Keyboard::Key get_stun_key(const key_action_map& m);
+
+/// Draw a random key action map, for testing purposes
 key_action_map get_random_kam();
+
+/// Draw at random several kams for testing purposes, with no key repeats
+std::vector<key_action_map> get_n_random_kams(int n);
+
 
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;

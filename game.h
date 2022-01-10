@@ -19,12 +19,14 @@
 class game
 {
 public:
-  game(double wall_short_side = 1600,
-       int num_players = 3,
+  game(const environment& the_environment = environment(),
+      int num_players = 3,
        int n_ticks = 0,
        std::size_t n_shelters = 42,
        int n_enemies = 1,
-       int n_food = 1);
+       int n_food = 1,
+       int seed = 0
+       );
 
   ///makes a player do an action
   void do_action(int player_index, action_type action);
@@ -52,7 +54,7 @@ public:
   const game_options& get_game_options() const noexcept { return m_options; }
 
   /// Get the random number generator engine
-  std::default_random_engine& get_rng() noexcept;
+  std::mt19937& get_rng() noexcept { return m_rng; }
 
   ///sets the collision vector
   void set_collision_vector(int lhs, int rhs);
@@ -129,8 +131,11 @@ public:
 
 private:
 
+  /// The seed
+  int m_seed;
+
   /// The RNG engine
-  std::default_random_engine m_rng;
+  std::mt19937 m_rng;
 
   /// the options of the game
   game_options m_options;
@@ -168,11 +173,28 @@ private:
   /// Processess the collision between projectiles and players
   void projectile_collision();
 
+  // Increment timers of food items
+  void increment_food_timers();
+
   // Make players eat food items they are on top of
   void make_players_eat_food();
 
+  // Regenerate food items where relevant
+  void regenerate_food_items();
 };
 
+/// Get all shelter positions
+std::vector<coordinate> get_all_shelter_positions(const game& g);
+
+/// Get min and max coordinates of the game
+double get_max_x(const game &g);
+double get_min_x(const game &g);
+double get_max_y(const game &g);
+double get_min_y(const game &g);
+
+/// Get x or y of a food item within game
+double get_nth_food_x(const game &g, const int n);
+double get_nth_food_y(const game &g, const int n);
 
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
@@ -191,6 +213,10 @@ int count_alive_players(const game& g) noexcept;
 // Eat nth food item
 void eat_nth_food(game& g, const int n);
 
+bool nth_food_is_eaten(const game &g, const int &n);
+
+int get_nth_food_regeneration_time(const game &g, const int &n);
+
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
 
@@ -198,7 +224,10 @@ bool has_collision(const game &g) noexcept;
 bool has_collision(const player& pl, const projectile& p);
 
 ///Checks if a player and food have the same exact position
-bool have_same_position(const player& p, const food& f);
+template <typename L, typename R>
+bool have_same_position(const L& lhs, const R& rhs);
+
+bool is_in_food_radius(const player p, const food f) noexcept;
 
 /// checks if there is at least one collision between a player
 /// and a projectile in the game
@@ -221,6 +250,9 @@ void shrink_losing_player(game &g);
 ///Puts a player on food
 void put_player_on_food(player& p, const food &f);
 
+///Puts a player on food
+void put_player_near_food(player& p, const food &f, const double distance = 0.0);
+
 /// Check that player and food are in collision, i.e. same position and food uneaten
 bool are_colliding(const player &p, const food &f);
 
@@ -229,6 +261,18 @@ bool has_any_player_food_collision(const game& g);
 
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
+
+int get_nth_food_timer(const game &g, const int &n);
+
+
+bool is_nth_food_eaten(const game &g, const int &n);
+
+coordinate get_nth_food_position(const game& g, const int& food_id);
+// Place a food item at a random position
+void place_nth_food_randomly(game &g, const int &n);
+
+coordinate get_nth_shelter_position(const game &g, const int &n);
+
 
 void test_game();
 

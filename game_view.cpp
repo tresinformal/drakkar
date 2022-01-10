@@ -137,8 +137,8 @@ void game_view::draw_background() noexcept
     sf::Texture background_texture = m_game_resources.get_coastal_world();
     background_sprite.setTexture(background_texture);
     // Scale background so it fits the entire environment
-    double scaling_factor_x = m_game.get_env().get_max_x() / background_texture.getSize().x;
-    double scaling_factor_y = m_game.get_env().get_max_y() / background_texture.getSize().y;
+    double scaling_factor_x = get_max_x(m_game.get_env()) / background_texture.getSize().x;
+    double scaling_factor_y = get_max_y(m_game.get_env()) / background_texture.getSize().y;
     background_sprite.setScale(scaling_factor_x, scaling_factor_y);
     m_window.draw(background_sprite);
 }
@@ -150,15 +150,18 @@ void game_view::draw_food() noexcept
     // Get position of food
     std::vector<food> foods = m_game.get_food();
     // Position in landscape
-    foodsprite.setPosition(static_cast<float>(foods[0].get_x()),
-            static_cast<float>(foods[0].get_y()));
+    food f = foods[0];
+    foodsprite.setPosition(static_cast<float>(get_x(f)),
+            static_cast<float>(get_y(f)));
     foodsprite.setFillColor(sf::Color(0, 0, 0));
-    m_window.draw(foodsprite);
+    if (!f.is_eaten()) {
+        m_window.draw(foodsprite);
+      }
 }
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    if(k == sf::Keyboard::Num1) {
+    if(k == sf::Keyboard::E) {
       /// stunning not shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
@@ -176,8 +179,8 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
           }
         // Type conversions that simplify notation
         const float r{static_cast<float>(player.get_diameter()) / 2.0f};
-        const float x{static_cast<float>(player.get_x())};
-        const float y{static_cast<float>(player.get_y())};
+        const float x{static_cast<float>(get_x(player))};
+        const float y{static_cast<float>(get_y(player))};
         const float angle{static_cast<float>(player.get_direction())};
         const sf::Uint8 red{static_cast<sf::Uint8>(get_redness(player))};
         const sf::Uint8 green{static_cast<sf::Uint8>(get_greenness(player))};
@@ -231,7 +234,7 @@ void game_view::draw_projectiles() noexcept
         if (projectile.get_type() == projectile_type::stun_rocket){
             // Create the projectile sprite
             sf::RectangleShape rect(sf::Vector2f(381.0, 83.0));
-            rect.setRotation(static_cast<float>(90));
+            rect.setRotation(static_cast<float>(0));
             rect.setPosition(get_x(projectile), get_y(projectile));
             rect.setTexture(&m_game_resources.get_stun_rocket());
             rect.rotate(projectile.get_direction() * 180 / M_PI);
@@ -248,7 +251,7 @@ void game_view::draw_shelters() noexcept
     for (const auto &shelter : m_game.get_shelters())
     {
         sf::CircleShape circle(shelter.get_radius());
-        circle.setPosition(shelter.get_x(), shelter.get_y());
+        circle.setPosition(get_x(shelter), get_y(shelter));
         circle.setFillColor(sf::Color(get_redness(shelter), get_greenness(shelter),
                                       get_blueness(shelter),
                                       get_opaqueness(shelter)));
@@ -276,10 +279,15 @@ void game_view::draw_player_coords() noexcept
     std::string str_player_coords;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(p.get_x()));
-        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(p.get_y()));
+        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(get_x(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(get_y(p)));
         str_player_coords += "\n\n";
     }
+    food f = m_game.get_food()[0];
+    str_player_coords += "Food x = " + std::to_string(trunc(get_x(f)));
+    str_player_coords += "y = " + std::to_string(trunc(get_y(f)));
+    str_player_coords += "\n\n";
+
     text.setString(str_player_coords);
 
     m_window.draw(text);
@@ -293,8 +301,8 @@ void game_view::show() noexcept
     for(int i = 0; i != static_cast<int>(m_v_views.size()); i++){
 
         m_v_views[static_cast<unsigned int>(i)].setCenter(
-                    static_cast<float>(m_game.get_player(i).get_x()),
-                    static_cast<float>(m_game.get_player(i).get_y()));
+                    static_cast<float>(get_x(m_game.get_player(i))),
+                    static_cast<float>(get_y(m_game.get_player(i))));
         m_window.setView(m_v_views[static_cast<unsigned int>(i)]);
 
         draw_background();
@@ -509,8 +517,9 @@ void test_game_view()//!OCLINT tests may be many
   {
     game_view g;
     assert(count_n_projectiles(g) == 0);
-    g.press_key(sf::Keyboard::Num1);
+    g.press_key(sf::Keyboard::E);
     g.process_events(); // Needed to process the event
+    //  #ifdef FIX_ISSUE_239
     assert(count_n_projectiles(g) == 1);
   }
   #endif

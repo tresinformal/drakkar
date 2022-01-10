@@ -2,6 +2,8 @@
 #define PROJECTILE_H
 #include "projectile_type.h"
 #include "coordinate.h"
+#include "color.h"
+#include <string>
 
 /// A projectile has the virtual shape of a circle
 class projectile
@@ -9,11 +11,11 @@ class projectile
 public:
   projectile(const coordinate c,
              const double direction = 0.0, projectile_type = projectile_type::rocket,
-             const double radius = 100);
+             const double radius = 100, const std::string& owner_id = "-1");
 
   coordinate get_position() const noexcept { return m_coordinate; }
-
-
+  double get_x() const noexcept { return m_coordinate.get_x(); }
+  double get_y() const noexcept { return m_coordinate.get_y(); }
 
   /// Get the direction of player movement
   double get_direction() const noexcept { return m_direction; }
@@ -33,9 +35,7 @@ public:
 
   void set_type(const projectile_type &p_type) noexcept { m_projectile_type = p_type; }
 
-//  const double get_x() { return m_coordinate.get_x(); }
-//  const double get_y() { return m_coordinate.get_y(); }
-
+  std::string get_owner_id() noexcept;
 
 private:
   /// The coordinate
@@ -49,12 +49,11 @@ private:
 
   /// The projectile is a circle
   double m_radius;
+
+  /// The owner of the projectile
+  std::string m_owner_id;
+
 };
-
-
-//get only x or y coordinate of a projectile
-double get_x(const projectile& p)  noexcept;
-double get_y(const projectile& p)  noexcept;
 
 void test_projectile();
 
