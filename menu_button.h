@@ -2,6 +2,7 @@
 #define MENU_BUTTON_H
 
 #include <SFML/Graphics.hpp>
+#include "color.h"
 
 #include <cassert>
 #include <string>
@@ -10,6 +11,7 @@ class menu_button
 {
 public:
   menu_button(std::string name,
+              color b_color,
               float b_width = 200.0f,
               float b_height = 100.0f);
   /// Get x pos of a button
@@ -22,6 +24,8 @@ public:
   void set_y(float y_pos) { m_y = y_pos; }
   /// Get name of the button
   std::string get_name() const noexcept { return m_name; }
+  /// Get button color
+  color get_color() const noexcept { return m_color;}
   /// Get the sizes of the button
   const sf::Vector2f &get_body() const noexcept;
 
@@ -30,6 +34,7 @@ private:
   std::string m_name;
   float m_x;
   float m_y;
+  color m_color;
 };
 
 void test_menu_button();

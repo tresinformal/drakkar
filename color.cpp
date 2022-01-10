@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 color::color(const int r, const int g, const int b, const int a)
   : m_r{r}, m_g{g}, m_b{b}, m_a{a}
@@ -195,6 +196,16 @@ void test_color()
     assert(!is_first_color_winner(scissors, rock));
   }
 #endif // FIX_ISSUE_230
+
+//#define FIX_ISSUE_448
+#ifdef FIX_ISSUE_448
+  // #448 Colors from class color can be converted to SFML's sf::Color class
+  {
+    const color c1{0, 21, 255, 10};
+    sf::Color c2{0, 21, 255, 10};
+    assert(to_sf_color(c1) == c2);
+  }
+#endif // FIX_ISSUE_448
 
 
 #endif // NDEBUG
