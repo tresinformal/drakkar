@@ -1902,6 +1902,36 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_241
 
+//#define FIX_ISSUE_457
+#ifdef FIX_ISSUE_457
+  {
+    // (457) The color of any player can be accessed easily
+    game g;
+    color color_player_one = get_nth_player_color(g, 0);
+    color color_player_two = get_nth_player_color(g, 1);
+    color color_player_three = get_nth_player_color(g, 2);
+    // Default colors for players: R, G, B
+    assert(color_player_one == create_red_color());
+    assert(color_player_two == create_green_color());
+    assert(color_player_three == create_blue_color());
+  }
+#endif
+
+//#define FIX_ISSUE_457
+#ifdef FIX_ISSUE_457
+  {
+    // (457) The color of any player can be accessed easily
+    game g;
+    color color_player_one = get_nth_player_color(g, 0);
+    color color_player_two = get_nth_player_color(g, 1);
+    color color_player_three = get_nth_player_color(g, 2);
+    // Default colors for players: R, G, B
+    assert(color_player_one == create_red_color());
+    assert(color_player_two == create_green_color());
+    assert(color_player_three == create_blue_color());
+  }
+#endif
+
 #endif // no tests in release
 }
 
