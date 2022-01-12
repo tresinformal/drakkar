@@ -3,7 +3,6 @@
 
 #include <string>
 
-
 class color
 {
 public:

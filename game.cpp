@@ -1770,8 +1770,7 @@ void test_game() //!OCLINT tests may be many
 // #define FIX_ISSUE_286
 #ifdef FIX_ISSUE_286
   {
-    std::vector<double> food_x;
-    std::vector<double> food_y;
+    // #286 Food items are placed at random at game initialization
 
     // default game arguments
     double short_wall_side = 1600;
@@ -1781,39 +1780,29 @@ void test_game() //!OCLINT tests may be many
     int n_enemies = 0;
     int n_food = 1;
 
-    game g(short_wall_side); // just for getting min and max coordinates below
+    int a_seed = 1;
+    game a_game(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           a_seed
+           );
+    coordinate food_position = get_nth_food_position(a_game, 0);
 
-    int repeats = 1000;
-    for(int rng_seed = 0; rng_seed != repeats; rng_seed++)
-      {
-        game g(short_wall_side,
-               n_players,
-               n_ticks,
-               n_shelters,
-               n_enemies,
-               n_food,
-               rng_seed
-               );
-        food_x.push_back(get_nth_food_x(g, 0));
-        food_y.push_back(get_nth_food_y(g, 0));
-      }
-    auto mean_x = calc_mean(food_x);
-    auto mean_y = calc_mean(food_y);
+    int another_seed = 2;
+    game another_game(short_wall_side,
+           n_players,
+           n_ticks,
+           n_shelters,
+           n_enemies,
+           n_food,
+           another_seed
+           );
+    coordinate other_food_position = get_nth_food_position(another_game, 0);
 
-    // Mean position of food items should be center of game environment
-    double expected_mean_x = (get_max_x(g) + get_min_x(g)) / 2.0;
-    double expected_mean_y = (get_max_y(g) + get_min_y(g)) / 2.0;
-    double d_mean_x = abs(expected_mean_x - mean_x);
-    double d_mean_y = abs(expected_mean_y - mean_y);
-
-    assert(d_mean_x < 0.01);
-    assert(d_mean_x < 0.01);
-
-    auto var_x = calc_var(food_x, mean_x);
-    auto var_y = calc_var(food_y, mean_y);
-
-    assert(var_x > 0.01);
-    assert(var_y > 0.01);
+    assert(food_position != other_food_position);
   }
 #endif
   // Test calc_mean
@@ -1911,6 +1900,32 @@ void test_game() //!OCLINT tests may be many
     assert(is_stunned(g.get_v_player()[1]));
   }
   #endif // FIX_ISSUE_241
+
+//#define FIX_ISSUE_457
+#ifdef FIX_ISSUE_457
+  {
+    // (457) The color of any player can be accessed easily
+    const game g;
+    const color color_player_one = get_nth_player_color(g, 0);
+    const color color_player_two = get_nth_player_color(g, 1);
+    const color color_player_three = get_nth_player_color(g, 2);
+    // Default colors for players: R, G, B
+    assert(color_player_one == create_red_color());
+    assert(color_player_two == create_green_color());
+    assert(color_player_three == create_blue_color());
+  }
+#endif
+
+//#define FIX_ISSUE_458
+#ifdef FIX_ISSUE_458
+  {
+    // (458) The color of any food item can be accessed easily
+    const game g;
+    const color color_food = get_nth_food_color(g, 0);
+    const color default_color;
+    assert(color_food == default_color);
+  }
+#endif
 
 #endif // no tests in release
 }
