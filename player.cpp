@@ -856,7 +856,6 @@ void test_player() //!OCLINT tests may be long
       assert(p.get_color() == red);
     }
   #endif
-
 #endif // no tests in release
 }
 
