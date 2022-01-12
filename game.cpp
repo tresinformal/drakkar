@@ -715,6 +715,7 @@ void game::make_players_eat_food()
       {
         eat_food(get_food()[i]);
         player.grow();
+//        #ifdef FIX_ISSUE_440
         // #440 Food changes the color of the player
         player.set_color(get_food()[i].get_color());
       }
