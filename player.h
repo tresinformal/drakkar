@@ -193,7 +193,8 @@ private:
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
 
-    /// The rate at which the player turns
+    /// The rate at which the player turns.
+    /// Maybe in the future, this will not be constant...
     read_only<double> m_turn_rate;
 
     /// Player's health percentage, the player always start with max health at
