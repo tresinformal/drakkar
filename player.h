@@ -120,10 +120,10 @@ public:
     void set_y(double y) noexcept { m_c.set_y(y); }
 
     /// Turn the player left
-    void turn_left() noexcept { m_direction_radians -= m_turn_rate; }
+    void turn_left() noexcept { m_direction_radians -= m_turn_rate.get_value(); }
 
     /// Turn the player right
-    void turn_right() noexcept { m_direction_radians += m_turn_rate; }
+    void turn_right() noexcept { m_direction_radians += m_turn_rate.get_value(); }
 
     //move a player
     void move() noexcept;
@@ -194,7 +194,7 @@ private:
     double m_direction_radians = 270 * M_PI / 180;
 
     /// The rate at which the player turns
-    double m_turn_rate;
+    read_only<double> m_turn_rate;
 
     /// Player's health percentage, the player always start with max health at
     /// construction
