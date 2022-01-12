@@ -25,13 +25,13 @@ void test_action_type()
 #endif
 }
 
-std::ostream &operator<<(std::ostream &os, const action_type t)
+std::ostream &operator<<(const std::ostream &os, const action_type t)
 {
   os << to_str(t);
   return os;
 }
 
-std::string to_str(action_type this_action_type)
+std::string to_str(const action_type this_action_type)
 {
   switch (this_action_type)
   {

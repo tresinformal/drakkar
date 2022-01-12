@@ -17,7 +17,7 @@ enum class action_type
 };
 
 void test_action_type();
-std::string to_str(action_type this_action_type);
+std::string to_str(const action_type this_action_type);
 std::ostream &operator<<(std::ostream &os, const action_type t);
 
 #endif // ACTION_TYPE_H
