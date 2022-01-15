@@ -1134,6 +1134,25 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_463
+#ifdef FIX_ISSUE_463
+  // Players lose invulnerability after a short time
+  {
+    game g;
+    int duration_invulnerability = 3;
+    // change the nb above to a value you deem reasonable
+    // after fixing the test delete these two comment lines
+    become_invulnerable(g.get_player(0));
+    for (int t = 0; t < duration_invulnerability; t++)
+      {
+        assert(is_invulnerable(g.get_player(0)));
+        g.tick();
+      }
+    assert(!is_invulnerable(g.get_player(0)));
+    assert(g.get_player(0).get_state() == player_state::active);
+  }
+#endif
+
   //Initially, there is no collision with a projectile
   {
     game g;
