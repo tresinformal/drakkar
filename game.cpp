@@ -1139,7 +1139,7 @@ void test_game() //!OCLINT tests may be many
   // Players lose invulnerability after a short time
   {
     game g;
-    int duration_invulnerability = 3;
+    const int duration_invulnerability = 3;
     // change the nb above to a value you deem reasonable
     // after fixing the test delete these two comment lines
     become_invulnerable(g.get_player(0));
