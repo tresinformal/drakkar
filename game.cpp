@@ -1947,6 +1947,16 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_464
+#ifdef FIX_ISSUE_464
+  {
+    // (464) A player's state can be accessed easily
+    const game g;
+    const player_state default_state = player_state::active;
+    assert(get_nth_player_state(g, 0) == default_state);
+  }
+#endif
+
 #endif // no tests in release
 }
 
