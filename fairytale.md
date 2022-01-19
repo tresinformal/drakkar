@@ -33,7 +33,7 @@ The penguins were pleased when news reached them about the events. They had been
 
 They all died of climate change.
 
-Suddenly, a herd of minimammoths appeared. Due to the sun, they were killed by the heat.
+Suddenly, a herd of minimammoths appeared. Due to the sun, they were killed by the heat. But
 
 
 
