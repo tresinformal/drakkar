@@ -1,4 +1,3 @@
-
 # Fairytale (For ages 3.14159 to 265358 years old)
 
 Once upon a time there was a dragon and a toothfairy and a goblin.
@@ -34,4 +33,7 @@ The penguins were pleased when news reached them about the events. They had been
 
 They all died of climate change.
 
-Suddenly, a herd of minimammoths appeared.
+Suddenly, a herd of minimammoths appeared. Due to the sun, they were killed by the heat.
+
+
+
