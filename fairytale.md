@@ -35,7 +35,7 @@ They all died of climate change.
 
 Suddenly, a herd of minimammoths appeared. 
 Due to the sun, they were killed by the heat. 
-But that is not all of it!
+But that is not all of it! Because
 
 
 
