@@ -1,4 +1,5 @@
 #include "game.h"
+#include "game_functions.h"
 #include "coordinate.h"
 #include "projectile.h"
 #include "projectile_type.h"
@@ -746,30 +747,14 @@ bool nth_food_is_eaten(const game &g, const int &n)
   return g.get_food()[n].is_eaten();
 }
 
-int get_nth_food_regeneration_time(const game &g, const int &n)
-{
-  return g.get_food()[n].get_regeneration_time();
-}
-
-
 bool is_nth_food_eaten(const game& g, const int &n)
 {
   return g.get_food()[n].is_eaten();
 }
 
-coordinate get_nth_food_position(const game& g, const int& food_id)
-{
-  return g.get_food()[food_id].get_position();
-}
 void place_nth_food_randomly(game &g, const int &n)
 {
   g.get_food()[n].place_randomly(g.get_rng(), {get_min_x(g), get_min_y(g)}, {get_max_x(g), get_max_y(g)});
-}
-
-coordinate get_nth_shelter_position(const game &g, const int &n)
-{
-  assert(n >= 0);
-  return g.get_shelters()[n].get_position();
 }
 
 /// Get all shelter positions
