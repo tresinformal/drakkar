@@ -1139,20 +1139,18 @@ void test_game() //!OCLINT tests may be many
   // Players lose invulnerability after a short time
   {
     game g;
-    const int duration_invulnerability = 3;
-    // change the nb above to a value you deem reasonable
-    // after fixing the test delete these two comment lines
-    become_invulnerable(g.get_player(0));
+    player& p = g.get_player(0);
+    const int duration_invulnerability = p.get_duration_invulnerability();
+    become_invulnerable(p);
     for (int t = 0; t < duration_invulnerability; t++)
       {
-        assert(is_invulnerable(g.get_player(0)));
+        assert(is_invulnerable(p));
         g.tick();
       }
-    assert(!is_invulnerable(g.get_player(0)));
-    assert(g.get_player(0).get_state() == player_state::active);
+    assert(!is_invulnerable(p));
+    assert(p.get_state() == player_state::active);
   }
 #endif
-
   //Initially, there is no collision with a projectile
   {
     game g;
@@ -1952,8 +1950,7 @@ void test_game() //!OCLINT tests may be many
   {
     // (464) A player's state can be accessed easily
     const game g;
-    const player_state default_state = player_state::active;
-    assert(get_nth_player_state(g, 0) == default_state);
+    assert(get_nth_player_state(g, 0) ==  g.get_players()[0].get_state());
   }
 #endif
 
