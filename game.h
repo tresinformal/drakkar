@@ -183,19 +183,6 @@ private:
   void regenerate_food_items();
 };
 
-/// Get all shelter positions
-std::vector<coordinate> get_all_shelter_positions(const game& g);
-
-/// Get min and max coordinates of the game
-double get_max_x(const game &g);
-double get_min_x(const game &g);
-double get_max_y(const game &g);
-double get_min_y(const game &g);
-
-/// Get x or y of a food item within game
-double get_nth_food_x(const game &g, const int n);
-double get_nth_food_y(const game &g, const int n);
-
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
 
@@ -212,10 +199,6 @@ int count_alive_players(const game& g) noexcept;
 
 // Eat nth food item
 void eat_nth_food(game& g, const int n);
-
-bool nth_food_is_eaten(const game &g, const int &n);
-
-int get_nth_food_regeneration_time(const game &g, const int &n);
 
 /// checks if there is at least one collision between players in the game
 bool has_collision(const game &g) noexcept;
@@ -261,8 +244,6 @@ bool has_any_player_food_collision(const game& g);
 
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
-
-bool is_nth_food_eaten(const game &g, const int &n);
 
 // Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);

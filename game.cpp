@@ -79,32 +79,6 @@ void add_projectile(game &g, const projectile &p)
   g.get_projectiles().push_back(p);
 }
 
-
-double get_max_x(const game &g) {
-    return get_max_x(g.get_env());
-}
-
-double get_min_x(const game &g){
-    return get_min_x(g.get_env());
-}
-
-double get_max_y(const game &g){
-    return get_max_y(g.get_env());
-}
-double get_min_y(const game &g){
-    return get_min_y(g.get_env());
-}
-
-double get_nth_food_x(const game &g, const int n)
-{
-  return g.get_food()[n].get_x();
-}
-
-double get_nth_food_y(const game &g, const int n)
-{
-  return g.get_food()[n].get_y();
-}
-
 double calc_mean(const std::vector<double>& v)
 {
   return std::accumulate(
@@ -636,11 +610,6 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
   projectiles.push_back(projectile(c, d));
 }
 
-int get_nth_food_timer(const game &g, const int &n)
-{
-  return g.get_food()[n].get_timer();
-}
-
 void game::kill_player(const int index)
 {
   assert(index >= 0);
@@ -742,31 +711,9 @@ void eat_nth_food(game& g, const int n)
     g.eat_food(g.get_food()[n]);
 }
 
-bool nth_food_is_eaten(const game &g, const int &n)
-{
-  return g.get_food()[n].is_eaten();
-}
-
-bool is_nth_food_eaten(const game& g, const int &n)
-{
-  return g.get_food()[n].is_eaten();
-}
-
 void place_nth_food_randomly(game &g, const int &n)
 {
   g.get_food()[n].place_randomly(g.get_rng(), {get_min_x(g), get_min_y(g)}, {get_max_x(g), get_max_y(g)});
-}
-
-/// Get all shelter positions
-std::vector<coordinate> get_all_shelter_positions(const game& g)
-{
-  int n_shelters = g.get_shelters().size();
-  std::vector<coordinate> all_shelter_positions;
-  for (int i = 0; i < n_shelters; ++i)
-    {
-      all_shelter_positions.push_back(get_nth_shelter_position(g, i));
-    }
-  return all_shelter_positions;
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1643,12 +1590,12 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     eat_nth_food(g, 0);
-    assert(nth_food_is_eaten(g,0));
+    assert(is_nth_food_eaten(g,0));
     for(int i = 0; i != get_nth_food_regeneration_time(g, 0); i++)
       {
         g.tick();
       }
-    assert(!nth_food_is_eaten(g,0));
+    assert(!is_nth_food_eaten(g,0));
   }
 #endif
 
@@ -1661,21 +1608,21 @@ void test_game() //!OCLINT tests may be many
     int f_regen_time = f.get_regeneration_time();
 
     // Player on top of food should eat it
-    assert(!nth_food_is_eaten(g, 0));
+    assert(!is_nth_food_eaten(g, 0));
     put_player_on_food(g.get_player(0), f);
     g.tick();
-    assert(nth_food_is_eaten(g, 0));
+    assert(is_nth_food_eaten(g, 0));
     // Get player away so it does not eat food again
     put_player_near_food(g.get_player(0), f, f.get_radius() * 2.0);
 
     // Food item should not regen before the regeneration time
     for(int i = 0; i != f_regen_time; i++)
       {
-        assert(nth_food_is_eaten(g,0));
+        assert(is_nth_food_eaten(g,0));
         g.tick();
       }
     // Food item should regen on the regeneration time
-    assert(!nth_food_is_eaten(g,0));
+    assert(!is_nth_food_eaten(g,0));
   }
 #endif
 
