@@ -1134,6 +1134,23 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_463
+#ifdef FIX_ISSUE_463
+  // Players lose invulnerability after a short time
+  {
+    game g;
+    player& p = g.get_player(0);
+    const int duration_invulnerability = p.get_duration_invulnerability();
+    become_invulnerable(p);
+    for (int t = 0; t < duration_invulnerability; t++)
+      {
+        assert(is_invulnerable(p));
+        g.tick();
+      }
+    assert(!is_invulnerable(p));
+    assert(p.get_state() == player_state::active);
+  }
+#endif
   //Initially, there is no collision with a projectile
   {
     game g;
@@ -1925,6 +1942,15 @@ void test_game() //!OCLINT tests may be many
     const color color_food = get_nth_food_color(g, 0);
     const color default_color;
     assert(color_food == default_color);
+  }
+#endif
+
+//#define FIX_ISSUE_464
+#ifdef FIX_ISSUE_464
+  {
+    // (464) A player's state can be accessed easily
+    const game g;
+    assert(get_nth_player_state(g, 0) ==  g.get_players()[0].get_state());
   }
 #endif
 
