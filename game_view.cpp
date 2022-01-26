@@ -162,7 +162,8 @@ void game_view::draw_food() noexcept
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
     game g = this->get_game();
-    const sf::Keyboard::Key stun_key = get_stun_key(g.get_game_options().get_kam_1());
+    const sf::Keyboard::Key stun_key = sf::Keyboard::Key::E;
+    //const sf::Keyboard::Key stun_key = get_stun_key(g.get_game_options().get_kam_1());
     if (k == stun_key)
     {
       /// shooting a rocket
@@ -519,12 +520,15 @@ void test_game_view()//!OCLINT tests may be many
     // Pressing the stun key shoots a stun rocket
     {
       int seed = 246;
-      game_view g(get_random_game_options(seed));
-      player p = g.get_game().get_player(0);
-      assert(!p.is_shooting_stun_rocket());
-      g.press_key(get_stun_key(g.get_options().get_kam_1())); // Press the key that causes a stun
-      g.process_events(); // Needed to process the event
-      assert(p.is_shooting_stun_rocket());
+      game_view gw(get_random_game_options(seed));
+      game g = gw.get_game();
+      assert(count_n_projectiles(g) == 0);
+      gw.press_key(sf::Keyboard::Key::E); // Press the key that causes a stun
+      //g.press_key(get_stun_key(g.get_options().get_kam_1())); // Press the key that causes a stun
+      gw.process_events(); // Needed to process the event
+      g.tick();
+      assert(count_n_projectiles(g) == 1 &&
+             g.get_projectiles().back().get_type() == projectile_type::stun_rocket);
     }
 
   #endif
