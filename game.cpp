@@ -1928,6 +1928,15 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_471
+#ifdef FIX_ISSUE_471
+  {
+    const game_options options;
+    const game g(options);
+    assert(g.get_game_options() == options);
+  }
+#endif
+
 #endif // no tests in release
 }
 
