@@ -49,6 +49,8 @@ private:
 bool operator== (const game_options& lhs, const game_options& rhs) noexcept;
 bool operator!= (const game_options& lhs, const game_options& rhs) noexcept;
 
+game_options get_random_game_options(const int& rng_seed);
+
 ///Turns off the sound in options
 void music_off(game_options& o) noexcept;
 

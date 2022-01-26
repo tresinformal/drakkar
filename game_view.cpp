@@ -5,7 +5,6 @@
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
-#include "key_action_map.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <cmath>
@@ -163,10 +162,10 @@ void game_view::draw_food() noexcept
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
     game g = this->get_game();
-    const sf::Keyboard::Key stun_key = get_stun_key(g);
+    const sf::Keyboard::Key stun_key = get_stun_key(g.get_game_options().get_kam_1());
     if (k == stun_key)
     {
-      /// stunning not shooting a rocket
+      /// shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
 }
@@ -519,7 +518,8 @@ void test_game_view()//!OCLINT tests may be many
     // Issue #246
     // Pressing the stun key causes a stun
     {
-      game_view g(get_random_game_options());
+      int seed = 246;
+      game_view g(get_random_game_options(seed));
       assert(!is_nth_player_stunned(g, 0));
       g.press_key(get_stun_key(g.get_options().get_kam_1())); // Press the key that causes a stun
       g.process_events(); // Needed to process the event
