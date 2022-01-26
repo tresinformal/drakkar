@@ -1937,6 +1937,16 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_472
+#ifdef FIX_ISSUE_472
+  {
+    const game g;
+    // Only check if this compiles, we do not care about the RNG seed
+    assert(g.get_options().get_rng_seed() == 0
+      || g.get_options().get_rng_seed() != 0);
+  }
+#endif
+
 #endif // no tests in release
 }
 
