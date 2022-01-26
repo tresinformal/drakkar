@@ -5,6 +5,7 @@
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
+#include "key_action_map.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <cmath>
@@ -161,7 +162,10 @@ void game_view::draw_food() noexcept
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    if(k == get_stun_key(g.get_options().get_kam_1())) {
+    game g = this->get_game();
+    const sf::Keyboard::Key stun_key = get_stun_key(g);
+    if (k == stun_key)
+    {
       /// stunning not shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
