@@ -161,7 +161,7 @@ void game_view::draw_food() noexcept
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    if(k == sf::Keyboard::E) {
+    if(k == get_stun_key(g.get_options().get_kam_1())) {
       /// stunning not shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
@@ -512,16 +512,16 @@ void test_game_view()//!OCLINT tests may be many
         assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
 
     }
+    // Issue #246
+    // Pressing the stun key causes a stun
+    {
+      game_view g(get_random_game_options());
+      assert(!is_nth_player_stunned(g, 0));
+      g.press_key(get_stun_key(g.get_options().get_kam_1())); // Press the key that causes a stun
+      g.process_events(); // Needed to process the event
+      assert(is_nth_player_stunned(g, 0));
+    }
 
-  // Pressing 1 stuns player 1
-  {
-    game_view g;
-    assert(count_n_projectiles(g) == 0);
-    g.press_key(sf::Keyboard::E);
-    g.process_events(); // Needed to process the event
-    //  #ifdef FIX_ISSUE_239
-    assert(count_n_projectiles(g) == 1);
-  }
   #endif
 }
 
