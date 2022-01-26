@@ -516,14 +516,15 @@ void test_game_view()//!OCLINT tests may be many
 
     }
     // Issue #246
-    // Pressing the stun key causes a stun
+    // Pressing the stun key shoots a stun rocket
     {
       int seed = 246;
       game_view g(get_random_game_options(seed));
-      assert(!is_nth_player_stunned(g, 0));
+      player p = g.get_game().get_player(0);
+      assert(!p.is_shooting_stun_rocket());
       g.press_key(get_stun_key(g.get_options().get_kam_1())); // Press the key that causes a stun
       g.process_events(); // Needed to process the event
-      assert(is_nth_player_stunned(g, 0));
+      assert(p.is_shooting_stun_rocket());
     }
 
   #endif
