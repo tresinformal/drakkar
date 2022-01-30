@@ -1877,6 +1877,25 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+//#define FIX_ISSUE_471
+#ifdef FIX_ISSUE_471
+  {
+    const game_options options;
+    const game g(options);
+    assert(g.get_game_options() == options);
+  }
+#endif
+
+//#define FIX_ISSUE_472
+#ifdef FIX_ISSUE_472
+  {
+    const game g;
+    // Only check if this compiles, we do not care about the RNG seed
+    assert(g.get_options().get_rng_seed() == 0
+      || g.get_options().get_rng_seed() != 0);
+  }
+#endif
+
 //#define FIX_ISSUE_464
 #ifdef FIX_ISSUE_464
   {

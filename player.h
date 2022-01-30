@@ -62,7 +62,7 @@ public:
     double get_diameter() const noexcept;
 
     ///Gets the ID of a player
-    std::string get_ID() const noexcept {return m_ID.get_value(); }
+    std::string get_ID() const noexcept { return m_ID.get_value(); }
 
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
@@ -120,10 +120,10 @@ public:
     void set_y(double y) noexcept { m_c.set_y(y); }
 
     /// Turn the player left
-    void turn_left() noexcept { m_direction_radians -= m_turn_rate; }
+    void turn_left() noexcept { m_direction_radians -= m_turn_rate.get_value(); }
 
     /// Turn the player right
-    void turn_right() noexcept { m_direction_radians += m_turn_rate; }
+    void turn_right() noexcept { m_direction_radians += m_turn_rate.get_value(); }
 
     //move a player
     void move() noexcept;
@@ -193,8 +193,9 @@ private:
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
 
-    /// The rate at which the player turns
-    double m_turn_rate;
+    /// The rate at which the player turns.
+    /// Maybe in the future, this will not be constant...
+    read_only<double> m_turn_rate;
 
     /// Player's health percentage, the player always start with max health at
     /// construction
