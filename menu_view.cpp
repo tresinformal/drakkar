@@ -89,12 +89,12 @@ void menu_view::draw_buttons() noexcept
     button_text.setPosition(static_cast<float>(button_position.get_x()),
                      static_cast<float>(button_position.get_y()));
     button_text.setCharacterSize(30);
-#if SFML_VERSION_MAJOR >= 2 and SFML_VERSION_MINOR >= 4
-
+#if SFML_VERSION_MAJOR > 2
+    button_text.setFillColor(sf::Color::White);
+#elif SFML_VERSION_MAJOR == 2 and SFML_VERSION_MINOR >= 4
     button_text.setFillColor(sf::Color::White);
 #else
     button_text.setColor(sf::Color::White);
-
 #endif
 
     // Draw the buttons
