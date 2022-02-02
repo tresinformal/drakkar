@@ -6,6 +6,7 @@
 #include "coordinate.h"
 #include "player_shape.h"
 #include "player_state.h"
+#include "read_only.h"
 #include <cmath>
 #include <vector>
 #include <set>
@@ -61,7 +62,7 @@ public:
     double get_diameter() const noexcept;
 
     ///Gets the ID of a player
-    const std::string& get_ID() const noexcept {return m_ID;}
+    std::string get_ID() const noexcept { return m_ID.get_value(); }
 
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
@@ -90,7 +91,10 @@ public:
         m_c = position;
     }
 
-    /// Set the color of the player
+    ///Set the color of the player
+    void set_color(const color &c) {m_color = c;}
+
+    /// Set the state of the player
     void set_state(const player_state &s) noexcept { m_state = s; }
 
     /// The player shoots, does nothing for now
@@ -116,10 +120,10 @@ public:
     void set_y(double y) noexcept { m_c.set_y(y); }
 
     /// Turn the player left
-    void turn_left() noexcept { m_direction_radians -= m_turn_rate; }
+    void turn_left() noexcept { m_direction_radians -= m_turn_rate.get_value(); }
 
     /// Turn the player right
-    void turn_right() noexcept { m_direction_radians += m_turn_rate; }
+    void turn_right() noexcept { m_direction_radians += m_turn_rate.get_value(); }
 
     //move a player
     void move() noexcept;
@@ -154,7 +158,7 @@ private:
     bool m_is_shooting_stun_rocket{false};
 
     ///ID of the player
-    std::string m_ID;
+    read_only<std::string> m_ID;
 
     /// The coordinate of the player
     coordinate m_c;
@@ -189,8 +193,9 @@ private:
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
 
-    /// The rate at which the player turns
-    double m_turn_rate;
+    /// The rate at which the player turns.
+    /// Maybe in the future, this will not be constant...
+    read_only<double> m_turn_rate;
 
     /// Player's health percentage, the player always start with max health at
     /// construction

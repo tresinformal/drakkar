@@ -32,6 +32,16 @@ unix:!macx {
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 }
 
+macx {
+  INCLUDEPATH += /Users/johti53/SFML/include
+  LIBS += -L/Users/johti53/SFML/lib \
+      -lsfml-system \
+      -lsfml-window \
+      -lsfml-graphics \
+      -lsfml-audio \
+      -lsfml-network
+}
+
 win32{
   INCLUDEPATH += C:/Qt/sfml/include
   INCLUDEPATH += D:/Qt/sfml/include
@@ -49,5 +59,3 @@ win32{
   LIBS += -lgdi32
   LIBS += -lwinmm
 }
-
-

@@ -1,4 +1,6 @@
 #include "menu_view.h"
+#include "coordinate.h"
+
 
 menu_view::menu_view()
     : m_window(
@@ -53,54 +55,50 @@ void menu_view::show()
 
 void menu_view::draw_buttons() noexcept
 {
-  sf::Color color;
+
   for ( int i = 0; i < static_cast<int>(m_menu.get_buttons().size()); ++i)
   {
-    // assign different color for buttons
-    // i = 0: Action "Green"
-    // i = 1: About  "Blue"
-    // i = 2: Quit   "Red"
-    // Only three buttons implemented
-    switch (i)
-    {
-    case 0:
-    {
-      color = sf::Color::Green;
-      break;
-    }
-    case 1:
-    {
-      color = sf::Color::Blue;
-      break;
-    }
-    case 2:
-    {
-      color = sf::Color::Red;
-      break;
-    }
-    default:
-    {
-      color = sf::Color::Black;
-      break;
-    }
-    }
+    // Extract button's attributes
+    menu_button this_button = m_menu.get_button(i);
+    std::string button_label = this_button.get_name();
+
+    int r = this_button.get_color().get_red();
+    int g = this_button.get_color().get_green();
+    int b = this_button.get_color().get_blue();
+    const sf::Uint8 red{static_cast<sf::Uint8>(r)};
+    const sf::Uint8 green{static_cast<sf::Uint8>(g)};
+    const sf::Uint8 blue{static_cast<sf::Uint8>(b)};
+    sf::Color button_color(red, green, blue);
+
+    coordinate button_position(m_menu.get_button(i).get_x(),
+                               m_menu.get_button(i).get_y());
 
     // Create the button sprite
     sf::RectangleShape rect(m_menu.get_button(i).get_body());
-    rect.setFillColor(color);
-    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(static_cast<float>(m_menu.get_button(i).get_x()),
-                     static_cast<float>(m_menu.get_button(i).get_y()));
+    rect.setFillColor(button_color);
+    rect.setOrigin(rect.getSize().x / 2.0, rect.getSize().y / 2.0);
+    rect.setPosition(static_cast<float>(button_position.get_x()),
+                     static_cast<float>(button_position.get_y()));
 
+    // Create the button text
+    sf::Text button_text;
+    button_text.setString(button_label);
+    button_text.setFont(m_game_resources.get_font());
+    sf::FloatRect text_area = button_text.getLocalBounds();
+    button_text.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
+    button_text.setPosition(static_cast<float>(button_position.get_x()),
+                     static_cast<float>(button_position.get_y()));
+    button_text.setCharacterSize(30);
+#if SFML_VERSION_MAJOR > 2
+    button_text.setFillColor(sf::Color::White);
+#elif SFML_VERSION_MAJOR == 2 and SFML_VERSION_MINOR >= 4
+    button_text.setFillColor(sf::Color::White);
+#else
+    button_text.setColor(sf::Color::White);
+#endif
 
-    sf::Text text;
-    text.setString("Hello world");
-    text.setPosition(10, 10);
-    text.setFont(game_resources().get_font());
-    text.setScale(100.0, 100.0);
-    m_window.draw(text);
-
-    // Draw the player
+    // Draw the buttons
     m_window.draw(rect);
+    m_window.draw(button_text);
   }
 }
