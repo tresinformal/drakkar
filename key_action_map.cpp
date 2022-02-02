@@ -160,8 +160,7 @@ std::vector<key_action_map> get_n_random_kams(int n)
 
 sf::Keyboard::Key get_stun_key(const key_action_map& m)
 {
-//   return m.to_key(action_type::shoot_stun_rocket);
-  return sf::Keyboard
+  return m.to_key(action_type::shoot_stun_rocket);
 }
 
 void test_key_action_map()//!OCLINT tests can be many
