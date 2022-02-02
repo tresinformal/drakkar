@@ -25,7 +25,7 @@ void test_action_type()
 #endif
 }
 
-std::ostream &operator<<(const std::ostream &os, const action_type t)
+std::ostream &operator<<(std::ostream &os, const action_type t)
 {
   os << to_str(t);
   return os;
