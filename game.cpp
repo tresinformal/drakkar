@@ -784,7 +784,7 @@ std::vector<coordinate> get_all_shelter_positions(const game& g)
   return all_shelter_positions;
 }
 
-void save(const game&, const std::string&)
+void save(const game&, const std::string& filename)
 {
 
 }
