@@ -107,9 +107,11 @@ void test()
 #endif
 }
 
+#include "about.h"
 
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
+
 #ifndef NDEBUG
   assert(0.1 > 0.0); //!OCLINT indeed a constant conditional
   test();
