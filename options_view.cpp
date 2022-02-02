@@ -51,7 +51,16 @@ void options_view::show()
   placeholder.setCharacterSize(40);
   sf::FloatRect text_area = placeholder.getLocalBounds();
   placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
-  placeholder.setFillColor(sf::Color::Yellow);
+
+#if SFML_VERSION_MAJOR > 2
+    placeholder.setFillColor(sf::Color::Yellow);
+#elif SFML_VERSION_MAJOR == 2 and SFML_VERSION_MINOR >= 4
+    placeholder.setFillColor(sf::Color::Yellow);
+#else
+    placeholder.setColor(sf::Color::Yellow);
+#endif
+
+
   placeholder.setPosition(m_width / 2.0, m_height / 2.0);
   m_window.draw(placeholder);
 
