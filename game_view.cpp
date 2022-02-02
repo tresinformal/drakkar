@@ -162,9 +162,8 @@ void game_view::draw_food() noexcept
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
-
-    game g = this->get_game();
-    //const sf::Keyboard::Key stun_key = get_stun_key(g.get_game_options().get_kam_1());
+    // game g = this->get_game();
+    // const sf::Keyboard::Key stun_key = get_stun_key(this->get_game().get_game_options().get_kam_1());
     const sf::Keyboard::Key stun_key = sf::Keyboard::Key::W;
     if (k == stun_key)
     {
@@ -517,6 +516,11 @@ void test_game_view()//!OCLINT tests may be many
         assert(p0.get_action_set().empty());
         assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
 
+    }
+    // Game options should be the same
+    {
+        game_view gw(get_random_game_options(300));
+        assert(gw.get_options().get_kam_1() == gw.get_game().get_)
     }
     // Pressing the stun key shoots a stun rocket
     {
