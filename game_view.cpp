@@ -162,6 +162,7 @@ void game_view::draw_food() noexcept
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
+
     game g = this->get_game();
     const sf::Keyboard::Key stun_key = get_stun_key(g.get_game_options().get_kam_1());
     if (k == stun_key)
