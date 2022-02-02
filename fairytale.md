@@ -34,4 +34,4 @@ The penguins were pleased when news reached them about the events. They had been
 
 They all died of climate change.
 
-Suddenly, a herd of minimammoths appeared.
+Suddenly, a herd of minimammoths appeared. Then, they started destroying everything unnatural thing in their path, when they were asked why they were doing this, they said: "mind your own business, dumbface"
