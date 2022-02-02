@@ -38,14 +38,7 @@ public:
   void do_actions() noexcept;
 
   ///Executes for wall collision for all players
-  void do_wall_collisions();
-
-  ///Get the index of the winner of the players with the given indices
-  int get_winning_player_index(const game& g, const int i1, const int i2);
-
-
-  ///Get the index of the loser of the players with the given indices
-  int get_losing_player_index(const game& g, const int i1, const int i2);
+  void resolve_wall_collisions();
 
   ///returns the collision vector
   const std::vector<int>& get_collision_vec(){return m_v_collisions_ind;}
@@ -86,9 +79,6 @@ public:
   /// Get reference to player to change some parameters
   player &get_player(int i) { return m_player[static_cast<unsigned int>(i)]; }
 
-  /// Gets the player direction
-  double get_player_direction(int player_ind);
-
   /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_player; }
 
@@ -127,7 +117,7 @@ public:
   int get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
   ///Manages collisons with walls
-  player wall_collision(player p);
+  player resolve_wall_collision(player p);
 
 private:
 
@@ -183,19 +173,6 @@ private:
   void regenerate_food_items();
 };
 
-/// Get all shelter positions
-std::vector<coordinate> get_all_shelter_positions(const game& g);
-
-/// Get min and max coordinates of the game
-double get_max_x(const game &g);
-double get_min_x(const game &g);
-double get_max_y(const game &g);
-double get_min_y(const game &g);
-
-/// Get x or y of a food item within game
-double get_nth_food_x(const game &g, const int n);
-double get_nth_food_y(const game &g, const int n);
-
 /// Calculate a mean of a vector of numbers
 double calc_mean(const std::vector<double>& v);
 
@@ -205,38 +182,22 @@ double calc_var(const std::vector<double>& v);
 /// Add a projectile to the game
 void add_projectile(game& g, const projectile& p);
 
-/// Count the number of projectiles in the game
-int count_n_projectiles(const game &g) noexcept;
-
-int count_alive_players(const game& g) noexcept;
-
 // Eat nth food item
 void eat_nth_food(game& g, const int n);
 
-bool nth_food_is_eaten(const game &g, const int &n);
-
-int get_nth_food_regeneration_time(const game &g, const int &n);
-
-/// checks if there is at least one collision between players in the game
-bool has_collision(const game &g) noexcept;
-
-/// Determines if the player and projectile collide
-bool has_collision(const player& pl, const projectile& p);
-
-///Checks if a player and food have the same exact position
+///Checks if two items have the same exact position
 template <typename L, typename R>
 bool have_same_position(const L& lhs, const R& rhs);
 
 bool is_in_food_radius(const player p, const food f) noexcept;
 
-/// checks if there is at least one collision between a player
-/// and a projectile in the game
-bool has_collision_with_projectile(const game &) noexcept;
-
 ///Signal if a player hits a wall in an environment
 bool hits_wall(const player& p, const environment& e);
+bool hits_south_wall(const player& p, const environment& e);
+bool hits_north_wall(const player& p, const environment& e);
+bool hits_east_wall(const player& p, const environment& e);
+bool hits_west_wall(const player& p, const environment& e);
 
-std::vector<int> get_collision_members(const game &g) noexcept;
 /// Upon a collision, kills the player that loser
 /// Assumes there is a collision
 void kill_losing_player(game &);
@@ -253,20 +214,15 @@ void put_player_on_food(player& p, const food &f);
 ///Puts a player on food
 void put_player_near_food(player& p, const food &f, const double distance = 0.0);
 
+/// Determines if the player and projectile collide
+bool are_colliding(const player& pl, const projectile& p);
+
 /// Check that player and food are in collision, i.e. same position and food uneaten
 bool are_colliding(const player &p, const food &f);
-
-/// Check the game for any collision between food and players
-bool has_any_player_food_collision(const game& g);
 
 ///Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
 
-int get_nth_food_timer(const game &g, const int &n);
-
-bool is_nth_food_eaten(const game &g, const int &n);
-
-coordinate get_nth_food_position(const game& g, const int& food_id);
 // Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);
 
@@ -274,7 +230,6 @@ coordinate get_nth_shelter_position(const game &g, const int &n);
 
 /// Save the game to file
 void save(const game& g, const std::string& filename);
-
 
 void test_game();
 
