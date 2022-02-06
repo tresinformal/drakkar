@@ -1,6 +1,7 @@
 #include "menu_view.h"
 #include "coordinate.h"
 
+#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
 
 menu_view::menu_view()
     : m_window(
@@ -121,3 +122,5 @@ void test_menu_view()
 
 #endif // not tests in release
 }
+
+#endif // LOGIC_ONLY // that is, compiled on GitHub Actions

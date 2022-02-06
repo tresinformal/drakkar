@@ -108,6 +108,6 @@ void test_game_view();
 
 bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+#endif // LOGIC_ONLY // that is, not compiled on GitHub Actions
 
 #endif // GAME_VIEW_H
