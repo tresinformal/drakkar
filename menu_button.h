@@ -13,7 +13,7 @@ class menu_button
 public:
   menu_button(std::string name,
               color b_color,
-              coordinate position,
+              coordinate position = coordinate(0.0, 0.0),
               float b_width = 200.0f,
               float b_height = 100.0f);
   /// Get x pos of a button
