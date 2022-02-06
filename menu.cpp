@@ -28,10 +28,21 @@ std::vector<menu_button> &menu::get_buttons() noexcept { return m_v_buttons; }
 
 menu_button &menu::get_button(int index)
 {
-
   assert(index >= 0 && index < static_cast<int>(m_v_buttons.size()));
   return m_v_buttons[static_cast<unsigned int>(index)];
+}
 
+menu_button &menu::get_button(std::string label)
+{
+  for (auto& mb : m_v_buttons)
+   {
+    if (mb.get_label() == label)
+      {
+        return mb;
+      }
+   }
+  // If no match return an error
+  throw std::logic_error("No button in menu has this label.");
 }
 
 void menu::put_buttons_tidy() noexcept
@@ -73,7 +84,6 @@ void test_menu()
     menu_button mb_about = m.get_button(label);
     assert(mb_about.get_label() == label);
   }
-#ifdef FIX_ISSUE_483
   {
     // (483) Calling a button that doesn't exist causes an error
     menu m;
@@ -85,7 +95,6 @@ void test_menu()
       assert(std::string(e.what()) == std::string("No button in menu has this label."));
     }
   }
-#endif
   // buttons are evenly distributed
   // along the height of the screen
   {

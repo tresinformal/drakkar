@@ -27,6 +27,9 @@ public:
   /// Get one button at index i
   menu_button &get_button(int index);
 
+  /// Get one button at index i
+  menu_button &get_button(std::string label);
+
   /// Sets the position of the buttons
   /// aligned in the center and equally
   /// distant vertically
