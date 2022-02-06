@@ -66,6 +66,13 @@ void test_menu()
     menu v;
     assert(v.get_button(0).get_label() == "action");
   }
+  {
+    // (482) Menu button can be called from its label
+    menu m;
+    std::string label = "about";
+    menu_button mb_about = m.get_button(label);
+    assert(mb_about.get_label() == label);
+  }
   // buttons are evenly distributed
   // along the height of the screen
   {
