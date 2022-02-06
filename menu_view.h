@@ -30,8 +30,6 @@ private:
   void show();
 };
 
-void test_menu_view();
-
 #endif // LOGIC_ONLY // that is, compiled on GitHub Actions
 
 #endif // MENU_VIEW_H

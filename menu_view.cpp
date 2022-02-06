@@ -116,11 +116,4 @@ void menu_view::draw_buttons() noexcept
   }
 }
 
-void test_menu_view()
-{
-#ifndef NDEBUG // no tests in release
-
-#endif // not tests in release
-}
-
 #endif // LOGIC_ONLY // that is, compiled on GitHub Actions
