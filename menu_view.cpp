@@ -72,24 +72,23 @@ void menu_view::draw_buttons() noexcept
   for ( int i = 0; i < static_cast<int>(m_menu.get_buttons().size()); ++i)
   {
     // Extract button's attributes
-    menu_button this_button = m_menu.get_button(i);
-    std::string button_label = this_button.get_label();
+    const menu_button this_button = m_menu.get_button(i);
+    const std::string button_label = this_button.get_label();
 
-    int r = this_button.get_color().get_red();
-    int g = this_button.get_color().get_green();
-    int b = this_button.get_color().get_blue();
+    const int r = this_button.get_color().get_red();
+    const int g = this_button.get_color().get_green();
+    const int b = this_button.get_color().get_blue();
     const sf::Uint8 red{static_cast<sf::Uint8>(r)};
     const sf::Uint8 green{static_cast<sf::Uint8>(g)};
     const sf::Uint8 blue{static_cast<sf::Uint8>(b)};
-    sf::Color button_color(red, green, blue);
+    const sf::Color button_color(red, green, blue);
 
-    coordinate button_position(m_menu.get_button(i).get_x(),
-                               m_menu.get_button(i).get_y());
+    const coordinate button_position = this_button.get_position();
 
     // Create the button sprite
-    sf::RectangleShape rect(m_menu.get_button(i).get_body());
+    sf::RectangleShape rect(this_button.get_body());
     rect.setFillColor(button_color);
-    rect.setOrigin(rect.getSize().x / 2.0, rect.getSize().y / 2.0);
+    rect.setOrigin(rect.getSize().x / 2.0f, rect.getSize().y / 2.0f);
     rect.setPosition(static_cast<float>(button_position.get_x()),
                      static_cast<float>(button_position.get_y()));
 
@@ -98,7 +97,7 @@ void menu_view::draw_buttons() noexcept
     button_text.setString(button_label);
     button_text.setFont(m_game_resources.get_font());
     sf::FloatRect text_area = button_text.getLocalBounds();
-    button_text.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
+    button_text.setOrigin(text_area.width / 2.0f, text_area.height / 2.0f);
     button_text.setPosition(static_cast<float>(button_position.get_x()),
                      static_cast<float>(button_position.get_y()));
     button_text.setCharacterSize(30);
@@ -119,13 +118,6 @@ void menu_view::draw_buttons() noexcept
 void test_menu_view()
 {
 #ifndef NDEBUG // no tests in release
-#ifdef FIX_ISSUE_484
-  {
-    // (484) void test_menu_view()
-    coordinate c(0.0, 0.0);
-    is_inside_button(c, "about");
-  }
-#endif // FIX_ISSUE_484
 
 #endif // not tests in release
 }

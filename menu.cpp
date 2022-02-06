@@ -32,7 +32,7 @@ menu_button &menu::get_button(int index)
   return m_v_buttons[static_cast<unsigned int>(index)];
 }
 
-menu_button &menu::get_button(std::string label)
+menu_button &menu::get_button(const std::string& label)
 {
   for (auto& mb : m_v_buttons)
    {
@@ -80,16 +80,16 @@ void test_menu()
   {
     // (482) Menu button can be called from its label
     menu m;
-    std::string label = "about";
-    menu_button mb_about = m.get_button(label);
+    const std::string label = "about";
+    const menu_button mb_about = m.get_button(label);
     assert(mb_about.get_label() == label);
   }
   {
     // (483) Calling a button that doesn't exist causes an error
     menu m;
-    std::string wrong_label = "whatever, doesn't exist";
+    const std::string wrong_label = "whatever, doesn't exist";
     try {
-      menu_button mb = m.get_button(wrong_label); // throws exception
+      const menu_button mb = m.get_button(wrong_label); // throws exception
     }
     catch ( const std::exception& e ) {
       assert(std::string(e.what()) == std::string("No button in menu has this label."));
@@ -120,6 +120,29 @@ void test_menu()
      assert(m.get_button(1).get_name() == "options");
   }
   #endif // FIX_ISSUE_446
-
+#ifdef FIX_ISSUE_484
+  {
+    // (484) void test_menu_view()
+    const menu m;
+    const menu_button mb = m.get_button("about");
+    const float mb_width = mb.get_body().x;
+    const float mb_height = mb.get_body().y;
+    const coordinate c_inside(
+          mb.get_x() + mb_width / 2.0,
+          mb.get_y() + mb_height / 2.0
+          );
+    const coordinate c_outside1(
+          mb.get_x() + mb_width / 2.0 + 1.0,
+          mb.get_y() + mb_height / 2.0
+          );
+    const coordinate c_outside2(
+          mb.get_x() + mb_width / 2.0,
+          mb.get_y() + mb_height / 2.0 + 1.0
+          );
+    assert(is_inside_button(c_inside, "about"));
+    assert(!is_inside_button(c_outside1, "about"));
+    assert(!is_inside_button(c_outside2, "about"));
+  }
+#endif // FIX_ISSUE_484
   #endif
 }
