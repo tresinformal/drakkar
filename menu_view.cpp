@@ -32,8 +32,13 @@ bool menu_view::process_events()
         }
       else if (event.type == sf::Event::MouseButtonPressed)
         {
-          m_window.close();
-          return true;
+          //m_menu.get_buttons()[0].get_x()
+          // if (event.mouseButton.x && event.mouseButton.y)
+            {
+              m_window.close();
+              return true;
+            }
+          // Other buttons areas...
         }
     }
   return false;
