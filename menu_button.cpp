@@ -4,18 +4,23 @@
 
 menu_button::menu_button(std::string name,
                          color b_color,
+                         coordinate position,
                          float width,
                          float height)
     : m_body{width, height},
       m_name{name},
+      m_position{position},
       m_color{b_color}
 {
 }
 /// Get x pos of a button
-float menu_button::get_x() const noexcept { return m_x; }
+float menu_button::get_x() const noexcept { return m_position.get_x(); }
 
 /// Get y pos of a button
-float menu_button::get_y() const noexcept { return m_y; }
+float menu_button::get_y() const noexcept { return m_position.get_y(); }
+
+/// Get position of a button
+coordinate menu_button::get_position() const noexcept { return m_position; }
 
   /// Get the sizes of the button
 const sf::Vector2f &menu_button::get_body() const noexcept { return m_body; }

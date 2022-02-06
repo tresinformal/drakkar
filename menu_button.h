@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "color.h"
+#include "coordinate.h"
 
 #include <cassert>
 #include <string>
@@ -12,16 +13,19 @@ class menu_button
 public:
   menu_button(std::string name,
               color b_color,
+              coordinate position,
               float b_width = 200.0f,
               float b_height = 100.0f);
   /// Get x pos of a button
   float get_x() const noexcept;
   /// Get y pos of a button
   float get_y() const noexcept;
+  /// Get coordinate of a button
+  coordinate get_position() const noexcept;
   /// Set the x pos of a button
-  void set_x(float x_pos) { m_x = x_pos; }
+  void set_x(float x_pos) { m_position.set_x(x_pos); }
   /// Set the y pos of a button
-  void set_y(float y_pos) { m_y = y_pos; }
+  void set_y(float y_pos) { m_position.set_y(y_pos); }
   /// Get name of the button
   std::string get_name() const noexcept { return m_name; }
   /// Get button color
@@ -32,8 +36,7 @@ public:
 private:
   sf::Vector2f m_body;
   std::string m_name;
-  float m_x;
-  float m_y;
+  coordinate m_position;
   color m_color;
 };
 
