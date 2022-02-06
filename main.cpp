@@ -88,6 +88,7 @@ void test()
   test_key_action_map();
   test_menu();
   test_menu_button();
+  test_menu_view();
   test_shelter();
   test_color();
   test_projectile_type();

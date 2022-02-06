@@ -32,4 +32,6 @@ private:
 
 #endif // LOGIC_ONLY // that is, compiled on GitHub Actions
 
+void test_menu_view();
+
 #endif // MENU_VIEW_H

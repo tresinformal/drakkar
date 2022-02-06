@@ -32,8 +32,11 @@ bool menu_view::process_events()
         }
       else if (event.type == sf::Event::MouseButtonPressed)
         {
-          //m_menu.get_buttons()[0].get_x()
-          // if (event.mouseButton.x && event.mouseButton.y)
+          coordinate mouse_position(
+                static_cast<double>(event.mouseButton.x),
+                static_cast<double>(event.mouseButton.y)
+                );
+          // if (is_inside_button(mouse_position, "quit"))
             {
               m_window.close();
               return true;
@@ -111,4 +114,18 @@ void menu_view::draw_buttons() noexcept
     m_window.draw(rect);
     m_window.draw(button_text);
   }
+}
+
+void test_menu_view()
+{
+#ifndef NDEBUG // no tests in release
+#ifdef FIX_ISSUE_484
+  {
+    // (484) void test_menu_view()
+    coordinate c(0.0, 0.0);
+    is_inside_button(c, "about");
+  }
+#endif // FIX_ISSUE_484
+
+#endif // not tests in release
 }
