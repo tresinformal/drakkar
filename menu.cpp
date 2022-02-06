@@ -64,7 +64,7 @@ void test_menu()
   // could I use try and catch framework for exceptions in this case?
   {
     menu v;
-    assert(v.get_button(0).get_name() == "action");
+    assert(v.get_button(0).get_label() == "action");
   }
   // buttons are evenly distributed
   // along the height of the screen

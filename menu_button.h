@@ -11,7 +11,7 @@
 class menu_button
 {
 public:
-  menu_button(std::string name,
+  menu_button(std::string label,
               color b_color,
               coordinate position = coordinate(0.0, 0.0),
               float b_width = 200.0f,
@@ -27,7 +27,7 @@ public:
   /// Set the y pos of a button
   void set_y(float y_pos) { m_position.set_y(y_pos); }
   /// Get name of the button
-  std::string get_name() const noexcept { return m_name; }
+  std::string get_label() const noexcept { return m_label; }
   /// Get button color
   color get_color() const noexcept { return m_color;}
   /// Get the sizes of the button
@@ -35,7 +35,7 @@ public:
 
 private:
   sf::Vector2f m_body;
-  std::string m_name;
+  std::string m_label;
   coordinate m_position;
   color m_color;
 };

@@ -70,7 +70,7 @@ void menu_view::draw_buttons() noexcept
   {
     // Extract button's attributes
     menu_button this_button = m_menu.get_button(i);
-    std::string button_label = this_button.get_name();
+    std::string button_label = this_button.get_label();
 
     int r = this_button.get_color().get_red();
     int g = this_button.get_color().get_green();

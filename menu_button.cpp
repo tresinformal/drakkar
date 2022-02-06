@@ -2,13 +2,13 @@
 #include "coordinate.h"
 #include "color.h"
 
-menu_button::menu_button(std::string name,
+menu_button::menu_button(std::string label,
                          color b_color,
                          coordinate position,
                          float width,
                          float height)
     : m_body{width, height},
-      m_name{name},
+      m_label{label},
       m_position{position},
       m_color{b_color}
 {
@@ -44,11 +44,11 @@ void test_menu_button()
         auto height = 42.0f;
         coordinate c = {1.2f, 3.4f};
         color col = create_blue_color();
-        std::string name = "Frank";
-        menu_button m_b{name, col, c, width, height};
+        std::string label = "Frank";
+        menu_button m_b{label, col, c, width, height};
         assert(m_b.get_body().x == width
                 && m_b.get_body().y == height
-               && m_b.get_name() == name);
+               && m_b.get_label() == label);
     }
 #endif
 }
