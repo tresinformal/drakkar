@@ -73,6 +73,19 @@ void test_menu()
     menu_button mb_about = m.get_button(label);
     assert(mb_about.get_label() == label);
   }
+#ifdef FIX_ISSUE_483
+  {
+    // (483) Calling a button that doesn't exist causes an error
+    menu m;
+    std::string wrong_label = "whatever, doesn't exist";
+    try {
+      menu_button mb = m.get_button(wrong_label); // throws exception
+    }
+    catch ( const std::exception& e ) {
+      assert(std::string(e.what()) == std::string("No button in menu has this label."));
+    }
+  }
+#endif
   // buttons are evenly distributed
   // along the height of the screen
   {
