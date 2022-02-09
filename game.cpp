@@ -558,9 +558,10 @@ void put_player_near_food(player &p, const food &f, const double distance)
   p.place_to_position(new_position);
 }
 
-void save(const game&, const std::string& filename)
+void save(const game& g, const std::string& filename)
 {
-
+  assert(g.get_n_ticks() >= 0);
+  assert(!filename.empty());
 }
 
 void test_game() //!OCLINT tests may be many
