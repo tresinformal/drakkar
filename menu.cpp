@@ -124,7 +124,7 @@ void test_menu()
   {
     // (484) void test_menu_view()
     const menu m;
-    const menu_button mb = m.get_button("about");
+    const menu_button mb = m.get_button(0);
     const float mb_width = mb.get_body().x;
     const float mb_height = mb.get_body().y;
     const coordinate c_inside(
@@ -139,9 +139,9 @@ void test_menu()
           mb.get_x() + mb_width / 2.0,
           mb.get_y() + mb_height / 2.0 + 1.0
           );
-    assert(is_inside_button(c_inside, "about"));
-    assert(!is_inside_button(c_outside1, "about"));
-    assert(!is_inside_button(c_outside2, "about"));
+    assert(is_inside_button(c_inside, mb));
+    assert(!is_inside_button(c_outside1, mb));
+    assert(!is_inside_button(c_outside2, mb));
   }
 #endif // FIX_ISSUE_484
   #endif
