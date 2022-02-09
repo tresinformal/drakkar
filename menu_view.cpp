@@ -37,13 +37,22 @@ bool menu_view::process_events()
                 static_cast<double>(event.mouseButton.x),
                 static_cast<double>(event.mouseButton.y)
                 );
+          const menu_button mb_action = m_menu.get_button("action");
+          if (is_inside_button(mouse_position, mb_action))
+            {
+              // switches to game_view
+            }
+          const menu_button mb_about = m_menu.get_button("about");
+          if (is_inside_button(mouse_position, mb_about))
+            {
+              // switches to menu_view
+            }
           const menu_button mb_quit = m_menu.get_button("quit");
           if (is_inside_button(mouse_position, mb_quit))
             {
               m_window.close();
               return true;
             }
-          // Other buttons areas...
         }
     }
   return false;
