@@ -1753,15 +1753,15 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  #define FIX_ISSUE_478
+  //#define FIX_ISSUE_478
   #ifdef FIX_ISSUE_478
   // Saving a game and loading it, must result in the same game
   {
     const game g;
     const std::string filename = "test.txt";
     save(g, filename); // To prevent a bloated/Winnebago class
-    //const game h = load(filename);
-    //assert(g == h);
+    const game h = load(filename);
+    assert(g == h);
   }
   #endif // FIX_ISSUE_478
 
