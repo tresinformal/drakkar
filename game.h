@@ -226,6 +226,11 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
 // Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);
 
+coordinate get_nth_shelter_position(const game &g, const int &n);
+
+/// Save the game to file
+void save(const game& g, const std::string& filename);
+
 void test_game();
 
 #endif // GAMELOGIC_H

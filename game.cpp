@@ -558,6 +558,12 @@ void put_player_near_food(player &p, const food &f, const double distance)
   p.place_to_position(new_position);
 }
 
+void save(const game& g, const std::string& filename)
+{
+  assert(g.get_n_ticks() >= 0);
+  assert(!filename.empty());
+}
+
 void test_game() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
@@ -1743,6 +1749,18 @@ void test_game() //!OCLINT tests may be many
     assert(get_nth_player_state(g, 0) ==  g.get_players()[0].get_state());
   }
 #endif
+
+  //#define FIX_ISSUE_478
+  #ifdef FIX_ISSUE_478
+  // Saving a game and loading it, must result in the same game
+  {
+    const game g;
+    const std::string filename = "test.txt";
+    save(g, filename); // To prevent a bloated/Winnebago class
+    const game h = load(filename);
+    assert(g == h);
+  }
+  #endif // FIX_ISSUE_478
 
 #endif // no tests in release
 }
