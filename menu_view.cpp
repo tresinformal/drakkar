@@ -37,7 +37,7 @@ bool menu_view::process_events()
                 static_cast<double>(event.mouseButton.x),
                 static_cast<double>(event.mouseButton.y)
                 );
-          // if (is_inside_button(mouse_position, "quit"))
+          //if (is_inside_button(mouse_position, "quit"))
             {
               m_window.close();
               return true;

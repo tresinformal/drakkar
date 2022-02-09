@@ -48,6 +48,8 @@ private:
                   );
 };
 
+bool is_inside_button(const coordinate& c, const menu_button& mb);
+
 void test_menu();
 
 #endif // MENU_H

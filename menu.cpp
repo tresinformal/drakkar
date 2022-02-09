@@ -56,6 +56,19 @@ void menu::put_buttons_tidy() noexcept
     }
 }
 
+bool is_inside_button(const coordinate& c, const menu_button& mb)
+{
+  const double right = mb.get_x() + mb.get_body().x / 2.0;
+  const double left = mb.get_x() - mb.get_body().x / 2.0;
+  const double bottom = mb.get_y() + mb.get_body().y / 2.0;
+  const double top = mb.get_y() - mb.get_body().y / 2.0;
+
+  return c.get_x() <= right &&
+      c.get_x() >= left &&
+      c.get_y() <= bottom &&
+      c.get_y() >= top;
+}
+
 void test_menu()
 {
   #ifndef NDEBUG // no tests in release
@@ -120,10 +133,10 @@ void test_menu()
      assert(m.get_button(1).get_name() == "options");
   }
   #endif // FIX_ISSUE_446
-#ifdef FIX_ISSUE_484
+
   {
-    // (484) void test_menu_view()
-    const menu m;
+    // (484) One can detect if a position is inside or outside a menu button
+    menu m;
     const menu_button mb = m.get_button(0);
     const float mb_width = mb.get_body().x;
     const float mb_height = mb.get_body().y;
@@ -143,6 +156,5 @@ void test_menu()
     assert(!is_inside_button(c_outside1, mb));
     assert(!is_inside_button(c_outside2, mb));
   }
-#endif // FIX_ISSUE_484
   #endif
 }
