@@ -156,7 +156,64 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     }
 #ifndef LOGIC_ONLY
 
+ //#define VIEW_SWITCH
+ #ifdef VIEW_SWITCH
 
+  // Default game options
+  game_options options;
+
+  // Default view mode
+  view_mode next_view;
+
+  // Resolve arguments
+  if (args.size() > 1)
+    {
+      if (args[1] == "--menu")
+        {
+          next_view == view_mode::menu;
+        }
+      else if (args[1] == "--options")
+        {
+          next_view == view_mode::options;
+        }
+      else if (args[1] == "--no-sound")
+        {
+          music_off(options);
+        }
+    }
+
+  // Declare all views
+  menu_view mv;
+  game_view gv(options);
+  assert(options == gv.get_options());
+  // other views ...
+
+  // Execute and switch between views
+  while (true) // I'm young and reckless
+    {
+      switch (next_view)
+        {
+        case view_mode::menu:
+          {
+            mv.exec();
+            next_view = mv.what_next();
+            break;
+          }
+        case view_mode::game:
+          {
+            gv.exec();
+            next_view = mv.what_next();
+            break;
+          }
+          // other views ...
+        case view_mode::quit:
+          // Game exits successfully
+          return 0;
+        default:
+          throw std::logic_error("Unknown view mode.");
+        }
+    }
+ #else
   // Show the menu, quits after (for now)
   if (args.size() > 1 && args[1] == "--menu")
     {
@@ -178,5 +235,6 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   game_view v(options);
   assert(options == v.get_options());
   v.exec();
+#endif // VIEW_SWITCH
 #endif // LOGIC_ONLY
 }
