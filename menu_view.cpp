@@ -1,8 +1,6 @@
 #include "menu_view.h"
 #include "coordinate.h"
 
-#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
-
 menu_view::menu_view()
     : m_window(
           sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
@@ -125,5 +123,3 @@ void menu_view::draw_buttons() noexcept
     m_window.draw(button_text);
   }
 }
-
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
