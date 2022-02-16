@@ -30,7 +30,7 @@ bool has_any_player_food_collision(const game& g);
 bool has_any_player_wall_collision(const game& g);
 bool has_any_player_projectile_collision(const game & g) noexcept;
 
-// Abou shelters
+// About shelters
 std::vector<coordinate> get_all_shelter_positions(const game& g);
 coordinate get_nth_shelter_position(const game &g, const int &n);
 

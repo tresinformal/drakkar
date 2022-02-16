@@ -518,14 +518,14 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-//#define ISSUE_246
-#ifdef ISSUE_246
+//#define FIX_ISSUE_246
+#ifdef FIX_ISSUE_246
     // Game options should be the same
     {
         game_view gw(get_random_game_options(300));
         assert(gw.get_options().get_kam_1() == gw.get_game().get_)
     }
-#endif // ISSUE_246
+#endif // FIX_ISSUE_246
 
     // Pressing the stun key shoots a stun rocket
     {

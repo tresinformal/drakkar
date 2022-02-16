@@ -220,13 +220,14 @@ bool are_colliding(const player& pl, const projectile& p);
 /// Check that player and food are in collision, i.e. same position and food uneaten
 bool are_colliding(const player &p, const food &f);
 
-///Places a projectile in front of the player
+/// Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
 
-// Place a food item at a random position
+/// Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);
 
-coordinate get_nth_shelter_position(const game &g, const int &n);
+/// Check if one or more shelters share the same position
+bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters);
 
 /// Save the game to file
 void save(const game& g, const std::string& filename);
