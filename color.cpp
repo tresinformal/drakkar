@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 color::color(const int r, const int g, const int b, const int a)
   : m_r{r}, m_g{g}, m_b{b}, m_a{a}
@@ -89,10 +90,10 @@ std::string to_str(const color& in_color) noexcept
 
 bool is_first_color_winner(const color& c1, const color& c2)
 {
-    double hue1 = calc_hue(c1);
-    double hue2 = calc_hue(c2);
+  double hue1 = calc_hue(c1);
+  double hue2 = calc_hue(c2);
 
-    return (hue1 == 0.0 && hue2 == 120.0) || (hue1 == 120.0 && hue2 == 240.0) || (hue1 == 240.0 && hue2 == 0.0);
+  return (hue1 == 0.0 && hue2 == 120.0) || (hue1 == 120.0 && hue2 == 240.0) || (hue1 == 240.0 && hue2 == 0.0);
 }
 
 void test_color()
@@ -195,6 +196,34 @@ void test_color()
     assert(!is_first_color_winner(scissors, rock));
   }
 #endif // FIX_ISSUE_230
+
+  //#define FIX_ISSUE_448
+#ifdef FIX_ISSUE_448
+  // #448 Colors from class color can be converted to SFML's sf::Color class
+  {
+    const color c1{0, 21, 255, 10};
+    sf::Color c2{0, 21, 255, 10};
+    assert(to_sf_color(c1) == c2);
+  }
+#endif // FIX_ISSUE_448
+
+//#define FIX_ISSUE_460
+#ifdef FIX_ISSUE_460
+  // #460 Ready-made black and white colors are available
+  {
+    const color black = create_black_color();
+    assert(get_redness(black) == 255);
+    assert(get_greenness(black) == 255);
+    assert(get_blueness(black) == 255);
+  }
+  {
+    const color white = create_white_color();
+    assert(get_redness(white) == 0);
+    assert(get_greenness(white) == 0);
+    assert(get_blueness(white) == 0);
+  }
+#endif // FIX_ISSUE_460
+
 
 
 #endif // NDEBUG

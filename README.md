@@ -13,33 +13,16 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/stefano)
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
 `christiaan`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=christiaan)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=christiaan)](https://codecov.io/github/tresinformal/game/branch/christiaan)
-
+`yang`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=yang)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=yang)](https://codecov.io/github/tresinformal/game/branch/yang)
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
 A video game, developed informally and professionally.
-
-## Coding via Discord
-
-We developing our game, while chatting on Discord.
-To join, send Richel a Discord Friend Request: `richelbilderbeek#9002`.
-He'll add you to the tresinformal server.
-
-Our Discord server has mostly obvious rules that follow from the categories:
-
- * 4x 'Group Rooms': rooms for duos/triplets, open for questions
- * 2x 'Offices With An Open Door': single room, open for questions
- * 2x 'Offices With A Closed Door': single room, please do not disturb
-
-One rule that needs to be written down, however, is that members 
-are never allowed to silence another member, not even as a joke.
-
-See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [download (.OGG)](http://richelbilderbeek.nl/dutch_by_kids_students.ogv)
 
 ## Meetings
 
  * Date: Weekly, every Wednesday
  * Time: 17:00-19:00
- * On Discord
+ * On Discord, see [FAQ](faq.md)
 
 We follow this timetable:
 
@@ -66,14 +49,14 @@ Ideas:
 
 Issue                                                 |Idea
 ------------------------------------------------------|------------------------
-[https://github.com/tresinformal/game/issues/221](221)|-1. Rock-Paper-Scissor dynamics
-[https://github.com/tresinformal/game/issues/219](219)|0. Food
-[https://github.com/tresinformal/game/issues/208](208)|1. Stun
-[https://github.com/tresinformal/game/issues/209](209)|2. Poison
-[https://github.com/tresinformal/game/issues/210](210)|3. Regenerating walls
-[https://github.com/tresinformal/game/issues/212](212)|4. Heal
-[https://github.com/tresinformal/game/issues/222](222)|5. Targeting system
-[https://github.com/tresinformal/game/issues/223](223)|6. Minimap
+[221](https://github.com/tresinformal/game/issues/221)|-1. Rock-Paper-Scissor dynamics
+[219](https://github.com/tresinformal/game/issues/219)|0. Food
+[208](https://github.com/tresinformal/game/issues/208)|1. Stun
+[209](https://github.com/tresinformal/game/issues/209)|2. Poison
+[210](https://github.com/tresinformal/game/issues/210)|3. Regenerating walls
+[212](https://github.com/tresinformal/game/issues/212)|4. Heal
+[222](https://github.com/tresinformal/game/issues/222)|5. Targeting system
+[223](https://github.com/tresinformal/game/issues/223)|6. Minimap
 
 ## [Installation](install.md)
 
@@ -107,69 +90,9 @@ Date       |Activity
 .          |move to C++14
 .          |add clang tidy
 
-## I am a newbie developer. What must I do?
+## [Frequently Asked Questions](faq.md)
 
-Welcome to the team! Here is a more-or-less-chronological (i.e. if you
-get stuck, start working on the next one) list of what to do:
-
- * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
- * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)
- * [Modify README.md on master branch](https://github.com/tresinformal/game/issues/19)
- * [Make a branch for yourself via the GitHub web interface](https://github.com/tresinformal/game/issues/47)
- * [Modify README.md on your local harddrive on your own branch](https://github.com/tresinformal/game/issues/48)
- * [Add your branch's badges to the README.md](https://github.com/tresinformal/game/issues/87)
-
-When you feel comfortable with the workflow, you become a junior developer!
-
-## I am a junior developer, what should I do?
-
-Junior developers are those that feel comfortable enough with the workflow
-to write their own tests. Next to programming, juniors will
-occasionally teach newbies.
-
-You will be practicing:
-
- * Team development workflow
- * git an GitHub
- * C++ and SFML entry level development
-
-Start from an idea of a visible change in the game,
-for example, 'The players should be able to do a little dance'.
-Create an Issue for that and assign yourself to it
-Work from big to small, in TDD fashion.
-
-For a big Issue:
-
- * Postpone the hard work, create simpler and simpler tests, 
-   until a test can be fixed by a small Issue.
- * Do push the #IFDEF-ed tests
-
-For a small Issue:
-
- * Write a test that breaks the build
- * Make the test pass
- * Push to GitLab
-
-Golden rules:
-
- * Whatever you work on, always be assigned to an Issue
- * Whatever code you develop, always be working to fix a test,
-   unless you work on graphics
- * If all tests pass, we are -by definition- happy :)
-
-## I am a medior developer, what should I do?
-
-A medior developer 
-
- * writes tests and creates Issues for juniors and themselves
- * does code reviews
- * works on more complex issues, such as improving the architecture of
-   the code or improving the continuous integration tools (whatever those are :-))
- * see the bigger picture of the code and the team.
-
-You know what to do :+1:
-
-
+See the [FAQ](faq.md).
 
 ## Screenshots
 

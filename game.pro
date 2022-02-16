@@ -59,5 +59,3 @@ win32{
   LIBS += -lgdi32
   LIBS += -lwinmm
 }
-
-
