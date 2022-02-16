@@ -43,7 +43,7 @@ void shelter::make_shelter_drift()
   m_c = coordinate(new_x, new_y);
 }
 
-void place_randomly(std::mt19937 &rng, const coordinate &top_left, const coordinate &bottom_right)
+void shelter::place_randomly(std::mt19937 &rng, const coordinate &top_left, const coordinate &bottom_right)
 {
     std::uniform_real_distribution<> dis_x(top_left.get_x(), bottom_right.get_x());
     std::uniform_real_distribution<> dis_y(top_left.get_y(), bottom_right.get_y());
