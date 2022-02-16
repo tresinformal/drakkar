@@ -560,7 +560,15 @@ void put_player_near_food(player &p, const food &f, const double distance)
 
 bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters)
 {
-    return have_same_position(shelters[0], other_shelters[1]);
+    bool same_position = false;
+    for (size_t i = 0; i < shelters.size(); i++)
+    {
+        if(have_same_position(shelters[i], other_shelters[i]))
+        {
+            same_position = true;
+        }
+    }
+    return same_position;
 }
 
 void save(const game& g, const std::string& filename)

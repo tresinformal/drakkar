@@ -518,7 +518,7 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-//#define FIX_ISSUE_246
+// #define FIX_ISSUE_246
 #ifdef FIX_ISSUE_246
     // Game options should be the same
     {
