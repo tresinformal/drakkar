@@ -227,7 +227,7 @@ void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, con
 void place_nth_food_randomly(game &g, const int &n);
 
 /// Check if one or more shelters share the same position
-bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters);
+bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept;
 
 /// Save the game to file
 void save(const game& g, const std::string& filename);

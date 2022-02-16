@@ -56,21 +56,21 @@ game::game(const environment& the_environment,
     assert(m_shelters.size() == n_shelters);
     int i = 0;
     for (auto &this_shelter : m_shelters)
-      {
-        const double angle{2.0 * M_PI * static_cast<double>(i) /
-              static_cast<double>(m_shelters.size())};
-        const double mid_x{1000.0};
-        const double mid_y{500.0};
-        const double spread{500.0};
-        const double x{mid_x + (std::sin(angle) * spread)};
-        const double y{mid_y - (std::cos(angle) * spread)};
-        const coordinate c{x, y};
-        const double radius{50.0};
-        const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+    {
+      const double angle{2.0 * M_PI * static_cast<double>(i) /
+            static_cast<double>(m_shelters.size())};
+      const double mid_x{1000.0};
+      const double mid_y{500.0};
+      const double spread{500.0};
+      const double x{mid_x + (std::sin(angle) * spread)};
+      const double y{mid_y - (std::cos(angle) * spread)};
+      const coordinate c{x, y};
+      const double radius{50.0};
+      const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
                       i % 3 == 2 ? 255 : 0, 128 + 64);
-        this_shelter = shelter(c, radius, col);
-        ++i;
-      }
+      this_shelter = shelter(c, radius, col);
+      ++i;
+    }
   }
 }
 
@@ -558,7 +558,7 @@ void put_player_near_food(player &p, const food &f, const double distance)
   p.place_to_position(new_position);
 }
 
-bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters)
+bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept
 {
     bool same_position = false;
     for (size_t i = 0; i < shelters.size(); i++)
