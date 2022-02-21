@@ -1379,9 +1379,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  #define FIX_ISSUE_340
-  #ifdef FIX_ISSUE_340
-  // make sure that eat_nth_food() throws a logic_error when the food is already eaten
+  // (340) make sure that eat_nth_food() throws a logic_error when the food is already eaten
   {
     game g; //by default one uneaten food
     assert(has_uneaten_food(g));
@@ -1394,7 +1392,6 @@ void test_game() //!OCLINT tests may be many
       assert(std::string(e.what()) == std::string("You cannot eat food that already has been eaten!"));
     }
   }
-  #endif // FIX_ISSUE_340
 
   // number of food item stays the same,
   // only the state of food item changes after they are eaten
