@@ -1504,6 +1504,7 @@ void test_game() //!OCLINT tests may be many
     const int n_enemies = 1;
     const int n_food = 2;
     game g(
+      game_options(),
       wall_short_side,
       num_players,
       n_ticks,
