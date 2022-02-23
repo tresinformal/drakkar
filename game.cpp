@@ -56,21 +56,22 @@ game::game(const environment& the_environment,
     assert(m_shelters.size() == n_shelters);
     int i = 0;
     for (auto &this_shelter : m_shelters)
-      {
-        const double angle{2.0 * M_PI * static_cast<double>(i) /
-              static_cast<double>(m_shelters.size())};
-        const double mid_x{1000.0};
-        const double mid_y{500.0};
-        const double spread{500.0};
-        const double x{mid_x + (std::sin(angle) * spread)};
-        const double y{mid_y - (std::cos(angle) * spread)};
-        const coordinate c{x, y};
-        const double radius{50.0};
-        const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+    {
+      const double angle{2.0 * M_PI * static_cast<double>(i) /
+            static_cast<double>(m_shelters.size())};
+      const double mid_x{1000.0};
+      const double mid_y{500.0};
+      const double spread{500.0};
+      const double x{mid_x + (std::sin(angle) * spread)};
+      const double y{mid_y - (std::cos(angle) * spread)};
+      const coordinate c{x, y};
+      const double radius{50.0};
+      const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
                       i % 3 == 2 ? 255 : 0, 128 + 64);
-        this_shelter = shelter(c, radius, col);
-        ++i;
-      }
+      this_shelter = shelter(c, radius, col);
+      this_shelter.place_randomly(get_rng(), c.get_x(), c.get_y());
+      ++i;
+    }
   }
 }
 
@@ -556,6 +557,25 @@ void put_player_near_food(player &p, const food &f, const double distance)
   auto f_p = f.get_position();
   coordinate new_position = coordinate(get_x(f_p) + distance, get_y(f_p));
   p.place_to_position(new_position);
+}
+
+bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept
+{
+    bool same_position = false;
+    for (size_t i = 0; i < shelters.size(); i++)
+    {
+        if(have_same_position(shelters[i], other_shelters[i]))
+        {
+            same_position = true;
+        }
+    }
+    return same_position;
+}
+
+void save(const game& g, const std::string& filename)
+{
+  assert(g.get_n_ticks() >= 0);
+  assert(!filename.empty());
 }
 
 void test_game() //!OCLINT tests may be many
@@ -1139,7 +1159,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-// #define FIX_ISSUE_315
+#define FIX_ISSUE_315
 #ifdef FIX_ISSUE_315
   // Initial shelters are at random locations over the whole arena
   {
@@ -1172,9 +1192,9 @@ void test_game() //!OCLINT tests may be many
            );
 
     const std::vector<coordinate> some_shelter_positions = get_all_shelter_positions(a_game);
-    assert(some_shelter_positions.size() == n_shelters);
+    assert(some_shelter_positions.size() == static_cast<size_t>(n_shelters));
     const std::vector<coordinate> other_shelter_positions = get_all_shelter_positions(another_game);
-    assert(other_shelter_positions.size() == n_shelters);
+    assert(other_shelter_positions.size() == static_cast<size_t>(n_shelters));
 
     assert(!all_positions_equal(some_shelter_positions, other_shelter_positions));
    }
@@ -1738,7 +1758,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_464
+// #define FIX_ISSUE_464
 #ifdef FIX_ISSUE_464
   {
     // (464) A player's state can be accessed easily
@@ -1746,6 +1766,18 @@ void test_game() //!OCLINT tests may be many
     assert(get_nth_player_state(g, 0) ==  g.get_players()[0].get_state());
   }
 #endif
+
+  //#define FIX_ISSUE_478
+  #ifdef FIX_ISSUE_478
+  // Saving a game and loading it, must result in the same game
+  {
+    const game g;
+    const std::string filename = "test.txt";
+    save(g, filename); // To prevent a bloated/Winnebago class
+    const game h = load(filename);
+    assert(g == h);
+  }
+  #endif // FIX_ISSUE_478
 
 #endif // no tests in release
 }

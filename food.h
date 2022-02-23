@@ -36,6 +36,8 @@ private:
   food_state m_food_state;
   double m_radius;
 };
+///Compares two food objects for equality
+bool operator==(const food& lhs, const food& rhs) noexcept;
 
 void test_food();
 ///get the position of an inputted food object
