@@ -111,6 +111,8 @@ void test()
 
 int main(int argc, char **argv) //!OCLINT tests may be long
 {
+  const game_view gw;
+  const game g = gw.get_game();
 
 #ifndef NDEBUG
   assert(0.1 > 0.0); //!OCLINT indeed a constant conditional
