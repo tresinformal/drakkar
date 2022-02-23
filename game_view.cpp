@@ -517,11 +517,14 @@ void test_game_view()//!OCLINT tests may be many
         assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
 
     }
+    //#define FIX_ISSUE_246
+    #ifdef FIX_ISSUE_246
     // Game options should be the same
     {
         game_view gw(get_random_game_options(300));
         assert(gw.get_options().get_kam_1() == gw.get_game().get_)
     }
+    #endif // FIX_ISSUE_246
     // Pressing the stun key shoots a stun rocket
     {
       game_view gw(get_random_game_options(300));
