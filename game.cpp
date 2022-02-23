@@ -1131,7 +1131,7 @@ void test_game() //!OCLINT tests may be many
     int n_ticks = 0;
     int n_shelters = 5;
 
-    game g(wall_short_side, num_players, n_ticks, n_shelters);
+    game g(game_options(), wall_short_side, num_players, n_ticks, n_shelters);
 
     std::vector<coordinate> expected_shelter_positions;
     for (int n = 0; n < n_shelters; ++n)
