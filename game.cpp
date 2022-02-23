@@ -12,13 +12,16 @@
 #include <iostream>
 #include <random>
 
-game::game(const environment& the_environment,
-           int num_players,
-           int n_ticks,
-           size_t n_shelters,
-           int n_enemies,
-           int n_food,
-           int seed):
+game::game(
+  const game_options& options,
+  const environment& the_environment,
+  int num_players,
+  int n_ticks,
+  size_t n_shelters,
+  int n_enemies,
+  int n_food,
+  int seed
+) :
   m_seed{seed},
   m_rng(seed),
   m_n_ticks{n_ticks},
@@ -1722,7 +1725,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_471
+#define FIX_ISSUE_471
 #ifdef FIX_ISSUE_471
   {
     const game_options options;
