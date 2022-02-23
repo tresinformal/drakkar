@@ -7,9 +7,11 @@
 #include "player_shape.h"
 #include "player_state.h"
 #include "read_only.h"
-#include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <vector>
 #include <set>
+
 
 
 class player

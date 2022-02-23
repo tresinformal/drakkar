@@ -1,6 +1,7 @@
 #ifndef PROJECTILE_TYPE_H
 #define PROJECTILE_TYPE_H
 #include <iosfwd>
+#include<string>
 
 enum class projectile_type
 {

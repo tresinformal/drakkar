@@ -1,6 +1,7 @@
 #ifndef FOOD_TYPE_H
 #define FOOD_TYPE_H
 #include <iosfwd>
+#include<string>
 
 enum class food_type
 {

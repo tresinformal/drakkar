@@ -1,5 +1,7 @@
 #ifndef KEY_TO_ACTION_MAP_H
 #define KEY_TO_ACTION_MAP_H
+#include <map>
+#include <vector>
 #include "action_type.h"
 #include "SFML/Graphics.hpp"
 

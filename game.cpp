@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <iostream>
 #include <random>
+#include <numeric>
 
 game::game(const environment& the_environment,
            int num_players,
