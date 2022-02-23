@@ -69,6 +69,7 @@ game::game(const environment& the_environment,
       const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
                       i % 3 == 2 ? 255 : 0, 128 + 64);
       this_shelter = shelter(c, radius, col);
+      this_shelter.place_randomly(get_rng(), c.get_x(), c.get_y());
       ++i;
     }
   }
