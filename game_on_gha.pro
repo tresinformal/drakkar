@@ -12,6 +12,7 @@ win32{
 
 # All files
 include(game.pri)
+include(game_view.pri.pri)
 
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
