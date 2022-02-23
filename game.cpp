@@ -24,6 +24,7 @@ game::game(
 ) :
   m_seed{seed},
   m_rng(seed),
+  m_options{options},
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
@@ -1072,7 +1073,8 @@ void test_game() //!OCLINT tests may be many
   {
     double wall_short_side = 720.0;
     environment some_environment = environment(wall_short_side);
-    game g(some_environment);
+    game_options options;
+    game g(options,some_environment);
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
