@@ -1636,7 +1636,8 @@ void test_game() //!OCLINT tests may be many
     int n_food = 0;
 
     int seed = 123456789;
-    game g(short_wall_side,
+    game g(game_options(),
+           short_wall_side,
            n_players,
            n_ticks,
            n_shelters,
