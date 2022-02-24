@@ -13,15 +13,17 @@
 #include <random>
 #include <numeric>
 
-game::game(const environment& the_environment,
-           int num_players,
-           int n_ticks,
-           size_t n_shelters,
-           int n_enemies,
-           int n_food,
-           int seed):
-  m_seed{seed},
-  m_rng(seed),
+game::game(
+  const game_options& options,
+  const environment& the_environment,
+  int num_players,
+  int n_ticks,
+  size_t n_shelters,
+  int n_enemies,
+  int n_food
+) :
+  m_rng(options.get_rng_seed()),
+  m_options{options},
   m_n_ticks{n_ticks},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
@@ -1070,7 +1072,8 @@ void test_game() //!OCLINT tests may be many
   {
     double wall_short_side = 720.0;
     environment some_environment = environment(wall_short_side);
-    game g(some_environment);
+    game_options options;
+    game g(options,some_environment);
     assert(g.get_env().get_wall_s_side() - wall_short_side < 0.00001 &&
            g.get_env().get_wall_s_side() - wall_short_side > -0.00001);
   }
@@ -1127,7 +1130,7 @@ void test_game() //!OCLINT tests may be many
     int n_ticks = 0;
     int n_shelters = 5;
 
-    game g(wall_short_side, num_players, n_ticks, n_shelters);
+    game g(game_options(), wall_short_side, num_players, n_ticks, n_shelters);
 
     std::vector<coordinate> expected_shelter_positions;
     for (int n = 0; n < n_shelters; ++n)
@@ -1500,6 +1503,7 @@ void test_game() //!OCLINT tests may be many
     const int n_enemies = 1;
     const int n_food = 2;
     game g(
+      game_options(),
       wall_short_side,
       num_players,
       n_ticks,
@@ -1623,22 +1627,23 @@ void test_game() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_288
   {
     // default game arguments
-    double short_wall_side = 1600;
-    int n_players = 0;
-    int n_ticks = 0;
-    int n_shelters = 0;
-    int n_enemies = 0;
-    int n_food = 0;
+    const double short_wall_side = 1600;
+    const int n_players = 0;
+    const int n_ticks = 0;
+    const int n_shelters = 0;
+    const int n_enemies = 0;
+    const int n_food = 0;
 
-    int seed = 123456789;
-    game g(short_wall_side,
-           n_players,
-           n_ticks,
-           n_shelters,
-           n_enemies,
-           n_food,
-           seed
-           );
+    const int seed = 123456789;
+    game g(
+      game_options(seed),
+      short_wall_side,
+      n_players,
+      n_ticks,
+      n_shelters,
+      n_enemies,
+      n_food
+    );
     std::mt19937 expected_rng(seed);
     assert(g.get_rng()() - expected_rng() < 0.00001 &&
            g.get_rng()() - expected_rng() > -0.00001);
@@ -1723,7 +1728,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_471
+#define FIX_ISSUE_471
 #ifdef FIX_ISSUE_471
   {
     const game_options options;
