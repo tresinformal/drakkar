@@ -28,8 +28,21 @@ project("game" C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SFML_DIR "C:/Qt/sfml/lib/cmake/SFML")
-find_package(SFML COMPONENTS graphics audio REQUIRED)
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+if(MINGW)
+set(CMAKE_PREFIX_PATH "C:/Qt/6.1.1/mingw81_64")
+elseif(MSVC)
+set(CMAKE_PREFIX_PATH "C:/Qt/6.1.1/msvc2019_64")
+endif()
+
 find_package(Qt6 COMPONENTS Core REQUIRED)
+
 if(UNIX)
 set(CMAKE_BUILD_TYPE "Debug")
 endif()
@@ -47,5 +60,5 @@ endif()
 
 add_executable("game" ${src})
 
-target_link_libraries(game PRIVATE SFML::graphics SFML::audio)
+target_link_libraries(game PRIVATE sfml-graphics sfml-audio)
 target_link_libraries(game PRIVATE Qt6::Core)
