@@ -1,7 +1,7 @@
 #include "menu_view.h"
 #include "coordinate.h"
 
-#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
 menu_view::menu_view()
     : m_window(
@@ -124,6 +124,15 @@ void menu_view::draw_buttons() noexcept
     m_window.draw(rect);
     m_window.draw(button_text);
   }
+}
+
+void test_menu_view() //!OCLINT tests may be many
+{
+#ifndef NDEBUG // no tests in release
+
+  // write some tests here...
+
+#endif // NDEBUG
 }
 
 #endif // LOGIC_ONLY // that is, compiled on GitHub Actions

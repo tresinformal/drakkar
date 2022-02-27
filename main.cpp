@@ -102,6 +102,8 @@ void test()
 
 #ifndef LOGIC_ONLY
   test_game_view();
+  test_menu_view();
+  test_options_view();
   test_game_resources();
 #endif // LOGIC_ONLY
 #endif

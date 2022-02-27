@@ -1,4 +1,7 @@
 #include "options_view.h"
+#include <cassert>
+
+#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
 options_view::options_view()
     :  m_window(
@@ -67,4 +70,17 @@ void options_view::show()
   // Display all shapes
   m_window.display();
 }
+
+void test_options_view() //!OCLINT tests may be many
+{
+#ifndef NDEBUG // no tests in release
+
+  // write some tests here...
+
+#endif // NDEBUG
+}
+
+#endif // LOGIC_ONLY
+
+
 

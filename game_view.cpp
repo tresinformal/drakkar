@@ -1,6 +1,6 @@
 #include "game_view.h"
 
-#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+#ifndef LOGIC_ONLY // so this is NOT compiled on GitHub Actions
 
 #include "food.h"
 #include "game.h"
@@ -324,16 +324,6 @@ void game_view::show() noexcept
     draw_player_coords();
     #endif
 
-    if (1 == 2)
-    {
-        sf::Text text;
-        text.setString("Hello world");
-        text.setPosition(10, 10);
-        text.setFont(game_resources().get_font());
-        text.setScale(100.0, 100.0);
-        m_window.draw(text);
-    }
-
     // Display all shapes
     m_window.display();
 }
@@ -372,7 +362,7 @@ bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
     return is_stunned(p1);
 }
 
-void test_game_view()//!OCLINT tests may be many
+void test_game_view() //!OCLINT tests may be many
 {
     #ifndef NDEBUG // no tests in release
     {
@@ -526,4 +516,4 @@ void test_game_view()//!OCLINT tests may be many
   #endif
 }
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+#endif // LOGIC_ONLY

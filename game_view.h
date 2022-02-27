@@ -1,8 +1,6 @@
 #ifndef GAME_VIEW_H
 #define GAME_VIEW_H
 
-//#ifndef LOGIC_ONLY // that is, not compiled on GitHub Actions
-
 #include "game.h"
 #include "game_resources.h"
 #include "game_options.h"
@@ -104,10 +102,8 @@ key_action_map get_player_kam(const player& p);
 /// Parses input for a player
 player player_input(player p, sf::Event event);
 
-void test_game_view();
-
 bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
 
-//#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+void test_game_view();
 
 #endif // GAME_VIEW_H

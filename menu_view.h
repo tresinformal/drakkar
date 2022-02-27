@@ -1,7 +1,7 @@
 #ifndef MENU_VIEW_H
 #define MENU_VIEW_H
 
-#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+#ifndef LOGIC_ONLY // so this is NOT compiled on GitHub Actions
 
 #include "SFML/Graphics.hpp"
 #include "game_resources.h"
@@ -30,6 +30,8 @@ private:
   void show();
 };
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+void test_menu_view();
+
+#endif // LOGIC_ONLY
 
 #endif // MENU_VIEW_H
