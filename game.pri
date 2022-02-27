@@ -65,4 +65,3 @@ SOURCES += \
 RESOURCES += \
     game_resources.qrc
 
-

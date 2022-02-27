@@ -35,12 +35,12 @@ menu_button &menu::get_button(int index)
 menu_button &menu::get_button(const std::string& label)
 {
   for (auto& mb : m_v_buttons)
-   {
-    if (mb.get_label() == label)
-      {
-        return mb;
-      }
-   }
+    {
+      if (mb.get_label() == label)
+        {
+          return mb;
+        }
+    }
   // If no match return an error
   throw std::logic_error("No button in menu has this label.");
 }
