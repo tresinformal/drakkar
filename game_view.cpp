@@ -101,12 +101,20 @@ bool game_view::process_events()
         }
 
         else if (event.type == sf::Event::KeyPressed)
-        {
-            for(auto& player : m_game.get_v_player())
-            {
-                player = player_input(player,event);
-            }
-        }
+          {
+            sf::Keyboard::Key key_pressed = event.key.code;
+            if (key_pressed == sf::Keyboard::Key::Escape)
+              {
+                m_next_view = view_mode::menu;
+                return true;
+              }
+            else {
+                for(auto& player : m_game.get_v_player())
+                  {
+                    player = player_input(player,event);
+                  }
+              }
+          }
         else if (event.type == sf::Event::KeyReleased)
         {
             for(auto& player : m_game.get_v_player())
