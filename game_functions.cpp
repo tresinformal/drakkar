@@ -168,6 +168,7 @@ std::vector<coordinate> get_all_shelter_positions(const game& g)
 coordinate get_nth_shelter_position(const game &g, const int &n)
 {
   assert(n >= 0);
+  assert(n < static_cast<int>(g.get_shelters().size()));
   return g.get_shelters()[n].get_position();
 }
 
