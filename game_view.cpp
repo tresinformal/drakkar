@@ -523,14 +523,12 @@ void test_game_view() //!OCLINT tests may be many
     assert(count_n_projectiles(g) == 1);
   }
 
-  #ifdef FIX_ISSUE_494
   // (494) There should be a member of type view_mode
   {
     game_view gv;
     view_mode expected_next_view = view_mode::quit;
     assert(gv.what_next() == expected_next_view);
   }
-  #endif
 
   #endif
 }
