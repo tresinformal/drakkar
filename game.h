@@ -23,7 +23,6 @@ public:
     const game_options& options = game_options(),
     const environment& the_environment = environment(),
     int num_players = 3,
-    int n_ticks = 0,
     std::size_t n_shelters = 42,
     int n_enemies = 1,
     int n_food = 1
