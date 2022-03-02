@@ -130,7 +130,14 @@ void test_menu_view() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
 
-  // write some tests here...
+#ifdef FIX_ISSUE_495
+// (495) There should be a member of type view_mode
+{
+  menu_view mv;
+  view_mode expected_next_view = view_mode::quit;
+  assert(mv.what_next() == expected_next_view);
+}
+#endif
 
 #endif // NDEBUG
 }
