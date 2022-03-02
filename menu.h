@@ -27,6 +27,9 @@ public:
   /// Get one button at index i
   menu_button &get_button(int index);
 
+  /// Get one button at index i
+  menu_button &get_button(const std::string& label);
+
   /// Sets the position of the buttons
   /// aligned in the center and equally
   /// distant vertically
@@ -44,6 +47,8 @@ private:
                   color() // black
                   );
 };
+
+bool is_inside_button(const coordinate& c, const menu_button& mb);
 
 void test_menu();
 
