@@ -1,19 +1,9 @@
 #add Qt library
 find_package(Qt6 COMPONENTS Core REQUIRED)
 
-#add resource files
-qt_add_resources(resources_for_game "${PROJECT_SOURCE_DIR}/game_resources.qrc")
-
 #add sfml
 set(SFML_DIR "C:/Qt/sfml/lib/cmake/SFML")
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
-
-#include source files
-file(GLOB src
-     "${PROJECT_SOURCE_DIR}/src/*.cpp"
-     "${PROJECT_SOURCE_DIR}/src/*.hpp"
-     "${PROJECT_SOURCE_DIR}/src/*.h"
-)
 
 
 #add compiler flags for GNUCC
@@ -25,6 +15,16 @@ endif()
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+
+#include source files
+file(GLOB src
+     "${PROJECT_SOURCE_DIR}/src/*.cpp"
+     "${PROJECT_SOURCE_DIR}/src/*.hpp"
+     "${PROJECT_SOURCE_DIR}/src/*.h"
+)
+
+#add resource files
+qt_add_resources(resources_for_game "${PROJECT_SOURCE_DIR}/resources/game_resources.qrc")
 
 add_executable("game" ${src} ${resources_for_game})
 
