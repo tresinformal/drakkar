@@ -1160,37 +1160,37 @@ void test_game() //!OCLINT tests may be many
   // Initial shelters are at random locations over the whole arena
   {
     // default game arguments
-    const environment& the_environment = environment();
-    int num_players = 0;
-    std::size_t n_shelters = 10;
-    int n_enemies = 0;
-    int n_food = 0;
+    const environment the_environment;
+    const int num_players = 0;
+    const int n_shelters = 10;
+    const int n_enemies = 0;
+    const int n_food = 0;
 
-    const game_options& a_options = game_options(2);
-    const game a_game(a_options,
-           the_environment,
-           num_players,
-           n_shelters,
-           n_enemies,
-           n_food
-           );
+    const game_options options_1 = game_options(2);
+    const game game_1(options_1,
+      the_environment,
+      num_players,
+      n_shelters,
+      n_enemies,
+      n_food
+    );
 
-    const game_options& another_options(3);
-    const game another_game(another_options,
-           the_environment,
-           num_players,
-           n_shelters,
-           n_enemies,
-           n_food
-           );
+    const game_options options_2(3);
+    const game game_2(
+      options_2,
+      the_environment,
+      num_players,
+      n_shelters,
+      n_enemies,
+      n_food
+     );
 
-    const std::vector<coordinate> some_shelter_positions = get_all_shelter_positions(a_game);
-    assert(some_shelter_positions.size() == static_cast<size_t>(n_shelters));
-    const std::vector<coordinate> other_shelter_positions = get_all_shelter_positions(another_game);
-    assert(other_shelter_positions.size() == static_cast<size_t>(n_shelters));
-
-    assert(!all_positions_equal(some_shelter_positions, other_shelter_positions));
-   }
+    const auto shelter_positions_1 = get_all_shelter_positions(game_1);
+    assert(shelter_positions_1.size() == n_shelters);
+    const auto shelter_positions_2 = get_all_shelter_positions(game_2);
+    assert(shelter_positions_2.size() == n_shelters);
+    assert(!all_positions_equal(shelter_positions_1, shelter_positions_2));
+  }
 
   ///Players in game are initialized with ID equal to their index
   {
