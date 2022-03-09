@@ -1162,31 +1162,38 @@ void test_game() //!OCLINT tests may be many
   // Initial shelters are at random locations over the whole arena
   {
     // default game arguments
-    double short_wall_side = 1600;
-    int n_players = 0;
-    int n_ticks = 0;
-    int n_shelters = 10;
+//    double short_wall_side = 1600;
+//    int n_players = 0;
+//    int n_ticks = 0;
+//    int n_shelters = 10;
+//    int n_enemies = 0;
+//    int n_food = 0;
+
+//    int a_seed = 2;
+
+    const environment& the_environment = environment();
+    int num_players = 0;
+    std::size_t n_shelters = 10;
     int n_enemies = 0;
     int n_food = 0;
 
-    int a_seed = 2;
-    const game a_game(short_wall_side,
-           n_players,
-           n_ticks,
+    const game_options& a_options = game_options(2);
+    const game a_game(a_options,
+           the_environment,
+           num_players,
            n_shelters,
            n_enemies,
-           n_food,
-           a_seed
+           n_food
            );
 
-    int another_seed = 3;
-    const game another_game(short_wall_side,
-           n_players,
-           n_ticks,
+//    int another_seed = 3;
+    const game_options& another_options(3);
+    const game another_game(another_options,
+           the_environment,
+           num_players,
            n_shelters,
            n_enemies,
-           n_food,
-           another_seed
+           n_food
            );
 
     const std::vector<coordinate> some_shelter_positions = get_all_shelter_positions(a_game);
