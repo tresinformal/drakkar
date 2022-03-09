@@ -1159,36 +1159,13 @@ void test_game() //!OCLINT tests may be many
 
   // Initial shelters are at random locations over the whole arena
   {
-    // default game arguments
-    const environment the_environment;
-    const int num_players = 0;
-    const int n_shelters = 10;
-    const int n_enemies = 0;
-    const int n_food = 0;
-
-    const game_options options_1 = game_options(2);
-    const game game_1(options_1,
-      the_environment,
-      num_players,
-      n_shelters,
-      n_enemies,
-      n_food
-    );
-
-    const game_options options_2(3);
-    const game game_2(
-      options_2,
-      the_environment,
-      num_players,
-      n_shelters,
-      n_enemies,
-      n_food
-     );
+    const game game_1(game_options(2));
+    const game game_2(game_options(3));
 
     const auto shelter_positions_1 = get_all_shelter_positions(game_1);
-    assert(shelter_positions_1.size() == n_shelters);
+    assert(!shelter_positions_1.empty());
     const auto shelter_positions_2 = get_all_shelter_positions(game_2);
-    assert(shelter_positions_2.size() == n_shelters);
+    assert(shelter_positions_1.size() == shelter_positions_2.size());
     assert(!all_positions_equal(shelter_positions_1, shelter_positions_2));
   }
 
