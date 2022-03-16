@@ -519,17 +519,8 @@ void test_game_view()//!OCLINT tests may be many
     }
 
 
-// #define FIX_ISSUE_246
+#define FIX_ISSUE_246
 #ifdef FIX_ISSUE_246
-
-    // Game options should be the same
-    {
-        game_view gw(get_random_game_options(300));
-        assert(gw.get_options().get_kam_1() == gw.get_game().get_)
-    }
-#endif // FIX_ISSUE_246
-
-
     // Pressing the stun key shoots a stun rocket
     {
       game_view gw(get_random_game_options(300));
@@ -537,6 +528,15 @@ void test_game_view()//!OCLINT tests may be many
       gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
+    // Pressing the stun key causes a stun
+    {
+      game_view g(get_random_game_options(300));
+      assert(!is_nth_player_stunned(g, 0));
+      g.press_key(get_stun_key(g.get_options().get_kam_1())); // Press the key that causes a stun
+      g.process_events(); // Needed to process the event
+      assert(is_nth_player_stunned(g, 0));
+    }
+#endif // FIX_ISSUE_246
 
   #endif
 }
