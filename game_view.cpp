@@ -20,8 +20,7 @@ game_view::game_view(game_options options) :
             sf::Vector2f(0,0),
             sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
             )
-        ),
-    m_options(options)
+        )
 {
 
     //Hardcoded positions of the three sf::views of the three players
@@ -32,7 +31,7 @@ game_view::game_view(game_options options) :
 #ifndef IS_ON_TRAVIS
     // Playing sound on Travis gives thousands of error lines, which causes the
     // build to fail
-    if(m_options.is_playing_music())
+    if(get_options().is_playing_music())
     {
         m_game_resources.get_wonderland().setLoop(true);
         m_game_resources.get_wonderland().play();
