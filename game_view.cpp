@@ -528,14 +528,6 @@ void test_game_view()//!OCLINT tests may be many
       gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
-    // Pressing the stun key causes a stun
-    {
-      game_view g(get_random_game_options(300));
-      assert(!is_nth_player_stunned(g, 0));
-      g.press_key(get_stun_key(g.get_options().get_kam_1())); // Press the key that causes a stun
-      g.process_events(); // Needed to process the event
-      assert(is_nth_player_stunned(g, 0));
-    }
 #endif // FIX_ISSUE_246
 
   #endif
