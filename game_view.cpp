@@ -13,6 +13,7 @@
 #include <sstream>
 
 game_view::game_view(game_options options) :
+    m_game(options),
     m_window(sf::VideoMode(1280, 720), "tresinformal game"),
     m_v_views(
         m_game.get_v_player().size(),
