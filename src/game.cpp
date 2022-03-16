@@ -17,14 +17,13 @@ game::game(
   const game_options& options,
   const environment& the_environment,
   int num_players,
-  int n_ticks,
   size_t n_shelters,
   int n_enemies,
   int n_food
 ) :
   m_rng(options.get_rng_seed()),
   m_options{options},
-  m_n_ticks{n_ticks},
+  m_n_ticks{0},
   m_player(static_cast<unsigned int>(num_players), player()),
   m_enemies(n_enemies, enemy()),
   m_environment{the_environment},
@@ -59,21 +58,22 @@ game::game(
     assert(m_shelters.size() == n_shelters);
     int i = 0;
     for (auto &this_shelter : m_shelters)
-      {
-        const double angle{2.0 * M_PI * static_cast<double>(i) /
-              static_cast<double>(m_shelters.size())};
-        const double mid_x{1000.0};
-        const double mid_y{500.0};
-        const double spread{500.0};
-        const double x{mid_x + (std::sin(angle) * spread)};
-        const double y{mid_y - (std::cos(angle) * spread)};
-        const coordinate c{x, y};
-        const double radius{50.0};
-        const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
+    {
+      const double angle{2.0 * M_PI * static_cast<double>(i) /
+            static_cast<double>(m_shelters.size())};
+      const double mid_x{1000.0};
+      const double mid_y{500.0};
+      const double spread{500.0};
+      const double x{mid_x + (std::sin(angle) * spread)};
+      const double y{mid_y - (std::cos(angle) * spread)};
+      const coordinate c{x, y};
+      const double radius{50.0};
+      const color col(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
                       i % 3 == 2 ? 255 : 0, 128 + 64);
-        this_shelter = shelter(c, radius, col);
-        ++i;
-      }
+      this_shelter = shelter(c, radius, col);
+      this_shelter.place_randomly(get_rng(), {get_min_x(*this), get_min_y(*this)}, {get_max_x(*this), get_max_y(*this)});
+      ++i;
+    }
   }
 }
 
@@ -559,6 +559,19 @@ void put_player_near_food(player &p, const food &f, const double distance)
   auto f_p = f.get_position();
   coordinate new_position = coordinate(get_x(f_p) + distance, get_y(f_p));
   p.place_to_position(new_position);
+}
+
+bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept
+{
+    bool same_position = false;
+    for (size_t i = 0; i < shelters.size(); i++)
+    {
+        if(have_same_position(shelters[i], other_shelters[i]))
+        {
+            same_position = true;
+        }
+    }
+    return same_position;
 }
 
 void save(const game& g, const std::string& filename)
@@ -1120,75 +1133,42 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  #define FIX_ISSUE_406
-  #ifdef FIX_ISSUE_406
   {
     // the position of all shelters can be obtained
 
-    double wall_short_side = 1600;
-    int num_players = 0;
-    int n_ticks = 0;
-    int n_shelters = 5;
+    const double wall_short_side = 1600;
+    const int num_players = 0;
+    const int n_shelters = 5;
 
-    game g(game_options(), wall_short_side, num_players, n_ticks, n_shelters);
+    const game g(game_options(), wall_short_side, num_players, n_shelters);
 
     std::vector<coordinate> expected_shelter_positions;
     for (int n = 0; n < n_shelters; ++n)
-      {
-        coordinate nth_shelter_position = get_nth_shelter_position(g, n);
-        expected_shelter_positions.push_back(nth_shelter_position);
-      }
+    {
+      const coordinate nth_shelter_position = get_nth_shelter_position(g, n);
+      expected_shelter_positions.push_back(nth_shelter_position);
+    }
 
     std::vector<coordinate> shelter_positions = get_all_shelter_positions(g);
 
     assert(shelter_positions.size() == expected_shelter_positions.size());
     for (int n = 0; n < n_shelters; ++n)
-      {
-        assert(shelter_positions[n] == expected_shelter_positions[n]);
-      }
+    {
+      assert(shelter_positions[n] == expected_shelter_positions[n]);
+    }
   }
-  #endif
 
-// #define FIX_ISSUE_315
-#ifdef FIX_ISSUE_315
   // Initial shelters are at random locations over the whole arena
   {
-    // default game arguments
-    double short_wall_side = 1600;
-    int n_players = 0;
-    int n_ticks = 0;
-    int n_shelters = 10;
-    int n_enemies = 0;
-    int n_food = 0;
+    const game game_1(game_options(2));
+    const game game_2(game_options(3));
 
-    int a_seed = 2;
-    const game a_game(short_wall_side,
-           n_players,
-           n_ticks,
-           n_shelters,
-           n_enemies,
-           n_food,
-           a_seed
-           );
-
-    int another_seed = 3;
-    const game another_game(short_wall_side,
-           n_players,
-           n_ticks,
-           n_shelters,
-           n_enemies,
-           n_food,
-           another_seed
-           );
-
-    const std::vector<coordinate> some_shelter_positions = get_all_shelter_positions(a_game);
-    assert(some_shelter_positions.size() == n_shelters);
-    const std::vector<coordinate> other_shelter_positions = get_all_shelter_positions(another_game);
-    assert(other_shelter_positions.size() == n_shelters);
-
-    assert(!all_positions_equal(some_shelter_positions, other_shelter_positions));
-   }
-#endif // FIX_ISSUE_315
+    const auto shelter_positions_1 = get_all_shelter_positions(game_1);
+    assert(!shelter_positions_1.empty());
+    const auto shelter_positions_2 = get_all_shelter_positions(game_2);
+    assert(shelter_positions_1.size() == shelter_positions_2.size());
+    assert(!all_positions_equal(shelter_positions_1, shelter_positions_2));
+  }
 
   ///Players in game are initialized with ID equal to their index
   {
@@ -1492,13 +1472,10 @@ void test_game() //!OCLINT tests may be many
 #endif
 
 
-#define FIX_ISSUE_250
-#ifdef FIX_ISSUE_250
   //Food can be placed at a random location
   {
     const double wall_short_side = 1600;
     const int num_players = 3;
-    const int n_ticks = 0;
     const std::size_t n_shelters = 42;
     const int n_enemies = 1;
     const int n_food = 2;
@@ -1506,7 +1483,6 @@ void test_game() //!OCLINT tests may be many
       game_options(),
       wall_short_side,
       num_players,
-      n_ticks,
       n_shelters,
       n_enemies,
       n_food
@@ -1527,7 +1503,6 @@ void test_game() //!OCLINT tests may be many
     assert(get_nth_food_x(g, 0) != get_nth_food_x(g, 1));
     assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
   }
-#endif
 
   #define FIX_ISSUE_403
   #ifdef FIX_ISSUE_403
@@ -1623,13 +1598,10 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define FIX_ISSUE_288
-#ifdef FIX_ISSUE_288
   {
     // default game arguments
     const double short_wall_side = 1600;
     const int n_players = 0;
-    const int n_ticks = 0;
     const int n_shelters = 0;
     const int n_enemies = 0;
     const int n_food = 0;
@@ -1639,7 +1611,6 @@ void test_game() //!OCLINT tests may be many
       game_options(seed),
       short_wall_side,
       n_players,
-      n_ticks,
       n_shelters,
       n_enemies,
       n_food
@@ -1648,7 +1619,6 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_rng()() - expected_rng() < 0.00001 &&
            g.get_rng()() - expected_rng() > -0.00001);
   }
-#endif
 
 #define FIX_ISSUE_321
 #ifdef FIX_ISSUE_321
@@ -1747,7 +1717,7 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_464
+// #define FIX_ISSUE_464
 #ifdef FIX_ISSUE_464
   {
     // (464) A player's state can be accessed easily

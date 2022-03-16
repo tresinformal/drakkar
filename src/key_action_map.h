@@ -57,7 +57,6 @@ key_action_map get_random_kam();
 /// Draw at random several kams for testing purposes, with no key repeats
 std::vector<key_action_map> get_n_random_kams(int n);
 
-
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 

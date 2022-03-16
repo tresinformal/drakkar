@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="X:\game\build\src\game_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\about.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\action_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\coordinate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\enemy_behavior_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\environment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\environment_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\food.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\food_state.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\food_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\game_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\game_options.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\game_resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\game_view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\key_action_map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\menu_button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\menu_view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\optional.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\options_view.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\player_factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\player_shape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\player_state.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\program_state.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\projectile_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\read_only.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\shelter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\src\sound_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\build\src\qrc_game_resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\build\src\game_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\build\src\game_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X:\game\build\src\game_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="X:\game\src\about.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\action_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\coordinate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\enemy_behavior_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\environment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\environment_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\food.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\food_state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\food_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\game_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\game_options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\game_resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\game_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\key_action_map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\menu_button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\menu_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\optional.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\options_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\player_factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\player_shape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\player_state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\program_state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\projectile_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\read_only.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\shelter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X:\game\src\sound_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="X:\game\resources\game_resources.qrc" />
+    <CustomBuild Include="X:\game\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{53E240E6-CC66-3516-BF64-31D974BAD288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4D745F1C-A25C-3925-9031-C848032DBEF9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
