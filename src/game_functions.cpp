@@ -1,6 +1,6 @@
-#include <game_functions.h>
-#include <coordinate.h>
-#include <game.h>
+#include "game_functions.h"
+#include "coordinate.h"
+#include "game.h"
 
 // Game functions are free functions that return some info about the game but do not change it
 // Formally, if a function

@@ -1,9 +1,17 @@
+#specify where to find the packages of Qt libraries
+if(MINGW)
+set(CMAKE_PREFIX_PATH "C:/Qt/6.1.1/mingw81_64")
+elseif(MSVC)
+set(CMAKE_PREFIX_PATH "C:/Qt/6.1.1/msvc2019_64")
+endif()
+
 #add Qt library
 find_package(Qt6 COMPONENTS Core REQUIRED)
 
 #add sfml
 set(SFML_DIR "C:/Qt/sfml/lib/cmake/SFML")
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+
 
 
 #add compiler flags for GNUCC
