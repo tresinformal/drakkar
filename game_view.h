@@ -74,9 +74,6 @@ private:
   /// Parses input for player 3
   void pl_3_stop_input(sf::Event event) noexcept;
 
-  /// The options of the game
-  game_options m_options;
-
   ///Draws the background
   void draw_background() noexcept;
 
