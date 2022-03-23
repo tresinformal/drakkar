@@ -13,6 +13,7 @@
 #include <sstream>
 
 game_view::game_view(game_options options) :
+    m_game(options),
     m_window(sf::VideoMode(1280, 720), "tresinformal game"),
     m_v_views(
         m_game.get_v_player().size(),
@@ -20,8 +21,7 @@ game_view::game_view(game_options options) :
             sf::Vector2f(0,0),
             sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
             )
-        ),
-    m_options(options)
+        )
 {
 
     //Hardcoded positions of the three sf::views of the three players
@@ -32,7 +32,7 @@ game_view::game_view(game_options options) :
 #ifndef IS_ON_TRAVIS
     // Playing sound on Travis gives thousands of error lines, which causes the
     // build to fail
-    if(m_options.is_playing_music())
+    if(get_options().is_playing_music())
     {
         m_game_resources.get_wonderland().setLoop(true);
         m_game_resources.get_wonderland().play();
@@ -519,17 +519,8 @@ void test_game_view()//!OCLINT tests may be many
     }
 
 
-// #define FIX_ISSUE_246
+#define FIX_ISSUE_246
 #ifdef FIX_ISSUE_246
-
-    // Game options should be the same
-    {
-        game_view gw(get_random_game_options(300));
-        assert(gw.get_options().get_kam_1() == gw.get_game().get_)
-    }
-#endif // FIX_ISSUE_246
-
-
     // Pressing the stun key shoots a stun rocket
     {
       game_view gw(get_random_game_options(300));
@@ -537,6 +528,7 @@ void test_game_view()//!OCLINT tests may be many
       gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
+#endif // FIX_ISSUE_246
 
   #endif
 }
