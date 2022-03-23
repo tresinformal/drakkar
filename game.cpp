@@ -560,13 +560,6 @@ void put_player_near_food(player &p, const food &f, const double distance)
   p.place_to_position(new_position);
 }
 
-color get_nth_player_color(const game& game, const int player_id)
-{
-    player p = game.get_player(player_id);
-    color c = create_red_color();
-    return c;
-}
-
 bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept
 {
     bool same_position = false;
@@ -1678,18 +1671,18 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_241
 
-#define FIX_ISSUE_457
+//#define FIX_ISSUE_457
 #ifdef FIX_ISSUE_457
   {
     // (457) The color of any player can be accessed easily
     const game g;
     const color color_player_one = get_nth_player_color(g, 0);
-    //const color color_player_two = get_nth_player_color(g, 1);
-    //const color color_player_three = get_nth_player_color(g, 2);
+    const color color_player_two = get_nth_player_color(g, 1);
+    const color color_player_three = get_nth_player_color(g, 2);
     // Default colors for players: R, G, B
     assert(color_player_one == create_red_color());
-    //assert(color_player_two == create_green_color());
-    //assert(color_player_three == create_blue_color());
+    assert(color_player_two == create_green_color());
+    assert(color_player_three == create_blue_color());
   }
 #endif
 
