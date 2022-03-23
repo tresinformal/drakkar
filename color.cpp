@@ -245,10 +245,8 @@ bool operator!=(const color& lhs, const color& rhs) noexcept
 
 std::ostream& operator << (std::ostream &out, const color &color)
 {
-  out << "Color(" << std::to_string(color.get_red()) <<
-         ", " << std::to_string(color.get_green()) <<
-         ", " << std::to_string(color.get_blue()) <<
-         ")";
-
+  out << "Color " << std::to_string(color.get_red()) <<
+         " " << std::to_string(color.get_green()) <<
+         " " << std::to_string(color.get_blue()) << "\n";
   return out;
 }
