@@ -3,8 +3,10 @@
 
 #include "color.h"
 #include "coordinate.h"
-#include <cmath>
 #include "string.h"
+#include <cmath>
+#include <random>
+
 class shelter
 {
 public:
@@ -23,6 +25,9 @@ public:
   double get_direction() const noexcept;
   // Make shelter drift in a random direction
   void make_shelter_drift();
+
+  // Place shelter at a random location
+  void place_randomly(std::mt19937 &rng, const coordinate &top_left, const coordinate &bottom_right);
 
 private:
   color m_color;

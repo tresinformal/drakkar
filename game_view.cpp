@@ -5,6 +5,7 @@
 #include "food.h"
 #include "game.h"
 #include "game_resources.h"
+#include "game_functions.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <cmath>
@@ -161,8 +162,12 @@ void game_view::draw_food() noexcept
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    if(k == sf::Keyboard::E) {
-      /// stunning not shooting a rocket
+    // game g = this->get_game();
+    // const sf::Keyboard::Key stun_key = get_stun_key(this->get_game().get_game_options().get_kam_1());
+    const sf::Keyboard::Key stun_key = sf::Keyboard::Key::W;
+    if (k == stun_key)
+    {
+      /// shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
 }
@@ -513,15 +518,26 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
-  // Pressing 1 stuns player 1
-  {
-    game_view g;
-    assert(count_n_projectiles(g) == 0);
-    g.press_key(sf::Keyboard::E);
-    g.process_events(); // Needed to process the event
-    //  #ifdef FIX_ISSUE_239
-    assert(count_n_projectiles(g) == 1);
-  }
+
+// #define FIX_ISSUE_246
+#ifdef FIX_ISSUE_246
+
+    // Game options should be the same
+    {
+        game_view gw(get_random_game_options(300));
+        assert(gw.get_options().get_kam_1() == gw.get_game().get_)
+    }
+#endif // FIX_ISSUE_246
+
+
+    // Pressing the stun key shoots a stun rocket
+    {
+      game_view gw(get_random_game_options(300));
+      assert(!gw.get_game().get_player(0).is_shooting_stun_rocket());
+      gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun
+      assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
+    }
+
   #endif
 }
 

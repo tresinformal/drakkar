@@ -4,13 +4,15 @@
 enum class sound_type
 {
   shoot,
-  hit
+  hit,
+  grow,
+  shrink
 };
 
 /// Test the sound types and helper functions
 void test_sound_type();
 
 ///converting sound type to str
-   std::string to_str(const sound_type & in_sound);
+std::string to_str(const sound_type &in_sound);
 
 #endif // SOUND_TYPE_H

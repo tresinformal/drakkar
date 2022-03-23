@@ -8,13 +8,13 @@ class game_options
 {
 public:
   game_options(
-      const int rng_seed = 0,
-      const bool play_music = true,
-      key_action_map player_1_kam = get_player_1_kam(),
-      key_action_map player_2_kam = get_player_2_kam(),
-      key_action_map player_3_kam = get_player_3_kam(),
-      environment_type env_type = environment_type::empty
-      );
+    const int rng_seed = 0,
+    const bool play_music = true,
+    key_action_map player_1_kam = get_player_1_kam(),
+    key_action_map player_2_kam = get_player_2_kam(),
+    key_action_map player_3_kam = get_player_3_kam(),
+    environment_type env_type = environment_type::empty
+  );
 
   ///Get the RNG seed
   int get_rng_seed() const noexcept { return m_rng_seed; }
@@ -48,6 +48,8 @@ private:
 
 bool operator== (const game_options& lhs, const game_options& rhs) noexcept;
 bool operator!= (const game_options& lhs, const game_options& rhs) noexcept;
+
+game_options get_random_game_options(const int& rng_seed);
 
 ///Turns off the sound in options
 void music_off(game_options& o) noexcept;

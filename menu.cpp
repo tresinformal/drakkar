@@ -28,10 +28,21 @@ std::vector<menu_button> &menu::get_buttons() noexcept { return m_v_buttons; }
 
 menu_button &menu::get_button(int index)
 {
-
   assert(index >= 0 && index < static_cast<int>(m_v_buttons.size()));
   return m_v_buttons[static_cast<unsigned int>(index)];
+}
 
+menu_button &menu::get_button(const std::string& label)
+{
+  for (auto& mb : m_v_buttons)
+    {
+      if (mb.get_label() == label)
+        {
+          return mb;
+        }
+    }
+  // If no match return an error
+  throw std::logic_error("No button in menu has this label.");
 }
 
 void menu::put_buttons_tidy() noexcept
@@ -43,6 +54,19 @@ void menu::put_buttons_tidy() noexcept
                                  (m_window_height)/
                                  (static_cast<int>(m_v_buttons.size()) + 1));
     }
+}
+
+bool is_inside_button(const coordinate& c, const menu_button& mb)
+{
+  const double right = mb.get_x() + mb.get_body().x / 2.0;
+  const double left = mb.get_x() - mb.get_body().x / 2.0;
+  const double bottom = mb.get_y() + mb.get_body().y / 2.0;
+  const double top = mb.get_y() - mb.get_body().y / 2.0;
+
+  return c.get_x() <= right &&
+      c.get_x() >= left &&
+      c.get_y() <= bottom &&
+      c.get_y() >= top;
 }
 
 void test_menu()
@@ -64,7 +88,25 @@ void test_menu()
   // could I use try and catch framework for exceptions in this case?
   {
     menu v;
-    assert(v.get_button(0).get_name() == "action");
+    assert(v.get_button(0).get_label() == "action");
+  }
+  {
+    // (482) Menu button can be called from its label
+    menu m;
+    const std::string label = "about";
+    const menu_button mb_about = m.get_button(label);
+    assert(mb_about.get_label() == label);
+  }
+  {
+    // (483) Calling a button that doesn't exist causes an error
+    menu m;
+    const std::string wrong_label = "whatever, doesn't exist";
+    try {
+      const menu_button mb = m.get_button(wrong_label); // throws exception
+    }
+    catch ( const std::exception& e ) {
+      assert(std::string(e.what()) == std::string("No button in menu has this label."));
+    }
   }
   // buttons are evenly distributed
   // along the height of the screen
@@ -92,5 +134,27 @@ void test_menu()
   }
   #endif // FIX_ISSUE_446
 
+  {
+    // (484) One can detect if a position is inside or outside a menu button
+    menu m;
+    const menu_button mb = m.get_button(0);
+    const float mb_width = mb.get_body().x;
+    const float mb_height = mb.get_body().y;
+    const coordinate c_inside(
+          mb.get_x() + mb_width / 2.0,
+          mb.get_y() + mb_height / 2.0
+          );
+    const coordinate c_outside1(
+          mb.get_x() + mb_width / 2.0 + 1.0,
+          mb.get_y() + mb_height / 2.0
+          );
+    const coordinate c_outside2(
+          mb.get_x() + mb_width / 2.0,
+          mb.get_y() + mb_height / 2.0 + 1.0
+          );
+    assert(is_inside_button(c_inside, mb));
+    assert(!is_inside_button(c_outside1, mb));
+    assert(!is_inside_button(c_outside2, mb));
+  }
   #endif
 }

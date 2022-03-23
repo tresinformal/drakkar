@@ -12,6 +12,7 @@ HEADERS += \
     $$PWD/food_state.h \
     $$PWD/food_type.h \
     $$PWD/game.h \
+    $$PWD/game_functions.h \
     $$PWD/game_options.h \
     $$PWD/game_resources.h \
     $$PWD/key_action_map.h \
@@ -42,6 +43,7 @@ SOURCES += \
     $$PWD/food_state.cpp \
     $$PWD/food_type.cpp \
     $$PWD/game.cpp \
+    $$PWD/game_functions.cpp \
     $$PWD/game_options.cpp \
     $$PWD/game_resources.cpp \
     $$PWD/key_action_map.cpp \
@@ -62,5 +64,4 @@ SOURCES += \
 
 RESOURCES += \
     game_resources.qrc
-
 
