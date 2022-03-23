@@ -10,6 +10,7 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
 #include <random>
 
 game::game(
@@ -582,6 +583,17 @@ bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vec
 
 void save(const game& g, const std::string& filename)
 {
+  // start with a simplified example
+  //   1. open file stream
+  //   2. write one value to the file stream
+  //   3. close file stream
+  // https://en.cppreference.com/w/cpp/io/basic_fstream/open
+
+  // create first a file stream object
+  std::fstream f;
+  // open the file
+  f.open(filename);
+
   assert(g.get_n_ticks() >= 0);
   assert(!filename.empty());
 }
