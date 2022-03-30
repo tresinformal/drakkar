@@ -2,7 +2,9 @@
 cmake_minimum_required (VERSION 3.19)
 
 # Integrate our local vcpkg install into CMake
-set(CMAKE_TOOLCHAIN_FILE "${PROJECT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+message(STATUS "${CMAKE_SOURCE_DIR}")
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+
 if (WIN32)
     # the default is x86-windows -- 32Bit, really?
     set(VCPKG_TARGET_TRIPLET x64-windows)
