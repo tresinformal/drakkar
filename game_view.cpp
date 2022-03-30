@@ -519,7 +519,7 @@ void test_game_view()//!OCLINT tests may be many
     }
 
 
-#define FIX_ISSUE_246
+//#define FIX_ISSUE_246
 #ifdef FIX_ISSUE_246
     // Pressing the stun key shoots a stun rocket
     {
