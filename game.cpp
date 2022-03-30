@@ -1686,14 +1686,15 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-//#define FIX_ISSUE_458
+#define FIX_ISSUE_458
 #ifdef FIX_ISSUE_458
   {
     // (458) The color of any food item can be accessed easily
-    const game g;
-    const color color_food = get_nth_food_color(g, 0);
-    const color default_color;
-    assert(color_food == default_color);
+    game g;
+    color color_food = get_nth_food_color(g, 0);
+    // Default color for the food item is black
+    color c;
+    assert(color_food == c);
   }
 #endif
 

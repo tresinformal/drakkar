@@ -205,6 +205,11 @@ double get_nth_food_y(const game &g, const int n)
   return g.get_food()[n].get_y();
 }
 
+color get_nth_food_color(const game &g, const int n)
+{
+  return g.get_food()[n].get_color();
+}
+
 bool is_nth_food_eaten(const game& g, const int &n)
 {
   return g.get_food()[n].is_eaten();
