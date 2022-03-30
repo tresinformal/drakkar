@@ -6,7 +6,8 @@
 #endif()
 
 #add Qt library
-find_package(Qt6 COMPONENTS Core REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets REQUIRED)
 
 #add sfml
 #set(SFML_DIR "C:/Qt/sfml/lib/cmake/SFML")

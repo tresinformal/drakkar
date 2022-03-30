@@ -1,17 +1,7 @@
 # CMakeLists.txt
-cmake_minimum_required (VERSION 3.19)
-
-# Integrate our local vcpkg install into CMake
-message(STATUS "${CMAKE_SOURCE_DIR}")
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
-
-if (WIN32)
-    # the default is x86-windows -- 32Bit, really?
-    set(VCPKG_TARGET_TRIPLET x64-windows)
-endif()
+cmake_minimum_required (VERSION 3.16)
 
 project(game C CXX)
-set(CMAKE_CXX_STANDARD 20)
 
 # Let CMake make the call
 # $> git submodule update --init --remote --recursive
@@ -26,5 +16,17 @@ execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --remote --rec
 if (NOT GIT_SUBMOD_RESULT EQUAL "0")
     message(FATAL_ERROR "git submodule update --init --remote --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
 endif()
+
+# Integrate our local vcpkg install into CMake
+# message(STATUS "${CMAKE_SOURCE_DIR}")
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+
+if (WIN32)
+    # the default is x86-windows -- 32Bit, really?
+    set(VCPKG_TARGET_TRIPLET x64-windows)
+endif()
+
+
+set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(src)
