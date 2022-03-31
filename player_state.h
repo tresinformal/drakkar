@@ -11,7 +11,7 @@ enum class player_state
 };
 
 void test_player_state();
-
+std::string to_str(player_state this_player_state);
 std::ostream& operator << (std::ostream& os, const player_state& state);
 
 #endif // PLAYER_STATE_H
