@@ -1,7 +1,7 @@
 #ifndef PLAYER_STATE_H
 #define PLAYER_STATE_H
 
-#include <iostream>
+#include <iosfwd>
 
 enum class player_state
 {
