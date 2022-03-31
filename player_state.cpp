@@ -17,6 +17,11 @@ std::string to_str(player_state this_player_state)
   }
 }
 
+std::ostream& operator << (std::ostream& os, const player_state& player)
+{
+    os << to_str(player);
+    return os;
+}
 
 void test_player_state()
 {
@@ -27,9 +32,6 @@ void test_player_state()
               player_state::dead != player_state::active);
   }
 
-
-
-
   #define FIX_ISSUE_276
   #ifdef FIX_ISSUE_276
   // Conversion to string
@@ -39,5 +41,20 @@ void test_player_state()
     assert(to_str(player_state::stunned) == "stunned");
   }
   #endif // FIX_ISSUE_276
+
+  #define FIX_ISSUE_509
+  #ifdef FIX_ISSUE_509
+    // operator<<
+    {
+      std::stringstream s;
+      const player_state ps = player_state::active;
+      s << ps;
+    }
+    {
+      const player_state ps = player_state::active;
+      std::cout << ps;
+    }
+  #endif
   #endif
 }
+
