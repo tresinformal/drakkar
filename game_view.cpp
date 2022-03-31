@@ -278,6 +278,7 @@ void game_view::draw_player_coords() noexcept
 {
     sf::Text text;
     text.setFont(m_game_resources.get_font());
+    text.setCharacterSize(24);
 
     // Concatenate player coordinates string
     std::vector<player> v_player = m_game.get_v_player();
@@ -290,7 +291,7 @@ void game_view::draw_player_coords() noexcept
     }
     food f = m_game.get_food()[0];
     str_player_coords += "Food x = " + std::to_string(trunc(get_x(f)));
-    str_player_coords += "y = " + std::to_string(trunc(get_y(f)));
+    str_player_coords += "\n         y = " + std::to_string(trunc(get_y(f)));
     str_player_coords += "\n\n";
 
     text.setString(str_player_coords);
