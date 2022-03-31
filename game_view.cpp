@@ -278,19 +278,20 @@ void game_view::draw_player_coords() noexcept
 {
     sf::Text text;
     text.setFont(m_game_resources.get_font());
+    text.setCharacterSize(24);
 
     // Concatenate player coordinates string
     std::vector<player> v_player = m_game.get_v_player();
     std::string str_player_coords;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(get_x(p)));
-        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(get_y(p)));
+        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
         str_player_coords += "\n\n";
     }
     food f = m_game.get_food()[0];
-    str_player_coords += "Food x = " + std::to_string(trunc(get_x(f)));
-    str_player_coords += "y = " + std::to_string(trunc(get_y(f)));
+    str_player_coords += "Food x = " + std::to_string(static_cast<int>(get_x(f)));
+    str_player_coords += "\n         y = " + std::to_string(static_cast<int>(get_y(f)));
     str_player_coords += "\n\n";
 
     text.setString(str_player_coords);
