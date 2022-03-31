@@ -778,7 +778,7 @@ void test_player() //!OCLINT tests may be long
   {
     assert(to_str(player_state::active) == "active");
   }
-  #endif
+#endif
 
 //#define FIX_ISSUE_401
 #ifdef FIX_ISSUE_401
