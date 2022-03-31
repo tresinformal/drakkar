@@ -1,5 +1,6 @@
 #include "player_state.h"
 #include <cassert>
+#include <iostream>
 #include <sstream>
 
 std::string to_str(player_state this_player_state)
@@ -49,6 +50,10 @@ void test_player_state()
     std::stringstream s;
     const player_state ps = player_state::active;
     s << ps;
+  }
+  {
+    const player_state ps = player_state::active;
+    std::cout << ps;
   }
   #endif
   #endif
