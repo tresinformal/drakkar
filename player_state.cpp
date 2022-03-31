@@ -44,16 +44,12 @@ void test_player_state()
 
   #define FIX_ISSUE_509
   #ifdef FIX_ISSUE_509
-    // operator<<
-    {
-      std::stringstream s;
-      const player_state ps = player_state::active;
-      s << ps;
-    }
-    {
-      const player_state ps = player_state::active;
-      std::cout << ps;
-    }
+  // operator<<
+  {
+    std::stringstream s;
+    const player_state ps = player_state::active;
+    s << ps;
+  }
   #endif
   #endif
 }
