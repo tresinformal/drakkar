@@ -116,7 +116,7 @@ void game::do_action(player& player, action_type action)
       }
       case action_type::shoot:
       {
-        if (player.is_cool_down() == false)
+        if (player.is_shoot_cool_down() == false)
         {
           player.shoot();
           player.shoot_cool_down();
@@ -374,7 +374,7 @@ void game::reset_shoot_cool_down_status()
   for (player &p : m_player)
     {
       float player_shoot_fire_rate = projectile::m_fire_rate / p.get_shoot_fire_rate_multiplier();
-      if (p.is_cool_down() && p.get_shoot_cool_down_timer() >= player_shoot_fire_rate)
+      if (p.is_shoot_cool_down() && p.get_shoot_cool_down_timer() >= player_shoot_fire_rate)
         {
           p.reset_shoot_cool_down_timer();
           p.stop_shoot_cool_down();

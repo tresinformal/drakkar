@@ -85,7 +85,7 @@ public:
 
     bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
 
-    bool is_cool_down() const noexcept {return m_is_shoot_cool_down; }
+    bool is_shoot_cool_down() const noexcept {return m_is_shoot_cool_down; }
 
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
