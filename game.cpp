@@ -116,7 +116,11 @@ void game::do_action(player& player, action_type action)
       }
       case action_type::shoot:
       {
-        player.shoot();
+        if (player.is_calm_down() == false)
+        {
+          player.shoot();
+          player.shoot_calm_down();
+        }
         break;
       }
       case action_type::shoot_stun_rocket:
@@ -246,15 +250,16 @@ void game::tick()
   // For now only applies inertia
   apply_inertia();
 
-  //Move shelters
+  // Move shelters
   move_shelter();
 
-  //Actions issued by the players are executed
+  // Actions issued by the players are executed
   do_actions();
 
-  //Check and resolve wall collisions
+  // Check and resolve wall collisions
   resolve_wall_collisions();
 
+  // Increment timers of shoot calm down
   // Increment timers of all food elements
   increment_food_timers();
 
@@ -263,6 +268,10 @@ void game::tick()
 
   // Regenerate food items
   regenerate_food_items();
+
+  increment_shoot_calm_down_timers();
+
+  reset_shoot_calm_down_status();
 
   // players that shoot must generate projectiles
   for (player &p : m_player)
@@ -350,6 +359,27 @@ void game::eat_food(food& f)
     }
   f.set_food_state(food_state::eaten);
   f.reset_timer();
+}
+
+void game::increment_shoot_calm_down_timers()
+{
+  for (player &p : m_player)
+    {
+      p.increment_shoot_calm_down_timer();
+    }
+}
+
+void game::reset_shoot_calm_down_status()
+{
+  for (player &p : m_player)
+    {
+      float player_shoot_fire_rate = projectile::m_fire_rate / p.get_shoot_fire_rate_multiplier();
+      if (p.is_calm_down() && p.get_shoot_calm_down_timer() >= player_shoot_fire_rate)
+        {
+          p.reset_shoot_calm_down_timer();
+          p.stop_shoot_calm_down();
+        }
+    }
 }
 
 void game::increment_food_timers()

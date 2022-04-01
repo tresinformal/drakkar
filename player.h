@@ -85,6 +85,8 @@ public:
 
     bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
 
+    bool is_calm_down() const noexcept {return m_is_shoot_calm_down; }
+
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
     {
@@ -108,6 +110,27 @@ public:
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) makes the player stop shooting
     void stop_shooting() noexcept { m_is_shooting = false; }
+
+    /// Make the player unable to shoot
+    void shoot_calm_down() noexcept {m_is_shoot_calm_down = true; }
+
+    /// Make the player able to shoot again
+    void stop_shoot_calm_down() noexcept {m_is_shoot_calm_down = false; }
+
+    /// Make the shoot calm down timer to increase by one tick
+    void increment_shoot_calm_down_timer() {++m_shoot_calm_down_timer; }
+
+    /// Reset the shoot calm down timer to zero
+    void reset_shoot_calm_down_timer() {m_shoot_calm_down_timer = 0; }
+
+    /// Get the current shoot calm down timer value
+    int get_shoot_calm_down_timer() {return m_shoot_calm_down_timer; }
+
+    /// Get the player's shoot fire rate multiplier
+    float get_shoot_fire_rate_multiplier() {return m_shoot_fire_rate_multiplier; }
+
+    /// Change the player's shoot fire rate multiplier
+    void change_shoot_fire_rate_multiplier(int m) noexcept {m_shoot_fire_rate_multiplier = m; }
 
     void shoot_stun_rocket() noexcept { m_is_shooting_stun_rocket = true; }
 
@@ -155,7 +178,14 @@ private:
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool m_is_shooting{false};
 
+    bool m_is_shoot_calm_down{false};
+
+    int m_shoot_calm_down_timer{0};
+
     bool m_is_shooting_stun_rocket{false};
+
+    /// Time interval between each shooting action, in ticks
+    float m_shoot_fire_rate_multiplier{1.00};
 
     ///ID of the player
     read_only<std::string> m_ID;
