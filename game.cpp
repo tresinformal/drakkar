@@ -365,7 +365,10 @@ void game::increment_shoot_cool_down_timers()
 {
   for (player &p : m_player)
     {
-      p.increment_shoot_cool_down_timer();
+      if (p.is_shoot_cool_down())
+      {
+        p.increment_shoot_cool_down_timer();
+      }
     }
 }
 
