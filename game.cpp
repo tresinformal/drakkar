@@ -750,6 +750,39 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
+  // Player enters cool down status after one shooting action
+  {
+    game g;
+    g.do_action(0, action_type::shoot);
+    g.tick();
+    assert(g.get_player(0).is_shoot_cool_down());
+    g.do_action(0, action_type::shoot);
+    assert(!g.get_player(0).is_shooting());
+  }
+
+  // Player can shoot again after the interval
+  {
+    game g;
+    g.do_action(0, action_type::shoot);
+    for (auto i = 0; i <= projectile::m_fire_rate / g.get_player(0).get_shoot_fire_rate_multiplier(); ++i)
+      {
+        g.tick();
+      }
+    assert(!g.get_player(0).is_shoot_cool_down());
+    g.do_action(0, action_type::shoot);
+    assert(g.get_player(0).is_shooting());
+  }
+
+  // Player 0 enters cool down status will not affect other players
+  {
+    game g;
+    g.do_action(0, action_type::shoot);
+    g.tick();
+    assert(g.get_player(0).is_shoot_cool_down());
+    assert(!g.get_player(1).is_shoot_cool_down());
+    assert(!g.get_player(2).is_shoot_cool_down());
+  }
+
   // Projectiles move
   {
     game g;
