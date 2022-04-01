@@ -85,7 +85,7 @@ public:
 
     bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
 
-    bool is_calm_down() const noexcept {return m_is_shoot_calm_down; }
+    bool is_cool_down() const noexcept {return m_is_shoot_cool_down; }
 
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
@@ -112,19 +112,19 @@ public:
     void stop_shooting() noexcept { m_is_shooting = false; }
 
     /// Make the player unable to shoot
-    void shoot_calm_down() noexcept {m_is_shoot_calm_down = true; }
+    void shoot_cool_down() noexcept {m_is_shoot_cool_down = true; }
 
     /// Make the player able to shoot again
-    void stop_shoot_calm_down() noexcept {m_is_shoot_calm_down = false; }
+    void stop_shoot_cool_down() noexcept {m_is_shoot_cool_down = false; }
 
     /// Make the shoot calm down timer to increase by one tick
-    void increment_shoot_calm_down_timer() {++m_shoot_calm_down_timer; }
+    void increment_shoot_cool_down_timer() {++m_shoot_cool_down_timer; }
 
     /// Reset the shoot calm down timer to zero
-    void reset_shoot_calm_down_timer() {m_shoot_calm_down_timer = 0; }
+    void reset_shoot_cool_down_timer() {m_shoot_cool_down_timer = 0; }
 
     /// Get the current shoot calm down timer value
-    int get_shoot_calm_down_timer() {return m_shoot_calm_down_timer; }
+    int get_shoot_cool_down_timer() {return m_shoot_cool_down_timer; }
 
     /// Get the player's shoot fire rate multiplier
     float get_shoot_fire_rate_multiplier() {return m_shoot_fire_rate_multiplier; }
@@ -178,9 +178,9 @@ private:
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool m_is_shooting{false};
 
-    bool m_is_shoot_calm_down{false};
+    bool m_is_shoot_cool_down{false};
 
-    int m_shoot_calm_down_timer{0};
+    int m_shoot_cool_down_timer{0};
 
     bool m_is_shooting_stun_rocket{false};
 

@@ -164,10 +164,10 @@ private:
   void increment_food_timers();
 
   /// Increment timers of shoot calm down of all the players
-  void increment_shoot_calm_down_timers();
+  void increment_shoot_cool_down_timers();
 
   /// Reset timers of shoot calm down of all the players
-  void reset_shoot_calm_down_status();
+  void reset_shoot_cool_down_status();
 
   /// Make players eat food items they are on top of
   void make_players_eat_food();
