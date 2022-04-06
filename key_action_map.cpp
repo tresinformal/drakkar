@@ -1,6 +1,7 @@
 #include "key_action_map.h"
 #include <cassert>
-
+#include <fstream>
+#include <iostream>
 key_action_map::key_action_map(
     const sf::Keyboard::Key& key_to_go_left,
     const sf::Keyboard::Key& key_to_go_right,
@@ -163,6 +164,20 @@ sf::Keyboard::Key get_stun_key(const key_action_map& m)
   return m.to_key(action_type::shoot_stun_rocket);
 }
 
+#ifdef ISSUE_522
+key_action_map load_map(const std::string& filename)
+{
+
+}
+
+void save_to_file(const key_action_map& kam, const std::string& filename)
+{
+  std::ofstream file(filename);
+  file << kam;
+}
+#endif //ISSUE_522
+
+
 void test_key_action_map()//!OCLINT tests can be many
 {
 #ifndef NDEBUG // no tests in release
@@ -311,4 +326,21 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(kam.to_key(action_type::shoot_stun_rocket) == sf::Keyboard::E);
   }
 #endif // FIX_ISSUE_355
+
+//#define ISSUE_522
+#ifdef ISSUE_522
+  {
+    const key_action_map kam = get_player_1_kam();
+    std::cout << kam;
+  }
+  {
+    const key_action_map kam = get_player_1_kam();
+    const std::string filename = "test.txt";
+    save_to_file(kam, filename);
+    const key_action_map map_again = load_map(filename);
+    assert(kam == map_again);
+    // TODO: delete temporary file
+  }
+#endif // ISSUE_522
+
 }
