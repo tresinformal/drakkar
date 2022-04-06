@@ -40,6 +40,7 @@ int count_food_items(const game &g);
 coordinate get_nth_food_position(const game& g, const int& food_id);
 double get_nth_food_x(const game &g, const int n);
 double get_nth_food_y(const game &g, const int n);
+color get_nth_food_color(const game &g, const int n);
 int get_nth_food_regeneration_time(const game &g, const int &n);
 int get_nth_food_timer(const game &g, const int &n);
 bool is_nth_food_eaten(const game &g, const int &n);
