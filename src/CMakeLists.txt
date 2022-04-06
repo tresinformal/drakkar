@@ -33,10 +33,10 @@ file(GLOB src
 )
 
 #add resource files
-qt_add_resources(resources_for_game "${PROJECT_SOURCE_DIR}/resources/game_resources.qrc")
+qt5_add_resources(resources_for_game "${PROJECT_SOURCE_DIR}/resources/game_resources.qrc")
 
 add_executable("game" ${src} ${resources_for_game})
 
 #link libraries to target
 target_link_libraries(game PRIVATE sfml-graphics sfml-audio)
-target_link_libraries(game PRIVATE Qt6::Core)
+target_link_libraries(game PRIVATE Qt${QT_VERSION_MAJOR}::Core)
