@@ -116,7 +116,7 @@ void game::do_action(player& player, action_type action)
       }
       case action_type::shoot:
       {
-        if (player.is_cooling_down() == false)
+        if (!player.is_cooling_down())
         {
           player.shoot();
           player.trigger_cool_down();
@@ -760,14 +760,18 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_player(0).is_shooting());
   }
 
-  // #513 Player can shoot again after the interval
+  // #513 Player can shoot again after the cool down interval, player cannot shoot during the interval
   {
     game g;
     g.do_action(0, action_type::shoot);
-    for (auto i = 0; i <= projectile::m_fire_rate; ++i)
+    for (auto i = 0; i < projectile::m_fire_rate - 1; ++i)
       {
         g.tick();
+        assert(g.get_player(0).is_cooling_down());
+        g.do_action(0, action_type::shoot);
+        assert(!g.get_player(0).is_shooting());
       }
+    g.tick();
     assert(!g.get_player(0).is_cooling_down());
     g.do_action(0, action_type::shoot);
     assert(g.get_player(0).is_shooting());
