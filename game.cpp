@@ -269,10 +269,10 @@ void game::tick()
   regenerate_food_items();
 
   // Increment timers of shoot calm down
-  increment_shoot_cool_down_timers();
+  increment_cool_down_timers();
 
   // Reset timers of shoot calm down
-  reset_shoot_cool_down_status();
+  reset_cool_down_status();
 
   // players that shoot must generate projectiles
   for (player &p : m_player)
@@ -362,25 +362,24 @@ void game::eat_food(food& f)
   f.reset_timer();
 }
 
-void game::increment_shoot_cool_down_timers()
+void game::increment_cool_down_timers()
 {
   for (player &p : m_player)
     {
       if (p.is_cooling_down())
       {
-        p.increment_shoot_cool_down_timer();
+        p.increment_cool_down_timer();
       }
     }
 }
 
-void game::reset_shoot_cool_down_status()
+void game::reset_cool_down_status()
 {
   for (player &p : m_player)
     {
-      float player_shoot_fire_rate = projectile::m_fire_rate / p.get_shoot_fire_rate_multiplier();
-      if (p.is_cooling_down() && p.get_shoot_cool_down_timer() >= player_shoot_fire_rate)
+      if (p.is_cooling_down() && p.get_cool_down_timer() >= projectile::m_fire_rate)
         {
-          p.reset_shoot_cool_down_timer();
+          p.reset_cool_down_timer();
           p.stop_cool_down();
         }
     }
@@ -765,7 +764,7 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     g.do_action(0, action_type::shoot);
-    for (auto i = 0; i <= projectile::m_fire_rate / g.get_player(0).get_shoot_fire_rate_multiplier(); ++i)
+    for (auto i = 0; i <= projectile::m_fire_rate; ++i)
       {
         g.tick();
       }

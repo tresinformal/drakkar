@@ -118,19 +118,13 @@ public:
     void stop_cool_down() noexcept {m_is_cooling_down = false; }
 
     /// Make the shoot calm down timer to increase by one tick
-    void increment_shoot_cool_down_timer() {++m_cool_down_timer; }
+    void increment_cool_down_timer() {++m_cool_down_timer; }
 
     /// Reset the shoot calm down timer to zero
-    void reset_shoot_cool_down_timer() {m_cool_down_timer = 0; }
+    void reset_cool_down_timer() {m_cool_down_timer = 0; }
 
     /// Get the current shoot calm down timer value
-    int get_shoot_cool_down_timer() {return m_cool_down_timer; }
-
-    /// Get the player's shoot fire rate multiplier
-    float get_shoot_fire_rate_multiplier() {return m_shoot_fire_rate_multiplier; }
-
-    /// Change the player's shoot fire rate multiplier
-    void change_shoot_fire_rate_multiplier(int m) noexcept {m_shoot_fire_rate_multiplier = m; }
+    int get_cool_down_timer() {return m_cool_down_timer; }
 
     void shoot_stun_rocket() noexcept { m_is_shooting_stun_rocket = true; }
 
@@ -183,9 +177,6 @@ private:
     int m_cool_down_timer{0};
 
     bool m_is_shooting_stun_rocket{false};
-
-    /// Time interval between each shooting action, in ticks
-    float m_shoot_fire_rate_multiplier{1.00};
 
     ///ID of the player
     read_only<std::string> m_ID;
