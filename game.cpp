@@ -750,7 +750,7 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  // Player enters cool down status after one shooting action
+  // #513 Player enters cool down status after one shooting action
   {
     game g;
     g.do_action(0, action_type::shoot);
@@ -760,7 +760,7 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_player(0).is_shooting());
   }
 
-  // Player can shoot again after the interval
+  // #513 Player can shoot again after the interval
   {
     game g;
     g.do_action(0, action_type::shoot);
@@ -773,7 +773,7 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_player(0).is_shooting());
   }
 
-  // Player 0 enters cool down status will not affect other players
+  // #513 Player 0 enters cool down status will not affect other players
   {
     game g;
     g.do_action(0, action_type::shoot);
