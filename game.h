@@ -160,13 +160,19 @@ private:
   /// Processess the collision between projectiles and players
   void projectile_collision();
 
-  // Increment timers of food items
+  /// Increment timers of food items
   void increment_food_timers();
 
-  // Make players eat food items they are on top of
+  /// Increment timers of shoot calm down of all the players
+  void increment_cool_down_timers();
+
+  /// Reset timers of shoot calm down of all the players
+  void reset_cool_down_status();
+
+  /// Make players eat food items they are on top of
   void make_players_eat_food();
 
-  // Regenerate food items where relevant
+  /// Regenerate food items where relevant
   void regenerate_food_items();
 };
 
