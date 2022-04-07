@@ -116,10 +116,10 @@ void game::do_action(player& player, action_type action)
       }
       case action_type::shoot:
       {
-        if (player.is_shoot_cool_down() == false)
+        if (player.is_cooling_down() == false)
         {
           player.shoot();
-          player.shoot_cool_down();
+          player.trigger_cool_down();
         }
         break;
       }
@@ -259,7 +259,6 @@ void game::tick()
   // Check and resolve wall collisions
   resolve_wall_collisions();
 
-  // Increment timers of shoot calm down
   // Increment timers of all food elements
   increment_food_timers();
 
@@ -269,8 +268,10 @@ void game::tick()
   // Regenerate food items
   regenerate_food_items();
 
+  // Increment timers of shoot calm down
   increment_shoot_cool_down_timers();
 
+  // Reset timers of shoot calm down
   reset_shoot_cool_down_status();
 
   // players that shoot must generate projectiles
@@ -365,7 +366,7 @@ void game::increment_shoot_cool_down_timers()
 {
   for (player &p : m_player)
     {
-      if (p.is_shoot_cool_down())
+      if (p.is_cooling_down())
       {
         p.increment_shoot_cool_down_timer();
       }
@@ -377,10 +378,10 @@ void game::reset_shoot_cool_down_status()
   for (player &p : m_player)
     {
       float player_shoot_fire_rate = projectile::m_fire_rate / p.get_shoot_fire_rate_multiplier();
-      if (p.is_shoot_cool_down() && p.get_shoot_cool_down_timer() >= player_shoot_fire_rate)
+      if (p.is_cooling_down() && p.get_shoot_cool_down_timer() >= player_shoot_fire_rate)
         {
           p.reset_shoot_cool_down_timer();
-          p.stop_shoot_cool_down();
+          p.stop_cool_down();
         }
     }
 }
@@ -755,7 +756,7 @@ void test_game() //!OCLINT tests may be many
     game g;
     g.do_action(0, action_type::shoot);
     g.tick();
-    assert(g.get_player(0).is_shoot_cool_down());
+    assert(g.get_player(0).is_cooling_down());
     g.do_action(0, action_type::shoot);
     assert(!g.get_player(0).is_shooting());
   }
@@ -768,7 +769,7 @@ void test_game() //!OCLINT tests may be many
       {
         g.tick();
       }
-    assert(!g.get_player(0).is_shoot_cool_down());
+    assert(!g.get_player(0).is_cooling_down());
     g.do_action(0, action_type::shoot);
     assert(g.get_player(0).is_shooting());
   }
@@ -778,9 +779,9 @@ void test_game() //!OCLINT tests may be many
     game g;
     g.do_action(0, action_type::shoot);
     g.tick();
-    assert(g.get_player(0).is_shoot_cool_down());
-    assert(!g.get_player(1).is_shoot_cool_down());
-    assert(!g.get_player(2).is_shoot_cool_down());
+    assert(g.get_player(0).is_cooling_down());
+    assert(!g.get_player(1).is_cooling_down());
+    assert(!g.get_player(2).is_cooling_down());
   }
 
   // Projectiles move
