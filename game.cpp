@@ -116,7 +116,11 @@ void game::do_action(player& player, action_type action)
       }
       case action_type::shoot:
       {
-        player.shoot();
+        if (!player.is_cooling_down())
+        {
+          player.shoot();
+          player.trigger_cool_down();
+        }
         break;
       }
       case action_type::shoot_stun_rocket:
@@ -246,13 +250,13 @@ void game::tick()
   // For now only applies inertia
   apply_inertia();
 
-  //Move shelters
+  // Move shelters
   move_shelter();
 
-  //Actions issued by the players are executed
+  // Actions issued by the players are executed
   do_actions();
 
-  //Check and resolve wall collisions
+  // Check and resolve wall collisions
   resolve_wall_collisions();
 
   // Increment timers of all food elements
@@ -263,6 +267,12 @@ void game::tick()
 
   // Regenerate food items
   regenerate_food_items();
+
+  // Increment timers of shoot calm down
+  increment_cool_down_timers();
+
+  // Reset timers of shoot calm down
+  reset_cool_down_status();
 
   // players that shoot must generate projectiles
   for (player &p : m_player)
@@ -350,6 +360,29 @@ void game::eat_food(food& f)
     }
   f.set_food_state(food_state::eaten);
   f.reset_timer();
+}
+
+void game::increment_cool_down_timers()
+{
+  for (player &p : m_player)
+    {
+      if (p.is_cooling_down())
+      {
+        p.increment_cool_down_timer();
+      }
+    }
+}
+
+void game::reset_cool_down_status()
+{
+  for (player &p : m_player)
+    {
+      if (p.is_cooling_down() && p.get_cool_down_timer() >= projectile::m_fire_rate)
+        {
+          p.reset_cool_down_timer();
+          p.stop_cool_down();
+        }
+    }
 }
 
 void game::increment_food_timers()
@@ -715,6 +748,43 @@ void test_game() //!OCLINT tests may be many
         assert(before_y - after_y < 0.0000000000000001 &&
                before_y - after_y > -0.0000000000000001);
       }
+  }
+
+  // #513 Player enters cool down status after one shooting action
+  {
+    game g;
+    g.do_action(0, action_type::shoot);
+    g.tick();
+    assert(g.get_player(0).is_cooling_down());
+    g.do_action(0, action_type::shoot);
+    assert(!g.get_player(0).is_shooting());
+  }
+
+  // #513 Player can shoot again after the cool down interval, player cannot shoot during the interval
+  {
+    game g;
+    g.do_action(0, action_type::shoot);
+    for (auto i = 0; i < projectile::m_fire_rate - 1; ++i)
+      {
+        g.tick();
+        assert(g.get_player(0).is_cooling_down());
+        g.do_action(0, action_type::shoot);
+        assert(!g.get_player(0).is_shooting());
+      }
+    g.tick();
+    assert(!g.get_player(0).is_cooling_down());
+    g.do_action(0, action_type::shoot);
+    assert(g.get_player(0).is_shooting());
+  }
+
+  // #513 Player 0 enters cool down status will not affect other players
+  {
+    game g;
+    g.do_action(0, action_type::shoot);
+    g.tick();
+    assert(g.get_player(0).is_cooling_down());
+    assert(!g.get_player(1).is_cooling_down());
+    assert(!g.get_player(2).is_cooling_down());
   }
 
   // Projectiles move
