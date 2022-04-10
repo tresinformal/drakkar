@@ -8,10 +8,12 @@
 player::player(const coordinate c,
                const player_shape shape,
                const player_state state,
-               const double player_max_speed,
-               const double player_acceleration,
-               const double player_deceleration,
-               const double player_acc_backward,
+               const double player_max_speed_forward,
+               const double player_max_speed_backward,
+               const double player_acceleration_forward,
+               const double player_acceleration_backward,
+               const double player_deceleration_forward,
+               const double player_deceleration_backward,
                const double size,
                const double turn_rate,
                const color &any_color,
@@ -21,10 +23,12 @@ player::player(const coordinate c,
       m_c{c},
       m_shape{shape},
       m_state{state},
-      m_player_max_speed{player_max_speed},
-      m_player_acceleration{player_acceleration},
-      m_player_deceleration{player_deceleration},
-      m_player_acc_backward{player_acc_backward},
+      m_player_max_speed_forward{player_max_speed_forward},
+      m_player_max_speed_backward{player_max_speed_backward},
+      m_player_acceleration_forward{player_acceleration_forward},
+      m_player_acceleration_backward{player_acceleration_backward},
+      m_player_deceleration_forward{player_deceleration_forward},
+      m_player_deceleration_backward{player_deceleration_backward},
       m_diameter{size},
       m_turn_rate{turn_rate}
 {
@@ -63,46 +67,43 @@ void player::shrink()
 /// Get the direction of player movement, in radians
 double player::get_direction() const noexcept { return m_direction_radians; }
 
-void player::brake() noexcept
+void player::decelerate() noexcept
 {
 
     if(m_player_speed > 0.0)
     {
-        m_player_speed += m_player_deceleration;
+        m_player_speed -= m_player_deceleration_forward;
     }
     else if(m_player_speed < 0.0)
     {
-        m_player_speed -= m_player_deceleration;
-    }
-    else
-    {
-        return;
+        m_player_speed += m_player_deceleration_backward;
     }
     move();
 
 }
 
-void player::accelerate() noexcept
+void player::accelerate_forward() noexcept
 {
-    if (m_player_speed < m_player_max_speed)
+    if (m_player_speed < m_player_max_speed_forward)
     {
-        m_player_speed += m_player_acceleration;
+        m_player_speed += m_player_acceleration_forward;
     }
     else
     {
-        m_player_speed = m_player_max_speed;
+        m_player_speed = m_player_max_speed_forward;
     }
+    move();
 }
 
-void player::acc_backward() noexcept
+void player::accelerate_backward() noexcept
 {
-    if (m_player_speed < -m_player_max_speed)
+    if (m_player_speed > m_player_max_speed_backward)
     {
-        m_player_speed = -m_player_max_speed;
+        m_player_speed -= m_player_acceleration_backward;
     }
     else
     {
-        m_player_speed = -m_player_max_speed;
+        m_player_speed = m_player_max_speed_backward;
     }
     move();
 }
@@ -214,10 +215,12 @@ player create_player_with_id(const std::string& id)
                 coordinate(0.0, 0.0),
                 player_shape::rocket,
                 player_state::active,
-                2,
+                20,
+                -15,
                 0.1,
-                -0.001,
-                -0.1,
+                0.05,
+                0.1,
+                0.1,
                 100.0,
                 0.01,
                 color(),
@@ -232,10 +235,12 @@ player create_player_with_color(const color &in_color)
                     coordinate(0.0, 0.0),
                     player_shape::rocket,
                     player_state::active,
-                    2,
+                    20,
+                    -15,
                     0.1,
-                    -0.001,
-                    -0.1,
+                    0.05,
+                    0.1,
+                    0.1,
                     100.0,
                     0.01,
                     in_color
@@ -365,16 +370,30 @@ void test_player() //!OCLINT tests may be long
         assert(std::abs(p.get_speed() - 0.0) < 0.00001);
     }
 
-    // A player has a max_speed of 2(arbitrary value for now)
+    // A player has a forward max_speed of 20(arbitrary value for now)
     {
         const player p;
-        assert(p.get_max_speed() - 2 < 0.000000000001);
+        assert(p.get_max_speed_forward() - 20 < 0.000000000001);
     }
-    // A player has a default acceleration of 0.1 per frame
+
+    // A player has a backward max_speed of -15(arbitrary value for now)
     {
         const player p;
-        assert(p.get_acceleration() - 0.1 < 0.00000000001);
+        assert(p.get_max_speed_backward() + 15 > -0.000000000001);
     }
+
+    // A player has a default forward acceleration of 0.1 per frame
+    {
+        const player p;
+        assert(p.get_acceleration_forward() - 0.1 < 0.00000000001);
+    }
+
+    // A player has a default backward acceleration of 0.05 per frame
+    {
+        const player p;
+        assert(p.get_acceleration_backward() - 0.05 < 0.00000000001);
+    }
+
     // A player has an initial size of one hundred
     {
         const player p{coordinate(1.2, 3.4), player_shape::rocket};
@@ -384,7 +403,7 @@ void test_player() //!OCLINT tests may be long
     {
         player p;
         //give some speed to the player
-        p.accelerate();
+        p.accelerate_forward();
         // with initial position only x will change since sin of 0 is 0
         double a_x = get_x(p);
         double a_y = get_y(p);
@@ -397,7 +416,7 @@ void test_player() //!OCLINT tests may be long
     {
         player p;
         //give some speed to the player
-        p.accelerate();
+        p.accelerate_forward();
         // change direction a little bit
         // otherwise default direction would not show
         // a change in y
@@ -537,7 +556,7 @@ void test_player() //!OCLINT tests may be long
     {
         player p;
         auto action1 = action_type::none;
-        auto action2 = action_type::brake;
+        auto action2 = action_type::accelerate_backward;
         add_action(p, action1);
         add_action(p, action2);
         assert(!p.get_action_set().empty());
@@ -547,11 +566,19 @@ void test_player() //!OCLINT tests may be long
         assert(!p.get_action_set().count(action1));
         assert(p.get_action_set().count(action2));
     }
-    // A player increases its speed by one 'acceleration' per acceleration
+
+    // A player increases its speed by one 'acceleration' per forward acceleration
     {
         player p;
-        p.accelerate();
-        assert(p.get_speed() - p.get_acceleration() < 0.00000000001);
+        p.accelerate_forward();
+        assert(p.get_speed() - p.get_acceleration_forward() < 0.00000000001);
+    }
+
+    // A player increases its speed by one 'acceleration' per backward acceleration
+    {
+        player p;
+        p.accelerate_backward();
+        assert(p.get_acceleration_backward() + p.get_speed() > -0.00000000001);
     }
 
 //#define FIX_ISSUE_270
@@ -630,7 +657,7 @@ void test_player() //!OCLINT tests may be long
     {
         player p;
         assert(p.get_speed() == 0.0);
-        p.brake();
+        p.decelerate();
         assert(p.get_speed() == 0.0);
     }
 
@@ -638,67 +665,39 @@ void test_player() //!OCLINT tests may be long
     //counteract it by increasing its speed
     {
         player p;
-        p.acc_backward();
+        p.accelerate_backward();
         auto full_back_speed = p.get_speed();
         assert (full_back_speed < 0);
-        p.brake();
+        p.decelerate();
         auto brake_back_speed = p.get_speed();
         assert(brake_back_speed > full_back_speed);
     }
 
-    //A player cannot surpass its positive max_speed
+    //A player cannot surpass its forward max_speed
     {
         player p;
         int n_of_accelerations = 1000;
-        assert(p.get_acceleration() * n_of_accelerations > p.get_max_speed());
+        assert(p.get_acceleration_forward() * n_of_accelerations > p.get_max_speed_forward());
         for(int i = 0; i != n_of_accelerations; i++ )
         {
-            p.accelerate();
+            p.accelerate_forward();
         }
-        assert(p.get_speed() - p.get_max_speed() < 0.00001
-               && p.get_speed() - p.get_max_speed() > -0.00001);
+        assert(p.get_speed() - p.get_max_speed_forward() < 0.00001
+               && p.get_speed() - p.get_max_speed_forward() > -0.00001);
     }
 
-    //A player cannot surpass its negative max_speed
+    //A player cannot surpass its backward max_speed
     {
         player p;
         int n_of_accelerations = 1000;
-        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed());
+        assert(-p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed_backward());
         for(int i = 0; i != n_of_accelerations; i++ )
         {
-            p.acc_backward();
-            auto full_back_speed = p.get_speed();
-            assert (full_back_speed < 0);
-            p.brake();
-            auto brake_back_speed = p.get_speed();
-            assert(brake_back_speed > full_back_speed);
-        }
-    }
-    //A player cannot surpass its positive max_speed
-    {
-        player p;
-        int n_of_accelerations = 1000;
-        assert(p.get_acceleration() * n_of_accelerations > p.get_max_speed());
-        for(int i = 0; i != n_of_accelerations; i++ )
-        {
-            p.accelerate();
-        }
-        assert(p.get_speed() - p.get_max_speed() < 0.00001
-               && p.get_speed() - p.get_max_speed() > -0.00001);
-    }
-
-    //A player cannot surpass its negative max_speed
-    {
-        player p;
-        int n_of_accelerations = 1000;
-        assert(p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed());
-        for(int i = 0; i != n_of_accelerations; i++ )
-        {
-            p.acc_backward();
+            p.accelerate_backward();
         }
 
-        assert(p.get_speed() + p.get_max_speed() < 0.00001
-               && p.get_speed() + p.get_max_speed() > -0.00001);
+        assert(p.get_speed() - p.get_max_speed_forward() < 0.00001
+               && p.get_speed() - p.get_max_speed_backward() > -0.00001);
     }
 
     //It is possible to establish how bluish, reddish and greenish a player is

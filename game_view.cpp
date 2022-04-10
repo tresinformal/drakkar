@@ -491,7 +491,7 @@ void test_game_view()//!OCLINT tests may be many
         p0 = player_input(p0,move_forward_pl_1);
         p1 = player_input(p1,move_forward_pl_1);
 
-        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate_forward} );
         assert(p1.get_action_set() == std::set<action_type>{action_type::none} );
 
     }
@@ -503,10 +503,10 @@ void test_game_view()//!OCLINT tests may be many
         player p1;
 
         p0 = create_player_with_id("0");
-        add_action(p0,action_type::accelerate);
+        add_action(p0,action_type::accelerate_forward);
 
         p1 = create_player_with_id("1");
-        add_action(p1,action_type::accelerate);
+        add_action(p1,action_type::accelerate_forward);
 
         sf::Event stop_move_forward_pl_1;
         stop_move_forward_pl_1.key.code = sf::Keyboard::W;
@@ -515,7 +515,7 @@ void test_game_view()//!OCLINT tests may be many
         p1 = player_stop_input(p1,stop_move_forward_pl_1);
 
         assert(p0.get_action_set().empty());
-        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate_forward} );
 
     }
 

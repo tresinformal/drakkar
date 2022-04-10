@@ -41,10 +41,12 @@ game::game(
           player(player_position,
                  player_shape::rocket,
                  player_state::active,
-                 2,
+                 20,
+                 -15,
                  0.1,
-                 -0.0001,
-                 -0.1,
+                 0.05,
+                 0.1,
+                 0.1,
                  100,
                  0.01,
                  color(i % 3 == 0 ? 255 : 0, i % 3 == 1 ? 255 : 0,
@@ -99,19 +101,22 @@ void game::do_action(player& player, action_type action)
         player.turn_right();
         break;
       }
-      case action_type::accelerate:
+      case action_type::accelerate_forward:
       {
-        player.accelerate();
+        if (player.get_speed() >= 0) {
+          player.accelerate_forward();
+        } else {
+          player.decelerate();
+        }
         break;
       }
-      case action_type::brake:
+      case action_type::accelerate_backward:
       {
-        player.brake();
-        break;
-      }
-      case action_type::acc_backward:
-      {
-        player.acc_backward();
+        if (player.get_speed() <= 0) {
+          player.accelerate_backward();
+        } else {
+          player.decelerate();
+        }
         break;
       }
       case action_type::shoot:
@@ -163,7 +168,7 @@ void game::apply_inertia()
           //Player moves based on its speed and position
           player.move();
           //Then its speed gets decreased by attrition
-          player.brake();
+          player.decelerate();
 
         }
     }
@@ -675,7 +680,7 @@ void test_game() //!OCLINT tests may be many
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
       {
         const double before{g.get_player(i).get_speed()};
-        g.do_action(i, action_type::accelerate);
+        g.do_action(i, action_type::accelerate_forward);
         const double after{g.get_player(i).get_speed()};
         assert(before - after < 0.01); // After should be > than before
       }
@@ -687,9 +692,9 @@ void test_game() //!OCLINT tests may be many
 
       {
         // give the player a speed of more than 0
-        g.do_action(i, action_type::accelerate);
+        g.do_action(i, action_type::accelerate_forward);
         const double before{g.get_player(i).get_speed()};
-        g.do_action(i, action_type::brake);
+        g.do_action(i, action_type::accelerate_backward);
         const double after{g.get_player(i).get_speed()};
         assert(before > after);
         // After should be < than before
@@ -704,7 +709,7 @@ void test_game() //!OCLINT tests may be many
         // the player has a speed of 0
         const double before{g.get_player(i).get_speed()};
         assert(before == 0.0);
-        g.do_action(i, action_type::acc_backward);
+        g.do_action(i, action_type::accelerate_backward);
         const double after{g.get_player(i).get_speed()};
         assert(before - after > 0.0000000000000001);
       }
@@ -852,7 +857,7 @@ void test_game() //!OCLINT tests may be many
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
       {
         // give the player a speed of more than 0
-        g.do_action(i, action_type::accelerate);
+        g.do_action(i, action_type::accelerate_forward);
         before_v.push_back(g.get_player(i).get_speed());
       }
     g.apply_inertia();
@@ -1258,7 +1263,7 @@ void test_game() //!OCLINT tests may be many
     assert(!hits_wall(p,g.get_env()));
 
     //give the player some speed
-    p.accelerate();
+    p.accelerate_forward();
     //Move the player into a wall
     p.move();
     assert(hits_north_wall(p, g.get_env()));
@@ -1280,17 +1285,17 @@ void test_game() //!OCLINT tests may be many
     player player_copy = p;
 
     g.do_action(p, action_type::turn_right);
-    g.do_action(p, action_type::accelerate);
+    g.do_action(p, action_type::accelerate_forward);
     assert(player_copy.get_direction() != p.get_direction());
     assert(player_copy.get_speed() != p.get_speed());
 
     //Reset player back to initial conditions
     p = player_copy;
 
-    //When stunned a player cannot turn (or do any other action)
+    //When stunned a player cannot turn (or do_action any other action)
     stun(p);
     g.do_action(p, action_type::turn_left);
-    g.do_action(p, action_type::accelerate);
+    g.do_action(p, action_type::accelerate_forward);
     g.do_action(p, action_type::shoot);
     assert(!p.is_shooting());
     assert(player_copy.get_direction() == p.get_direction());
