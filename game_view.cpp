@@ -287,6 +287,7 @@ void game_view::draw_player_coords() noexcept
         player p = v_player[static_cast<unsigned int>(i)];
         str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
         str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
         str_player_coords += "\n\n";
     }
     food f = m_game.get_food()[0];
