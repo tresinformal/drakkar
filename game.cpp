@@ -1849,29 +1849,42 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  // apply_inertia() slows down players
+  // apply_inertia() works properly
   {
     game g;
     std::vector<double> before_v;
     std::vector<double> after_v;
+    std::vector<double> after_v_2;
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
       {
         // give the player a speed of more than 0
         g.do_action(i, action_type::accelerate_forward);
         assert(g.get_player(i).get_speed() > 0);
         assert(g.get_player(i).get_speed() == g.get_player(i).get_acceleration_forward());
+        assert(g.get_player(i).get_action() == action_type::accelerate_forward);
         before_v.push_back(g.get_player(i).get_speed());
       }
-    // should reset player action otherwise apply_inertial() won't work
-    g.reset_player_action();
-    g.apply_inertia();
+    g.tick();
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
       {
         after_v.push_back(g.get_player(i).get_speed());
       }
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
       {
-        assert(before_v[i] - after_v[i] > 0.0000000000000001);
+        // apply_inertia() did nothing because players were accelerating forward
+        assert(before_v[i] == after_v[i]);
+        assert(g.get_player(i).get_action() == action_type::none);
+      }
+    g.tick();
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        after_v_2.push_back(g.get_player(i).get_speed());
+      }
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+      {
+        // apply_inertia() decelerates players because they are now idle
+        assert(before_v[i] - after_v_2[i] > 0.0000000000000001);
+        assert(g.get_player(i).get_action() == action_type::none);
       }
   }
 #endif // no tests in release
