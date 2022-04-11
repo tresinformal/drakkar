@@ -169,6 +169,9 @@ private:
   /// Reset timers of shoot calm down of all the players
   void reset_cool_down_status();
 
+  /// Reset players' actions
+  void reset_player_action();
+
   /// Make players eat food items they are on top of
   void make_players_eat_food();
 

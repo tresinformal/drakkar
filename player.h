@@ -18,8 +18,8 @@ public:
   player(const coordinate c = coordinate(0.0, 0.0),
            const player_shape shape = player_shape::rocket,
            const player_state state = player_state::active,
-           const double player_max_speed_forward = 20,
-           const double player_max_speed_backward = -15,
+           const double player_max_speed_forward = 1,
+           const double player_max_speed_backward = -0.5,
            const double player_acceleration_forward = 0.1,
            const double player_acceleration_backward = 0.05,
            const double player_deceleration_forward = 0.1,
@@ -59,6 +59,12 @@ public:
 
     /// Get the state of the player
     player_state get_state() const noexcept { return m_state; }
+
+    /// Get the current action of the player
+    action_type get_action() const noexcept { return m_action; }
+
+    /// Set the current action of the player
+    void set_action(const action_type action) { m_action = action; }
 
     /// Get the radius of the player
     double get_diameter() const noexcept;
@@ -194,6 +200,9 @@ private:
 
     /// The state of the player
     player_state m_state;
+
+    /// Player's current action
+    action_type m_action{action_type::none};
 
     /// The speed of the player
     double m_player_speed = 0;

@@ -41,8 +41,8 @@ game::game(
           player(player_position,
                  player_shape::rocket,
                  player_state::active,
-                 20,
-                 -15,
+                 1,
+                 -0.5,
                  0.1,
                  0.05,
                  0.1,
@@ -94,19 +94,23 @@ void game::do_action(player& player, action_type action)
       case action_type::turn_left:
       {
         player.turn_left();
+        player.set_action(action_type::turn_left);
         break;
       }
       case action_type::turn_right:
       {
         player.turn_right();
+        player.set_action(action_type::turn_right);
         break;
       }
       case action_type::accelerate_forward:
       {
         if (player.get_speed() >= 0) {
           player.accelerate_forward();
+          player.set_action(action_type::accelerate_forward);
         } else {
           player.decelerate();
+          player.set_action(action_type::accelerate_forward);
         }
         break;
       }
@@ -114,8 +118,10 @@ void game::do_action(player& player, action_type action)
       {
         if (player.get_speed() <= 0) {
           player.accelerate_backward();
+          player.set_action(action_type::accelerate_backward);
         } else {
           player.decelerate();
+          player.set_action(action_type::accelerate_backward);
         }
         break;
       }
@@ -125,12 +131,14 @@ void game::do_action(player& player, action_type action)
         {
           player.shoot();
           player.trigger_cool_down();
+          player.set_action(action_type::shoot);
         }
         break;
       }
       case action_type::shoot_stun_rocket:
       {
         player.shoot_stun_rocket();
+        player.set_action(action_type::shoot_stun_rocket);
         break;
       }
       case action_type::none:
@@ -163,14 +171,16 @@ void game::apply_inertia()
 
   for (auto& player: m_player)
     {
-      if (player.get_speed() != 0.0)
+      if (player.get_action() != action_type::accelerate_forward && player.get_action() != action_type::accelerate_backward)
+      {
+        if (player.get_speed() != 0.0)
         {
           //Player moves based on its speed and position
           player.move();
           //Then its speed gets decreased by attrition
           player.decelerate();
-
         }
+      }
     }
 }
 
@@ -252,14 +262,17 @@ void game::tick()
   //Projectiles hit the players
   projectile_collision();
 
-  // For now only applies inertia
-  apply_inertia();
-
   // Move shelters
   move_shelter();
 
   // Actions issued by the players are executed
   do_actions();
+
+  // For now only applies inertia
+  apply_inertia();
+
+  // Reset players' actions
+  reset_player_action();
 
   // Check and resolve wall collisions
   resolve_wall_collisions();
@@ -387,6 +400,14 @@ void game::reset_cool_down_status()
           p.reset_cool_down_timer();
           p.stop_cool_down();
         }
+    }
+}
+
+void game::reset_player_action()
+{
+  for (player &p : m_player)
+    {
+      p.set_action(action_type::none);
     }
 }
 
