@@ -30,11 +30,17 @@ public:
            const std::string& ID = "0");
 
 
-    /// Get the acceleration of the player
+    /// Get the forward acceleration of the player
     double get_acceleration_forward() const noexcept { return m_player_acceleration_forward; }
 
     ///Get the backward acceleration of the player
     double get_acceleration_backward() const noexcept { return m_player_acceleration_backward; }
+
+    /// Get the forward deceleration of the player
+    double get_deceleration_forward() const noexcept { return m_player_deceleration_forward; }
+
+    ///Get the backward deceleration of the player
+    double get_deceleration_backward() const noexcept { return m_player_deceleration_backward; }
 
     ///Returns const ref to action set of the player
     const std::set<action_type>& get_action_set() const noexcept {return m_action_set;}
