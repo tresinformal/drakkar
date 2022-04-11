@@ -34,6 +34,9 @@ public:
   ///makes a player do an action
   void do_action(player& player_index, action_type action);
 
+  /// Reset players' actions
+  void reset_player_action();
+
   ///Executes all actions issued by all players, called in tick()
   void do_actions() noexcept;
 
@@ -168,9 +171,6 @@ private:
 
   /// Reset timers of shoot calm down of all the players
   void reset_cool_down_status();
-
-  /// Reset players' actions
-  void reset_player_action();
 
   /// Make players eat food items they are on top of
   void make_players_eat_food();

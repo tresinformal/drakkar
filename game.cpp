@@ -1811,7 +1811,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_478
 
-  // inertia  slows down players
+  // apply_inertia slows down players
   {
     game g;
     std::vector<double> before_v;
@@ -1820,8 +1820,12 @@ void test_game() //!OCLINT tests may be many
       {
         // give the player a speed of more than 0
         g.do_action(i, action_type::accelerate_forward);
+        assert(g.get_player(i).get_speed() > 0);
+        assert(g.get_player(i).get_speed() == g.get_player(i).get_acceleration_forward());
         before_v.push_back(g.get_player(i).get_speed());
       }
+    // should reset player action otherwise apply_inertial() won't work
+    g.reset_player_action();
     g.apply_inertia();
     for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
       {
@@ -1830,21 +1834,8 @@ void test_game() //!OCLINT tests may be many
     for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
       {
         assert(before_v[i] - after_v[i] > 0.0000000000000001);
-        // After should be < than before
       }
   }
-
-  // A player will stand still when do nothing because of the inertia
-  {
-      game g;
-      g.do_action(1, action_type::accelerate_forward);
-      assert(g.get_player(1).get_speed() >= g.get_player(1).get_acceleration_forward());
-      g.tick();
-      assert(g.get_player(1).get_speed() == 0);
-  }
-
-
-
 #endif // no tests in release
 }
 
