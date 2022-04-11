@@ -1891,9 +1891,6 @@ void test_game() //!OCLINT tests may be many
         {
           // give the player a speed of more than 0
           g.do_action(i, action_type::accelerate_forward);
-          assert(g.get_player(i).get_speed() > 0);
-          assert(g.get_player(i).get_speed() == g.get_player(i).get_acceleration_forward());
-          assert(g.get_player(i).get_action() == action_type::accelerate_forward);
           before_v.push_back(g.get_player(i).get_speed());
         }
       g.tick();
@@ -1905,7 +1902,6 @@ void test_game() //!OCLINT tests may be many
         {
           // apply_inertia() did nothing because players were accelerating forward
           assert(before_v[i] == after_v[i]);
-          assert(g.get_player(i).get_action() == action_type::none);
         }
       g.tick();
       for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
@@ -1916,7 +1912,6 @@ void test_game() //!OCLINT tests may be many
         {
           // apply_inertia() decelerates players because they are now idle
           assert(before_v[i] - after_v_2[i] > 0.0000000000000001);
-          assert(g.get_player(i).get_action() == action_type::none);
         }
     }
   }
