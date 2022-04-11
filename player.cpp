@@ -687,8 +687,8 @@ void test_player() //!OCLINT tests may be long
     }
   #endif
 
-  #define FIX_ISSUE_UNDET
-  #ifdef FIX_ISSUE_UNDET
+  #define FIX_ISSUE_524
+  #ifdef FIX_ISSUE_524
     {
         // A player has an initial direction of 270 degrees (facing up)
         {
