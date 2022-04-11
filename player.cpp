@@ -69,17 +69,29 @@ double player::get_direction() const noexcept { return m_direction_radians; }
 
 void player::decelerate() noexcept
 {
-
     if(m_player_speed > 0.0)
     {
-        m_player_speed -= m_player_deceleration_forward;
+        if(m_player_speed >= m_player_deceleration_forward)
+        {
+            m_player_speed -= m_player_deceleration_forward;
+        }
+        else
+        {
+            m_player_speed = 0;
+        }
     }
     else if(m_player_speed < 0.0)
     {
-        m_player_speed += m_player_deceleration_backward;
+        if(abs(m_player_speed) >= m_player_deceleration_backward)
+        {
+            m_player_speed += m_player_deceleration_backward;
+        }
+        else
+        {
+            m_player_speed = 0;
+        }
     }
     move();
-
 }
 
 void player::accelerate_forward() noexcept
@@ -675,6 +687,151 @@ void test_player() //!OCLINT tests may be long
     }
   #endif
 
+  #define FIX_ISSUE_UNDET
+  #ifdef FIX_ISSUE_UNDET
+    {
+        // A player has an initial direction of 270 degrees (facing up)
+        {
+            const player p{coordinate(1.2, 3.4), player_shape::rocket};
+            assert(std::abs(p.get_direction() - 270 * M_PI / 180) < 0.00001);
+        }
+
+        // A player has an initial speed of zero
+        {
+            const player p{coordinate(1.2, 3.4), player_shape::rocket};
+            assert(std::abs(p.get_speed() - 0.0) < 0.00001);
+        }
+
+        // A player has a default maximum forward speed of 1
+        {
+            const player p;
+            assert(p.get_max_speed_forward() == 1);
+        }
+
+        // A player has a default maximum backward speed of -0.5
+        {
+            const player p;
+            assert(p.get_max_speed_backward() == -0.5);
+        }
+
+        // A player has a default forward acceleration of 0.1 per tick
+        {
+            const player p;
+            assert(p.get_acceleration_forward() == 0.1);
+        }
+
+        // A player has a default backward acceleration of 0.05 per tick
+        {
+            const player p;
+            assert(p.get_acceleration_backward() == 0.05);
+        }
+
+        // A player can actually move
+        {
+            player p;
+            //give some speed to the player
+            p.accelerate_forward();
+            // with initial position only x will change since sin of 0 is 0
+            double a_x = get_x(p);
+            double a_y = get_y(p);
+            p.move(); // move the player
+            double b_x = get_x(p);
+            double b_y = get_y(p);
+            assert(std::abs(a_x - b_x) < 0.0000001);
+            assert(std::abs(a_y - b_y) > 0.0000001);
+        }
+        {
+            player p;
+            //give some speed to the player
+            p.accelerate_forward();
+            // change direction a little bit
+            // otherwise default direction would not show
+            // a change in y
+            p.turn_left();
+
+            double a_x = get_x(p);
+            double a_y = get_y(p);
+            p.move(); // move the player
+            double b_x = get_x(p);
+            double b_y = get_y(p);
+            assert(std::abs(a_x - b_x) > 0.0000001);
+            assert(std::abs(a_y - b_y) > 0.0000001);
+        }
+
+
+        // A player increases its forward speed by one 'acceleration' per forward acceleration
+        {
+            player p;
+            p.accelerate_forward();
+            assert(p.get_speed() - p.get_acceleration_forward() < 0.00000000001);
+            assert(p.get_speed() - p.get_acceleration_forward() > -0.00000000001);
+        }
+
+        // A player increases its backward speed by one 'acceleration' per backward acceleration
+        {
+            player p;
+            p.accelerate_backward();
+            assert(p.get_acceleration_backward() + p.get_speed() > -0.00000000001);
+            assert(p.get_acceleration_backward() + p.get_speed() < 0.00000000001);
+        }
+
+        // A player cannot surpass its maximum forward speed
+        {
+            player p;
+            int n_of_accelerations = 1000;
+            assert(p.get_acceleration_forward() * n_of_accelerations > p.get_max_speed_forward());
+            for(int i = 0; i != n_of_accelerations; i++ )
+            {
+                p.accelerate_forward();
+            }
+            assert(p.get_speed() == p.get_max_speed_forward());
+        }
+
+        // A player cannot surpass its maximum backward speed
+        {
+            player p;
+            int n_of_accelerations = 1000;
+            assert(-p.get_acceleration_backward() * n_of_accelerations < -p.get_max_speed_backward());
+            for(int i = 0; i != n_of_accelerations; i++ )
+            {
+                p.accelerate_backward();
+            }
+            assert(p.get_speed() == p.get_max_speed_backward());
+        }
+
+        // A player will decelerate to speed 0, but not 'over-decelerate', in both directions
+        {
+            player p;
+            int n_of_accelerations = 1000;
+
+            assert(p.get_acceleration_forward() * n_of_accelerations > p.get_max_speed_forward());
+            for(int i = 0; i != n_of_accelerations; i++ )
+            {
+                p.accelerate_forward();
+            }
+            assert(p.get_speed() == p.get_max_speed_forward());
+            assert(p.get_deceleration_forward() * n_of_accelerations > p.get_speed());
+            for(int i = 0; i != n_of_accelerations; i++ )
+            {
+                p.decelerate();
+            }
+            assert(p.get_speed() == 0);
+
+            assert(-p.get_acceleration_backward() * n_of_accelerations < p.get_max_speed_backward());
+            for(int i = 0; i != n_of_accelerations; i++ )
+            {
+                p.accelerate_backward();
+            }
+            assert(p.get_speed() == p.get_max_speed_backward());
+            assert(p.get_deceleration_backward() * n_of_accelerations > abs(p.get_speed()));
+            for(int i = 0; i != n_of_accelerations; i++ )
+            {
+                p.decelerate();
+            }
+            assert(p.get_speed() == 0);
+        }
+    }
+  #endif
 #endif // no tests in release
 }
 

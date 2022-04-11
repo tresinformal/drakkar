@@ -870,29 +870,6 @@ void test_game() //!OCLINT tests may be many
     g.tick();
     assert(g.get_n_ticks() - before == 1);
   }
-  // inertia  slows down players
-  {
-    game g;
-    std::vector<double> before_v;
-    std::vector<double> after_v;
-    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-      {
-        // give the player a speed of more than 0
-        g.do_action(i, action_type::accelerate_forward);
-        before_v.push_back(g.get_player(i).get_speed());
-      }
-    g.apply_inertia();
-    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-      {
-        after_v.push_back(g.get_player(i).get_speed());
-      }
-    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-      {
-        assert(before_v[i] - after_v[i] > 0.0000000000000001);
-        // After should be < than before
-      }
-
-  }
 
   // players are placed at dist of 300 points
   // along the x axis at initialization
@@ -1833,6 +1810,40 @@ void test_game() //!OCLINT tests may be many
     assert(g == h);
   }
   #endif // FIX_ISSUE_478
+
+  // inertia  slows down players
+  {
+    game g;
+    std::vector<double> before_v;
+    std::vector<double> after_v;
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        // give the player a speed of more than 0
+        g.do_action(i, action_type::accelerate_forward);
+        before_v.push_back(g.get_player(i).get_speed());
+      }
+    g.apply_inertia();
+    for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+        after_v.push_back(g.get_player(i).get_speed());
+      }
+    for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+      {
+        assert(before_v[i] - after_v[i] > 0.0000000000000001);
+        // After should be < than before
+      }
+  }
+
+  // A player will stand still when do nothing because of the inertia
+  {
+      game g;
+      g.do_action(1, action_type::accelerate_forward);
+      assert(g.get_player(1).get_speed() >= g.get_player(1).get_acceleration_forward());
+      g.tick();
+      assert(g.get_player(1).get_speed() == 0);
+  }
+
+
 
 #endif // no tests in release
 }
