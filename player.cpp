@@ -234,7 +234,7 @@ player create_player_with_id(const std::string& id)
                 0.1,
                 0.1,
                 100.0,
-                0.01,
+                0.007,
                 color(),
                 id
                 };
@@ -254,7 +254,7 @@ player create_player_with_color(const color &in_color)
                     0.1,
                     0.1,
                     100.0,
-                    0.01,
+                    0.007,
                     in_color
                     };
     }

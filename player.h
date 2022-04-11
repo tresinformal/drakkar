@@ -25,7 +25,7 @@ public:
            const double player_deceleration_forward = 0.1,
            const double player_deceleration_backward = 0.1,
            const double size = 100.0,
-           const double turn_rate = 0.01,
+           const double turn_rate = 0.007,
            const color &any_color = color(),
            const std::string& ID = "0");
 
