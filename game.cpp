@@ -142,7 +142,10 @@ void game::do_action(player& player, action_type action)
         break;
       }
       case action_type::none:
+      {
+        player.set_action(action_type::none);
         return;
+      }
     }
   }
 }
@@ -265,6 +268,7 @@ void game::tick()
   // Move shelters
   move_shelter();
 
+  /// Sequence is important: firstly do action, then apply inertial, finally reset player action
   // Actions issued by the players are executed
   do_actions();
 
@@ -1811,7 +1815,41 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_478
 
-  // apply_inertia slows down players
+  // do_action will change a player's action flag
+  {
+    game g;
+    g.do_action(1, action_type::accelerate_backward);
+    assert(g.get_player(1).get_action() == action_type::accelerate_backward);
+    g.do_action(1, action_type::accelerate_forward);
+    assert(g.get_player(1).get_action() == action_type::accelerate_forward);
+    g.do_action(1, action_type::none);
+    assert(g.get_player(1).get_action() == action_type::none);
+    g.do_action(1, action_type::shoot);
+    assert(g.get_player(1).get_action() == action_type::shoot);
+    g.do_action(1, action_type::shoot_stun_rocket);
+    assert(g.get_player(1).get_action() == action_type::shoot_stun_rocket);
+    g.do_action(1, action_type::turn_left);
+    assert(g.get_player(1).get_action() == action_type::turn_left);
+    g.do_action(1, action_type::turn_right);
+    assert(g.get_player(1).get_action() == action_type::turn_right);
+  }
+
+  // reset_player_action() can reset all players' action flags
+  {
+      game g;
+      for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+          g.do_action(i, action_type::accelerate_forward);
+          assert(g.get_player(i).get_action() == action_type::accelerate_forward);
+      }
+      g.reset_player_action();
+      for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      {
+          assert(g.get_player(i).get_action() == action_type::none);
+      }
+  }
+
+  // apply_inertia() slows down players
   {
     game g;
     std::vector<double> before_v;

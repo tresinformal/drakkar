@@ -165,7 +165,7 @@ public:
     /// Accelerate the player
     void accelerate_forward() noexcept;
 
-    /// Brake the player
+    /// Decelerate the player
     void decelerate() noexcept;
 
     /// Accelerate the player backward
