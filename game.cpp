@@ -94,23 +94,23 @@ void game::do_action(player& player, action_type action)
       case action_type::turn_left:
       {
         player.turn_left();
-        player.set_action(action_type::turn_left);
+        player.set_action_flag(action_type::turn_left);
         break;
       }
       case action_type::turn_right:
       {
         player.turn_right();
-        player.set_action(action_type::turn_right);
+        player.set_action_flag(action_type::turn_right);
         break;
       }
       case action_type::accelerate_forward:
       {
         if (player.get_speed() >= 0) {
           player.accelerate_forward();
-          player.set_action(action_type::accelerate_forward);
+          player.set_action_flag(action_type::accelerate_forward);
         } else {
           player.decelerate();
-          player.set_action(action_type::accelerate_forward);
+          player.set_action_flag(action_type::accelerate_forward);
         }
         break;
       }
@@ -118,10 +118,10 @@ void game::do_action(player& player, action_type action)
       {
         if (player.get_speed() <= 0) {
           player.accelerate_backward();
-          player.set_action(action_type::accelerate_backward);
+          player.set_action_flag(action_type::accelerate_backward);
         } else {
           player.decelerate();
-          player.set_action(action_type::accelerate_backward);
+          player.set_action_flag(action_type::accelerate_backward);
         }
         break;
       }
@@ -131,19 +131,19 @@ void game::do_action(player& player, action_type action)
         {
           player.shoot();
           player.trigger_cool_down();
-          player.set_action(action_type::shoot);
+          player.set_action_flag(action_type::shoot);
         }
         break;
       }
       case action_type::shoot_stun_rocket:
       {
         player.shoot_stun_rocket();
-        player.set_action(action_type::shoot_stun_rocket);
+        player.set_action_flag(action_type::shoot_stun_rocket);
         break;
       }
       case action_type::none:
       {
-        player.set_action(action_type::none);
+        player.set_action_flag(action_type::none);
         return;
       }
     }
@@ -411,7 +411,7 @@ void game::reset_player_action()
 {
   for (player &p : m_player)
     {
-      p.set_action(action_type::none);
+      p.set_action_flag(action_type::none);
     }
 }
 
@@ -1847,7 +1847,7 @@ void test_game() //!OCLINT tests may be many
   #define FIX_ISSUE_524
   #ifdef FIX_ISSUE_524
   {
-    // do_action will change a player's action flag
+    // do_action() will change a player's action flag
     {
       game g;
       g.do_action(1, action_type::accelerate_backward);
