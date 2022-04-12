@@ -1900,10 +1900,10 @@ void test_game() //!OCLINT tests may be many
       double after;
 
       // give the player a speed of more than 0
-      g.do_action(1, action_type::accelerate_forward);
-      before = g.get_player(1).get_speed();
+      g.do_action(0, action_type::accelerate_forward);
+      before = g.get_player(0).get_speed();
       g.tick();
-      after = g.get_player(1).get_speed();
+      after = g.get_player(0).get_speed();
       // apply_inertia() did nothing because players were accelerating forward
       assert(before == after);
 
@@ -1916,7 +1916,7 @@ void test_game() //!OCLINT tests may be many
       double before;
       double after;
 
-      assert(abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
+      assert(abs(g.get_player(1).get_max_speed_backward()) >= g.get_player(1).get_deceleration_backward());
       assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
       for(int i = 0; i != n_of_accelerations; i++ )
       {
