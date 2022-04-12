@@ -1847,7 +1847,7 @@ void test_game() //!OCLINT tests may be many
   #define FIX_ISSUE_524
   #ifdef FIX_ISSUE_524
   {
-    #define DBG // Add ASSERT() for debugging purpose
+    //#define DBG // Add ASSERT() for debugging purpose
     #ifdef DBG
         #define ASSERT(condition, message) \
         do { \

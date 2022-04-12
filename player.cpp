@@ -690,7 +690,7 @@ void test_player() //!OCLINT tests may be long
   #define FIX_ISSUE_524
   #ifdef FIX_ISSUE_524
     {
-        #define DBG // Add ASSERT() for debugging purpose
+        //#define DBG // Add ASSERT() for debugging purpose
         #ifdef DBG
             #define ASSERT(condition, message) \
             do { \
