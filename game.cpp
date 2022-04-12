@@ -1862,20 +1862,20 @@ void test_game() //!OCLINT tests may be many
     // do_action() will change a player's action flag
     {
       game g;
-      g.do_action(1, action_type::accelerate_backward);
-      assert(g.get_player(1).get_action() == action_type::accelerate_backward);
-      g.do_action(1, action_type::accelerate_forward);
-      assert(g.get_player(1).get_action() == action_type::accelerate_forward);
-      g.do_action(1, action_type::none);
-      assert(g.get_player(1).get_action() == action_type::none);
-      g.do_action(1, action_type::shoot);
-      assert(g.get_player(1).get_action() == action_type::shoot);
-      g.do_action(1, action_type::shoot_stun_rocket);
-      assert(g.get_player(1).get_action() == action_type::shoot_stun_rocket);
-      g.do_action(1, action_type::turn_left);
-      assert(g.get_player(1).get_action() == action_type::turn_left);
-      g.do_action(1, action_type::turn_right);
-      assert(g.get_player(1).get_action() == action_type::turn_right);
+      g.do_action(0, action_type::accelerate_backward);
+      assert(g.get_player(0).get_action() == action_type::accelerate_backward);
+      g.do_action(0, action_type::accelerate_forward);
+      assert(g.get_player(0).get_action() == action_type::accelerate_forward);
+      g.do_action(0, action_type::none);
+      assert(g.get_player(0).get_action() == action_type::none);
+      g.do_action(0, action_type::shoot);
+      assert(g.get_player(0).get_action() == action_type::shoot);
+      g.do_action(0, action_type::shoot_stun_rocket);
+      assert(g.get_player(0).get_action() == action_type::shoot_stun_rocket);
+      g.do_action(0, action_type::turn_left);
+      assert(g.get_player(0).get_action() == action_type::turn_left);
+      g.do_action(0, action_type::turn_right);
+      assert(g.get_player(0).get_action() == action_type::turn_right);
     }
 
     // reset_player_action() can reset all players' action flags
