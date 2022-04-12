@@ -1847,6 +1847,18 @@ void test_game() //!OCLINT tests may be many
   #define FIX_ISSUE_524
   #ifdef FIX_ISSUE_524
   {
+    #define DBG // Add ASSERT() for debugging purpose
+    #ifdef DBG
+        #define ASSERT(condition, message) \
+        do { \
+            if (! (condition)) { \
+                std::cerr << "Assertion `" #condition "` failed in " << __FILE__ \
+                          << " line " << __LINE__ << ": " << message << std::endl; \
+                std::terminate(); \
+            } \
+        } while (false)
+    #endif
+
     // do_action() will change a player's action flag
     {
       game g;
@@ -1881,38 +1893,160 @@ void test_game() //!OCLINT tests may be many
         }
     }
 
-    // apply_inertia() works properly
+    // apply_inertia() does nothing if the players are doing accelerate_forward or accelerate_backward actions
     {
       game g;
-      std::vector<double> before_v;
-      std::vector<double> after_v;
-      std::vector<double> after_v_2;
-      for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-        {
-          // give the player a speed of more than 0
-          g.do_action(i, action_type::accelerate_forward);
-          before_v.push_back(g.get_player(i).get_speed());
-        }
+      double before;
+      double after;
+
+      // give the player a speed of more than 0
+      g.do_action(1, action_type::accelerate_forward);
+      before = g.get_player(1).get_speed();
       g.tick();
-      for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
-        {
-          after_v.push_back(g.get_player(i).get_speed());
-        }
-      for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
-        {
-          // apply_inertia() did nothing because players were accelerating forward
-          assert(before_v[i] == after_v[i]);
-        }
+      after = g.get_player(1).get_speed();
+      // apply_inertia() did nothing because players were accelerating forward
+      assert(before == after);
+
+    }
+
+    // apply_inertia() triggers decelerate() if the players are idle after moving backward
+    {
+      game g;
+      int n_of_accelerations = 1000;
+      double before;
+      double after;
+
+      assert(abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
+      assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
+      for(int i = 0; i != n_of_accelerations; i++ )
+      {
+          g.do_action(0, action_type::accelerate_backward);
+      }
+      before = g.get_player(0).get_speed();
+      g.reset_player_action();
+      // reset_player_action() was called at the previous tick,
+      // at the next tick apply_inertia() should take effect
       g.tick();
-      for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
+      after = g.get_player(0).get_speed();
+      // apply_inertia() decelerates players because they are now idle
+      assert(before < after);
+      assert((after - before) - g.get_player(0).get_deceleration_backward() < 0.0000000000000001);
+      assert((after - before) - g.get_player(0).get_deceleration_backward() > -0.0000000000000001);
+    }
+
+    // apply_inertia() triggers decelerate() if the players are idle after moving forward
+    {
+      game g;
+      int n_of_accelerations = 1000;
+      double before;
+      double after;
+
+      assert(g.get_player(0).get_max_speed_forward() >= g.get_player(0).get_deceleration_forward());
+      assert(g.get_player(0).get_acceleration_forward() * n_of_accelerations >= g.get_player(0).get_max_speed_forward());
+      for(int i = 0; i != n_of_accelerations; i++ )
+      {
+          g.do_action(0, action_type::accelerate_forward);
+      }
+      before = g.get_player(0).get_speed();
+      g.reset_player_action();
+      // reset_player_action() was called at the previous tick,
+      // at the next tick apply_inertia() should take effect
+      g.tick();
+      after = g.get_player(0).get_speed();
+      // apply_inertia() decelerates players because they are now idle
+      assert(after < before);
+      assert((before - after) - g.get_player(0).get_deceleration_forward() < 0.0000000000000001);
+      assert((before - after) - g.get_player(0).get_deceleration_forward() > -0.0000000000000001);
+    }
+
+    // apply_inertia() won't over-decelerate the players when moving forward
+    {
+      game g;
+      int n_of_accelerations = 1000;
+
+      assert(g.get_player(0).get_max_speed_forward() >= g.get_player(0).get_deceleration_forward());
+      assert(g.get_player(0).get_acceleration_forward() * n_of_accelerations >= g.get_player(0).get_max_speed_forward());
+      for(int i = 0; i != n_of_accelerations; i++ )
+      {
+          g.do_action(0, action_type::accelerate_forward);
+      }
+      g.reset_player_action();
+      // reset_player_action() was called at the previous tick,
+      // at the next tick apply_inertia() should take effect
+      assert(g.get_player(0).get_deceleration_forward() * n_of_accelerations > g.get_player(0).get_max_speed_forward());
+      for(int i = 0; i != n_of_accelerations; i++ )
+      {
+          g.tick();
+      }
+      assert(g.get_player(0).get_speed() == 0);
+    }
+
+    // apply_inertia() won't over-decelerate the players when moving backward
+    {
+      game g;
+      int n_of_accelerations = 1000;
+
+      assert(abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
+      assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
+      for(int i = 0; i != n_of_accelerations; i++ )
+      {
+          g.do_action(0, action_type::accelerate_backward);
+      }
+      g.reset_player_action();
+      // reset_player_action() was called at the previous tick,
+      // at the next tick apply_inertia() should take effect
+      assert(g.get_player(0).get_deceleration_backward() * n_of_accelerations > abs(g.get_player(0).get_max_speed_backward()));
+      for(int i = 0; i != n_of_accelerations; i++ )
+      {
+          g.tick();
+      }
+      assert(g.get_player(0).get_speed() == 0);
+    }
+
+    // Do accelerate_backward() when moving forward (speed > 0) will actually trigger decelerate()
+    {
+        game g;
+        int n_of_accelerations = 1000;
+        double before;
+        double after;
+
+        assert(g.get_player(0).get_max_speed_forward() >= g.get_player(0).get_deceleration_forward());
+        assert(g.get_player(0).get_acceleration_forward() * n_of_accelerations >= g.get_player(0).get_max_speed_forward());
+        for(int i = 0; i != n_of_accelerations; i++ )
         {
-          after_v_2.push_back(g.get_player(i).get_speed());
+            g.do_action(0, action_type::accelerate_forward);
         }
-      for (unsigned int i = 0; i < g.get_v_player().size(); ++i)
+        g.reset_player_action();
+        before = g.get_player(0).get_speed();
+        g.do_action(0, action_type::accelerate_backward);
+        g.reset_player_action();
+        after = g.get_player(0).get_speed();
+        assert(before > after);
+        assert((before - after) - g.get_player(0).get_deceleration_forward() < 0.000001);
+        assert((before - after) - g.get_player(0).get_deceleration_forward() > -0.000001);
+    }
+
+    // Do accelerate_forward() when moving backward (speed < 0) will actually trigger decelerate()
+    {
+        game g;
+        int n_of_accelerations = 1000;
+        double before;
+        double after;
+
+        assert(abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
+        assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
+        for(int i = 0; i != n_of_accelerations; i++ )
         {
-          // apply_inertia() decelerates players because they are now idle
-          assert(before_v[i] - after_v_2[i] > 0.0000000000000001);
+            g.do_action(0, action_type::accelerate_backward);
         }
+        g.reset_player_action();
+        before = g.get_player(0).get_speed();
+        g.do_action(0, action_type::accelerate_forward);
+        g.reset_player_action();
+        after = g.get_player(0).get_speed();
+        assert(before < after);
+        assert(abs(before - after) - g.get_player(0).get_acceleration_forward() < 0.000001);
+        assert(abs(before - after) - g.get_player(0).get_acceleration_forward() > -0.000001);
     }
   }
   #endif

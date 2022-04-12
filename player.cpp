@@ -690,6 +690,18 @@ void test_player() //!OCLINT tests may be long
   #define FIX_ISSUE_524
   #ifdef FIX_ISSUE_524
     {
+        #define DBG // Add ASSERT() for debugging purpose
+        #ifdef DBG
+            #define ASSERT(condition, message) \
+            do { \
+                if (! (condition)) { \
+                    std::cerr << "Assertion `" #condition "` failed in " << __FILE__ \
+                              << " line " << __LINE__ << ": " << message << std::endl; \
+                    std::terminate(); \
+                } \
+            } while (false)
+        #endif
+
         // A player has an initial direction of 270 degrees (facing up)
         {
             const player p{coordinate(1.2, 3.4), player_shape::rocket};
