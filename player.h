@@ -67,10 +67,10 @@ public:
     player_state get_state() const noexcept { return m_state; }
 
     /// Get the current action of the player
-    action_type get_action() const noexcept { return m_action; }
+    action_type get_action() const noexcept { return m_action_flag; }
 
     /// Set the current action of the player
-    void set_action(const action_type action) { m_action = action; }
+    void set_action_flag(const action_type action) { m_action_flag = action; }
 
     /// Get the radius of the player
     double get_diameter() const noexcept;
@@ -208,7 +208,7 @@ private:
     player_state m_state;
 
     /// Player's current action
-    action_type m_action{action_type::none};
+    action_type m_action_flag{action_type::none};
 
     /// The speed of the player
     double m_player_speed = 0;
