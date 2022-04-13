@@ -138,10 +138,10 @@ void test_color()
     const color c;
     std::cout << c;
   }
-#define FIX_ISSUE_322
-#ifdef FIX_ISSUE_322
+
   // Colors have the correct RGB values
   {
+    //  This is ISSUE_#322
     const color red = create_red_color();
     assert(get_redness(red) == 255);
     assert(get_greenness(red) == 0);
@@ -159,14 +159,12 @@ void test_color()
     assert(get_greenness(blue) == 0);
     assert(get_blueness(blue) == 255);
   }
-#endif // FIX_ISSUE_322
 
 
-#define FIX_ISSUE_229
-#ifdef FIX_ISSUE_229
   // Colors have the correct hues
   // See http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
   {
+    //  This is ISSUE_#229
     const color red = create_red_color();
     assert(calc_hue(red) == 0.0);
   }
@@ -178,13 +176,10 @@ void test_color()
     const color blue = create_blue_color();
     assert(calc_hue(blue) == 240.0);
   }
-#endif // FIX_ISSUE_229
 
-
-#define FIX_ISSUE_230
-#ifdef FIX_ISSUE_230
   // The correct color must win
   {
+    //  This is ISSUE_#230
     const color paper = create_red_color();
     const color rock = create_green_color();
     const color scissors = create_blue_color();
@@ -195,7 +190,6 @@ void test_color()
     assert(!is_first_color_winner(paper, scissors));
     assert(!is_first_color_winner(scissors, rock));
   }
-#endif // FIX_ISSUE_230
 
   //#define FIX_ISSUE_448
 #ifdef FIX_ISSUE_448
