@@ -85,6 +85,8 @@ public:
 
     bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
 
+    bool is_cooling_down() const noexcept {return m_is_cooling_down; }
+
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
     {
@@ -108,6 +110,21 @@ public:
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) makes the player stop shooting
     void stop_shooting() noexcept { m_is_shooting = false; }
+
+    /// Make the player unable to shoot
+    void trigger_cool_down() noexcept {m_is_cooling_down = true; }
+
+    /// Make the player able to shoot again
+    void stop_cool_down() noexcept {m_is_cooling_down = false; }
+
+    /// Make the shoot calm down timer to increase by one tick
+    void increment_cool_down_timer() {++m_cool_down_timer; }
+
+    /// Reset the shoot calm down timer to zero
+    void reset_cool_down_timer() {m_cool_down_timer = 0; }
+
+    /// Get the current shoot calm down timer value
+    int get_cool_down_timer() {return m_cool_down_timer; }
 
     void shoot_stun_rocket() noexcept { m_is_shooting_stun_rocket = true; }
 
@@ -154,6 +171,10 @@ private:
     /// 'game' reads 'm_is_shooting' and if it is true,
     /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
     bool m_is_shooting{false};
+
+    bool m_is_cooling_down{false};
+
+    int m_cool_down_timer{0};
 
     bool m_is_shooting_stun_rocket{false};
 

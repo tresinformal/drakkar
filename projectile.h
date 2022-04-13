@@ -37,6 +37,9 @@ public:
 
   std::string get_owner_id() noexcept;
 
+  /// The fire rate of the projectile, in ticks
+  static const int m_fire_rate{200};
+
 private:
   /// The coordinate
   coordinate m_coordinate;
@@ -52,7 +55,6 @@ private:
 
   /// The owner of the projectile
   std::string m_owner_id;
-
 };
 
 void test_projectile();
