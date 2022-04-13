@@ -1915,8 +1915,11 @@ void test_game() //!OCLINT tests may be many
       int n_of_accelerations = 1000;
       double before;
       double after;
-
-      assert(abs(g.get_player(1).get_max_speed_backward()) >= g.get_player(1).get_deceleration_backward());
+      assert(g.get_v_player().size() <= 2);
+      assert(
+        abs(g.get_player(1).get_max_speed_backward())
+        >= g.get_player(1).get_deceleration_backward()
+      );
       assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
       for(int i = 0; i != n_of_accelerations; i++ )
       {
