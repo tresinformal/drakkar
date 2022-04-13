@@ -1915,12 +1915,11 @@ void test_game() //!OCLINT tests may be many
       int n_of_accelerations = 1000;
       double before;
       double after;
-      assert(g.get_v_player().size() <= 2);
       assert(
-        abs(g.get_player(1).get_max_speed_backward())
+        std::abs(g.get_player(1).get_max_speed_backward())
         >= g.get_player(1).get_deceleration_backward()
       );
-      assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
+      assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= std::abs(g.get_player(0).get_max_speed_backward()));
       for(int i = 0; i != n_of_accelerations; i++ )
       {
           g.do_action(0, action_type::accelerate_backward);
@@ -1989,8 +1988,8 @@ void test_game() //!OCLINT tests may be many
       game g;
       int n_of_accelerations = 1000;
 
-      assert(abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
-      assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
+      assert(std::abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
+      assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= std::abs(g.get_player(0).get_max_speed_backward()));
       for(int i = 0; i != n_of_accelerations; i++ )
       {
           g.do_action(0, action_type::accelerate_backward);
@@ -1998,7 +1997,7 @@ void test_game() //!OCLINT tests may be many
       g.reset_player_action();
       // reset_player_action() was called at the previous tick,
       // at the next tick apply_inertia() should take effect
-      assert(g.get_player(0).get_deceleration_backward() * n_of_accelerations > abs(g.get_player(0).get_max_speed_backward()));
+      assert(g.get_player(0).get_deceleration_backward() * n_of_accelerations > std::abs(g.get_player(0).get_max_speed_backward()));
       for(int i = 0; i != n_of_accelerations; i++ )
       {
           g.tick();
@@ -2036,8 +2035,8 @@ void test_game() //!OCLINT tests may be many
         double before;
         double after;
 
-        assert(abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
-        assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= abs(g.get_player(0).get_max_speed_backward()));
+        assert(std::abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
+        assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= std::abs(g.get_player(0).get_max_speed_backward()));
         for(int i = 0; i != n_of_accelerations; i++ )
         {
             g.do_action(0, action_type::accelerate_backward);
@@ -2048,8 +2047,8 @@ void test_game() //!OCLINT tests may be many
         g.reset_player_action();
         after = g.get_player(0).get_speed();
         assert(before < after);
-        assert(abs(before - after) - g.get_player(0).get_acceleration_forward() < 0.000001);
-        assert(abs(before - after) - g.get_player(0).get_acceleration_forward() > -0.000001);
+        assert(std::abs(before - after) - g.get_player(0).get_acceleration_forward() < 0.000001);
+        assert(std::abs(before - after) - g.get_player(0).get_acceleration_forward() > -0.000001);
     }
   }
   #endif
