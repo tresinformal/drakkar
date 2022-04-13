@@ -1,3 +1,0 @@
-X:/game/build/CMakeFiles/ALL_BUILD.dir
-X:/game/build/CMakeFiles/ZERO_CHECK.dir
-X:/game/build/src/CMakeFiles/game.dir
