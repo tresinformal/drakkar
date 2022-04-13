@@ -12,6 +12,7 @@
 #include "shelter.h"
 #include <vector>
 #include "game_options.h"
+#include <cassert>
 #include <random>
 
 /// Contains the game logic.
@@ -80,7 +81,11 @@ public:
   const player &get_player(int i) const { return m_player[static_cast<unsigned int>(i)]; }
 
   /// Get reference to player to change some parameters
-  player &get_player(int i) { return m_player[static_cast<unsigned int>(i)]; }
+  player &get_player(int i) {
+    assert(i >= 0);
+    assert(i < static_cast<int>(m_player.size()));
+    return m_player[static_cast<unsigned int>(i)];
+  }
 
   /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_player; }
