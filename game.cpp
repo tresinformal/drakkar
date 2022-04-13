@@ -1932,8 +1932,8 @@ void test_game() //!OCLINT tests may be many
       after = g.get_player(0).get_speed();
       // apply_inertia() decelerates players because they are now idle
       assert(before < after);
-      assert((after - before) - g.get_player(0).get_deceleration_backward() < 0.0000000000000001);
-      assert((after - before) - g.get_player(0).get_deceleration_backward() > -0.0000000000000001);
+      assert((after - before) - g.get_player(0).get_deceleration_backward() < 0.00000000001);
+      assert((after - before) - g.get_player(0).get_deceleration_backward() > -0.00000000001);
     }
 
     // apply_inertia() triggers decelerate() if the players are idle after moving forward
