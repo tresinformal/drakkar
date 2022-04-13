@@ -1912,28 +1912,29 @@ void test_game() //!OCLINT tests may be many
     // apply_inertia() triggers decelerate() if the players are idle after moving backward
     {
       game g;
-      int n_of_accelerations = 1000;
-      double before;
-      double after;
-      assert(
-        std::abs(g.get_player(1).get_max_speed_backward())
-        >= g.get_player(1).get_deceleration_backward()
-      );
+
+      // Can decelerate multiple times
+      assert(std::abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
+      // Make the first player accelate backwards hard
+      const int n_of_accelerations = 1000;
       assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= std::abs(g.get_player(0).get_max_speed_backward()));
       for(int i = 0; i != n_of_accelerations; i++ )
       {
           g.do_action(0, action_type::accelerate_backward);
       }
-      before = g.get_player(0).get_speed();
+      const double before = g.get_player(0).get_speed();
       g.reset_player_action();
       // reset_player_action() was called at the previous tick,
       // at the next tick apply_inertia() should take effect
       g.tick();
-      after = g.get_player(0).get_speed();
+      const double after = g.get_player(0).get_speed();
       // apply_inertia() decelerates players because they are now idle
       assert(before < after);
-      assert((after - before) - g.get_player(0).get_deceleration_backward() < 0.00000000001);
-      assert((after - before) - g.get_player(0).get_deceleration_backward() > -0.00000000001);
+      const double speed_change = after - before;
+      const double decelaration_backwards = g.get_player(0).get_deceleration_backward();
+
+      // speed_change and decelaration_backwards should be the same
+      assert(std::abs(speed_change - decelaration_backwards) < 0.000001);
     }
 
     // apply_inertia() triggers decelerate() if the players are idle after moving forward
