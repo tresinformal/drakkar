@@ -22,7 +22,7 @@ file(GLOB src
 )
 
 #add resource files
-qt5_add_resources(resources_for_game "${PROJECT_SOURCE_DIR}/resources/game_resources.qrc")
+qt_add_resources(resources_for_game "${PROJECT_SOURCE_DIR}/resources/game_resources.qrc")
 
 add_executable("game" ${src} ${resources_for_game})
 
