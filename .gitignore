@@ -56,3 +56,4 @@ game_on_travis
 gprof.log
 game_on_gha
 .DS_Store
+vcpkg/

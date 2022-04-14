@@ -1915,7 +1915,7 @@ void test_game() //!OCLINT tests may be many
 
       // Can decelerate multiple times
       assert(std::abs(g.get_player(0).get_max_speed_backward()) >= g.get_player(0).get_deceleration_backward());
-      // Make the first player accelate backwards hard
+      // Make the first player accelerate backwards hard
       const int n_of_accelerations = 1000;
       assert(g.get_player(0).get_acceleration_backward() * n_of_accelerations >= std::abs(g.get_player(0).get_max_speed_backward()));
       for(int i = 0; i != n_of_accelerations; i++ )
@@ -1934,7 +1934,8 @@ void test_game() //!OCLINT tests may be many
       const double decelaration_backwards = g.get_player(0).get_deceleration_backward();
 
       // speed_change and decelaration_backwards should be the same
-      assert(std::abs(speed_change - decelaration_backwards) < 0.000001);
+      assert(speed_change - decelaration_backwards < 0.0001);
+      assert(speed_change - decelaration_backwards > -0.0001);
     }
 
     // apply_inertia() triggers decelerate() if the players are idle after moving forward
