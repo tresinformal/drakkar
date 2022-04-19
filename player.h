@@ -67,7 +67,7 @@ public:
     player_state get_state() const noexcept { return m_state; }
 
     /// Get the current action of the player
-    action_type get_action() const noexcept { return m_action_flag; }
+    action_type get_action_flag() const noexcept { return m_action_flag; }
 
     /// Set the current action of the player
     void set_action_flag(const action_type action) { m_action_flag = action; }

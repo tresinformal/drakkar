@@ -171,10 +171,9 @@ void game::set_collision_vector( int lhs,  int rhs)
 
 void game::apply_inertia()
 {
-
   for (auto& player: m_player)
     {
-      if (player.get_action() != action_type::accelerate_forward && player.get_action() != action_type::accelerate_backward)
+      if (player.get_action_flag() != action_type::accelerate_forward && player.get_action_flag() != action_type::accelerate_backward)
       {
         if (player.get_speed() != 0.0)
         {
@@ -268,7 +267,7 @@ void game::tick()
   // Move shelters
   move_shelter();
 
-  /// Sequence is important: firstly do action, then apply inertial, finally reset player action
+  /// Sequence is important: firstly do_actions(), then apply_inertia(), finally reset_player_action()
   // Actions issued by the players are executed
   do_actions();
 
@@ -1863,19 +1862,19 @@ void test_game() //!OCLINT tests may be many
     {
       game g;
       g.do_action(0, action_type::accelerate_backward);
-      assert(g.get_player(0).get_action() == action_type::accelerate_backward);
+      assert(g.get_player(0).get_action_flag() == action_type::accelerate_backward);
       g.do_action(0, action_type::accelerate_forward);
-      assert(g.get_player(0).get_action() == action_type::accelerate_forward);
+      assert(g.get_player(0).get_action_flag() == action_type::accelerate_forward);
       g.do_action(0, action_type::none);
-      assert(g.get_player(0).get_action() == action_type::none);
+      assert(g.get_player(0).get_action_flag() == action_type::none);
       g.do_action(0, action_type::shoot);
-      assert(g.get_player(0).get_action() == action_type::shoot);
+      assert(g.get_player(0).get_action_flag() == action_type::shoot);
       g.do_action(0, action_type::shoot_stun_rocket);
-      assert(g.get_player(0).get_action() == action_type::shoot_stun_rocket);
+      assert(g.get_player(0).get_action_flag() == action_type::shoot_stun_rocket);
       g.do_action(0, action_type::turn_left);
-      assert(g.get_player(0).get_action() == action_type::turn_left);
+      assert(g.get_player(0).get_action_flag() == action_type::turn_left);
       g.do_action(0, action_type::turn_right);
-      assert(g.get_player(0).get_action() == action_type::turn_right);
+      assert(g.get_player(0).get_action_flag() == action_type::turn_right);
     }
 
     // reset_player_action() can reset all players' action flags
@@ -1884,12 +1883,12 @@ void test_game() //!OCLINT tests may be many
         for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
         {
             g.do_action(i, action_type::accelerate_forward);
-            assert(g.get_player(i).get_action() == action_type::accelerate_forward);
+            assert(g.get_player(i).get_action_flag() == action_type::accelerate_forward);
         }
         g.reset_player_action();
         for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
         {
-            assert(g.get_player(i).get_action() == action_type::none);
+            assert(g.get_player(i).get_action_flag() == action_type::none);
         }
     }
 
@@ -2052,6 +2051,13 @@ void test_game() //!OCLINT tests may be many
         assert(before < after);
         assert(std::abs(before - after) - g.get_player(0).get_acceleration_forward() < 0.000001);
         assert(std::abs(before - after) - g.get_player(0).get_acceleration_forward() > -0.000001);
+    }
+
+    // A player moves the same amount of pixels as "m_player_speed" during one tick
+    {
+        // A player moves the correct pixels when accelerating forwards
+        // A player moves the correct pixels when accelerating backwards
+        // A player moves the correct pixels when decelerating
     }
   }
   #endif
