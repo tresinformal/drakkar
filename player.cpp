@@ -82,7 +82,7 @@ void player::decelerate() noexcept
     }
     else if(m_player_speed < 0.0)
     {
-        if(abs(m_player_speed) >= m_player_deceleration_backward)
+        if(std::abs(m_player_speed) >= m_player_deceleration_backward)
         {
             m_player_speed += m_player_deceleration_backward;
         }
