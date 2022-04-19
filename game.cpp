@@ -1934,8 +1934,7 @@ void test_game() //!OCLINT tests may be many
       const double decelaration_backwards = g.get_player(0).get_deceleration_backward();
 
       // speed_change and decelaration_backwards should be the same
-      assert(decelaration_backwards - speed_change < 0.000000000001);
-      assert(decelaration_backwards - speed_change > -0.000000000001);
+      assert(std::abs(decelaration_backwards - speed_change) < 0.000000000001);
     }
 
     // apply_inertia() triggers decelerate() if the players are idle after moving forward
