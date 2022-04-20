@@ -177,9 +177,6 @@ void game::apply_inertia()
       {
         if (player.get_speed() != 0.0)
         {
-          //Player moves based on its speed and position
-          player.move();
-          //Then its speed gets decreased by attrition
           player.decelerate();
         }
       }
@@ -1958,9 +1955,7 @@ void test_game() //!OCLINT tests may be many
       g.tick();
       after = g.get_player(0).get_speed();
       // apply_inertia() decelerates players because they are now idle
-      assert(after < before);
-      assert((before - after) - g.get_player(0).get_deceleration_forward() < 0.0000000000000001);
-      assert((before - after) - g.get_player(0).get_deceleration_forward() > -0.0000000000000001);
+      assert(std::abs(before - after) - g.get_player(0).get_deceleration_forward() < 0.0000000000000001);
     }
 
     // apply_inertia() won't over-decelerate the players when moving forward
@@ -2025,9 +2020,7 @@ void test_game() //!OCLINT tests may be many
         g.do_action(0, action_type::accelerate_backward);
         g.reset_player_action();
         after = g.get_player(0).get_speed();
-        assert(before > after);
-        assert((before - after) - g.get_player(0).get_deceleration_forward() < 0.000001);
-        assert((before - after) - g.get_player(0).get_deceleration_forward() > -0.000001);
+        assert(std::abs(before - after) - g.get_player(0).get_deceleration_forward() < 0.000000001);
     }
 
     // Do accelerate_forward() when moving backward (speed < 0) will actually trigger decelerate()
@@ -2048,16 +2041,133 @@ void test_game() //!OCLINT tests may be many
         g.do_action(0, action_type::accelerate_forward);
         g.reset_player_action();
         after = g.get_player(0).get_speed();
-        assert(before < after);
-        assert(std::abs(before - after) - g.get_player(0).get_acceleration_forward() < 0.000001);
-        assert(std::abs(before - after) - g.get_player(0).get_acceleration_forward() > -0.000001);
+        assert(std::abs(before - after) - g.get_player(0).get_acceleration_forward() < 0.000000001);
     }
 
-    // A player moves the same amount of pixels as "m_player_speed" during one tick
+    // A player's displacement per tick when moving forward is the same as m_acceleration_forward
     {
-        // A player moves the correct pixels when accelerating forwards
-        // A player moves the correct pixels when accelerating backwards
-        // A player moves the correct pixels when decelerating
+        game g;
+        double before_x, before_y;
+        double after_x, after_y;
+        double expected_displacement;
+        double actual_displacement;
+        expected_displacement = g.get_player(0).get_acceleration_forward();
+        before_x = g.get_player(0).get_x();
+        before_y = g.get_player(0).get_y();
+        g.do_action(0, action_type::accelerate_forward);
+        after_x = g.get_player(0).get_x();
+        after_y = g.get_player(0).get_y();
+        actual_displacement = sqrt(pow((after_x - before_x), 2) + pow((after_y - before_y), 2));
+        assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
+    }
+
+    // A player's displacement per tick when moving backward is the same as m_acceleration_backward
+    {
+        game g;
+        double before_x, before_y;
+        double after_x, after_y;
+        double expected_displacement;
+        double actual_displacement;
+        expected_displacement = g.get_player(0).get_acceleration_backward();
+        before_x = g.get_player(0).get_x();
+        before_y = g.get_player(0).get_y();
+        g.do_action(0, action_type::accelerate_backward);
+        after_x = g.get_player(0).get_x();
+        after_y = g.get_player(0).get_y();
+        actual_displacement = sqrt(pow((after_x - before_x), 2) + pow((after_y - before_y), 2));
+        assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
+    }
+
+    // A player's displacement per tick when decelerating backward is the same as m_deceleration_backward
+    {
+        game g;
+        double new_x, min_x, max_x;
+        double new_y, min_y, max_y;
+        double before_x, before_y;
+        double after_x, after_y;
+        double expected_displacement;
+        double actual_displacement;
+        double player_speed;
+        double deceleration_backward;
+        double max_speed_backward;
+        int n_of_accelerations = 1000;
+
+        deceleration_backward = g.get_player(0).get_deceleration_backward();
+        max_speed_backward = g.get_player(0).get_max_speed_backward();
+        assert(std::abs(max_speed_backward) >= deceleration_backward);
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            g.do_action(0, action_type::accelerate_backward);
+        }
+        g.reset_player_action();
+        player_speed = g.get_player(0).get_speed();
+        assert(player_speed < 0);
+        expected_displacement = player_speed + deceleration_backward;
+        // make sure a player does not trespass the walls
+        new_x = g.get_player(0).get_x() + expected_displacement * cos(g.get_player(0).get_direction());
+        min_x = get_min_x(g.get_env()) + g.get_player(0).get_diameter()/2;
+        max_x = get_max_x(g.get_env()) - g.get_player(0).get_diameter()/2;
+        new_y = g.get_player(0).get_y() + expected_displacement * sin(g.get_player(0).get_direction());
+        min_y = get_min_y(g.get_env()) + g.get_player(0).get_diameter()/2;
+        max_y = get_max_y(g.get_env()) - g.get_player(0).get_diameter()/2;
+        assert(new_x < max_x);
+        assert(new_x > min_x);
+        assert(new_y < max_y);
+        assert(new_y > min_y);
+        before_x = g.get_player(0).get_x();
+        before_y = g.get_player(0).get_y();
+        // reset_player_action() was called at the previous tick,
+        // at the next tick apply_inertia() should take effect
+        g.tick();
+        after_x = g.get_player(0).get_x();
+        after_y = g.get_player(0).get_y();
+        actual_displacement = sqrt(pow((after_x - before_x), 2) + pow((after_y - before_y), 2));
+        assert(std::abs(actual_displacement - std::abs(expected_displacement)) < 0.000000001);
+    }
+
+    // A player's displacement per tick when decelerating forward is the same as m_deceleration_forward
+    {
+        game g;
+        double new_x, min_x, max_x;
+        double new_y, min_y, max_y;
+        double before_x, before_y;
+        double after_x, after_y;
+        double expected_displacement;
+        double actual_displacement;
+        double player_speed;
+        double deceleration_forward;
+        double max_speed_forward;
+        int n_of_accelerations = 5;
+
+        deceleration_forward = g.get_player(0).get_deceleration_forward();
+        max_speed_forward = g.get_player(0).get_max_speed_forward();
+        assert(std::abs(max_speed_forward) >= deceleration_forward);
+        for(int i = 0; i != n_of_accelerations; i++ )
+        {
+            g.do_action(0, action_type::accelerate_forward);
+        }
+        g.reset_player_action();
+        player_speed = g.get_player(0).get_speed();
+        assert(player_speed > 0);
+        expected_displacement = player_speed - deceleration_forward;
+        // make sure a player does not trespass the walls
+        new_x = g.get_player(0).get_x() + expected_displacement * cos(g.get_player(0).get_direction());
+        min_x = get_min_x(g.get_env()) + g.get_player(0).get_diameter()/2;
+        max_x = get_max_x(g.get_env()) - g.get_player(0).get_diameter()/2;
+        new_y = g.get_player(0).get_y() + expected_displacement * sin(g.get_player(0).get_direction());
+        min_y = get_min_y(g.get_env()) + g.get_player(0).get_diameter()/2;
+        max_y = get_max_y(g.get_env()) - g.get_player(0).get_diameter()/2;
+        assert(new_x < max_x);
+        assert(new_x > min_x);
+        assert(new_y < max_y);
+        assert(new_y > min_y);
+        before_x = g.get_player(0).get_x();
+        before_y = g.get_player(0).get_y();
+        g.tick();
+        after_x = g.get_player(0).get_x();
+        after_y = g.get_player(0).get_y();
+        actual_displacement = sqrt(pow((after_x - before_x), 2) + pow((after_y - before_y), 2));
+        assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
   }
   #endif
