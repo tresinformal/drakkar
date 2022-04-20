@@ -133,12 +133,8 @@ void test_color()
     std::stringstream s;
     const color c;
     s << c;
+    assert(!s.str().empty());
   }
-  {
-    const color c;
-    std::cout << c;
-  }
-
   // Colors have the correct RGB values
   {
     //  This is ISSUE_#322
