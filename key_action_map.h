@@ -1,7 +1,9 @@
 #ifndef KEY_TO_ACTION_MAP_H
 #define KEY_TO_ACTION_MAP_H
+
 #include "action_type.h"
-#include "SFML/Graphics.hpp"
+#include <iosfwd>
+#include <SFML/Graphics.hpp>
 
 /// Convert a key to an action
 class key_action_map
@@ -56,11 +58,20 @@ key_action_map get_random_kam();
 std::vector<key_action_map> get_n_random_kams(int n);
 
 /// Load a key-action-from file
-key_action_map load_map(const std::string& filename);
+key_action_map load_kam(const std::string& filename);
 
 /// Save the key-action-map to file
 void save_to_file(const key_action_map& kam, const std::string& filename);
 
+/// Convert a KAM to std::string
+/// @see kam_from_str to load a KAM from a std::string
+std::string to_str(const key_action_map& kam) noexcept;
+
+/// Convert a std::string to an sf::Keyboard::Key
+sf::Keyboard::Key to_sfml_key(const std::string& s);
+
+std::ostream& operator<<(std::ostream& os, const key_action_map& kam);
+std::istream& operator>>(std::istream& is, key_action_map& kam);
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 

@@ -1,7 +1,11 @@
 #include "key_action_map.h"
+
+#include <SFML/System.hpp>
 #include <cassert>
-#include <fstream>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
 key_action_map::key_action_map(
     const sf::Keyboard::Key& key_to_go_left,
     const sf::Keyboard::Key& key_to_go_right,
@@ -164,10 +168,12 @@ sf::Keyboard::Key get_stun_key(const key_action_map& m)
   return m.to_key(action_type::shoot_stun_rocket);
 }
 
-#ifdef ISSUE_522
-key_action_map load_map(const std::string& filename)
+key_action_map load_kam(const std::string& filename)
 {
-
+  std::ifstream f(filename);
+  key_action_map m;
+  f >> m;
+  return m;
 }
 
 void save_to_file(const key_action_map& kam, const std::string& filename)
@@ -175,7 +181,62 @@ void save_to_file(const key_action_map& kam, const std::string& filename)
   std::ofstream file(filename);
   file << kam;
 }
-#endif //ISSUE_522
+
+sf::Keyboard::Key to_sfml_key(const std::string& s)
+{
+  if (s == "A") return sf::Keyboard::Key::A;
+
+
+  assert(s == " "); // Or the key has not been encoded yet
+  return sf::Keyboard::Key::Space;
+
+}
+
+std::string to_str(const key_action_map& kam) noexcept
+{
+  std::stringstream s;
+  for (const auto& p: kam.get_raw_map()) {
+    s << p.first << " " << p.second << " ";
+  };
+  std::string t = s.str();
+  // Remove the space at the end
+  t.pop_back();
+  return t;
+}
+
+std::istream& operator>>(std::istream& is, key_action_map& kam)
+{
+  std::string key_to_go_left;
+  std::string key_to_go_right;
+  std::string key_to_accelerate_forward;
+  std::string key_to_accelerate_backward;
+  std::string key_to_shoot;
+  std::string key_to_stun;
+  is >> key_to_go_left
+    >> key_to_go_right
+    >> key_to_accelerate_forward
+    >> key_to_accelerate_backward
+    >> key_to_shoot
+    >> key_to_stun
+  ;
+  const key_action_map m(
+    to_sfml_key(key_to_go_left),
+    to_sfml_key(key_to_go_right),
+    to_sfml_key(key_to_accelerate_forward),
+    to_sfml_key(key_to_accelerate_backward),
+    to_sfml_key(key_to_shoot),
+    to_sfml_key(key_to_stun)
+  );
+  kam = m;
+  return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const key_action_map& kam)
+{
+  os << to_str(kam);
+  return os;
+}
+
 
 
 void test_key_action_map()//!OCLINT tests can be many
@@ -330,13 +391,14 @@ void test_key_action_map()//!OCLINT tests can be many
 #ifdef ISSUE_522
   {
     const key_action_map kam = get_player_1_kam();
-    std::cout << kam;
+    std::stringstream s;
+    s << kam;
   }
   {
     const key_action_map kam = get_player_1_kam();
     const std::string filename = "test.txt";
     save_to_file(kam, filename);
-    const key_action_map map_again = load_map(filename);
+    const key_action_map map_again = load_kam(filename);
     assert(kam == map_again);
     // TODO: delete temporary file
   }
