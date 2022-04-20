@@ -12,6 +12,7 @@
 #include "shelter.h"
 #include <vector>
 #include "game_options.h"
+#include <cassert>
 #include <random>
 
 /// Contains the game logic.
@@ -33,6 +34,9 @@ public:
 
   ///makes a player do an action
   void do_action(player& player_index, action_type action);
+
+  /// Reset players' actions
+  void reset_player_action();
 
   ///Executes all actions issued by all players, called in tick()
   void do_actions() noexcept;
@@ -77,7 +81,11 @@ public:
   const player &get_player(int i) const { return m_player[static_cast<unsigned int>(i)]; }
 
   /// Get reference to player to change some parameters
-  player &get_player(int i) { return m_player[static_cast<unsigned int>(i)]; }
+  player &get_player(int i) {
+    assert(i >= 0);
+    assert(i < static_cast<int>(m_player.size()));
+    return m_player[static_cast<unsigned int>(i)];
+  }
 
   /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_player; }
@@ -160,13 +168,19 @@ private:
   /// Processess the collision between projectiles and players
   void projectile_collision();
 
-  // Increment timers of food items
+  /// Increment timers of food items
   void increment_food_timers();
 
-  // Make players eat food items they are on top of
+  /// Increment timers of shoot calm down of all the players
+  void increment_cool_down_timers();
+
+  /// Reset timers of shoot calm down of all the players
+  void reset_cool_down_status();
+
+  /// Make players eat food items they are on top of
   void make_players_eat_food();
 
-  // Regenerate food items where relevant
+  /// Regenerate food items where relevant
   void regenerate_food_items();
 };
 
