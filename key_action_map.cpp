@@ -168,11 +168,6 @@ sf::Keyboard::Key get_stun_key(const key_action_map& m)
   return m.to_key(action_type::shoot_stun_rocket);
 }
 
-bool exists_file (const std::string& name) {
-    std::ifstream f(name.c_str());
-    return f.good();
-}
-
 key_action_map load_kam(const std::string& filename)
 {
   std::ifstream f(filename);
@@ -392,7 +387,7 @@ void test_key_action_map()//!OCLINT tests can be many
   }
 #endif // FIX_ISSUE_355
 
-#define ISSUE_522
+//#define ISSUE_522
 #ifdef ISSUE_522
   {
     const key_action_map kam = get_player_1_kam();
@@ -403,7 +398,6 @@ void test_key_action_map()//!OCLINT tests can be many
     const key_action_map kam = get_player_1_kam();
     const std::string filename = "test.txt";
     save_to_file(kam, filename);
-    std::filesystem::exists;
     const key_action_map map_again = load_kam(filename);
     assert(kam == map_again);
     // TODO: delete temporary file
