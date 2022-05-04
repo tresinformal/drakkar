@@ -168,6 +168,7 @@ std::vector<coordinate> get_all_shelter_positions(const game& g)
 coordinate get_nth_shelter_position(const game &g, const int &n)
 {
   assert(n >= 0);
+  assert(n < static_cast<int>(g.get_shelters().size()));
   return g.get_shelters()[n].get_position();
 }
 
@@ -202,6 +203,11 @@ double get_nth_food_x(const game &g, const int n)
 double get_nth_food_y(const game &g, const int n)
 {
   return g.get_food()[n].get_y();
+}
+
+color get_nth_food_color(const game &g, const int n)
+{
+  return g.get_food()[n].get_color();
 }
 
 bool is_nth_food_eaten(const game& g, const int &n)

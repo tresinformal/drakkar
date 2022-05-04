@@ -12,6 +12,7 @@
 #include "shelter.h"
 #include <vector>
 #include "game_options.h"
+#include <cassert>
 #include <random>
 
 /// Contains the game logic.
@@ -23,7 +24,6 @@ public:
     const game_options& options = game_options(),
     const environment& the_environment = environment(),
     int num_players = 3,
-    int n_ticks = 0,
     std::size_t n_shelters = 42,
     int n_enemies = 1,
     int n_food = 1
@@ -34,6 +34,9 @@ public:
 
   ///makes a player do an action
   void do_action(player& player_index, action_type action);
+
+  /// Reset players' actions
+  void reset_player_action();
 
   ///Executes all actions issued by all players, called in tick()
   void do_actions() noexcept;
@@ -78,7 +81,11 @@ public:
   const player &get_player(int i) const { return m_player[static_cast<unsigned int>(i)]; }
 
   /// Get reference to player to change some parameters
-  player &get_player(int i) { return m_player[static_cast<unsigned int>(i)]; }
+  player &get_player(int i) {
+    assert(i >= 0);
+    assert(i < static_cast<int>(m_player.size()));
+    return m_player[static_cast<unsigned int>(i)];
+  }
 
   /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_player; }
@@ -161,13 +168,19 @@ private:
   /// Processess the collision between projectiles and players
   void projectile_collision();
 
-  // Increment timers of food items
+  /// Increment timers of food items
   void increment_food_timers();
 
-  // Make players eat food items they are on top of
+  /// Increment timers of shoot calm down of all the players
+  void increment_cool_down_timers();
+
+  /// Reset timers of shoot calm down of all the players
+  void reset_cool_down_status();
+
+  /// Make players eat food items they are on top of
   void make_players_eat_food();
 
-  // Regenerate food items where relevant
+  /// Regenerate food items where relevant
   void regenerate_food_items();
 };
 
@@ -218,13 +231,14 @@ bool are_colliding(const player& pl, const projectile& p);
 /// Check that player and food are in collision, i.e. same position and food uneaten
 bool are_colliding(const player &p, const food &f);
 
-///Places a projectile in front of the player
+/// Places a projectile in front of the player
 void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
 
-// Place a food item at a random position
+/// Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);
 
-coordinate get_nth_shelter_position(const game &g, const int &n);
+/// Check if one or more shelters share the same position
+bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept;
 
 /// Save the game to file
 void save(const game& g, const std::string& filename);

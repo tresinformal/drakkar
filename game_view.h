@@ -26,7 +26,7 @@ public:
   void exec() noexcept;
 
   /// Get const reference to m_game_options
-  const game_options& get_options() const noexcept {return m_options;}
+  const game_options& get_options() const noexcept {return get_game().get_game_options();}
 
   /// Processes events in game and ouputs false if quit
   /// is inputted
@@ -77,9 +77,6 @@ private:
 
   /// Parses input for player 3
   void pl_3_stop_input(sf::Event event) noexcept;
-
-  /// The options of the game
-  game_options m_options;
 
   ///Draws the background
   void draw_background() noexcept;

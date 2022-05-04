@@ -12,8 +12,8 @@ public:
   key_action_map(
     const sf::Keyboard::Key& key_to_go_left = sf::Keyboard::A,
     const sf::Keyboard::Key& key_to_go_right = sf::Keyboard::D,
-    const sf::Keyboard::Key& key_to_accelerate = sf::Keyboard::W,
-    const sf::Keyboard::Key& key_to_brake = sf::Keyboard::S,
+    const sf::Keyboard::Key& key_to_accelerate_forward = sf::Keyboard::W,
+    const sf::Keyboard::Key& key_to_accelerate_backward = sf::Keyboard::S,
     const sf::Keyboard::Key& key_to_shoot = sf::Keyboard::Q,
     const sf::Keyboard::Key& key_to_stun = sf::Keyboard::E
   );
@@ -54,7 +54,6 @@ key_action_map get_random_kam();
 
 /// Draw at random several kams for testing purposes, with no key repeats
 std::vector<key_action_map> get_n_random_kams(int n);
-
 
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;
