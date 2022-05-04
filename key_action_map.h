@@ -68,7 +68,12 @@ void save_to_file(const key_action_map& kam, const std::string& filename);
 std::string to_str(const key_action_map& kam) noexcept;
 
 /// Convert a std::string to an sf::Keyboard::Key
+/// Use \link{to_str} to convert the other way around
 sf::Keyboard::Key to_sfml_key(const std::string& s);
+
+/// Convert a std::string to an sf::Keyboard::Key
+/// Use \link{to_sfml_key} to convert the other way around
+std::string to_str(const sf::Keyboard::Key key);
 
 std::ostream& operator<<(std::ostream& os, const key_action_map& kam);
 std::istream& operator>>(std::istream& is, key_action_map& kam);
