@@ -2,18 +2,12 @@
 
   0. Get the right version
   1. Download and install Qt Creator (once)
-  2. Download and install SFML (once)
-  3. Let Qt Creator find SFML library (once per project file)
 
 ## 0. Get the right version
 
 The hardest part about the installation is to realize that using
 the correct version really matters,
 in all three cases. Here is a zoom-in off all three cases.
-
-The SFML version:
-
-![](sfml_version_zoom.png)
 
 The Qt version:
 
