@@ -30,13 +30,18 @@ A video game, developed informally and professionally.
 
 We follow this timetable:
 
-What              | Time
-------------------|------
-Doors open        | 17:00
-Session starts    | 17:15
-Break time!       | 18:00
-Session continues | 18:15
-End of lesson     | 19:00
+Where|What              | Time
+-----|------------------|------
+U    |Order pizza       | 16:00
+GOU  |Doors open        | 17:00
+GOU  |Session starts    | 17:15
+GOU  |Break time!       | 18:00
+GOU  |Session continues | 18:15
+GOU  |End of lesson     | 19:00
+
+ * `[G]` denotes 'at Groningen'
+ * `[O]` denotes 'online'
+ * `[U]` denotes 'at Uppsala'
 
 ## Code of Conduct
 
