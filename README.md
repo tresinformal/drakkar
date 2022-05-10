@@ -23,17 +23,20 @@ A video game, developed informally and professionally.
 
  * Date: Weekly, every Wednesday
  * Time: 17:00-19:00
- * On Discord, see [FAQ](faq.md)
+ * Where:
+    * In Uppsala: Uppsala Makerspace, Ekeby Bruk 6M, [https://www.uppsalamakerspace.se/](https://www.uppsalamakerspace.se/)
+    * In Groningen: Franjo's Fancy Coffee Room
+    * On Discord, see [FAQ](faq.md)
 
 We follow this timetable:
 
-What             | Time
------------------|------
-Doors open       | 17:00
-Lesson starts    | 17:15
-Break time!      | 18:00
-Lesson continues | 18:15
-End of lesson    | 19:00
+What              | Time
+------------------|------
+Doors open        | 17:00
+Session starts    | 17:15
+Break time!       | 18:00
+Session continues | 18:15
+End of lesson     | 19:00
 
 ## Code of Conduct
 
