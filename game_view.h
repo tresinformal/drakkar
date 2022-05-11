@@ -38,9 +38,10 @@ public:
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
+#ifdef VIEW_SWITCH
   // Returns what view should come next
   const view_mode& what_next() noexcept { return m_next_view; }
-
+#endif // VIEW_SWITCH
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
 
@@ -65,10 +66,10 @@ private:
 
   ///The views of each player
   std::vector<sf::View> m_v_views;
-
+#ifdef VIEW_SWITCH
   // The view coming after this one
   view_mode m_next_view = view_mode::quit;
-
+#endif //VIEW_SWITCH
   /// Parses input for player 1
   void pl_1_stop_input(sf::Event event) noexcept;
 
