@@ -4,6 +4,7 @@
 #include "game.h"
 #include "game_resources.h"
 #include "game_options.h"
+#include "view_mode.h"
 #include <SFML/Graphics.hpp>
 #include "key_action_map.h"
 
@@ -35,6 +36,12 @@ public:
   ///Gets a const ref to m_game
   const game& get_game() const noexcept {return m_game; }
 
+  /// Get next view
+  view_mode get_next_view() const
+  {
+    return m_next_view;
+  }
+
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
@@ -62,6 +69,9 @@ private:
 
   ///The views of each player
   std::vector<sf::View> m_v_views;
+
+  /// Next view to switch to
+  view_mode m_next_view = view_mode::quit;
 
   /// Parses input for player 1
   void pl_1_stop_input(sf::Event event) noexcept;
