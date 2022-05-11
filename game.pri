@@ -60,7 +60,8 @@ SOURCES += \
     $$PWD/projectile_type.cpp \
     $$PWD/read_only.cpp \
     $$PWD/shelter.cpp \
-    $$PWD/sound_type.cpp
+    $$PWD/sound_type.cpp \
+    $$PWD/view_mode.cpp
 
 RESOURCES += \
     game_resources.qrc
