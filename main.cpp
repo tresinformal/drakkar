@@ -161,7 +161,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     }
 #ifndef LOGIC_ONLY
 
- //#define VIEW_SWITCH
+ #define VIEW_SWITCH
  #ifdef VIEW_SWITCH
 
   // Default game options
@@ -175,11 +175,11 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     {
       if (args[1] == "--menu")
         {
-          next_view == view_mode::menu;
+          next_view = view_mode::menu;
         }
       else if (args[1] == "--options")
         {
-          next_view == view_mode::options;
+          next_view = view_mode::options;
         }
       else if (args[1] == "--no-sound")
         {
