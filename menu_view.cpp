@@ -11,6 +11,11 @@ menu_view::menu_view()
 {
 }
 
+view_mode menu_view::next_view_mode() const
+{
+  return m_next_view;
+}
+
 void menu_view::exec()
 {
   while (m_window.isOpen())
@@ -136,8 +141,8 @@ void test_menu_view() //!OCLINT tests may be many
 // (495) There should be a member of type view_mode
 {
   menu_view mv;
-  view_mode expected_next_view = view_mode::quit;
-  assert(mv.what_next() == expected_next_view);
+  const view_mode expected_next_view = view_mode::quit;
+  assert(mv.next_view_mode() == expected_next_view);
 }
 #endif
 

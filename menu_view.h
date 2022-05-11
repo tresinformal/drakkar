@@ -17,7 +17,7 @@ public:
   void exec();
 
   /// Get next view
-  view_mode what_next() const;
+  view_mode next_view_mode() const;
 
 private:
   menu m_menu;
