@@ -8,9 +8,8 @@ enum class action_type
 {
   turn_left,
   turn_right,
-  accelerate,
-  brake,
-  acc_backward,
+  accelerate_forward,
+  accelerate_backward,
   shoot,
   none,
   shoot_stun_rocket
