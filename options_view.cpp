@@ -75,14 +75,12 @@ void test_options_view() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
 
-#ifdef FIX_ISSUE_496
 // (496) There should be a member of type view_mode
 {
   options_view ov;
   view_mode expected_next_view = view_mode::quit;
-  assert(ov.what_next() == expected_next_view);
+  assert(ov.get_next_view() == expected_next_view);
 }
-#endif
 
 #endif // NDEBUG
 }
