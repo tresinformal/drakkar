@@ -6,6 +6,7 @@
 #include "SFML/Graphics.hpp"
 #include "game_resources.h"
 #include "menu.h"
+#include "view_mode.h"
 
 class menu_view
 {
@@ -15,10 +16,14 @@ public:
   /// Creates the menu and draws it
   void exec();
 
+  /// Get next view
+  view_mode what_next() const;
+
 private:
   menu m_menu;
   sf::RenderWindow m_window;
   game_resources m_game_resources;
+  view_mode m_next_view;
 
   ///
   bool process_events();

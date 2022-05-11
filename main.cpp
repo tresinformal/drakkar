@@ -161,7 +161,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     }
 #ifndef LOGIC_ONLY
 
- #define VIEW_SWITCH
+// #define VIEW_SWITCH
  #ifdef VIEW_SWITCH
 
   // Default game options
@@ -207,7 +207,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
         case view_mode::game:
           {
             gv.exec();
-            next_view = mv.what_next();
+            next_view = gv.what_next();
             break;
           }
           // other views ...

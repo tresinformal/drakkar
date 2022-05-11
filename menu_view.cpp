@@ -6,7 +6,8 @@
 menu_view::menu_view()
     : m_window(
           sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
-          "tresinformal game_menu")
+          "tresinformal game_menu"),
+      m_next_view(view_mode::quit)
 {
 }
 
@@ -130,6 +131,7 @@ void test_menu_view() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
 
+#define FIX_ISSUE_495
 #ifdef FIX_ISSUE_495
 // (495) There should be a member of type view_mode
 {
