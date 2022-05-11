@@ -3,9 +3,9 @@
 
 enum class view_mode
 {
+  game,
   menu,
   options,
-  game,
   quit
 };
 

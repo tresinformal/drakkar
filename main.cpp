@@ -161,14 +161,14 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     }
 #ifndef LOGIC_ONLY
 
-// #define VIEW_SWITCH
+ #define VIEW_SWITCH
  #ifdef VIEW_SWITCH
 
   // Default game options
   game_options options;
 
   // Default view mode
-  view_mode next_view;
+  view_mode next_view = view_mode::game;
 
   // Resolve arguments
   if (args.size() > 1)
@@ -201,13 +201,13 @@ int main(int argc, char **argv) //!OCLINT tests may be long
         case view_mode::menu:
           {
             mv.exec();
-            next_view = mv.what_next();
+            next_view = mv.get_next_view();
             break;
           }
         case view_mode::game:
           {
             gv.exec();
-            next_view = gv.what_next();
+            next_view = gv.get_next_view();
             break;
           }
           // other views ...
