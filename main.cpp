@@ -161,9 +161,6 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     }
 #ifndef LOGIC_ONLY
 
- #define VIEW_SWITCH
- #ifdef VIEW_SWITCH
-
   // Default game options
   game_options options;
 
@@ -218,28 +215,5 @@ int main(int argc, char **argv) //!OCLINT tests may be long
           throw std::logic_error("Unknown view mode.");
         }
     }
- #else
-  // Show the menu, quits after (for now)
-  if (args.size() > 1 && args[1] == "--menu")
-    {
-        menu_view v;
-        v.exec();
-        return 0;
-    } else if (args.size() > 1 && args[1] == "--options")
-    {
-        options_view v;
-        v.exec();
-        return 0;
-    }
-
-    game_options options;
-    if (args.size() > 1 && args[1] == "--no-sound")
-    {
-        music_off(options);
-    }
-  game_view v(options);
-  assert(options == v.get_options());
-  v.exec();
-#endif // VIEW_SWITCH
 #endif // LOGIC_ONLY
 }
