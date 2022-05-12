@@ -29,7 +29,7 @@ HEADERS += \
     $$PWD/projectile_type.h \
     $$PWD/read_only.h \
     $$PWD/shelter.h \
-    $$PWD/sound_type.h
+    $$PWD/sound_type.h \
     $$PWD/view_mode.h
 
 SOURCES += \
@@ -63,7 +63,7 @@ SOURCES += \
     $$PWD/projectile_type.cpp \
     $$PWD/read_only.cpp \
     $$PWD/shelter.cpp \
-    $$PWD/sound_type.cpp
+    $$PWD/sound_type.cpp \
     $$PWD/view_mode.cpp
 
 RESOURCES += \
