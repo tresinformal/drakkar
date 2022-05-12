@@ -321,6 +321,10 @@ void game::tick()
 
   // and updates m_n_ticks
   increment_n_ticks();
+
+  update_scoring_board();
+
+  update_timer();
 }
 
 void game::increment_n_ticks()
@@ -2206,9 +2210,24 @@ void test_game() //!OCLINT tests may be many
   #ifdef FIX_ISSUE_542
   {
       // Can update the timer of the scoring board
-      game g;
-      g.get_scoring_board().
+      {
+          game g;
+          auto time_before = g.get_scoring_board().get_timer();
+          // update_timer() is within game::tick()
+          g.tick();
+          auto time_after = g.get_scoring_board().get_timer();
+          assert(time_after > time_before);
+      }
+
       // Can update the scores of the players
+      {
+          //game g;
+          //auto score_before = g.get_scoring_board().get_score_player1();
+          //g.happen_event_that_changes_score_player1();
+          //g.tick();
+          //auto score_after = g.get_scoring_board().get_score_player1();
+          //assert(score_before != score_after);
+      }
   }
   #endif
 #endif // no tests in release
