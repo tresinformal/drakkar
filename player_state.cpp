@@ -42,10 +42,7 @@ void test_player_state()
     std::stringstream s;
     const player_state ps = player_state::active;
     s << ps;
-  }
-  {
-    const player_state ps = player_state::active;
-    std::cout << ps;
+    assert(!s.str().empty());
   }
   #endif // FIX_ISSUE_509
 
@@ -59,19 +56,13 @@ void test_player_state()
   }
   #endif // FIX_ISSUE_276
 
-  #define FIX_ISSUE_509
-  #ifdef FIX_ISSUE_509
-  // operator<<
+  // #509: operator<<
   {
     std::stringstream s;
     const player_state ps = player_state::active;
     s << ps;
+    assert(!s.str().empty());
   }
-  {
-    const player_state ps = player_state::active;
-    std::cout << ps;
-  }
-  #endif
   #endif
 }
 
