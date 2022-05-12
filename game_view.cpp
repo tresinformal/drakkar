@@ -107,6 +107,7 @@ bool game_view::process_events()
             if (key_pressed == sf::Keyboard::Key::Escape)
               {
                 m_next_view = view_mode::menu;
+                m_window.close();
                 return true;
               }
             else {
