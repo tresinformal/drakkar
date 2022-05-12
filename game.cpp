@@ -397,7 +397,7 @@ void game::update_scoring_board()
 
 void game::update_timer()
 {
-
+    m_scoring_board.set_timer(m_n_ticks);
 }
 // END Function Group Scoring Board
 
@@ -2220,6 +2220,7 @@ void test_game() //!OCLINT tests may be many
       }
 
       // Can update the scores of the players
+      // Won't pass because the event class has not been implemented yet
       {
           //game g;
           //auto score_before = g.get_scoring_board().get_score_player1();
