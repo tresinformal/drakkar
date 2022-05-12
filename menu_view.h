@@ -23,7 +23,7 @@ private:
   menu m_menu;
   sf::RenderWindow m_window;
   game_resources m_game_resources;
-  view_mode m_next_view;
+  view_mode m_next_view = view_mode::quit;
 
   ///
   bool process_events();

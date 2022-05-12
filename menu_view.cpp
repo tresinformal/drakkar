@@ -6,8 +6,7 @@
 menu_view::menu_view()
     : m_window(
           sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
-          "tresinformal game_menu"),
-      m_next_view(view_mode::quit)
+          "tresinformal game_menu")
 {
 }
 
