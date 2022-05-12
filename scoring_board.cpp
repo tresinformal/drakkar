@@ -47,6 +47,9 @@ void scoring_board::set_winner(short winner)
 
 void test_scoring_board()
 {
+#ifndef NDEBUG // no tests in release
+    #define FIX_ISSUE_542
+    #ifdef FIX_ISSUE_542
     // Scoring board has a correct initial state
     {
         scoring_board sb;
@@ -101,5 +104,7 @@ void test_scoring_board()
         sb.set_winner(5);
         assert(sb.get_winner() == -1);
     }
+    #endif
+#endif
 }
 

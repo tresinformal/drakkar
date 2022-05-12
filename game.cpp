@@ -381,6 +381,23 @@ void game::eat_food(food& f)
   f.reset_timer();
 }
 
+// BEGIN Function Group Event
+
+// END Function Group Event
+
+// BEGIN Function Group Scoring Board
+void game::update_scoring_board()
+{
+
+}
+
+void game::update_timer()
+{
+
+}
+// END Function Group Scoring Board
+
+// BEGIN Function Group Shoot Cool Down
 void game::increment_cool_down_timers()
 {
   for (player &p : m_player)
@@ -403,6 +420,7 @@ void game::reset_cool_down_status()
         }
     }
 }
+// END Function Group Shoot Cool Down
 
 void game::reset_player_action()
 {
@@ -1831,7 +1849,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-   #define FIX_ISSUE_464
+  #define FIX_ISSUE_464
   #ifdef FIX_ISSUE_464
   {
     // (464) A player's state can be accessed easily
@@ -2181,6 +2199,16 @@ void test_game() //!OCLINT tests may be many
         actual_displacement = sqrt(pow((after_x - before_x), 2) + pow((after_y - before_y), 2));
         assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
+  }
+  #endif
+
+  #define FIX_ISSUE_542
+  #ifdef FIX_ISSUE_542
+  {
+      // Can update the timer of the scoring board
+      game g;
+      g.get_scoring_board().
+      // Can update the scores of the players
   }
   #endif
 #endif // no tests in release
