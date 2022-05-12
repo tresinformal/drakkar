@@ -88,6 +88,12 @@ public:
     return m_player[static_cast<unsigned int>(i)];
   }
 
+  /// Get the scoring board
+  const scoring_board &get_scoring_board() const {return m_scoring_board;};
+
+  /// Get the reference of the scoring boarding to change it
+  scoring_board &get_scoring_board() {return m_scoring_board;};
+
   /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_player; }
 
@@ -142,6 +148,9 @@ private:
   /// Vector of players
   std::vector<player> m_player;
 
+  /// the scoring board
+  scoring_board m_scoring_board;
+
   ///Vector of index of the players that collide
   std::vector<int> m_v_collisions_ind;
 
@@ -175,14 +184,24 @@ private:
   /// Increment timers of shoot calm down of all the players
   void increment_cool_down_timers();
 
+  // BEGIN Function Group Shoot Cool Down
   /// Reset timers of shoot calm down of all the players
   void reset_cool_down_status();
+  // END Function Group Shoot Cool Down
 
   /// Make players eat food items they are on top of
   void make_players_eat_food();
 
   /// Regenerate food items where relevant
   void regenerate_food_items();
+
+  // BEGIN Function Group Scoring Board
+  /// Update scores of the players
+  void update_scoring_board();
+
+  /// Update timer insides the scoring board;
+  void update_timer();
+  // END Function Group Scoring Board
 };
 
 /// Calculate a mean of a vector of numbers
