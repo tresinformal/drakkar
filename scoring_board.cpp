@@ -17,29 +17,9 @@ scoring_board::scoring_board(unsigned int score_player1,
 
 }
 
-void scoring_board::set_score_player1(unsigned int score)
-{
-    if (score >= 0) m_score_player1 = score;
-}
-
-void scoring_board::set_score_player2(unsigned int score)
-{
-    if (score >= 0) m_score_player2 = score;
-}
-
-void scoring_board::set_score_player3(unsigned int score)
-{
-    if (score >= 0) m_score_player3 = score;
-}
-
-void scoring_board::set_timer(unsigned int time)
-{
-    if (time >= 0) m_timer = time;
-}
-
 void scoring_board::set_winner(short winner)
 {
-    if (winner >= -1 & winner <= 2)
+    if ((winner >= -1) & (winner <= 2))
     {
         m_winner = winner;
     }

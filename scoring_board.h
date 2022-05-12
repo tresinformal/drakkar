@@ -12,13 +12,13 @@ public:
                   unsigned int score_player3 = 0,
                   unsigned int timer = 0,
                   short winner = -1);
-    void set_score_player1(unsigned int score);
+    void set_score_player1(unsigned int score) {m_score_player1 = score;};
 
-    void set_score_player2(unsigned int score);
+    void set_score_player2(unsigned int score) {m_score_player2 = score;};
 
-    void set_score_player3(unsigned int score);
+    void set_score_player3(unsigned int score) {m_score_player3 = score;};
 
-    void set_timer(unsigned int time);
+    void set_timer(unsigned int time) {m_timer = time;};
 
     void set_winner(short winner);
 
