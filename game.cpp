@@ -392,7 +392,7 @@ void game::eat_food(food& f)
 // BEGIN Function Group Scoring Board
 void game::update_scoring_board()
 {
-
+    // depends on the event class
 }
 
 void game::update_timer()
