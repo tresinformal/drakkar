@@ -45,12 +45,14 @@ bool menu_view::process_events()
           const menu_button mb_action = m_menu.get_button("action");
           if (is_inside_button(mouse_position, mb_action))
             {
-              // switches to game_view
+              m_next_view = view_mode::game;
+              m_window.close();
+              return true;
             }
           const menu_button mb_about = m_menu.get_button("about");
           if (is_inside_button(mouse_position, mb_about))
             {
-              // switches to menu_view
+              // switches to about_view, when it exists #433
             }
           const menu_button mb_quit = m_menu.get_button("quit");
           if (is_inside_button(mouse_position, mb_quit))
