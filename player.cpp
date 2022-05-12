@@ -34,6 +34,7 @@ player::player(const coordinate c,
 {
 
 }
+
 //move a player
 void player::move() noexcept
 {

@@ -6,12 +6,13 @@
 #include "environment.h"
 #include "environment_type.h"
 #include "food.h"
+#include "game_options.h"
 #include "player.h"
 #include "player_shape.h"
 #include "projectile.h"
+#include "scoring_board.h"
 #include "shelter.h"
 #include <vector>
-#include "game_options.h"
 #include <cassert>
 #include <random>
 
