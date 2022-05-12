@@ -188,7 +188,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   menu_view mv;
   game_view gv(options);
   assert(options == gv.get_options());
-  // other views ...
+  options_view ov;
 
   // Execute and switch between views
   while (true) // I'm young and reckless
@@ -205,6 +205,12 @@ int main(int argc, char **argv) //!OCLINT tests may be long
           {
             gv.exec();
             next_view = gv.get_next_view();
+            break;
+          }
+        case view_mode::options:
+          {
+            ov.exec();
+            next_view = ov.get_next_view();
             break;
           }
           // other views ...
