@@ -21,6 +21,7 @@ HEADERS += \
     $$PWD/optional.h \
     $$PWD/player.h \
     $$PWD/player_factory.h \
+    $$PWD/player_profession.h \
     $$PWD/player_shape.h \
     $$PWD/player_state.h \
     $$PWD/program_state.h \
@@ -53,6 +54,7 @@ SOURCES += \
     $$PWD/optional.cpp \
     $$PWD/player.cpp \
     $$PWD/player_factory.cpp \
+    $$PWD/player_profession.cpp \
     $$PWD/player_shape.cpp \
     $$PWD/player_state.cpp \
     $$PWD/program_state.cpp \

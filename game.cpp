@@ -1831,12 +1831,12 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  // #define FIX_ISSUE_464
+   #define FIX_ISSUE_464
   #ifdef FIX_ISSUE_464
   {
     // (464) A player's state can be accessed easily
     const game g;
-    assert(get_nth_player_state(g, 0) ==  g.get_players()[0].get_state());
+    assert(get_nth_player_state(g, 0) ==  g.get_player(0).get_state());
   }
   #endif
 
