@@ -185,10 +185,10 @@ int main(int argc, char **argv) //!OCLINT tests may be long
     }
 
   // Declare all views
+  options_view ov;
   menu_view mv;
   game_view gv(options);
   assert(options == gv.get_options());
-  options_view ov;
 
   // Execute and switch between views
   while (true) // I'm young and reckless
