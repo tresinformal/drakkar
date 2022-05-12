@@ -50,7 +50,7 @@ void options_view::show()
   // Placeholder text
   sf::Text placeholder;
   placeholder.setFont(m_game_resources.get_font());
-  placeholder.setString("Exit status 1 was never an option.");
+  placeholder.setString("We don't have an Options screen yet D:");
   placeholder.setCharacterSize(40);
   sf::FloatRect text_area = placeholder.getLocalBounds();
   placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);

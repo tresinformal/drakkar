@@ -49,6 +49,13 @@ bool menu_view::process_events()
               m_window.close();
               return true;
             }
+          const menu_button mb_options = m_menu.get_button("options");
+          if (is_inside_button(mouse_position, mb_options))
+            {
+              m_next_view = view_mode::options;
+              m_window.close();
+              return true;
+            }
           const menu_button mb_about = m_menu.get_button("about");
           if (is_inside_button(mouse_position, mb_about))
             {
