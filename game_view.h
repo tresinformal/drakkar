@@ -13,8 +13,10 @@
 class game_view
 {
 public:
-
-  game_view(game_options options = game_options());
+  game_view(
+    game_options options = game_options(),
+    sf::Vector2f window_size = sf::Vector2f(1280, 720)
+  );
   ~game_view();
 
   /// Show one frame
@@ -41,6 +43,9 @@ public:
   {
     return m_next_view;
   }
+
+  // Get the size of the window
+  const sf::Vector2f get_window_size() { return m_window_size; }
 
   // Get the window's state, for testing purposes only
   bool is_window_open() { return m_window.isOpen(); }
@@ -70,6 +75,9 @@ private:
 
   /// The resources (images, sounds, etc.) of the game
   game_resources m_game_resources;
+
+  // The size of the window to draw
+  sf::Vector2f m_window_size;
 
   /// The window to draw to
   sf::RenderWindow m_window;

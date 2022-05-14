@@ -14,13 +14,14 @@
 #include <string>
 #include <sstream>
 
-game_view::game_view(game_options options) :
+game_view::game_view(game_options options, sf::Vector2f window_size) :
     m_game(options),
+    m_window_size{window_size},
     m_v_views(
         m_game.get_v_player().size(),
         sf::View(
             sf::Vector2f(0,0),
-            sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
+            sf::Vector2f(m_window_size.x / 2, m_window_size.y / 2)
             )
         )
 {
@@ -132,7 +133,7 @@ bool game_view::process_events()
 void game_view::exec() noexcept
 {
   m_window.create(
-    sf::VideoMode(1280, 720),
+    sf::VideoMode(m_window_size.x, m_window_size.y),
     "tresinformal game"
   );
   while (m_window.isOpen())
