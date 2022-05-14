@@ -415,23 +415,9 @@ void test_game_view() //!OCLINT tests may be many
                    && view.getSize().y - v.get_window().getSize().y/2 > -0.00001f);
         }
     }
-
-    //Each view port will also be half the dimensions of the render window
-    //View will be initialized for the three default player like this
-    //     Screen.begin                                  Screen.end
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|---------------------------------------------|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //!!!!this test looks tauthological to me. Do not know how to make it better @swom
-    {
+  // Each player's view occupies a specific quarter of the screen
+  {
         game_view v;
-
         assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 0.5f, 0.5f) );
         assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
         assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
@@ -445,9 +431,7 @@ void test_game_view() //!OCLINT tests may be many
         assert(v.get_options().is_playing_music());
     }
 
-#define FIX_ISSUE_167
-#ifdef FIX_ISSUE_167
-    ///given a player get_player_kam provides the correct player kam
+   // given a player get_player_kam provides the correct player kam
     {
         player p;
         assert(p.get_ID() == "0");
@@ -459,24 +443,6 @@ void test_game_view() //!OCLINT tests may be many
         p =  create_player_with_id("2");
         assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
     }
-#endif
-
-#define FIX_ISSUE_183
-#ifdef FIX_ISSUE_183
-    ///given a player get_player_kam provides the correct player kam
-    {
-        player p;
-        assert(p.get_ID() == "0");
-        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
-        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
-
-        p =  create_player_with_id("1");
-        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
-        p =  create_player_with_id("2");
-        assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
-
-    }
-#endif
 
     ///Given a player and an event
     ///player_input sees if any action has to be applied to the player
@@ -538,7 +504,7 @@ void test_game_view() //!OCLINT tests may be many
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
 #endif // FIX_ISSUE_246
-  #endif
+  #endif //NDEBUG
 }
 
 #endif // LOGIC_ONLY
