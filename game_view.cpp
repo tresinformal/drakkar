@@ -518,6 +518,14 @@ void test_game_view() //!OCLINT tests may be many
     // bc exec() doesn't exit on its own
   }
 
+  // (547) A game_view has a window size
+  {
+    game_view gv;
+    sf::Vector2f window_size = gv.get_window_size();
+    assert(window_size.x == 1280);
+    assert(window_size.y == 720);
+  }
+
   #endif //NDEBUG
 }
 
