@@ -17,6 +17,10 @@
 game_view::game_view(game_options options, sf::Vector2f window_size) :
     m_game(options),
     m_window_size{window_size},
+    m_window(
+      sf::VideoMode(m_window_size.x, m_window_size.y),
+      "tresinformal game"
+    ),
     m_v_views(
         m_game.get_v_player().size(),
         sf::View(
@@ -25,7 +29,6 @@ game_view::game_view(game_options options, sf::Vector2f window_size) :
             )
         )
 {
-
     //Hardcoded positions of the three sf::views of the three players
     m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
     m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
@@ -40,6 +43,8 @@ game_view::game_view(game_options options, sf::Vector2f window_size) :
         m_game_resources.get_wonderland().play();
     }
 #endif
+    // After setup, close window until executed
+    m_window.close();
 }
 
 game_view::~game_view()
@@ -132,13 +137,15 @@ bool game_view::process_events()
 
 void game_view::exec() noexcept
 {
+  // Open window
   m_window.create(
     sf::VideoMode(m_window_size.x, m_window_size.y),
     "tresinformal game"
   );
   while (m_window.isOpen())
   {
-    const bool must_quit{process_events()}; // This is where stun is processed
+    // Process user input and play game until instructed to exit
+    const bool must_quit{process_events()};
     if (must_quit) return;
     m_game.tick();
     show();
