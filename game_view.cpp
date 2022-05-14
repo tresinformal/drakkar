@@ -16,7 +16,6 @@
 
 game_view::game_view(game_options options) :
     m_game(options),
-    m_window(sf::VideoMode(1280, 720), "tresinformal game"),
     m_v_views(
         m_game.get_v_player().size(),
         sf::View(
@@ -132,6 +131,10 @@ bool game_view::process_events()
 
 void game_view::exec() noexcept
 {
+  m_window.create(
+    sf::VideoMode(1280, 720),
+    "tresinformal game"
+  );
   while (m_window.isOpen())
   {
     const bool must_quit{process_events()}; // This is where stun is processed
@@ -504,6 +507,17 @@ void test_game_view() //!OCLINT tests may be many
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
 #endif // FIX_ISSUE_246
+
+
+  // (545) A game window doesn't open at construction
+  {
+    game_view gv;
+    assert(!gv.is_window_open());
+    // Ideally one should also test for the window opening during exec()
+    // and closing after, but that is not possible AFAICS
+    // bc exec() doesn't exit on its own
+  }
+
   #endif //NDEBUG
 }
 

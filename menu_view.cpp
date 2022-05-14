@@ -4,9 +4,6 @@
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
 menu_view::menu_view()
-    : m_window(
-          sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
-          "tresinformal game_menu")
 {
 }
 
@@ -17,6 +14,10 @@ view_mode menu_view::get_next_view() const
 
 void menu_view::exec()
 {
+  m_window.create(
+    sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
+    "tresinformal game_menu"
+  );
   while (m_window.isOpen())
   {
     bool must_quit{process_events()};
@@ -144,12 +145,21 @@ void test_menu_view() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
 
-// (495) There should be a member of type view_mode
-{
-  menu_view mv;
-  const view_mode expected_next_view = view_mode::quit;
-  assert(mv.get_next_view() == expected_next_view);
-}
+  // (495) There should be a member of type view_mode
+  {
+    menu_view mv;
+    const view_mode expected_next_view = view_mode::quit;
+    assert(mv.get_next_view() == expected_next_view);
+  }
+
+  // (545) A menu's window doesn't open at construction
+  {
+    menu_view mv;
+    assert(!mv.is_window_open());
+    // Ideally one should also test for the window opening during exec()
+    // and closing after, but that is not possible AFAICS
+    // bc exec() doesn't exit on its own
+  }
 
 #endif // NDEBUG
 }

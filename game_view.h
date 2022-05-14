@@ -42,6 +42,9 @@ public:
     return m_next_view;
   }
 
+  // Get the window's state, for testing purposes only
+  bool is_window_open() { return m_window.isOpen(); }
+
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
