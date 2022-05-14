@@ -3,18 +3,26 @@
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
-options_view::options_view()
+options_view::options_view() :
+  m_window(
+    sf::VideoMode(1280, 720),
+    "tresinformal game options"
+  )
 {
+  // After setup, close window until executed
+  m_window.close();
 }
 
 void options_view::exec()
 {
+  // Open window
   m_window.create(
     sf::VideoMode(1280, 720),
     "tresinformal game options"
   );
   while (m_window.isOpen())
   {
+    // Process use input until told to exit options screen
     bool must_quit{process_events()};
     if (must_quit)
       return;

@@ -3,8 +3,14 @@
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
-menu_view::menu_view()
+menu_view::menu_view() :
+  m_window(
+    sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
+    "tresinformal game_menu"
+  )
 {
+  // After setup, close window until executed
+  m_window.close();
 }
 
 view_mode menu_view::get_next_view() const
@@ -14,12 +20,14 @@ view_mode menu_view::get_next_view() const
 
 void menu_view::exec()
 {
+  // Open window
   m_window.create(
     sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
     "tresinformal game_menu"
   );
   while (m_window.isOpen())
   {
+    // Process user input until told to exit menu
     bool must_quit{process_events()};
     if (must_quit)
       return;
