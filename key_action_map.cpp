@@ -491,7 +491,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(kam == map_again);
     std::remove(filename.c_str());
   }
-  // 522. Can save and load a key_action_map
+  // 522. Can save and load a key_action_map for player 3
   {
     const key_action_map kam = get_player_3_kam();
     const std::string filename = "test.txt";
