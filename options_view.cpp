@@ -80,9 +80,9 @@ void options_view::show()
   m_window.display();
 }
 
+#ifndef NDEBUG // no tests in release
 void test_options_view() //!OCLINT tests may be many
 {
-#ifndef NDEBUG // no tests in release
 
 // (496) There should be a member of type view_mode
 {
