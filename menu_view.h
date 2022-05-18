@@ -1,9 +1,12 @@
 #ifndef MENU_VIEW_H
 #define MENU_VIEW_H
 
+#ifndef LOGIC_ONLY // so this is NOT compiled on GitHub Actions
+
 #include "SFML/Graphics.hpp"
 #include "game_resources.h"
 #include "menu.h"
+#include "view_mode.h"
 
 class menu_view
 {
@@ -13,10 +16,14 @@ public:
   /// Creates the menu and draws it
   void exec();
 
+  /// Get next view
+  view_mode get_next_view() const;
+
 private:
   menu m_menu;
   sf::RenderWindow m_window;
   game_resources m_game_resources;
+  view_mode m_next_view = view_mode::quit;
 
   ///
   bool process_events();
@@ -27,5 +34,9 @@ private:
   /// Shows the menu
   void show();
 };
+
+void test_menu_view();
+
+#endif // LOGIC_ONLY
 
 #endif // MENU_VIEW_H
