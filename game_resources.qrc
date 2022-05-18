@@ -14,5 +14,7 @@
         <file>coastal_world.png</file>
         <file>marjon_the_dragon.png</file>
         <file>stun_rocket_master.png</file>
+        <file>grow.ogg</file>
+        <file>shrink.ogg</file>
     </qresource>
 </RCC>
