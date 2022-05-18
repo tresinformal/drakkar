@@ -1,18 +1,23 @@
 #include "key_action_map.h"
+
+#include <SFML/System.hpp>
 #include <cassert>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 key_action_map::key_action_map(
     const sf::Keyboard::Key& key_to_go_left,
     const sf::Keyboard::Key& key_to_go_right,
-    const sf::Keyboard::Key& key_to_accelerate,
-    const sf::Keyboard::Key& key_to_brake,
+    const sf::Keyboard::Key& key_to_accelerate_forward,
+    const sf::Keyboard::Key& key_to_accelerate_backward,
     const sf::Keyboard::Key& key_to_shoot,
     const sf::Keyboard::Key& key_to_stun
     ) : m_map {
 {key_to_go_left, action_type::turn_left},
 {key_to_go_right, action_type::turn_right},
-{key_to_accelerate, action_type::accelerate},
-{key_to_brake, action_type::brake},
+{key_to_accelerate_forward, action_type::accelerate_forward},
+{key_to_accelerate_backward, action_type::accelerate_backward},
 {key_to_shoot, action_type::shoot},
 {key_to_stun, action_type::shoot_stun_rocket}
           }
@@ -163,6 +168,108 @@ sf::Keyboard::Key get_stun_key(const key_action_map& m)
   return m.to_key(action_type::shoot_stun_rocket);
 }
 
+key_action_map load_kam(const std::string& filename)
+{
+  std::ifstream f(filename);
+  key_action_map m;
+  f >> m;
+  return m;
+}
+
+void save_to_file(const key_action_map& kam, const std::string& filename)
+{
+  std::ofstream file(filename);
+  file << kam;
+}
+
+sf::Keyboard::Key to_sfml_key(const std::string& s)
+{
+  if (s == "A") return sf::Keyboard::Key::A;
+
+  if (s != " ") std::clog << "UNKNOWN KEY: " << s << '\n';
+
+  assert(s == " "); // Or the key has not been encoded yet
+  return sf::Keyboard::Key::Space;
+
+}
+
+std::string to_str(const sf::Keyboard::Key key)
+{
+  switch (key)
+  {
+    case sf::Keyboard::Key::A: return "A";
+    case sf::Keyboard::Key::D: return "D";
+    default: break;
+  }
+
+  // Or maybe the key is not present yet in the
+  // switch statement above :-)
+  assert(key == sf::Keyboard::Key::Space);
+  return " ";
+}
+
+std::string to_str(const key_action_map& kam) noexcept
+{
+  std::stringstream s;
+  for (const auto& p: kam.get_raw_map()) {
+    s << to_str(p.first) << " " << p.second << " ";
+  };
+  std::string t = s.str();
+  // Remove the space at the end
+  t.pop_back();
+  return t;
+}
+
+std::istream& operator>>(std::istream& is, key_action_map& kam)
+{
+  std::string action = "dummy"; // In istream for readability
+
+  // Go through each key action pair, check if the order is correct
+  std::string key_to_go_left;
+  is >> key_to_go_left >> action;
+  assert(to_str(action_type::turn_left) == action);
+
+  std::string key_to_go_right;
+  is >> key_to_go_right >> action;
+  assert(to_str(action_type::turn_right) == action);
+
+  std::string key_to_stun;
+  is >> key_to_stun >> action;
+  assert(to_str(action_type::shoot_stun_rocket) == action);
+
+  std::string key_to_shoot;
+  is >> key_to_shoot >> action;
+  assert(to_str(action_type::shoot) == action);
+
+  std::string key_to_accelerate_backward;
+  is >> key_to_accelerate_backward >> action;
+  assert(to_str(action_type::accelerate_backward) == action);
+
+  std::string key_to_accelerate_forward;
+  is >> key_to_accelerate_forward >> action;
+  assert(to_str(action_type::accelerate_forward) == action);
+
+
+  const key_action_map m(
+    to_sfml_key(key_to_go_left),
+    to_sfml_key(key_to_go_right),
+    to_sfml_key(key_to_accelerate_forward),
+    to_sfml_key(key_to_accelerate_backward),
+    to_sfml_key(key_to_shoot),
+    to_sfml_key(key_to_stun)
+  );
+  kam = m;
+  return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const key_action_map& kam)
+{
+  os << to_str(kam);
+  return os;
+}
+
+
+
 void test_key_action_map()//!OCLINT tests can be many
 {
 #ifndef NDEBUG // no tests in release
@@ -172,8 +279,8 @@ void test_key_action_map()//!OCLINT tests can be many
     const key_action_map m; //Use player 1 as default for now
     assert(m.to_action(sf::Keyboard::A) == action_type::turn_left);
     assert(m.to_action(sf::Keyboard::D) == action_type::turn_right);
-    assert(m.to_action(sf::Keyboard::W) == action_type::accelerate);
-    assert(m.to_action(sf::Keyboard::S) == action_type::brake);
+    assert(m.to_action(sf::Keyboard::W) == action_type::accelerate_forward);
+    assert(m.to_action(sf::Keyboard::S) == action_type::accelerate_backward);
     assert(m.to_action(sf::Keyboard::Q) == action_type::shoot);
     assert(m.to_action(sf::Keyboard::E) == action_type::shoot_stun_rocket);
   }
@@ -181,36 +288,35 @@ void test_key_action_map()//!OCLINT tests can be many
     const key_action_map m = get_player_1_kam();
     assert(m.to_action(sf::Keyboard::A) == action_type::turn_left);
     assert(m.to_action(sf::Keyboard::D) == action_type::turn_right);
-    assert(m.to_action(sf::Keyboard::W) == action_type::accelerate);
-    assert(m.to_action(sf::Keyboard::S) == action_type::brake);
+    assert(m.to_action(sf::Keyboard::W) == action_type::accelerate_forward);
+    assert(m.to_action(sf::Keyboard::S) == action_type::accelerate_backward);
     assert(m.to_action(sf::Keyboard::Q) == action_type::shoot);
   }
   {
     const sf::Keyboard::Key key_to_go_left = sf::Keyboard::C;
     const sf::Keyboard::Key key_to_go_right = sf::Keyboard::B;
-    const sf::Keyboard::Key key_to_accelerate = sf::Keyboard::A;
-    const sf::Keyboard::Key key_to_brake = sf::Keyboard::Z;
+    const sf::Keyboard::Key key_to_accelerate_forward = sf::Keyboard::A;
+    const sf::Keyboard::Key key_to_accelerate_backward = sf::Keyboard::Z;
     const sf::Keyboard::Key key_to_shoot = sf::Keyboard::E;
     const key_action_map m(
           key_to_go_left,
           key_to_go_right,
-          key_to_accelerate,
-          key_to_brake,
+          key_to_accelerate_forward,
+          key_to_accelerate_backward,
           key_to_shoot
           );
     assert(m.to_action(key_to_go_left) == action_type::turn_left);
     assert(m.to_action(key_to_go_right) == action_type::turn_right);
-    assert(m.to_action(key_to_accelerate) == action_type::accelerate);
-    assert(m.to_action(key_to_brake) == action_type::brake);
+    assert(m.to_action(key_to_accelerate_forward) == action_type::accelerate_forward);
+    assert(m.to_action(key_to_accelerate_backward) == action_type::accelerate_backward);
     assert(m.to_action(key_to_shoot) == action_type::shoot);
   }
   {
     const key_action_map m = get_player_2_kam();
     assert(m.to_action(sf::Keyboard::J) == action_type::turn_left);
     assert(m.to_action(sf::Keyboard::L) == action_type::turn_right);
-    assert(m.to_action(sf::Keyboard::I) == action_type::accelerate);
-    assert(m.to_action(sf::Keyboard::K) == action_type::brake);
-    //assert(m.to_action(sf::Keyboard::Comma) == action_type::acc_backward);
+    assert(m.to_action(sf::Keyboard::I) == action_type::accelerate_forward);
+    assert(m.to_action(sf::Keyboard::K) == action_type::accelerate_backward);
     assert(m.to_action(sf::Keyboard::U) == action_type::shoot);
   }
   {
@@ -305,10 +411,28 @@ void test_key_action_map()//!OCLINT tests can be many
     const key_action_map kam = get_player_1_kam();
     assert(kam.to_key(action_type::turn_left) == sf::Keyboard::A);
     assert(kam.to_key(action_type::turn_right) == sf::Keyboard::D);
-    assert(kam.to_key(action_type::accelerate) == sf::Keyboard::W);
-    assert(kam.to_key(action_type::brake) == sf::Keyboard::S);
+    assert(kam.to_key(action_type::accelerate_forward) == sf::Keyboard::W);
+    assert(kam.to_key(action_type::accelerate_backward) == sf::Keyboard::S);
     assert(kam.to_key(action_type::shoot) == sf::Keyboard::Q);
     assert(kam.to_key(action_type::shoot_stun_rocket) == sf::Keyboard::E);
   }
 #endif // FIX_ISSUE_355
+
+//#define ISSUE_522
+#ifdef ISSUE_522
+  {
+    const key_action_map kam = get_player_1_kam();
+    std::stringstream s;
+    s << kam;
+  }
+  {
+    const key_action_map kam = get_player_1_kam();
+    const std::string filename = "test.txt";
+    save_to_file(kam, filename);
+    const key_action_map map_again = load_kam(filename);
+    assert(kam == map_again);
+    // TODO: delete temporary file
+  }
+#endif // ISSUE_522
+
 }

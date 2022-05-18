@@ -4,35 +4,44 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 -----------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
 `master`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/game/branch/master)
 `develop`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/game/branch/develop)
-`clem`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=clem)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=clem)](https://codecov.io/github/tresinformal/game/branch/clem)
+`christiaan`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=christiaan)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=christiaan)](https://codecov.io/github/tresinformal/game/branch/christiaan)
+`claudio`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=claudio)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=claudio)](https://codecov.io/github/tresinformal/game/branch/claudio)
 `kristiina`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=kristiina)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=kristiina)](https://codecov.io/github/tresinformal/game/branch/kristiina)
-`pavel`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/game/branch/pavel)
 `oliver`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=oliver)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=oliver)](https://codecov.io/github/tresinformal/game/branch/pavel)
+`pavel`    |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/game/branch/pavel)
 `richel`   |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=richel)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/game/branch/richel)
 `sebastian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/game/branch/sebastian)
-`swom`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/stefano)
+`stefano`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/game/branch/stefano)
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
-`christiaan`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=christiaan)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=christiaan)](https://codecov.io/github/tresinformal/game/branch/christiaan)
+`tianjian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=tianjian)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=tianjian)](https://codecov.io/github/tresinformal/game/branch/tianjian)
 `yang`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=yang)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=yang)](https://codecov.io/github/tresinformal/game/branch/yang)
- * Branches are ordered `master`, `develop`, then topic branches alphabetically
 
+ * Branches are ordered `master`, `develop`, then topic branches alphabetically
 A video game, developed informally and professionally.
 
 ## Meetings
 
  * Date: Weekly, every Wednesday
  * Time: 17:00-19:00
- * On Discord, see [FAQ](faq.md)
+ * Where:
+    * In Uppsala: Uppsala Makerspace, Ekeby Bruk 6M, [https://www.uppsalamakerspace.se/](https://www.uppsalamakerspace.se/)
+    * In Groningen: Franjo's Fancy Coffee Room
+    * On Discord, see [FAQ](faq.md)
 
 We follow this timetable:
 
-What             | Time
------------------|------
-Doors open       | 17:00
-Lesson starts    | 17:15
-Break time!      | 18:00
-Lesson continues | 18:15
-End of lesson    | 19:00
+Where|What              | Time
+-----|------------------|------
+U    |Order pizza       | 16:00
+GOU  |Doors open        | 17:00
+GOU  |Session starts    | 17:15
+GOU  |Break time!       | 18:00
+GOU  |Session continues | 18:15
+GOU  |End of lesson     | 19:00
+
+ * `[G]` denotes 'at Groningen'
+ * `[O]` denotes 'online'
+ * `[U]` denotes 'at Uppsala'
 
 ## Code of Conduct
 
@@ -127,4 +136,4 @@ Most recent at the top.
 ![](pics/20191024.png) 
 
 ![](pics/20190929.png)
-
+Hi

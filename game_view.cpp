@@ -13,6 +13,7 @@
 #include <sstream>
 
 game_view::game_view(game_options options) :
+    m_game(options),
     m_window(sf::VideoMode(1280, 720), "tresinformal game"),
     m_v_views(
         m_game.get_v_player().size(),
@@ -20,8 +21,7 @@ game_view::game_view(game_options options) :
             sf::Vector2f(0,0),
             sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
             )
-        ),
-    m_options(options)
+        )
 {
 
     //Hardcoded positions of the three sf::views of the three players
@@ -32,7 +32,7 @@ game_view::game_view(game_options options) :
 #ifndef IS_ON_TRAVIS
     // Playing sound on Travis gives thousands of error lines, which causes the
     // build to fail
-    if(m_options.is_playing_music())
+    if(get_options().is_playing_music())
     {
         m_game_resources.get_wonderland().setLoop(true);
         m_game_resources.get_wonderland().play();
@@ -162,8 +162,12 @@ void game_view::draw_food() noexcept
 
 void game_view::press_key(const sf::Keyboard::Key& k)
 {
-    if(k == sf::Keyboard::E) {
-      /// stunning not shooting a rocket
+    // game g = this->get_game();
+    // const sf::Keyboard::Key stun_key = get_stun_key(this->get_game().get_game_options().get_kam_1());
+    const sf::Keyboard::Key stun_key = sf::Keyboard::Key::W;
+    if (k == stun_key)
+    {
+      /// shooting a rocket
       this->m_game.do_action(0, action_type::shoot_stun_rocket);
     }
 }
@@ -274,19 +278,21 @@ void game_view::draw_player_coords() noexcept
 {
     sf::Text text;
     text.setFont(m_game_resources.get_font());
+    text.setCharacterSize(24);
 
     // Concatenate player coordinates string
     std::vector<player> v_player = m_game.get_v_player();
     std::string str_player_coords;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(get_x(p)));
-        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(get_y(p)));
+        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
         str_player_coords += "\n\n";
     }
     food f = m_game.get_food()[0];
-    str_player_coords += "Food x = " + std::to_string(trunc(get_x(f)));
-    str_player_coords += "y = " + std::to_string(trunc(get_y(f)));
+    str_player_coords += "Food x = " + std::to_string(static_cast<int>(get_x(f)));
+    str_player_coords += "\n         y = " + std::to_string(static_cast<int>(get_y(f)));
     str_player_coords += "\n\n";
 
     text.setString(str_player_coords);
@@ -486,7 +492,7 @@ void test_game_view()//!OCLINT tests may be many
         p0 = player_input(p0,move_forward_pl_1);
         p1 = player_input(p1,move_forward_pl_1);
 
-        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate_forward} );
         assert(p1.get_action_set() == std::set<action_type>{action_type::none} );
 
     }
@@ -498,10 +504,10 @@ void test_game_view()//!OCLINT tests may be many
         player p1;
 
         p0 = create_player_with_id("0");
-        add_action(p0,action_type::accelerate);
+        add_action(p0,action_type::accelerate_forward);
 
         p1 = create_player_with_id("1");
-        add_action(p1,action_type::accelerate);
+        add_action(p1,action_type::accelerate_forward);
 
         sf::Event stop_move_forward_pl_1;
         stop_move_forward_pl_1.key.code = sf::Keyboard::W;
@@ -510,19 +516,22 @@ void test_game_view()//!OCLINT tests may be many
         p1 = player_stop_input(p1,stop_move_forward_pl_1);
 
         assert(p0.get_action_set().empty());
-        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate_forward} );
 
     }
 
-  // Pressing 1 stuns player 1
-  {
-    game_view g;
-    assert(count_n_projectiles(g) == 0);
-    g.press_key(sf::Keyboard::E);
-    g.process_events(); // Needed to process the event
-    //  #ifdef FIX_ISSUE_239
-    assert(count_n_projectiles(g) == 1);
-  }
+
+//#define FIX_ISSUE_246
+#ifdef FIX_ISSUE_246
+    // Pressing the stun key shoots a stun rocket
+    {
+      game_view gw(get_random_game_options(300));
+      assert(!gw.get_game().get_player(0).is_shooting_stun_rocket());
+      gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun
+      assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
+    }
+#endif // FIX_ISSUE_246
+
   #endif
 }
 

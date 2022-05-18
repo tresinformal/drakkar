@@ -13,6 +13,10 @@ enum class sound_type
 void test_sound_type();
 
 ///converting sound type to str
-   std::string to_str(const sound_type & in_sound);
+std::string to_str(const sound_type &in_sound);
+
+
+/// implement << operator
+std::ostream& operator << (std::ostream& os, const sound_type& sound);
 
 #endif // SOUND_TYPE_H
