@@ -472,7 +472,7 @@ void test_key_action_map()//!OCLINT tests can be many
     std::stringstream s;
     s << kam;
   }
-  // 522. Can save and load a key_action_map
+  // 522. Can save and load a key_action_map for player 1
   {
     const key_action_map kam = get_player_1_kam();
     const std::string filename = "test.txt";
