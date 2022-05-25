@@ -1,6 +1,7 @@
 #ifndef COORDINATE_H
 #define COORDINATE_H
 
+#include <iostream>
 
 class coordinate
 {
@@ -36,6 +37,9 @@ double  get_y(const T& item)
 {
     return item.get_y();
 }
+
+/// Implement stream operator
+std::ostream& operator << (std::ostream &out, const coordinate &cor);
 
 void test_coordinate();
 
