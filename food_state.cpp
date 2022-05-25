@@ -3,7 +3,7 @@
 #include <sstream>
 
 
-std::ostream& operator << (std::ostream &out, const food_state &fs)
+std::ostream& operator << (std::ostream &out, const game_options &fs)
 {
     return out << to_str(fs);
 }
