@@ -20,6 +20,7 @@ double get_min_y(const game &g);
 // About players
 int count_alive_players(const game& g) noexcept;
 double get_nth_player_size(const game& g, const int i);
+color get_nth_player_color(const game& g, const int i);
 double get_nth_player_direction(const game &g, const int player_ind);
 int get_winning_player_index(const game& g, const int i1, const int i2);
 int get_losing_player_index(const game& g, const int i1, const int i2);

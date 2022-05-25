@@ -825,6 +825,19 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(b - a) < 0.0001);
       }
   }
+/*
+    // Can get a player's state by using a free function
+    {
+      const game g;
+      const int n_players{static_cast<int>(g.get_v_player().get_state())};
+      for (int i = 0; i != n_players; ++i)
+        {
+          const double a{g.get_player(i).get_diameter()};
+          const double b{get_nth_player_state(g, i)};
+          assert(std::abs(b - a) < 0.0001);
+        }
+    }
+*/
   // Can get a player's size by using a free function
   {
     const game g;
@@ -836,6 +849,7 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(b - a) < 0.0001);
       }
   }
+
   // game by default has a mix and max evironment size
   {
     game g;
@@ -1753,11 +1767,11 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_241
 
-//#define FIX_ISSUE_457
+#define FIX_ISSUE_457
 #ifdef FIX_ISSUE_457
   {
     // (457) The color of any player can be accessed easily
-    const game g;
+    game g;
     const color color_player_one = get_nth_player_color(g, 0);
     const color color_player_two = get_nth_player_color(g, 1);
     const color color_player_three = get_nth_player_color(g, 2);
