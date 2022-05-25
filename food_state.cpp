@@ -2,11 +2,11 @@
 #include "cassert"
 #include <sstream>
 
+
 std::ostream& operator << (std::ostream &out, const food_state &fs)
 {
-    return out << ;
+    return out << to_str(fs);
 }
-
 
 void test_food_state()
 {
@@ -29,4 +29,20 @@ void test_food_state()
     }
 #endif // FIX_ISSUE_557
 #endif
+}
+
+std::string to_str(const food_state &fs)
+{
+    switch (fs) {
+    case food_state::eaten :
+        return "eaten";
+        break;
+    case food_state::uneaten :
+        return "uneaten";
+        break;
+    default:
+        throw std::invalid_argument{"unrecognized food_state"};
+        return "Invalid!";
+        break;
+    }
 }

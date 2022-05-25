@@ -12,5 +12,8 @@ void test_food_state();
 /// Implement stream operator
 std::ostream& operator << (std::ostream &out, const food_state &fs);
 
+///Converts enumeration instantiation to string
+std::string to_str(const food_state& fs);
+
 
 #endif // FOOD_STATE_H
