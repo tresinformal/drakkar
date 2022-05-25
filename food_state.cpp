@@ -25,7 +25,7 @@ void test_food_state()
       const food_state food_state = food_state::eaten;
       std::stringstream s;
       s << food_state;
-      //assert(!s.str().empty());
+      assert(!s.str().empty());
     }
 #endif // FIX_ISSUE_557
 #endif
