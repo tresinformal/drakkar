@@ -76,9 +76,17 @@ public:
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
+  /// Get 'hide' sound
+  sf::Music &get_hide() noexcept { return m_hide; }
+#endif // IS_ON_TRAVIS
+
+#ifndef IS_ON_TRAVIS
+  // Playing sound on Travis gives thousands of error lines, which causes the
+  // build to fail
   /// Get 'shrink' sound
   sf::Music &get_shrink() noexcept { return m_shrink; }
 #endif // IS_ON_TRAVIS
+
 
 private:
   /// Franjo
@@ -113,40 +121,12 @@ private:
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
-  /// 'Ninja Gods' from Urho3D
   sf::Music m_ninja_gods;
-#endif // IS_ON_TRAVIS
-
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
-  /// 'wonderland' from Sebastian
   sf::Music m_wonderland;
-#endif // IS_ON_TRAVIS
-
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
-  /// 'shoot' sound from Sebastian
   sf::Music m_shoot;
-#endif // IS_ON_TRAVIS
-
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
-  /// 'bump' sound from Sebastian
   sf::Music m_bump;
-#endif // IS_ON_TRAVIS
-
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
   sf::Music m_grow;
-#endif // IS_ON_TRAVIS
-
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
+  sf::Music m_hide;
   sf::Music m_shrink;
 #endif // IS_ON_TRAVIS
 };
