@@ -100,8 +100,8 @@ void test_options_view() //!OCLINT tests may be many
     // bc exec() doesn't exit on its own
   }
 
-#endif // NDEBUG
 }
+#endif // NDEBUG // No tests in release
 
 #endif // LOGIC_ONLY
 

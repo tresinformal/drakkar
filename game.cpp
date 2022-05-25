@@ -645,7 +645,6 @@ void save(const game& g, const std::string& filename)
   std::fstream f;
   // open the file
   f.open(filename);
-
   assert(g.get_n_ticks() >= 0);
   assert(!filename.empty());
 }
