@@ -121,6 +121,7 @@ void test_coordinate() {
       std::stringstream s;
       const coordinate coor{1,2};
       s << coor;
+      assert(!s.str().empty());
     }
     #endif // FIX_ISSUE_508
 }

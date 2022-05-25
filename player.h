@@ -1,5 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+#define _USE_MATH_DEFINES
 
 #include "action_type.h"
 #include "color.h"
@@ -7,7 +8,7 @@
 #include "player_shape.h"
 #include "player_state.h"
 #include "read_only.h"
-#include <cmath>
+#include <math.h>
 #include <vector>
 #include <set>
 
