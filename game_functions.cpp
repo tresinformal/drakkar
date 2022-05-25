@@ -42,9 +42,15 @@ double get_nth_player_size(const game& g, const int i)
   return g.get_player(i).get_diameter();
 }
 
+
 color get_nth_player_color(const game& g, const int i)
 {
   return g.get_player(i).get_color();
+}
+
+player_state get_nth_player_state(const game& g, const int i)
+{
+  return g.get_player(i).get_state();
 }
 
 double get_nth_player_direction(const game &g, const int player_ind)

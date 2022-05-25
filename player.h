@@ -18,21 +18,29 @@ public:
   player(const coordinate c = coordinate(0.0, 0.0),
            const player_shape shape = player_shape::rocket,
            const player_state state = player_state::active,
-           const double player_max_speed = 2,
-           const double player_acceleration = 0.1,
-           const double player_deceleration = -0.001,
-           const double player_acc_backward = -0.1,
+           const double player_max_speed_forward = 1,
+           const double player_max_speed_backward = -0.5,
+           const double player_acceleration_forward = 0.1,
+           const double player_acceleration_backward = 0.05,
+           const double player_deceleration_forward = 0.1,
+           const double player_deceleration_backward = 0.1,
            const double size = 100.0,
-           const double turn_rate = 0.01,
+           const double turn_rate = 0.007,
            const color &any_color = color(),
            const std::string& ID = "0");
 
 
-    /// Get the acceleration of the player
-    double get_acceleration() const noexcept { return m_player_acceleration; }
+    /// Get the forward acceleration of the player
+    double get_acceleration_forward() const noexcept { return m_player_acceleration_forward; }
 
     ///Get the backward acceleration of the player
-    double get_acceleration_backward() const noexcept { return m_player_acc_backward; }
+    double get_acceleration_backward() const noexcept { return m_player_acceleration_backward; }
+
+    /// Get the forward deceleration of the player
+    double get_deceleration_forward() const noexcept { return m_player_deceleration_forward; }
+
+    ///Get the backward deceleration of the player
+    double get_deceleration_backward() const noexcept { return m_player_deceleration_backward; }
 
     ///Returns const ref to action set of the player
     const std::set<action_type>& get_action_set() const noexcept {return m_action_set;}
@@ -58,6 +66,12 @@ public:
     /// Get the state of the player
     player_state get_state() const noexcept { return m_state; }
 
+    /// Get the current action of the player
+    action_type get_action_flag() const noexcept { return m_action_flag; }
+
+    /// Set the current action of the player
+    void set_action_flag(const action_type action) { m_action_flag = action; }
+
     /// Get the radius of the player
     double get_diameter() const noexcept;
 
@@ -67,8 +81,11 @@ public:
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
 
-    /// Get the speed of the player
-    double get_max_speed() const noexcept { return m_player_max_speed; }
+    /// Get the maximum forward speed of the player
+    double get_max_speed_forward() const noexcept { return m_player_max_speed_forward; }
+
+    /// Get the maximum backward speed of the player
+    double get_max_speed_backward() const noexcept { return m_player_max_speed_backward; }
 
     /// Get the direction of player movement, in radians
     double get_direction() const noexcept;
@@ -146,13 +163,13 @@ public:
     void move() noexcept;
 
     /// Accelerate the player
-    void accelerate() noexcept;
+    void accelerate_forward() noexcept;
 
-    /// Brake the player
-    void brake() noexcept;
+    /// Decelerate the player
+    void decelerate() noexcept;
 
     /// Accelerate the player backward
-    void acc_backward() noexcept;
+    void accelerate_backward() noexcept;
 
     /// Make the player grow
     void grow();
@@ -190,20 +207,29 @@ private:
     /// The state of the player
     player_state m_state;
 
+    /// Player's current action
+    action_type m_action_flag{action_type::none};
+
     /// The speed of the player
     double m_player_speed = 0;
 
-    /// The maximum speed of the player
-    double m_player_max_speed;
+    /// The maximum forward speed of the player
+    double m_player_max_speed_forward;
 
-    /// The acceleration of the player
-    double m_player_acceleration;
+    /// The maximum backward speed of the player
+    double m_player_max_speed_backward;
 
-    /// The acceleration of the player
-    double m_player_deceleration;
+    /// The forward acceleration of the player
+    double m_player_acceleration_forward;
 
     ///The backward acceleration of player
-    double m_player_acc_backward;
+    double m_player_acceleration_backward;
+
+    /// The forward deceleration of the player
+    double m_player_deceleration_forward;
+
+    /// The backward deceleration of the player
+    double m_player_deceleration_backward;
 
     /// The size of the player
     double m_diameter;
