@@ -177,7 +177,7 @@ void test_game_options()
         assert(go.get_environment_type() == environment_type::empty);
     }
 #endif
-
+    // FIX_ISSUE_383
     // game options has a stream operator
     {
         const game_options g_o;
@@ -186,4 +186,9 @@ void test_game_options()
         assert(!s.str().empty());
     }
 #endif // NDEBUG
+}
+
+std::ostream &operator <<(std::ostream &out, const game_options &g_o)
+{
+    return out << g_o.get_rng_seed();
 }
