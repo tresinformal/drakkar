@@ -48,14 +48,14 @@ public:
   const sf::Vector2f& get_window_size() const noexcept { return m_window_size; }
 
   // Get the window's state, for testing purposes only
-  bool is_window_open() { return m_window.isOpen(); }
+  const bool is_window_open() { return m_window.isOpen(); }
 
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
 #ifdef VIEW_SWITCH
   // Returns what view should come next
-  const view_mode& what_next() noexcept { return m_next_view; }
+  const view_mode& what_next() const noexcept { return m_next_view; }
 #endif // VIEW_SWITCH
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
