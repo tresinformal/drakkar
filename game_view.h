@@ -45,7 +45,7 @@ public:
   }
 
   // Get the size of the window
-  const sf::Vector2f get_window_size() { return m_window_size; }
+  const sf::Vector2f& get_window_size() const noexcept { return m_window_size; }
 
   // Get the window's state, for testing purposes only
   bool is_window_open() { return m_window.isOpen(); }
