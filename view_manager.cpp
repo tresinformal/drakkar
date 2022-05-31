@@ -5,14 +5,14 @@ view_manager::view_manager()
 
 }
 
-#ifndef NDEBUG
 void test_view_manager()
 {
+  #ifndef NDEBUG
+    
     ///View manager exists
     {
         view_manager{};
     }
 
-    ///View manager
+  #endif
 }
-#endif
