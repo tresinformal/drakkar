@@ -43,7 +43,7 @@ double get_nth_player_size(const game& g, const int i)
 }
 
 
-color get_nth_player_color(const game& g, const int i)
+const color get_nth_player_color(const game& g, const int i)
 {
   return g.get_player(i).get_color();
 }
