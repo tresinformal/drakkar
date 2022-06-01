@@ -443,11 +443,9 @@ void game::make_players_eat_food()
       {
         eat_food(get_food()[i]);
         player.grow();
-        #ifdef FIX_ISSUE_440
         // #440 Food changes the color of the player
         player.set_color(get_food()[i].get_color());
-        #endif // FIX_ISSUE_440
-      }
+     }
     }
   }
 }
@@ -1390,8 +1388,6 @@ void test_game() //!OCLINT tests may be many
 
   }
 
-  //define FIX_ISSUE_440
-  #ifdef FIX_ISSUE_440
   // #440: Food changes the color of the player
   {
     game g;
@@ -1410,7 +1406,6 @@ void test_game() //!OCLINT tests may be many
     const color color_after = g.get_player(0).get_color();
     assert(color_before != color_after);
   }
-  #endif // FIX_ISSUE_440
 
   #define FIX_ISSUE_237
   #ifdef FIX_ISSUE_237
