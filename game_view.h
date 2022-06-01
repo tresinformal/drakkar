@@ -48,7 +48,7 @@ public:
   const sf::Vector2f& get_window_size() const noexcept { return m_window_size; }
 
   // Get the window's state, for testing purposes only
-  const bool is_window_open() { return m_window.isOpen(); }
+  bool is_window_open() const { return m_window.isOpen(); }
 
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
