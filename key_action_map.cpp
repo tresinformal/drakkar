@@ -394,7 +394,6 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(a != d);
   }
 #endif // FIX_ISSUE_303
-#endif
 
  #define FIX_ISSUE_304
 //#ifdef FIX_ISSUE_304
@@ -434,5 +433,6 @@ void test_key_action_map()//!OCLINT tests can be many
     // TODO: delete temporary file
   }
 #endif // ISSUE_522
-
+    
+#endif // NDEBUG
 }
