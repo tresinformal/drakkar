@@ -40,28 +40,24 @@ void test_enemy()
     assert(get_x(e) - x < 0.000001);
     assert(get_y(e) - y < 0.000001);
   }
-  #define FIX_ISSUE_345
-  #ifdef FIX_ISSUE_345
   {
+    // 345
     auto coord = coordinate{1.2, 3.4};
     const enemy e{coord};
     const enemy f{coord};
     assert(e == f);
   }
-  #endif
 
   {
     std::stringstream s;
     const enemy e;
     s << e;
   }
-    #define FIX_ISSUE_328
-    #ifdef FIX_ISSUE_328
     {
+      // 328
       coordinate some_random_point(1.0, 1.0);
       enemy n_enemy(some_random_point);
       assert(n_enemy.get_position() == some_random_point);
     }
-    #endif
 #endif
 }

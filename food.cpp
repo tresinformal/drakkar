@@ -89,24 +89,19 @@ void test_food()
     const food b(c_b);
     assert(a != b);
   }
-
-    #define FIX_ISSUE_341
-    #ifdef FIX_ISSUE_341
     {
+    // 341
       coordinate c(0.0f, 0.0f);
       const food test_food_one(c, color());
       const food test_food_two(c, color(0, 0, 0));
       assert(test_food_one != test_food_two);
     }
-    #endif
-    #define FIX_ISSUE_329
-    #ifdef FIX_ISSUE_329
     {
+      // 329
       coordinate some_random_point(1, 1);
       food n_food(some_random_point);
       assert(n_food.get_position() == some_random_point);
     }
-    #endif
 
   {
     coordinate c(1.0, 2.0);
@@ -137,14 +132,13 @@ void test_food()
     assert(f.get_food_state() == food_state::uneaten);
   }
 
-//#ifdef FIX_ISSUE_260
   {
+    // (260)
     food f; //by default uneaten
     assert(!f.is_eaten());
   }
-//#endif
 
-  //Food has a regeneration timer member, set to 0 by default
+  // Food has a regeneration timer member, set to 0 by default
   {
     food f;
     assert(f.get_regeneration_time() == 100);
@@ -162,14 +156,11 @@ void test_food()
     const food f{c, color(), regeneration_time};
     assert(f.get_regeneration_time() == regeneration_time);
   }
-//   A food has a radius member
-  #define FIX_ISSUE_389
-  #ifdef FIX_ISSUE_389
+// (389) A food has a radius member
   {
     const food f;
     assert(f.get_radius() >= 0.0);
   }
-  #endif
 #endif // no tests in release
 }
 
