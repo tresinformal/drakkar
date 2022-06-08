@@ -1,11 +1,12 @@
 #ifndef OPTIONS_VIEW_H
 #define OPTIONS_VIEW_H
 
-#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
 #include "SFML/Graphics.hpp"
 #include "game_options.h"
 #include "game_resources.h"
+#include "view_mode.h"
 
 class options_view
 {
@@ -18,6 +19,12 @@ public:
   /// Creates the menu and draws it
   void exec();
 
+  /// Get next view
+  view_mode get_next_view() const
+  {
+      return m_next_view;
+  }
+
 private:
   game_options m_options;
   sf::RenderWindow m_window;
@@ -25,8 +32,11 @@ private:
   bool process_events();
   double m_height = 720;
   double m_width = 1280;
+  view_mode m_next_view = view_mode::quit;
 };
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+void test_options_view();
+
+#endif // LOGIC_ONLY
 
 #endif // OPTIONS_VIEW_H
