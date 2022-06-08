@@ -331,7 +331,7 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_shape() == player_shape::rocket); // Or your favorite shape
     }
 
-    // A player has the same coordinats as set at construction
+    // (337) A player has the same coordinats as set at construction
     {
         const coordinate c{12.34, 23.45};
         const player_shape s{player_shape::rocket};
@@ -339,11 +339,7 @@ void test_player() //!OCLINT tests may be long
         // Must be the same
         assert(std::abs(get_x(p) - c.get_x()) < 0.00001);
         assert(std::abs(get_y(p) - c.get_y()) < 0.00001);
-
-        #define FIX_ISSUE_337
-        #ifdef FIX_ISSUE_337
         assert(p.get_position() == c);
-        #endif
     }
 
     // A player constructed with a rocket shape, must have a rocket shape
@@ -358,15 +354,12 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_shape() == player_shape::circle);
     }
 
-  #define FIX_ISSUE_36
-  #ifdef FIX_ISSUE_36
-    // A player starts with 1.0 (that is, 100%) health
+    // (36) A player starts with 1.0 (that is, 100%) health
     {
         const player p{coordinate(1.2, 3.4), player_shape::rocket};
         // Health is 100% by default
         assert(std::abs(p.get_health() - 1.0) < 0.00001);
     }
-  #endif
 
     // A player has an initial size of one hundred
     {
@@ -453,9 +446,7 @@ void test_player() //!OCLINT tests may be long
         assert(get_colorhash(p)==2);
     }
 
-  #define FIX_ISSUE_231
-  #ifdef FIX_ISSUE_231
-    // The correct player must win
+   // (231) The correct player must win
     {
         const player paper = create_red_player();
         const player rock = create_green_player();
@@ -467,11 +458,8 @@ void test_player() //!OCLINT tests may be long
         assert(!is_first_player_winner(paper, scissors));
         assert(!is_first_player_winner(scissors, rock));
     }
-  #endif // FIX_ISSUE_231
 
-    //#define FIX_ISSUE_232
-    //#ifdef FIX_ISSUE_232
-    // The correct player must lose
+    // (232) The correct player must lose
     {
         const player paper = create_red_player();
         const player rock = create_green_player();
@@ -483,7 +471,6 @@ void test_player() //!OCLINT tests may be long
         assert(is_first_player_loser(paper, scissors));
         assert(is_first_player_loser(scissors, rock));
     }
-    // #endif // FIX_ISSUE_232
 
     //A player is initialized with an empty action set
     {
@@ -581,23 +568,19 @@ void test_player() //!OCLINT tests may be long
     }
   #endif
 
-  #define FIX_ISSUE_324
-  #ifdef FIX_ISSUE_324
     {
+    // 324
         auto x = 1.23456;
         auto  y = 123456.789;
         coordinate c{x, y};
         player p{c};
         assert(p.get_position() == c);
     }
-  #endif
 
-  #define FIX_ISSUE_351
-  #ifdef FIX_ISSUE_351
     {
+      // 351
         assert(to_str(player_state::active) == "active");
     }
-  #endif
 
   //#define FIX_ISSUE_401
   #ifdef FIX_ISSUE_401
@@ -662,8 +645,6 @@ void test_player() //!OCLINT tests may be long
     }
   #endif
 
-  #define FIX_ISSUE_441
-  #ifdef FIX_ISSUE_441
     {
         // #441 A player's color can be set
         player p;
@@ -676,7 +657,6 @@ void test_player() //!OCLINT tests may be long
         p.set_color(red);
         assert(p.get_color() == red);
     }
-  #endif
 
   //#define FIX_ISSUE_469
   #ifdef FIX_ISSUE_469
@@ -687,9 +667,8 @@ void test_player() //!OCLINT tests may be long
     }
   #endif
 
-  #define FIX_ISSUE_524
-  #ifdef FIX_ISSUE_524
     {
+      // 524
         //#define DBG // Add ASSERT() for debugging purpose
         #ifdef DBG
             #define ASSERT(condition, message) \
@@ -843,7 +822,6 @@ void test_player() //!OCLINT tests may be long
             assert(p.get_speed() == 0);
         }
     }
-  #endif
 #endif // no tests in release
 }
 

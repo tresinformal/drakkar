@@ -386,9 +386,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(action_type::none == m.to_action(sf::Keyboard::L));
 
   }
-#define FIX_ISSUE_282
-#ifdef FIX_ISSUE_282
-  // operator==
+ // (282) operator==
   {
     const key_action_map a = get_player_1_kam();
     const key_action_map b = get_player_1_kam();
@@ -398,7 +396,6 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(!(a == c));
     assert(!(b == c));
   }
-#endif // FIX_ISSUE_282
 
   // operator!=
   {
@@ -411,9 +408,8 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(b != c);
   }
 
-#define FIX_ISSUE_282
-#ifdef FIX_ISSUE_282
-  {
+ {
+    // 282
     const int rng_seed = 271;
     std::srand(rng_seed);
     sf::Keyboard::Key a = get_random_key();
@@ -442,7 +438,6 @@ void test_key_action_map()//!OCLINT tests can be many
     key_action_map d = get_random_kam();
     assert(a != d);
   }
-#endif // FIX_ISSUE_303
 
  #define FIX_ISSUE_304
 //#ifdef FIX_ISSUE_304
@@ -453,9 +448,8 @@ void test_key_action_map()//!OCLINT tests can be many
     }
 //#endif // FIX_ISSUE_304
 
-#define FIX_ISSUE_355
-#ifdef FIX_ISSUE_355
-  {
+ {
+    // 355
     const key_action_map kam = get_player_1_kam();
     assert(kam.to_key(action_type::turn_left) == sf::Keyboard::A);
     assert(kam.to_key(action_type::turn_right) == sf::Keyboard::D);
@@ -464,7 +458,6 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(kam.to_key(action_type::shoot) == sf::Keyboard::Q);
     assert(kam.to_key(action_type::shoot_stun_rocket) == sf::Keyboard::E);
   }
-#endif // FIX_ISSUE_355
   // 522. operator<< for key_action_map
   {
     const key_action_map kam = get_player_1_kam();
