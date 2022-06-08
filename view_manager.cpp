@@ -4,7 +4,12 @@
 #include "menu_view.h"
 #include <cassert>
 
-view_manager::view_manager()
+view_manager::view_manager(const game_view gv,
+                           const menu_view mv,
+                           const options_view ov)
+  : m_game_view{gv},
+    m_menu_view{mv},
+    m_options_view{ov}
 {
 
 }
@@ -20,8 +25,6 @@ void test_view_manager()
 
     // (553) View manager has all view types
     {
-      // #define FIX_ISSUE_533
-      #ifdef FIX_ISSUE_533
       game_view gv;
       menu_view mv;
       options_view ov;
@@ -29,7 +32,6 @@ void test_view_manager()
       assert(vw.get_game_view() == gv);
       assert(vw.get_menu_view() == mv);
       assert(vw.get_options_view() == ov);
-      #endif // FIX_ISSUE_533
     }
 
 
