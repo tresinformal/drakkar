@@ -27,16 +27,14 @@ std::ostream& operator << (std::ostream& os, const player_profession& pro)
 void test_player_profession()
 {
 #ifndef NDEBUG // no tests in release
-  #define FIX_ISSUE_537
-  #ifdef FIX_ISSUE_537
-  // Each profesion is unique
+  // (537) Each profesion is unique
   {
     assert(player_profession::hitman != player_profession::sprinter);
     assert(player_profession::tank != player_profession::hitman &&
               player_profession::tank != player_profession::sprinter);
   }
 
-  // operator<< works
+  // (537) operator<< works
   {
     std::stringstream s;
     const player_profession pro = player_profession::hitman;
@@ -44,14 +42,12 @@ void test_player_profession()
     assert(!s.str().empty());
   }
 
-  // Conversion to string works
+  // (537) Conversion to string works
   {
     assert(to_str(player_profession::hitman) == "hitman");
     assert(to_str(player_profession::sprinter) == "sprinter");
     assert(to_str(player_profession::tank) == "tank");
   }
-
-  #endif // FIX_ISSUE_537
 #endif
 }
 

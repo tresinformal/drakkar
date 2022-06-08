@@ -145,10 +145,8 @@ void test_game_options()
     assert(a.get_kam_2() != b.get_kam_2());
   }
 
-  #define FIX_ISSUE_353
-  #ifdef FIX_ISSUE_353
   {
-    // Random game options should not draw keys already used by another player
+    // (353) Random game options should not draw keys already used by another player
     const int rng_seed = 271;
     const game_options rgo = get_random_game_options(rng_seed);
     key_action_map map_1 = rgo.get_kam_1();
@@ -160,16 +158,12 @@ void test_game_options()
         assert(!map_2.has_key(key_in_1));
       }
   }
-  #endif // FIX_ISSUE_353
 
- #define FIX_ISSUE_383
-#ifdef FIX_ISSUE_383
-// A game_options has an environment_type member
+// (383) A game_options has an environment_type member
 {
   game_options go;
   assert(go.get_environment_type() == environment_type::empty);
 }
-#endif
 
   #endif // NDEBUG
 }
