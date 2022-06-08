@@ -104,6 +104,7 @@ bool game_view::process_events()
         {
             m_next_view = view_mode::quit;
             m_window.close();
+            m_next_view = view_mode::quit;
             return true; // Game is done
         }
 

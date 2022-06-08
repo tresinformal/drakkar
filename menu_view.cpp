@@ -43,6 +43,7 @@ bool menu_view::process_events()
       if (event.type == sf::Event::Closed)
         {
           m_window.close();
+          m_next_view = view_mode::quit;
           return true; // Game is done
         }
       else if (event.type == sf::Event::MouseButtonPressed)
@@ -74,6 +75,7 @@ bool menu_view::process_events()
           if (is_inside_button(mouse_position, mb_quit))
             {
               m_window.close();
+              m_next_view = view_mode::quit;
               return true;
             }
         }
