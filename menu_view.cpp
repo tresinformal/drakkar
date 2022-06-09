@@ -1,11 +1,18 @@
 #include "menu_view.h"
 #include "coordinate.h"
 
+#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
+
 menu_view::menu_view()
     : m_window(
           sf::VideoMode(m_menu.get_w_width(), m_menu.get_height()),
           "tresinformal game_menu")
 {
+}
+
+view_mode menu_view::get_next_view() const
+{
+  return m_next_view;
 }
 
 void menu_view::exec()
@@ -27,6 +34,7 @@ bool menu_view::process_events()
       if (event.type == sf::Event::Closed)
         {
           m_window.close();
+          m_next_view = view_mode::quit;
           return true; // Game is done
         }
       else if (event.type == sf::Event::MouseButtonPressed)
@@ -38,17 +46,27 @@ bool menu_view::process_events()
           const menu_button mb_action = m_menu.get_button("action");
           if (is_inside_button(mouse_position, mb_action))
             {
-              // switches to game_view
+              m_next_view = view_mode::game;
+              m_window.close();
+              return true;
+            }
+          const menu_button mb_options = m_menu.get_button("options");
+          if (is_inside_button(mouse_position, mb_options))
+            {
+              m_next_view = view_mode::options;
+              m_window.close();
+              return true;
             }
           const menu_button mb_about = m_menu.get_button("about");
           if (is_inside_button(mouse_position, mb_about))
             {
-              // switches to menu_view
+              // switches to about_view, when it exists #433
             }
           const menu_button mb_quit = m_menu.get_button("quit");
           if (is_inside_button(mouse_position, mb_quit))
             {
               m_window.close();
+              m_next_view = view_mode::quit;
               return true;
             }
         }
@@ -123,3 +141,19 @@ void menu_view::draw_buttons() noexcept
     m_window.draw(button_text);
   }
 }
+
+void test_menu_view() //!OCLINT tests may be many
+{
+#ifndef NDEBUG // no tests in release
+
+// (495) There should be a member of type view_mode
+{
+  menu_view mv;
+  const view_mode expected_next_view = view_mode::quit;
+  assert(mv.get_next_view() == expected_next_view);
+}
+
+#endif // NDEBUG
+}
+
+#endif // LOGIC_ONLY // that is, compiled on GitHub Actions

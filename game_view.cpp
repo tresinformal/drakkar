@@ -1,11 +1,13 @@
 #include "game_view.h"
 
-#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+#ifndef LOGIC_ONLY // so this is NOT compiled on GitHub Actions
 
 #include "food.h"
+#include "food_type.h"
 #include "game.h"
 #include "game_resources.h"
 #include "game_functions.h"
+#include "view_mode.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <cmath>
@@ -96,16 +98,26 @@ bool game_view::process_events()
         if (event.type == sf::Event::Closed)
         {
             m_window.close();
+            m_next_view = view_mode::quit;
             return true; // Game is done
         }
 
         else if (event.type == sf::Event::KeyPressed)
-        {
-            for(auto& player : m_game.get_v_player())
-            {
-                player = player_input(player,event);
-            }
-        }
+          {
+            sf::Keyboard::Key key_pressed = event.key.code;
+            if (key_pressed == sf::Keyboard::Key::Escape)
+              {
+                m_next_view = view_mode::menu;
+                m_window.close();
+                return true;
+              }
+            else {
+                for(auto& player : m_game.get_v_player())
+                  {
+                    player = player_input(player,event);
+                  }
+              }
+          }
         else if (event.type == sf::Event::KeyReleased)
         {
             for(auto& player : m_game.get_v_player())
@@ -335,16 +347,6 @@ void game_view::show() noexcept
     draw_player_coords();
     #endif
 
-    if (1 == 2)
-    {
-        sf::Text text;
-        text.setString("Hello world");
-        text.setPosition(10, 10);
-        text.setFont(game_resources().get_font());
-        text.setScale(100.0, 100.0);
-        m_window.draw(text);
-    }
-
     // Display all shapes
     m_window.display();
 }
@@ -383,7 +385,7 @@ bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
     return is_stunned(p1);
 }
 
-void test_game_view()//!OCLINT tests may be many
+void test_game_view() //!OCLINT tests may be many
 {
     #ifndef NDEBUG // no tests in release
     {
@@ -525,6 +527,12 @@ void test_game_view()//!OCLINT tests may be many
 
     }
 
+  // (494) There should be a member of type view_mode
+  {
+    game_view gv;
+    view_mode expected_next_view = view_mode::quit;
+    assert(gv.get_next_view() == expected_next_view);
+  }
 
 //#define FIX_ISSUE_246
 #ifdef FIX_ISSUE_246
@@ -536,8 +544,7 @@ void test_game_view()//!OCLINT tests may be many
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
 #endif // FIX_ISSUE_246
-
   #endif
 }
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+#endif // LOGIC_ONLY

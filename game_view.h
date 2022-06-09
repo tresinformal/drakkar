@@ -1,11 +1,10 @@
 #ifndef GAME_VIEW_H
 #define GAME_VIEW_H
 
-#ifndef LOGIC_ONLY // that is, not compiled on GitHub Actions
-
 #include "game.h"
 #include "game_resources.h"
 #include "game_options.h"
+#include "view_mode.h"
 #include <SFML/Graphics.hpp>
 #include "key_action_map.h"
 
@@ -37,9 +36,19 @@ public:
   ///Gets a const ref to m_game
   const game& get_game() const noexcept {return m_game; }
 
+  /// Get next view
+  view_mode get_next_view() const
+  {
+    return m_next_view;
+  }
+
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
+#ifdef VIEW_SWITCH
+  // Returns what view should come next
+  const view_mode& what_next() noexcept { return m_next_view; }
+#endif // VIEW_SWITCH
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
 
@@ -64,6 +73,9 @@ private:
 
   ///The views of each player
   std::vector<sf::View> m_v_views;
+
+  /// Next view to switch to
+  view_mode m_next_view = view_mode::quit;
 
   /// Parses input for player 1
   void pl_1_stop_input(sf::Event event) noexcept;
@@ -104,10 +116,8 @@ key_action_map get_player_kam(const player& p);
 /// Parses input for a player
 player player_input(player p, sf::Event event);
 
-void test_game_view();
-
 bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+void test_game_view();
 
 #endif // GAME_VIEW_H

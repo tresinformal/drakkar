@@ -1,4 +1,7 @@
 #include "options_view.h"
+#include <cassert>
+
+#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
 options_view::options_view()
     :  m_window(
@@ -47,7 +50,7 @@ void options_view::show()
   // Placeholder text
   sf::Text placeholder;
   placeholder.setFont(m_game_resources.get_font());
-  placeholder.setString("Exit status 1 was never an option.");
+  placeholder.setString("We don't have an Options screen yet D:");
   placeholder.setCharacterSize(40);
   sf::FloatRect text_area = placeholder.getLocalBounds();
   placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
@@ -67,4 +70,22 @@ void options_view::show()
   // Display all shapes
   m_window.display();
 }
+
+void test_options_view() //!OCLINT tests may be many
+{
+#ifndef NDEBUG // no tests in release
+
+// (496) There should be a member of type view_mode
+{
+  options_view ov;
+  view_mode expected_next_view = view_mode::quit;
+  assert(ov.get_next_view() == expected_next_view);
+}
+
+#endif // NDEBUG
+}
+
+#endif // LOGIC_ONLY
+
+
 

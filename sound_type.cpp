@@ -43,10 +43,7 @@ void test_sound_type()
     std::stringstream s;
     const sound_type st = sound_type::shoot;
     s << st;
-  }
-  {
-    const sound_type st = sound_type::shoot;
-    std::cout << st;
+    assert(!s.str().empty());
   }
   #endif // FIX_ISSUE_508
   #define FIX_ISSUE_263
