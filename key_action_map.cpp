@@ -409,7 +409,7 @@ void test_key_action_map()//!OCLINT tests can be many
   }
 
  {
-    // 282
+    // (282)
     const int rng_seed = 271;
     std::srand(rng_seed);
     sf::Keyboard::Key a = get_random_key();
@@ -449,7 +449,7 @@ void test_key_action_map()//!OCLINT tests can be many
 //#endif // FIX_ISSUE_304
 
  {
-    // 355
+    // (355)
     const key_action_map kam = get_player_1_kam();
     assert(kam.to_key(action_type::turn_left) == sf::Keyboard::A);
     assert(kam.to_key(action_type::turn_right) == sf::Keyboard::D);

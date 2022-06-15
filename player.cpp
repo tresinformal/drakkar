@@ -569,7 +569,7 @@ void test_player() //!OCLINT tests may be long
   #endif
 
     {
-    // 324
+    // (324)
         auto x = 1.23456;
         auto  y = 123456.789;
         coordinate c{x, y};
@@ -578,7 +578,7 @@ void test_player() //!OCLINT tests may be long
     }
 
     {
-      // 351
+      // (351)
         assert(to_str(player_state::active) == "active");
     }
 
@@ -668,7 +668,7 @@ void test_player() //!OCLINT tests may be long
   #endif
 
     {
-      // 524
+      // (524)
         //#define DBG // Add ASSERT() for debugging purpose
         #ifdef DBG
             #define ASSERT(condition, message) \

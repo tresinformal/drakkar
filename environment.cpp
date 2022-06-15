@@ -72,7 +72,8 @@ void test_environment()
   }
 
     {
-        // 424
+        // (424)
+
         environment e;
         coordinate top_left = e.get_top_left();
         coordinate bottom_right = e.get_bottom_right();
@@ -80,7 +81,8 @@ void test_environment()
         assert(bottom_right == coordinate(e.get_wall_l_side() + top_left.get_x(), e.get_wall_s_side() + top_left.get_y()));
     }
   {
-    // 204
+    // (204)
+
     const environment e;
     std::stringstream s;
     s << e;

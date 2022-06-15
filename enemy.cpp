@@ -41,7 +41,8 @@ void test_enemy()
     assert(get_y(e) - y < 0.000001);
   }
   {
-    // 345
+    // (345)
+
     auto coord = coordinate{1.2, 3.4};
     const enemy e{coord};
     const enemy f{coord};
@@ -54,7 +55,8 @@ void test_enemy()
     s << e;
   }
     {
-      // 328
+      // (328)
+
       coordinate some_random_point(1.0, 1.0);
       enemy n_enemy(some_random_point);
       assert(n_enemy.get_position() == some_random_point);

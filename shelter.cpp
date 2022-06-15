@@ -134,7 +134,7 @@ void test_shelter() //!OCLINT tests may be complex
     assert(get_redness(s) == r);
   }
     {
-      // 325
+      // (325)
       coordinate some_random_point(1, 1);
       shelter n_shelter(some_random_point);
       assert(n_shelter.get_position() == some_random_point);

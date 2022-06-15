@@ -977,7 +977,7 @@ void test_game() //!OCLINT tests may be many
     assert(winning_player_size_after > winning_player_size_before);
   }
 
-  // [PRS] #234 make losing PRS player smaller
+  // (234) Make losing PRS player smaller
   {
     game g;
     // Make player 1 and 2 overlap
@@ -1405,7 +1405,7 @@ void test_game() //!OCLINT tests may be many
     assert(have_same_position(p,f));
   }
 
-  // (238 )The game can be checked for any collision between food and players
+  // (238) The game can be checked for any collision between food and players
   {
     game g;
     assert(!has_any_player_food_collision(g));
@@ -1755,7 +1755,7 @@ void test_game() //!OCLINT tests may be many
   }
 
   {
-    // 471
+    // (471)
     const game_options options;
     const game g(options);
     assert(g.get_game_options() == options);

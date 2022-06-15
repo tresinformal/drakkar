@@ -46,7 +46,7 @@ void test_projectile()
   #endif
 
   {
-    // 327
+    // (327)
     coordinate c{1.23456, 123456.789};
     projectile p{c};
     assert(p.get_position() == c);

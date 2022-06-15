@@ -90,7 +90,8 @@ void test_food()
     assert(a != b);
   }
     {
-    // 341
+    // (341)
+
       coordinate c(0.0f, 0.0f);
       const food test_food_one(c, color());
       const food test_food_two(c, color(0, 0, 0));
