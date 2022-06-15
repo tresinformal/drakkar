@@ -1784,9 +1784,8 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_241
 
-  //#define FIX_ISSUE_457
-  #ifdef FIX_ISSUE_457
-  {
+
+ {
     // (457) The color of any player can be accessed easily
     const game g;
     const color color_player_one = get_nth_player_color(g, 0);
@@ -1797,10 +1796,7 @@ void test_game() //!OCLINT tests may be many
     assert(color_player_two == create_green_color());
     assert(color_player_three == create_blue_color());
   }
-  #endif
 
-  #define FIX_ISSUE_458
-  #ifdef FIX_ISSUE_458
   {
     // (458) The color of any food item can be accessed easily
     const game g;
@@ -1809,7 +1805,6 @@ void test_game() //!OCLINT tests may be many
     const color c;
     assert(color_food == c);
   }
-  #endif
 
   #define FIX_ISSUE_471
   #ifdef FIX_ISSUE_471
