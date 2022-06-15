@@ -157,4 +157,15 @@ void test_menu()
     assert(!is_inside_button(c_outside2, mb));
   }
   #endif
+
+    ///It should always be possible to go back to the option widows by pressing 'esc'
+    {
+//        ///Open the program
+//        ///Go to the options
+//        option_view ov;
+//        ov.show_game();
+//        assert(is_not_showing_options(ov));
+//        press_esc(ov);
+//        assert(is_showing_options(ov));
+    }
 }

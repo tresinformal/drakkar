@@ -443,7 +443,6 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(a != d);
   }
 #endif // FIX_ISSUE_303
-#endif
 
  #define FIX_ISSUE_304
 //#ifdef FIX_ISSUE_304
@@ -501,5 +500,5 @@ void test_key_action_map()//!OCLINT tests can be many
     std::remove(filename.c_str());
   }
   #endif // FIX_ISSUE_522
-
+#endif // NDEBUG
 }
