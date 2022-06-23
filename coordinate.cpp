@@ -11,6 +11,18 @@ coordinate::coordinate(const double x, const double y)
 double coordinate::get_x() const noexcept { return m_x; }
 double coordinate::get_y() const noexcept { return m_y; }
 
+void coordinate::move(const double& direction, const double& speed)
+{
+  m_x = m_x + cos(direction) * speed;
+  m_y = m_y + sin(direction) * speed;
+}
+
+void coordinate::reset_coords_to_zero()
+{
+  m_x = 0;
+  m_y = 0;
+}
+
 bool coordinate::operator==(coordinate in_coord) {
   return (m_x == in_coord.m_x) && (m_y == in_coord.m_y);
 }
@@ -43,7 +55,7 @@ void test_coordinate() {
   }
 #endif
 
-//#define FIX_ISSUE_366
+#define FIX_ISSUE_366
 #ifdef FIX_ISSUE_366
   {
     coordinate c{0,0};
@@ -54,35 +66,41 @@ void test_coordinate() {
 
     double default_speed = 1;
     c.move(direction);
-    assert(get_x(c) == default_speed);
-    assert(get_y(c) == 0 );
+    double error_x = abs(get_x(c) - default_speed);
+    double error_y = abs(get_y(c) - 0);
+    assert(error_x < 0.00001);
+    assert(error_y < 0.00001);
 
-    std::vector<double> speeds{0.1,0.5,2,-0.1,-0.2,-1};
+    std::vector<double> speeds{0.1, 0.5, 2, -0.1, -0.2, -1};
     for(const auto& speed : speeds)
       {
         c.reset_coords_to_zero();
         c.move(direction, speed);
-        assert(get_x(c) == speed );
-        assert(get_y(c) == 0 );
+        error_x = abs(get_x(c) - speed);
+        error_y = abs(get_y(c) - 0);
+        assert(error_x < 0.00001);
+        assert(error_y < 0.00001);
       }
 
     ///Test along y axis
     ///When direction is 0 player should
     ///only move along the y axis
-    direction = M_PI/2;
-
-    double default_speed = 1;
+    c.reset_coords_to_zero();
+    direction = M_PI / 2;
     c.move(direction);
-    assert(get_x(c) == 0);
-    assert(get_y(c) == default_speed );
+    error_x = abs(get_x(c) - 0);
+    error_y = abs(get_y(c) - default_speed);
+    assert(error_x < 0.00001);
+    assert(error_y < 0.00001);
 
-    std::vector<double> speeds{0.1,0.5,2,-0.1,-0.2,-1};
     for(const auto& speed : speeds)
       {
         c.reset_coords_to_zero();
         c.move(direction, speed);
-        assert(get_x(c) == 0 );
-        assert(get_y(c) == speed );
+        error_x = abs(get_x(c) - 0);
+        error_y = abs(get_y(c) - speed);
+        assert(error_x < 0.00001);
+        assert(error_y < 0.00001);
       }
   }
 #endif
