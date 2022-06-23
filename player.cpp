@@ -1,6 +1,7 @@
 #include "player.h"
 #include "player_shape.h"
 #include "player_state.h"
+#include "game_functions.h"
 #include "color.h"
 #include <cassert>
 #include <cmath>
