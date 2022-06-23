@@ -311,15 +311,17 @@ void test_player() //!OCLINT tests may be long
 {
 #ifndef NDEBUG // no tests in release
 
-  //#define FIX_ISSUE_336
+  #define FIX_ISSUE_336
   #ifdef FIX_ISSUE_336
     {
         player p;
-        cordinate predicted_player_position = predict_players_movement(p);
+        coordinate predicted_player_position = predict_players_movement(p);
         p.move();
-        assert(p.get_position()==predicted_player_position);
-        assert(((predicted_player_position.m_x - get_x(p))<0.001)&&(((predicted_player_position.m_x - get_x(p))>-0.001)));
-        assert(((predicted_player_position.m_x - get_y(p))<0.001)&&(((predicted_player_position.m_x - get_y(p))>-0.001)));
+        assert(p.get_position() == predicted_player_position);
+        assert(predicted_player_position.get_x() - get_x(p) < 0.001
+               && predicted_player_position.get_x() - get_x(p) > -0.001);
+        assert(predicted_player_position.get_y() - get_y(p) < 0.001
+               &&predicted_player_position.get_y() - get_y(p) > -0.001);
     }
   #endif
 
