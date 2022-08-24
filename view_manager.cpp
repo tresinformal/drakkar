@@ -4,19 +4,18 @@
 #include "menu_view.h"
 #include <cassert>
 
-view_manager::view_manager(const game_view gv,
-                           const menu_view mv,
-                           const options_view ov)
-  : m_game_view{gv},
-    m_menu_view{mv},
-    m_options_view{ov}
+view_manager::view_manager(game_view& gv,
+                           menu_view& mv,
+                           options_view& ov)
 {
-
+    m_game_view = &gv;
+    m_menu_view = &mv;
+    m_options_view = &ov;
 }
 
 void test_view_manager()
 {
-  #ifndef NDEBUG
+#ifndef NDEBUG
     
     ///View manager exists
     {
@@ -25,15 +24,15 @@ void test_view_manager()
 
     // (553) View manager has all view types
     {
-      game_view gv;
-      menu_view mv;
-      options_view ov;
-      view_manager vw(gv, mv, ov);
-      assert(vw.get_game_view() == gv);
-      assert(vw.get_menu_view() == mv);
-      assert(vw.get_options_view() == ov);
+        game_view gv;
+        menu_view mv;
+        options_view ov;
+        view_manager vw(gv, mv, ov);
+        assert(vw.get_game_view() == gv);
+        assert(vw.get_menu_view() == mv);
+        assert(vw.get_options_view() == ov);
     }
 
 
-  #endif
+#endif
 }
