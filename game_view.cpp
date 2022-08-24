@@ -14,18 +14,21 @@
 #include <string>
 #include <sstream>
 
-game_view::game_view(game_options options) :
+game_view::game_view(game_options options, sf::Vector2f window_size) :
     m_game(options),
-    m_window(sf::VideoMode(1280, 720), "tresinformal game"),
+    m_window_size{window_size},
+    m_window(
+      sf::VideoMode(m_window_size.x, m_window_size.y),
+      "tresinformal game"
+    ),
     m_v_views(
         m_game.get_v_player().size(),
         sf::View(
             sf::Vector2f(0,0),
-            sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
+            sf::Vector2f(m_window_size.x / 2, m_window_size.y / 2)
             )
         )
 {
-
     //Hardcoded positions of the three sf::views of the three players
     m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
     m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
@@ -40,6 +43,8 @@ game_view::game_view(game_options options) :
         m_game_resources.get_wonderland().play();
     }
 #endif
+    // After setup, close window until executed
+    m_window.close();
 }
 
 game_view::~game_view()
@@ -97,6 +102,7 @@ bool game_view::process_events()
     {
         if (event.type == sf::Event::Closed)
         {
+            m_next_view = view_mode::quit;
             m_window.close();
             m_next_view = view_mode::quit;
             return true; // Game is done
@@ -133,9 +139,15 @@ bool game_view::process_events()
 
 void game_view::exec() noexcept
 {
+  // Open window
+  m_window.create(
+    sf::VideoMode(m_window_size.x, m_window_size.y),
+    "tresinformal game"
+  );
   while (m_window.isOpen())
   {
-    const bool must_quit{process_events()}; // This is where stun is processed
+    // Process user input and play game until instructed to exit
+    const bool must_quit{process_events()};
     if (must_quit) return;
     m_game.tick();
     show();
@@ -416,23 +428,9 @@ void test_game_view() //!OCLINT tests may be many
                    && view.getSize().y - v.get_window().getSize().y/2 > -0.00001f);
         }
     }
-
-    //Each view port will also be half the dimensions of the render window
-    //View will be initialized for the three default player like this
-    //     Screen.begin                                  Screen.end
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|---------------------------------------------|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //!!!!this test looks tauthological to me. Do not know how to make it better @swom
-    {
+  // Each player's view occupies a specific quarter of the screen
+  {
         game_view v;
-
         assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 0.5f, 0.5f) );
         assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
         assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
@@ -446,9 +444,7 @@ void test_game_view() //!OCLINT tests may be many
         assert(v.get_options().is_playing_music());
     }
 
-#define FIX_ISSUE_167
-#ifdef FIX_ISSUE_167
-    ///given a player get_player_kam provides the correct player kam
+   // given a player get_player_kam provides the correct player kam
     {
         player p;
         assert(p.get_ID() == "0");
@@ -460,24 +456,6 @@ void test_game_view() //!OCLINT tests may be many
         p =  create_player_with_id("2");
         assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
     }
-#endif
-
-#define FIX_ISSUE_183
-#ifdef FIX_ISSUE_183
-    ///given a player get_player_kam provides the correct player kam
-    {
-        player p;
-        assert(p.get_ID() == "0");
-        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
-        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
-
-        p =  create_player_with_id("1");
-        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
-        p =  create_player_with_id("2");
-        assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
-
-    }
-#endif
 
     ///Given a player and an event
     ///player_input sees if any action has to be applied to the player
@@ -541,7 +519,26 @@ void test_game_view() //!OCLINT tests may be many
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
 #endif // FIX_ISSUE_246
-  #endif
+
+
+  // (545) A game window doesn't open at construction
+  {
+    game_view gv;
+    assert(!gv.is_window_open());
+    // Ideally one should also test for the window opening during exec()
+    // and closing after, but that is not possible AFAICS
+    // bc exec() doesn't exit on its own
+  }
+
+  // (547) A game_view has a window size
+  {
+    game_view gv(game_options(), sf::Vector2f(550, 120));
+    sf::Vector2f window_size = gv.get_window_size();
+    assert(window_size.x == 550);
+    assert(window_size.y == 120);
+  }
+
+  #endif //NDEBUG
 }
 
 #endif // LOGIC_ONLY

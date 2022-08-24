@@ -3,17 +3,26 @@
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
-options_view::options_view()
-    :  m_window(
-          sf::VideoMode(1280, 720),
-          "tresinformal game options")
+options_view::options_view() :
+  m_window(
+    sf::VideoMode(1280, 720),
+    "tresinformal game options"
+  )
 {
+  // After setup, close window until executed
+  m_window.close();
 }
 
 void options_view::exec()
 {
+  // Open window
+  m_window.create(
+    sf::VideoMode(1280, 720),
+    "tresinformal game options"
+  );
   while (m_window.isOpen())
   {
+    // Process use input until told to exit options screen
     bool must_quit{process_events()};
     if (must_quit)
       return;
@@ -71,9 +80,9 @@ void options_view::show()
   m_window.display();
 }
 
+#ifndef NDEBUG // no tests in release
 void test_options_view() //!OCLINT tests may be many
 {
-#ifndef NDEBUG // no tests in release
 
 // (496) There should be a member of type view_mode
 {
@@ -82,8 +91,17 @@ void test_options_view() //!OCLINT tests may be many
   assert(ov.get_next_view() == expected_next_view);
 }
 
-#endif // NDEBUG
+  // (545) An Options window doesn't open at construction
+  {
+    options_view ov;
+    assert(!ov.is_window_open());
+    // Ideally one should also test for the window opening during exec()
+    // and closing after, but that is not possible AFAICS
+    // bc exec() doesn't exit on its own
+  }
+
 }
+#endif // NDEBUG // No tests in release
 
 #endif // LOGIC_ONLY
 
