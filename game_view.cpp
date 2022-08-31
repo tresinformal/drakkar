@@ -347,11 +347,13 @@ void game_view::show() noexcept
         draw_shelters();
     }
 
+
     // Set fourth view for players coordinates
     #ifndef NDEBUG  // coordinates should not be visible in release
     set_player_coords_view();
     // Display player coordinates on the fourth view
     draw_player_coords();
+    show_scores();
     #endif
 
     // Display all shapes
