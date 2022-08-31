@@ -133,23 +133,18 @@ void test_shelter() //!OCLINT tests may be complex
     assert(get_opaqueness(s) == a);
     assert(get_redness(s) == r);
   }
-  #define FIX_ISSUE_325
-  #ifdef FIX_ISSUE_325
     {
+      // (325)
       coordinate some_random_point(1, 1);
       shelter n_shelter(some_random_point);
       assert(n_shelter.get_position() == some_random_point);
     }
-  #endif
-  #define FIX_ISSUE_264
-  #ifdef FIX_ISSUE_264
-  // Conversion to string
+  // (264) Conversion to string
   {
     coordinate c{1.2, 3.4};
     const shelter s(c, 5.6, color(7, 8, 9, 10));
     const std::string t = to_str(s);
     assert(!t.empty());
   }
-  #endif // FIX_ISSUE_264
   #endif
 }
