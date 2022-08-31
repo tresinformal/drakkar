@@ -14,11 +14,9 @@
 #include <string>
 #include <sstream>
 
-game_view::game_view(game_resources& g_r,
-                     game_options options,
+game_view::game_view(game_options options,
                      sf::Vector2f window_size) :
     m_game(options),
-    m_game_resources{g_r},
     m_window_size{window_size},
     m_window(
       sf::VideoMode(m_window_size.x, m_window_size.y),
@@ -401,14 +399,12 @@ void test_game_view() //!OCLINT tests may be many
     {
         // Show the game for one frame
         // (there will be a member function 'exec' for running the game)
-        game_resources g_r;
-        game_view v(g_r);
+        game_view v;
         v.show();
     }
 
     {
-        game_resources g_r;
-        game_view v(g_r);    // game has a member function called `get_n_ticks`, which returns zero upon construction
+        game_view v;    // game has a member function called `get_n_ticks`, which returns zero upon construction
         assert(v.get_game().get_n_ticks() == 0);
     }
 
