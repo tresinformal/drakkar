@@ -8,9 +8,9 @@ graph TD;
     1-->3[3. Player size]
     2-->3
     4-->100
-    5[?Fix or (temporarily) remove rockets]-->100
-    6[?Fix or (temporarily) remove stun rockets]-->100
-    7[?Fix or (temporarily) remove food and eating dynamics]-->100
+    5[?Fix or temporarily remove rockets]-->100
+    6[?Fix or temporarily remove stun rockets]-->100
+    7[?Fix or temporarily remove food and eating dynamics]-->100
     3-->100((v1.0: A minimal viable game can be won/lost))
     100-->200((?v1.x: Make game sound-complete))
     100-->300((?v1.x: Can set all options and control in the options screen))
