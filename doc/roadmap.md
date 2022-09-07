@@ -5,7 +5,6 @@ graph TD;
     0((Now))-->10[1. The game has a complete menu interface];
     0-->20[2. The game keeps track of a score for each player using a scoreboard]
     10-->30[3. Player size]
-    0-->40[?Scoreboard]
     20-->30
     40-->100
     50[?Fix or temporarily remove rockets]-->100
