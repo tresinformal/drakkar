@@ -326,28 +326,26 @@ void game_view::draw_player_coords() noexcept
 
 void game_view::draw_scores()
 {
-//    sf::Text text;
-//    text.setFont(m_game_resources.get_font());
-//    text.setCharacterSize(24);
+    sf::Text text;
+    text.setFont(m_game_resources.get_font());
+    text.setCharacterSize(24);
 
-//    // Concatenate player coordinates string
-//    std::vector<player> v_player = m_game.get_v_player();
-//    std::string str_player_coords;
-//    for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
-//        player p = v_player[static_cast<unsigned int>(i)];
-//        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
-//        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
-//        str_player_coords += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
-//        str_player_coords += "\n\n";
-//    }
-//    food f = m_game.get_food()[0];
-//    str_player_coords += "Food x = " + std::to_string(static_cast<int>(get_x(f)));
-//    str_player_coords += "\n         y = " + std::to_string(static_cast<int>(get_y(f)));
-//    str_player_coords += "\n\n";
+    // Concatenate player coordinates string
+    std::vector<player> v_player = m_game.get_v_player();
+    std::string str_player_scores;
+    for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
+        player p = v_player[static_cast<unsigned int>(i)];
+        str_player_scores += "Player " + p.get_ID() + " scores = " + std::to_string(static_cast<int>(get_score(p)));//miss the function"get_score()
+        str_player_scores += "\n\n";
+    }
+    food f = m_game.get_food()[0];
+    str_player_scores += "Food x = " + std::to_string(static_cast<int>(get_x(f)));
+    str_player_scores += "\n         y = " + std::to_string(static_cast<int>(get_y(f)));
+    str_player_scores += "\n\n";
 
-//    text.setString(str_player_coords);
+    text.setString(str_player_scores);
 
-//    m_window.draw(text);
+    m_window.draw(text);
 }
 
 void game_view::show() noexcept
