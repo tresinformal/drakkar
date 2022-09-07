@@ -9,7 +9,7 @@ graph TD;
     40-->100
     50[?. Fix or temporarily remove rockets]-->100
     60[?. Fix or temporarily remove stun rockets]-->100
-    70[?Fix or temporarily remove food and eating dynamics]-->100
+    70[?. Fix or temporarily remove food and eating dynamics]-->100
     30-->100((v1.0: A minimal viable game can be won/lost))
     100-->200((?. v1.x: Make game sound-complete))
     100-->300((?. v1.x: Can set all options and control in the options screen))
