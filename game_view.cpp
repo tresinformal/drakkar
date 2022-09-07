@@ -335,13 +335,9 @@ void game_view::draw_scores()
     std::string str_player_scores;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_scores += "Player " + p.get_ID() + " scores = " + std::to_string(static_cast<int>(get_score(p)));//miss the function"get_score()
+        str_player_scores += "Player " + p.get_ID() + " scores = " + p.get_score());//miss the function"get_score()
         str_player_scores += "\n\n";
     }
-    food f = m_game.get_food()[0];
-    str_player_scores += "Food x = " + std::to_string(static_cast<int>(get_x(f)));
-    str_player_scores += "\n         y = " + std::to_string(static_cast<int>(get_y(f)));
-    str_player_scores += "\n\n";
 
     text.setString(str_player_scores);
 
