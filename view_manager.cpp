@@ -5,6 +5,36 @@
 #include <cassert>
 #include <typeinfo>
 
+void view_manager::set_view(view_mode next_view) {
+  switch (next_view)
+    {
+    case view_mode::menu:
+      {
+        m_menu_view.exec();
+        next_view = m_menu_view.get_next_view();
+        break;
+      }
+    case view_mode::game:
+      {
+        m_game_view.exec();
+        next_view = m_game_view.get_next_view();
+        break;
+      }
+    case view_mode::options:
+      {
+        m_options_view.exec();
+        next_view = m_options_view.get_next_view();
+        break;
+      }
+      // other views ...
+    case view_mode::quit:
+      {
+      // Game exits successfully
+      return 0;
+      }
+     }
+};
+
 void test_view_manager()
 {
 #ifndef NDEBUG
@@ -22,24 +52,24 @@ void test_view_manager()
         vw.get_options_view();
     }
 
-    ///A view manager can run
+    /// A view manager can run
     {
         view_manager v;
         v.run();
     }
 
-    ///A view manager shows by default an option view
+    /// (578) A view manager shows by default a game view
     {
         const view_manager v;
-        assert(v.is_showing() == view_mode::options);
+        assert(v.is_showing() == view_mode::game);
     }
 
-    ///A view manager can swap views
+    /// (578) A view manager can swap views
     {
         view_manager v;
-        view_mode next_view = view_mode::game;
+        view_mode next_view = view_mode::menu;
         assert(v.is_showing() != next_view);
-        v.swap(next_view);
+        v.set_view(next_view);
         assert(v.is_showing() == next_view);
     }
 

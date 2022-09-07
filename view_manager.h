@@ -13,7 +13,7 @@ public:
     const options_view& get_options_view() const noexcept { return m_options_view;} ;
 
     view_mode is_showing() const noexcept { return view_mode::options;}
-
+    void swap();
     void run(){};
 private:
     game_view m_game_view;
