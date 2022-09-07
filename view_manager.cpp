@@ -6,34 +6,8 @@
 #include <typeinfo>
 
 void view_manager::set_view(view_mode next_view) {
-  switch (next_view)
-    {
-    case view_mode::menu:
-      {
-        m_menu_view.exec();
-        next_view = m_menu_view.get_next_view();
-        break;
-      }
-    case view_mode::game:
-      {
-        m_game_view.exec();
-        next_view = m_game_view.get_next_view();
-        break;
-      }
-    case view_mode::options:
-      {
-        m_options_view.exec();
-        next_view = m_options_view.get_next_view();
-        break;
-      }
-      // other views ...
-    case view_mode::quit:
-      {
-      // Game exits successfully
-      return 0;
-      }
-     }
-};
+    m_next_view = next_view;
+}
 
 void test_view_manager()
 {
