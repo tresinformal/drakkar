@@ -19,6 +19,19 @@ jobs:
       - name: Install Codecov
         run: sudo pip install codecov
 
+      - name: Download magic_enum
+        run: |
+          cd ..
+          git clone https://github.com/Neargye/magic_enum
+          cd -
+
+      - name: Install magic_enum
+        run: |
+          cd ../magic_enum
+          cmake .
+          make
+          cd -
+
       - name: qmake
         run: qmake game_on_gha.pro
 

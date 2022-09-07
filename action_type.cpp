@@ -2,6 +2,8 @@
 #include <cassert>
 #include <sstream>
 
+#include "../magic_enum/include/magic_enum.hpp" // https://github.com/Neargye/magic_enum
+
 void test_action_type()
 {
   #ifndef NDEBUG // no tests is release
@@ -32,6 +34,8 @@ std::ostream &operator<<(std::ostream &os, const action_type t)
 
 std::string to_str(action_type this_action_type)
 {
+  return std::string(magic_enum::enum_name(this_action_type));
+  /*
   switch (this_action_type)
   {
   case action_type::turn_left:
@@ -50,4 +54,5 @@ std::string to_str(action_type this_action_type)
     assert(this_action_type == action_type::none );
   return "none";
   }
+  */
 }
