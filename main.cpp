@@ -162,7 +162,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 #endif // LOGIC_ONLY // that is, not compiled on GitHub Actions
 #endif
     }
-#ifndef LOGIC_ONLY
+#ifndef LOGIC_ONLY // don't run game on Github Actions
 
   // Default game options
   game_options options;

@@ -12,9 +12,9 @@ public:
     const menu_view& get_menu_view() const noexcept { return m_menu_view;} ;
     const options_view& get_options_view() const noexcept { return m_options_view;} ;
 
-    view_mode is_showing() const noexcept { return m_next_view;}
-    void run(){};
-    void set_view(view_mode next_view);
+    view_mode get_next_view() const noexcept { return m_next_view;}
+    void exec();
+    void set_next_view(view_mode next_view);
 
 private:
     view_mode m_next_view = view_mode::game; // start on game by default
