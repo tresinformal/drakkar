@@ -13,11 +13,6 @@ void test_view_manager()
 {
 #ifndef NDEBUG
     
-    ///View manager exists
-    {
-        view_manager{};
-    }
-
     // (553) View manager has all view types
     {
         view_manager vw;

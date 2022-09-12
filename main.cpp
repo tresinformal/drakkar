@@ -102,16 +102,17 @@ void test()
     test_coordinate();
     test_sound_type();
     test_view_mode();
-    test_view_manager();
     test_main();
 
-#ifndef LOGIC_ONLY
+  #ifndef LOGIC_ONLY
   test_game_view();
   test_menu_view();
   test_options_view();
   test_game_resources();
-#endif // LOGIC_ONLY
-#endif
+  test_view_manager();
+  #endif // LOGIC_ONLY
+
+#endif // DEBUG
 }
 
 #include "about.h"

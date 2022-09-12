@@ -17,7 +17,7 @@ public:
     void set_view(view_mode next_view);
 
 private:
-    view_mode m_next_view = view_mode::game;
+    view_mode m_next_view = view_mode::game; // start on game by default
     game_view m_game_view;
     menu_view m_menu_view;
     options_view m_options_view;
