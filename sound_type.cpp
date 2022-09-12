@@ -36,26 +36,20 @@ void test_sound_type()
     {
         static_assert(sound_type::shoot != sound_type::hit, "");
     }
-  #define FIX_ISSUE_508
-  #ifdef FIX_ISSUE_508
-  // operator<<
+  // (508) operator<<
   {
     std::stringstream s;
     const sound_type st = sound_type::shoot;
     s << st;
     assert(!s.str().empty());
   }
-  #endif // FIX_ISSUE_508
-  #define FIX_ISSUE_263
-  #ifdef FIX_ISSUE_263
-  // Conversion to string
+  // (263) Conversion to string
   {
         assert(to_str(sound_type::shoot) == "shoot");
         assert(to_str(sound_type::hit) == "hit");
         assert(to_str(sound_type::grow) == "grow");
         assert(to_str(sound_type::shrink) == "shrink");
   }
-  #endif // FIX_ISSUE_263
   #endif
 }
 

@@ -62,3 +62,20 @@ This means it cannot find the path.
    go to 'Build Environment', 
    add to the `Path` variable: `;C:\Qt\sfml\bin`
 
+## 4. Clone the game and `magic_enum` library
+
+Also do
+
+```
+git clone https://github.com/Neargye/magic_enum.git
+```
+
+in a folder *besides* the game folder, e.g. 
+
+```
+git clone https://github.com/tresinformal/game.git
+git clone https://github.com/Neargye/magic_enum.git
+```
+
+
+
