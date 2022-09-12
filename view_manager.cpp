@@ -75,13 +75,26 @@ void test_view_manager()
         assert(v.get_next_view() == next_view);
     }
 
-  /// A view manager can run and exit
+  // (584) A view manager can read its first view as input
   {
-      view_manager v;
-      v.set_next_view(view_mode::quit);
-      v.exec();
+    view_mode first_view = view_mode::menu;
+    view_manager v{first_view};
+    assert(v.get_next_view() == first_view);
   }
 
+  /// (582) A view manager can run and exit
+  {
+     view_manager v{view_mode::quit};
+     v.exec();
+  }
+
+  // (583) A view_manager can read options as input
+  {
+    game_options options(2022, false, get_random_kam());
+    view_manager v{view_mode::game, options};
+    assert(v.get_game_view().get_options() == options);
+    assert(v.get_options() == options);
+  }
 
 #endif
 }
