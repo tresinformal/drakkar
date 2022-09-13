@@ -30,8 +30,7 @@ HEADERS += \
     $$PWD/read_only.h \
     $$PWD/shelter.h \
     $$PWD/sound_type.h \
-    $$PWD/view_mode.h \
-    $$PWD/view_manager.h
+    $$PWD/view_mode.h
 
 SOURCES += \
     $$PWD/about.cpp \
@@ -65,8 +64,7 @@ SOURCES += \
     $$PWD/read_only.cpp \
     $$PWD/shelter.cpp \
     $$PWD/sound_type.cpp \
-    $$PWD/view_mode.cpp \
-    $$PWD/view_manager.cpp
+    $$PWD/view_mode.cpp
 
 RESOURCES += \
     game_resources.qrc

@@ -34,7 +34,6 @@
 #include <chrono>
 #include <iostream>
 
-
 bool is_valid_arg(const std::string& s)
 {
     return s == "--help"
