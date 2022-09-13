@@ -167,18 +167,18 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   game_options options;
 
   // Default view mode
-  view_mode next_view = view_mode::game;
+  view_mode start_view = view_mode::game;
 
   // Resolve arguments
   if (args.size() > 1)
     {
       if (args[1] == "--menu")
         {
-          next_view = view_mode::menu;
+          start_view = view_mode::menu;
         }
       else if (args[1] == "--options")
         {
-          next_view = view_mode::options;
+          start_view = view_mode::options;
         }
       else if (args[1] == "--no-sound")
         {
@@ -186,42 +186,10 @@ int main(int argc, char **argv) //!OCLINT tests may be long
         }
     }
 
-  // Declare all views
-  options_view ov;
-  menu_view mv;
-  game_view gv(options);
-  assert(options == gv.get_options());
+  view_manager v{start_view, options};
+  v.exec();
 
-  // Execute and switch between views
-  while (true) // I'm young and reckless
-    {
-      switch (next_view)
-        {
-        case view_mode::menu:
-          {
-            mv.exec();
-            next_view = mv.get_next_view();
-            break;
-          }
-        case view_mode::game:
-          {
-            gv.exec();
-            next_view = gv.get_next_view();
-            break;
-          }
-        case view_mode::options:
-          {
-            ov.exec();
-            next_view = ov.get_next_view();
-            break;
-          }
-          // other views ...
-        case view_mode::quit:
-          // Game exits successfully
-          return 0;
-        default:
-          throw std::logic_error("Unknown view mode.");
-        }
-    }
+  return 0; // Game completes successfully
+
 #endif // LOGIC_ONLY
 }
