@@ -399,7 +399,7 @@ void game::update_timer()
 {
     m_scoring_board.set_timer(m_n_ticks);
 }
-// END Function Group Scoring Board
+// END Scoring Board
 
 // BEGIN Function Group Shoot Cool Down
 void game::increment_cool_down_timers()
