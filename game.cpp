@@ -2220,14 +2220,16 @@ void test_game() //!OCLINT tests may be many
       }
 
       // Can update the scores of the players
+#ifdef FIX_ISSUE_589
       {
-          //game g;
-          //auto score_before = g.get_scoring_board().get_score_player1();
-          //g.happen_event_that_changes_score_player1();
-          //g.tick();
-          //auto score_after = g.get_scoring_board().get_score_player1();
-          //assert(score_before != score_after);
+          game g;
+          auto score_before = g.get_scoring_board().get_score_player1();
+          g.happen_event_that_changes_score_player1();
+          g.tick();
+          auto score_after = g.get_scoring_board().get_score_player1();
+          assert(score_before != score_after);
       }
+ #endif
   }
   #endif
 #endif // no tests in release
