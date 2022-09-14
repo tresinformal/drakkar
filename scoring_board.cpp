@@ -1,6 +1,7 @@
 #include "scoring_board.h"
 #include <cassert>
 #include <cmath>
+#include <fstream>
 #include <string>
 
 scoring_board::scoring_board(unsigned int score_player1,
@@ -19,9 +20,11 @@ scoring_board::scoring_board(unsigned int score_player1,
 
 void scoring_board::set_winner(short winner)
 {
-    if ((winner >= -1) & (winner <= 2))
+  if ((winner < 0) | (winner > 2))
     {
-        m_winner = winner;
+      throw std::logic_error("winner should only be 0, 1 or 2");
+    } else {
+      m_winner = winner;
     }
 }
 
