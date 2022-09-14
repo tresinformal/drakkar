@@ -385,11 +385,11 @@ void game::eat_food(food& f)
   f.reset_timer();
 }
 
-// BEGIN Function Group Event
+// BEGIN Event
 
-// END Function Group Event
+// END Event
 
-// BEGIN Function Group Scoring Board
+// BEGIN Scoring Board
 void game::update_scoring_board()
 {
     // depends on the event class
