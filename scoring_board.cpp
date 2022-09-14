@@ -45,8 +45,6 @@ void test_scoring_board()
 
     // Can set players' score, cannot set to negative value
     {
-        int legit_player_score = 500;
-        int non_legit_player_score = -500;
         scoring_board sb;
         sb.set_score_player1(500);
         assert(sb.get_score_player1() == 500);
