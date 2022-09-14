@@ -424,7 +424,7 @@ void game::reset_cool_down_status()
         }
     }
 }
-// END Function Group Shoot Cool Down
+// END Shoot Cool Down
 
 void game::reset_player_action()
 {
