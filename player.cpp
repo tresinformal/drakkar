@@ -833,6 +833,7 @@ void test_player() //!OCLINT tests may be long
         {
             player p;
             auto score = p.get_score_as_string();
+            assert(p.get_score_as_string() == std::to_string(p.get_score()));
         }
     }
 #endif // no tests in release

@@ -81,6 +81,9 @@ public:
     ///Gets the player score
     int get_score() const noexcept { return m_score; }
 
+    ///Returns player's score as a string
+    std::string get_score_as_string() const noexcept {return "";}
+
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
 
