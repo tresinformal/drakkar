@@ -78,6 +78,9 @@ public:
     ///Gets the ID of a player
     std::string get_ID() const noexcept { return m_ID.get_value(); }
 
+    ///Gets the player score
+    int get_score() const noexcept { return m_score; }
+
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
 
@@ -247,6 +250,9 @@ private:
     /// Player's health percentage, the player always start with max health at
     /// construction
     double m_health = 1.0;
+
+    /// Player's score
+    int m_score = 0;
 };
 
 ///Adds an action to the action set
