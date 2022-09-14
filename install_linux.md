@@ -18,6 +18,21 @@ sudo apt-get install -qq \
 
  * Tip: peek at [.travis.yml](.travis.yml) which libraries are installed!
 
+Also do
+
+```
+git clone https://github.com/Neargye/magic_enum.git
+```
+
+in a folder *besides* the game folder, e.g. 
+
+```
+git clone https://github.com/tresinformal/game.git
+git clone https://github.com/Neargye/magic_enum.git
+```
+
+
+
 ## Failures
 
 ### Cannot find `g++-9`

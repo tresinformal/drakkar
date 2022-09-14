@@ -20,19 +20,15 @@ bool coordinate::operator!=(coordinate in_coord) {
 }
 
 void test_coordinate() {
-  // Initial coordinates can be set at construction
-#define FIX_ISSUE_356
-#ifdef FIX_ISSUE_356
-  {
+  // (356) Initial coordinates can be set at construction
+ {
     coordinate c{1.23456, 123456.789};
     assert(get_x(c) == 1.23456);
     assert(get_y(c) == 123456.789);
   }
-#endif
 
-#define FIX_ISSUE_331
-#ifdef FIX_ISSUE_331
-  {
+ {
+    // (331)
     double x = 1.23456;
     double y = 123456.789;
     coordinate c1{x, y};
@@ -41,7 +37,6 @@ void test_coordinate() {
     coordinate c3{x + 1.0, y};
     assert(c1 != c3);
   }
-#endif
 
 //#define FIX_ISSUE_366
 #ifdef FIX_ISSUE_366

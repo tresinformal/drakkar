@@ -667,7 +667,6 @@ void save(const game& g, const std::string& filename)
   std::fstream f;
   // open the file
   f.open(filename);
-
   assert(g.get_n_ticks() >= 0);
   assert(!filename.empty());
 }
@@ -820,9 +819,7 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  #define FIX_ISSUE_513
-  #ifdef FIX_ISSUE_513
-  // Player enters cool down status after one shooting action
+  // (513) Player enters cool down status after one shooting action
   {
     game g;
     g.do_action(0, action_type::shoot);
@@ -1002,9 +999,7 @@ void test_game() //!OCLINT tests may be many
     assert(winning_player_size_after > winning_player_size_before);
   }
 
-  #define FIX_ISSUE_234
-  #ifdef FIX_ISSUE_234
-  // [PRS] #234 make losing PRS player smaller
+  // (234) Make losing PRS player smaller
   {
     game g;
     // Make player 1 and 2 overlap
@@ -1018,7 +1013,6 @@ void test_game() //!OCLINT tests may be many
     const int losing_player_size_after = get_nth_player_size(g, losing_player_index);
     assert(losing_player_size_after < losing_player_size_before);
   }
-  #endif // FIX_ISSUE_234
   #endif // FIX_ISSUE_233
 
   //#define FIX_ISSUE_381
@@ -1196,8 +1190,6 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_food().empty());
   }
 
-  #define FIX_ISSUE_VALENTINES_DAY
-  #ifdef FIX_ISSUE_VALENTINES_DAY
   // If green eats blue then green survives
   {
     game g;
@@ -1209,7 +1201,6 @@ void test_game() //!OCLINT tests may be many
     g.tick();
     assert(g.get_player(1).get_color().get_green() > 250);
   }
-  #endif // FIX_ISSUE_VALENTINES_DAY
 
   // A game is initialized with walls, the walls form a 16:9
   // rectangle with center at coordinates of 0,0
@@ -1253,10 +1244,8 @@ void test_game() //!OCLINT tests may be many
     assert(std::abs(after - before) > 0.0);
   }
 
-  #define FIX_ISSUE_405
-  #ifdef FIX_ISSUE_405
   {
-    // nth shelter position can be obtained
+    // (405) nth shelter position can be obtained
     game g;
     int n = 0;
     shelter first_shelter = g.get_shelters()[n];
@@ -1266,7 +1255,6 @@ void test_game() //!OCLINT tests may be many
 
     assert(c == expected_c);
   }
-  #endif
 
   {
     // the position of all shelters can be obtained
@@ -1376,9 +1364,7 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(g.get_player(0)));
   }
 
-  #define FIX_ISSUE_236
-  #ifdef FIX_ISSUE_236
-  // When a player touches food it eats it
+  // (236) When a player touches food it eats it
   {
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
@@ -1388,7 +1374,6 @@ void test_game() //!OCLINT tests may be many
     assert(!has_uneaten_food(g));
     assert(!has_any_player_food_collision(g));
   }
-  #endif
 
   // #392: When a player gets within the radius of food it eats it
   {
@@ -1434,41 +1419,32 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_440
 
-  #define FIX_ISSUE_237
-  #ifdef FIX_ISSUE_237
-  // Food and player can be overlapped
+  // (237) Food and player can be overlapped
   {
     food f;
     player p;
     put_player_on_food(p, f);
     assert(have_same_position(p,f));
   }
-  #endif
 
-  #define FIX_ISSUE_238
-  #ifdef FIX_ISSUE_238
-  // The game can be checked for any collision between food and players
+  // (238) The game can be checked for any collision between food and players
   {
     game g;
     assert(!has_any_player_food_collision(g));
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     assert(has_any_player_food_collision(g));
   }
-  #endif
 
-  #define FIX_ISSUE_244
-  #ifdef FIX_ISSUE_244
   {
+    // (244)
     game g;
     const auto init_player_size = get_nth_player_size(g,0);
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_player(0).get_diameter() > init_player_size);
   }
-  #endif
 
-  #define FIX_ISSUE_247
-  #ifdef FIX_ISSUE_247
+  // (247)
   {
     coordinate c_p(0, 0);
     player p(c_p);
@@ -1478,7 +1454,6 @@ void test_game() //!OCLINT tests may be many
     put_player_on_food(p, f);
     assert(are_colliding(p, f));
   }
-  #endif // FIX_ISSUE_247
 
   //#define FIX_ISSUE_248
   #ifdef FIX_ISSUE_248
@@ -1489,15 +1464,13 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  #define FIX_ISSUE_254
-  #ifdef FIX_ISSUE_254
   {
+    // (254)
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
     assert(g.get_food()[0].is_eaten());
   }
-  #endif
 
   // (340) make sure that eat_nth_food() throws a logic_error when the food is already eaten
   {
@@ -1525,9 +1498,8 @@ void test_game() //!OCLINT tests may be many
     assert(n_food_items_begin == count_food_items(g));
   }
 
-  #define FIX_ISSUE_256
-  #ifdef FIX_ISSUE_256
   {
+    // (256)
     food f;
     player p;
     put_player_on_food(p, f);
@@ -1535,11 +1507,9 @@ void test_game() //!OCLINT tests may be many
     f.set_food_state(food_state::eaten);
     assert(!are_colliding(p,f));
   }
-  #endif
 
-  #define FIX_ISSUE_259
-  #ifdef FIX_ISSUE_259
   {
+    // (259)
     game g; // by default one uneaten food
     assert(has_uneaten_food(g));
     auto initial_value_timer = get_nth_food_timer(g, 0);
@@ -1548,11 +1518,9 @@ void test_game() //!OCLINT tests may be many
     g.tick();
     assert(initial_value_timer + 1  == get_nth_food_timer(g, 0));
   }
-  #endif
 
-  #define FIX_ISSUE_255
-  #ifdef FIX_ISSUE_255
   {
+    // (255)
     game g;
     eat_nth_food(g, 0);
     assert(is_nth_food_eaten(g,0));
@@ -1562,11 +1530,8 @@ void test_game() //!OCLINT tests may be many
       }
     assert(!is_nth_food_eaten(g,0));
   }
-  #endif
 
-
-  #define FIX_ISSUE_394
-  #ifdef FIX_ISSUE_394
+  // (394)
   {
     game g;
     food f = g.get_food()[0];
@@ -1589,11 +1554,8 @@ void test_game() //!OCLINT tests may be many
     // Food item should regen on the regeneration time
     assert(!is_nth_food_eaten(g,0));
   }
-  #endif
 
-  #define FIX_ISSUE_400
-  #ifdef FIX_ISSUE_400
-  // A game's min and max coordinates can be accessed quickly
+  // (400) A game's min and max coordinates can be accessed quickly
   {
     game g;
     double max_x = get_max_x(g);
@@ -1605,7 +1567,6 @@ void test_game() //!OCLINT tests may be many
     double min_y = get_min_y(g);
     assert(min_y == get_min_y(g.get_env()));
   }
-  #endif
 
   // Food can be placed at a random location
   {
@@ -1639,31 +1600,23 @@ void test_game() //!OCLINT tests may be many
     assert(get_nth_food_y(g, 0) != get_nth_food_y(g, 1));
   }
 
-  #define FIX_ISSUE_403
-  #ifdef FIX_ISSUE_403
-  {
-    // Food item's state can be accessed easily
+ {
+    //(403) Food item's state can be accessed easily
     game g;
     assert(!is_nth_food_eaten(g, 0));
     eat_nth_food(g, 0);
     assert(is_nth_food_eaten(g, 0));
   }
-  #endif
 
-  #define FIX_ISSUE_404
-  #ifdef FIX_ISSUE_404
   {
-    // Food item position can be accessed easily
+    // (404) Food item position can be accessed easily
     game g;
     coordinate default_food_position = coordinate(2000, 1000);
     assert(get_nth_food_position(g, 0) == default_food_position);
   }
-  #endif
 
-  #define FIX_ISSUE_257
-  #ifdef FIX_ISSUE_257
   {
-    // A food that returns to the uneaten state is relocated at random
+    // (257) A food that returns to the uneaten state is relocated at random
     game g;
     assert(!is_nth_food_eaten(g, 0));
     coordinate food_pos_before = get_nth_food_position(g, 0);
@@ -1675,7 +1628,6 @@ void test_game() //!OCLINT tests may be many
     coordinate food_pos_after = get_nth_food_position(g, 0);
     assert(food_pos_after != food_pos_before);
   }
-  #endif
 
   //#define FIX_ISSUE_286
   #ifdef FIX_ISSUE_286
@@ -1725,13 +1677,11 @@ void test_game() //!OCLINT tests may be many
     assert(expected_mean - 1.5 < 0.0001 && expected_mean - 1.5 > -0.0001);
   }
 
-  #define FIX_ISSUE_285
-  #ifdef FIX_ISSUE_285
   {
+    // 285
     game g;
     std::uniform_real_distribution<double>(0.0, 1.0)(g.get_rng());
   }
-  #endif
 
   {
     // default game arguments
@@ -1755,9 +1705,8 @@ void test_game() //!OCLINT tests may be many
            g.get_rng()() - expected_rng() > -0.00001);
   }
 
-  #define FIX_ISSUE_321
-  #ifdef FIX_ISSUE_321
   {
+    // 321
     coordinate Some_random_point(1,1);
     food n_food(Some_random_point);
     player n_player(Some_random_point);
@@ -1769,11 +1718,8 @@ void test_game() //!OCLINT tests may be many
     assert(have_same_position(n_player, Some_random_point));
     assert(have_same_position(n_projectile, Some_random_point));
   }
-  #endif
 
-  #define FIX_ISSUE_241
-  #ifdef FIX_ISSUE_241
-  //Player 1 can stun player 2 with a stun rocket
+  // (241) Player 1 can stun player 2 with a stun rocket
   {
     game g;
 
@@ -1805,11 +1751,9 @@ void test_game() //!OCLINT tests may be many
     // Player 2 is now stunned yet
     assert(is_stunned(g.get_v_player()[1]));
   }
-  #endif // FIX_ISSUE_241
 
-  //#define FIX_ISSUE_457
-  #ifdef FIX_ISSUE_457
-  {
+
+ {
     // (457) The color of any player can be accessed easily
     const game g;
     const color color_player_one = get_nth_player_color(g, 0);
@@ -1820,10 +1764,7 @@ void test_game() //!OCLINT tests may be many
     assert(color_player_two == create_green_color());
     assert(color_player_three == create_blue_color());
   }
-  #endif
 
-  #define FIX_ISSUE_458
-  #ifdef FIX_ISSUE_458
   {
     // (458) The color of any food item can be accessed easily
     const game g;
@@ -1832,16 +1773,13 @@ void test_game() //!OCLINT tests may be many
     const color c;
     assert(color_food == c);
   }
-  #endif
 
-  #define FIX_ISSUE_471
-  #ifdef FIX_ISSUE_471
   {
+    // (471)
     const game_options options;
     const game g(options);
     assert(g.get_game_options() == options);
   }
-  #endif
 
   //#define FIX_ISSUE_472
   #ifdef FIX_ISSUE_472
@@ -1862,9 +1800,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  #define FIX_ISSUE_478
-  #ifdef FIX_ISSUE_478
-  // Saving a game and loading it, must result in the same game
+  // (478) Saving a game and loading it, must result in the same game
   {
     const game g;
     const std::string filename = "test.txt";
@@ -1872,7 +1808,6 @@ void test_game() //!OCLINT tests may be many
     //const game h = load(filename);
     //assert(g == h);
   }
-  #endif // FIX_ISSUE_478
 
   #define FIX_ISSUE_524
   #ifdef FIX_ISSUE_524
@@ -2204,8 +2139,6 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
   }
-  #endif
-
   #define FIX_ISSUE_542
   #ifdef FIX_ISSUE_542
   {
@@ -2218,7 +2151,6 @@ void test_game() //!OCLINT tests may be many
           auto time_after = g.get_scoring_board().get_timer();
           assert(time_after > time_before);
       }
-
       // Can update the scores of the players
 #ifdef FIX_ISSUE_589
       {

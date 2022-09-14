@@ -31,7 +31,8 @@ HEADERS += \
     $$PWD/scoring_board.h \
     $$PWD/shelter.h \
     $$PWD/sound_type.h \
-    $$PWD/view_mode.h
+    $$PWD/view_mode.h \
+    $$PWD/view_manager.h
 
 SOURCES += \
     $$PWD/about.cpp \
@@ -66,7 +67,8 @@ SOURCES += \
     $$PWD/scoring_board.cpp \
     $$PWD/shelter.cpp \
     $$PWD/sound_type.cpp \
-    $$PWD/view_mode.cpp
+    $$PWD/view_mode.cpp \
+    $$PWD/view_manager.cpp
 
 RESOURCES += \
     game_resources.qrc

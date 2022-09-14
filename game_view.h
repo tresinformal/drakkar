@@ -13,8 +13,10 @@
 class game_view
 {
 public:
-
-  game_view(game_options options = game_options());
+  game_view(
+    game_options options = game_options(),
+    sf::Vector2f window_size = sf::Vector2f(1280, 720)
+  );
   ~game_view();
 
   /// Show one frame
@@ -42,12 +44,18 @@ public:
     return m_next_view;
   }
 
+  // Get the size of the window
+  const sf::Vector2f& get_window_size() const noexcept { return m_window_size; }
+
+  // Get the window's state, for testing purposes only
+  bool is_window_open() const { return m_window.isOpen(); }
+
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
 #ifdef VIEW_SWITCH
   // Returns what view should come next
-  const view_mode& what_next() noexcept { return m_next_view; }
+  const view_mode& what_next() const noexcept { return m_next_view; }
 #endif // VIEW_SWITCH
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
@@ -67,6 +75,9 @@ private:
 
   /// The resources (images, sounds, etc.) of the game
   game_resources m_game_resources;
+
+  // The size of the window to draw
+  sf::Vector2f m_window_size;
 
   /// The window to draw to
   sf::RenderWindow m_window;
