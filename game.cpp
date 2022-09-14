@@ -401,7 +401,7 @@ void game::update_timer()
 }
 // END Scoring Board
 
-// BEGIN Function Group Shoot Cool Down
+// BEGIN Shoot Cool Down
 void game::increment_cool_down_timers()
 {
   for (player &p : m_player)
