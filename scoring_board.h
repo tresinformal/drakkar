@@ -12,7 +12,7 @@ public:
                   unsigned int score_player3 = 0,
                   unsigned int timer = 0,
                   short winner = -1);
-    void set_score_player1(unsigned int score) {m_score_player1 = score;};
+    void set_score_player1(int score) {m_score_player1 = score;};
 
     void set_score_player2(unsigned int score) {m_score_player2 = score;};
 
@@ -22,7 +22,7 @@ public:
 
     void set_winner(short winner);
 
-    unsigned int get_score_player1() {return m_score_player1;};
+    unsigned int get_score_player1() const noexcept {return m_score_player1;};
 
     unsigned int get_score_player2() {return m_score_player2;};
 

@@ -33,7 +33,7 @@ void test_scoring_board()
 #ifndef NDEBUG // no tests in release
     #define FIX_ISSUE_542
     #ifdef FIX_ISSUE_542
-    // Scoring board has a correct initial state
+// When a scoring board is initialized players have 0 score and the time has not started yet
     {
         scoring_board sb;
         assert(sb.get_score_player1() == 0);
@@ -45,6 +45,8 @@ void test_scoring_board()
 
     // Can set players' score, cannot set to negative value
     {
+        int legit_player_score = 500;
+        int non_legit_player_score = -500;
         scoring_board sb;
         sb.set_score_player1(500);
         assert(sb.get_score_player1() == 500);
