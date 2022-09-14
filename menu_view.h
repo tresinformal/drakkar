@@ -19,6 +19,9 @@ public:
   /// Get next view
   view_mode get_next_view() const;
 
+  // Get the window's state, for testing purposes only
+  bool is_window_open() { return m_window.isOpen(); }
+
 private:
   menu m_menu;
   sf::RenderWindow m_window;

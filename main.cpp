@@ -26,6 +26,7 @@
 #include "sound_type.h"
 #include "optional.h"
 #include "view_mode.h"
+#include "view_manager.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -101,6 +102,7 @@ void test()
     test_coordinate();
     test_sound_type();
     test_view_mode();
+    test_view_manager();
     test_main();
 
 #ifndef LOGIC_ONLY
