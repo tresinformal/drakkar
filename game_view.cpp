@@ -324,6 +324,11 @@ void game_view::draw_player_coords() noexcept
     m_window.draw(text);
 }
 
+void game_view::draw_scoring_board() noexcept
+{
+
+}
+
 void game_view::show() noexcept
 {
     // Start drawing the new frame, by clearing the screen
