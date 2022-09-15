@@ -5,6 +5,14 @@
 #include <cassert>
 #include <typeinfo>
 
+view_manager::view_manager(const view_mode& starting_view,
+                           const game_options& options) :
+  m_next_view{starting_view},
+  m_game_view(options)
+{
+
+}
+
 void view_manager::set_next_view(view_mode next_view)
 {
     m_next_view = next_view;
@@ -75,33 +83,25 @@ void test_view_manager()
         assert(v.get_next_view() == next_view);
     }
 
-#ifdef FIX_ISSUE_584
   // (584) A view manager can read its first view as input
   {
     view_mode first_view = view_mode::menu;
     view_manager v{first_view};
     assert(v.get_next_view() == first_view);
   }
-#endif
-
-#ifdef FIX_ISSUE_582
 
   /// (582) A view manager can run and exit
   {
      view_manager v{view_mode::quit};
      v.exec();
   }
-#endif
 
-#ifdef FIX_ISSUE_583
   // (583) A view_manager can read options as input
   {
     game_options options(2022, false, get_random_kam());
     view_manager v{view_mode::game, options};
     assert(v.get_game_view().get_options() == options);
-    assert(v.get_options() == options);
-  }
-#endif
+}
 
 #endif // NDEBUG
 }
