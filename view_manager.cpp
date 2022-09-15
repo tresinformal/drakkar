@@ -59,49 +59,44 @@ void view_manager::exec()
 void test_view_manager()
 {
 #ifndef NDEBUG
+
+    // Declare view_manager only once for all tests
+    // to reduce the number of windows created during build
+    view_mode first_view = view_mode::menu;
+    game_options options(2022, false, get_random_kam());
+    view_manager vw{first_view, options};
     
+    // (584) A view manager can read its first view as input
+    {
+      assert(vw.get_next_view() == first_view);
+    }
+
+    // (583) A view_manager can read options as input
+    {
+      assert(vw.get_game_view().get_options() == options);
+    }
+
     // (553) View manager has all view types
     {
-        view_manager vw;
         vw.get_game_view();
         vw.get_menu_view();
         vw.get_options_view();
     }
 
-    /// (578) A view manager shows by default a game view
-    {
-        const view_manager v;
-        assert(v.get_next_view() == view_mode::game);
-    }
-
     /// (578) A view manager can swap views
     {
-        view_manager v;
-        view_mode next_view = view_mode::menu;
-        assert(v.get_next_view() != next_view);
-        v.set_next_view(next_view);
-        assert(v.get_next_view() == next_view);
+        view_mode next_view = view_mode::game;
+        assert(vw.get_next_view() != next_view);
+        vw.set_next_view(next_view);
+        assert(vw.get_next_view() == next_view);
     }
 
-  // (584) A view manager can read its first view as input
-  {
-    view_mode first_view = view_mode::menu;
-    view_manager v{first_view};
-    assert(v.get_next_view() == first_view);
-  }
+    /// (582) A view manager can run and exit
+    {
+       vw.set_next_view(view_mode::quit);
+       vw.exec();
+    }
 
-  /// (582) A view manager can run and exit
-  {
-     view_manager v{view_mode::quit};
-     v.exec();
-  }
-
-  // (583) A view_manager can read options as input
-  {
-    game_options options(2022, false, get_random_kam());
-    view_manager v{view_mode::game, options};
-    assert(v.get_game_view().get_options() == options);
-}
 
 #endif // NDEBUG
 }
