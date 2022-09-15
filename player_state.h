@@ -14,7 +14,4 @@ void test_player_state();
 std::string to_str(player_state this_player_state);
 std::ostream& operator << (std::ostream& os, const player_state& state);
 
-/// implement << operator
-std::ostream& operator << (std::ostream& os, const player_state& state);
-
 #endif // PLAYER_STATE_H
