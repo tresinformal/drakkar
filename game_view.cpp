@@ -324,6 +324,7 @@ void game_view::draw_player_coords() noexcept
     m_window.draw(text);
 }
 
+<<<<<<< HEAD
 void game_view::draw_scores()
 {
     sf::Text text;
@@ -342,6 +343,11 @@ void game_view::draw_scores()
     text.setString(str_player_scores);
 
     m_window.draw(text);
+=======
+void game_view::draw_scoring_board() noexcept
+{
+
+>>>>>>> develop
 }
 
 void game_view::show() noexcept
