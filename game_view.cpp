@@ -324,24 +324,10 @@ void game_view::draw_player_coords() noexcept
     m_window.draw(text);
 }
 
-void game_view::draw_scores()
+void game_view::draw_scoring_board() noexcept
 {
-    sf::Text text;
-    text.setFont(m_game_resources.get_font());
-    text.setCharacterSize(24);
 
-    // Concatenate player coordinates string
-    std::vector<player> v_player = m_game.get_v_player();
-    std::string str_player_scores;
-    for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
-        player p = v_player[static_cast<unsigned int>(i)];
-        str_player_scores += "Player " + p.get_ID() + " scores = " + p.get_score();//miss the function"get_score()
-        str_player_scores += "\n\n";
-    }
 
-    text.setString(str_player_scores);
-
-    m_window.draw(text);
 }
 
 void game_view::show() noexcept

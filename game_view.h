@@ -115,11 +115,8 @@ private:
   /// Draw player coordinates
   void draw_player_coords() noexcept;
 
-  /// Draw score
-  void draw_scores();
-
-
-
+  /// Draw scoring board
+  void draw_scoring_board() noexcept;
 };
 
 /// Count the number of projectiles

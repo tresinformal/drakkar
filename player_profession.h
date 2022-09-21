@@ -15,7 +15,4 @@ void test_player_profession();
 std::string to_str(player_profession this_player_profession);
 std::ostream& operator << (std::ostream& os, const player_profession& pro);
 
-/// implement << operator
-std::ostream& operator << (std::ostream& os, const player_profession& pro);
-
 #endif // PLAYER_PROFESSION_H
