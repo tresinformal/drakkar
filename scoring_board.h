@@ -42,7 +42,7 @@ private:
     unsigned int m_timer{0};
 
     // -1 indicates no winner
-    short m_winner{-1};
+    int m_winner{-1};
 };
 
 void test_scoring_board();

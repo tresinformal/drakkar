@@ -128,22 +128,23 @@ void test_scoring_board()
         assert(sb.get_timer() == 200);
     }
 
-    // Can set winner, cannot set to value other than -1, 0, 1, 2
+    // Scoring board can find the winner
     {
         scoring_board sb;
-        assert(sb.get_winner() == -1);
-        sb.set_winner(0);
-        assert(sb.get_winner() == 0);
-        sb.set_winner(1);
-        assert(sb.get_winner() == 1);
-        sb.set_winner(2);
-        assert(sb.get_winner() == 2);
-        // set to no winner
-        sb.set_winner(-1);
-        assert(sb.get_winner() == -1);
-        // cannot set to non-legit value
-        sb.set_winner(5);
-        assert(sb.get_winner() == -1);
+        find_winner(sb);
+//        assert(sb.get_winner() == -1);
+//        sb.set_winner(0);
+//        assert(sb.get_winner() == 0);
+//        sb.set_winner(1);
+//        assert(sb.get_winner() == 1);
+//        sb.set_winner(2);
+//        assert(sb.get_winner() == 2);
+//        // set to no winner
+//        sb.set_winner(-1);
+//        assert(sb.get_winner() == -1);
+//        // cannot set to non-legit value
+//        sb.set_winner(5);
+//        assert(sb.get_winner() == -1);
     }
     #endif
 #endif
