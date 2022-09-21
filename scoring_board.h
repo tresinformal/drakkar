@@ -22,11 +22,11 @@ public:
 
     void set_winner(short winner);
 
-    unsigned int get_score_player1() const noexcept {return m_score_player1;};
+    unsigned int get_score_player1() const noexcept { return m_score_player1; }
 
-    unsigned int get_score_player2() {return m_score_player2;};
+    unsigned int get_score_player2() const noexcept { return m_score_player2; }
 
-    unsigned int get_score_player3() {return m_score_player3;};
+    unsigned int get_score_player3() const noexcept { return m_score_player3; }
 
     unsigned int get_timer() {return m_timer;};
 
