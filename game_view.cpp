@@ -327,6 +327,17 @@ void game_view::draw_player_coords() noexcept
 void game_view::draw_scoring_board() noexcept
 {
 
+<<<<<<< HEAD
+=======
+    // Concatenate player coordinates string
+    std::vector<player> v_player = m_game.get_v_player();
+    std::string str_player_scores;
+    for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
+        player p = v_player[static_cast<unsigned int>(i)];
+        //str_player_scores += "Player " + p.get_ID() + " scores = " + p.get_score();//miss the function"get_score()
+        str_player_scores += "\n\n";
+    }
+>>>>>>> 20d76bde52a8abfc03a614bf858f11b0853eeaca
 
 }
 

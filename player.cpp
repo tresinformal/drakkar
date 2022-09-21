@@ -822,6 +822,19 @@ void test_player() //!OCLINT tests may be long
             }
             assert(p.get_speed() == 0);
         }
+
+        // newly created player should have
+        // score of 0
+        {
+            player p;
+            auto score = p.get_score();
+            assert(score == 0);
+        }
+        // player can also return score as string
+        {
+            player p;
+            auto score = p.get_score_as_string();
+        }
     }
 #endif // no tests in release
 }
