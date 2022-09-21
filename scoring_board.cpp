@@ -43,7 +43,7 @@ void test_scoring_board()
         assert(sb.get_winner() == -1);
     }
 
-    // Can set players' score, cannot set to negative value
+    // Can set players' score
     {
         scoring_board sb;
         sb.set_score_player1(500);
@@ -53,12 +53,24 @@ void test_scoring_board()
         sb.set_score_player3(500);
         assert(sb.get_score_player3() == 500);
 
-        sb.set_score_player1(-500);
-        assert(sb.get_score_player1() == 500);
-        sb.set_score_player2(-500);
-        assert(sb.get_score_player2() == 500);
-        sb.set_score_player3(-500);
-        assert(sb.get_score_player3() == 500);
+        // (591) Score cannot set to negative value
+       std::string expected_msg = "When setting a player score, "
+                             "a player score cannot be negative.";
+       try {
+          sb.set_score_player1(-500);
+        }  catch (const std::invalid_argument& e) {
+          assert(e.what() == expected_msg);
+        }
+       try {
+         sb.set_score_player2(-500);
+       }  catch (const std::invalid_argument& e) {
+         assert(e.what() == expected_msg);
+       }
+       try {
+         sb.set_score_player3(-500);
+       }  catch (const std::invalid_argument& e) {
+         assert(e.what() == expected_msg);
+       }
     }
 
     // Can set timer, cannot set timer to negative value
