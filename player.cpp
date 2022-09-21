@@ -830,10 +830,11 @@ void test_player() //!OCLINT tests may be long
             auto score = p.get_score();
             assert(score == 0);
         }
-        // player can also return score as string
+        // player can also return score as string // Because in this way scores can be seen on board.
         {
             player p;
-            auto score = p.get_score_as_string();
+            std::string score = p.get_score_as_string();
+            assert(!score.empty());
         }
     }
 #endif // no tests in release

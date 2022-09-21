@@ -93,6 +93,9 @@ public:
     /// Get the direction of player movement, in radians
     double get_direction() const noexcept;
 
+    /// Get the score of player
+    std::string get_score_as_string() const noexcept { return std::to_string(m_score); }
+
     /// Get the player's health
     double get_health() const noexcept { return m_health; }
 
