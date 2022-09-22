@@ -57,22 +57,16 @@ void test_coordinate() {
     ///Test along x axis
     ///When direction is 0 player should
     ///only move along the x axis
-    double direction = 0;
+    const double forward_direction = 0;
+    c.move(forward_direction);
 
-    double default_speed = 1;
-    c.move(direction);
-    double error_x = abs(get_x(c) - default_speed);
-    double error_y = abs(get_y(c) - 0);
-    assert(error_x < 0.00001);
-    assert(error_y < 0.00001);
-
-    std::vector<double> speeds{0.1, 0.5, 2, -0.1, -0.2, -1};
+    const std::vector<double> speeds{0.1, 0.5, 2, -0.1, -0.2, -1};
     for(const auto& speed : speeds)
       {
         c.reset_coords_to_zero();
-        c.move(direction, speed);
-        error_x = abs(get_x(c) - speed);
-        error_y = abs(get_y(c) - 0);
+        c.move(forward_direction, speed);
+        const double error_x = abs(get_x(c) - speed);
+        const double error_y = abs(get_y(c) - 0);
         assert(error_x < 0.00001);
         assert(error_y < 0.00001);
       }
@@ -81,22 +75,37 @@ void test_coordinate() {
     ///When direction is 0 player should
     ///only move along the y axis
     c.reset_coords_to_zero();
-    direction = M_PI / 2;
-    c.move(direction);
-    error_x = abs(get_x(c) - 0);
-    error_y = abs(get_y(c) - default_speed);
-    assert(error_x < 0.00001);
-    assert(error_y < 0.00001);
+    const double up_direction = M_PI / 2;
+    c.move(up_direction);
 
     for(const auto& speed : speeds)
       {
         c.reset_coords_to_zero();
-        c.move(direction, speed);
-        error_x = abs(get_x(c) - 0);
-        error_y = abs(get_y(c) - speed);
+        c.move(up_direction, speed);
+        const double error_x = abs(get_x(c) - 0);
+        const double error_y = abs(get_y(c) - speed);
         assert(error_x < 0.00001);
         assert(error_y < 0.00001);
       }
+
+    // Test for non-axis directions
+    const double default_speed = 1.0;
+
+    c.reset_coords_to_zero();
+    const double a_direction = M_PI / 3.0; // 60 degrees
+    c.move(a_direction, default_speed);
+    double error_x = abs(get_x(c) - 1.0 / 2.0);
+    double error_y = abs(get_y(c) - sqrt(3.0) / 2.0);
+    assert(error_x < 0.00001);
+    assert(error_y < 0.00001);
+
+    c.reset_coords_to_zero();
+    const double another_direction = M_PI / 6.0; // 30 degrees
+    c.move(another_direction, default_speed);
+    error_x = abs(get_x(c) -  sqrt(3.0) / 2.0);
+    error_y = abs(get_y(c) - 1.0 / 2.0);
+    assert(error_x < 0.00001);
+    assert(error_y < 0.00001);
   }
 #endif
 
