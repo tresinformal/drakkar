@@ -126,6 +126,7 @@ public:
 
   ///Manages collisons with walls
   player resolve_wall_collision(player p);
+  
 private:
 
   /// The RNG engine
