@@ -14,7 +14,8 @@
 #include <string>
 #include <sstream>
 
-game_view::game_view(game_options options, sf::Vector2f window_size) :
+game_view::game_view(game_options options,
+                     sf::Vector2f window_size) :
     m_game(options),
     m_window_size{window_size},
     m_window(
@@ -408,9 +409,8 @@ void test_game_view() //!OCLINT tests may be many
     }
 
     {
-    const game_view v;
-    // game has a member function called `get_n_ticks`, which returns zero upon construction
-    assert(v.get_game().get_n_ticks() == 0);
+        const game_view v;    // game has a member function called `get_n_ticks`, which returns zero upon construction
+        assert(v.get_game().get_n_ticks() == 0);
     }
 
     //A game view is initialized with a number of views/cameras

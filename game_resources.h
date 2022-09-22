@@ -110,6 +110,7 @@ private:
 
   /// Rocket
   sf::Texture m_cat;
+
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
