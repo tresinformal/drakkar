@@ -1,8 +1,6 @@
 #ifndef OPTIONS_VIEW_H
 #define OPTIONS_VIEW_H
 
-#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
-
 #include "SFML/Graphics.hpp"
 #include "game_options.h"
 #include "game_resources.h"
@@ -39,7 +37,5 @@ private:
 };
 
 void test_options_view();
-
-#endif // LOGIC_ONLY
 
 #endif // OPTIONS_VIEW_H
