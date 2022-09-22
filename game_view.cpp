@@ -409,7 +409,7 @@ void test_game_view() //!OCLINT tests may be many
     }
 
     {
-        game_view v;    // game has a member function called `get_n_ticks`, which returns zero upon construction
+        const game_view v;    // game has a member function called `get_n_ticks`, which returns zero upon construction
         assert(v.get_game().get_n_ticks() == 0);
     }
 
