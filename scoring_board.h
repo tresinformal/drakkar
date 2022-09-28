@@ -7,42 +7,42 @@
 class scoring_board
 {
 public:
-    scoring_board(unsigned int score_player1 = 0,
-                  unsigned int score_player2 = 0,
-                  unsigned int score_player3 = 0,
-                  unsigned int timer = 0,
-                  short winner = -1);
+    scoring_board(int score_player1 = 0,
+                  int score_player2 = 0,
+                  int score_player3 = 0,
+                  int timer = 0,
+                  int winner = -1);
     void set_score_player1(int score) {m_score_player1 = score;};
 
-    void set_score_player2(unsigned int score) {m_score_player2 = score;};
+    void set_score_player2(int score) {m_score_player2 = score;};
 
-    void set_score_player3(unsigned int score) {m_score_player3 = score;};
+    void set_score_player3(int score) {m_score_player3 = score;};
 
-    void set_timer(unsigned int time) {m_timer = time;};
+    void set_timer(int time) {m_timer = time;};
 
-    void set_winner(short winner);
+    void set_winner(int winner);
 
-    unsigned int get_score_player1() const noexcept {return m_score_player1;};
+    int get_score_player1() const noexcept {return m_score_player1;};
 
-    unsigned int get_score_player2() {return m_score_player2;};
+    int get_score_player2() {return m_score_player2;};
 
-    unsigned int get_score_player3() {return m_score_player3;};
+    int get_score_player3() {return m_score_player3;};
 
-    unsigned int get_timer() {return m_timer;};
+    int get_timer() {return m_timer;};
 
-    short get_winner() {return m_winner;};
+    int get_winner() {return m_winner;};
 
 private:
-    unsigned int m_score_player1{0};
+    int m_score_player1{0};
 
-    unsigned int m_score_player2{0};
+    int m_score_player2{0};
 
-    unsigned int m_score_player3{0};
+    int m_score_player3{0};
 
-    unsigned int m_timer{0};
+    int m_timer{0};
 
     // -1 indicates no winner
-    short m_winner{-1};
+    int m_winner{-1};
 };
 
 void test_scoring_board();
