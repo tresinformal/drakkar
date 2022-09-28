@@ -1,4 +1,5 @@
 #include "player_state.h"
+#include "player.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>
@@ -63,6 +64,23 @@ void test_player_state()
     s << ps;
     assert(!s.str().empty());
   }
+
+#define FIX_ISSUE_606
+#ifdef FIX_ISSUE_606
+  {
+    // (606) When a player goes under some size, it is out
+    player p;
+    double death_size; // choose a value
+    // smh make the player smaller
+    while(p.get_diameter() > death_size)
+      {
+        assert(p.get_state() != player_state::out);
+        p.shrink();
+      }
+    assert(p.get_state() == player_state::out);
+  }
+#endif
+
   #endif
 }
 
