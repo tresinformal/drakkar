@@ -30,7 +30,7 @@ Look how nice they match :-)
 Use all defaults, up until the Qt Maintenance tool is started.
 Here, you will need to check two boxes:
 
- * 1. For the highest (stable) Qt version: 
+ * 1. For the highest (stable) Qt version (currently, 5.14.2): 
       the highest MinGW :warning: remember this version of MinGW
 
 ![](qt_maintenance_tool_1_annotated.png)
@@ -40,6 +40,8 @@ Here, you will need to check two boxes:
 ![](qt_maintenance_tool_2.png)
 
 ## 2. Download and install SFML ([here](https://www.sfml-dev.org/files/SFML-2.5.1-macOS-clang.tar.gz))
+
+
 
  * Go to the SFML download page, 
    [https://www.sfml-dev.org/download/sfml/2.5.0/](https://www.sfml-dev.org/download/sfml/2.5.0/)
