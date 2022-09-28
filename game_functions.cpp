@@ -34,7 +34,7 @@ int count_alive_players(const game& g) noexcept
         g.get_v_player().begin(),
         g.get_v_player().end(),
         [](const player& p)
-  {return p.get_state() != player_state::dead;});
+  {return p.get_state() != player_state::out;});
 }
 
 double get_nth_player_size(const game& g, const int i)

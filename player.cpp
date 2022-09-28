@@ -193,7 +193,7 @@ bool is_active(const player & p) noexcept
 
 bool is_dead(const player& p) noexcept
 {
-    return p.get_state() == player_state::dead;
+    return p.get_state() == player_state::out;
 }
 
 bool is_stunned(const player & p) noexcept

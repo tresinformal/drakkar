@@ -332,7 +332,7 @@ void game::kill_player(const int index)
 {
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
-  get_player(index).set_state(player_state::dead);
+  get_player(index).set_state(player_state::out);
 }
 
 void game::resolve_wall_collisions()

@@ -6,7 +6,7 @@
 enum class player_state
 {
   active,
-  dead,
+  out,
   stunned
 };
 
