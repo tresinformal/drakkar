@@ -251,7 +251,6 @@ void game::tick()
 {
   if(has_any_interplayer_collision(*this))
   {
-    //kill_losing_player(*this);
     grow_winning_player(*this);
     shrink_losing_player(*this);
   }
@@ -561,28 +560,6 @@ void eat_nth_food(game& g, const int n)
 void place_nth_food_randomly(game &g, const int &n)
 {
   g.get_food()[n].place_randomly(g.get_rng(), {get_min_x(g), get_min_y(g)}, {get_max_x(g), get_max_y(g)});
-}
-
-void kill_losing_player(game &g)
-{
-  const int first_player_index = get_collision_members(g)[0];
-  const int second_player_index = get_collision_members(g)[1];
-  const player& first_player = g.get_player(first_player_index);
-  const player& second_player = g.get_player(second_player_index);
-  const int c1 = get_colorhash(first_player);
-  const int c2 = get_colorhash(second_player);
-
-  // It is possible that this happens, no worries here :-)
-  if (c1 == c2) return;
-  else if (std::abs(c1-c2)==1)
-    {
-      if(c1<c2)
-        g.kill_player(second_player_index);
-      else
-        g.kill_player(first_player_index);
-    }
-  else if(c1<c2)
-    g.kill_player(first_player_index);
 }
 
 void grow_winning_player(game &g)
@@ -1338,18 +1315,36 @@ void test_game() //!OCLINT tests may be many
     assert(player_copy.get_speed() == p.get_speed());
   }
 
-  /// When a player is killed it stays in the player vector but its state is dead
+  /// When a player is out it stays in the player vector but its state is out
   {
     game g;
 
     auto num_of_players_begin = g.get_v_player().size();
 
-    //kill the first player
     g.kill_player(0);
 
     assert(num_of_players_begin == g.get_v_player().size());
-    assert(is_dead(g.get_player(0)));
+    assert(is_out(g.get_player(0)));
   }
+
+
+//#define FIX_ISSUE_606
+#ifdef FIX_ISSUE_606
+  {
+    // (606) When a player goes under some size, it is out
+    game g;
+    player p = g.get_player(0);
+    const double death_size = 5.0; // choose a value
+    // Make the player smaller
+    while(get_nth_player_size(g, 0) > death_size)
+      {
+        assert(!is_out(p));
+        p.shrink();
+        g.tick();
+      }
+    assert(is_out(p));
+  }
+#endif
 
   #define FIX_ISSUE_236
   #ifdef FIX_ISSUE_236

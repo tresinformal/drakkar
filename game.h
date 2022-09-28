@@ -209,10 +209,6 @@ bool hits_north_wall(const player& p, const environment& e);
 bool hits_east_wall(const player& p, const environment& e);
 bool hits_west_wall(const player& p, const environment& e);
 
-/// Upon a collision, kills the player that loser
-/// Assumes there is a collision
-void kill_losing_player(game &);
-
 ///Upon a collision, grows the size of the winning player
 void grow_winning_player(game &g);
 

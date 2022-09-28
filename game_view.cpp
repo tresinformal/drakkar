@@ -202,7 +202,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 {
     for (const auto &player : m_game.get_v_player())
     {
-        if(is_dead(player))
+        if(is_out(player))
           {
             continue;
           }
