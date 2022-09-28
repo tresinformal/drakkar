@@ -1,6 +1,7 @@
 #include "player.h"
 #include "player_shape.h"
 #include "player_state.h"
+#include "game_functions.h"
 #include "color.h"
 #include <cassert>
 #include <cmath>
@@ -312,15 +313,17 @@ void test_player() //!OCLINT tests may be long
 {
 #ifndef NDEBUG // no tests in release
 
-  //#define FIX_ISSUE_336
+  #define FIX_ISSUE_336
   #ifdef FIX_ISSUE_336
     {
         player p;
-        cordinate predicted_player_position = predict_players_movement(p);
+        coordinate predicted_player_position = predict_players_movement(p);
         p.move();
-        assert(p.get_position()==predicted_player_position);
-        assert(((predicted_player_position.m_x - get_x(p))<0.001)&&(((predicted_player_position.m_x - get_x(p))>-0.001)));
-        assert(((predicted_player_position.m_x - get_y(p))<0.001)&&(((predicted_player_position.m_x - get_y(p))>-0.001)));
+        assert(p.get_position() == predicted_player_position);
+        const double error_x = abs(predicted_player_position.get_x() - get_x(p));
+        const double error_y = abs(predicted_player_position.get_y() - get_y(p));
+        assert(error_x < 0.001);
+        assert(error_y < 0.001);
     }
   #endif
 
