@@ -15,7 +15,7 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
 `theo`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/game/branch/theo)
 `tianjian`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=tianjian)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=tianjian)](https://codecov.io/github/tresinformal/game/branch/tianjian)
 `yang`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=yang)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=yang)](https://codecov.io/github/tresinformal/game/branch/yang)
-`Ludvig`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=Luxwor)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=Luxwor)](https://codecov.io/github/tresinformal/game/branch/Luxwor)
+`Ludvig`|![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=Ludvig)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=Ludvig)](https://codecov.io/github/tresinformal/game/branch/Ludvig)
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 A video game, developed informally and professionally.
