@@ -185,7 +185,7 @@ void stun(player &p) noexcept
 
 bool is_alive(const player& p) noexcept
 {
-    return !is_dead(p);
+    return !is_out(p);
 }
 
 bool is_active(const player & p) noexcept
@@ -193,9 +193,9 @@ bool is_active(const player & p) noexcept
     return p.get_state() == player_state::active;
 }
 
-bool is_dead(const player& p) noexcept
+bool is_out(const player& p) noexcept
 {
-    return p.get_state() == player_state::dead;
+    return p.get_state() == player_state::out;
 }
 
 bool is_stunned(const player & p) noexcept

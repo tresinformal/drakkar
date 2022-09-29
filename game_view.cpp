@@ -203,7 +203,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 {
     for (const auto &player : m_game.get_v_player())
     {
-        if(is_dead(player))
+        if(is_out(player))
           {
             continue;
           }
@@ -507,6 +507,7 @@ void test_game_view() //!OCLINT tests may be many
 
   // (494) There should be a member of type view_mode
   {
+
     game_view gv;
     view_mode expected_next_view = view_mode::quit;
     assert(gv.get_next_view() == expected_next_view);
@@ -516,6 +517,7 @@ void test_game_view() //!OCLINT tests may be many
 #ifdef FIX_ISSUE_246
     // Pressing the stun key shoots a stun rocket
     {
+      //I predict the following: This get_player(0) returns an empty vector not the one as expected.
       game_view gw(get_random_game_options(300));
       assert(!gw.get_game().get_player(0).is_shooting_stun_rocket());
       gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun

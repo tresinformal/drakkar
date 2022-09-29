@@ -286,7 +286,7 @@ bool is_alive(const player& p) noexcept;
 bool is_active(const player &p) noexcept;
 
 /// Is a player dead?
-bool is_dead(const player& p) noexcept;
+bool is_out(const player& p) noexcept;
 
 /// Is a player stunned?
 bool is_stunned(const player &p) noexcept;

@@ -1,4 +1,5 @@
 #include "player_state.h"
+#include "player.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>
@@ -8,7 +9,7 @@ std::string to_str(player_state this_player_state)
 {
   switch (this_player_state)
   {
-  case player_state::dead:
+  case player_state::out:
     return "dead";
   case player_state::stunned:
     return "stunned";
@@ -31,8 +32,8 @@ void test_player_state()
   #ifndef NDEBUG // no tests in release
   assert(player_state::active != player_state::stunned);
   {
-    assert(player_state::dead != player_state::stunned &&
-              player_state::dead != player_state::active);
+    assert(player_state::out != player_state::stunned &&
+              player_state::out != player_state::active);
   }
 
   // (509) operator<<
@@ -46,7 +47,7 @@ void test_player_state()
   // (276) Conversion to string
   {
     assert(to_str(player_state::active) == "active");
-    assert(to_str(player_state::dead) == "dead");
+    assert(to_str(player_state::out) == "dead");
     assert(to_str(player_state::stunned) == "stunned");
   }
 
