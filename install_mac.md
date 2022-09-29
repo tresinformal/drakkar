@@ -26,10 +26,19 @@ Here, you will need to check two boxes:
 
  * Unpack the tar, it will create a folder called `SFML-2.5.1-macos-clang`
  * Rename that folder to `SFML` and put it in your home folder. 
-   Its path will be `/Users/[username]/SFML`
+   Its path will be `/Users/[username]/SFML`, where `[username]` is your
+   username, resulting in, for example, `/Users/richel/SFML`.
+   * Test that it works: 
+     In a Terminal, 
+     type `cd /Users/[username]/SFML`, where `[username]` is your
+     username, resulting in, for example, `cd /Users/richel/SFML`.
+     This should give no message. If the message is 'Folder not found', 
  * Copy the content of `SFML/Frameworks` folder into `/Library/Frameworks`.
    You will need root rights for this
-
+   * Test that it works: 
+     In a Terminal, 
+     type `cd /Library/Frameworks && ls`.
+     You should see folders that are named something like `sfml-framework`.
 
 ## 3. Clone the game and `magic_enum` library
 
