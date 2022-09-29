@@ -1357,6 +1357,19 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+  #define FIX_ISSUE_607
+  #ifdef FIX_ISSUE_607
+    {
+    // (607) A player that is out cannot collide with other players
+    game g;
+
+    // (607) A player that is out cannot shoot
+
+    // (607) A player that is out cannot be hit by projectiles
+
+    }
+  #endif
+
   // (236) When a player touches food it eats it
   {
     game g;
@@ -1368,7 +1381,19 @@ void test_game() //!OCLINT tests may be many
     assert(!has_any_player_food_collision(g));
   }
 
-  // #392: When a player gets within the radius of food it eats it
+#ifdef FIX_ISSUE_621
+  // (621) A player that is out does not eat food
+  {
+    game g;
+    put_player_on_food(g.get_player(0), g.get_food()[0]);
+    g.kill_player(0);
+    g.tick();
+    assert(has_uneaten_food(g));
+    assert(!has_any_player_food_collision(g));
+  }
+#endif
+
+  // (392) When a player gets within the radius of food it eats it
   {
     game g;
     food f = g.get_food()[0];
@@ -1426,7 +1451,7 @@ void test_game() //!OCLINT tests may be many
   }
 
   {
-    // (244)
+    // (244) Eating food makes a player grow
     game g;
     const auto init_player_size = get_nth_player_size(g,0);
     put_player_on_food(g.get_player(0), g.get_food()[0]);
@@ -1434,7 +1459,7 @@ void test_game() //!OCLINT tests may be many
     assert(g.get_player(0).get_diameter() > init_player_size);
   }
 
-  // (247)
+  // (247) Player and food items on the same position interact
   {
     coordinate c_p(0, 0);
     player p(c_p);
@@ -1455,7 +1480,7 @@ void test_game() //!OCLINT tests may be many
   #endif
 
   {
-    // (254)
+    // (254) A player on a food item eats it
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
     g.tick();
@@ -1489,7 +1514,7 @@ void test_game() //!OCLINT tests may be many
   }
 
   {
-    // (256)
+    // (256) Eaten food items cannot interact with a player
     food f;
     player p;
     put_player_on_food(p, f);
@@ -1499,7 +1524,7 @@ void test_game() //!OCLINT tests may be many
   }
 
   {
-    // (259)
+    // (259) Eaten food items have a timer that ticks
     game g; // by default one uneaten food
     assert(has_uneaten_food(g));
     auto initial_value_timer = get_nth_food_timer(g, 0);
@@ -1510,7 +1535,7 @@ void test_game() //!OCLINT tests may be many
   }
 
   {
-    // (255)
+    // (255) Eaten food items regenerate after time has elapsed
     game g;
     eat_nth_food(g, 0);
     assert(is_nth_food_eaten(g,0));
@@ -1735,13 +1760,65 @@ void test_game() //!OCLINT tests may be many
     g.tick();
 
     // Stun rocket should disappear
-    //THIS LINE DOESN't WORK
     assert(count_n_projectiles(g) == 0);
 
     // Player 2 is now stunned yet
     assert(is_stunned(g.get_v_player()[1]));
   }
 
+#ifdef FIX_ISSUE_622
+  {
+    // (622) A player that is out cannot shoot rockets
+    game g;
+    g.kill_player(0);
+
+    g.do_action(0, action_type::shoot);
+    g.tick();
+    assert(count_n_projectiles(g) == 0);
+
+    g.do_action(0, action_type::shoot_stun_rocket);
+    g.tick();
+    assert(count_n_projectiles(g) == 0);
+  }
+#endif
+
+#ifdef FIX_ISSUE_624
+  {
+    // (624) A player that is out cannot be stunned
+    // and does not absorb stun rockets
+    game g;
+    g.kill_player(0);
+
+    // Player 2 shoots, rocket goes on player 1
+    g.do_action(1, action_type::shoot_stun_rocket);
+    g.tick();
+    const coordinate c_p1 = g.get_player(0).get_position();
+    g.get_projectiles().back().place(c_p1);
+
+    g.tick();
+    assert(!is_stunned(g.get_player(0)));
+    assert(count_n_projectiles(g) == 1);
+  }
+#endif
+
+#ifdef FIX_ISSUE_623
+  {
+    // (623) A player that is out does not take damage from regular rockets
+    game g;
+    const double initial_p_size = get_nth_player_size(g, 0);
+    g.kill_player(0);
+
+    // Player 2 shoots, rocket goes on player 1
+    g.do_action(1, action_type::shoot);
+    g.tick();
+    const coordinate c_p1 = g.get_player(0).get_position();
+    g.get_projectiles().back().place(c_p1);
+
+    g.tick();
+    assert(are_equal(get_nth_player_size(g, 0), initial_p_size, 0.0001));
+    assert(count_n_projectiles(g) == 1);
+  }
+#endif
 
  {
     // (457) The color of any player can be accessed easily
