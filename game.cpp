@@ -1357,16 +1357,15 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-  #define FIX_ISSUE_607
-  #ifdef FIX_ISSUE_607
+  #ifdef FIX_ISSUE_625
     {
-    // (607) A player that is out cannot collide with other players
+    // (625) A player that is out cannot collide with other players
     game g;
-
-    // (607) A player that is out cannot shoot
-
-    // (607) A player that is out cannot be hit by projectiles
-
+    const coordinate c_p2 = g.get_player(1).get_position();
+    g.get_player(0).place_to_position(c_p2);
+    assert(are_colliding(g.get_player(0), g.get_player(1)));
+    g.kill_player(0);
+    assert(!are_colliding(g.get_player(0), g.get_player(1)));
     }
   #endif
 
