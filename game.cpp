@@ -1338,8 +1338,17 @@ void test_game() //!OCLINT tests may be many
     assert(is_out(g.get_player(0)));
   }
 
+#ifdef FIX_ISSUE_606
+  {
+    // (626) A player that is out can be revived
+    game g;
+    g.kill_player(0);
+    assert(is_out(g.get_player(0)));
+    g.revive_player(0);
+    assert(!is_out(g.get_player(0)));
+  }
+#endif
 
-//#define FIX_ISSUE_606
 #ifdef FIX_ISSUE_606
   {
     // (606) When a player goes under some size, it is out
