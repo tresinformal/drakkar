@@ -225,15 +225,8 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         circle.setPosition(x, y);
         circle.setRotation((angle  * 180.0f / M_PI) - 90);
 
-//        sf::RectangleShape rect;
-//        rect.setSize(sf::Vector2f(r, 2.0f));
-//        rect.setPosition(x, y);
-//        rect.setFillColor(sf::Color(red / 2, green / 2, blue / 2));
-//        rect.setRotation(angle  * 180.0f / M_PI);
-
         // Draw the player
         m_window.draw(circle);
-//        m_window.draw(rect);
     }
 }
 

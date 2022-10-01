@@ -1831,6 +1831,17 @@ void test_game() //!OCLINT tests may be many
     assert(color_player_three == create_blue_color());
   }
 
+#ifdef FIX_ISSUE_609
+  {
+    // (609) A player that is out is white
+    game g;
+    assert(get_nth_player_color(g, 0) == create_red_color());
+    g.kill_player(0);
+    g.tick();
+    assert(get_nth_player_color(g, 0) == create_white_color());
+  }
+#endif
+
   {
     // (458) The color of any food item can be accessed easily
     const game g;
