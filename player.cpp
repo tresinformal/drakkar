@@ -625,6 +625,15 @@ void test_player() //!OCLINT tests may be long
   }
   #endif
 
+#define FIX_ISSUE_612
+#ifdef FIX_ISSUE_612
+{
+  // (612) A player that revives gets a new colour at random
+  player p;
+  makeanerror;
+}
+#endif
+
   //#define FIX_ISSUE_401
   #ifdef FIX_ISSUE_401
     {

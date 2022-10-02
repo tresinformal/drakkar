@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
+#include <random>
 #include <SFML/Graphics.hpp>
 
 color::color(const int r, const int g, const int b, const int a)
@@ -214,6 +215,33 @@ void test_color()
   }
 #endif // FIX_ISSUE_460
 
+#ifdef FIX_ISSUE_628
+  // (628) A random color between red, blue, green can be sampled
+  {
+    color c;
+    int n_red = 0;
+    int n_green = 0;
+    int n_blue = 0;
+
+    const color r = create_red_color();
+    const color g = create_green_color();
+    const color b = create_blue_color();
+
+    std::mt19937 rng(1);
+    for (int i = 0; i < 100; ++i)
+      {
+        c = get_random_rgb(rng);
+        if (c == r) { ++n_red; }
+        else if (c == g) { ++n_green; }
+        else if (c == b) { ++n_blue; }
+        else { throw("get_random_rgb should not return any other color than r, g, b"); }
+      }
+
+    assert(n_red > 0 && n_red < 100);
+    assert(n_green > 0 && n_green < 100);
+    assert(n_blue > 0 && n_blue < 100);
+  }
+#endif // FIX_ISSUE_628
 
 
 #endif // NDEBUG
