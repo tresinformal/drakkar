@@ -615,6 +615,16 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_state() == player_state::active);
   }
 
+  #ifdef FIX_ISSUE_609
+  {
+    // (609) A player that is out becomes transparent
+    player p;
+    assert(p.get_color().get_opaqueness() == 255);
+    p.die();
+    assert(p.get_color().get_opaqueness() == 100);
+  }
+  #endif
+
   //#define FIX_ISSUE_401
   #ifdef FIX_ISSUE_401
     {
