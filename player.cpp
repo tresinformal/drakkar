@@ -178,9 +178,27 @@ bool is_red(const player & p) noexcept
             ;
 }
 
+// The player can be stunned
+void player::stun()
+{
+  m_state = player_state::stunned;
+}
+
+// The player can die
+void player::die()
+{
+  m_state = player_state::out;
+}
+
+// The player can revive
+void player::revive()
+{
+  m_state = player_state::active;
+}
+
 void stun(player &p) noexcept
 {
-    p.set_state(player_state::stunned);
+    p.stun();
 }
 
 bool is_alive(const player& p) noexcept
@@ -591,7 +609,7 @@ void test_player() //!OCLINT tests may be long
     player p;
     p.stun();
     assert(p.get_state() == player_state::stunned);
-    p.kill();
+    p.die();
     assert(p.get_state() == player_state::out);
     p.revive();
     assert(p.get_state() == player_state::active);

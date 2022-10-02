@@ -223,7 +223,7 @@ void game::projectile_collision()
 
               // if the projectile is a stun rocket: stun the player
               if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
-                  this-> m_player[j].set_state(player_state::stunned);
+                  this-> m_player[j].stun();
 
                   // projectile disappears
                   std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()-1]);
@@ -1865,11 +1865,10 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
-#define FIX_ISSUE_612
+//#define FIX_ISSUE_612
 #ifdef FIX_ISSUE_612
   {
     // (612) A player that revives gets a new colour
-    assert(1 == 2);
     game g;
     g.kill_player(0);
     const int revive_time = 100;
