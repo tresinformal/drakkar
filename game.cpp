@@ -335,7 +335,7 @@ void game::kill_player(const int index)
 {
   assert(index >= 0);
   assert(index < static_cast<int>(m_player.size()));
-  get_player(index).set_state(player_state::out);
+  get_player(index).die();
 }
 
 void game::resolve_wall_collisions()
@@ -1349,6 +1349,21 @@ void test_game() //!OCLINT tests may be many
   }
 #endif
 
+#ifdef FIX_ISSUE_611
+  {
+    // (611) A player that is out revives after some time
+    game g;
+    g.kill_player(0);
+    const int revive_time = 100;
+    for (int i = 0; i < revive_time; ++i)
+      {
+        assert(is_out(g.get_player(0)));
+        g.tick();
+      }
+    assert(!is_out(g.get_player(0)));
+  }
+#endif
+
 #ifdef FIX_ISSUE_606
   {
     // (606) When a player goes under some size, it is out
@@ -1846,8 +1861,24 @@ void test_game() //!OCLINT tests may be many
     game g;
     assert(get_nth_player_color(g, 0) == create_red_color());
     g.kill_player(0);
-    g.tick();
     assert(get_nth_player_color(g, 0) == create_white_color());
+  }
+#endif
+
+#define FIX_ISSUE_612
+#ifdef FIX_ISSUE_612
+  {
+    // (612) A player that revives gets a new colour
+    assert(1 == 2);
+    game g;
+    g.kill_player(0);
+    const int revive_time = 100;
+    for (int i = 0; i < revive_time; ++i)
+      {
+        assert(is_out(g.get_player(0)));
+        g.tick();
+      }
+    assert(!is_out(g.get_player(0)));
   }
 #endif
 

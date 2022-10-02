@@ -586,6 +586,17 @@ void test_player() //!OCLINT tests may be long
         assert(to_str(player_state::active) == "active");
     }
 
+  {
+    // (627) A player's state is changed by specific functions
+    player p;
+    p.stun();
+    assert(p.get_state() == player_state::stunned);
+    p.kill();
+    assert(p.get_state() == player_state::out);
+    p.revive();
+    assert(p.get_state() == player_state::active);
+  }
+
   //#define FIX_ISSUE_401
   #ifdef FIX_ISSUE_401
     {
