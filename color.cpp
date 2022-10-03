@@ -237,7 +237,8 @@ void test_color()
         else { throw("get_random_rgb should not return any other color than r, g, b"); }
       }
 
-    assert(n_red > 0 && n_red < 100);
+    assert(n_red > 0 && n_green > 0 && n_blue > 0 );
+
   }
 #endif // FIX_ISSUE_628
 
