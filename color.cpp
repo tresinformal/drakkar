@@ -215,10 +215,9 @@ void test_color()
   }
 #endif // FIX_ISSUE_460
 
-#ifdef FIX_ISSUE_628
+  #ifdef FIX_ISSUE_628
   // (628) A random color between red, blue, green can be sampled
   {
-    color c;
     int n_red = 0;
     int n_green = 0;
     int n_blue = 0;
@@ -230,7 +229,7 @@ void test_color()
     std::mt19937 rng(1);
     for (int i = 0; i < 100; ++i)
       {
-        c = get_random_rgb(rng);
+        const color c = get_random_rgb(rng);
         if (c == r) { ++n_red; }
         else if (c == g) { ++n_green; }
         else if (c == b) { ++n_blue; }

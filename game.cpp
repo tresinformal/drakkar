@@ -1335,55 +1335,55 @@ void test_game() //!OCLINT tests may be many
     g.kill_player(0);
 
     assert(num_of_players_begin == g.get_v_player().size());
-    assert(is_out(g.get_player(0)));
+    assert(is_dead(g.get_player(0)));
   }
 
-#ifdef FIX_ISSUE_606
+#ifdef FIX_ISSUE_626
   {
-    // (626) A player that is out can be revived
+    // (626) A player that is dead can be revived
     game g;
     g.kill_player(0);
-    assert(is_out(g.get_player(0)));
+    assert(is_dead(g.get_player(0)));
     g.revive_player(0);
-    assert(!is_out(g.get_player(0)));
+    assert(!is_dead(g.get_player(0)));
   }
 #endif
 
 #ifdef FIX_ISSUE_611
   {
-    // (611) A player that is out revives after some time
+    // (611) A player that is dead revives after some time
     game g;
     g.kill_player(0);
     const int revive_time = 100;
     for (int i = 0; i < revive_time; ++i)
       {
-        assert(is_out(g.get_player(0)));
+        assert(is_dead(g.get_player(0)));
         g.tick();
       }
-    assert(!is_out(g.get_player(0)));
+    assert(!is_dead(g.get_player(0)));
   }
 #endif
 
 #ifdef FIX_ISSUE_606
   {
-    // (606) When a player goes under some size, it is out
+    // (606) When a player goes under some size, it dies
     game g;
-    player p = g.get_player(0);
+    player& p = g.get_player(0);
     const double death_size = 5.0; // choose a value
     // Make the player smaller
     while(get_nth_player_size(g, 0) > death_size)
       {
-        assert(!is_out(p));
+        assert(!is_dead(p));
         p.shrink();
         g.tick();
       }
-    assert(is_out(p));
+    assert(is_dead(p));
   }
 #endif
 
   #ifdef FIX_ISSUE_625
     {
-    // (625) A player that is out cannot collide with other players
+    // (625) A player that is dead cannot collide with other players
     game g;
     const coordinate c_p2 = g.get_player(1).get_position();
     g.get_player(0).place_to_position(c_p2);
@@ -1405,7 +1405,7 @@ void test_game() //!OCLINT tests may be many
   }
 
 #ifdef FIX_ISSUE_621
-  // (621) A player that is out does not eat food
+  // (621) A player that is dead does not eat food
   {
     game g;
     put_player_on_food(g.get_player(0), g.get_food()[0]);
@@ -1791,7 +1791,7 @@ void test_game() //!OCLINT tests may be many
 
 #ifdef FIX_ISSUE_622
   {
-    // (622) A player that is out cannot shoot rockets
+    // (622) A player that is dead cannot shoot rockets
     game g;
     g.kill_player(0);
 
@@ -1807,7 +1807,7 @@ void test_game() //!OCLINT tests may be many
 
 #ifdef FIX_ISSUE_624
   {
-    // (624) A player that is out cannot be stunned
+    // (624) A player that is dead cannot be stunned
     // and does not absorb stun rockets
     game g;
     g.kill_player(0);
@@ -1826,7 +1826,7 @@ void test_game() //!OCLINT tests may be many
 
 #ifdef FIX_ISSUE_623
   {
-    // (623) A player that is out does not take damage from regular rockets
+    // (623) A player that is dead does not take damage from regular rockets
     game g;
     const double initial_p_size = get_nth_player_size(g, 0);
     g.kill_player(0);

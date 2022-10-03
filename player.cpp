@@ -187,7 +187,7 @@ void player::stun()
 // The player can die
 void player::die()
 {
-  m_state = player_state::out;
+  m_state = player_state::dead;
 }
 
 // The player can revive
@@ -203,7 +203,7 @@ void stun(player &p) noexcept
 
 bool is_alive(const player& p) noexcept
 {
-    return !is_out(p);
+    return !is_dead(p);
 }
 
 bool is_active(const player & p) noexcept
@@ -211,9 +211,9 @@ bool is_active(const player & p) noexcept
     return p.get_state() == player_state::active;
 }
 
-bool is_out(const player& p) noexcept
+bool is_dead(const player& p) noexcept
 {
-    return p.get_state() == player_state::out;
+    return p.get_state() == player_state::dead;
 }
 
 bool is_stunned(const player & p) noexcept
@@ -610,14 +610,14 @@ void test_player() //!OCLINT tests may be long
     p.stun();
     assert(p.get_state() == player_state::stunned);
     p.die();
-    assert(p.get_state() == player_state::out);
+    assert(p.get_state() == player_state::dead);
     p.revive();
     assert(p.get_state() == player_state::active);
   }
 
   #ifdef FIX_ISSUE_609
   {
-    // (609) A player that is out becomes transparent
+    // (609) A player that is dead becomes transparent
     player p;
     assert(p.get_color().get_opaqueness() == 255);
     p.die();
