@@ -648,9 +648,7 @@ void test_player() //!OCLINT tests may be long
       else { throw("A player should not revive with any other color than r, g, b"); }
     }
 
-  assert(n_red > 0 && n_red < 100);
-  assert(n_green > 0 && n_green < 100);
-  assert(n_blue > 0 && n_blue < 100);
+  assert(n_red > 0 && n_green > 0 && n_blue > 0);
 }
 #endif
 
