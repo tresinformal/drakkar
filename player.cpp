@@ -625,12 +625,32 @@ void test_player() //!OCLINT tests may be long
   }
   #endif
 
-#define FIX_ISSUE_612
 #ifdef FIX_ISSUE_612
 {
   // (612) A player that revives gets a new colour at random
   player p;
-  makeanerror;
+  color c;
+  int n_red = 0;
+  int n_green = 0;
+  int n_blue = 0;
+  const color r = create_red_color();
+  const color g = create_green_color();
+  const color b = create_blue_color();
+
+  for (int i = 0; i < 100; ++i)
+    {
+      p.die();
+      p.revive();
+      c = p.get_color();
+      if (c == r) { ++n_red; }
+      else if (c == g) { ++n_green; }
+      else if (c == b) { ++n_blue; }
+      else { throw("A player should not revive with any other color than r, g, b"); }
+    }
+
+  assert(n_red > 0 && n_red < 100);
+  assert(n_green > 0 && n_green < 100);
+  assert(n_blue > 0 && n_blue < 100);
 }
 #endif
 

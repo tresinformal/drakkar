@@ -1855,22 +1855,6 @@ void test_game() //!OCLINT tests may be many
     assert(color_player_three == create_blue_color());
   }
 
-//#define FIX_ISSUE_612
-#ifdef FIX_ISSUE_612
-  {
-    // (612) A player that revives gets a new colour
-    game g;
-    g.kill_player(0);
-    const int revive_time = 100;
-    for (int i = 0; i < revive_time; ++i)
-      {
-        assert(is_out(g.get_player(0)));
-        g.tick();
-      }
-    assert(!is_out(g.get_player(0)));
-  }
-#endif
-
   {
     // (458) The color of any food item can be accessed easily
     const game g;
