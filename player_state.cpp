@@ -1,4 +1,5 @@
 #include "player_state.h"
+#include "player.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>
