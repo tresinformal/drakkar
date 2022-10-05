@@ -3,7 +3,8 @@
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
 
-options_view::options_view() :
+options_view::options_view(const game_options& options) :
+  m_options{options},
   m_window(
     sf::VideoMode(1280, 720),
     "tresinformal game options"
@@ -97,6 +98,7 @@ void test_options_view() //!OCLINT tests may be many
     // and closing after, but that is not possible AFAICS
     // bc exec() doesn't exit on its own
   }
+  //#define FIX_ISSUE_631
   #ifdef FIX_ISSUE_631
   // (631) An options_view allows a user to modify game_options
   {
