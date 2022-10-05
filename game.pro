@@ -15,6 +15,9 @@ QMAKE_CXXFLAGS += -std=c++17
 # High warning levels
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
 
+# Activate this if you have the magic_enum library
+# DEFINES += HAS_MAGIC_ENUM
+
 
 # Debug and release settings
 CONFIG += debug_and_release
