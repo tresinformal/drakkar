@@ -9,7 +9,8 @@
 class options_view
 {
 public:
-  options_view();
+  /// The initial options to display
+  options_view(const game_options& options = game_options());
 
   /// Shows the options
   void show();
