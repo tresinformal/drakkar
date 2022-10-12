@@ -14,7 +14,7 @@ They flew right through it and back into darkness.
 They flew back to earth.
 and they lived happily ever after (maybe).
 
-which is troublesome as it was winter and they were in North Finland...
+Which is troublesome as it was winter and they were in North Finland...
 and they lived happily until their livers collapsed. Ande even then, they were happy.
 
 
