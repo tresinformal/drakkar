@@ -1,4 +1,4 @@
-#include "options_view.h"
+﻿#include "options_view.h"
 #include <cassert>
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
@@ -56,25 +56,25 @@ void options_view::show()
   background_sprite.setFillColor(bg_color);
   m_window.draw(background_sprite);
 
-  // Placeholder text
-  sf::Text placeholder;
-  placeholder.setFont(m_game_resources.get_font());
-  placeholder.setString("We don't have an Options screen yet D:");
-  placeholder.setCharacterSize(40);
-  sf::FloatRect text_area = placeholder.getLocalBounds();
-  placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
+  // Text
+  sf::Text sound_label;
+  sound_label.setFont(m_game_resources.get_font());
+  sound_label.setString("Play Sound: Yes");
+  sound_label.setCharacterSize(40);
+  sf::FloatRect text_area = sound_label.getLocalBounds();
+  sound_label.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
 
 #if SFML_VERSION_MAJOR > 2
     placeholder.setFillColor(sf::Color::Yellow);
 #elif SFML_VERSION_MAJOR == 2 and SFML_VERSION_MINOR >= 4
-    placeholder.setFillColor(sf::Color::Yellow);
+    sound_label.setFillColor(sf::Color::Yellow);
 #else
     placeholder.setColor(sf::Color::Yellow);
 #endif
 
 
-  placeholder.setPosition(m_width / 2.0, m_height / 2.0);
-  m_window.draw(placeholder);
+  sound_label.setPosition(m_width / 8.0, text_area.height * 2.5);
+  m_window.draw(sound_label);
 
   // Display all shapes
   m_window.display();
