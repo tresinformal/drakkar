@@ -1,8 +1,6 @@
 #ifndef OPTIONS_VIEW_H
 #define OPTIONS_VIEW_H
 
-#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
-
 #include "SFML/Graphics.hpp"
 #include "game_options.h"
 #include "game_resources.h"
@@ -11,7 +9,8 @@
 class options_view
 {
 public:
-  options_view();
+  /// The initial options to display
+  options_view(const game_options& options = game_options());
 
   /// Shows the options
   void show();
@@ -28,6 +27,9 @@ public:
   // Get the window's state, for testing purposes only
   bool is_window_open() { return m_window.isOpen(); }
 
+  // Get the game options
+  const game_options& get_options()const noexcept { return m_options; }
+
 private:
   game_options m_options;
   sf::RenderWindow m_window;
@@ -39,7 +41,5 @@ private:
 };
 
 void test_options_view();
-
-#endif // LOGIC_ONLY
 
 #endif // OPTIONS_VIEW_H

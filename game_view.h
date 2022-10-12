@@ -14,8 +14,8 @@ class game_view
 {
 public:
   game_view(
-    game_options options = game_options(),
-    sf::Vector2f window_size = sf::Vector2f(1280, 720)
+          game_options options = game_options(),
+          sf::Vector2f window_size = sf::Vector2f(1280, 720)
   );
   ~game_view();
 
@@ -114,6 +114,9 @@ private:
 
   /// Draw player coordinates
   void draw_player_coords() noexcept;
+
+  /// Draw scoring board
+  void draw_scoring_board() noexcept;
 };
 
 /// Count the number of projectiles

@@ -6,12 +6,13 @@
 #include "environment.h"
 #include "environment_type.h"
 #include "food.h"
+#include "game_options.h"
 #include "player.h"
 #include "player_shape.h"
 #include "projectile.h"
+#include "scoring_board.h"
 #include "shelter.h"
 #include <vector>
-#include "game_options.h"
 #include <cassert>
 #include <random>
 
@@ -87,6 +88,12 @@ public:
     return m_player[static_cast<unsigned int>(i)];
   }
 
+  /// Get the scoring board
+  const scoring_board &get_scoring_board() const {return m_scoring_board;};
+
+  /// Get the reference of the scoring boarding to change it
+  scoring_board &get_scoring_board() {return m_scoring_board;};
+
   /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_player; }
 
@@ -126,6 +133,7 @@ public:
 
   ///Manages collisons with walls
   player resolve_wall_collision(player p);
+  
 private:
 
   /// The RNG engine
@@ -139,6 +147,9 @@ private:
 
   /// Vector of players
   std::vector<player> m_player;
+
+  /// the scoring board
+  scoring_board m_scoring_board;
 
   ///Vector of index of the players that collide
   std::vector<int> m_v_collisions_ind;
@@ -173,14 +184,24 @@ private:
   /// Increment timers of shoot calm down of all the players
   void increment_cool_down_timers();
 
+  // BEGIN Function Group Shoot Cool Down
   /// Reset timers of shoot calm down of all the players
   void reset_cool_down_status();
+  // END Function Group Shoot Cool Down
 
   /// Make players eat food items they are on top of
   void make_players_eat_food();
 
   /// Regenerate food items where relevant
   void regenerate_food_items();
+
+  // BEGIN Function Group Scoring Board
+  /// Update scores of the players
+  void update_scoring_board();
+
+  /// Update timer insides the scoring board;
+  void update_timer();
+  // END Function Group Scoring Board
 };
 
 /// Calculate a mean of a vector of numbers
@@ -207,10 +228,6 @@ bool hits_south_wall(const player& p, const environment& e);
 bool hits_north_wall(const player& p, const environment& e);
 bool hits_east_wall(const player& p, const environment& e);
 bool hits_west_wall(const player& p, const environment& e);
-
-/// Upon a collision, kills the player that loser
-/// Assumes there is a collision
-void kill_losing_player(game &);
 
 ///Upon a collision, grows the size of the winning player
 void grow_winning_player(game &g);
