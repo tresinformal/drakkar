@@ -119,9 +119,6 @@ public:
     ///Set the color of the player
     void set_color(const color &c) {m_color = c;}
 
-    /// Set the state of the player
-    void set_state(const player_state &s) noexcept { m_state = s; }
-
     /// The player shoots, does nothing for now
     /// When a player shoots, 'm_is_shooting' is true for one tick.
     /// 'game' reads 'm_is_shooting' and if it is true,
@@ -182,6 +179,15 @@ public:
 
     /// Make the player shrink
     void shrink();
+
+    // The player can be stunned
+    void stun();
+
+    // The player can die
+    void die();
+
+    // The player can revive
+    void revive();
 
 private:
     /// The player's color, will change depending on food items
