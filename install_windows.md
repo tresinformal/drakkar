@@ -39,7 +39,7 @@ Here, you will need to check two boxes:
 
 ![](qt_maintenance_tool_2.png)
 
-## 2. Download and install SFML ([here](https://www.sfml-dev.org/files/SFML-2.5.1-macOS-clang.tar.gz))
+## 2. Download and install SFML
 
  * Go to the SFML download page, 
    [https://www.sfml-dev.org/download/sfml/2.5.0/](https://www.sfml-dev.org/download/sfml/2.5.0/)
