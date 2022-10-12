@@ -1,4 +1,5 @@
 #include "options_view.h"
+#include "menu_button.h"
 #include <cassert>
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
@@ -57,25 +58,28 @@ void options_view::show()
   background_sprite.setFillColor(bg_color);
   m_window.draw(background_sprite);
 
-  // Placeholder text
-  sf::Text placeholder;
-  placeholder.setFont(m_game_resources.get_font());
-  placeholder.setString("We don't have an Options screen yet D:");
-  placeholder.setCharacterSize(40);
-  sf::FloatRect text_area = placeholder.getLocalBounds();
-  placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
+  // Create the Music button sprite
+  sf::Vector2f music_button_dim(200.0, 100.0);
+  sf::Vector2f music_button_pos(m_width / 2.0, m_height / 5.0);
+  sf::RectangleShape music_button_bg(music_button_dim);
+  sf::Color music_button_color(0, 100, 255);
+  music_button_bg.setFillColor(music_button_color);
+  sf::Vector2f music_button_origin(music_button_bg.getSize().x / 2.0f,
+                                   music_button_bg.getSize().y / 2.0f);
+  music_button_bg.setOrigin(music_button_origin);
+  music_button_bg.setPosition(music_button_pos);
 
-#if SFML_VERSION_MAJOR > 2
-    placeholder.setFillColor(sf::Color::Yellow);
-#elif SFML_VERSION_MAJOR == 2 and SFML_VERSION_MINOR >= 4
-    placeholder.setFillColor(sf::Color::Yellow);
-#else
-    placeholder.setColor(sf::Color::Yellow);
-#endif
+  // Create the Music button text
+  sf::Text music_button_text;
+  music_button_text.setString("Music:");
+  music_button_text.setFont(m_game_resources.get_font());
+  //sf::FloatRect text_area = music_button_text.getLocalBounds();
+  music_button_text.setCharacterSize(50);
+  music_button_text.setOrigin(music_button_origin);
+  music_button_text.setPosition(music_button_pos);
 
-
-  placeholder.setPosition(m_width / 2.0, m_height / 2.0);
-  m_window.draw(placeholder);
+  m_window.draw(music_button_bg);
+  m_window.draw(music_button_text);
 
   // Display all shapes
   m_window.display();
@@ -105,6 +109,15 @@ void test_options_view() //!OCLINT tests may be many
     const game_options options_again(view.get_options());
     assert(options == options_again);
   }
+
+#ifdef FIX_ISSUE_630
+  // (630) The options screen has a music on/off button
+  {
+    const options_view view;
+    const menu_button mb = view.get_music_button();
+    mb.get_label() == "";
+  }
+#endif
 
 }
 #endif // NDEBUG // No tests in release
