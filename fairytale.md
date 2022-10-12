@@ -37,3 +37,4 @@ Suddenly, a herd of minimammoths appeared.
 Due to the sun, they were killed by the heat. 
 But that is not all of it! Because they were actually robot scouts from the future. And suddenly a time portal opened up and a load of robots appeared!
 "Help!!!" A dead penguin screamed.
+Those where the last words of pingu pingson.
