@@ -98,8 +98,6 @@ void test_options_view() //!OCLINT tests may be many
     // and closing after, but that is not possible AFAICS
     // bc exec() doesn't exit on its own
   }
-  //#define FIX_ISSUE_631
-  #ifdef FIX_ISSUE_631
   // (631) An options_view allows a user to modify game_options
   {
     const game_options options;
@@ -107,7 +105,6 @@ void test_options_view() //!OCLINT tests may be many
     const game_options options_again(view.get_options());
     assert(options == options_again);
   }
-  #endif // FIX_ISSUE_631
 
 }
 #endif // NDEBUG // No tests in release

@@ -27,6 +27,9 @@ public:
   // Get the window's state, for testing purposes only
   bool is_window_open() { return m_window.isOpen(); }
 
+  // Get the game options
+  const game_options& get_options()const noexcept { return m_options; }
+
 private:
   game_options m_options;
   sf::RenderWindow m_window;
