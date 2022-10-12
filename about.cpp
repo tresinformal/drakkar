@@ -36,6 +36,7 @@ std::vector<std::string> about::get_contributors() const noexcept
     "Timo van Eldijk",
     "Paula",
     "Sergio Gonmoll",
-    "Marina Papadopoulou"
+    "Marina Papadopoulou",
+    "Ludvig"
   };
 }
