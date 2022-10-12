@@ -1,6 +1,6 @@
 # Fairytale (For ages 3.14159 to 265358 years old)
 
-Once upon a time there was a dragon and a toothfairy and a goblin.
+Once upon a time there was a dragon, a toothfairy and a goblin.
 They were both horses in disguise (can you imagine?)!
 
 Three fairytale protagonists in two horse bodies, what a quantum conundrum.
