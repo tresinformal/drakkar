@@ -40,3 +40,13 @@ std::vector<std::string> about::get_contributors() const noexcept
     "Ludvig"
   };
 }
+
+std::string about::get_link_discord()
+{
+    return std::string("https://discord.gg/QMZMaTx5b4");
+}
+    /// tests issue 598
+{
+    about ab;
+    std::vector<std::string> link_to_discord = ab.get_link_discord();
+}
