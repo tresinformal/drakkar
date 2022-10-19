@@ -178,9 +178,27 @@ bool is_red(const player & p) noexcept
             ;
 }
 
+// The player can be stunned
+void player::stun()
+{
+  m_state = player_state::stunned;
+}
+
+// The player can die
+void player::die()
+{
+  m_state = player_state::dead;
+}
+
+// The player can revive
+void player::revive()
+{
+  m_state = player_state::active;
+}
+
 void stun(player &p) noexcept
 {
-    p.set_state(player_state::stunned);
+    p.stun();
 }
 
 bool is_alive(const player& p) noexcept
@@ -585,6 +603,54 @@ void test_player() //!OCLINT tests may be long
       // (351)
         assert(to_str(player_state::active) == "active");
     }
+
+  {
+    // (627) A player's state is changed by specific functions
+    player p;
+    p.stun();
+    assert(p.get_state() == player_state::stunned);
+    p.die();
+    assert(p.get_state() == player_state::dead);
+    p.revive();
+    assert(p.get_state() == player_state::active);
+  }
+
+  #ifdef FIX_ISSUE_609
+  {
+    // (609) A player that is dead becomes transparent
+    player p;
+    assert(p.get_color().get_opaqueness() == 255);
+    p.die();
+    assert(p.get_color().get_opaqueness() == 100);
+  }
+  #endif
+
+#ifdef FIX_ISSUE_612
+{
+  // (612) A player that revives gets a new colour at random
+  player p;
+  color c;
+  int n_red = 0;
+  int n_green = 0;
+  int n_blue = 0;
+  const color r = create_red_color();
+  const color g = create_green_color();
+  const color b = create_blue_color();
+
+  for (int i = 0; i < 100; ++i)
+    {
+      p.die();
+      p.revive();
+      c = p.get_color();
+      if (c == r) { ++n_red; }
+      else if (c == g) { ++n_green; }
+      else if (c == b) { ++n_blue; }
+      else { throw("A player should not revive with any other color than r, g, b"); }
+    }
+
+  assert(n_red > 0 && n_green > 0 && n_blue > 0);
+}
+#endif
 
   //#define FIX_ISSUE_401
   #ifdef FIX_ISSUE_401

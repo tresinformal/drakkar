@@ -15,6 +15,9 @@ QMAKE_CXXFLAGS += -std=c++17
 # High warning levels
 QMAKE_CXXFLAGS += -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
 
+# Activate this if you have the magic_enum library
+# DEFINES += HAS_MAGIC_ENUM
+
 
 # Debug and release settings
 CONFIG += debug_and_release
@@ -48,9 +51,11 @@ win32{
   INCLUDEPATH += C:/Qt/sfml/include
   INCLUDEPATH += D:/Qt/sfml/include
   INCLUDEPATH += C:/DEV/SFML-2.5.1/include
+  INCLUDEPATH += G:/Dev/Qt/QTProgram/sfml/include
   LIBS += -LC:/Qt/sfml/lib
   LIBS += -LD:/Qt/sfml/lib
   LIBS += -LC:/DEV/SFML-2.5.1/lib
+  LIBS += -LG:/Dev/Qt/QTProgram/sfml/lib
   CONFIG(debug, debug|release) {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
   }
