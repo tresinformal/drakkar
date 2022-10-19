@@ -211,15 +211,15 @@ void test_color()
   // #460 Ready-made black and white colors are available
   {
     const color black = create_black_color();
-    assert(get_redness(black) == 255);
-    assert(get_greenness(black) == 255);
-    assert(get_blueness(black) == 255);
+    assert(get_redness(black) == 0);
+    assert(get_greenness(black) == 0);
+    assert(get_blueness(black) == 0);
   }
   {
     const color white = create_white_color();
-    assert(get_redness(white) == 0);
-    assert(get_greenness(white) == 0);
-    assert(get_blueness(white) == 0);
+    assert(get_redness(white) == 255);
+    assert(get_greenness(white) == 255);
+    assert(get_blueness(white) == 255);
   }
 
   #ifdef FIX_ISSUE_628
