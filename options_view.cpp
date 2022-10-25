@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-﻿#include "options_view.h"
-=======
 #include "options_view.h"
 #include "menu_button.h"
->>>>>>> 2b41be2a4b09cf024fd9296a34bdce0b691bd1f2
 #include <cassert>
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
@@ -62,27 +58,6 @@ void options_view::show()
   background_sprite.setFillColor(bg_color);
   m_window.draw(background_sprite);
 
-<<<<<<< HEAD
-  // Text
-  sf::Text sound_label;
-  sound_label.setFont(m_game_resources.get_font());
-  sound_label.setString("Play Sound: Yes");
-  sound_label.setCharacterSize(40);
-  sf::FloatRect text_area = sound_label.getLocalBounds();
-  sound_label.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
-
-#if SFML_VERSION_MAJOR > 2
-    placeholder.setFillColor(sf::Color::Yellow);
-#elif SFML_VERSION_MAJOR == 2 and SFML_VERSION_MINOR >= 4
-    sound_label.setFillColor(sf::Color::Yellow);
-#else
-    placeholder.setColor(sf::Color::Yellow);
-#endif
-
-
-  sound_label.setPosition(m_width / 8.0, text_area.height * 2.5);
-  m_window.draw(sound_label);
-=======
   // Create the Music button sprite
   sf::Vector2f music_button_dim(200.0, 100.0);
   sf::Vector2f music_button_pos(m_width / 2.0, m_height / 5.0);
@@ -105,7 +80,6 @@ void options_view::show()
 
   m_window.draw(music_button_bg);
   m_window.draw(music_button_text);
->>>>>>> 2b41be2a4b09cf024fd9296a34bdce0b691bd1f2
 
   // Display all shapes
   m_window.display();
