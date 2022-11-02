@@ -5,6 +5,8 @@
   2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/game/tree/CMAKE_attempts)
   3. Put your version of the branch up-to-date
   4. Update the vcpkg submodule (once)
+  (For Qt creator users)
+  5. open a new project on Qt creator by selectiung the CMakeLists.txt file in the repo
 
 ## 0. Get the right version
 
