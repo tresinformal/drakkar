@@ -2,8 +2,9 @@
 
   0. Get the right version
   1. Download and install Qt Creator with CMAKE (once)
-  2. Clone the repository remembering to update its submodules (vcpkg in particular) 'git clone https://github.com/tresinformal/game/tree/CMAKE_attempts --recursive'
-  3. Update the vcpkg submodule (once)
+  2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/game/tree/CMAKE_attempts)
+  3. Put your version of the branch up-to-date
+  4. Update the vcpkg submodule (once)
 
 ## 0. Get the right version
 
@@ -18,12 +19,17 @@ the correct version really matters. For this installation you will need to:
 Use all defaults, up until the Qt Maintenance tool is started.
 Here, you will need to check two boxes:
 
- * 1. For the highest (stable) Qt version: 
-      the highest MinGW.
+ * 1. For the highest (stable) Qt version
 
- * 2. Under tools: that same MinGW :warning: remember this version of MinGW
+ * 2. Under tools: 
 
-![](qt_maintenance_tool_2.png)
 
-## 2. Update the vcpkg submodule
+## 2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/game/tree/CMAKE_attempts)
+Do so by running `git checkout CMAKE_attempts`
+## 3. Put your version of the branch up-to-date
+Do so by running the command: `git pull`
+## 4. Update the vcpkg submodule
+Do so by running the command: `git submodule update --init`
+
+
 
