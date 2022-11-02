@@ -1,11 +1,11 @@
 # Fairytale (For ages 3.14159 to 265358 years old)
 
-Once upon a time there was a dragon and a toothfairy and a goblin.
+Once upon a time there was a dragon, a toothfairy and a goblin.
 They were both horses in disguise (can you imagine?)!
 
 Three fairytale protagonists in two horse bodies, what a quantum conundrum.
 
-They drank a lot of beer and flew into the sun
+They drank a lot of beer and flew into the sun, that was a white dwarf.
 
 The sun was very hot and would burn anything and anyone to a crisp, but as they are magical creatures, they were not harmed.
 They flew right through it and back into darkness.
@@ -14,7 +14,7 @@ They flew right through it and back into darkness.
 They flew back to earth.
 and they lived happily ever after (maybe).
 
-which is troublesome as it was winter and they were in North Finland...
+Which is troublesome as it was winter and they were in North Finland...
 and they lived happily until their livers collapsed. Ande even then, they were happy.
 
 
@@ -27,7 +27,7 @@ Climate change!!! The weather of North Finland became comparable to Southern Fra
 
 the story continues to the galaxy far far away
 dragons have been living on the earth's plane of existance, but the empire is invading earth with Darth Vader leading the army. brave dragons have once again stood up together, shoulder to shoulder to protect and save the humanity from the evil empire. They were fighting for 60 days and 80 nights in succession and in the end... 
-They lost. They lost?!
+They lost. They lost?! They lost?!!
 
 The penguins were pleased when news reached them about the events. They had been expecting this for a while.
 
@@ -36,3 +36,7 @@ They all died of climate change.
 Suddenly, a herd of minimammoths appeared. 
 Due to the sun, they were killed by the heat. 
 But that is not all of it! Because they were actually robot scouts from the future. And suddenly a time portal opened up and a load of robots appeared!
+"Help!!!" A dead penguin screamed.
+Those where the last words of pingu pingson.
+
+EXPLOTION!!!!!!!!!!!!!!!

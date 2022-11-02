@@ -4,11 +4,11 @@
 #include <fstream>
 #include <string>
 
-scoring_board::scoring_board(unsigned int score_player1,
-                             unsigned int score_player2 ,
-                             unsigned int score_player3,
-                             unsigned int timer,
-                             short winner)
+scoring_board::scoring_board(int score_player1,
+                             int score_player2 ,
+                             int score_player3,
+                             int timer,
+                             int winner)
     : m_score_player1{score_player1},
       m_score_player2{score_player2},
       m_score_player3{score_player3},
@@ -18,7 +18,7 @@ scoring_board::scoring_board(unsigned int score_player1,
 
 }
 
-void scoring_board::set_winner(short winner)
+void scoring_board::set_winner(int winner)
 {
   if ((winner < 0) | (winner > 2))
     {
