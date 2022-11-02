@@ -2,7 +2,8 @@
 
   0. Get the right version
   1. Download and install Qt Creator with CMAKE (once)
-  2. Update the vcpkg submodule (once)
+  2. Clone the repository remembering to update its submodules (vcpkg in particular) 'git clone https://github.com/tresinformal/game/tree/CMAKE_attempts --recursive'
+  3. Update the vcpkg submodule (once)
 
 ## 0. Get the right version
 
