@@ -18,6 +18,8 @@ Branch      |[GitHub Actions](https://github.com/tresinformal/game/actions)     
 `tianjian`  |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=tianjian)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=tianjian)](https://codecov.io/github/tresinformal/game/branch/tianjian)
 `yang`      |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=yang)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=yang)](https://codecov.io/github/tresinformal/game/branch/yang)
 
+`ludvig`      |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=ludvig)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=ludvig)](https://codecov.io/github/tresinformal/game/branch/ludvig)
+
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 A video game, developed informally and professionally.
 
