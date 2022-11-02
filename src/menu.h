@@ -1,3 +1,4 @@
+
 #ifndef MENU_H
 #define MENU_H
 #include "menu_button.h"
@@ -9,10 +10,12 @@ public:
        int w_height = 720,
        std::string label_button1 = "action",
        color color_button_1 = create_green_color(),
-       std::string label_button2 = "about",
+       std::string label_button2 = "options",
        color color_button_2 = create_blue_color(),
-       std::string label_button3 = "quit",
-       color color_button_3 = create_red_color()
+       std::string label_button3 = "about",
+       color color_button_3 = create_red_color(),
+       std::string label_button4 = "quit",
+       color color_button_4 = color(120, 120, 0)
       );
 
   /// Gets the width of the screen

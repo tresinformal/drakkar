@@ -1,11 +1,10 @@
 #ifndef GAME_VIEW_H
 #define GAME_VIEW_H
 
-#ifndef LOGIC_ONLY // that is, not compiled on GitHub Actions
-
 #include "game.h"
 #include "game_resources.h"
 #include "game_options.h"
+#include "view_mode.h"
 #include <SFML/Graphics.hpp>
 #include "key_action_map.h"
 
@@ -14,8 +13,10 @@
 class game_view
 {
 public:
-
-  game_view(game_options options = game_options());
+  game_view(
+          game_options options = game_options(),
+          sf::Vector2f window_size = sf::Vector2f(1280, 720)
+  );
   ~game_view();
 
   /// Show one frame
@@ -28,7 +29,7 @@ public:
   void exec() noexcept;
 
   /// Get const reference to m_game_options
-  const game_options& get_options() const noexcept {return m_options;}
+  const game_options& get_options() const noexcept {return get_game().get_game_options();}
 
   /// Processes events in game and ouputs false if quit
   /// is inputted
@@ -37,9 +38,25 @@ public:
   ///Gets a const ref to m_game
   const game& get_game() const noexcept {return m_game; }
 
+  /// Get next view
+  view_mode get_next_view() const
+  {
+    return m_next_view;
+  }
+
+  // Get the size of the window
+  const sf::Vector2f& get_window_size() const noexcept { return m_window_size; }
+
+  // Get the window's state, for testing purposes only
+  bool is_window_open() const { return m_window.isOpen(); }
+
   ///Gets a ref to m_game
   game& get_game() noexcept {return m_game; }
 
+#ifdef VIEW_SWITCH
+  // Returns what view should come next
+  const view_mode& what_next() const noexcept { return m_next_view; }
+#endif // VIEW_SWITCH
   ///Gets the const reference to the vector of sf::Views m_v_views
   const std::vector<sf::View>& get_v_views() const noexcept {return  m_v_views; }
 
@@ -59,11 +76,17 @@ private:
   /// The resources (images, sounds, etc.) of the game
   game_resources m_game_resources;
 
+  // The size of the window to draw
+  sf::Vector2f m_window_size;
+
   /// The window to draw to
   sf::RenderWindow m_window;
 
   ///The views of each player
   std::vector<sf::View> m_v_views;
+
+  /// Next view to switch to
+  view_mode m_next_view = view_mode::quit;
 
   /// Parses input for player 1
   void pl_1_stop_input(sf::Event event) noexcept;
@@ -73,9 +96,6 @@ private:
 
   /// Parses input for player 3
   void pl_3_stop_input(sf::Event event) noexcept;
-
-  /// The options of the game
-  game_options m_options;
 
   ///Draws the background
   void draw_background() noexcept;
@@ -94,6 +114,9 @@ private:
 
   /// Draw player coordinates
   void draw_player_coords() noexcept;
+
+  /// Draw scoring board
+  void draw_scoring_board() noexcept;
 };
 
 /// Count the number of projectiles
@@ -104,10 +127,8 @@ key_action_map get_player_kam(const player& p);
 /// Parses input for a player
 player player_input(player p, sf::Event event);
 
-void test_game_view();
-
 bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+void test_game_view();
 
 #endif // GAME_VIEW_H

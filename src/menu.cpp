@@ -7,12 +7,15 @@ menu::menu( int w_width,
             std::string label_button2,
             color color_button2,
             std::string label_button3,
-            color color_button3)
+            color color_button3,
+            std::string label_button4,
+            color color_button4)
   : m_window_width{w_width}, m_window_height{w_height},
     m_v_buttons{
       menu_button(label_button1, color_button1),
       menu_button(label_button2, color_button2),
-      menu_button(label_button3, color_button3)
+      menu_button(label_button3, color_button3),
+      menu_button(label_button4, color_button4)
       }
 {
   put_buttons_tidy();
@@ -124,15 +127,12 @@ void test_menu()
              0.000001f);
   }
 
-  //#define FIX_ISSUE_446
-  #ifdef FIX_ISSUE_446
   // Add an "Options" button to the menu
   {
      menu m;
      assert(m.get_buttons().size() == 4);
-     assert(m.get_button(1).get_name() == "options");
+     assert(m.get_button(1).get_label() == "options");
   }
-  #endif // FIX_ISSUE_446
 
   {
     // (484) One can detect if a position is inside or outside a menu button
@@ -157,4 +157,16 @@ void test_menu()
     assert(!is_inside_button(c_outside2, mb));
   }
   #endif
+
+    ///It should always be possible to go back to the option widows by pressing 'esc'
+    {
+//        ///Open the program
+//        ///Go to the options
+//        option_view ov;
+//        ov.show_game();
+//        assert(is_not_showing_options(ov));
+//        press_esc(ov);
+//        assert(is_showing_options(ov));
+    }
 }
+>>>>>>> develop:menu.cpp

@@ -1,4 +1,3 @@
-
 #include "game_options.h"
 #include "key_action_map.h"
 #include "environment_type.h"
@@ -115,34 +114,29 @@ void test_game_options()
     const auto m_again = get_player_2_kam(); // Naming is confusing, this is the KAM for the first player
     assert(m == m_again);
   }
-  #define FIX_ISSUE_289
-  #ifdef FIX_ISSUE_289
-  // Player 3 has a key action map
+  // (289) Player 3 has a key action map
   {
     const game_options a;
     const auto m = a.get_kam_3();
     const auto m_again = get_player_3_kam(); // Naming is confusing, this is the KAM for the first player
     assert(m == m_again);
   }
-  #endif // FIX_ISSUE_289
 
-  #define FIX_ISSUE_303
-  #ifdef FIX_ISSUE_303
-  // Two random game options are the same, when the same seed is used
+  // (303) Two random game options are the same, when the same seed is used
   {
     const int rng_seed = 271;
     const game_options a = get_random_game_options(rng_seed);
     const game_options b = get_random_game_options(rng_seed);
     assert(a == b);
   }
-  // Two random game options differ in general
+  // (303) Two random game options differ in general
   {
     const int rng_seed = 314;
     const game_options a = get_random_game_options(rng_seed);
     const game_options b = get_random_game_options(rng_seed + 1);
     assert(a != b);
   }
-  // Two random game options differ in their key-action maps especially
+  // (303) Two random game options differ in their key-action maps especially
   {
     const int rng_seed = 111;
     const game_options a = get_random_game_options(rng_seed);
@@ -150,12 +144,9 @@ void test_game_options()
     assert(a.get_kam_1() != b.get_kam_1());
     assert(a.get_kam_2() != b.get_kam_2());
   }
-  #endif // FIX_ISSUE_303
 
-  #define FIX_ISSUE_353
-  #ifdef FIX_ISSUE_353
   {
-    // Random game options should not draw keys already used by another player
+    // (353) Random game options should not draw keys already used by another player
     const int rng_seed = 271;
     const game_options rgo = get_random_game_options(rng_seed);
     key_action_map map_1 = rgo.get_kam_1();
@@ -167,16 +158,12 @@ void test_game_options()
         assert(!map_2.has_key(key_in_1));
       }
   }
-  #endif // FIX_ISSUE_353
 
- #define FIX_ISSUE_383
-#ifdef FIX_ISSUE_383
-// A game_options has an environment_type member
+// (383) A game_options has an environment_type member
 {
   game_options go;
   assert(go.get_environment_type() == environment_type::empty);
 }
-#endif
 
   #endif // NDEBUG
 }

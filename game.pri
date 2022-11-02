@@ -21,14 +21,17 @@ HEADERS += \
     $$PWD/optional.h \
     $$PWD/player.h \
     $$PWD/player_factory.h \
+    $$PWD/player_profession.h \
     $$PWD/player_shape.h \
     $$PWD/player_state.h \
     $$PWD/program_state.h \
     $$PWD/projectile.h \
     $$PWD/projectile_type.h \
     $$PWD/read_only.h \
+    $$PWD/scoring_board.h \
     $$PWD/shelter.h \
-    $$PWD/sound_type.h
+    $$PWD/sound_type.h \
+    $$PWD/view_mode.h
 
 SOURCES += \
     $$PWD/about.cpp \
@@ -53,15 +56,17 @@ SOURCES += \
     $$PWD/optional.cpp \
     $$PWD/player.cpp \
     $$PWD/player_factory.cpp \
+    $$PWD/player_profession.cpp \
     $$PWD/player_shape.cpp \
     $$PWD/player_state.cpp \
     $$PWD/program_state.cpp \
     $$PWD/projectile.cpp \
     $$PWD/projectile_type.cpp \
     $$PWD/read_only.cpp \
+    $$PWD/scoring_board.cpp \
     $$PWD/shelter.cpp \
-    $$PWD/sound_type.cpp
+    $$PWD/sound_type.cpp \
+    $$PWD/view_mode.cpp
 
 RESOURCES += \
     game_resources.qrc
-

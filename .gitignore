@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+CMakeLists.txt.user
 *.pro.user
 *.pro.user.*
 *.autsave
@@ -57,3 +58,4 @@ gprof.log
 game_on_gha
 .DS_Store
 CMakeLists.txt.user
+vcpkg/

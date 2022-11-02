@@ -42,6 +42,17 @@ double get_nth_player_size(const game& g, const int i)
   return g.get_player(i).get_diameter();
 }
 
+
+const color get_nth_player_color(const game& g, const int i)
+{
+  return g.get_player(i).get_color();
+}
+
+player_state get_nth_player_state(const game& g, const int i)
+{
+  return g.get_player(i).get_state();
+}
+
 double get_nth_player_direction(const game &g, const int player_ind)
 {
   return g.get_player(player_ind).get_direction();
@@ -153,6 +164,14 @@ bool has_any_player_wall_collision(const game& g)
   return false;
 }
 
+coordinate predict_players_movement(const player& p)
+{
+  double next_x = p.get_x() + cos(p.get_direction()) * p.get_speed();
+  double next_y = p.get_y() + sin(p.get_direction()) * p.get_speed();
+  coordinate c(next_x, next_y);
+  return c;
+}
+
 // About shelters
 std::vector<coordinate> get_all_shelter_positions(const game& g)
 {
@@ -203,6 +222,11 @@ double get_nth_food_x(const game &g, const int n)
 double get_nth_food_y(const game &g, const int n)
 {
   return g.get_food()[n].get_y();
+}
+
+color get_nth_food_color(const game &g, const int n)
+{
+  return g.get_food()[n].get_color();
 }
 
 bool is_nth_food_eaten(const game& g, const int &n)

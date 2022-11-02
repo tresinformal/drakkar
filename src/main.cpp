@@ -25,13 +25,14 @@
 #include "read_only.h"
 #include "sound_type.h"
 #include "optional.h"
+#include "view_mode.h"
+#include "view_manager.h"
 
 #include <SFML/Graphics.hpp>
 
 #include <cassert>
 #include <chrono>
 #include <iostream>
-
 
 bool is_valid_arg(const std::string& s)
 {
@@ -99,13 +100,18 @@ void test()
     test_read_only();
     test_coordinate();
     test_sound_type();
+    test_view_mode();
     test_main();
 
-#ifndef LOGIC_ONLY
-    test_game_view();
-    test_game_resources();
-#endif // LOGIC_ONLY
-#endif
+  #ifndef LOGIC_ONLY
+  test_game_view();
+  test_menu_view();
+  test_options_view();
+  test_game_resources();
+  test_view_manager();
+  #endif // LOGIC_ONLY
+
+#endif // DEBUG
 }
 
 #include "about.h"
@@ -155,29 +161,35 @@ int main(int argc, char **argv) //!OCLINT tests may be long
 #endif // LOGIC_ONLY // that is, not compiled on GitHub Actions
 #endif
     }
-#ifndef LOGIC_ONLY
+#ifndef LOGIC_ONLY // don't run game on Github Actions
 
+  // Default game options
+  game_options options;
 
-    // Show the menu, quits after (for now)
-    if (args.size() > 1 && args[1] == "--menu")
+  // Default view mode
+  view_mode start_view = view_mode::game;
+
+  // Resolve arguments
+  if (args.size() > 1)
     {
-        menu_view v;
-        v.exec();
-        return 0;
-    } else if (args.size() > 1 && args[1] == "--options")
-    {
-        options_view v;
-        v.exec();
-        return 0;
+      if (args[1] == "--menu")
+        {
+          start_view = view_mode::menu;
+        }
+      else if (args[1] == "--options")
+        {
+          start_view = view_mode::options;
+        }
+      else if (args[1] == "--no-sound")
+        {
+          music_off(options);
+        }
     }
 
-    game_options options;
-    if (args.size() > 1 && args[1] == "--no-sound")
-    {
-        music_off(options);
-    }
-    game_view v(options);
-    assert(options == v.get_options());
-    v.exec();
+  view_manager v{start_view, options};
+  v.exec();
+
+  return 0; // Game completes successfully
+
 #endif // LOGIC_ONLY
 }

@@ -1,29 +1,35 @@
 #include "game_view.h"
 
-#ifndef LOGIC_ONLY // that is, compiled on GitHub Actions
+#ifndef LOGIC_ONLY // so this is NOT compiled on GitHub Actions
 
 #include "food.h"
+#include "food_type.h"
 #include "game.h"
 #include "game_resources.h"
 #include "game_functions.h"
+#include "view_mode.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <cmath>
 #include <string>
 #include <sstream>
 
-game_view::game_view(game_options options) :
-    m_window(sf::VideoMode(1280, 720), "tresinformal game"),
+game_view::game_view(game_options options,
+                     sf::Vector2f window_size) :
+    m_game(options),
+    m_window_size{window_size},
+    m_window(
+      sf::VideoMode(m_window_size.x, m_window_size.y),
+      "tresinformal game"
+    ),
     m_v_views(
         m_game.get_v_player().size(),
         sf::View(
             sf::Vector2f(0,0),
-            sf::Vector2f(m_window.getSize().x / 2, m_window.getSize().y / 2)
+            sf::Vector2f(m_window_size.x / 2, m_window_size.y / 2)
             )
-        ),
-    m_options(options)
+        )
 {
-
     //Hardcoded positions of the three sf::views of the three players
     m_v_views[0].setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 0.5f));
     m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
@@ -32,12 +38,14 @@ game_view::game_view(game_options options) :
 #ifndef IS_ON_TRAVIS
     // Playing sound on Travis gives thousands of error lines, which causes the
     // build to fail
-    if(m_options.is_playing_music())
+    if(get_options().is_playing_music())
     {
         m_game_resources.get_wonderland().setLoop(true);
         m_game_resources.get_wonderland().play();
     }
 #endif
+    // After setup, close window until executed
+    m_window.close();
 }
 
 game_view::~game_view()
@@ -95,17 +103,28 @@ bool game_view::process_events()
     {
         if (event.type == sf::Event::Closed)
         {
+            m_next_view = view_mode::quit;
             m_window.close();
+            m_next_view = view_mode::quit;
             return true; // Game is done
         }
 
         else if (event.type == sf::Event::KeyPressed)
-        {
-            for(auto& player : m_game.get_v_player())
-            {
-                player = player_input(player,event);
-            }
-        }
+          {
+            sf::Keyboard::Key key_pressed = event.key.code;
+            if (key_pressed == sf::Keyboard::Key::Escape)
+              {
+                m_next_view = view_mode::menu;
+                m_window.close();
+                return true;
+              }
+            else {
+                for(auto& player : m_game.get_v_player())
+                  {
+                    player = player_input(player,event);
+                  }
+              }
+          }
         else if (event.type == sf::Event::KeyReleased)
         {
             for(auto& player : m_game.get_v_player())
@@ -121,9 +140,15 @@ bool game_view::process_events()
 
 void game_view::exec() noexcept
 {
+  // Open window
+  m_window.create(
+    sf::VideoMode(m_window_size.x, m_window_size.y),
+    "tresinformal game"
+  );
   while (m_window.isOpen())
   {
-    const bool must_quit{process_events()}; // This is where stun is processed
+    // Process user input and play game until instructed to exit
+    const bool must_quit{process_events()};
     if (must_quit) return;
     m_game.tick();
     show();
@@ -200,15 +225,8 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         circle.setPosition(x, y);
         circle.setRotation((angle  * 180.0f / M_PI) - 90);
 
-//        sf::RectangleShape rect;
-//        rect.setSize(sf::Vector2f(r, 2.0f));
-//        rect.setPosition(x, y);
-//        rect.setFillColor(sf::Color(red / 2, green / 2, blue / 2));
-//        rect.setRotation(angle  * 180.0f / M_PI);
-
         // Draw the player
         m_window.draw(circle);
-//        m_window.draw(rect);
     }
 }
 
@@ -278,24 +296,31 @@ void game_view::draw_player_coords() noexcept
 {
     sf::Text text;
     text.setFont(m_game_resources.get_font());
+    text.setCharacterSize(24);
 
     // Concatenate player coordinates string
     std::vector<player> v_player = m_game.get_v_player();
     std::string str_player_coords;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(trunc(get_x(p)));
-        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(trunc(get_y(p)));
+        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
+        str_player_coords += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
         str_player_coords += "\n\n";
     }
     food f = m_game.get_food()[0];
-    str_player_coords += "Food x = " + std::to_string(trunc(get_x(f)));
-    str_player_coords += "y = " + std::to_string(trunc(get_y(f)));
+    str_player_coords += "Food x = " + std::to_string(static_cast<int>(get_x(f)));
+    str_player_coords += "\n         y = " + std::to_string(static_cast<int>(get_y(f)));
     str_player_coords += "\n\n";
 
     text.setString(str_player_coords);
 
     m_window.draw(text);
+}
+
+void game_view::draw_scoring_board() noexcept
+{
+
 }
 
 void game_view::show() noexcept
@@ -327,16 +352,6 @@ void game_view::show() noexcept
     // Display player coordinates on the fourth view
     draw_player_coords();
     #endif
-
-    if (1 == 2)
-    {
-        sf::Text text;
-        text.setString("Hello world");
-        text.setPosition(10, 10);
-        text.setFont(game_resources().get_font());
-        text.setScale(100.0, 100.0);
-        m_window.draw(text);
-    }
 
     // Display all shapes
     m_window.display();
@@ -376,7 +391,7 @@ bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
     return is_stunned(p1);
 }
 
-void test_game_view()//!OCLINT tests may be many
+void test_game_view() //!OCLINT tests may be many
 {
     #ifndef NDEBUG // no tests in release
     {
@@ -387,9 +402,8 @@ void test_game_view()//!OCLINT tests may be many
     }
 
     {
-    const game_view v;
-    // game has a member function called `get_n_ticks`, which returns zero upon construction
-    assert(v.get_game().get_n_ticks() == 0);
+        const game_view v;    // game has a member function called `get_n_ticks`, which returns zero upon construction
+        assert(v.get_game().get_n_ticks() == 0);
     }
 
     //A game view is initialized with a number of views/cameras
@@ -412,23 +426,9 @@ void test_game_view()//!OCLINT tests may be many
                    && view.getSize().y - v.get_window().getSize().y/2 > -0.00001f);
         }
     }
-
-    //Each view port will also be half the dimensions of the render window
-    //View will be initialized for the three default player like this
-    //     Screen.begin                                  Screen.end
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|------------xxxxxxxxxxxxxxxxxxxx-------------|---------
-    //-------|---------------------------------------------|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //-------|xxxxxxxxxxxxxxxxxxxx-----xxxxxxxxxxxxxxxxxxxx|---------
-    //!!!!this test looks tauthological to me. Do not know how to make it better @swom
-    {
+  // Each player's view occupies a specific quarter of the screen
+  {
         game_view v;
-
         assert(v.get_v_views()[0].getViewport() == sf::FloatRect(0.f, 0.f, 0.5f, 0.5f) );
         assert(v.get_v_views()[1].getViewport() == sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f) );
         assert(v.get_v_views()[2].getViewport() == sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f) );
@@ -442,9 +442,7 @@ void test_game_view()//!OCLINT tests may be many
         assert(v.get_options().is_playing_music());
     }
 
-#define FIX_ISSUE_167
-#ifdef FIX_ISSUE_167
-    ///given a player get_player_kam provides the correct player kam
+   // given a player get_player_kam provides the correct player kam
     {
         player p;
         assert(p.get_ID() == "0");
@@ -456,24 +454,6 @@ void test_game_view()//!OCLINT tests may be many
         p =  create_player_with_id("2");
         assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
     }
-#endif
-
-#define FIX_ISSUE_183
-#ifdef FIX_ISSUE_183
-    ///given a player get_player_kam provides the correct player kam
-    {
-        player p;
-        assert(p.get_ID() == "0");
-        assert(get_player_kam(p).get_raw_map() == get_player_1_kam().get_raw_map());
-        assert(get_player_kam(p).get_raw_map() != get_player_2_kam().get_raw_map());
-
-        p =  create_player_with_id("1");
-        assert(get_player_kam(p).get_raw_map() == get_player_2_kam().get_raw_map());
-        p =  create_player_with_id("2");
-        assert(get_player_kam(p).get_raw_map() == get_player_3_kam().get_raw_map());
-
-    }
-#endif
 
     ///Given a player and an event
     ///player_input sees if any action has to be applied to the player
@@ -490,7 +470,7 @@ void test_game_view()//!OCLINT tests may be many
         p0 = player_input(p0,move_forward_pl_1);
         p1 = player_input(p1,move_forward_pl_1);
 
-        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate_forward} );
         assert(p1.get_action_set() == std::set<action_type>{action_type::none} );
 
     }
@@ -502,10 +482,10 @@ void test_game_view()//!OCLINT tests may be many
         player p1;
 
         p0 = create_player_with_id("0");
-        add_action(p0,action_type::accelerate);
+        add_action(p0,action_type::accelerate_forward);
 
         p1 = create_player_with_id("1");
-        add_action(p1,action_type::accelerate);
+        add_action(p1,action_type::accelerate_forward);
 
         sf::Event stop_move_forward_pl_1;
         stop_move_forward_pl_1.key.code = sf::Keyboard::W;
@@ -514,31 +494,49 @@ void test_game_view()//!OCLINT tests may be many
         p1 = player_stop_input(p1,stop_move_forward_pl_1);
 
         assert(p0.get_action_set().empty());
-        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate} );
+        assert(p1.get_action_set() == std::set<action_type>{action_type::accelerate_forward} );
 
     }
 
+  // (494) There should be a member of type view_mode
+  {
 
-// #define FIX_ISSUE_246
+    game_view gv;
+    view_mode expected_next_view = view_mode::quit;
+    assert(gv.get_next_view() == expected_next_view);
+  }
+
+//#define FIX_ISSUE_246
 #ifdef FIX_ISSUE_246
-
-    // Game options should be the same
-    {
-        game_view gw(get_random_game_options(300));
-        assert(gw.get_options().get_kam_1() == gw.get_game().get_)
-    }
-#endif // FIX_ISSUE_246
-
-
     // Pressing the stun key shoots a stun rocket
     {
+      //I predict the following: This get_player(0) returns an empty vector not the one as expected.
       game_view gw(get_random_game_options(300));
       assert(!gw.get_game().get_player(0).is_shooting_stun_rocket());
       gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun
       assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
     }
+#endif // FIX_ISSUE_246
 
-  #endif
+
+  // (545) A game window doesn't open at construction
+  {
+    game_view gv;
+    assert(!gv.is_window_open());
+    // Ideally one should also test for the window opening during exec()
+    // and closing after, but that is not possible AFAICS
+    // bc exec() doesn't exit on its own
+  }
+
+  // (547) A game_view has a window size
+  {
+    game_view gv(game_options(), sf::Vector2f(550, 120));
+    sf::Vector2f window_size = gv.get_window_size();
+    assert(window_size.x == 550);
+    assert(window_size.y == 120);
+  }
+
+  #endif //NDEBUG
 }
 
-#endif // LOGIC_ONLY // that is, compiled on GitHub Actions
+#endif // LOGIC_ONLY

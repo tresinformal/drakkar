@@ -14,10 +14,7 @@ void test_enemy_behavior_type()
   {
     std::stringstream s;
     s << enemy_behavior_type::gezellig;
-
-  }
-  {
-    std::cout << enemy_behavior_type::gezellig;
+    assert(!s.str().empty());
   }
   {
     std::stringstream s;

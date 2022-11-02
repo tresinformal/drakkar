@@ -1,16 +1,29 @@
 #include "options_view.h"
+#include <cassert>
 
-options_view::options_view()
-    :  m_window(
-          sf::VideoMode(1280, 720),
-          "tresinformal game options")
+#ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
+
+options_view::options_view(const game_options& options) :
+  m_options{options},
+  m_window(
+    sf::VideoMode(1280, 720),
+    "tresinformal game options"
+  )
 {
+  // After setup, close window until executed
+  m_window.close();
 }
 
 void options_view::exec()
 {
+  // Open window
+  m_window.create(
+    sf::VideoMode(1280, 720),
+    "tresinformal game options"
+  );
   while (m_window.isOpen())
   {
+    // Process use input until told to exit options screen
     bool must_quit{process_events()};
     if (must_quit)
       return;
@@ -47,7 +60,7 @@ void options_view::show()
   // Placeholder text
   sf::Text placeholder;
   placeholder.setFont(m_game_resources.get_font());
-  placeholder.setString("Exit status 1 was never an option.");
+  placeholder.setString("We don't have an Options screen yet D:");
   placeholder.setCharacterSize(40);
   sf::FloatRect text_area = placeholder.getLocalBounds();
   placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
@@ -67,4 +80,39 @@ void options_view::show()
   // Display all shapes
   m_window.display();
 }
+
+#ifndef NDEBUG // no tests in release
+void test_options_view() //!OCLINT tests may be many
+{
+  // (496) There should be a member of type view_mode
+  {
+    options_view ov;
+    view_mode expected_next_view = view_mode::quit;
+    assert(ov.get_next_view() == expected_next_view);
+  }
+  // (545) An Options window doesn't open at construction
+  {
+    options_view ov;
+    assert(!ov.is_window_open());
+    // Ideally one should also test for the window opening during exec()
+    // and closing after, but that is not possible AFAICS
+    // bc exec() doesn't exit on its own
+  }
+  //#define FIX_ISSUE_631
+  #ifdef FIX_ISSUE_631
+  // (631) An options_view allows a user to modify game_options
+  {
+    const game_options options;
+    const options_view view(options);
+    const game_options options_again(view.get_options());
+    assert(options == options_again);
+  }
+  #endif // FIX_ISSUE_631
+
+}
+#endif // NDEBUG // No tests in release
+
+#endif // LOGIC_ONLY
+
+
 

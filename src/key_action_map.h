@@ -1,9 +1,8 @@
 #ifndef KEY_TO_ACTION_MAP_H
 #define KEY_TO_ACTION_MAP_H
-#include <map>
-#include <vector>
 #include "action_type.h"
-#include "SFML/Graphics.hpp"
+#include <iosfwd>
+#include <SFML/Graphics.hpp>
 
 /// Convert a key to an action
 class key_action_map
@@ -14,8 +13,8 @@ public:
   key_action_map(
     const sf::Keyboard::Key& key_to_go_left = sf::Keyboard::A,
     const sf::Keyboard::Key& key_to_go_right = sf::Keyboard::D,
-    const sf::Keyboard::Key& key_to_accelerate = sf::Keyboard::W,
-    const sf::Keyboard::Key& key_to_brake = sf::Keyboard::S,
+    const sf::Keyboard::Key& key_to_accelerate_forward = sf::Keyboard::W,
+    const sf::Keyboard::Key& key_to_accelerate_backward = sf::Keyboard::S,
     const sf::Keyboard::Key& key_to_shoot = sf::Keyboard::Q,
     const sf::Keyboard::Key& key_to_stun = sf::Keyboard::E
   );
@@ -57,6 +56,26 @@ key_action_map get_random_kam();
 /// Draw at random several kams for testing purposes, with no key repeats
 std::vector<key_action_map> get_n_random_kams(int n);
 
+/// Load a key-action-from file
+key_action_map load_kam(const std::string& filename);
+
+/// Save the key-action-map to file
+void save_to_file(const key_action_map& kam, const std::string& filename);
+
+/// Convert a KAM to std::string
+/// @see kam_from_str to load a KAM from a std::string
+std::string to_str(const key_action_map& kam) noexcept;
+
+/// Convert a std::string to an sf::Keyboard::Key
+/// Use \link{to_str} to convert the other way around
+sf::Keyboard::Key to_sfml_key(const std::string& s);
+
+/// Convert a std::string to an sf::Keyboard::Key
+/// Use \link{to_sfml_key} to convert the other way around
+std::string to_str(const sf::Keyboard::Key key);
+
+std::ostream& operator<<(std::ostream& os, const key_action_map& kam);
+std::istream& operator>>(std::istream& is, key_action_map& kam);
 bool operator==(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 bool operator!=(const key_action_map& lhs, const key_action_map& rhs) noexcept;
 
