@@ -164,5 +164,3 @@ void test_food()
   }
 #endif // no tests in release
 }
-
->>>>>>> develop:food.cpp
