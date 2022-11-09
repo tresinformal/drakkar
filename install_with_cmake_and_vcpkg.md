@@ -23,7 +23,7 @@ Here, you will need to check two boxes:
 
  * 1. For the highest (stable) Qt version
 
- * 2. Under tools: 
+ * 2. The following tools: 
 
 
 ## 2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/game/tree/CMAKE_attempts)
@@ -32,6 +32,8 @@ Do so by running `git checkout CMAKE_attempts`
 Do so by running the command: `git pull`
 ## 4. Update the vcpkg submodule
 Do so by running the command: `git submodule update --init`
+## 5. Open a project on Qtcreator using the CMakeLists.txt
+`Choose File -> Open File or Project` and then select the file name `CMakeLists.txt` inside the repo. Configure the project as you see fit (possibly at least one configuration should be with MinGW). Qt should then be able to create your project.
 
 
 
