@@ -19,8 +19,6 @@ Branch     |[GitHub Actions](https://github.com/tresinformal/game/actions)      
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 A video game, developed informally and professionally.
 
-Testing
-
 ## Meetings
 
  * Date: Weekly, every Wednesday
