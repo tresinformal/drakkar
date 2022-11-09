@@ -57,8 +57,13 @@ bool options_view::process_events()
               );
         if (is_inside_button(mouse_position, m_music_button))
           {
-           // the music turns off
-            return true;
+            if (m_options.is_playing_music()) // music is on
+              {
+                m_options.stop_music();
+              } else {
+                m_options.play_music();
+              }
+            return false;
           }
       }
   }
