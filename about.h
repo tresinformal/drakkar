@@ -15,4 +15,6 @@ public:
   std::vector<std::string> get_contributors() const noexcept;
 };
 
+void test_about();
+
 #endif // ABOUT_H

@@ -1,3 +1,5 @@
+#include "about.h"
+#include "about_view.h"
 #include "coordinate.h"
 #include "enemy.h"
 #include "environment.h"
@@ -101,12 +103,14 @@ void test()
     test_coordinate();
     test_sound_type();
     test_view_mode();
+    test_about();
     test_main();
 
   #ifndef LOGIC_ONLY
   test_game_view();
   test_menu_view();
   test_options_view();
+  test_about_view();
   test_game_resources();
   test_view_manager();
   #endif // LOGIC_ONLY
