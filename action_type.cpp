@@ -2,6 +2,10 @@
 #include <cassert>
 #include <sstream>
 
+#ifdef HAS_MAGIC_ENUM // HAS_MAGIC_ENUM is defined in game.pro
+#include "../magic_enum/include/magic_enum.hpp" // https://github.com/Neargye/magic_enum
+#endif
+
 void test_action_type()
 {
   #ifndef NDEBUG // no tests is release
@@ -30,8 +34,11 @@ std::ostream &operator<<(std::ostream &os, const action_type t)
   return os;
 }
 
-std::string to_str(action_type this_action_type)
+std::string to_str(const action_type this_action_type)
 {
+  #ifdef HAS_MAGIC_ENUM // HAS_MAGIC_ENUM is defined in game.pro
+  return std::string(magic_enum::enum_name(this_action_type));
+  #else
   switch (this_action_type)
   {
   case action_type::turn_left:
@@ -50,4 +57,5 @@ std::string to_str(action_type this_action_type)
     assert(this_action_type == action_type::none );
   return "none";
   }
+  #endif
 }

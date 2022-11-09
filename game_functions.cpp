@@ -164,6 +164,14 @@ bool has_any_player_wall_collision(const game& g)
   return false;
 }
 
+coordinate predict_players_movement(const player& p)
+{
+  double next_x = p.get_x() + cos(p.get_direction()) * p.get_speed();
+  double next_y = p.get_y() + sin(p.get_direction()) * p.get_speed();
+  coordinate c(next_x, next_y);
+  return c;
+}
+
 // About shelters
 std::vector<coordinate> get_all_shelter_positions(const game& g)
 {
