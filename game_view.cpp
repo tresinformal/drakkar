@@ -112,18 +112,28 @@ bool game_view::process_events()
         else if (event.type == sf::Event::KeyPressed)
           {
             sf::Keyboard::Key key_pressed = event.key.code;
+            // Check for global keys, i.e. that have no player attached
             if (key_pressed == sf::Keyboard::Key::Escape)
-              {
+            {
                 m_next_view = view_mode::menu;
                 m_window.close();
                 return true;
+            }
+            else
+            {
+              #ifdef FIX_ISSUE_137
+              // Look if the key is connected to an action,
+              // if yes, play the sound for that action
+              play_sound_for_key(m_game.get_v_player(), event);
+              #endif // FIX_ISSUE_137
+              // Try out the event/key for each of the players
+              for(auto& player : m_game.get_v_player())
+              {
+                // Throw the event, if the player does not have that
+                // key, nothing happen
+                player = player_input(player, event);
               }
-            else {
-                for(auto& player : m_game.get_v_player())
-                  {
-                    player = player_input(player,event);
-                  }
-              }
+            }
           }
         else if (event.type == sf::Event::KeyReleased)
         {
