@@ -41,7 +41,11 @@ bool options_view::process_events()
     {
       m_window.close();
       return true; // Game is done
-    }
+    } else if (event.type == sf::Event::MouseButtonPressed)
+      {
+        // if we hit the music button
+        // the nusic turns off
+      }
   }
   return false;
 }
