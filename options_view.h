@@ -5,6 +5,7 @@
 #include "game_options.h"
 #include "game_resources.h"
 #include "view_mode.h"
+#include "menu_button.h"
 
 class options_view
 {
@@ -38,6 +39,7 @@ private:
   double m_height = 720;
   double m_width = 1280;
   view_mode m_next_view = view_mode::quit;
+  menu_button m_music_button;
 };
 
 void test_options_view();

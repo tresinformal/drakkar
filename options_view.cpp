@@ -1,5 +1,6 @@
 #include "options_view.h"
 #include "menu_button.h"
+#include "menu.h"
 #include <cassert>
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
@@ -9,10 +10,16 @@ options_view::options_view(const game_options& options) :
   m_window(
     sf::VideoMode(1280, 720),
     "tresinformal game options"
-  )
+  ),
+  m_music_button(
+        "Music:",
+        color(0, 100, 255),
+        coordinate(m_width / 2.0, m_height / 5.0),
+        200.0, 100.0
+        )
 {
   // After setup, close window until executed
-  m_window.close();
+  m_window.close();  
 }
 
 void options_view::exec()
@@ -44,7 +51,15 @@ bool options_view::process_events()
     } else if (event.type == sf::Event::MouseButtonPressed)
       {
         // if we hit the music button
-        // the nusic turns off
+        coordinate mouse_position(
+              static_cast<double>(event.mouseButton.x),
+              static_cast<double>(event.mouseButton.y)
+              );
+        if (is_inside_button(mouse_position, m_music_button))
+          {
+           // the music turns off
+            return true;
+          }
       }
   }
   return false;
@@ -63,10 +78,14 @@ void options_view::show()
   m_window.draw(background_sprite);
 
   // Create the Music button sprite
-  sf::Vector2f music_button_dim(200.0, 100.0);
-  sf::Vector2f music_button_pos(m_width / 2.0, m_height / 5.0);
+  sf::Vector2f music_button_dim(m_music_button.get_body());
+  sf::Vector2f music_button_pos(m_music_button.get_x(), m_music_button.get_y());
   sf::RectangleShape music_button_bg(music_button_dim);
-  sf::Color music_button_color(0, 100, 255);
+  sf::Color music_button_color(
+        m_music_button.get_color().get_red(),
+        m_music_button.get_color().get_green(),
+        m_music_button.get_color().get_blue()
+        );
   music_button_bg.setFillColor(music_button_color);
   sf::Vector2f music_button_origin(music_button_bg.getSize().x / 2.0f,
                                    music_button_bg.getSize().y / 2.0f);
@@ -75,7 +94,7 @@ void options_view::show()
 
   // Create the Music button text
   sf::Text music_button_text;
-  music_button_text.setString("Music:");
+  music_button_text.setString(m_music_button.get_label());
   music_button_text.setFont(m_game_resources.get_font());
   //sf::FloatRect text_area = music_button_text.getLocalBounds();
   music_button_text.setCharacterSize(50);
