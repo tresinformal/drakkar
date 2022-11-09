@@ -18,4 +18,6 @@ public:
   std::string get_link_discord();
 };
 
+void test_about();
+
 #endif // ABOUT_H
