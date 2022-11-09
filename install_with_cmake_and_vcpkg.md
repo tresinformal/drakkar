@@ -6,7 +6,8 @@
   3. Put your version of the branch up-to-date
   4. Update the vcpkg submodule (once)
   (For Qt creator users)
-  5. open a new project on Qt creator by selectiung the CMakeLists.txt file in the repo
+  5. Bootstrap vcpkg 
+  6. open a new project on Qt creator by selectiung the CMakeLists.txt file in the repo
 
 ## 0. Get the right version
 
@@ -32,7 +33,9 @@ Do so by running `git checkout CMAKE_attempts`
 Do so by running the command: `git pull`
 ## 4. Update the vcpkg submodule
 Do so by running the command: `git submodule update --init`
-## 5. Open a project on Qtcreator using the CMakeLists.txt
+## 5. Bootstrap vcpkg 
+FRom the root of the repository enter the folder named `vcpkg` and double click on one of the 2 files named `bootstrap-vcpkg` (one is specifically for windows the othe works for any OS)
+## 6. Open a project on Qtcreator using the CMakeLists.txt
 `Choose File -> Open File or Project` and then select the file name `CMakeLists.txt` inside the repo. Configure the project as you see fit (possibly at least one configuration should be with MinGW). Qt should then be able to create your project.
 
 
