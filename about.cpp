@@ -41,6 +41,18 @@ std::vector<std::string> about::get_contributors() const noexcept
   };
 }
 
+std::string about::get_link_discord()
+{
+    return std::string("https://discord.gg/QMZMaTx5b4");
+}
+/*
+{
+    about ab;
+    std::vector<std::string> link_to_discord = ab.get_link_discord();
+}
+*/
+
+
 void test_about()
 {
   // The About object contains a list of contributors
@@ -48,6 +60,8 @@ void test_about()
     about ab;
     std::vector<std::string> contributors = ab.get_contributors();
   }
+
+
 #ifdef FIX_ISSUE_600
   // (600) The list of contributors is up-to-date
   {
