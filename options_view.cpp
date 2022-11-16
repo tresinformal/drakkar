@@ -106,6 +106,18 @@ void test_options_view() //!OCLINT tests may be many
     // and closing after, but that is not possible AFAICS
     // bc exec() doesn't exit on its own
   }
+  //#define FIX_ISSUE_630
+  #ifdef FIX_ISSUE_630
+  // (630) One must be able to turn off the music in the options screen
+  {
+    const game_options options;
+    assert(options.is_playing_music());
+    options_view view(options);
+    assert(view.get_options().is_playing_music());
+    view.click_play_music_button();
+    assert(!view.get_options().is_playing_music());
+  }
+  #endif // FIX_ISSUE_630
   //#define FIX_ISSUE_631
   #ifdef FIX_ISSUE_631
   // (631) An options_view allows a user to modify game_options
