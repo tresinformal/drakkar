@@ -36,6 +36,11 @@ bool operator!= (const game_options& lhs, const game_options& rhs) noexcept {
     return !(lhs==rhs);
 }
 
+std::ostream &operator <<(std::ostream &out, const game_options &g_o)
+{
+    return out << g_o.get_rng_seed();
+}
+
 void music_off(game_options& o) noexcept
 {
     o.stop_music(); //ok maybe this is redundant @swom
@@ -160,13 +165,12 @@ void test_game_options()
       }
   }
 
-// (383) A game_options has an environment_type member
-{
-  game_options go;
-  assert(go.get_environment_type() == environment_type::empty);
-}
+  // (383) A game_options has an environment_type member
+  {
+    game_options go;
+    assert(go.get_environment_type() == environment_type::empty);
+  }
 
-std::ostream &operator <<(std::ostream &out, const game_options &g_o)
-{
-    return out << g_o.get_rng_seed();
+
+  #endif // NDEBUG
 }
