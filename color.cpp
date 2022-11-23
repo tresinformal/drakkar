@@ -58,11 +58,11 @@ color create_black_color()
 
 color get_random_color(std::mt19937& ran_num_gen)
 {
-    int rand1 = 1 + ran_num_gen()/((255 + 1u)/6);
-    int rand2 = 1 + ran_num_gen()/((255 + 1u)/6);
-    int rand3 = 1 + ran_num_gen()/((255 + 1u)/6);
-    std::cout << "First rand num: " << rand1 <<
-                 "Second rand num: " << rand2 <<
+    int rand1 = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+    int rand2 = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+    int rand3 = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+    std::cout << "First rand num: " << rand1 << std::endl <<
+                 "Second rand num: " << rand2 << std::endl <<
                  "Third rand num: " << rand3 << std::endl;
     int r = rand1;
     int g = rand2;
@@ -240,10 +240,8 @@ void test_color()
   #define FIX_ISSUE_628
   #ifdef FIX_ISSUE_628
   // (628) A random color between red, blue, green can be sampled
-
     {
-      const int seed{42};
-       std::mt19937 rng(seed);
+       std::mt19937 rng(std::time(nullptr));
        const auto c = get_random_color(rng); //Will modify RNG
        const auto d = get_random_color(rng); //Will modify RNG
        assert(c != d); // Chance 1 in 256^3 this fails, pick a different seed if needed
