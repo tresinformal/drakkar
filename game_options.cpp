@@ -64,128 +64,106 @@ game_options get_random_game_options(const int& rng_seed) {
 
 void test_game_options()
 {
-#ifndef NDEBUG // no tests in release
-    // By default, music is played
-    {
-        const game_options g;
-        assert(g.is_playing_music());
+  #ifndef NDEBUG // no tests in release
+  // By default, music is played
+  {
+    const game_options g;
+    assert(g.is_playing_music());
 
-    }
-    // Music can be switched off
-    {
-        const bool do_play_music = false;
-        const int rng_seed = 0;
-        const game_options g(rng_seed, do_play_music);
-        assert(!g.is_playing_music());
-    }
+  }
+  // Music can be switched off
+  {
+    const bool do_play_music = false;
+    const int rng_seed = 0;
+    const game_options g(rng_seed, do_play_music);
+    assert(!g.is_playing_music());
+  }
 
-    // Test for equality
-    {
-        const game_options a(true);
-        const game_options b(false);
-        assert(a == a);
-        assert(a != b);
-    }
+  // Test for equality
+  {
+    const game_options a(true);
+    const game_options b(false);
+    assert(a == a);
+    assert(a != b);
+  }
 
-    //Sound can be turned down
-    {
-        game_options o;
-        assert(o.is_playing_music());
-        music_off(o);
-        assert(!o.is_playing_music());
-        music_on(o);
-        assert(o.is_playing_music());
-    }
-    // A game options has a seed for the random number generator
-    {
-        const game_options a;
-        assert(a.get_rng_seed() == 0);
-    }
-    // Player 1 has a key action map
-    {
-        const game_options a;
-        const auto m = a.get_kam_1();
-        const auto m_again = get_player_1_kam(); // Naming is confusing, this is the KAM for the first player
-        assert(m == m_again);
-    }
-    // Player 2 has a key action map
-    {
-        const game_options a;
-        const auto m = a.get_kam_2();
-        const auto m_again = get_player_2_kam(); // Naming is confusing, this is the KAM for the first player
-        assert(m == m_again);
-    }
-#define FIX_ISSUE_289
-#ifdef FIX_ISSUE_289
-    // Player 3 has a key action map
-    {
-        const game_options a;
-        const auto m = a.get_kam_3();
-        const auto m_again = get_player_3_kam(); // Naming is confusing, this is the KAM for the first player
-        assert(m == m_again);
-    }
-#endif // FIX_ISSUE_289
+  //Sound can be turned down
+  {
+    game_options o;
+    assert(o.is_playing_music());
+    music_off(o);
+    assert(!o.is_playing_music());
+    music_on(o);
+    assert(o.is_playing_music());
+  }
+  // A game options has a seed for the random number generator
+  {
+    const game_options a;
+    assert(a.get_rng_seed() == 0);
+  }
+  // Player 1 has a key action map
+  {
+    const game_options a;
+    const auto m = a.get_kam_1();
+    const auto m_again = get_player_1_kam(); // Naming is confusing, this is the KAM for the first player
+    assert(m == m_again);
+  }
+  // Player 2 has a key action map
+  {
+    const game_options a;
+    const auto m = a.get_kam_2();
+    const auto m_again = get_player_2_kam(); // Naming is confusing, this is the KAM for the first player
+    assert(m == m_again);
+  }
+  // (289) Player 3 has a key action map
+  {
+    const game_options a;
+    const auto m = a.get_kam_3();
+    const auto m_again = get_player_3_kam(); // Naming is confusing, this is the KAM for the first player
+    assert(m == m_again);
+  }
 
-#define FIX_ISSUE_303
-#ifdef FIX_ISSUE_303
-    // Two random game options are the same, when the same seed is used
-    {
-        const int rng_seed = 271;
-        const game_options a = get_random_game_options(rng_seed);
-        const game_options b = get_random_game_options(rng_seed);
-        assert(a == b);
-    }
-    // Two random game options differ in general
-    {
-        const int rng_seed = 314;
-        const game_options a = get_random_game_options(rng_seed);
-        const game_options b = get_random_game_options(rng_seed + 1);
-        assert(a != b);
-    }
-    // Two random game options differ in their key-action maps especially
-    {
-        const int rng_seed = 111;
-        const game_options a = get_random_game_options(rng_seed);
-        const game_options b = get_random_game_options(rng_seed + 1);
-        assert(a.get_kam_1() != b.get_kam_1());
-        assert(a.get_kam_2() != b.get_kam_2());
-    }
-#endif // FIX_ISSUE_303
+  // (303) Two random game options are the same, when the same seed is used
+  {
+    const int rng_seed = 271;
+    const game_options a = get_random_game_options(rng_seed);
+    const game_options b = get_random_game_options(rng_seed);
+    assert(a == b);
+  }
+  // (303) Two random game options differ in general
+  {
+    const int rng_seed = 314;
+    const game_options a = get_random_game_options(rng_seed);
+    const game_options b = get_random_game_options(rng_seed + 1);
+    assert(a != b);
+  }
+  // (303) Two random game options differ in their key-action maps especially
+  {
+    const int rng_seed = 111;
+    const game_options a = get_random_game_options(rng_seed);
+    const game_options b = get_random_game_options(rng_seed + 1);
+    assert(a.get_kam_1() != b.get_kam_1());
+    assert(a.get_kam_2() != b.get_kam_2());
+  }
 
-#define FIX_ISSUE_353
-#ifdef FIX_ISSUE_353
-    {
-        // Random game options should not draw keys already used by another player
-        const int rng_seed = 271;
-        const game_options rgo = get_random_game_options(rng_seed);
-        key_action_map map_1 = rgo.get_kam_1();
-        key_action_map map_2 = rgo.get_kam_2();
-        std::vector<sf::Keyboard::Key> keys_in_1;
-        for (auto& this_row : map_1.get_raw_map())
-        {
-            sf::Keyboard::Key key_in_1 = this_row.first;
-            assert(!map_2.has_key(key_in_1));
-        }
-    }
-#endif // FIX_ISSUE_353
+  {
+    // (353) Random game options should not draw keys already used by another player
+    const int rng_seed = 271;
+    const game_options rgo = get_random_game_options(rng_seed);
+    key_action_map map_1 = rgo.get_kam_1();
+    key_action_map map_2 = rgo.get_kam_2();
+    std::vector<sf::Keyboard::Key> keys_in_1;
+    for (auto& this_row : map_1.get_raw_map())
+      {
+        sf::Keyboard::Key key_in_1 = this_row.first;
+        assert(!map_2.has_key(key_in_1));
+      }
+  }
 
-#define FIX_ISSUE_383
-#ifdef FIX_ISSUE_383
-    // A game_options has an environment_type member
-    {
-        game_options go;
-        assert(go.get_environment_type() == environment_type::empty);
-    }
-#endif
-    // FIX_ISSUE_383
-    // game options has a stream operator
-    {
-        const game_options g_o;
-        std::stringstream s;
-        s << g_o;
-        assert(!s.str().empty());
-    }
-#endif // NDEBUG
+// (383) A game_options has an environment_type member
+{
+  game_options go;
+  assert(go.get_environment_type() == environment_type::empty);
 }
 
 std::ostream &operator <<(std::ostream &out, const game_options &g_o)

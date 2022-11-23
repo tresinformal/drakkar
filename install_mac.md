@@ -30,3 +30,18 @@ Here, you will need to check two boxes:
  * Copy the content of `SFML/Frameworks` folder into `/Library/Frameworks`.
    You will need root rights for this
 
+
+## 3. Clone the game and `magic_enum` library
+
+Also do
+
+```
+git clone https://github.com/Neargye/magic_enum.git
+```
+
+in a folder *besides* the game folder, e.g. 
+
+```
+git clone https://github.com/tresinformal/game.git
+git clone https://github.com/Neargye/magic_enum.git
+```

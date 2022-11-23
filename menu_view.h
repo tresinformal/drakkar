@@ -1,8 +1,6 @@
 #ifndef MENU_VIEW_H
 #define MENU_VIEW_H
 
-#ifndef LOGIC_ONLY // so this is NOT compiled on GitHub Actions
-
 #include "SFML/Graphics.hpp"
 #include "game_resources.h"
 #include "menu.h"
@@ -18,6 +16,9 @@ public:
 
   /// Get next view
   view_mode get_next_view() const;
+
+  // Get the window's state, for testing purposes only
+  bool is_window_open() { return m_window.isOpen(); }
 
 private:
   menu m_menu;
@@ -36,7 +37,5 @@ private:
 };
 
 void test_menu_view();
-
-#endif // LOGIC_ONLY
 
 #endif // MENU_VIEW_H

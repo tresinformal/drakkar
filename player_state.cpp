@@ -1,4 +1,5 @@
 #include "player_state.h"
+#include "player.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>
@@ -35,26 +36,20 @@ void test_player_state()
               player_state::dead != player_state::active);
   }
 
-  #define FIX_ISSUE_509
-  #ifdef FIX_ISSUE_509
-  // operator<<
+  // (509) operator<<
   {
     std::stringstream s;
     const player_state ps = player_state::active;
     s << ps;
     assert(!s.str().empty());
   }
-  #endif // FIX_ISSUE_509
 
-  #define FIX_ISSUE_276
-  #ifdef FIX_ISSUE_276
-  // Conversion to string
+  // (276) Conversion to string
   {
     assert(to_str(player_state::active) == "active");
     assert(to_str(player_state::dead) == "dead");
     assert(to_str(player_state::stunned) == "stunned");
   }
-  #endif // FIX_ISSUE_276
 
   // #509: operator<<
   {
