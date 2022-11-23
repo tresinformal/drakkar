@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
-#include <random>
 #include <SFML/Graphics.hpp>
 
 color::color(const int r, const int g, const int b, const int a)
@@ -56,17 +55,11 @@ color create_black_color()
   return color(0, 0, 0, 255);
 }
 
-color get_random_color(std::mt19937& ran_num_gen)
+color get_random_respawn_color(std::mt19937& ran_num_gen) noexcept
 {
-    int rand1 = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int rand2 = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int rand3 = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    std::cout << "First rand num: " << rand1 << std::endl <<
-                 "Second rand num: " << rand2 << std::endl <<
-                 "Third rand num: " << rand3 << std::endl;
-    int r = rand1;
-    int g = rand2;
-    int b = rand3;
+    int r = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+    int g = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+    int b = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
 
     return color(r, g, b);
 }
@@ -237,26 +230,23 @@ void test_color()
     assert(get_blueness(white) == 255);
   }
 
-  #define FIX_ISSUE_628
-  #ifdef FIX_ISSUE_628
-  // (628) A random color between red, blue, green can be sampled
-    {
-       std::mt19937 rng(std::time(nullptr));
-       const auto c = get_random_color(rng); //Will modify RNG
-       const auto d = get_random_color(rng); //Will modify RNG
-       assert(c != d); // Chance 1 in 256^3 this fails, pick a different seed if needed
-    }
 
-    {
-       const int seed{42};
-       std::mt19937 rng1(seed);
-       std::mt19937 rng2(seed);
-       const auto c = get_random_color(rng1); //Will modify RNG
-       const auto d = get_random_color(rng2); //Will modify RNG
-       assert(c == d);
-    }
-#endif // FIX_ISSUE_628
-
+  // Check if the color is actually random
+  {
+    std::mt19937 rng(std::time(nullptr));
+    const auto c = get_random_respawn_color(rng); //Will modify RNG
+    const auto d = get_random_respawn_color(rng); //Will modify RNG
+    assert(c != d); // Chance 1 in 256^3 this fails, pick a different seed if needed
+  }
+  // Check if the color is actually random yet repeatable
+  {
+    const int seed{42};
+    std::mt19937 rng1(seed);
+    std::mt19937 rng2(seed);
+    const auto c = get_random_respawn_color(rng1); //Will modify RNG
+    const auto d = get_random_respawn_color(rng2); //Will modify RNG
+    assert(c == d);
+  }
 
 #endif // NDEBUG
 }

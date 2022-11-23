@@ -1,6 +1,7 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <random>
 #include <string>
 
 class color
@@ -45,6 +46,9 @@ int get_opaqueness(const color &c) noexcept;
 
 /// Get the redness
 int get_redness(const color &c) noexcept;
+
+/// Get random color using random number generator
+color get_random_respawn_color(std::mt19937& ran_num_gen) noexcept;
 
 /// Ready-made colors
 color create_red_color();
