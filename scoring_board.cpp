@@ -101,7 +101,7 @@ void test_scoring_board()
     {
         scoring_board sb;
 
-        // Can get a specific player's score
+        // Can set a specific player's score
         sb.set_score(1, 500);
         assert(sb.get_score(1) == 500);
 
@@ -117,7 +117,7 @@ void test_scoring_board()
     {
         scoring_board sb;
 
-        // Can get a specific player's score
+        // Can modify a specific player's score
         sb.set_score(1, 500);
         assert(sb.get_score(1) == 500);
 
