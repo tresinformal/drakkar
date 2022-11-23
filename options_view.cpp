@@ -48,7 +48,16 @@ bool options_view::process_events()
     {
       m_window.close();
       return true; // Game is done
-    } else if (event.type == sf::Event::MouseButtonPressed)
+    } else if (event.type == sf::Event::KeyPressed)
+      {
+        sf::Keyboard::Key key_pressed = event.key.code;
+        if (key_pressed == sf::Keyboard::Key::Escape)
+        {
+            m_next_view = view_mode::menu;
+            m_window.close();
+            return true;
+        }
+      } else if (event.type == sf::Event::MouseButtonPressed)
       {
         // if we hit the music button
         coordinate mouse_position(
