@@ -97,6 +97,22 @@ void test_scoring_board()
         assert(sb.get_winner() == -1);
     }
 
+    // Can get players' score
+    {
+        scoring_board sb;
+
+        // Can get a specific player's score
+        sb.set_score(1, 500);
+        assert(sb.get_score(1) == 500);
+
+        sb.set_score_player1(500);
+        assert(sb.get_score_player1() == 500);
+        sb.set_score_player2(500);
+        assert(sb.get_score_player2() == 500);
+        sb.set_score_player3(500);
+        assert(sb.get_score_player3() == 500);
+    }
+
     // Can set players' score
     {
         scoring_board sb;
@@ -113,27 +129,11 @@ void test_scoring_board()
         assert(sb.get_score_player3() == 500);
     }
 
-    // Can set players' score
-    {
-        scoring_board sb;
-
-        // Can modify a specific player's score
-        sb.set_score(1, 500);
-        assert(sb.get_score(1) == 500);
-
-        sb.set_score_player1(500);
-        assert(sb.get_score_player1() == 500);
-        sb.set_score_player2(500);
-        assert(sb.get_score_player2() == 500);
-        sb.set_score_player3(500);
-        assert(sb.get_score_player3() == 500);
-    }
-
     // Can modify players' score
     {
         scoring_board sb;
 
-        // Can get a specific player's score
+        // Can modify a specific player's score
         sb.set_score(1, 500);
         sb.modify_score(1, 500);
         assert(sb.get_score(1) == 1000);
