@@ -48,11 +48,11 @@ std::string to_str(const action_type this_action_type)
   case action_type::accelerate_forward:
     return "accelerate_forward";
   case action_type::accelerate_backward:
-      return "accelerate_backward";
+    return "accelerate_backward";
   case action_type::shoot:
-      return "shoot";
+    return "shoot";
   case action_type::shoot_stun_rocket:
-      return "shoot_stun_rocket";
+    return "shoot_stun_rocket";
   default:
     assert(this_action_type == action_type::none );
   return "none";

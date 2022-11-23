@@ -8,6 +8,7 @@ HEADERS += \
     $$PWD/enemy_behavior_type.h \
     $$PWD/environment.h \
     $$PWD/environment_type.h \
+    $$PWD/event_type.h \
     $$PWD/food.h \
     $$PWD/food_state.h \
     $$PWD/food_type.h \
@@ -43,6 +44,7 @@ SOURCES += \
     $$PWD/enemy_behavior_type.cpp \
     $$PWD/environment.cpp \
     $$PWD/environment_type.cpp \
+    $$PWD/event_type.cpp \
     $$PWD/food.cpp \
     $$PWD/food_state.cpp \
     $$PWD/food_type.cpp \
