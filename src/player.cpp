@@ -615,6 +615,12 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_state() == player_state::active);
   }
 
+  {
+    // (627) A player's state is changed by specific functions, by default a player is active
+    const player p;
+    assert(p.get_state() == player_state::active);
+  }
+  
   #ifdef FIX_ISSUE_609
   {
     // (609) A player that is dead becomes transparent

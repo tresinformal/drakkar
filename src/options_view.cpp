@@ -57,8 +57,16 @@ void options_view::show()
   background_sprite.setFillColor(bg_color);
   m_window.draw(background_sprite);
 
+  #ifdef FIX_ISSUE_640
+  {
+    const sf::Text& get_title_text(*this);
+    m_window.draw(title_text);
+  }
+  #endif // FIX_ISSUE_640
+
   // Placeholder text
   sf::Text placeholder;
+
   placeholder.setFont(m_game_resources.get_font());
   placeholder.setString("We don't have an Options screen yet D:");
   placeholder.setCharacterSize(40);
@@ -98,6 +106,18 @@ void test_options_view() //!OCLINT tests may be many
     // and closing after, but that is not possible AFAICS
     // bc exec() doesn't exit on its own
   }
+  //#define FIX_ISSUE_630
+  #ifdef FIX_ISSUE_630
+  // (630) One must be able to turn off the music in the options screen
+  {
+    const game_options options;
+    assert(options.is_playing_music());
+    options_view view(options);
+    assert(view.get_options().is_playing_music());
+    view.click_play_music_button();
+    assert(!view.get_options().is_playing_music());
+  }
+  #endif // FIX_ISSUE_630
   //#define FIX_ISSUE_631
   #ifdef FIX_ISSUE_631
   // (631) An options_view allows a user to modify game_options
@@ -108,6 +128,22 @@ void test_options_view() //!OCLINT tests may be many
     assert(options == options_again);
   }
   #endif // FIX_ISSUE_631
+  //#define FIX_ISSUE_640
+  #ifdef FIX_ISSUE_640
+  // (640) Add a title
+  {
+    game_options options; //Cannot be const
+    // The line below modifies the game_options,
+    // as it will initialize the text with a font,
+    // that is taken from the game_options' resources:
+    // getting the sf::Font by reference is non-const
+    const sf::Text title_text{
+      create_title_text(options)
+    };
+    assert(title_text.getString() == "Drakkar.io");
+    assert(title_text.getCharacterSize() > 20); //Bigger is OK
+  }
+  #endif // FIX_ISSUE_640
 
 }
 #endif // NDEBUG // No tests in release

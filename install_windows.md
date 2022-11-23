@@ -36,7 +36,7 @@ Here, you will need to check two boxes:
  * 2. Now we can see Qt 5.14.2, we tick it and expand it so that we could also see the correct version of MinGw (7.3.0).
 ![image](https://user-images.githubusercontent.com/57348932/192825152-980e947e-3cbc-46f7-a0b1-c0ac28f2a0a6.png)
 
-## 2. Download and install SFML ([here](https://www.sfml-dev.org/files/SFML-2.5.1-macOS-clang.tar.gz))
+## 2. Download and install SFML
 
 
 

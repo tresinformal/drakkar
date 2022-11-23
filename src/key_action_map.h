@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 
 /// Convert a key to an action
+/// Also called 'Key bindings', 'Key configuration',
+/// 'Keyboard setup'
 class key_action_map
 {
 public:
