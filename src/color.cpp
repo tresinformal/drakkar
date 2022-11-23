@@ -1,5 +1,4 @@
 #include "color.h"
-
 #include <cassert>
 #include <cstdlib>
 #include <sstream>

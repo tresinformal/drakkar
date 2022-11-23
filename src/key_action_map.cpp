@@ -1,4 +1,4 @@
-#include "key_action_map.h"
+ #include "key_action_map.h"
 
 #include <SFML/System.hpp>
 #include <cassert>
