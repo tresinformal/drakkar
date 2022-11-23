@@ -109,6 +109,13 @@ void options_view::show()
   m_window.draw(music_button_bg);
   m_window.draw(music_button_text);
 
+  #ifdef FIX_ISSUE_640
+  {
+    const sf::Text& get_title_text(*this);
+    m_window.draw(title_text);
+  }
+  #endif // FIX_ISSUE_640
+
   // Display all shapes
   m_window.display();
 }
@@ -130,6 +137,21 @@ void test_options_view() //!OCLINT tests may be many
     // and closing after, but that is not possible AFAICS
     // bc exec() doesn't exit on its own
   }
+
+  //#define FIX_ISSUE_630
+  #ifdef FIX_ISSUE_630
+  // (630) One must be able to turn off the music in the options screen
+  {
+    const game_options options;
+    assert(options.is_playing_music());
+    options_view view(options);
+    assert(view.get_options().is_playing_music());
+    view.click_play_music_button();
+    assert(!view.get_options().is_playing_music());
+  }
+  #endif // FIX_ISSUE_630
+  //#define FIX_ISSUE_631
+  #ifdef FIX_ISSUE_631
   // (631) An options_view allows a user to modify game_options
   {
     const game_options options;
@@ -137,16 +159,23 @@ void test_options_view() //!OCLINT tests may be many
     const game_options options_again(view.get_options());
     assert(options == options_again);
   }
-
-#ifdef FIX_ISSUE_630
-  // (630) The options screen has a music on/off button
+  #endif // FIX_ISSUE_631
+  //#define FIX_ISSUE_640
+  #ifdef FIX_ISSUE_640
+  // (640) Add a title
   {
-    const options_view view;
-    const menu_button mb = view.get_music_button();
-    mb.get_label() == "";
+    game_options options; //Cannot be const
+    // The line below modifies the game_options,
+    // as it will initialize the text with a font,
+    // that is taken from the game_options' resources:
+    // getting the sf::Font by reference is non-const
+    const sf::Text title_text{
+      create_title_text(options)
+    };
+    assert(title_text.getString() == "Drakkar.io");
+    assert(title_text.getCharacterSize() > 20); //Bigger is OK
   }
-#endif
-
+  #endif // FIX_ISSUE_640
 }
 #endif // NDEBUG // No tests in release
 

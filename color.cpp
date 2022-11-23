@@ -46,6 +46,16 @@ color create_blue_color()
   return color(0, 0, 255, 255);
 }
 
+color create_white_color()
+{
+  return color(255, 255, 255, 255);
+}
+
+color create_black_color()
+{
+  return color(0, 0, 0, 255);
+}
+
 double calc_hue(const color &c)
 {
   double r = c.get_red()   / 255.0;
@@ -198,22 +208,19 @@ void test_color()
   }
 #endif // FIX_ISSUE_448
 
-//#define FIX_ISSUE_460
-#ifdef FIX_ISSUE_460
   // #460 Ready-made black and white colors are available
   {
     const color black = create_black_color();
-    assert(get_redness(black) == 255);
-    assert(get_greenness(black) == 255);
-    assert(get_blueness(black) == 255);
+    assert(get_redness(black) == 0);
+    assert(get_greenness(black) == 0);
+    assert(get_blueness(black) == 0);
   }
   {
     const color white = create_white_color();
-    assert(get_redness(white) == 0);
-    assert(get_greenness(white) == 0);
-    assert(get_blueness(white) == 0);
+    assert(get_redness(white) == 255);
+    assert(get_greenness(white) == 255);
+    assert(get_blueness(white) == 255);
   }
-#endif // FIX_ISSUE_460
 
   #ifdef FIX_ISSUE_628
   // (628) A random color between red, blue, green can be sampled

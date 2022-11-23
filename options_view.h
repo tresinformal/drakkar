@@ -16,7 +16,7 @@ public:
   /// Shows the options
   void show();
 
-  /// Creates the menu and draws it
+  /// Creates the options window and draw it
   void exec();
 
   /// Get next view
