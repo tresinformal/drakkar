@@ -31,6 +31,9 @@ public:
   // Get the game options
   const game_options& get_options()const noexcept { return m_options; }
 
+  // Click the music button to turn music on/off
+  void click_play_music_button();
+
 private:
   game_options m_options;
   sf::RenderWindow m_window;

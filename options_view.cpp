@@ -57,12 +57,7 @@ bool options_view::process_events()
               );
         if (is_inside_button(mouse_position, m_music_button))
           {
-            if (m_options.is_playing_music()) // music is on
-              {
-                m_options.stop_music();
-              } else {
-                m_options.play_music();
-              }
+            click_play_music_button();
             return false;
           }
       }
@@ -120,6 +115,17 @@ void options_view::show()
   m_window.display();
 }
 
+// Click the music button to turn music on/off
+void options_view::click_play_music_button()
+{
+  if (m_options.is_playing_music()) // music is on
+    {
+      m_options.stop_music();
+    } else {
+      m_options.play_music();
+    }
+}
+
 #ifndef NDEBUG // no tests in release
 void test_options_view() //!OCLINT tests may be many
 {
@@ -138,8 +144,6 @@ void test_options_view() //!OCLINT tests may be many
     // bc exec() doesn't exit on its own
   }
 
-  //#define FIX_ISSUE_630
-  #ifdef FIX_ISSUE_630
   // (630) One must be able to turn off the music in the options screen
   {
     const game_options options;
@@ -149,7 +153,7 @@ void test_options_view() //!OCLINT tests may be many
     view.click_play_music_button();
     assert(!view.get_options().is_playing_music());
   }
-  #endif // FIX_ISSUE_630
+
   //#define FIX_ISSUE_631
   #ifdef FIX_ISSUE_631
   // (631) An options_view allows a user to modify game_options
