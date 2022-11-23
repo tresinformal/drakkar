@@ -10,7 +10,8 @@ game_resources::game_resources()
     const QString filename{"rocket_sprite.png"};
     QFile f(":/" + filename);
     f.copy(filename);
-    if (!m_rocket.loadFromFile(filename.toStdString()))
+    std::string filename_srt = filename.toStdString();
+    if (!m_rocket.loadFromFile(filename_srt))
     {
       QString msg{"Cannot find image file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());
