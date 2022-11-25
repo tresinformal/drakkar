@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
-#include <random>
 #include <SFML/Graphics.hpp>
 
 color::color(const int r, const int g, const int b, const int a)
@@ -54,6 +53,15 @@ color create_white_color()
 color create_black_color()
 {
   return color(0, 0, 0, 255);
+}
+
+color get_random_respawn_color(std::mt19937& ran_num_gen) noexcept
+{
+    int r = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+    int g = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+    int b = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
+
+    return color(r, g, b);
 }
 
 double calc_hue(const color &c)
@@ -222,32 +230,23 @@ void test_color()
     assert(get_blueness(white) == 255);
   }
 
-  #ifdef FIX_ISSUE_628
-  // (628) A random color between red, blue, green can be sampled
+
+  // Check if the color is actually random
   {
-    int n_red = 0;
-    int n_green = 0;
-    int n_blue = 0;
-
-    const color r = create_red_color();
-    const color g = create_green_color();
-    const color b = create_blue_color();
-
-    std::mt19937 rng(1);
-    for (int i = 0; i < 100; ++i)
-      {
-        const color c = get_random_rgb(rng);
-        if (c == r) { ++n_red; }
-        else if (c == g) { ++n_green; }
-        else if (c == b) { ++n_blue; }
-        else { throw("get_random_rgb should not return any other color than r, g, b"); }
-      }
-
-    assert(n_red > 0 && n_green > 0 && n_blue > 0 );
-
+    std::mt19937 rng(std::time(nullptr));
+    const auto c = get_random_respawn_color(rng); //Will modify RNG
+    const auto d = get_random_respawn_color(rng); //Will modify RNG
+    assert(c != d); // Chance 1 in 256^3 this fails, pick a different seed if needed
   }
-#endif // FIX_ISSUE_628
-
+  // Check if the color is actually random yet repeatable
+  {
+    const int seed{42};
+    std::mt19937 rng1(seed);
+    std::mt19937 rng2(seed);
+    const auto c = get_random_respawn_color(rng1); //Will modify RNG
+    const auto d = get_random_respawn_color(rng2); //Will modify RNG
+    assert(c == d);
+  }
 
 #endif // NDEBUG
 }

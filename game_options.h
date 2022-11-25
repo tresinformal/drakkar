@@ -49,6 +49,9 @@ private:
 bool operator== (const game_options& lhs, const game_options& rhs) noexcept;
 bool operator!= (const game_options& lhs, const game_options& rhs) noexcept;
 
+/// Implement stream operator
+std::ostream& operator << (std::ostream &out, const game_options &g_o);
+
 game_options get_random_game_options(const int& rng_seed);
 
 ///Turns off the sound in options
