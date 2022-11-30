@@ -71,4 +71,4 @@ SOURCES += \
     $$PWD/src/view_mode.cpp
 
 RESOURCES += \
-    game_resources.qrc
+    $$PWD/resources/game_resources.qrc
