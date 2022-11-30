@@ -1,0 +1,10 @@
+on:
+  push:
+  pull_request:
+
+name: vcpkg_cmake_check
+jobs:
+  name: 
+    steps: 
+      - name: run-vcpkg
+        uses: lukka/run-vcpkg@v10.6
