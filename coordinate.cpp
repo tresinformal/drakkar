@@ -1,4 +1,5 @@
 #include "coordinate.h"
+#include <sstream>
 #include <cmath>
 #include <cassert>
 #include <vector>
@@ -30,6 +31,12 @@ bool coordinate::operator==(coordinate in_coord) {
 bool coordinate::operator!=(coordinate in_coord) {
   return not((m_x == in_coord.m_x) && (m_y == in_coord.m_y));
 }
+
+std::ostream& operator << (std::ostream &out, const coordinate &cor)
+{
+    return out << cor.get_x() << " " << cor.get_y() << std::endl;
+}
+
 
 void test_coordinate() {
   // (356) Initial coordinates can be set at construction
@@ -111,23 +118,33 @@ void test_coordinate() {
 
 //#define FIX_ISSUE_408
 #ifdef FIX_ISSUE_408
-{
-  // Two vectors of coordinates can be checked for strict equality
-  const coordinate a{1.0, 1.0};
-  const coordinate b{2.0, 1.0};
-  const coordinate c{3.0, 1.5};
-  const coordinate d{1.0, 0.0};
-  const std::vector<coordinate> some_coordinates{a, b, c};
-  const std::vector<coordinate> same_coordinates{a, b, c};
-  const std::vector<coordinate> other_coordinates{a, b, d};
-  const std::vector<coordinate> less_coordinates{a, b};
-  const std::vector<coordinate> shuffled_coordinates{b, a, c};
+    {
+      // Two vectors of coordinates can be checked for strict equality
+      const coordinate a{1.0, 1.0};
+      const coordinate b{2.0, 1.0};
+      const coordinate c{3.0, 1.5};
+      const coordinate d{1.0, 0.0};
+      const std::vector<coordinate> some_coordinates{a, b, c};
+      const std::vector<coordinate> same_coordinates{a, b, c};
+      const std::vector<coordinate> other_coordinates{a, b, d};
+      const std::vector<coordinate> less_coordinates{a, b};
+      const std::vector<coordinate> shuffled_coordinates{b, a, c};
 
-  assert(all_positions_equal(some_coordinates, same_coordinates));
-  assert(!all_positions_equal(some_coordinates, other_coordinates));
-  assert(!all_positions_equal(some_coordinates, less_coordinates));
-  assert(!all_positions_equal(some_coordinates, shuffled_coordinates));
-}
+      assert(all_positions_equal(some_coordinates, same_coordinates));
+      assert(!all_positions_equal(some_coordinates, other_coordinates));
+      assert(!all_positions_equal(some_coordinates, less_coordinates));
+      assert(!all_positions_equal(some_coordinates, shuffled_coordinates));
+    }
 #endif
+    #define FIX_ISSUE_554
+    #ifdef FIX_ISSUE_554
+    // operator<<
+    {
+      std::stringstream s;
+      const coordinate coor{1,2};
+      s << coor;
+      assert(!s.str().empty());
+    }
+    #endif // FIX_ISSUE_508
 }
 
