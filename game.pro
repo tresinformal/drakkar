@@ -39,6 +39,8 @@ unix:!macx {
 
 macx {
   INCLUDEPATH += /Users/johti53/SFML/include
+  INCLUDEPATH += /Users/Ludvig/SFML/include
+  LIBS += -L/Users/Ludvig/SFML/lib
   LIBS += -L/Users/johti53/SFML/lib \
       -lsfml-system \
       -lsfml-window \
