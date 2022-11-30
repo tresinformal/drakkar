@@ -455,9 +455,6 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(kam.to_key(action_type::turn_right) == sf::Keyboard::D);
     assert(kam.to_key(action_type::accelerate_forward) == sf::Keyboard::W);
     assert(kam.to_key(action_type::accelerate_backward) == sf::Keyboard::S);
-    // Note that this line is commented out due to the need of minimal viable game, ref to (644)
-    //assert(kam.to_key(action_type::none) == sf::Keyboard::Q);
-    assert(kam.to_key(action_type::none) == sf::Keyboard::E);
   }
   // 522. operator<< for key_action_map
   {
