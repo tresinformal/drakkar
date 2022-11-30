@@ -2,5 +2,7 @@ on:
   push:
   pull_request:
 
+name: vcpkg_check
+
 - name: run-vcpkg
   uses: lukka/run-vcpkg@v10.6
