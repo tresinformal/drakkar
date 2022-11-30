@@ -21,7 +21,7 @@ enum class event_type
 };
 
 void test_event_type();
-std::string to_str(const event_type this_event_type);
+std::string to_str(const event_type this_event_type) noexcept;
 std::ostream &operator<<(std::ostream &os, const event_type t);
 
 #endif // ACTION_TYPE_H

@@ -12,19 +12,19 @@ public:
                   int score_player3 = 0,
                   int timer = 0,
                   int winner = -1);
-    void set_score(int player, int score);
+    void set_score(const int player, const int score) noexcept;
 
-    void set_score_player1(int score) {m_score_player1 = score;};
+    void set_score_player1(const int score) noexcept {m_score_player1 = score;};
 
-    void set_score_player2(int score) {m_score_player2 = score;};
+    void set_score_player2(const int score) noexcept {m_score_player2 = score;};
 
-    void set_score_player3(int score) {m_score_player3 = score;};
+    void set_score_player3(const int score) noexcept {m_score_player3 = score;};
 
-    void set_timer(int time) {m_timer = time;};
+    void set_timer(const int time) noexcept {m_timer = time;};
 
-    void set_winner(int winner);
+    void set_winner(const int winner);
 
-    int get_score(int player) const noexcept;
+    int get_score (const int player) const noexcept;
 
     int get_score_player1() const noexcept {return m_score_player1;};
 
@@ -32,13 +32,13 @@ public:
 
     int get_score_player3() const noexcept {return m_score_player3;};
 
-    void modify_score(int player, int amount);
+    void modify_score(const int player, const int amount) noexcept;
 
-    void modify_score_player1(int amount) {m_score_player1 += amount;}
+    void modify_score_player1(const int amount) noexcept {m_score_player1 += amount;}
 
-    void modify_score_player2(int amount) {m_score_player2 += amount;}
+    void modify_score_player2(const int amount) noexcept {m_score_player2 += amount;}
 
-    void modify_score_player3(int amount) {m_score_player3 += amount;}
+    void modify_score_player3(const int amount) noexcept {m_score_player3 += amount;}
 
     int get_timer() const noexcept {return m_timer;};
 

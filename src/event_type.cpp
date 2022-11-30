@@ -39,7 +39,7 @@ std::ostream &operator<<(std::ostream &os, const event_type t)
   return os;
 }
 
-std::string to_str(const event_type this_event_type)
+std::string to_str(const event_type this_event_type) noexcept
 {
   #ifdef HAS_MAGIC_ENUM // HAS_MAGIC_ENUM is defined in game.pro
   return std::string(magic_enum::enum_name(this_event_type));
@@ -60,6 +60,8 @@ std::string to_str(const event_type this_event_type)
     return "stun_a_player";
   case event_type::been_stunned:
     return "been_stunned";
+  case event_type::collect_an_item:
+    return "collect_an_item";
   case event_type::win_a_game:
     return "win_a_game";
   case event_type::draw_a_game:
@@ -69,8 +71,7 @@ std::string to_str(const event_type this_event_type)
   case event_type::nothing:
     return "nothing";
   default:
-    assert(this_event_type == event_type::nothing);
-  return "nothing";
+    return "nothing";
   }
   #endif
 }

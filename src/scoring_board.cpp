@@ -18,7 +18,7 @@ scoring_board::scoring_board(int score_player1,
 
 }
 
-int scoring_board::get_score(int player) const noexcept
+int scoring_board::get_score(const int player) const noexcept
 {
   switch (player)
   {
@@ -33,7 +33,7 @@ int scoring_board::get_score(int player) const noexcept
   }
 }
 
-void scoring_board::set_score(int player, int score)
+void scoring_board::set_score(const int player, const int score) noexcept
 {
   switch (player)
   {
@@ -51,7 +51,7 @@ void scoring_board::set_score(int player, int score)
   }
 }
 
-void scoring_board::modify_score(int player, int amount)
+void scoring_board::modify_score(const int player, const int amount) noexcept
 {
   switch (player)
   {
@@ -69,7 +69,7 @@ void scoring_board::modify_score(int player, int amount)
   }
 }
 
-void scoring_board::set_winner(int winner)
+void scoring_board::set_winner(const int winner)
 {
   if ((winner < 0) | (winner > 2))
     {
@@ -86,7 +86,7 @@ void test_scoring_board()
     #ifdef FIX_ISSUE_542
     // When a scoring board is initialized players have 0 score and the time has not started yet
     {
-        scoring_board sb;
+        const scoring_board sb;
         // Can get a specific player's score
         assert(sb.get_score(1) == 0);
 
