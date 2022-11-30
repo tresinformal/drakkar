@@ -62,7 +62,7 @@ jobs:
       - name: Show contributors on all branches
         run: git clone https://github.com/tresinformal/game.git ; cd game ; git shortlog -s -n --all --no-merges
     
-    vcpkg and cmake:  
-      - name: run-vcpkg
-        uses: lukka/run-vcpkg@v10.6
+  vcpkg and cmake:  
+    - name: run-vcpkg
+      uses: lukka/run-vcpkg@v10.6
 
