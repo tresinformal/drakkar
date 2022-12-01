@@ -55,15 +55,6 @@ color create_black_color()
   return color(0, 0, 0, 255);
 }
 
-color get_random_respawn_color(std::mt19937& ran_num_gen) noexcept
-{
-    int r = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int g = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int b = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-
-    return color(r, g, b);
-}
-
 double calc_hue(const color &c)
 {
   double r = c.get_red()   / 255.0;
