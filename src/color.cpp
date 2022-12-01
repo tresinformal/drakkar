@@ -55,15 +55,6 @@ color create_black_color()
   return color(0, 0, 0, 255);
 }
 
-color get_random_respawn_color(std::mt19937& ran_num_gen) noexcept
-{
-    int r = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int g = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int b = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-
-    return color(r, g, b);
-}
-
 double calc_hue(const color &c)
 {
   double r = c.get_red()   / 255.0;
@@ -228,24 +219,6 @@ void test_color()
     assert(get_redness(white) == 255);
     assert(get_greenness(white) == 255);
     assert(get_blueness(white) == 255);
-  }
-
-
-  // Check if the color is actually random
-  {
-    std::mt19937 rng(std::time(nullptr));
-    const auto c = get_random_respawn_color(rng); //Will modify RNG
-    const auto d = get_random_respawn_color(rng); //Will modify RNG
-    assert(c != d); // Chance 1 in 256^3 this fails, pick a different seed if needed
-  }
-  // Check if the color is actually random yet repeatable
-  {
-    const int seed{42};
-    std::mt19937 rng1(seed);
-    std::mt19937 rng2(seed);
-    const auto c = get_random_respawn_color(rng1); //Will modify RNG
-    const auto d = get_random_respawn_color(rng2); //Will modify RNG
-    assert(c == d);
   }
 
 #endif // NDEBUG
