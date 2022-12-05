@@ -52,9 +52,7 @@ void test_projectile()
     assert(p.get_position() == c);
   }
 
-
-//#define FIX_ISSUE_364
-#ifdef FIX_ISSUE_364
+  // (364) Projectile can move based on direction
   {
     auto init_position = coordinate{0, 0};
     double direction{0};
@@ -62,6 +60,5 @@ void test_projectile()
     p.move();
     assert(p.get_position() != init_position);
   }
-#endif
 
 }
