@@ -178,12 +178,6 @@ bool is_red(const player & p) noexcept
             ;
 }
 
-/// Get the position of player as a coordinate
-coordinate get_position(const player &p) noexcept
-{
-  return p.get_position();
-}
-
 // The player can be stunned
 void player::stun()
 {
