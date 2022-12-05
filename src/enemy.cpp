@@ -10,10 +10,7 @@ enemy::enemy(const coordinate c)
 
 std::stringstream& operator << (std::stringstream &out, const enemy &enemy)
 {
-    out << "Enemy(" << std::to_string(get_x(enemy)) <<
-           ", " << std::to_string(get_y(enemy)) <<
-           ")";
-
+    out << "Enemy at" << enemy.get_position();
     return out;
 }
 
