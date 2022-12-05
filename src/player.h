@@ -275,6 +275,9 @@ int get_greenness(const player &p) noexcept;
 /// Get the redness (from the color) of the player
 int get_redness(const player &p) noexcept;
 
+/// Get the position of player as a coordinate
+coordinate get_position(const player &p) noexcept;
+
 /// Is a player blue?
 bool is_blue(const player &p) noexcept;
 
