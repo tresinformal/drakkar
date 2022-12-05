@@ -1,11 +1,11 @@
-# Contributing to tresinformal/game
+# Contributing to tresinformal/drakkar
 
-Please also visit the [FAQ](https://github.com/tresinformal/game/blob/master/faq.md) if you don't find the information you want here!
-Also read the [code of conduct](https://github.com/tresinformal/game/blob/master/code_of_conduct.md). 
+Please also visit the [FAQ](https://github.com/tresinformal/drakkar/blob/master/faq.md) if you don't find the information you want here!
+Also read the [code of conduct](https://github.com/tresinformal/drakkar/blob/master/code_of_conduct.md). 
 
 ## Joining the team
 
-See the [corresponding section in the FAQ](https://github.com/tresinformal/game/blob/master/faq.md#i-want-to-join-the-team-what-must-i-do).
+See the [corresponding section in the FAQ](https://github.com/tresinformal/drakkar/blob/master/faq.md#i-want-to-join-the-team-what-must-i-do).
 
 ## Creating an issue
 

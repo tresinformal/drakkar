@@ -2,7 +2,7 @@
 
   0. Get the right version
   1. Download and install Qt Creator with CMAKE (once)
-  2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/game/tree/CMAKE_attempts)
+  2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/drakkar/tree/CMAKE_attempts)
   3. Put your version of the branch up-to-date
   4. Update the vcpkg submodule (once)
   (For Qt creator users)
@@ -27,7 +27,7 @@ Here, you will need to check two boxes:
  * 2. The following tools: 
 
 
-## 2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/game/tree/CMAKE_attempts)
+## 2. Checkout to branch [CMAKE_attempts](https://github.com/tresinformal/drakkar/tree/CMAKE_attempts)
 Do so by running `git checkout CMAKE_attempts`
 ## 3. Put your version of the branch up-to-date
 Do so by running the command: `git pull`

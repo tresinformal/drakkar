@@ -60,5 +60,5 @@ jobs:
         run: make release --silent
 
       - name: Show contributors on all branches
-        run: git clone https://github.com/tresinformal/game.git ; cd game ; git shortlog -s -n --all --no-merges
+        run: git clone https://github.com/tresinformal/drakkar.git ; cd drakkar ; git shortlog -s -n --all --no-merges
 
