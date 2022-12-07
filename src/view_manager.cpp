@@ -42,6 +42,7 @@ void view_manager::exec()
         case view_mode::options:
           {
             m_options_view.exec();
+            m_game_view.set_options(m_options_view.get_options());
             set_next_view(m_options_view.get_next_view());
             break;
           }
