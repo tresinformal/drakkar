@@ -109,6 +109,7 @@ void test_view_manager()
     assert(!vw.get_game_view().get_options().is_playing_music());
   }
 
+
 #endif // NDEBUG
 }
 

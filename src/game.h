@@ -134,6 +134,9 @@ public:
   ///Manages collisons with walls
   player resolve_wall_collision(player p);
   
+  /// The options can be changed
+  void set_options(const game_options& new_options) noexcept { m_options = new_options; }
+
 private:
 
   /// The RNG engine

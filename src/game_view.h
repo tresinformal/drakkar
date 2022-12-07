@@ -31,6 +31,8 @@ public:
   /// Get const reference to m_game_options
   const game_options& get_options() const noexcept {return get_game().get_game_options();}
 
+  void set_options(const game_options& new_options) noexcept { m_game.set_options(new_options); }
+
   /// Processes events in game and ouputs false if quit
   /// is inputted
   bool process_events();

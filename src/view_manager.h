@@ -13,6 +13,7 @@ public:
         const game_options& options = game_options()
         );
     const game_view& get_game_view() const noexcept { return m_game_view;}
+    game_view& get_game_view() noexcept { return m_game_view;}
     const menu_view& get_menu_view() const noexcept { return m_menu_view;}
     const options_view& get_options_view() const noexcept { return m_options_view;}
 
