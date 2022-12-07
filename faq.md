@@ -39,7 +39,7 @@ Things you may wonder:
 ## Who is in the team?
 
 Active team members have their own git branch (whatever a git branch is :-) ),
-so [https://github.com/tresinformal/game#game](https://github.com/tresinformal/game#game)
+so [https://github.com/tresinformal/drakkar#drakkar](https://github.com/tresinformal/drakkar#drakkar)
 gives a nice overview of all team members.
 
 ## Do I need to know C++ before joining?
@@ -62,7 +62,7 @@ Nope, there is no 'homework': we work only when we can and want to.
 
  * Send Richel (or any team member) a Discord Friend Request: `richelbilderbeek#9002`
  * Send Richel (or any team member) an email: `richel@richelbilderbeek.nl`
- * Post at the GitHub Issue [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
+ * Post at the GitHub Issue [Become a tresinformal team member](https://github.com/tresinformal/drakkar/issues/1)
 
 ## How is Discord used?
 
@@ -92,12 +92,12 @@ See this video for an introduction: [YouTube](https://youtu.be/zyn5VyNjz5I) [dow
 Welcome to the team! Here is a more-or-less-chronological (i.e. if you
 get stuck, start working on the next one) list of what to do:
 
- * [Become a tresinformal team member](https://github.com/tresinformal/game/issues/1)
- * [Install Qt Creator and SFML](https://github.com/tresinformal/game/issues/16)
- * [Modify README.md on master branch](https://github.com/tresinformal/game/issues/19)
- * [Make a branch for yourself via the GitHub web interface](https://github.com/tresinformal/game/issues/47)
- * [Modify README.md on your local harddrive on your own branch](https://github.com/tresinformal/game/issues/48)
- * [Add your branch's badges to the README.md](https://github.com/tresinformal/game/issues/87)
+ * [Become a tresinformal team member](https://github.com/tresinformal/drakkar/issues/1)
+ * [Install Qt Creator and SFML](https://github.com/tresinformal/drakkar/issues/16)
+ * [Modify README.md on master branch](https://github.com/tresinformal/drakkar/issues/19)
+ * [Make a branch for yourself via the GitHub web interface](https://github.com/tresinformal/drakkar/issues/47)
+ * [Modify README.md on your local harddrive on your own branch](https://github.com/tresinformal/drakkar/issues/48)
+ * [Add your branch's badges to the README.md](https://github.com/tresinformal/drakkar/issues/87)
 
 When you feel comfortable with the workflow, you become a junior developer!
 
