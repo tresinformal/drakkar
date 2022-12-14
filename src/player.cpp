@@ -327,6 +327,29 @@ bool is_first_player_winner (const player& player_one, const player& player_two)
  return is_first_color_winner(color1,color2);
 }
 
+bool operator==(const player& lhs, const player& rhs) noexcept
+{
+  return lhs.get_x() == rhs.get_x() &&
+         lhs.get_y() == rhs.get_y() &&
+         lhs.get_ID() == rhs.get_ID() &&
+         lhs.get_color() == rhs.get_color() &&
+         lhs.get_shape() == rhs.get_shape() &&
+         lhs.get_speed() == rhs.get_speed() &&
+         lhs.get_state() == rhs.get_state() &&
+         lhs.get_health() == rhs.get_health() &&
+         lhs.get_diameter() == rhs.get_diameter() &&
+         lhs.get_position() == rhs.get_position() &&
+         lhs.get_direction() == rhs.get_direction() &&
+         lhs.get_action_set() == rhs.get_action_set() &&
+         lhs.get_action_flag() == rhs.get_action_flag() &&
+         lhs.get_max_speed_forward() == rhs.get_max_speed_forward() &&
+         lhs.get_max_speed_backward() == rhs.get_max_speed_backward() &&
+         lhs.get_acceleration_forward() == rhs.get_acceleration_forward() &&
+         lhs.get_deceleration_forward() == rhs.get_deceleration_forward() &&
+         lhs.get_acceleration_backward() == rhs.get_acceleration_backward() &&
+         lhs.get_deceleration_backward() == rhs.get_deceleration_backward();
+}
+
 void test_player() //!OCLINT tests may be long
 {
 #ifndef NDEBUG // no tests in release
@@ -890,13 +913,15 @@ void test_player() //!OCLINT tests may be long
         }
     }
   #define FIX_ISSUE_676
+  #ifdef FIX_ISSUE_676
   // (676) Can compare players for equality
   {
     const player a;
     const player b;
     assert(a == b);
   }
-  #endif // FIX_ISSUE_676#endif // no tests in release
+  #endif // FIX_ISSUE_676
+#endif // no tests in release
 }
 
 
