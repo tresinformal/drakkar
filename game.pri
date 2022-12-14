@@ -6,7 +6,6 @@ HEADERS += \
     $$PWD/src/coordinate.h \
     $$PWD/src/environment.h \
     $$PWD/src/environment_type.h \
-    $$PWD/src/event_type.h \
     $$PWD/src/food.h \
     $$PWD/src/food_state.h \
     $$PWD/src/food_type.h \
@@ -40,7 +39,6 @@ SOURCES += \
     $$PWD/src/coordinate.cpp \
     $$PWD/src/environment.cpp \
     $$PWD/src/environment_type.cpp \
-    $$PWD/src/event_type.cpp \
     $$PWD/src/food.cpp \
     $$PWD/src/food_state.cpp \
     $$PWD/src/food_type.cpp \
