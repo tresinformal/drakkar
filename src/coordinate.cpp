@@ -1,9 +1,10 @@
+#define _USE_MATH_DEFINES
 #include "coordinate.h"
 #include <sstream>
-#define _USE_MATH_DEFINES
 #include <cmath>
 #include <cassert>
 #include <vector>
+#define _USE_MATH_DEFINES
 
 coordinate::coordinate(const double x, const double y)
   : m_x{x}, m_y{y}
