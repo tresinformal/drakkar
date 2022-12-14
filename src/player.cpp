@@ -503,7 +503,7 @@ void test_player() //!OCLINT tests may be long
     //A player can add an action to its action set
     {
         player p;
-        auto action = action_type::none;
+        auto action = action_type::idle;
         assert(p.get_action_set().empty());
         add_action(p, action);
         assert(!p.get_action_set().empty());
@@ -515,7 +515,7 @@ void test_player() //!OCLINT tests may be long
     //A player can erase an action from its action set and keep the others
     {
         player p;
-        auto action1 = action_type::none;
+        auto action1 = action_type::idle;
         auto action2 = action_type::accelerate_backward;
         add_action(p, action1);
         add_action(p, action2);

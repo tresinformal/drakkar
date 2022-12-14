@@ -216,7 +216,7 @@ private:
     player_state m_state;
 
     /// Player's current action
-    action_type m_action_flag{action_type::none};
+    action_type m_action_flag{action_type::idle};
 
     /// The speed of the player
     double m_player_speed = 0;
