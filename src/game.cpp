@@ -2231,15 +2231,12 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  #define FIX_ISSUE_662
-  #ifdef FIX_ISSUE_662
   {
     const game g;
     const auto players{g.get_players()};
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
-  #endif // FIX_ISSUE_662
 #endif // no tests in release
 }
 
