@@ -19,14 +19,12 @@ game::game(
   const environment& the_environment,
   int num_players,
   size_t n_shelters,
-  int n_enemies,
   int n_food
 ) :
   m_rng(options.get_rng_seed()),
   m_options{options},
   m_n_ticks{0},
   m_player(static_cast<unsigned int>(num_players), player()),
-  m_enemies(n_enemies, enemy()),
   m_environment{the_environment},
   m_food(n_food, food()),
   m_shelters(n_shelters, shelter())
@@ -143,9 +141,9 @@ void game::do_action(player& player, action_type action)
         player.set_action_flag(action_type::shoot_stun_rocket);
         break;
       }
-      case action_type::none:
+      case action_type::idle:
       {
-        player.set_action_flag(action_type::none);
+        player.set_action_flag(action_type::idle);
         return;
       }
     }
@@ -430,7 +428,7 @@ void game::reset_player_action()
 {
   for (player &p : m_player)
     {
-      p.set_action_flag(action_type::none);
+      p.set_action_flag(action_type::idle);
     }
 }
 
@@ -674,12 +672,6 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_food().empty());
   }
 
-  // A game has enemies
-  {
-    const game g;
-    assert(!g.get_enemies().empty());
-  }
-
   // A game has game_options
   {
     const game g;
@@ -778,7 +770,7 @@ void test_game() //!OCLINT tests may be many
         const double before_y{get_y(g.get_player(i))};
 
         //action_type::none does not change anyhthing in the player
-        g.do_action(i, action_type::none);
+        g.do_action(i, action_type::idle);
         const double after_sp{g.get_player(i).get_speed()};
         const double after_dir{g.get_player(i).get_direction()};
         const double after_x{get_x(g.get_player(i))};
@@ -877,12 +869,6 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     assert(get_max_x(g.get_env()) > -56465214.0);
-  }
-
-  // A game has enemies
-  {
-    const game g;
-    assert(!g.get_enemies().empty());
   }
 
   // calling tick updates the counter and
@@ -1612,14 +1598,12 @@ void test_game() //!OCLINT tests may be many
     const double wall_short_side = 1600;
     const int num_players = 3;
     const std::size_t n_shelters = 42;
-    const int n_enemies = 1;
     const int n_food = 2;
     game g(
       game_options(),
       wall_short_side,
       num_players,
       n_shelters,
-      n_enemies,
       n_food
     );
     assert(g.get_food().size() >= 2);
@@ -1678,7 +1662,6 @@ void test_game() //!OCLINT tests may be many
     int n_players = 0;
     int n_ticks = 0;
     int n_shelters = 0;
-    int n_enemies = 0;
     int n_food = 1;
 
     int a_seed = 1;
@@ -1686,7 +1669,6 @@ void test_game() //!OCLINT tests may be many
            n_players,
            n_ticks,
            n_shelters,
-           n_enemies,
            n_food,
            a_seed
            );
@@ -1697,7 +1679,6 @@ void test_game() //!OCLINT tests may be many
            n_players,
            n_ticks,
            n_shelters,
-           n_enemies,
            n_food,
            another_seed
            );
@@ -1727,7 +1708,6 @@ void test_game() //!OCLINT tests may be many
     const double short_wall_side = 1600;
     const int n_players = 0;
     const int n_shelters = 0;
-    const int n_enemies = 0;
     const int n_food = 0;
 
     const int seed = 123456789;
@@ -1736,7 +1716,6 @@ void test_game() //!OCLINT tests may be many
       short_wall_side,
       n_players,
       n_shelters,
-      n_enemies,
       n_food
     );
     std::mt19937 expected_rng(seed);
@@ -1751,7 +1730,6 @@ void test_game() //!OCLINT tests may be many
     player n_player(Some_random_point);
     projectile n_projectile(Some_random_point);
     shelter n_shelter(Some_random_point);
-    enemy n_enemy(Some_random_point);
 
     assert(have_same_position(n_food, Some_random_point));
     assert(have_same_position(n_player, Some_random_point));
@@ -1919,8 +1897,8 @@ void test_game() //!OCLINT tests may be many
       assert(g.get_player(0).get_action_flag() == action_type::accelerate_backward);
       g.do_action(0, action_type::accelerate_forward);
       assert(g.get_player(0).get_action_flag() == action_type::accelerate_forward);
-      g.do_action(0, action_type::none);
-      assert(g.get_player(0).get_action_flag() == action_type::none);
+      g.do_action(0, action_type::idle);
+      assert(g.get_player(0).get_action_flag() == action_type::idle);
       g.do_action(0, action_type::shoot);
       assert(g.get_player(0).get_action_flag() == action_type::shoot);
       g.do_action(0, action_type::shoot_stun_rocket);
@@ -1942,7 +1920,7 @@ void test_game() //!OCLINT tests may be many
         g.reset_player_action();
         for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
         {
-            assert(g.get_player(i).get_action_flag() == action_type::none);
+            assert(g.get_player(i).get_action_flag() == action_type::idle);
         }
     }
 

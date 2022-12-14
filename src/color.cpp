@@ -55,15 +55,6 @@ color create_black_color()
   return color(0, 0, 0, 255);
 }
 
-color get_random_respawn_color(std::mt19937& ran_num_gen) noexcept
-{
-    int r = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int g = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-    int b = 1 + ran_num_gen()/((ran_num_gen.max() + 1u)/255);
-
-    return color(r, g, b);
-}
-
 double calc_hue(const color &c)
 {
   double r = c.get_red()   / 255.0;
@@ -230,23 +221,30 @@ void test_color()
     assert(get_blueness(white) == 255);
   }
 
+  #ifdef FIX_ISSUE_628
+  // (628) A random color between red, blue, green can be sampled
+  {
+    const color r = create_red_color();
+    const color g = create_green_color();
+    const color b = create_blue_color();
 
-  // Check if the color is actually random
-  {
-    std::mt19937 rng(std::time(nullptr));
-    const auto c = get_random_respawn_color(rng); //Will modify RNG
-    const auto d = get_random_respawn_color(rng); //Will modify RNG
-    assert(c != d); // Chance 1 in 256^3 this fails, pick a different seed if needed
+    const int a_seed{42};
+    std::mt19937 rng1(a_seed);
+    const color a_color = get_random_respawn_color(rng1);
+    assert(a_color == r || a_color == g || a_color == b);
+
+    const int another_seed{43}; /// please change seed if draws same color as 42
+    std::mt19937 rng2(another_seed);
+    const color another_color = get_random_respawn_color(rng2);
+    assert(another_color == r || another_color == g || another_color == b);
+    assert(a_color != another_color);
+
+    const int same_seed = a_seed;
+    std::mt19937 rng3(same_seed);
+    const color same_color = get_random_respawn_color(rng3);
+    assert(same_color == a_color);
   }
-  // Check if the color is actually random yet repeatable
-  {
-    const int seed{42};
-    std::mt19937 rng1(seed);
-    std::mt19937 rng2(seed);
-    const auto c = get_random_respawn_color(rng1); //Will modify RNG
-    const auto d = get_random_respawn_color(rng2); //Will modify RNG
-    assert(c == d);
-  }
+#endif // FIX_ISSUE_628
 
 #endif // NDEBUG
 }

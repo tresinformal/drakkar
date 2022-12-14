@@ -503,7 +503,7 @@ void test_player() //!OCLINT tests may be long
     //A player can add an action to its action set
     {
         player p;
-        auto action = action_type::none;
+        auto action = action_type::idle;
         assert(p.get_action_set().empty());
         add_action(p, action);
         assert(!p.get_action_set().empty());
@@ -515,7 +515,7 @@ void test_player() //!OCLINT tests may be long
     //A player can erase an action from its action set and keep the others
     {
         player p;
-        auto action1 = action_type::none;
+        auto action1 = action_type::idle;
         auto action2 = action_type::accelerate_backward;
         add_action(p, action1);
         add_action(p, action2);
@@ -658,8 +658,7 @@ void test_player() //!OCLINT tests may be long
 }
 #endif
 
-  //#define FIX_ISSUE_401
-  #ifdef FIX_ISSUE_401
+    // (401) can get the position of player through global function
     {
         auto x = 1.23456;
         auto  y = 123456.789;
@@ -667,24 +666,16 @@ void test_player() //!OCLINT tests may be long
         player p{c};
         assert(get_position(p) == c);
     }
-  #endif
 
-  //#define FIX_ISSUE_402
-  #ifdef FIX_ISSUE_402
+    // (402) can get the x and y of player through global function
     {
         auto x = 1.23456;
         auto  y = 123456.789;
         coordinate c{x, y};
         player p{c};
-
-        ///you HAVE TO use the get_position(player)
-        /// to implement get_x(player) and get_y(player)
-        /// I do not know how to make it explicit in the test @Richel
         assert(get_x(p) == c.get_x());
         assert(get_y(p) == c.get_y());
     }
-  #endif
-
 
   //#define FIX_ISSUE_367
   #ifdef FIX_ISSUE_367

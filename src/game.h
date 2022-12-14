@@ -2,7 +2,6 @@
 #define GAMELOGIC_H
 
 #include "action_type.h"
-#include "enemy.h"
 #include "environment.h"
 #include "environment_type.h"
 #include "food.h"
@@ -26,7 +25,6 @@ public:
     const environment& the_environment = environment(),
     int num_players = 3,
     std::size_t n_shelters = 42,
-    int n_enemies = 1,
     int n_food = 1
   );
 
@@ -69,9 +67,6 @@ public:
   /// Get environment size of the game
   const environment& get_env() const noexcept{ return m_environment; }
 
-  /// Get enemies
-  const std::vector<enemy>& get_enemies() const noexcept { return m_enemies; }
-
   /// Get const reference to food vector
   const std::vector<food>& get_food() const noexcept { return m_food; }
 
@@ -112,7 +107,7 @@ public:
     return m_projectiles;
   }
 
-  /// Get enemies
+  /// Get shelters
   const std::vector<shelter>& get_shelters() const noexcept { return m_shelters; }
 
   /// Kills the index'th player (e.g. index 0 is the first player)
@@ -153,9 +148,6 @@ private:
 
   ///Vector of index of the players that collide
   std::vector<int> m_v_collisions_ind;
-
-  /// the enemies
-  std::vector<enemy> m_enemies;
 
   /// the environment
   environment m_environment;
