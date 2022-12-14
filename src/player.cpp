@@ -620,7 +620,7 @@ void test_player() //!OCLINT tests may be long
     const player p;
     assert(p.get_state() == player_state::active);
   }
-  
+
   #ifdef FIX_ISSUE_609
   {
     // (609) A player that is dead becomes transparent
@@ -889,7 +889,14 @@ void test_player() //!OCLINT tests may be long
             assert(p.get_speed() == 0);
         }
     }
-#endif // no tests in release
+  #define FIX_ISSUE_676
+  // (676) Can compare players for equality
+  {
+    const player a;
+    const player b;
+    assert(a == b);
+  }
+  #endif // FIX_ISSUE_676#endif // no tests in release
 }
 
 
