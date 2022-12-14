@@ -95,17 +95,6 @@ public:
     /// Get the player's health
     double get_health() const noexcept { return m_health; }
 
-
-    /// Is the player shooting?
-    /// When a player shoots, 'm_is_shooting' is true for one tick.
-    /// 'game' reads 'm_is_shooting' and if it is true,
-    /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
-    bool is_shooting() const noexcept { return m_is_shooting; }
-
-    bool is_shooting_stun_rocket() const noexcept { return m_is_shooting_stun_rocket; }
-
-    bool is_cooling_down() const noexcept {return m_is_cooling_down; }
-
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
     {
@@ -114,37 +103,6 @@ public:
 
     ///Set the color of the player
     void set_color(const color &c) {m_color = c;}
-
-    /// The player shoots, does nothing for now
-    /// When a player shoots, 'm_is_shooting' is true for one tick.
-    /// 'game' reads 'm_is_shooting' and if it is true,
-    /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
-    void shoot() noexcept { m_is_shooting = true; }
-
-    /// Make the player stop shooting
-    /// When a player shoots, 'm_is_shooting' is true for one tick.
-    /// 'game' reads 'm_is_shooting' and if it is true,
-    /// it (1) creates a projectile, (2) makes the player stop shooting
-    void stop_shooting() noexcept { m_is_shooting = false; }
-
-    /// Make the player unable to shoot
-    void trigger_cool_down() noexcept {m_is_cooling_down = true; }
-
-    /// Make the player able to shoot again
-    void stop_cool_down() noexcept {m_is_cooling_down = false; }
-
-    /// Make the shoot calm down timer to increase by one tick
-    void increment_cool_down_timer() {++m_cool_down_timer; }
-
-    /// Reset the shoot calm down timer to zero
-    void reset_cool_down_timer() {m_cool_down_timer = 0; }
-
-    /// Get the current shoot calm down timer value
-    int get_cool_down_timer() {return m_cool_down_timer; }
-
-    void shoot_stun_rocket() noexcept { m_is_shooting_stun_rocket = true; }
-
-    void stop_shooting_stun_rocket() noexcept { m_is_shooting_stun_rocket = false; }
 
     /// Set a player x position
     void set_x(double x) noexcept { m_c.set_x(x); }
@@ -191,17 +149,6 @@ private:
 
   //The set of ongoing actions of a player
     std::set<action_type> m_action_set;
-
-    /// When a player shoots, 'm_is_shooting' is true for one tick.
-    /// 'game' reads 'm_is_shooting' and if it is true,
-    /// it (1) creates a projectile, (2) sets 'm_is_shooting' to false
-    bool m_is_shooting{false};
-
-    bool m_is_cooling_down{false};
-
-    int m_cool_down_timer{0};
-
-    bool m_is_shooting_stun_rocket{false};
 
     ///ID of the player
     read_only<std::string> m_ID;

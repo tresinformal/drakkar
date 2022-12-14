@@ -389,22 +389,6 @@ void test_player() //!OCLINT tests may be long
         assert(std::abs(p.get_diameter() - 100.0) < 0.00001);
     }
 
-    // A player can shoot
-    {
-        player p;
-        p.shoot();
-        assert(p.is_shooting());
-    }
-
-    // A player can stop shooting
-    {
-        player p;
-        p.shoot();
-        assert(p.is_shooting());
-        p.stop_shooting();
-        assert(!p.is_shooting());
-    }
-
     // two players(assuming they are not rotated) collide when they are less than
     // their size away
     {
