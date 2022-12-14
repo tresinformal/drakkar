@@ -147,13 +147,6 @@ std::vector<key_action_map> get_n_random_kams(int n)
   return vector_kam;
 }
 
-
-
-sf::Keyboard::Key get_stun_key(const key_action_map& m)
-{
-  return m.to_key(action_type::idle);
-}
-
 key_action_map load_kam(const std::string& filename)
 {
   std::ifstream f(filename);
@@ -411,15 +404,6 @@ void test_key_action_map()//!OCLINT tests can be many
     key_action_map d = get_random_kam();
     assert(a != d);
   }
-
- #define FIX_ISSUE_304
-//#ifdef FIX_ISSUE_304
-    //Get the stun key (Num1 by default)
-    {
-        const key_action_map m = get_player_1_kam();
-        assert(get_stun_key(m) == sf::Keyboard::E);
-    }
-//#endif // FIX_ISSUE_304
 
  {
     // (355)

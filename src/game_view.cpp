@@ -330,13 +330,6 @@ key_action_map get_player_kam(const player& p)
     }
 }
 
-bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
-{
-    game g1 = g.get_game();
-    player p1 = g1.get_player(p);
-    return is_stunned(p1);
-}
-
 void test_game_view() //!OCLINT tests may be many
 {
     #ifndef NDEBUG // no tests in release

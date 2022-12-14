@@ -85,51 +85,48 @@ void game::do_action(const int player_index, action_type action)
 
 void game::do_action(player& player, action_type action)
 {
-  if(!(player.get_state() == player_state::stunned))
-  {
-    switch (action)
+  switch (action)
     {
-      case action_type::turn_left:
+    case action_type::turn_left:
       {
         player.turn_left();
         player.set_action_flag(action_type::turn_left);
         break;
       }
-      case action_type::turn_right:
+    case action_type::turn_right:
       {
         player.turn_right();
         player.set_action_flag(action_type::turn_right);
         break;
       }
-      case action_type::accelerate_forward:
+    case action_type::accelerate_forward:
       {
         if (player.get_speed() >= 0) {
-          player.accelerate_forward();
-          player.set_action_flag(action_type::accelerate_forward);
-        } else {
-          player.decelerate();
-          player.set_action_flag(action_type::accelerate_forward);
-        }
+            player.accelerate_forward();
+            player.set_action_flag(action_type::accelerate_forward);
+          } else {
+            player.decelerate();
+            player.set_action_flag(action_type::accelerate_forward);
+          }
         break;
       }
-      case action_type::accelerate_backward:
+    case action_type::accelerate_backward:
       {
         if (player.get_speed() <= 0) {
-          player.accelerate_backward();
-          player.set_action_flag(action_type::accelerate_backward);
-        } else {
-          player.decelerate();
-          player.set_action_flag(action_type::accelerate_backward);
-        }
+            player.accelerate_backward();
+            player.set_action_flag(action_type::accelerate_backward);
+          } else {
+            player.decelerate();
+            player.set_action_flag(action_type::accelerate_backward);
+          }
         break;
       }
-      case action_type::idle:
+    case action_type::idle:
       {
         player.set_action_flag(action_type::idle);
         return;
       }
     }
-  }
 }
 
 void game::do_actions() noexcept

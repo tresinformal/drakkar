@@ -134,9 +134,6 @@ public:
     /// Make the player shrink
     void shrink();
 
-    // The player can be stunned
-    void stun();
-
     // The player can die
     void die();
 
@@ -231,9 +228,6 @@ bool is_green(const player &p) noexcept;
 /// Is a player red?
 bool is_red(const player &p) noexcept;
 
-/// Set player to stun
-void stun(player &p) noexcept;
-
 /// Is a player alive?
 bool is_alive(const player& p) noexcept;
 
@@ -242,9 +236,6 @@ bool is_active(const player &p) noexcept;
 
 /// Is a player dead?
 bool is_dead(const player& p) noexcept;
-
-/// Is a player stunned?
-bool is_stunned(const player &p) noexcept;
 
 ///Get color index
 int get_colorhash(const player &p) noexcept;
