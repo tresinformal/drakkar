@@ -26,7 +26,6 @@ HEADERS += \
     $$PWD/src/projectile.h \
     $$PWD/src/projectile_type.h \
     $$PWD/src/read_only.h \
-    $$PWD/src/scoring_board.h \
     $$PWD/src/shelter.h \
     $$PWD/src/sound_type.h \
     $$PWD/src/utils.h \
@@ -60,7 +59,6 @@ SOURCES += \
     $$PWD/src/projectile.cpp \
     $$PWD/src/projectile_type.cpp \
     $$PWD/src/read_only.cpp \
-    $$PWD/src/scoring_board.cpp \
     $$PWD/src/shelter.cpp \
     $$PWD/src/sound_type.cpp \
     $$PWD/src/utils.cpp \

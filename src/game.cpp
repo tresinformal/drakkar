@@ -319,10 +319,6 @@ void game::tick()
 
   // and updates m_n_ticks
   increment_n_ticks();
-
-  update_scoring_board();
-
-  update_timer();
 }
 
 void game::increment_n_ticks()
@@ -382,22 +378,6 @@ void game::eat_food(food& f)
   f.set_food_state(food_state::eaten);
   f.reset_timer();
 }
-
-// BEGIN Event
-
-// END Event
-
-// BEGIN Scoring Board
-void game::update_scoring_board()
-{
-    // depends on the event class
-}
-
-void game::update_timer()
-{
-    m_scoring_board.set_timer(m_n_ticks);
-}
-// END Scoring Board
 
 // BEGIN Shoot Cool Down
 void game::increment_cool_down_timers()
@@ -2205,31 +2185,6 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
   }
-  #define FIX_ISSUE_542
-  #ifdef FIX_ISSUE_542
-  {
-      // Can update the timer of the scoring board
-      {
-          game g;
-          auto time_before = g.get_scoring_board().get_timer();
-          // update_timer() is within game::tick()
-          g.tick();
-          auto time_after = g.get_scoring_board().get_timer();
-          assert(time_after > time_before);
-      }
-      // Can update the scores of the players
-#ifdef FIX_ISSUE_589
-      {
-          game g;
-          auto score_before = g.get_scoring_board().get_score_player1();
-          g.happen_event_that_changes_score_player1();
-          g.tick();
-          auto score_after = g.get_scoring_board().get_score_player1();
-          assert(score_before != score_after);
-      }
- #endif
-  }
-  #endif
 #endif // no tests in release
 }
 
