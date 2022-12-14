@@ -55,6 +55,20 @@ color create_black_color()
   return color(0, 0, 0, 255);
 }
 
+color get_random_respawn_color(std::mt19937& rng)
+{
+    std::uniform_int_distribution<> dis(0, 2);
+    switch(dis(rng))
+    {
+        case 0:
+            return create_red_color();
+        case 1:
+            return create_blue_color();
+        case 2: default:
+            return create_green_color();
+    }
+}
+
 double calc_hue(const color &c)
 {
   double r = c.get_red()   / 255.0;
@@ -221,6 +235,7 @@ void test_color()
     assert(get_blueness(white) == 255);
   }
 
+  #define FIX_ISSUE_628
   #ifdef FIX_ISSUE_628
   // (628) A random color between red, blue, green can be sampled
   {
