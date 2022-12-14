@@ -4,6 +4,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets REQUIRED)
 
 #add sfml
 find_package(SFML REQUIRED system network audio graphics window)
+#include_directories(${SFML_INCLUDE_DIR})
 
 #add compiler flags for GNUCC
 if(CMAKE_COMPILER_IS_GNUCC)
@@ -27,6 +28,8 @@ qt_add_resources(resources_for_game "${PROJECT_SOURCE_DIR}/resources/game_resour
 add_executable("game" ${src} ${resources_for_game})
 
 #link libraries to target
-include_directories(${SFML_INCLUDE_DIR})
-target_link_libraries(game PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
+target_link_libraries(game PRIVATE sfml-system sfml-audio sfml-network sfml-graphics sfml-window)
 target_link_libraries(game PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(game PRIVATE Qt${QT_VERSION_MAJOR}::Gui)
+target_link_libraries(game PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
