@@ -4,8 +4,6 @@ HEADERS += \
     $$PWD/src/action_type.h \
     $$PWD/src/color.h \
     $$PWD/src/coordinate.h \
-    $$PWD/src/enemy.h \
-    $$PWD/src/enemy_behavior_type.h \
     $$PWD/src/environment.h \
     $$PWD/src/environment_type.h \
     $$PWD/src/food.h \
@@ -39,8 +37,6 @@ SOURCES += \
     $$PWD/src/action_type.cpp \
     $$PWD/src/color.cpp \
     $$PWD/src/coordinate.cpp \
-    $$PWD/src/enemy.cpp \
-    $$PWD/src/enemy_behavior_type.cpp \
     $$PWD/src/environment.cpp \
     $$PWD/src/environment_type.cpp \
     $$PWD/src/food.cpp \
