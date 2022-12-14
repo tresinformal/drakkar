@@ -10,16 +10,12 @@ key_action_map::key_action_map(
     const sf::Keyboard::Key& key_to_go_left,
     const sf::Keyboard::Key& key_to_go_right,
     const sf::Keyboard::Key& key_to_accelerate_forward,
-    const sf::Keyboard::Key& key_to_accelerate_backward,
-    const sf::Keyboard::Key& key_to_shoot,
-    const sf::Keyboard::Key& key_to_stun
+    const sf::Keyboard::Key& key_to_accelerate_backward
     ) : m_map {
 {key_to_go_left, action_type::turn_left},
 {key_to_go_right, action_type::turn_right},
 {key_to_accelerate_forward, action_type::accelerate_forward},
-{key_to_accelerate_backward, action_type::accelerate_backward},
-{key_to_shoot, action_type::idle},
-{key_to_stun, action_type::idle}
+{key_to_accelerate_backward, action_type::accelerate_backward}
           }
 {
 }
@@ -75,10 +71,7 @@ key_action_map get_player_2_kam()
         sf::Keyboard::J,
         sf::Keyboard::L,
         sf::Keyboard::I,
-        sf::Keyboard::K,
-        //sf::Keyboard::Comma,
-        sf::Keyboard::U,
-        sf::Keyboard::O
+        sf::Keyboard::K
         );
 }
 key_action_map get_player_3_kam()
@@ -87,10 +80,7 @@ key_action_map get_player_3_kam()
         sf::Keyboard::Left,
         sf::Keyboard::Right,
         sf::Keyboard::Up,
-        sf::Keyboard::Down,
-        //sf::Keyboard::Comma,
-        sf::Keyboard::RControl,
-        sf::Keyboard::Return
+        sf::Keyboard::Down
         );
 }
 
@@ -102,7 +92,7 @@ sf::Keyboard::Key get_random_key()
 key_action_map get_random_kam()
 {
   std::vector<sf::Keyboard::Key> v_random_keys;
-  while (v_random_keys.size() < 6)
+  while (v_random_keys.size() < 4)
     {
       sf::Keyboard::Key new_key = get_random_key();
       auto key_match = std::find(
@@ -119,9 +109,7 @@ key_action_map get_random_kam()
         v_random_keys[0],
       v_random_keys[1],
       v_random_keys[2],
-      v_random_keys[3],
-      v_random_keys[4],
-      v_random_keys[5]
+      v_random_keys[3]
       );
 }
 
@@ -133,7 +121,7 @@ std::vector<key_action_map> get_n_random_kams(int n)
 
   for(int i = 0; i != n; ++i){
     std::vector<sf::Keyboard::Key> v_random_keys;
-    while (v_random_keys.size() < 6)
+    while (v_random_keys.size() < 4)
       {
         sf::Keyboard::Key new_key = get_random_key();
         auto key_match = std::find(
@@ -152,9 +140,7 @@ std::vector<key_action_map> get_n_random_kams(int n)
                                         v_random_keys[0],
                                         v_random_keys[1],
                                         v_random_keys[2],
-                                        v_random_keys[3],
-                                        v_random_keys[4],
-                                        v_random_keys[5]));
+                                        v_random_keys[3]));
     }
 
 
@@ -282,14 +268,6 @@ std::istream& operator>>(std::istream& is, key_action_map& kam)
   is >> key_to_go_right >> action;
   assert(to_str(action_type::turn_right) == action);
 
-  std::string key_to_stun;
-  is >> key_to_stun >> action;
-  assert(to_str(action_type::idle) == action);
-
-  std::string key_to_shoot;
-  is >> key_to_shoot >> action;
-  assert(to_str(action_type::idle) == action);
-
   std::string key_to_accelerate_backward;
   is >> key_to_accelerate_backward >> action;
   assert(to_str(action_type::accelerate_backward) == action);
@@ -303,9 +281,7 @@ std::istream& operator>>(std::istream& is, key_action_map& kam)
     to_sfml_key(key_to_go_left),
     to_sfml_key(key_to_go_right),
     to_sfml_key(key_to_accelerate_forward),
-    to_sfml_key(key_to_accelerate_backward),
-    to_sfml_key(key_to_shoot),
-    to_sfml_key(key_to_stun)
+    to_sfml_key(key_to_accelerate_backward)
   );
   kam = m;
   return is;
@@ -346,19 +322,16 @@ void test_key_action_map()//!OCLINT tests can be many
     const sf::Keyboard::Key key_to_go_right = sf::Keyboard::B;
     const sf::Keyboard::Key key_to_accelerate_forward = sf::Keyboard::A;
     const sf::Keyboard::Key key_to_accelerate_backward = sf::Keyboard::Z;
-    const sf::Keyboard::Key key_to_shoot = sf::Keyboard::E;
     const key_action_map m(
           key_to_go_left,
           key_to_go_right,
           key_to_accelerate_forward,
-          key_to_accelerate_backward,
-          key_to_shoot
+          key_to_accelerate_backward
           );
     assert(m.to_action(key_to_go_left) == action_type::turn_left);
     assert(m.to_action(key_to_go_right) == action_type::turn_right);
     assert(m.to_action(key_to_accelerate_forward) == action_type::accelerate_forward);
     assert(m.to_action(key_to_accelerate_backward) == action_type::accelerate_backward);
-    assert(m.to_action(key_to_shoot) == action_type::idle);
   }
   {
     const key_action_map m = get_player_2_kam();

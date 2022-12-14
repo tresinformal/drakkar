@@ -123,22 +123,6 @@ void game::do_action(player& player, action_type action)
         }
         break;
       }
-      case action_type::shoot:
-      {
-        if (!player.is_cooling_down())
-        {
-          player.shoot();
-          player.trigger_cool_down();
-          player.set_action_flag(action_type::shoot);
-        }
-        break;
-      }
-      case action_type::shoot_stun_rocket:
-      {
-        player.shoot_stun_rocket();
-        player.set_action_flag(action_type::shoot_stun_rocket);
-        break;
-      }
       case action_type::idle:
       {
         player.set_action_flag(action_type::idle);
@@ -1459,10 +1443,6 @@ void test_game() //!OCLINT tests may be many
       assert(g.get_player(0).get_action_flag() == action_type::accelerate_forward);
       g.do_action(0, action_type::idle);
       assert(g.get_player(0).get_action_flag() == action_type::idle);
-      g.do_action(0, action_type::shoot);
-      assert(g.get_player(0).get_action_flag() == action_type::shoot);
-      g.do_action(0, action_type::shoot_stun_rocket);
-      assert(g.get_player(0).get_action_flag() == action_type::shoot_stun_rocket);
       g.do_action(0, action_type::turn_left);
       assert(g.get_player(0).get_action_flag() == action_type::turn_left);
       g.do_action(0, action_type::turn_right);
