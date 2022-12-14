@@ -18,8 +18,8 @@ key_action_map::key_action_map(
 {key_to_go_right, action_type::turn_right},
 {key_to_accelerate_forward, action_type::accelerate_forward},
 {key_to_accelerate_backward, action_type::accelerate_backward},
-{key_to_shoot, action_type::none},
-{key_to_stun, action_type::none}
+{key_to_shoot, action_type::idle},
+{key_to_stun, action_type::idle}
           }
 {
 }
@@ -30,7 +30,7 @@ action_type key_action_map::to_action(sf::Keyboard::Key key) const noexcept
     {
       return m_map.find(key)->second;
     }
-  return action_type::none;
+  return action_type::idle;
 }
 
 sf::Keyboard::Key key_action_map::to_key(action_type action) const noexcept
@@ -165,7 +165,7 @@ std::vector<key_action_map> get_n_random_kams(int n)
 
 sf::Keyboard::Key get_stun_key(const key_action_map& m)
 {
-  return m.to_key(action_type::none);
+  return m.to_key(action_type::idle);
 }
 
 key_action_map load_kam(const std::string& filename)
@@ -284,11 +284,11 @@ std::istream& operator>>(std::istream& is, key_action_map& kam)
 
   std::string key_to_stun;
   is >> key_to_stun >> action;
-  assert(to_str(action_type::none) == action);
+  assert(to_str(action_type::idle) == action);
 
   std::string key_to_shoot;
   is >> key_to_shoot >> action;
-  assert(to_str(action_type::none) == action);
+  assert(to_str(action_type::idle) == action);
 
   std::string key_to_accelerate_backward;
   is >> key_to_accelerate_backward >> action;
@@ -330,8 +330,8 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(m.to_action(sf::Keyboard::D) == action_type::turn_right);
     assert(m.to_action(sf::Keyboard::W) == action_type::accelerate_forward);
     assert(m.to_action(sf::Keyboard::S) == action_type::accelerate_backward);
-    assert(m.to_action(sf::Keyboard::Q) == action_type::none);
-    assert(m.to_action(sf::Keyboard::E) == action_type::none);
+    assert(m.to_action(sf::Keyboard::Q) == action_type::idle);
+    assert(m.to_action(sf::Keyboard::E) == action_type::idle);
   }
   {
     const key_action_map m = get_player_1_kam();
@@ -339,7 +339,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(m.to_action(sf::Keyboard::D) == action_type::turn_right);
     assert(m.to_action(sf::Keyboard::W) == action_type::accelerate_forward);
     assert(m.to_action(sf::Keyboard::S) == action_type::accelerate_backward);
-    assert(m.to_action(sf::Keyboard::Q) == action_type::none);
+    assert(m.to_action(sf::Keyboard::Q) == action_type::idle);
   }
   {
     const sf::Keyboard::Key key_to_go_left = sf::Keyboard::C;
@@ -358,7 +358,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(m.to_action(key_to_go_right) == action_type::turn_right);
     assert(m.to_action(key_to_accelerate_forward) == action_type::accelerate_forward);
     assert(m.to_action(key_to_accelerate_backward) == action_type::accelerate_backward);
-    assert(m.to_action(key_to_shoot) == action_type::none);
+    assert(m.to_action(key_to_shoot) == action_type::idle);
   }
   {
     const key_action_map m = get_player_2_kam();
@@ -366,7 +366,7 @@ void test_key_action_map()//!OCLINT tests can be many
     assert(m.to_action(sf::Keyboard::L) == action_type::turn_right);
     assert(m.to_action(sf::Keyboard::I) == action_type::accelerate_forward);
     assert(m.to_action(sf::Keyboard::K) == action_type::accelerate_backward);
-    assert(m.to_action(sf::Keyboard::U) == action_type::none);
+    assert(m.to_action(sf::Keyboard::U) == action_type::idle);
   }
   {
     const key_action_map m = get_player_1_kam();
@@ -383,7 +383,7 @@ void test_key_action_map()//!OCLINT tests can be many
   {
     const key_action_map m = get_player_1_kam();
     assert(!m.has_key(sf::Keyboard::L));
-    assert(action_type::none == m.to_action(sf::Keyboard::L));
+    assert(action_type::idle == m.to_action(sf::Keyboard::L));
 
   }
  // (282) operator==

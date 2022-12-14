@@ -141,9 +141,9 @@ void game::do_action(player& player, action_type action)
         player.set_action_flag(action_type::shoot_stun_rocket);
         break;
       }
-      case action_type::none:
+      case action_type::idle:
       {
-        player.set_action_flag(action_type::none);
+        player.set_action_flag(action_type::idle);
         return;
       }
     }
@@ -428,7 +428,7 @@ void game::reset_player_action()
 {
   for (player &p : m_player)
     {
-      p.set_action_flag(action_type::none);
+      p.set_action_flag(action_type::idle);
     }
 }
 
@@ -770,7 +770,7 @@ void test_game() //!OCLINT tests may be many
         const double before_y{get_y(g.get_player(i))};
 
         //action_type::none does not change anyhthing in the player
-        g.do_action(i, action_type::none);
+        g.do_action(i, action_type::idle);
         const double after_sp{g.get_player(i).get_speed()};
         const double after_dir{g.get_player(i).get_direction()};
         const double after_x{get_x(g.get_player(i))};
@@ -1897,8 +1897,8 @@ void test_game() //!OCLINT tests may be many
       assert(g.get_player(0).get_action_flag() == action_type::accelerate_backward);
       g.do_action(0, action_type::accelerate_forward);
       assert(g.get_player(0).get_action_flag() == action_type::accelerate_forward);
-      g.do_action(0, action_type::none);
-      assert(g.get_player(0).get_action_flag() == action_type::none);
+      g.do_action(0, action_type::idle);
+      assert(g.get_player(0).get_action_flag() == action_type::idle);
       g.do_action(0, action_type::shoot);
       assert(g.get_player(0).get_action_flag() == action_type::shoot);
       g.do_action(0, action_type::shoot_stun_rocket);
@@ -1920,7 +1920,7 @@ void test_game() //!OCLINT tests may be many
         g.reset_player_action();
         for (auto i = 0; i < static_cast<int>(g.get_v_player().size()); ++i)
         {
-            assert(g.get_player(i).get_action_flag() == action_type::none);
+            assert(g.get_player(i).get_action_flag() == action_type::idle);
         }
     }
 

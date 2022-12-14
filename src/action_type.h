@@ -11,7 +11,7 @@ enum class action_type
   accelerate_forward,
   accelerate_backward,
   shoot,
-  none,
+  idle,
   shoot_stun_rocket
 };
 
