@@ -198,54 +198,6 @@ void game::move_projectiles()
     }
 }
 
-void game::projectile_collision()
-{
-
-  // For every projectile ...
-  for (int i = 0 ; i != count_n_projectiles(*this) ; ++i)
-  {
-    //For every player...
-    const int n_players = static_cast<int>(get_v_player().size());
-    for(int j = 0; j != n_players; ++j)
-    {
-      // if it is not the one that shot it ...
-      if(!(this->get_projectiles()[i].get_owner_id() == m_player[j].get_ID()))
-     {
-      double player_radius = m_player[j].get_diameter() / 2.0;
-      // If the projectile touches the player ...
-      if( this->m_projectiles[i].get_x() > this-> m_player[j].get_x() - player_radius &&
-          this-> m_projectiles[i].get_x() < this-> m_player[j].get_x() + player_radius)
-        {
-          if(this-> m_projectiles[i].get_y() > this-> m_player[j].get_y() - player_radius &&
-             this-> m_projectiles[i].get_y() < this-> m_player[j].get_y() + player_radius)
-            {
-
-              // if the projectile is a stun rocket: stun the player
-              if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
-                  this-> m_player[j].stun();
-
-                  // projectile disappears
-                  std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()-1]);
-                  this-> m_projectiles.pop_back();
-
-                  // i can be invalid now, that is i can equal the number of projectiles
-                  // one option is:
-                  //
-                  //  --i;
-                  //
-                  // but this would be dangerous if the last project has disappeared
-                  //
-                  // a simple solution is:
-                  return;
-
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 void game::tick()
 {
   if(has_any_interplayer_collision(*this))
@@ -1265,34 +1217,6 @@ void test_game() //!OCLINT tests may be many
     assert(!hits_wall(p,g.get_env()));
   }
 
-
-  ///A stunned player cannot perform actions
-  {
-    game g;
-    player p;
-    //make a copy of double get_nth_player_size(const game &in_game, const int &id)
-
-    //the player in its initial state
-    player player_copy = p;
-
-    g.do_action(p, action_type::turn_right);
-    g.do_action(p, action_type::accelerate_forward);
-    assert(player_copy.get_direction() != p.get_direction());
-    assert(player_copy.get_speed() != p.get_speed());
-
-    //Reset player back to initial conditions
-    p = player_copy;
-
-    //When stunned a player cannot turn (or do_action any other action)
-    stun(p);
-    g.do_action(p, action_type::turn_left);
-    g.do_action(p, action_type::accelerate_forward);
-    g.do_action(p, action_type::shoot);
-    assert(!p.is_shooting());
-    assert(player_copy.get_direction() == p.get_direction());
-    assert(player_copy.get_speed() == p.get_speed());
-  }
-
   /// When a player is out it stays in the player vector but its state is out
   {
     game g;
@@ -1708,99 +1632,11 @@ void test_game() //!OCLINT tests may be many
     coordinate Some_random_point(1,1);
     food n_food(Some_random_point);
     player n_player(Some_random_point);
-    projectile n_projectile(Some_random_point);
     shelter n_shelter(Some_random_point);
 
     assert(have_same_position(n_food, Some_random_point));
     assert(have_same_position(n_player, Some_random_point));
-    assert(have_same_position(n_projectile, Some_random_point));
   }
-
-  // (241) Player 1 can stun player 2 with a stun rocket
-  {
-    game g;
-
-    // Shoot the stun rocket
-    g.do_action(0, action_type::shoot_stun_rocket);
-    g.tick();
-
-    assert(count_n_projectiles(g) == 1 &&
-           g.get_projectiles().back().get_type() == projectile_type::stun_rocket);
-
-    // Put the stun rocket on top of player 2 (at index 1)
-    g.get_projectiles().back().place({get_x(g.get_v_player()[1]), get_y(g.get_v_player()[1])});
-
-    assert(get_x(g.get_projectiles().back()) == get_x(g.get_v_player()[1]));
-    assert(get_y(g.get_projectiles().back()) == get_y(g.get_v_player()[1]));
-
-    // Player 2 should not be stunned yet
-    assert(!(is_stunned(g.get_v_player()[1])));
-
-    // Stun rocket is there
-    assert(count_n_projectiles(g) == 1);
-
-    g.tick();
-
-    // Stun rocket should disappear
-    assert(count_n_projectiles(g) == 0);
-
-    // Player 2 is now stunned yet
-    assert(is_stunned(g.get_v_player()[1]));
-  }
-
-#ifdef FIX_ISSUE_622
-  {
-    // (622) A player that is dead cannot shoot rockets
-    game g;
-    g.kill_player(0);
-
-    g.do_action(0, action_type::shoot);
-    g.tick();
-    assert(count_n_projectiles(g) == 0);
-
-    g.do_action(0, action_type::shoot_stun_rocket);
-    g.tick();
-    assert(count_n_projectiles(g) == 0);
-  }
-#endif
-
-#ifdef FIX_ISSUE_624
-  {
-    // (624) A player that is dead cannot be stunned
-    // and does not absorb stun rockets
-    game g;
-    g.kill_player(0);
-
-    // Player 2 shoots, rocket goes on player 1
-    g.do_action(1, action_type::shoot_stun_rocket);
-    g.tick();
-    const coordinate c_p1 = g.get_player(0).get_position();
-    g.get_projectiles().back().place(c_p1);
-
-    g.tick();
-    assert(!is_stunned(g.get_player(0)));
-    assert(count_n_projectiles(g) == 1);
-  }
-#endif
-
-#ifdef FIX_ISSUE_623
-  {
-    // (623) A player that is dead does not take damage from regular rockets
-    game g;
-    const double initial_p_size = get_nth_player_size(g, 0);
-    g.kill_player(0);
-
-    // Player 2 shoots, rocket goes on player 1
-    g.do_action(1, action_type::shoot);
-    g.tick();
-    const coordinate c_p1 = g.get_player(0).get_position();
-    g.get_projectiles().back().place(c_p1);
-
-    g.tick();
-    assert(are_equal(get_nth_player_size(g, 0), initial_p_size, 0.0001));
-    assert(count_n_projectiles(g) == 1);
-  }
-#endif
 
  {
     // (457) The color of any player can be accessed easily
