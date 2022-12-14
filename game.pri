@@ -23,8 +23,6 @@ HEADERS += \
     $$PWD/src/player_shape.h \
     $$PWD/src/player_state.h \
     $$PWD/src/program_state.h \
-    $$PWD/src/projectile.h \
-    $$PWD/src/projectile_type.h \
     $$PWD/src/read_only.h \
     $$PWD/src/shelter.h \
     $$PWD/src/sound_type.h \
@@ -56,8 +54,6 @@ SOURCES += \
     $$PWD/src/player_shape.cpp \
     $$PWD/src/player_state.cpp \
     $$PWD/src/program_state.cpp \
-    $$PWD/src/projectile.cpp \
-    $$PWD/src/projectile_type.cpp \
     $$PWD/src/read_only.cpp \
     $$PWD/src/shelter.cpp \
     $$PWD/src/sound_type.cpp \
