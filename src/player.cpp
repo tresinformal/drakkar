@@ -912,15 +912,12 @@ void test_player() //!OCLINT tests may be long
             assert(p.get_speed() == 0);
         }
     }
-  #define FIX_ISSUE_676
-  #ifdef FIX_ISSUE_676
   // (676) Can compare players for equality
   {
     const player a;
     const player b;
     assert(a == b);
   }
-  #endif // FIX_ISSUE_676
 #endif // no tests in release
 }
 
