@@ -14,8 +14,7 @@ double food::get_y() const noexcept { return m_c.get_y(); }
 double food::get_radius() const noexcept {return m_radius;}
 std::ostream &operator<<(std::ostream &os, const food f)
 {
-  os << "x : "<< get_x(f)<<
-        "y : "<< get_y(f);
+  os << "food at : " << f.get_position();
   return os;
 }
 

@@ -5,6 +5,7 @@ Branch      |[GitHub Actions](https://github.com/tresinformal/drakkar/actions)  
 `master`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/drakkar/branch/master)
 `develop`   |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/drakkar/branch/develop)
 `claudio`   |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=claudio)     |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=claudio)](https://codecov.io/github/tresinformal/drakkar/branch/claudio)
+`jacob`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=jacob)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=jacob)](https://codecov.io/github/tresinformal/game/branch/jacob)
 `ludvig`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=ludvig)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=ludvig)](https://codecov.io/github/tresinformal/drakkar/branch/ludvig) 
 `oliver`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=oliver)    |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=oliver)](https://codecov.io/github/tresinformal/drakkar/branch/pavel)
 `oscar`     |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=oscar)    |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=oscar)](https://codecov.io/github/tresinformal/drakkar/branch/pavel)
@@ -14,8 +15,6 @@ Branch      |[GitHub Actions](https://github.com/tresinformal/drakkar/actions)  
 `stefano`   |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/drakkar/branch/stefano)
 `theo`      |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/drakkar/branch/theo)
 `tianjian`  |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=tianjian)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=tianjian)](https://codecov.io/github/tresinformal/drakkar/branch/tianjian)
-
-`ludvig`      |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=ludvig)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=ludvig)](https://codecov.io/github/tresinformal/drakkar/branch/ludvig)
 
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 A video game, developed informally and professionally.
