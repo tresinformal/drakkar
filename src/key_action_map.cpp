@@ -340,8 +340,6 @@ void test_key_action_map()//!OCLINT tests can be many
     assert( m.has_key(sf::Keyboard::D));
     assert( m.has_key(sf::Keyboard::W));
     assert( m.has_key(sf::Keyboard::S));
-    assert( m.has_key(sf::Keyboard::Q));
-    assert(!m.has_key(sf::Keyboard::L));
   }
 
   //Giving a key that is not in the map returns a action_type::none action

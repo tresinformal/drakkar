@@ -325,7 +325,6 @@ key_action_map get_player_kam(const player& p)
         {sf::Keyboard::P,
                     sf::Keyboard::P,
                     sf::Keyboard::P,
-                    sf::Keyboard::P,
                     sf::Keyboard::P};
     }
 }
