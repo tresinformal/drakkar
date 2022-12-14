@@ -16,7 +16,7 @@ void test_action_type()
     assert(to_str(action_type::accelerate_forward) == "accelerate_forward");
     assert(to_str(action_type::accelerate_backward) == "accelerate_backward");
     assert(to_str(action_type::shoot) == "shoot");
-    assert(to_str(action_type::none) == "none");
+    assert(to_str(action_type::idle) == "idle");
     assert(to_str(action_type::shoot_stun_rocket) == "shoot_stun_rocket");
   }
   //
@@ -48,14 +48,14 @@ std::string to_str(const action_type this_action_type)
   case action_type::accelerate_forward:
     return "accelerate_forward";
   case action_type::accelerate_backward:
-      return "accelerate_backward";
+    return "accelerate_backward";
   case action_type::shoot:
-      return "shoot";
+    return "shoot";
   case action_type::shoot_stun_rocket:
-      return "shoot_stun_rocket";
+    return "shoot_stun_rocket";
   default:
-    assert(this_action_type == action_type::none );
-  return "none";
+    assert(this_action_type == action_type::idle);
+  return "idle";
   }
   #endif
 }

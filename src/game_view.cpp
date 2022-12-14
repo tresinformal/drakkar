@@ -481,7 +481,7 @@ void test_game_view() //!OCLINT tests may be many
         p1 = player_input(p1,move_forward_pl_1);
 
         assert(p0.get_action_set() == std::set<action_type>{action_type::accelerate_forward} );
-        assert(p1.get_action_set() == std::set<action_type>{action_type::none} );
+        assert(p1.get_action_set() == std::set<action_type>{action_type::idle} );
 
     }
 
