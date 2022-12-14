@@ -2230,6 +2230,8 @@ void test_game() //!OCLINT tests may be many
  #endif
   }
   #endif
+
+  #define FIX_ISSUE_662
   #ifdef FIX_ISSUE_662
   {
     const game g;
