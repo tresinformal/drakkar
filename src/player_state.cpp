@@ -11,9 +11,6 @@ std::string to_str(player_state this_player_state)
   {
   case player_state::dead:
     return "dead";
-  case player_state::stunned:
-    return "stunned";
-
   default:
     assert(this_player_state == player_state::active);
     return "active";
