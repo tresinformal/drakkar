@@ -5,29 +5,6 @@
 
 game_resources::game_resources()
 {
-  // Load the rocket sprite
-  {
-    const QString filename{"rocket_sprite.png"};
-    QFile f(":/" + filename);
-    f.copy(filename);
-    std::string filename_srt = filename.toStdString();
-    if (!m_rocket.loadFromFile(filename_srt))
-    {
-      QString msg{"Cannot find image file '" + filename + "'"};
-      throw std::runtime_error(msg.toStdString());
-    }
-  }
-  // Load the stun rocket sprite
-  {
-    const QString filename{"stun_rocket_master.png"};
-    QFile f(":/" + filename);
-    f.copy(filename);
-    if (!m_stun_rocket.loadFromFile(filename.toStdString()))
-    {
-      QString msg{"Cannot find image file '" + filename + "'"};
-      throw std::runtime_error(msg.toStdString());
-    }
-  }
   {
     const QString filename{"franjo.png"};
     QFile f(":/" + filename);
@@ -161,21 +138,7 @@ game_resources::game_resources()
     }
   }
 #endif // IS_ON_TRAVIS
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
-  // load sound for shooting
-  {
-    const QString filename{"shoot.ogg"};
-    QFile f(":/" + filename);
-    f.copy(filename);
-    if (!m_shoot.openFromFile(filename.toStdString()))
-    {
-      QString msg{"Cannot find sound file '" + filename + "'"};
-      throw std::runtime_error(msg.toStdString());
-    }
-  }
-#endif // IS_ON_TRAVIS
+
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
@@ -227,8 +190,5 @@ void test_game_resources()
   game_resources g;
   assert(g.get_coastal_world().getSize().x > 0.0);
 
-  #ifdef FIX_ISSUE_136
-  assert(g.get_sound(sound_type::shoot).getDuration().asMicroseconds() > 0.0);
-  #endif
   #endif
 }

@@ -8,8 +8,6 @@
 #include "game_options.h"
 #include "player.h"
 #include "player_shape.h"
-#include "projectile.h"
-#include "scoring_board.h"
 #include "shelter.h"
 #include <vector>
 #include <cassert>
@@ -83,29 +81,11 @@ public:
     return m_player[static_cast<unsigned int>(i)];
   }
 
-  /// Get the scoring board
-  const scoring_board &get_scoring_board() const {return m_scoring_board;};
-
-  /// Get the reference of the scoring boarding to change it
-  scoring_board &get_scoring_board() {return m_scoring_board;};
-
   /// Returns const ref to the vector of players
   const std::vector<player> &get_v_player() const { return m_player; }
 
   /// Returns ref to the vector of players
   std::vector<player>& get_v_player() { return m_player; }
-
-  /// Get the projectiles
-  const std::vector<projectile> &get_projectiles() const noexcept
-  {
-    return m_projectiles;
-  }
-
-  /// Get the projectiles
-  std::vector<projectile> &get_projectiles() noexcept
-  {
-    return m_projectiles;
-  }
 
   /// Get shelters
   const std::vector<shelter>& get_shelters() const noexcept { return m_shelters; }
@@ -143,9 +123,6 @@ private:
   /// Vector of players
   std::vector<player> m_player;
 
-  /// the scoring board
-  scoring_board m_scoring_board;
-
   ///Vector of index of the players that collide
   std::vector<int> m_v_collisions_ind;
 
@@ -155,45 +132,20 @@ private:
   /// the food
   std::vector<food> m_food;
 
-  /// the projectiles
-  std::vector<projectile> m_projectiles;
-
   /// the shelters
   std::vector<shelter> m_shelters;
 
   /// starting x distance between players
   const int m_dist_x_pls = 300;
 
-  /// Moves the projectiles
-  void move_projectiles();
-
-  /// Processess the collision between projectiles and players
-  void projectile_collision();
-
   /// Increment timers of food items
   void increment_food_timers();
-
-  /// Increment timers of shoot calm down of all the players
-  void increment_cool_down_timers();
-
-  // BEGIN Function Group Shoot Cool Down
-  /// Reset timers of shoot calm down of all the players
-  void reset_cool_down_status();
-  // END Function Group Shoot Cool Down
 
   /// Make players eat food items they are on top of
   void make_players_eat_food();
 
   /// Regenerate food items where relevant
   void regenerate_food_items();
-
-  // BEGIN Function Group Scoring Board
-  /// Update scores of the players
-  void update_scoring_board();
-
-  /// Update timer insides the scoring board;
-  void update_timer();
-  // END Function Group Scoring Board
 };
 
 /// Calculate a mean of a vector of numbers
@@ -201,9 +153,6 @@ double calc_mean(const std::vector<double>& v);
 
 /// Calculate the variance of a vector of numbers
 double calc_var(const std::vector<double>& v);
-
-/// Add a projectile to the game
-void add_projectile(game& g, const projectile& p);
 
 // Eat nth food item
 void eat_nth_food(game& g, const int n);
@@ -233,14 +182,8 @@ void put_player_on_food(player& p, const food &f);
 ///Puts a player on food
 void put_player_near_food(player& p, const food &f, const double distance = 0.0);
 
-/// Determines if the player and projectile collide
-bool are_colliding(const player& pl, const projectile& p);
-
 /// Check that player and food are in collision, i.e. same position and food uneaten
 bool are_colliding(const player &p, const food &f);
-
-/// Places a projectile in front of the player
-void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p);
 
 /// Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);

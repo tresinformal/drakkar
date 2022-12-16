@@ -1,8 +1,6 @@
 #include "game.h"
 #include "game_functions.h"
 #include "coordinate.h"
-#include "projectile.h"
-#include "projectile_type.h"
 #include "action_type.h"
 #include "environment.h"
 
@@ -87,67 +85,48 @@ void game::do_action(const int player_index, action_type action)
 
 void game::do_action(player& player, action_type action)
 {
-  if(!(player.get_state() == player_state::stunned))
-  {
-    switch (action)
+  switch (action)
     {
-      case action_type::turn_left:
+    case action_type::turn_left:
       {
         player.turn_left();
         player.set_action_flag(action_type::turn_left);
         break;
       }
-      case action_type::turn_right:
+    case action_type::turn_right:
       {
         player.turn_right();
         player.set_action_flag(action_type::turn_right);
         break;
       }
-      case action_type::accelerate_forward:
+    case action_type::accelerate_forward:
       {
         if (player.get_speed() >= 0) {
-          player.accelerate_forward();
-          player.set_action_flag(action_type::accelerate_forward);
-        } else {
-          player.decelerate();
-          player.set_action_flag(action_type::accelerate_forward);
-        }
+            player.accelerate_forward();
+            player.set_action_flag(action_type::accelerate_forward);
+          } else {
+            player.decelerate();
+            player.set_action_flag(action_type::accelerate_forward);
+          }
         break;
       }
-      case action_type::accelerate_backward:
+    case action_type::accelerate_backward:
       {
         if (player.get_speed() <= 0) {
-          player.accelerate_backward();
-          player.set_action_flag(action_type::accelerate_backward);
-        } else {
-          player.decelerate();
-          player.set_action_flag(action_type::accelerate_backward);
-        }
+            player.accelerate_backward();
+            player.set_action_flag(action_type::accelerate_backward);
+          } else {
+            player.decelerate();
+            player.set_action_flag(action_type::accelerate_backward);
+          }
         break;
       }
-      case action_type::shoot:
-      {
-        if (!player.is_cooling_down())
-        {
-          player.shoot();
-          player.trigger_cool_down();
-          player.set_action_flag(action_type::shoot);
-        }
-        break;
-      }
-      case action_type::shoot_stun_rocket:
-      {
-        player.shoot_stun_rocket();
-        player.set_action_flag(action_type::shoot_stun_rocket);
-        break;
-      }
-      case action_type::idle:
+    case action_type::idle:
       {
         player.set_action_flag(action_type::idle);
         return;
       }
     }
-  }
 }
 
 void game::do_actions() noexcept
@@ -189,63 +168,6 @@ void game::move_shelter()
     shelter.make_shelter_drift();
 }
 
-void game::move_projectiles()
-{
-  for (auto &p : m_projectiles)
-    {
-//      p.set_type(projectile_type::rocket);
-      p.move();
-    }
-}
-
-void game::projectile_collision()
-{
-
-  // For every projectile ...
-  for (int i = 0 ; i != count_n_projectiles(*this) ; ++i)
-  {
-    //For every player...
-    const int n_players = static_cast<int>(get_v_player().size());
-    for(int j = 0; j != n_players; ++j)
-    {
-      // if it is not the one that shot it ...
-      if(!(this->get_projectiles()[i].get_owner_id() == m_player[j].get_ID()))
-     {
-      double player_radius = m_player[j].get_diameter() / 2.0;
-      // If the projectile touches the player ...
-      if( this->m_projectiles[i].get_x() > this-> m_player[j].get_x() - player_radius &&
-          this-> m_projectiles[i].get_x() < this-> m_player[j].get_x() + player_radius)
-        {
-          if(this-> m_projectiles[i].get_y() > this-> m_player[j].get_y() - player_radius &&
-             this-> m_projectiles[i].get_y() < this-> m_player[j].get_y() + player_radius)
-            {
-
-              // if the projectile is a stun rocket: stun the player
-              if(this-> m_projectiles[i].get_type() == projectile_type::stun_rocket)  {
-                  this-> m_player[j].stun();
-
-                  // projectile disappears
-                  std::swap(m_projectiles[i], m_projectiles[m_projectiles.size()-1]);
-                  this-> m_projectiles.pop_back();
-
-                  // i can be invalid now, that is i can equal the number of projectiles
-                  // one option is:
-                  //
-                  //  --i;
-                  //
-                  // but this would be dangerous if the last project has disappeared
-                  //
-                  // a simple solution is:
-                  return;
-
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 void game::tick()
 {
   if(has_any_interplayer_collision(*this))
@@ -253,12 +175,6 @@ void game::tick()
     grow_winning_player(*this);
     shrink_losing_player(*this);
   }
-
-  // Moves the projectiles
-  move_projectiles();
-
-  //Projectiles hit the players
-  projectile_collision();
 
   // Move shelters
   move_shelter();
@@ -285,44 +201,8 @@ void game::tick()
   // Regenerate food items
   regenerate_food_items();
 
-  // Increment timers of shoot calm down
-  increment_cool_down_timers();
-
-  // Reset timers of shoot calm down
-  reset_cool_down_status();
-
-  // players that shoot must generate projectiles
-  for (player &p : m_player)
-    {
-      // When a player shoots, 'm_is_shooting' is true for one tick.
-      // 'game' reads 'm_is_shooting' and if it is true,
-      // it (1) creates a projectile, (2) sets 'm_is_shooting' to false
-      if (p.is_shooting())
-        {
-          put_projectile_in_front_of_player(m_projectiles, p);
-        }
-      p.stop_shooting();
-      assert(!p.is_shooting());
-
-      if (p.is_shooting_stun_rocket())
-        {
-          // Put the projectile just in front outside of the player
-          const double d{p.get_direction()};
-          const double x{get_x(p) + (std::cos(d) * p.get_diameter() * 0.5)};
-          const double y{get_y(p) + (std::sin(d) * p.get_diameter() * 0.5)};
-          const coordinate c{x ,y};
-          m_projectiles.push_back(projectile(c, d, projectile_type::stun_rocket, 100, p.get_ID()));
-        }
-      p.stop_shooting_stun_rocket();
-      assert(!p.is_shooting_stun_rocket());
-    }
-
   // and updates m_n_ticks
   increment_n_ticks();
-
-  update_scoring_board();
-
-  update_timer();
 }
 
 void game::increment_n_ticks()
@@ -383,47 +263,6 @@ void game::eat_food(food& f)
   f.reset_timer();
 }
 
-// BEGIN Event
-
-// END Event
-
-// BEGIN Scoring Board
-void game::update_scoring_board()
-{
-    // depends on the event class
-}
-
-void game::update_timer()
-{
-    m_scoring_board.set_timer(m_n_ticks);
-}
-// END Scoring Board
-
-// BEGIN Shoot Cool Down
-void game::increment_cool_down_timers()
-{
-  for (player &p : m_player)
-    {
-      if (p.is_cooling_down())
-      {
-        p.increment_cool_down_timer();
-      }
-    }
-}
-
-void game::reset_cool_down_status()
-{
-  for (player &p : m_player)
-    {
-      if (p.is_cooling_down() && p.get_cool_down_timer() >= projectile::m_fire_rate)
-        {
-          p.reset_cool_down_timer();
-          p.stop_cool_down();
-        }
-    }
-}
-// END Shoot Cool Down
-
 void game::reset_player_action()
 {
   for (player &p : m_player)
@@ -468,11 +307,6 @@ void game::make_players_eat_food()
      }
     }
   }
-}
-
-void add_projectile(game &g, const projectile &p)
-{
-  g.get_projectiles().push_back(p);
 }
 
 double calc_mean(const std::vector<double>& v)
@@ -547,27 +381,6 @@ bool is_in_food_radius(const player p, const food f) noexcept
 bool are_colliding(const player &p, const food &f)
 {
   return is_in_food_radius(p, f) && !f.is_eaten();
-}
-
-bool are_colliding(const player& pl, const projectile& p)
-{
-  //Player and projectile are circularal, so use pythagoras
-  const double player_radius{pl.get_diameter()};
-  const double projectile_radius{p.get_radius()};
-  const double dx = std::abs(get_x(p) - get_x(pl));
-  const double dy = std::abs(get_y(p) - get_y(pl));
-  const double dist = std::sqrt((dx * dx) + (dy * dy));
-  const double radii = player_radius + projectile_radius;
-  return dist < radii;
-}
-void put_projectile_in_front_of_player(std::vector<projectile>& projectiles, const player& p)
-{
-  // Put the projectile just in front outside of the player
-  const double d{p.get_direction()};
-  const double x{get_x(p) + (std::cos(d) * p.get_diameter() * 1.1)};
-  const double y{get_y(p) + (std::sin(d) * p.get_diameter() * 1.1)};
-  const coordinate c{x, y};
-  projectiles.push_back(projectile(c, d));
 }
 
 void eat_nth_food(game& g, const int n)
@@ -746,16 +559,6 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  // A game responds to actions: player can shoot
-  {
-    game g;
-    const int n_projectiles_before{count_n_projectiles(g)};
-    g.do_action(0, action_type::shoot);
-    // Without a tick, no projectile is formed yet
-    const int n_projectiles_after{count_n_projectiles(g)};
-    assert(n_projectiles_before == n_projectiles_after);
-  }
-
   // A game responds to actions: player can do nothing
   {
     game g;
@@ -786,61 +589,7 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
-
-  // (513) Player enters cool down status after one shooting action
-  {
-    game g;
-    g.do_action(0, action_type::shoot);
-    g.tick();
-    assert(g.get_player(0).is_cooling_down());
-    g.do_action(0, action_type::shoot);
-    assert(!g.get_player(0).is_shooting());
-  }
-
-  // Player can shoot again after the cool down interval, player cannot shoot during the interval
-  {
-    game g;
-    g.do_action(0, action_type::shoot);
-    for (auto i = 0; i < projectile::m_fire_rate - 1; ++i)
-      {
-        g.tick();
-        assert(g.get_player(0).is_cooling_down());
-        g.do_action(0, action_type::shoot);
-        assert(!g.get_player(0).is_shooting());
-      }
-    g.tick();
-    assert(!g.get_player(0).is_cooling_down());
-    g.do_action(0, action_type::shoot);
-    assert(g.get_player(0).is_shooting());
-  }
-
-  // Player 0 enters cool down status will not affect other players
-  {
-    game g;
-    g.do_action(0, action_type::shoot);
-    g.tick();
-    assert(g.get_player(0).is_cooling_down());
-    assert(!g.get_player(1).is_cooling_down());
-    assert(!g.get_player(2).is_cooling_down());
-  }
   #endif
-
-  // Projectiles move
-  {
-    game g;
-    // Create 1 projectile for sure (there may be more)
-    g.do_action(0, action_type::shoot);
-    g.tick();
-    assert(count_n_projectiles(g) >= 1);
-    const double x_before{get_x(g.get_projectiles()[0])};
-    const double y_before{get_y(g.get_projectiles()[0])};
-    g.tick();
-    const double x_after{get_x(g.get_projectiles()[0])};
-    const double y_after{get_y(g.get_projectiles()[0])};
-    // coordinats should differ
-    assert(std::abs(x_before - x_after) > 0.01 ||
-           std::abs(y_before - y_after) > 0.01);
-  }
 
   // Can get a player's direction by using a free function
   {
@@ -939,12 +688,6 @@ void test_game() //!OCLINT tests may be many
     assert(n_player_afteragain == n_players_after);
   }
 
-  {
-  //  The stun rocket should not be fired at the very beginning
-  const game g;
-  assert(count_n_projectiles(g) == 0);
-  }
-
   #else // FIX_ISSUE_233
   // [PRS] #233 make winning PRS player bigger
   {
@@ -1029,49 +772,6 @@ void test_game() //!OCLINT tests may be many
   }
   #endif
 
-  //Initially, there is no collision with a projectile
-  {
-    game g;
-    assert(!has_any_player_projectile_collision(g));
-  }
-
-  //If a projectile is put on top of a player, there is a collision
-  {
-    game g;
-    const auto x = get_x(g.get_player(0));
-    const auto y = get_y(g.get_player(0));
-    const coordinate c{x, y};
-    add_projectile(g, projectile(c));
-    assert(!g.get_projectiles().empty());
-    assert(has_any_player_projectile_collision(g));
-  }
-
-  //If a projectile is 0.99 of its radius right of a player, there is a collision
-  {
-    game g;
-    const double radius = 12.34;
-    const auto x = get_x(g.get_player(0)) + (0.99 * radius);
-    const auto y = get_y(g.get_player(0));
-    const coordinate c{x, y};
-    const projectile p(c, 0.0, projectile_type::rocket, radius);
-    add_projectile(g, p);
-    assert(!g.get_projectiles().empty());
-    assert(has_any_player_projectile_collision(g));
-  }
-
-  //If a projectile is 1.01 of its radius right of a player, there is no collision
-  {
-    game g;
-    const double radius = 12.34;
-    const auto x = get_x(g.get_player(0)) + (1.01*radius);
-    const auto y = get_y(g.get_player(0));
-    const coordinate c{x, y};
-    const projectile p(c, 0.0, projectile_type::rocket, radius);
-    add_projectile(g, p);
-    assert(!g.get_projectiles().empty());
-    assert(has_any_player_projectile_collision(g));
-  }
-
   // In the start of the game, there is no player-food collision
   {
     game g;
@@ -1085,49 +785,6 @@ void test_game() //!OCLINT tests may be many
     assert(!g.get_food().empty());
     g.get_food().clear();
     assert(g.get_food().empty());
-  }
-
-  // Initially, there is no collision with a projectile
-  {
-    game g;
-    assert(!has_any_player_projectile_collision(g));
-  }
-
-  // If a projectile is put on top of a player, there is a collision
-  {
-    game g;
-    const auto x = get_x(g.get_player(0));
-    const auto y = get_y(g.get_player(0));
-    const coordinate c{x, y};
-    add_projectile(g, projectile(c));
-    assert(!g.get_projectiles().empty());
-    assert(has_any_player_projectile_collision(g));
-  }
-
-  // If a projectile is 0.99 of its radius right of a player, there is a collision
-  {
-    game g;
-    const double radius = 12.34;
-    const auto x = get_x(g.get_player(0)) + (0.99 * radius);
-    const auto y = get_y(g.get_player(0));
-    const coordinate c{x, y};
-    const projectile p(c, 0.0, projectile_type::rocket, radius);
-    add_projectile(g, p);
-    assert(!g.get_projectiles().empty());
-    assert(has_any_player_projectile_collision(g));
-  }
-
-  // If a projectile is 1.01 of its radius right of a player, there is no collision
-  {
-    game g;
-    const double radius = 12.34;
-    const auto x = get_x(g.get_player(0)) + (1.01*radius);
-    const auto y = get_y(g.get_player(0));
-    const coordinate c{x, y};
-    const projectile p(c, 0.0, projectile_type::rocket, radius);
-    add_projectile(g, p);
-    assert(!g.get_projectiles().empty());
-    assert(has_any_player_projectile_collision(g));
   }
 
   #ifdef FIX_ISSUE_348
@@ -1283,34 +940,6 @@ void test_game() //!OCLINT tests may be many
     p = g.resolve_wall_collision(p);
 
     assert(!hits_wall(p,g.get_env()));
-  }
-
-
-  ///A stunned player cannot perform actions
-  {
-    game g;
-    player p;
-    //make a copy of double get_nth_player_size(const game &in_game, const int &id)
-
-    //the player in its initial state
-    player player_copy = p;
-
-    g.do_action(p, action_type::turn_right);
-    g.do_action(p, action_type::accelerate_forward);
-    assert(player_copy.get_direction() != p.get_direction());
-    assert(player_copy.get_speed() != p.get_speed());
-
-    //Reset player back to initial conditions
-    p = player_copy;
-
-    //When stunned a player cannot turn (or do_action any other action)
-    stun(p);
-    g.do_action(p, action_type::turn_left);
-    g.do_action(p, action_type::accelerate_forward);
-    g.do_action(p, action_type::shoot);
-    assert(!p.is_shooting());
-    assert(player_copy.get_direction() == p.get_direction());
-    assert(player_copy.get_speed() == p.get_speed());
   }
 
   /// When a player is out it stays in the player vector but its state is out
@@ -1728,99 +1357,11 @@ void test_game() //!OCLINT tests may be many
     coordinate Some_random_point(1,1);
     food n_food(Some_random_point);
     player n_player(Some_random_point);
-    projectile n_projectile(Some_random_point);
     shelter n_shelter(Some_random_point);
 
     assert(have_same_position(n_food, Some_random_point));
     assert(have_same_position(n_player, Some_random_point));
-    assert(have_same_position(n_projectile, Some_random_point));
   }
-
-  // (241) Player 1 can stun player 2 with a stun rocket
-  {
-    game g;
-
-    // Shoot the stun rocket
-    g.do_action(0, action_type::shoot_stun_rocket);
-    g.tick();
-
-    assert(count_n_projectiles(g) == 1 &&
-           g.get_projectiles().back().get_type() == projectile_type::stun_rocket);
-
-    // Put the stun rocket on top of player 2 (at index 1)
-    g.get_projectiles().back().place({get_x(g.get_v_player()[1]), get_y(g.get_v_player()[1])});
-
-    assert(get_x(g.get_projectiles().back()) == get_x(g.get_v_player()[1]));
-    assert(get_y(g.get_projectiles().back()) == get_y(g.get_v_player()[1]));
-
-    // Player 2 should not be stunned yet
-    assert(!(is_stunned(g.get_v_player()[1])));
-
-    // Stun rocket is there
-    assert(count_n_projectiles(g) == 1);
-
-    g.tick();
-
-    // Stun rocket should disappear
-    assert(count_n_projectiles(g) == 0);
-
-    // Player 2 is now stunned yet
-    assert(is_stunned(g.get_v_player()[1]));
-  }
-
-#ifdef FIX_ISSUE_622
-  {
-    // (622) A player that is dead cannot shoot rockets
-    game g;
-    g.kill_player(0);
-
-    g.do_action(0, action_type::shoot);
-    g.tick();
-    assert(count_n_projectiles(g) == 0);
-
-    g.do_action(0, action_type::shoot_stun_rocket);
-    g.tick();
-    assert(count_n_projectiles(g) == 0);
-  }
-#endif
-
-#ifdef FIX_ISSUE_624
-  {
-    // (624) A player that is dead cannot be stunned
-    // and does not absorb stun rockets
-    game g;
-    g.kill_player(0);
-
-    // Player 2 shoots, rocket goes on player 1
-    g.do_action(1, action_type::shoot_stun_rocket);
-    g.tick();
-    const coordinate c_p1 = g.get_player(0).get_position();
-    g.get_projectiles().back().place(c_p1);
-
-    g.tick();
-    assert(!is_stunned(g.get_player(0)));
-    assert(count_n_projectiles(g) == 1);
-  }
-#endif
-
-#ifdef FIX_ISSUE_623
-  {
-    // (623) A player that is dead does not take damage from regular rockets
-    game g;
-    const double initial_p_size = get_nth_player_size(g, 0);
-    g.kill_player(0);
-
-    // Player 2 shoots, rocket goes on player 1
-    g.do_action(1, action_type::shoot);
-    g.tick();
-    const coordinate c_p1 = g.get_player(0).get_position();
-    g.get_projectiles().back().place(c_p1);
-
-    g.tick();
-    assert(are_equal(get_nth_player_size(g, 0), initial_p_size, 0.0001));
-    assert(count_n_projectiles(g) == 1);
-  }
-#endif
 
  {
     // (457) The color of any player can be accessed easily
@@ -1899,10 +1440,6 @@ void test_game() //!OCLINT tests may be many
       assert(g.get_player(0).get_action_flag() == action_type::accelerate_forward);
       g.do_action(0, action_type::idle);
       assert(g.get_player(0).get_action_flag() == action_type::idle);
-      g.do_action(0, action_type::shoot);
-      assert(g.get_player(0).get_action_flag() == action_type::shoot);
-      g.do_action(0, action_type::shoot_stun_rocket);
-      assert(g.get_player(0).get_action_flag() == action_type::shoot_stun_rocket);
       g.do_action(0, action_type::turn_left);
       assert(g.get_player(0).get_action_flag() == action_type::turn_left);
       g.do_action(0, action_type::turn_right);
@@ -2205,31 +1742,6 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
   }
-  #define FIX_ISSUE_542
-  #ifdef FIX_ISSUE_542
-  {
-      // Can update the timer of the scoring board
-      {
-          game g;
-          auto time_before = g.get_scoring_board().get_timer();
-          // update_timer() is within game::tick()
-          g.tick();
-          auto time_after = g.get_scoring_board().get_timer();
-          assert(time_after > time_before);
-      }
-      // Can update the scores of the players
-#ifdef FIX_ISSUE_589
-      {
-          game g;
-          auto score_before = g.get_scoring_board().get_score_player1();
-          g.happen_event_that_changes_score_player1();
-          g.tick();
-          auto score_after = g.get_scoring_board().get_score_player1();
-          assert(score_before != score_after);
-      }
- #endif
-  }
-  #endif
 #endif // no tests in release
 }
 
