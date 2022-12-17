@@ -8,7 +8,6 @@
 #include "game_options.h"
 #include "player.h"
 #include "player_shape.h"
-#include "shelter.h"
 #include <vector>
 #include <cassert>
 #include <random>
@@ -22,7 +21,6 @@ public:
     const game_options& options = game_options(),
     const environment& the_environment = environment(),
     int num_players = 3,
-    std::size_t n_shelters = 42,
     int n_food = 1
   );
 
@@ -87,18 +85,12 @@ public:
   /// Returns ref to the vector of players
   std::vector<player>& get_v_player() { return m_player; }
 
-  /// Get shelters
-  const std::vector<shelter>& get_shelters() const noexcept { return m_shelters; }
-
   /// Kills the index'th player (e.g. index 0 is the first player)
   /// Assumes that index exists, else crashes
   void kill_player(const int index);
 
   /// Apply inertia to player movement
   void apply_inertia();
-
-  /// Move shelter around - for simplicity, in straight line back and forth
-  void move_shelter();
 
   /// Applies default actions every tick
   void tick();
@@ -131,9 +123,6 @@ private:
 
   /// the food
   std::vector<food> m_food;
-
-  /// the shelters
-  std::vector<shelter> m_shelters;
 
   /// starting x distance between players
   const int m_dist_x_pls = 300;
@@ -187,9 +176,6 @@ bool are_colliding(const player &p, const food &f);
 
 /// Place a food item at a random position
 void place_nth_food_randomly(game &g, const int &n);
-
-/// Check if one or more shelters share the same position
-bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept;
 
 /// Save the game to file
 void save(const game& g, const std::string& filename);

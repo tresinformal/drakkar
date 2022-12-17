@@ -100,9 +100,6 @@ private:
   ///Draws food
   void draw_food() noexcept;
 
-  /// Draws shelters
-  void draw_shelters() noexcept;
-
   /// Set fourth view for players coordinates
   void set_player_coords_view() noexcept;
 

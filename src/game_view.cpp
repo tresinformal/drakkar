@@ -222,19 +222,6 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
     }
 }
 
-void game_view::draw_shelters() noexcept
-{
-    for (const auto &shelter : m_game.get_shelters())
-    {
-        sf::CircleShape circle(shelter.get_radius());
-        circle.setPosition(get_x(shelter), get_y(shelter));
-        circle.setFillColor(sf::Color(get_redness(shelter), get_greenness(shelter),
-                                      get_blueness(shelter),
-                                      get_opaqueness(shelter)));
-        m_window.draw(circle);
-    }
-}
-
 void game_view::set_player_coords_view() noexcept
 {
     sf::View player_coords_view(
@@ -288,8 +275,6 @@ void game_view::show() noexcept
         draw_players();
 
         draw_food();
-
-        draw_shelters();
     }
 
     // Set fourth view for players coordinates
