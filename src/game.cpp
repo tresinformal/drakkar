@@ -1744,7 +1744,7 @@ void test_game() //!OCLINT tests may be many
 
     //#define FIX_ISSUE_682
     #ifdef FIX_ISSUE_682
-    // (682) A game is over when the time limit is exceeded
+    // A game is over when the time limit is reached
     {
       const int time_limit = 10;
       const game_options g_options{3,
@@ -1758,10 +1758,9 @@ void test_game() //!OCLINT tests may be many
       game g{g_options};
       for (int i = 0; i < time_limit; i++)
         {
-          g.tick();
           assert(!g.is_over());
+          g.tick();
         }
-      g.tick();
       assert(g.is_over());
     }
     #endif // FIX_ISSUE_682
