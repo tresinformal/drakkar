@@ -1,10 +1,8 @@
 #include "about.h"
 #include "about_view.h"
 #include "coordinate.h"
-#include "enemy.h"
 #include "environment.h"
 #include "environment_type.h"
-#include "enemy_behavior_type.h"
 #include "food.h"
 #include "food_type.h"
 #include "food_state.h"
@@ -23,7 +21,6 @@
 #include "player_shape.h"
 #include "program_state.h"
 #include "player_state.h"
-#include "projectile.h"
 #include "read_only.h"
 #include "sound_type.h"
 #include "optional.h"
@@ -82,8 +79,6 @@ void test()
     test_player();
     test_game();
     test_game_options();
-    test_enemy();
-    test_enemy_behavior_type();
     test_environment();
     test_individual_type();
     test_food();
@@ -94,8 +89,6 @@ void test()
     test_menu_button();
     test_shelter();
     test_color();
-    test_projectile_type();
-    test_projectile();
     test_program_state();
     test_player_state();
     test_player_factory();

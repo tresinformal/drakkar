@@ -10,9 +10,7 @@ enum class action_type
   turn_right,
   accelerate_forward,
   accelerate_backward,
-  shoot,
-  none,
-  shoot_stun_rocket
+  idle
 };
 
 void test_action_type();

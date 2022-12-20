@@ -52,6 +52,9 @@ color create_red_color();
 color create_green_color();
 color create_blue_color();
 
+/// Random respawn colors
+color get_random_respawn_color(std::mt19937& rng);
+
 ///Determine if first color is winner with RPS dynamics
 bool is_first_color_winner(const color& c1, const color& c2);
 

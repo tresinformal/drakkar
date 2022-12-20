@@ -4,8 +4,6 @@ HEADERS += \
     $$PWD/src/action_type.h \
     $$PWD/src/color.h \
     $$PWD/src/coordinate.h \
-    $$PWD/src/enemy.h \
-    $$PWD/src/enemy_behavior_type.h \
     $$PWD/src/environment.h \
     $$PWD/src/environment_type.h \
     $$PWD/src/food.h \
@@ -25,10 +23,7 @@ HEADERS += \
     $$PWD/src/player_shape.h \
     $$PWD/src/player_state.h \
     $$PWD/src/program_state.h \
-    $$PWD/src/projectile.h \
-    $$PWD/src/projectile_type.h \
     $$PWD/src/read_only.h \
-    $$PWD/src/scoring_board.h \
     $$PWD/src/shelter.h \
     $$PWD/src/sound_type.h \
     $$PWD/src/utils.h \
@@ -39,8 +34,6 @@ SOURCES += \
     $$PWD/src/action_type.cpp \
     $$PWD/src/color.cpp \
     $$PWD/src/coordinate.cpp \
-    $$PWD/src/enemy.cpp \
-    $$PWD/src/enemy_behavior_type.cpp \
     $$PWD/src/environment.cpp \
     $$PWD/src/environment_type.cpp \
     $$PWD/src/food.cpp \
@@ -61,10 +54,7 @@ SOURCES += \
     $$PWD/src/player_shape.cpp \
     $$PWD/src/player_state.cpp \
     $$PWD/src/program_state.cpp \
-    $$PWD/src/projectile.cpp \
-    $$PWD/src/projectile_type.cpp \
     $$PWD/src/read_only.cpp \
-    $$PWD/src/scoring_board.cpp \
     $$PWD/src/shelter.cpp \
     $$PWD/src/sound_type.cpp \
     $$PWD/src/utils.cpp \

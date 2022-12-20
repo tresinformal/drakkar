@@ -137,21 +137,6 @@ bool has_any_player_food_collision(const game& g)
   return false;
 }
 
-bool has_any_player_projectile_collision(const game & g) noexcept
-{
-  const auto& projectiles = g.get_projectiles();
-  const auto& players = g.get_v_player();
-
-  for (const auto& p : projectiles)
-    {
-      for (const auto& pl : players)
-        {
-          if (are_colliding(pl, p)) return true;
-        }
-    }
-  return false;
-}
-
 bool has_any_player_wall_collision(const game& g)
 {
   for(const auto& player : g.get_v_player())
@@ -242,10 +227,4 @@ int get_nth_food_regeneration_time(const game &g, const int &n)
 int get_nth_food_timer(const game &g, const int &n)
 {
   return g.get_food()[n].get_timer();
-}
-
-// About projectiles
-int count_n_projectiles(const game &g) noexcept
-{
-  return static_cast<int>(g.get_projectiles().size());
 }
