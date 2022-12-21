@@ -129,11 +129,16 @@ void add_action(player& p, action_type action) noexcept
 
 bool are_colliding(const player &lhs, const player &rhs) noexcept
 {
+  if (lhs.get_state() == player_state::active
+     && rhs.get_state() == player_state::active)
+  {
     const double dx = std::abs(get_x(lhs) - get_x(rhs));
     const double dy = std::abs(get_y(lhs) - get_y(rhs));
     const double actual_distance = std::sqrt((dx * dx) + (dy * dy));
     const double collision_distance = (lhs.get_diameter() + rhs.get_diameter()) / 2;
     return actual_distance < collision_distance;
+  }
+  return false;
 }
 
 int get_blueness(const player &p) noexcept { return p.get_color().get_blue(); }

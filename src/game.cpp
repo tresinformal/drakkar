@@ -996,18 +996,15 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(p));
   }
 #endif
-
-  #ifdef FIX_ISSUE_625
-    {
-    // (625) A player that is dead cannot collide with other players
+  {
+    //(625) A player that is dead cannot collide with other players
     game g;
     const coordinate c_p2 = g.get_player(1).get_position();
     g.get_player(0).place_to_position(c_p2);
     assert(are_colliding(g.get_player(0), g.get_player(1)));
     g.kill_player(0);
     assert(!are_colliding(g.get_player(0), g.get_player(1)));
-    }
-  #endif
+  }
 
   // (236) When a player touches food it eats it
   {
