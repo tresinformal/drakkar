@@ -2,8 +2,6 @@
 
 #ifndef LOGIC_ONLY // so this is NOT compiled on GitHub Actions
 
-#include "food.h"
-#include "food_type.h"
 #include "game.h"
 #include "game_resources.h"
 #include "game_functions.h"
@@ -174,22 +172,6 @@ void game_view::draw_background() noexcept
     m_window.draw(background_sprite);
 }
 
-void game_view::draw_food() noexcept
-{
-    // Create food sprite
-    sf::CircleShape foodsprite(25.0);
-    // Get position of food
-    std::vector<food> foods = m_game.get_food();
-    // Position in landscape
-    food f = foods[0];
-    foodsprite.setPosition(static_cast<float>(get_x(f)),
-            static_cast<float>(get_y(f)));
-    foodsprite.setFillColor(sf::Color(0, 0, 0));
-    if (!f.is_eaten()) {
-        m_window.draw(foodsprite);
-      }
-}
-
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 //! shorten
 {
@@ -261,10 +243,6 @@ void game_view::draw_player_coords() noexcept
         str_player_coords += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
         str_player_coords += "\n\n";
     }
-    food f = m_game.get_food()[0];
-    str_player_coords += "Food x = " + std::to_string(static_cast<int>(get_x(f)));
-    str_player_coords += "\n         y = " + std::to_string(static_cast<int>(get_y(f)));
-    str_player_coords += "\n\n";
 
     text.setString(str_player_coords);
 
@@ -286,8 +264,6 @@ void game_view::show() noexcept
         draw_background();
 
         draw_players();
-
-        draw_food();
 
         draw_shelters();
     }
