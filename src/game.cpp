@@ -996,10 +996,10 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(p));
   }
 #endif
-
+  #define FIX_ISSUE_625
   #ifdef FIX_ISSUE_625
     {
-    // (625) A player that is dead cannot collide with other players
+    //(625) A player that is dead cannot collide with other players
     game g;
     const coordinate c_p2 = g.get_player(1).get_position();
     g.get_player(0).place_to_position(c_p2);
@@ -1765,7 +1765,7 @@ void test_game() //!OCLINT tests may be many
     }
     #endif // FIX_ISSUE_682
   }
-  #endif
+
 
   {
     const game g;
