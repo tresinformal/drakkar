@@ -986,6 +986,7 @@ void test_game() //!OCLINT tests may be many
     game g;
     player& p = g.get_player(0);
     const double death_size = 5.0; // choose a value
+    p.set_death_size(death_size);
     // Make the player smaller
     while(get_nth_player_size(g, 0) > death_size)
       {
