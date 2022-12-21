@@ -970,7 +970,7 @@ void test_game() //!OCLINT tests may be many
     // (611) A player that is dead revives after some time
     game g;
     g.kill_player(0);
-    const int revive_time = 100; // arbitrary; choose a better number when solving this test :) 
+    const int revive_time = 100; // arbitrary; choose a better number when solving this test :)
     for (int i = 0; i < revive_time; ++i)
       {
         assert(is_dead(g.get_player(0)));
@@ -1764,6 +1764,14 @@ void test_game() //!OCLINT tests may be many
       assert(g.is_over());
     }
     #endif // FIX_ISSUE_682
+  }
+  #endif
+
+  {
+    const game g;
+    const auto players{g.get_players()};
+    const auto v_player{g.get_v_player()};
+    assert(players == v_player);
   }
 #endif // no tests in release
 }
