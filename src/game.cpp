@@ -1765,15 +1765,13 @@ void test_game() //!OCLINT tests may be many
     }
     #endif // FIX_ISSUE_682
   }
-  #endif
-
   {
     const game g;
     const auto players{g.get_players()};
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
-#endif // no tests in release
+  #endif // no tests in release
 }
 
 
