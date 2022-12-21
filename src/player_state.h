@@ -6,8 +6,7 @@
 enum class player_state
 {
   active,
-  dead,
-  stunned
+  dead
 };
 
 void test_player_state();

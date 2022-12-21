@@ -178,12 +178,6 @@ bool is_red(const player & p) noexcept
             ;
 }
 
-// The player can be stunned
-void player::stun()
-{
-  m_state = player_state::stunned;
-}
-
 // The player can die
 void player::die()
 {
@@ -194,11 +188,6 @@ void player::die()
 void player::revive()
 {
   m_state = player_state::active;
-}
-
-void stun(player &p) noexcept
-{
-    p.stun();
 }
 
 bool is_alive(const player& p) noexcept
@@ -214,11 +203,6 @@ bool is_active(const player & p) noexcept
 bool is_dead(const player& p) noexcept
 {
     return p.get_state() == player_state::dead;
-}
-
-bool is_stunned(const player & p) noexcept
-{
-    return p.get_state() == player_state::stunned;
 }
 
 int get_colorhash(const player &p) noexcept
@@ -412,22 +396,6 @@ void test_player() //!OCLINT tests may be long
         assert(std::abs(p.get_diameter() - 100.0) < 0.00001);
     }
 
-    // A player can shoot
-    {
-        player p;
-        p.shoot();
-        assert(p.is_shooting());
-    }
-
-    // A player can stop shooting
-    {
-        player p;
-        p.shoot();
-        assert(p.is_shooting());
-        p.stop_shooting();
-        assert(!p.is_shooting());
-    }
-
     // two players(assuming they are not rotated) collide when they are less than
     // their size away
     {
@@ -572,13 +540,6 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_state() == player_state::active);
     }
 
-    // A player object can be initialized to a stunned state
-    {
-        const player p{coordinate(1.2, 3.4), player_shape::circle, player_state::stunned};
-        assert(p.get_state() ==  player_state::stunned);
-        assert(p.get_state() !=  player_state::active);
-    }
-
     //It is possible to establish how bluish, reddish and greenish a player is
     {
 
@@ -603,16 +564,6 @@ void test_player() //!OCLINT tests may be long
         assert(p.get_ID() == id);
     }
 
-  #ifdef FIX_ISSUE_220
-    ///A player can become stunned
-    {
-        player p;
-        assert(is_active(p));
-        stun(p);
-        assert(is_stunned(p));
-    }
-  #endif
-
     {
     // (324)
         auto x = 1.23456;
@@ -630,8 +581,6 @@ void test_player() //!OCLINT tests may be long
   {
     // (627) A player's state is changed by specific functions
     player p;
-    p.stun();
-    assert(p.get_state() == player_state::stunned);
     p.die();
     assert(p.get_state() == player_state::dead);
     p.revive();

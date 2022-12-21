@@ -27,12 +27,6 @@ public:
   /// Get a picture of Franjo
   sf::Texture &get_franjo() noexcept { return m_franjo; }
 
-  /// Get a picture of Rocket
-  sf::Texture &get_rocket() noexcept { return m_rocket; }
-
-  /// Get a picture of stun rocket
-  sf::Texture &get_stun_rocket() noexcept { return m_stun_rocket; }
-
   /// Get a picture of a Cat
   sf::Texture &get_cat() noexcept { return m_cat; }
 
@@ -50,13 +44,6 @@ public:
   // build to fail
   /// Get music file
   sf::Music &get_wonderland() noexcept { return m_wonderland; }
-#endif // IS_ON_TRAVIS
-
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
-  /// Get 'shoot' sound
-  sf::Music &get_shoot() noexcept { return m_shoot; }
 #endif // IS_ON_TRAVIS
 
 #ifndef IS_ON_TRAVIS
@@ -86,12 +73,6 @@ private:
 
   /// Dragon
   sf::Texture m_dragon;
-
-  /// Rocket
-  sf::Texture m_rocket;
-
-  /// Stun rocket
-  sf::Texture m_stun_rocket;
 
   /// A grass landscape
   sf::Texture m_grass_landscape;
@@ -123,13 +104,6 @@ private:
   // build to fail
   /// 'wonderland' from Sebastian
   sf::Music m_wonderland;
-#endif // IS_ON_TRAVIS
-
-#ifndef IS_ON_TRAVIS
-  // Playing sound on Travis gives thousands of error lines, which causes the
-  // build to fail
-  /// 'shoot' sound from Sebastian
-  sf::Music m_shoot;
 #endif // IS_ON_TRAVIS
 
 #ifndef IS_ON_TRAVIS

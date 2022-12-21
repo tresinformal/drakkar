@@ -89,11 +89,6 @@ void game_view::pl_3_stop_input(sf::Event event) noexcept
     remove_action(m_game.get_player(0), m.to_action(event.key.code));
 }
 
-int count_n_projectiles(const game_view &g) noexcept
-{
-  return count_n_projectiles(g.get_game());
-}
-
 bool game_view::process_events()
 {
 
@@ -195,19 +190,6 @@ void game_view::draw_food() noexcept
       }
 }
 
-void game_view::press_key(const sf::Keyboard::Key& k)
-{
-    // game g = this->get_game();
-    // const sf::Keyboard::Key stun_key = get_stun_key(this->get_game().get_game_options().get_kam_1());
-    const sf::Keyboard::Key stun_key = sf::Keyboard::Key::W;
-    if (k == stun_key)
-    {
-      /// shooting a rocket
-      this->m_game.do_action(0, action_type::shoot_stun_rocket);
-    }
-}
-
-
 void game_view::draw_players() noexcept //!OCLINT too long indeed, please
 //! shorten
 {
@@ -239,45 +221,6 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
         m_window.draw(circle);
     }
 }
-
-void game_view::draw_projectiles() noexcept
-{
-    for (const auto &projectile : m_game.get_projectiles())
-    {
-        if (projectile.get_type() == projectile_type::cat){
-            // Create the projectile sprite
-            sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
-            rect.setRotation(static_cast<float>(90));
-            rect.setPosition(get_x(projectile), get_y(projectile));
-            rect.setTexture(&m_game_resources.get_cat());
-            rect.rotate(projectile.get_direction() * 180 / M_PI);
-            m_window.draw(rect);
-        }
-
-        if (projectile.get_type() == projectile_type::rocket){
-            // Create the projectile sprite
-            sf::RectangleShape rect(sf::Vector2f(100.0, 100.0));
-            rect.setRotation(static_cast<float>(90));
-            rect.setPosition(get_x(projectile), get_y(projectile));
-            rect.setTexture(&m_game_resources.get_rocket());
-            rect.rotate(projectile.get_direction() * 180 / M_PI);
-            m_window.draw(rect);
-        }
-
-        if (projectile.get_type() == projectile_type::stun_rocket){
-            // Create the projectile sprite
-            sf::RectangleShape rect(sf::Vector2f(381.0, 83.0));
-            rect.setRotation(static_cast<float>(0));
-            rect.setPosition(get_x(projectile), get_y(projectile));
-            rect.setTexture(&m_game_resources.get_stun_rocket());
-            rect.rotate(projectile.get_direction() * 180 / M_PI);
-            m_window.draw(rect);
-        }
-
-    }
-
-}
-
 
 void game_view::draw_shelters() noexcept
 {
@@ -328,11 +271,6 @@ void game_view::draw_player_coords() noexcept
     m_window.draw(text);
 }
 
-void game_view::draw_scoring_board() noexcept
-{
-
-}
-
 void game_view::show() noexcept
 {
     // Start drawing the new frame, by clearing the screen
@@ -350,8 +288,6 @@ void game_view::show() noexcept
         draw_players();
 
         draw_food();
-
-        draw_projectiles();
 
         draw_shelters();
     }
@@ -389,16 +325,8 @@ key_action_map get_player_kam(const player& p)
         {sf::Keyboard::P,
                     sf::Keyboard::P,
                     sf::Keyboard::P,
-                    sf::Keyboard::P,
                     sf::Keyboard::P};
     }
-}
-
-bool is_nth_player_stunned(const game_view& g, const int& p) noexcept
-{
-    game g1 = g.get_game();
-    player p1 = g1.get_player(p);
-    return is_stunned(p1);
 }
 
 void test_game_view() //!OCLINT tests may be many
@@ -515,19 +443,6 @@ void test_game_view() //!OCLINT tests may be many
     view_mode expected_next_view = view_mode::quit;
     assert(gv.get_next_view() == expected_next_view);
   }
-
-//#define FIX_ISSUE_246
-#ifdef FIX_ISSUE_246
-    // Pressing the stun key shoots a stun rocket
-    {
-      //I predict the following: This get_player(0) returns an empty vector not the one as expected.
-      game_view gw(get_random_game_options(300));
-      assert(!gw.get_game().get_player(0).is_shooting_stun_rocket());
-      gw.press_key(get_stun_key(gw.get_options().get_kam_1())); // Press the key that causes a stun
-      assert(gw.get_game().get_player(0).is_shooting_stun_rocket());
-    }
-#endif // FIX_ISSUE_246
-
 
   // (545) A game window doesn't open at construction
   {

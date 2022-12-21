@@ -5,14 +5,11 @@
         <file>player_sprite.png</file>
         <file>franjo.png</file>
         <file>wonderland.ogg</file>
-        <file>rocket_sprite.png</file>
         <file>cat.png</file>
         <file>bump.ogg</file>
-        <file>shoot.ogg</file>
         <file>arial.ttf</file>
         <file>coastal_world.png</file>
         <file>marjon_the_dragon.png</file>
-        <file>stun_rocket_master.png</file>
         <file>grow.ogg</file>
         <file>shrink.ogg</file>
     </qresource>

@@ -66,9 +66,6 @@ public:
   ///Gets constant ref to sf::RenderWindow m_window
   const sf::RenderWindow& get_window() const noexcept {return m_window; }
 
-  ///Pushes key
-  void press_key(const sf::Keyboard::Key& k);
-
 private:
   /// The game logic
   game m_game;
@@ -103,9 +100,6 @@ private:
   ///Draws food
   void draw_food() noexcept;
 
-  /// Draws projectiles
-  void draw_projectiles() noexcept;
-
   /// Draws shelters
   void draw_shelters() noexcept;
 
@@ -114,20 +108,12 @@ private:
 
   /// Draw player coordinates
   void draw_player_coords() noexcept;
-
-  /// Draw scoring board
-  void draw_scoring_board() noexcept;
 };
-
-/// Count the number of projectiles
-int count_n_projectiles(const game_view &g) noexcept;
 
 key_action_map get_player_kam(const player& p);
 
 /// Parses input for a player
 player player_input(player p, sf::Event event);
-
-bool is_nth_player_stunned(const game_view& g, const int& p) noexcept;
 
 void test_game_view();
 
