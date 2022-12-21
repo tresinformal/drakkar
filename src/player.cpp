@@ -129,8 +129,8 @@ void add_action(player& p, action_type action) noexcept
 
 bool are_colliding(const player &lhs, const player &rhs) noexcept
 {
-  if (lhs.get_state() == player_state::active &&
-      rhs.get_state() == player_state::active)
+  if (lhs.get_state() == player_state::active
+     && rhs.get_state() == player_state::active)
   {
     const double dx = std::abs(get_x(lhs) - get_x(rhs));
     const double dy = std::abs(get_y(lhs) - get_y(rhs));
