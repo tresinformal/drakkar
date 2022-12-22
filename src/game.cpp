@@ -485,7 +485,6 @@ void test_game() //!OCLINT tests may be many
                before_y - after_y > -0.0000000000000001);
       }
   }
-  #endif
 
   // Can get a player's direction by using a free function
   {
@@ -599,6 +598,7 @@ void test_game() //!OCLINT tests may be many
     const int winning_player_size_after = get_nth_player_size(g, winning_player_index);
     assert(winning_player_size_after > winning_player_size_before);
   }
+  #endif // FIX_ISSUE_233
 
   // (234) Make losing PRS player smaller
   {
@@ -614,7 +614,6 @@ void test_game() //!OCLINT tests may be many
     const int losing_player_size_after = get_nth_player_size(g, losing_player_index);
     assert(losing_player_size_after < losing_player_size_before);
   }
-  #endif // FIX_ISSUE_233
 
   //#define FIX_ISSUE_381
   #ifdef FIX_ISSUE_381
@@ -1302,29 +1301,32 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
 
-    //#define FIX_ISSUE_682
-    #ifdef FIX_ISSUE_682
-    // A game is over when the time limit is reached
-    {
-      const int time_limit = 10;
-      const game_options g_options{3,
-                            false,
-                            get_random_kam(),
-                            get_random_kam(),
-                            get_random_kam(),
-                            environment_type(),
-                            time_limit
-                           };
-      game g{g_options};
-      for (int i = 0; i < time_limit; i++)
-        {
-          assert(!g.is_over());
-          g.tick();
-        }
-      assert(g.is_over());
-    }
-    #endif // FIX_ISSUE_682
   }
+  #endif // FIX_ISSUE_524
+
+  //#define FIX_ISSUE_682
+  #ifdef FIX_ISSUE_682
+  // A game is over when the time limit is reached
+  {
+    const int time_limit = 10;
+    const game_options g_options{3,
+                          false,
+                          get_random_kam(),
+                          get_random_kam(),
+                          get_random_kam(),
+                          environment_type(),
+                          time_limit
+                         };
+    game g{g_options};
+    for (int i = 0; i < time_limit; i++)
+      {
+        assert(!g.is_over());
+        g.tick();
+      }
+    assert(g.is_over());
+  }
+  #endif // FIX_ISSUE_682
+
 #endif // no tests in release
 }
 
