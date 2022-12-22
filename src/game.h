@@ -71,10 +71,12 @@ public:
   }
 
   /// Returns const ref to the vector of players
-  const std::vector<player> &get_v_player() const { return m_player; }
+  const std::vector<player> &get_v_player() const noexcept { return get_players(); }
+  const std::vector<player> &get_players() const noexcept { return m_player; }
 
   /// Returns ref to the vector of players
-  std::vector<player>& get_v_player() { return m_player; }
+  std::vector<player>& get_v_player() noexcept { return get_players(); }
+  std::vector<player>& get_players() noexcept { return m_player; }
 
   /// Get shelters
   const std::vector<shelter>& get_shelters() const noexcept { return m_shelters; }

@@ -828,7 +828,7 @@ void test_game() //!OCLINT tests may be many
     // (611) A player that is dead revives after some time
     game g;
     g.kill_player(0);
-    const int revive_time = 100; // arbitrary; choose a better number when solving this test :) 
+    const int revive_time = 100; // arbitrary; choose a better number when solving this test :)
     for (int i = 0; i < revive_time; ++i)
       {
         assert(is_dead(g.get_player(0)));
@@ -854,18 +854,15 @@ void test_game() //!OCLINT tests may be many
     assert(is_dead(p));
   }
 #endif
-
-  #ifdef FIX_ISSUE_625
-    {
-    // (625) A player that is dead cannot collide with other players
+  {
+    //(625) A player that is dead cannot collide with other players
     game g;
     const coordinate c_p2 = g.get_player(1).get_position();
     g.get_player(0).place_to_position(c_p2);
     assert(are_colliding(g.get_player(0), g.get_player(1)));
     g.kill_player(0);
     assert(!are_colliding(g.get_player(0), g.get_player(1)));
-    }
-  #endif
+  }
 
   //#define FIX_ISSUE_248
   #ifdef FIX_ISSUE_248
@@ -1327,6 +1324,13 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_682
 
+  {
+    const game g;
+    const auto players{g.get_players()};
+    const auto v_player{g.get_v_player()};
+    assert(players == v_player);
+  }
+  
 #endif // no tests in release
 }
 
