@@ -4,7 +4,6 @@
 #include "action_type.h"
 #include "environment.h"
 #include "environment_type.h"
-#include "food.h"
 #include "game_options.h"
 #include "player.h"
 #include "player_shape.h"
@@ -22,8 +21,7 @@ public:
     const game_options& options = game_options(),
     const environment& the_environment = environment(),
     int num_players = 3,
-    std::size_t n_shelters = 42,
-    int n_food = 1
+    std::size_t n_shelters = 42
   );
 
   ///makes a player do an action
@@ -59,17 +57,8 @@ public:
   /// Increment the number of ticks
   void increment_n_ticks();
     
-  // Switch a food item's state to eaten
-  void eat_food(food& f);
-
   /// Get environment size of the game
   const environment& get_env() const noexcept{ return m_environment; }
-
-  /// Get const reference to food vector
-  const std::vector<food>& get_food() const noexcept { return m_food; }
-
-  /// Get reference to food vector
-  std::vector<food>& get_food()  noexcept { return m_food; }
 
   /// Get the player at a specified index in the vector of players
   const player &get_player(int i) const { return m_player[static_cast<unsigned int>(i)]; }
@@ -131,23 +120,11 @@ private:
   /// the environment
   environment m_environment;
 
-  /// the food
-  std::vector<food> m_food;
-
   /// the shelters
   std::vector<shelter> m_shelters;
 
   /// starting x distance between players
   const int m_dist_x_pls = 300;
-
-  /// Increment timers of food items
-  void increment_food_timers();
-
-  /// Make players eat food items they are on top of
-  void make_players_eat_food();
-
-  /// Regenerate food items where relevant
-  void regenerate_food_items();
 };
 
 /// Calculate a mean of a vector of numbers
@@ -156,14 +133,9 @@ double calc_mean(const std::vector<double>& v);
 /// Calculate the variance of a vector of numbers
 double calc_var(const std::vector<double>& v);
 
-// Eat nth food item
-void eat_nth_food(game& g, const int n);
-
 ///Checks if two items have the same exact position
 template <typename L, typename R>
 bool have_same_position(const L& lhs, const R& rhs);
-
-bool is_in_food_radius(const player p, const food f) noexcept;
 
 ///Signal if a player hits a wall in an environment
 bool hits_wall(const player& p, const environment& e);
@@ -177,18 +149,6 @@ void grow_winning_player(game &g);
 
 ///Upon a collision, shrink the size of the losing player
 void shrink_losing_player(game &g);
-
-///Puts a player on food
-void put_player_on_food(player& p, const food &f);
-
-///Puts a player on food
-void put_player_near_food(player& p, const food &f, const double distance = 0.0);
-
-/// Check that player and food are in collision, i.e. same position and food uneaten
-bool are_colliding(const player &p, const food &f);
-
-/// Place a food item at a random position
-void place_nth_food_randomly(game &g, const int &n);
 
 /// Check if one or more shelters share the same position
 bool all_positions_equal(const std::vector<coordinate> &shelters, const std::vector<coordinate> &other_shelters) noexcept;

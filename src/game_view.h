@@ -97,9 +97,6 @@ private:
   ///Draws the background
   void draw_background() noexcept;
 
-  ///Draws food
-  void draw_food() noexcept;
-
   /// Draws shelters
   void draw_shelters() noexcept;
 
