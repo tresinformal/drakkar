@@ -95,6 +95,32 @@ public:
     /// Get the player's health
     double get_health() const noexcept { return m_health; }
 
+    /// INVULNERABILITY ///
+    /// Get the player's invulnerability
+    bool get_invulnerability() const noexcept { return m_invulnerability; }
+
+    /// Get the player's duration of invulnerability
+    int get_duration_invulnerability() const noexcept { return m_duration_invulnerability; }
+
+    /// Set the player's invulnerability
+    void set_invulnerability() noexcept { m_invulnerability = true; }
+
+    /// Remove the player's invulnerability
+    void remove_invulnerability() noexcept { m_invulnerability = false; }
+
+    /// Set the player's duration of invulnerability
+    void set_duration_invulnerability(int duration) noexcept { m_duration_invulnerability = duration; }
+
+    /// Get the player's invulnerability timer
+    int get_invulnerability_timer() const noexcept { return m_invulnerability_timer; }
+
+    /// Increment the player's invulnerability timer
+    void increment_invulnerability_timer() noexcept { m_invulnerability_timer += 1; }
+
+    /// Reset the player's invulnerability timer
+    void reset_invulnerability_timer() noexcept { m_invulnerability_timer = 0; }
+    /// INVULNERABILITY ///
+
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
     {
@@ -202,10 +228,13 @@ private:
 
     /// INVULNERABILITY ///
     /// Player's invulnerabliity flag
-    bool m_is_invulnerable = false;
+    bool m_invulnerability = false;
 
     /// Player's invulnerability duration, in ticks
-    int m_duration_invulnerability = 100;
+    int m_duration_invulnerability = 2000;
+
+    /// Player's invulnereability timer
+    int m_invulnerability_timer = 0;
     /// INVULNERABILITY ///
 };
 
@@ -244,6 +273,11 @@ bool is_active(const player &p) noexcept;
 
 /// Is a player dead?
 bool is_dead(const player& p) noexcept;
+
+/// INVULNERABILITY ///
+/// Is a player invulnerable?
+bool is_invulnerable(const player& p) noexcept;
+/// INVULNERABILITY ///
 
 ///Get color index
 int get_colorhash(const player &p) noexcept;

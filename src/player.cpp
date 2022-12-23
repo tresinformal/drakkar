@@ -210,6 +210,13 @@ bool is_dead(const player& p) noexcept
     return p.get_state() == player_state::dead;
 }
 
+/// INVULNERABILITY ///
+bool is_invulnerable(const player& p) noexcept
+{
+    return p.get_invulnerability();
+}
+/// INVULNERABILITY ///
+
 int get_colorhash(const player &p) noexcept
 {
     assert(p.get_color().get_red() == 0 || p.get_color().get_red() == 255);
