@@ -98,7 +98,7 @@ private:
   void draw_background() noexcept;
 
   /// Set fourth view for players coordinates
-  void set_player_coords_view() noexcept;
+  void set_player_info_view() noexcept;
 
   /// Draw player coordinates
   void draw_player_info() noexcept;

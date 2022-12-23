@@ -203,7 +203,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
     }
 }
 
-void game_view::set_player_coords_view() noexcept
+void game_view::set_player_info_view() noexcept
 {
     sf::View player_coords_view(
                 sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
@@ -254,7 +254,7 @@ void game_view::show() noexcept
 
     // Set fourth view for players coordinates
     #ifndef NDEBUG  // coordinates should not be visible in release
-    set_player_coords_view();
+    set_player_info_view();
     // Display player coordinates on the fourth view
     draw_player_info();
     #endif
