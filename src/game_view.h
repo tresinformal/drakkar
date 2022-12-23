@@ -101,7 +101,7 @@ private:
   void set_player_coords_view() noexcept;
 
   /// Draw player coordinates
-  void draw_player_coords() noexcept;
+  void draw_player_info() noexcept;
 };
 
 key_action_map get_player_kam(const player& p);

@@ -214,7 +214,7 @@ void game_view::set_player_coords_view() noexcept
     m_window.setView(player_coords_view);
 }
 
-void game_view::draw_player_coords() noexcept
+void game_view::draw_player_info() noexcept
 {
     sf::Text text;
     text.setFont(m_game_resources.get_font());
@@ -257,7 +257,7 @@ void game_view::show() noexcept
     #ifndef NDEBUG  // coordinates should not be visible in release
     set_player_coords_view();
     // Display player coordinates on the fourth view
-    draw_player_coords();
+    draw_player_info();
     #endif
 
     // Display all shapes
