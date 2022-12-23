@@ -97,7 +97,7 @@ public:
   void check_over();
   
   /// Return the flag to show whether the game is over
-  bool is_over() { return m_is_over; };
+  bool is_over() const noexcept { return m_is_over; }
   /// END GAME CONDITION ///
 
 private:
