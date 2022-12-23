@@ -97,9 +97,6 @@ private:
   ///Draws the background
   void draw_background() noexcept;
 
-  ///Draws food
-  void draw_food() noexcept;
-
   /// Set fourth view for players coordinates
   void set_player_coords_view() noexcept;
 

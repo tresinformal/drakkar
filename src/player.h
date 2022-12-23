@@ -255,4 +255,8 @@ player create_blue_player();
 //winning scenario
 bool is_first_player_loser(const player& player_one, const player& player_two);
 bool is_first_player_winner (const player& player_one, const player& player_two);
+
+/// Define custom operators
+bool operator==(const player& lhs, const player& rhs) noexcept;
+
 #endif // PLAYER_H
