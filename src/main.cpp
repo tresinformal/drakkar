@@ -81,7 +81,6 @@ void test()
     test_key_action_map();
     test_menu();
     test_menu_button();
-    test_shelter();
     test_color();
     test_program_state();
     test_player_state();

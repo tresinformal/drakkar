@@ -30,8 +30,4 @@ bool has_any_interplayer_collision(const game &g) noexcept;
 bool has_any_player_wall_collision(const game& g);
 coordinate predict_players_movement(const player& p);
 
-// About shelters
-std::vector<coordinate> get_all_shelter_positions(const game& g);
-coordinate get_nth_shelter_position(const game &g, const int &n);
-
 #endif // GAME_FUNCTIONS_H

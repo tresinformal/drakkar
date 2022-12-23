@@ -97,9 +97,6 @@ private:
   ///Draws the background
   void draw_background() noexcept;
 
-  /// Draws shelters
-  void draw_shelters() noexcept;
-
   /// Set fourth view for players coordinates
   void set_player_coords_view() noexcept;
 

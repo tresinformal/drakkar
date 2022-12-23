@@ -21,7 +21,6 @@ HEADERS += \
     $$PWD/src/player_state.h \
     $$PWD/src/program_state.h \
     $$PWD/src/read_only.h \
-    $$PWD/src/shelter.h \
     $$PWD/src/sound_type.h \
     $$PWD/src/utils.h \
     $$PWD/src/view_mode.h
@@ -49,7 +48,6 @@ SOURCES += \
     $$PWD/src/player_state.cpp \
     $$PWD/src/program_state.cpp \
     $$PWD/src/read_only.cpp \
-    $$PWD/src/shelter.cpp \
     $$PWD/src/sound_type.cpp \
     $$PWD/src/utils.cpp \
     $$PWD/src/view_mode.cpp

@@ -141,22 +141,3 @@ coordinate predict_players_movement(const player& p)
   coordinate c(next_x, next_y);
   return c;
 }
-
-// About shelters
-std::vector<coordinate> get_all_shelter_positions(const game& g)
-{
-  int n_shelters = g.get_shelters().size();
-  std::vector<coordinate> all_shelter_positions;
-  for (int i = 0; i < n_shelters; ++i)
-    {
-      all_shelter_positions.push_back(get_nth_shelter_position(g, i));
-    }
-  return all_shelter_positions;
-}
-
-coordinate get_nth_shelter_position(const game &g, const int &n)
-{
-  assert(n >= 0);
-  assert(n < static_cast<int>(g.get_shelters().size()));
-  return g.get_shelters()[n].get_position();
-}
