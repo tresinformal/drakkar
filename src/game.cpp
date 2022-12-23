@@ -575,8 +575,8 @@ void test_game() //!OCLINT tests may be many
     game g;
 
     assert(is_active(g.get_player(0)));
-    g.set_player_invulnerability(g.get_player(0));
-    assert(g.get_player(0).is_invulnerable());
+    set_player_invulnerability(g.get_player(0));
+    assert(is_vulnerable(g.get_player(0)));
   }
 
   ///A player can become vulnerable again
@@ -584,8 +584,8 @@ void test_game() //!OCLINT tests may be many
     game g;
 
     assert(is_active(g.get_player(0)));
-    g.remove_player_invulnerability(g.get_player(0));
-    assert(!g.get_player(0).is_invulnerable());
+    remove_player_invulnerability(g.get_player(0));
+    assert(!is_vulnerable(g.get_player(0)));
   }
   #endif
 
@@ -596,7 +596,7 @@ void test_game() //!OCLINT tests may be many
     game g;
 
     //Make the first player invulnerable
-    g.set_player_invulnerability(g.get_player(0));
+    set_player_invulnerability(g.get_player(0));
 
     // Make player 1 and 2 overlap
     g.get_player(1).set_x(get_x(g.get_player(0)));
@@ -620,7 +620,7 @@ void test_game() //!OCLINT tests may be many
     game g;
 
     //Make the first player invulnerable
-    g.set_player_invulnerability(g.get_player(1));
+    set_player_invulnerability(g.get_player(1));
 
     // Make player 1 and 2 overlap
     g.get_player(0).set_x(get_x(g.get_player(1)));
@@ -647,13 +647,13 @@ void test_game() //!OCLINT tests may be many
     game g;
     player& p = g.get_player(0);
     const int duration_invulnerability = p.get_duration_invulnerability();
-    g.set_player_invulnerability(p);
+    set_player_invulnerability(p);
     for (int t = 0; t < duration_invulnerability; t++)
       {
-        assert(p.is_invulnerable());
+        assert(is_invulnerable(p.get_invulnerability()));
         g.tick();
       }
-    assert(!p.is_invulnerable());
+    assert(!is_invulnerable(p.get_invulnerability()));
     assert(p.get_state() == player_state::active);
   }
   #endif
