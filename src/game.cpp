@@ -158,6 +158,9 @@ void game::tick()
 
   // and updates m_n_ticks
   increment_n_ticks();
+
+  // Check whether end game contion is met
+  check_over();
 }
 
 void game::increment_n_ticks()
@@ -216,6 +219,13 @@ void game::reset_player_action()
       p.set_action_flag(action_type::idle);
     }
 }
+
+/// END GAME CONDITION ///
+void game::check_over()
+{
+  if (m_n_ticks >= m_options.get_max_time()) m_is_over = true;
+}
+/// END GAME CONDITION ///
 
 double calc_mean(const std::vector<double>& v)
 {
@@ -1172,7 +1182,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_524
 
-  //#define FIX_ISSUE_682
+  #define FIX_ISSUE_682
   #ifdef FIX_ISSUE_682
   // A game is over when the time limit is reached
   {

@@ -89,31 +89,42 @@ public:
   /// Get initial x distance of players
   int get_dist_x_pls() const noexcept { return m_dist_x_pls; }
 
-  ///Manages collisons with walls
+  /// Manages collisons with walls
   player resolve_wall_collision(player p);
+
+  /// END GAME CONDITION ///
+  /// Check whether the number of ticks >= max time, could extend this function in the future to detect more end game conditions
+  void check_over();
   
+  /// Return the flag to show whether the game is over
+  bool is_over() { return m_is_over; };
+  /// END GAME CONDITION ///
+
 private:
 
   /// The RNG engine
   std::mt19937 m_rng;
 
-  /// the options of the game
+  /// The options of the game
   game_options m_options;
 
-  /// the number of ticks
+  /// The number of ticks
   int m_n_ticks;
 
   /// Vector of players
   std::vector<player> m_player;
 
-  ///Vector of index of the players that collide
+  /// Vector of index of the players that collide
   std::vector<int> m_v_collisions_ind;
 
-  /// the environment
+  /// The environment
   environment m_environment;
 
-  /// starting x distance between players
+  /// Starting x distance between players
   const int m_dist_x_pls = 300;
+
+  /// Flag to decide whether the game is over
+  bool m_is_over = false;
 };
 
 /// Calculate a mean of a vector of numbers
