@@ -4,7 +4,6 @@
 
 #include "game.h"
 #include "game_resources.h"
-#include "game_functions.h"
 #include "view_mode.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
