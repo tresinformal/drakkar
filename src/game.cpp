@@ -159,7 +159,7 @@ void game::tick()
   // and updates m_n_ticks
   increment_n_ticks();
 
-  // Check whether end game contion is met
+  // Check whether end game condition is met
   check_over();
 }
 
