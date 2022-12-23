@@ -217,7 +217,7 @@ void game_view::draw_player_info() noexcept
 {
     sf::Text text;
     text.setFont(m_game_resources.get_font());
-    text.setCharacterSize(24);
+    text.setCharacterSize(20);
 
     // Concatenate player coordinates string
     std::vector<player> v_player = m_game.get_v_player();
@@ -227,6 +227,7 @@ void game_view::draw_player_info() noexcept
         str_player_info += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
         str_player_info += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
         str_player_info += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
+        str_player_info += "\nPlayer " + p.get_ID() + " size = " + std::to_string(p.get_diameter());
         str_player_info += "\n\n";
     }
 
