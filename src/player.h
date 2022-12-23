@@ -199,6 +199,14 @@ private:
     /// Player's health percentage, the player always start with max health at
     /// construction
     double m_health = 1.0;
+
+    /// INVULNERABILITY ///
+    /// Player's invulnerabliity flag
+    bool m_is_invulnerable = false;
+
+    /// Player's invulnerability duration, in ticks
+    int m_duration_invulnerability = 100;
+    /// INVULNERABILITY ///
 };
 
 ///Adds an action to the action set

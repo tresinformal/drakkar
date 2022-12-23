@@ -568,54 +568,92 @@ void test_game() //!OCLINT tests may be many
     assert(losing_player_size_after < losing_player_size_before);
   }
 
-  //#define FIX_ISSUE_381
+  #define FIX_ISSUE_381
   #ifdef FIX_ISSUE_381
   ///A player can become invulnerable
   {
     game g;
 
     assert(is_active(g.get_player(0)));
-    become_invulnerable(g.get_player(0));
-    assert(is_invulnerable(g.get_player(0)));
+    g.set_player_invulnerability(g.get_player(0));
+    assert(g.get_player(0).is_invulnerable());
+  }
 
+  ///A player can become vulnerable again
+  {
+    game g;
+
+    assert(is_active(g.get_player(0)));
+    g.remove_player_invulnerability(g.get_player(0));
+    assert(!g.get_player(0).is_invulnerable());
   }
   #endif
 
+  #define FIX_ISSUE_382
   #ifdef FIX_ISSUE_382
+  ///An invulnerable player cannot grow
+  {
+    game g;
+
+    //Make the first player invulnerable
+    g.set_player_invulnerability(g.get_player(0));
+
+    // Make player 1 and 2 overlap
+    g.get_player(1).set_x(get_x(g.get_player(0)));
+    g.get_player(1).set_y(get_y(g.get_player(0)));
+
+    const int first_player_index = get_collision_members(g)[0];
+    const int second_player_index = get_collision_members(g)[1];
+    const int winner_index = get_winning_player_index(g, first_player_index, second_player_index);
+
+    assert(winner_index == 0);
+
+    // After a tick, invulnerable player does not grow
+    const int inv_player_size_before =  get_nth_player_size(g, winner_index);
+    g.tick();
+    const int inv_player_size_after =  get_nth_player_size(g, winner_index);
+    assert(inv_player_size_after == inv_player_size_before);
+  }
+
   ///An invulnerable player cannot shrink
   {
     game g;
 
     //Make the first player invulnerable
-    become_invulnerable(g.get_player(0));
+    g.set_player_invulnerability(g.get_player(1));
 
     // Make player 1 and 2 overlap
-    g.get_player(1).set_x(get_x(g.get_player(0)));
-    g.get_player(1).set_y(get_y(g.get_player(0)));
-    assert(has_collision(g));
+    g.get_player(0).set_x(get_x(g.get_player(1)));
+    g.get_player(0).set_y(get_y(g.get_player(1)));
+
+    const int first_player_index = get_collision_members(g)[1];
+    const int second_player_index = get_collision_members(g)[0];
+    const int loser_index = get_winning_player_index(g, first_player_index, second_player_index);
+
+    assert(loser_index == 0);
 
     // After a tick, invulnerable player does not shrink
-    const int inv_player_size_before =  get_nth_player_size(g, 0);
+    const int inv_player_size_before =  get_nth_player_size(g, loser_index);
     g.tick();
-    const int inv_player_size_after =  get_nth_player_size(g, 0);
+    const int inv_player_size_after =  get_nth_player_size(g, loser_index);
     assert(inv_player_size_after == inv_player_size_before);
   }
-  #endif
 
-  //#define FIX_ISSUE_463
+
+  #define FIX_ISSUE_463
   #ifdef FIX_ISSUE_463
   // Players lose invulnerability after a short time
   {
     game g;
     player& p = g.get_player(0);
     const int duration_invulnerability = p.get_duration_invulnerability();
-    become_invulnerable(p);
+    g.set_player_invulnerability(p);
     for (int t = 0; t < duration_invulnerability; t++)
       {
-        assert(is_invulnerable(p));
+        assert(p.is_invulnerable());
         g.tick();
       }
-    assert(!is_invulnerable(p));
+    assert(!p.is_invulnerable());
     assert(p.get_state() == player_state::active);
   }
   #endif
