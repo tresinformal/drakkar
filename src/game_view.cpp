@@ -221,16 +221,16 @@ void game_view::draw_player_info() noexcept
 
     // Concatenate player coordinates string
     std::vector<player> v_player = m_game.get_v_player();
-    std::string str_player_coords;
+    std::string str_player_info;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
-        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
-        str_player_coords += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
-        str_player_coords += "\n\n";
+        str_player_info += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
+        str_player_info += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
+        str_player_info += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
+        str_player_info += "\n\n";
     }
 
-    text.setString(str_player_coords);
+    text.setString(str_player_info);
 
     m_window.draw(text);
 }
