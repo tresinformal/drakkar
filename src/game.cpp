@@ -223,7 +223,7 @@ void game::reset_player_action()
 /// END GAME CONDITION ///
 void game::check_over()
 {
-  if (m_n_ticks >= m_options.get_max_time()) m_is_over = true;
+  m_is_over = m_n_ticks >= m_options.get_max_time();
 }
 /// END GAME CONDITION ///
 
