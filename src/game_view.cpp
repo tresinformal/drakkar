@@ -4,7 +4,6 @@
 
 #include "game.h"
 #include "game_resources.h"
-#include "game_functions.h"
 #include "view_mode.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -204,7 +203,7 @@ void game_view::draw_players() noexcept //!OCLINT too long indeed, please
     }
 }
 
-void game_view::set_player_coords_view() noexcept
+void game_view::set_player_info_view() noexcept
 {
     sf::View player_coords_view(
                 sf::Vector2f(m_window.getSize().x / 4.5, m_window.getSize().y / 4.5),
@@ -214,24 +213,25 @@ void game_view::set_player_coords_view() noexcept
     m_window.setView(player_coords_view);
 }
 
-void game_view::draw_player_coords() noexcept
+void game_view::draw_player_info() noexcept
 {
     sf::Text text;
     text.setFont(m_game_resources.get_font());
-    text.setCharacterSize(24);
+    text.setCharacterSize(20);
 
     // Concatenate player coordinates string
     std::vector<player> v_player = m_game.get_v_player();
-    std::string str_player_coords;
+    std::string str_player_info;
     for(int i = 0; i != static_cast<int>(v_player.size()); i++) {
         player p = v_player[static_cast<unsigned int>(i)];
-        str_player_coords += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
-        str_player_coords += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
-        str_player_coords += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
-        str_player_coords += "\n\n";
+        str_player_info += "Player " + p.get_ID() + " x = " + std::to_string(static_cast<int>(get_x(p)));
+        str_player_info += "\nPlayer " + p.get_ID() + " y = " + std::to_string(static_cast<int>(get_y(p)));
+        str_player_info += "\nPlayer " + p.get_ID() + " speed = " + std::to_string(p.get_speed());
+        str_player_info += "\nPlayer " + p.get_ID() + " size = " + std::to_string(p.get_diameter());
+        str_player_info += "\n\n";
     }
 
-    text.setString(str_player_coords);
+    text.setString(str_player_info);
 
     m_window.draw(text);
 }
@@ -255,9 +255,9 @@ void game_view::show() noexcept
 
     // Set fourth view for players coordinates
     #ifndef NDEBUG  // coordinates should not be visible in release
-    set_player_coords_view();
+    set_player_info_view();
     // Display player coordinates on the fourth view
-    draw_player_coords();
+    draw_player_info();
     #endif
 
     // Display all shapes

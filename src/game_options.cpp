@@ -11,14 +11,16 @@ game_options::game_options(
     key_action_map player_1_kam,
     key_action_map player_2_kam,
     key_action_map player_3_kam,
-    environment_type env_type
+    environment_type env_type,
+    int max_time
     ) :
   m_rng_seed{rng_seed},
   m_play_music{play_music},
   m_kam_1{player_1_kam},
   m_kam_2{player_2_kam},
   m_kam_3{player_3_kam},
-  m_environment_type{env_type}
+  m_environment_type{env_type},
+  m_max_time{max_time}
 {
 
 }
@@ -170,11 +172,11 @@ void test_game_options()
     game_options go;
     assert(go.get_environment_type() == environment_type::empty);
   }
-//#define FIX_ISSUE_681
+#define FIX_ISSUE_681
 #ifdef FIX_ISSUE_681
   // (681) The game_options set a time limit
   {
-    const int max_time = 500; // change if too long/short
+    const int max_time = 6000; // change if too long/short
     const int seed = 3;
     const bool music_on = false;
     const key_action_map any_kam_will_do = get_random_kam();
@@ -188,7 +190,7 @@ void test_game_options()
           environment_type(),
           max_time
           );
-    assert(game_options.get_max_time() == max_time);
+    assert(random_game_options.get_max_time() == max_time);
   }
 #endif // FIX_ISSUE_681
 
