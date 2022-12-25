@@ -9,6 +9,8 @@ std::string to_str(player_state this_player_state)
 {
   switch (this_player_state)
   {
+  case player_state::passive:
+    return "passive";
   case player_state::dead:
     return "dead";
   default:
@@ -29,6 +31,8 @@ void test_player_state()
   #ifndef NDEBUG // no tests in release
   {
     assert(player_state::dead != player_state::active);
+    assert(player_state::dead != player_state::passive);
+    assert(player_state::active != player_state::passive);
   }
 
   // (509) operator<<
@@ -42,6 +46,7 @@ void test_player_state()
   // (276) Conversion to string
   {
     assert(to_str(player_state::active) == "active");
+    assert(to_str(player_state::passive) == "passive");
     assert(to_str(player_state::dead) == "dead");
   }
 

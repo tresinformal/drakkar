@@ -5,8 +5,9 @@
 
 enum class player_state
 {
-  active,
-  dead
+  active, // a normal state
+  passive, // a state that the player is non-interactable
+  dead // deactivated
 };
 
 void test_player_state();
