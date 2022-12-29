@@ -95,31 +95,28 @@ public:
     /// Get the player's health
     double get_health() const noexcept { return m_health; }
 
-    /// INVULNERABILITY ///
-    /// Get the player's invulnerability
-    bool get_invulnerability() const noexcept { return m_invulnerability; }
+    /// PASSIVE STATE ///
+    /// Get the player's passive duration
+    int get_duration_passive() const noexcept { return m_duration_passive; }
 
-    /// Get the player's duration of invulnerability
-    int get_duration_invulnerability() const noexcept { return m_duration_invulnerability; }
+    /// Set the player's state to passive
+    void set_state_passive() noexcept { m_state = player_state::passive; }
 
-    /// Set the player's invulnerability
-    void set_invulnerability() noexcept { m_invulnerability = true; }
+    /// Remove the player's passive state, reset to active
+    void remove_state_passive() noexcept { m_state = player_state::active; }
 
-    /// Remove the player's invulnerability
-    void remove_invulnerability() noexcept { m_invulnerability = false; }
+    /// Set the player's passive duration
+    void set_duration_passive(int duration) noexcept { m_duration_passive = duration; }
 
-    /// Set the player's duration of invulnerability
-    void set_duration_invulnerability(int duration) noexcept { m_duration_invulnerability = duration; }
+    /// Get the player's passive timer
+    int get_passive_timer() const noexcept { return m_passive_timer; }
 
-    /// Get the player's invulnerability timer
-    int get_invulnerability_timer() const noexcept { return m_invulnerability_timer; }
+    /// Increment the player's passive timer
+    void increment_passive_timer() noexcept { m_passive_timer += 1; }
 
-    /// Increment the player's invulnerability timer
-    void increment_invulnerability_timer() noexcept { m_invulnerability_timer += 1; }
-
-    /// Reset the player's invulnerability timer
-    void reset_invulnerability_timer() noexcept { m_invulnerability_timer = 0; }
-    /// INVULNERABILITY ///
+    /// Reset the player's passive timer
+    void reset_passive_timer() noexcept { m_passive_timer = 0; }
+    /// PASSIVE STATE ///
 
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
@@ -226,16 +223,13 @@ private:
     /// construction
     double m_health = 1.0;
 
-    /// INVULNERABILITY ///
-    /// Player's invulnerabliity flag
-    bool m_invulnerability = false;
+    /// PASSIVE STATE ///
+    /// Player's passive duration, in ticks
+    int m_duration_passive = 2000;
 
-    /// Player's invulnerability duration, in ticks
-    int m_duration_invulnerability = 2000;
-
-    /// Player's invulnereability timer
-    int m_invulnerability_timer = 0;
-    /// INVULNERABILITY ///
+    /// Player's passive timer
+    int m_passive_timer = 0;
+    /// PASSIVE STATE ///
 };
 
 ///Adds an action to the action set
@@ -274,10 +268,10 @@ bool is_active(const player &p) noexcept;
 /// Is a player dead?
 bool is_dead(const player& p) noexcept;
 
-/// INVULNERABILITY ///
-/// Is a player invulnerable?
-bool is_invulnerable(const player& p) noexcept;
-/// INVULNERABILITY ///
+/// PASSIVE STATE ///
+/// Is a player passive?
+bool is_passive(const player& p) noexcept;
+/// PASSIVE STATE ///
 
 ///Get color index
 int get_colorhash(const player &p) noexcept;

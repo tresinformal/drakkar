@@ -80,17 +80,17 @@ public:
   /// Assumes that index exists, else crashes
   void kill_player(const int index);
 
-  /// INVULNERABILITY ///
-  void set_player_invulnerability(player &p) noexcept;
+  /// PASSIVE STATE ///
+  void set_player_state_passive(player &p) noexcept;
 
-  void remove_player_invulnerability(player &p) noexcept;
+  void remove_player_state_passive(player &p) noexcept;
 
-  /// Increment all players' invulnerability timers, if applicable, in every tick
-  void increment_invulnerability_timers() noexcept;
+  /// Increment all players' passive timers, if applicable, in every tick
+  void increment_passive_timers() noexcept;
 
-  /// Reset all players' invulnerability timers, if applicable, in every tick
-  void reset_invulnerability_timers() noexcept;
-  /// INVULNERABILITY ///
+  /// Reset all players' passive timers, if applicable, in every tick
+  void reset_passive_timers() noexcept;
+  /// PASSIVE STATE ///
 
   /// Apply inertia to player movement
   void apply_inertia();

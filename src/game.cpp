@@ -143,11 +143,11 @@ void game::tick()
     shrink_losing_player(*this);
   }
 
-  /// INVULNERABILITY ///
-  increment_invulnerability_timers();
+  /// PASSIVE STATE ///
+  increment_passive_timers();
 
-  reset_invulnerability_timers();
-  /// INVULNERABILITY ///
+  reset_passive_timers();
+  /// PASSIVE STATE ///
 
   /// Sequence is important: firstly do_actions(), then apply_inertia(), finally reset_player_action()
   // Actions issued by the players are executed
@@ -182,40 +182,40 @@ void game::kill_player(const int index)
 }
 
 
-/// INVULNERABILITY ///
-void game::set_player_invulnerability(player &p) noexcept
+/// PASSIVE STATE ///
+void game::set_player_state_passive(player &p) noexcept
 {
-    p.set_invulnerability();
+    p.set_state_passive();
 }
 
-void game::remove_player_invulnerability(player &p) noexcept
+void game::remove_player_state_passive(player &p) noexcept
 {
-    p.remove_invulnerability();
+    p.remove_state_passive();
 }
 
-void game::increment_invulnerability_timers() noexcept
+void game::increment_passive_timers() noexcept
 {
   for (player &p : m_player)
   {
-    if (is_invulnerable(p))
+    if (is_passive(p))
     {
-      p.increment_invulnerability_timer();
+      p.increment_passive_timer();
     }
   }
 }
 
-void game::reset_invulnerability_timers() noexcept
+void game::reset_passive_timers() noexcept
 {
   for (player &p : m_player)
   {
-    if (is_invulnerable(p) && p.get_invulnerability_timer() >= p.get_duration_invulnerability())
+    if (is_passive(p) && p.get_passive_timer() >= p.get_duration_passive())
     {
-      p.reset_invulnerability_timer();
-      p.remove_invulnerability();
+      p.reset_passive_timer();
+      p.remove_state_passive();
     }
   }
 }
-/// INVULNERABILITY ///
+/// PASSIVE STATE ///
 
 void game::resolve_wall_collisions()
 {
@@ -338,7 +338,7 @@ void grow_winning_player(game &g)
   player& winning_player = g.get_player(winner_index);
   const int loser_index = get_losing_player_index(g, first_player_index, second_player_index);
   player& losing_player = g.get_player(loser_index);
-  if (!is_invulnerable(winning_player) && !is_invulnerable(losing_player))
+  if (!is_passive(winning_player) && !is_passive(losing_player))
   {
     winning_player.grow();
   }
@@ -351,10 +351,10 @@ void shrink_losing_player(game &g)
 
   const int loser_index = get_losing_player_index(g, first_player_index, second_player_index);
   player& losing_player = g.get_player(loser_index);
-  if (!is_invulnerable(losing_player))
+  if (!is_passive(losing_player))
   {
     losing_player.shrink();
-    g.set_player_invulnerability(losing_player);
+    g.set_player_state_passive(losing_player);
   }
 }
 
@@ -631,53 +631,53 @@ void test_game() //!OCLINT tests may be many
 
   #define FIX_ISSUE_381
   #ifdef FIX_ISSUE_381
-  /// A player can become invulnerable
+  /// A player can become passive
   {
     game g;
 
     assert(is_active(g.get_player(0)));
-    g.set_player_invulnerability(g.get_player(0));
-    assert(is_invulnerable(g.get_player(0)));
+    g.set_player_state_passive(g.get_player(0));
+    assert(is_passive(g.get_player(0)));
   }
 
-  /// A player can become invulnerable, using player.set_invulnerability()
+  /// A player can become passive, using player.set_state_passive()
   {
     game g;
 
     assert(is_active(g.get_player(0)));
-    g.get_player(0).set_invulnerability();
-    assert(is_invulnerable(g.get_player(0)));
+    g.get_player(0).set_state_passive();
+    assert(is_passive(g.get_player(0)));
   }
 
-  /// A player can become vulnerable again
+  /// A player can become non-passive again
   {
     game g;
 
     assert(is_active(g.get_player(0)));
-    g.set_player_invulnerability(g.get_player(0));
-    g.remove_player_invulnerability(g.get_player(0));
-    assert(!is_invulnerable(g.get_player(0)));
+    g.set_player_state_passive(g.get_player(0));
+    g.remove_player_state_passive(g.get_player(0));
+    assert(!is_passive(g.get_player(0)));
   }
 
-  /// A player can become vulnerable again, using player.remove_invulnerability()
+  /// A player can become non-passive again, using player.remove_state_passive()
   {
     game g;
 
     assert(is_active(g.get_player(0)));
-    g.get_player(0).set_invulnerability();
-    g.get_player(0).remove_invulnerability();
-    assert(!is_invulnerable(g.get_player(0)));
+    g.get_player(0).set_state_passive();
+    g.get_player(0).remove_state_passive();
+    assert(!is_passive(g.get_player(0)));
   }
   #endif
 
   #define FIX_ISSUE_382
   #ifdef FIX_ISSUE_382
-  /// An invulnerable player cannot grow
+  /// An passive player cannot grow
   {
     game g;
 
-    // Make the first player invulnerable
-    g.set_player_invulnerability(g.get_player(0));
+    // Make the first player passive
+    g.set_player_state_passive(g.get_player(0));
 
     // Make player 1 and 2 overlap
     g.get_player(1).set_x(get_x(g.get_player(0)));
@@ -689,19 +689,19 @@ void test_game() //!OCLINT tests may be many
 
     assert(winner_index == 0);
 
-    // After a tick, invulnerable player does not grow
+    // After a tick, passive player does not grow
     const int inv_player_size_before =  get_nth_player_size(g, winner_index);
     g.tick();
     const int inv_player_size_after =  get_nth_player_size(g, winner_index);
     assert(inv_player_size_after == inv_player_size_before);
   }
 
-  /// An invulnerable player cannot shrink
+  /// An passive player cannot shrink
   {
     game g;
 
-    //Make the first player invulnerable
-    g.set_player_invulnerability(g.get_player(1));
+    //Make the first player passive
+    g.set_player_state_passive(g.get_player(1));
 
     // Make player 1 and 2 overlap
     g.get_player(1).set_x(get_x(g.get_player(0)));
@@ -713,7 +713,7 @@ void test_game() //!OCLINT tests may be many
 
     assert(loser_index == 1);
 
-    // After a tick, invulnerable player does not shrink
+    // After a tick, passive player does not shrink
     const int inv_player_size_before =  get_nth_player_size(g, loser_index);
     g.tick();
     const int inv_player_size_after =  get_nth_player_size(g, loser_index);
@@ -724,98 +724,98 @@ void test_game() //!OCLINT tests may be many
 
   #define FIX_ISSUE_463
   #ifdef FIX_ISSUE_463
-  // Can get and set a player's invulnerability
+  // Can get and set a player's passive state
   {
     game g;
     player& p = g.get_player(0);
 
     // Check default duration
-    assert(p.get_duration_invulnerability() == 2000);
+    assert(p.get_duration_passive() == 2000);
 
     int new_duration = 200;
-    p.set_duration_invulnerability(new_duration);
-    assert(p.get_duration_invulnerability() == new_duration);
+    p.set_duration_passive(new_duration);
+    assert(p.get_duration_passive() == new_duration);
   }
 
-  // Game cannot increment a player's invulnerability timer unless it is invulnerable
+  // Game cannot increment a player's passive timer unless it is passive
   {
     game g;
     player& p = g.get_player(0);
-    assert(!is_invulnerable(p));
-    assert(p.get_invulnerability_timer() == 0);
+    assert(!is_passive(p));
+    assert(p.get_passive_timer() == 0);
 
-    g.increment_invulnerability_timers();
-    assert(p.get_invulnerability_timer() == 0);
+    g.increment_passive_timers();
+    assert(p.get_passive_timer() == 0);
 
-    int timer_before = p.get_invulnerability_timer();
-    p.set_invulnerability();
-    g.increment_invulnerability_timers();
-    int timer_after = p.get_invulnerability_timer();
+    int timer_before = p.get_passive_timer();
+    p.set_state_passive();
+    g.increment_passive_timers();
+    int timer_after = p.get_passive_timer();
     int difference = timer_after - timer_before;
     assert(difference == 1);
   }
 
-  // A player's invulnerability timer cannot be bigger than its duration of invulnerability,
+  // A player's passive timer cannot be bigger than its passive duration,
   // Otherwise it will be reset to 0
   {
     game g;
     player& p = g.get_player(0);
-    g.set_player_invulnerability(p);
-    int duration = p.get_duration_invulnerability();
+    g.set_player_state_passive(p);
+    int duration = p.get_duration_passive();
     for (int i = 0; i < duration - 1; i++)
     {
-      assert(p.get_invulnerability());
-      int timer_before = p.get_invulnerability_timer();
+      assert(p.get_state() == player_state::passive);
+      int timer_before = p.get_passive_timer();
       g.tick();
-      int timer_after = p.get_invulnerability_timer();
+      int timer_after = p.get_passive_timer();
       int difference = timer_after - timer_before;
       assert(difference == 1);
       assert(timer_after <= duration);
     }
     g.tick();
-    assert(!p.get_invulnerability());
-    int timer = p.get_invulnerability_timer();
+    assert(!p.get_passive_timer());
+    int timer = p.get_passive_timer();
     assert(timer == 0);
   }
 
-  // Game cannot reset a player's invulnerability timer if it's less than duration
+  // Game cannot reset a player's passive timer if it's less than duration
   {
     game g;
     player& p = g.get_player(0);
 
-    int timer = p.get_invulnerability_timer();
+    int timer = p.get_passive_timer();
     assert(timer == 0);
 
-    p.set_invulnerability();
-    int duration = p.get_duration_invulnerability();
+    p.set_state_passive();
+    int duration = p.get_duration_passive();
 
     for (int i = 0; i < duration - 1; i++)
     {
-      int timer_before = p.get_invulnerability_timer();
+      int timer_before = p.get_passive_timer();
       g.tick();
-      int timer_after = p.get_invulnerability_timer();
+      int timer_after = p.get_passive_timer();
       int difference = timer_after - timer_before;
       assert(difference == 1);
       assert(timer_after <= duration);
-      timer_before = p.get_invulnerability_timer();
-      g.reset_invulnerability_timers();
-      timer_after = p.get_invulnerability_timer();
+      timer_before = p.get_passive_timer();
+      g.reset_passive_timers();
+      timer_after = p.get_passive_timer();
       assert(timer_after == timer_before);
     }
   }
 
-  // Players lose invulnerability after a short time
+  // Players lose passive state after a short time
   {
     game g;
     player& p = g.get_player(0);
-    const int duration_invulnerability = p.get_duration_invulnerability();
-    g.set_player_invulnerability(p);
-    for (int t = 0; t < duration_invulnerability; t++)
+    const int duration_passive = p.get_duration_passive();
+    g.set_player_state_passive(p);
+    for (int t = 0; t < duration_passive; t++)
       {
-        assert(is_invulnerable(p));
+        assert(is_passive(p));
         g.tick();
       }
-    assert(!is_invulnerable(p));
+    assert(!is_passive(p));
     assert(p.get_state() == player_state::active);
   }
   #endif

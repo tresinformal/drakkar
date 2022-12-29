@@ -129,8 +129,8 @@ void add_action(player& p, action_type action) noexcept
 
 bool are_colliding(const player &lhs, const player &rhs) noexcept
 {
-  if (lhs.get_state() == player_state::active
-     && rhs.get_state() == player_state::active)
+  if (lhs.get_state() != player_state::dead
+     && rhs.get_state() != player_state::dead)
   {
     const double dx = std::abs(get_x(lhs) - get_x(rhs));
     const double dy = std::abs(get_y(lhs) - get_y(rhs));
@@ -210,12 +210,12 @@ bool is_dead(const player& p) noexcept
     return p.get_state() == player_state::dead;
 }
 
-/// INVULNERABILITY ///
-bool is_invulnerable(const player& p) noexcept
+/// PASSIVE STATE ///
+bool is_passive(const player& p) noexcept
 {
-    return p.get_invulnerability();
+    return p.get_state() == player_state::passive;
 }
-/// INVULNERABILITY ///
+/// PASSIVE STATE ///
 
 int get_colorhash(const player &p) noexcept
 {
