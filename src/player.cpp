@@ -898,7 +898,10 @@ void test_player() //!OCLINT tests may be long
     player p1;
     const double initial_health { p1.get_health() };
     p1.grow();
-    assert(p1.get_health() != initial_health);
+    assert(p1.get_health() > initial_health);
+    player p2;
+    p2.shrink();
+    assert(p1.get_health() < initial_health);
   }
 #endif // no tests in release
 }
