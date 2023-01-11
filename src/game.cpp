@@ -1204,6 +1204,7 @@ void test_game() //!OCLINT tests may be many
       }
     assert(g.is_over());
   }
+
   // A game is over when the time limit is reached
   {
     const int time_limit = 10;
@@ -1226,12 +1227,14 @@ void test_game() //!OCLINT tests may be many
 
 
   #endif // FIX_ISSUE_682
+
   {
     const game g;
     const auto players{g.get_players()};
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
+
 #endif // no tests in release
 }
 
