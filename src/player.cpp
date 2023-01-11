@@ -886,6 +886,13 @@ void test_player() //!OCLINT tests may be long
     const player b;
     assert(a == b);
   }
+
+  //  (615) A player health (=size) decreases over time
+  // (702) A player's health is equal to its size
+  {
+    const player a;
+    assert(a.get_size() == a.get_health());
+  }
 #endif // no tests in release
 }
 

@@ -80,6 +80,9 @@ public:
     ///Gets the ID of a player
     std::string get_ID() const noexcept { return m_ID.get_value(); }
 
+    ///Gets the player size
+    double get_size() const noexcept {return m_health;}
+
     ///Gets the player score
     int get_score() const noexcept { return m_score; }
 
