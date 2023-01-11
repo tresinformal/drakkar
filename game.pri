@@ -6,9 +6,6 @@ HEADERS += \
     $$PWD/src/coordinate.h \
     $$PWD/src/environment.h \
     $$PWD/src/environment_type.h \
-    $$PWD/src/food.h \
-    $$PWD/src/food_state.h \
-    $$PWD/src/food_type.h \
     $$PWD/src/game.h \
     $$PWD/src/game_functions.h \
     $$PWD/src/game_options.h \
@@ -24,7 +21,6 @@ HEADERS += \
     $$PWD/src/player_state.h \
     $$PWD/src/program_state.h \
     $$PWD/src/read_only.h \
-    $$PWD/src/shelter.h \
     $$PWD/src/sound_type.h \
     $$PWD/src/utils.h \
     $$PWD/src/view_mode.h
@@ -36,9 +32,6 @@ SOURCES += \
     $$PWD/src/coordinate.cpp \
     $$PWD/src/environment.cpp \
     $$PWD/src/environment_type.cpp \
-    $$PWD/src/food.cpp \
-    $$PWD/src/food_state.cpp \
-    $$PWD/src/food_type.cpp \
     $$PWD/src/game.cpp \
     $$PWD/src/game_functions.cpp \
     $$PWD/src/game_options.cpp \
@@ -55,7 +48,6 @@ SOURCES += \
     $$PWD/src/player_state.cpp \
     $$PWD/src/program_state.cpp \
     $$PWD/src/read_only.cpp \
-    $$PWD/src/shelter.cpp \
     $$PWD/src/sound_type.cpp \
     $$PWD/src/utils.cpp \
     $$PWD/src/view_mode.cpp

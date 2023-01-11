@@ -19,7 +19,7 @@ public:
   int get_green() const noexcept { return m_g; }
   int get_blue() const noexcept { return m_b; }
 
-  /// Get the opaqueness(from the color) of the shelter (0 = transparant, 255 =
+  /// Get the opaqueness(from the color) (0 = transparant, 255 =
   /// opaque)
   int get_opaqueness() const noexcept { return m_a; }
 
