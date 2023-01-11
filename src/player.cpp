@@ -63,6 +63,10 @@ void player::grow()
 void player::shrink()
 {
   m_diameter /= m_growth_factor;
+  if(m_diameter < m_death_size)
+  {
+     m_state = player_state::dead;
+  }
 }
 
 
