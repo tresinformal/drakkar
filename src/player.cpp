@@ -191,6 +191,8 @@ bool is_red(const player & p) noexcept
 void player::die()
 {
   m_state = player_state::dead;
+  m_a = 100;
+
 }
 
 // The player can revive
@@ -602,7 +604,7 @@ void test_player() //!OCLINT tests may be long
     assert(p.get_state() == player_state::active);
   }
 
-  #ifdef FIX_ISSUE_609
+  //#ifdef FIX_ISSUE_609
   {
     // (609) A player that is dead becomes transparent
     player p;
@@ -610,7 +612,7 @@ void test_player() //!OCLINT tests may be long
     p.die();
     assert(p.get_color().get_opaqueness() == 100);
   }
-  #endif
+  //#endif
 
 #ifdef FIX_ISSUE_612
 {
