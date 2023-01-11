@@ -893,6 +893,13 @@ void test_player() //!OCLINT tests may be long
     const player a;
     assert(a.get_size() == a.get_health());
   }
+  // player's health changes along with size
+  {
+    player p1;
+    const double initial_size { p1.get_size() };
+    p1.grow();
+    assert(p1.get_size() != initial_size);
+  }
 #endif // no tests in release
 }
 
