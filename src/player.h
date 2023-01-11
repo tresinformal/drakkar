@@ -134,10 +134,13 @@ public:
     /// Make the player shrink
     void shrink();
 
-    // The player can die
+    /// The player can die
     void die();
 
-    // The player can revive
+    /// Set player's death size
+    void set_death_size(const double death_size) noexcept { m_death_size = death_size; };
+
+    /// The player can revive
     void revive();
 
 private:
