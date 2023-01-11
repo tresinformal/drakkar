@@ -26,7 +26,7 @@ public:
            const double player_acceleration_backward = 0.05,
            const double player_deceleration_forward = 0.1,
            const double player_deceleration_backward = 0.1,
-           const double size = 100.0,
+           const double diameter = 100.0,
            const double turn_rate = 0.007,
            const color &any_color = color(),
            const std::string& ID = "0");
@@ -74,14 +74,11 @@ public:
     /// Set the current action of the player
     void set_action_flag(const action_type action) { m_action_flag = action; }
 
-    /// Get the radius of the player
-    double get_diameter() const noexcept;
-
     ///Gets the ID of a player
     std::string get_ID() const noexcept { return m_ID.get_value(); }
 
     ///Gets the player size
-    double get_size() const noexcept {return m_health;}
+    double get_diameter() const noexcept {return m_diameter;}
 
     ///Gets the player score
     int get_score() const noexcept { return m_score; }

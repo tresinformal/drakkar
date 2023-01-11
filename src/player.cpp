@@ -6,6 +6,8 @@
 #include <cassert>
 #include <cmath>
 
+static const double health_diameter_ratio = 100;
+
 player::player(const coordinate c,
                const player_shape shape,
                const player_state state,
@@ -15,7 +17,7 @@ player::player(const coordinate c,
                const double player_acceleration_backward,
                const double player_deceleration_forward,
                const double player_deceleration_backward,
-               const double size,
+               const double diameter,
                const double turn_rate,
                const color &any_color,
                const std::string& ID)
@@ -30,7 +32,7 @@ player::player(const coordinate c,
       m_player_acceleration_backward{player_acceleration_backward},
       m_player_deceleration_forward{player_deceleration_forward},
       m_player_deceleration_backward{player_deceleration_backward},
-      m_diameter{size},
+      m_diameter{diameter},
       m_turn_rate{turn_rate}
 {
 
@@ -49,9 +51,6 @@ double player::get_x() const noexcept { return m_c.get_x(); }
 
 /// Get the Y coordinate of the player
 double player::get_y() const noexcept { return m_c.get_y(); }
-
-/// Get the radius of the player
-double player::get_diameter() const noexcept { return m_diameter; }
 
 /// Make the player grow
 void player::grow()
@@ -888,17 +887,18 @@ void test_player() //!OCLINT tests may be long
   }
 
   //  (615) A player health (=size) decreases over time
-  // (702) A player's health is equal to its size
+  // (702) A player's health = diameter / health_diameter_ratio(=100)
   {
     const player a;
-    assert(a.get_size() == a.get_health());
+    assert(a.get_diameter() / health_diameter_ratio  == a.get_health());
   }
+
   // player's health changes along with size
   {
     player p1;
-    const double initial_size { p1.get_size() };
+    const double initial_health { p1.get_health() };
     p1.grow();
-    assert(p1.get_size() != initial_size);
+    assert(p1.get_health() != initial_health);
   }
 #endif // no tests in release
 }
