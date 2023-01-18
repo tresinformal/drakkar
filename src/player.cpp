@@ -191,7 +191,8 @@ bool is_red(const player & p) noexcept
 void player::die()
 {
   m_state = player_state::dead;
-  m_a = 100;
+  color death_color{m_color.get_red(), m_color.get_green(), m_color.get_blue(), 100};
+  m_color = death_color;
 
 }
 
