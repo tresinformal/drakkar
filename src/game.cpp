@@ -1234,7 +1234,7 @@ void test_game() //!OCLINT tests may be many
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
-  
+
 #endif // no tests in release
 }
 
