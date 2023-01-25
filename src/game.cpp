@@ -721,8 +721,6 @@ void test_game() //!OCLINT tests may be many
     assert(!is_dead(g.get_player(0)));
   }
 #endif
-//#define FIX_ISSUE_606
-#ifdef FIX_ISSUE_606
   {
     // (606) When a player goes under some size, it dies
     game g;
@@ -738,7 +736,7 @@ void test_game() //!OCLINT tests may be many
       }
     assert(is_dead(p));
   }
-#endif
+
   {
     //(625) A player that is dead cannot collide with other players
     game g;
@@ -1235,7 +1233,7 @@ void test_game() //!OCLINT tests may be many
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
-  
+
 #endif // no tests in release
 }
 
