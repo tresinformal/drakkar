@@ -99,17 +99,11 @@ private:
   ///Draws the background
   void draw_background() noexcept;
 
-  ///Draws food
-  void draw_food() noexcept;
-
-  /// Draws shelters
-  void draw_shelters() noexcept;
-
   /// Set fourth view for players coordinates
-  void set_player_coords_view() noexcept;
+  void set_player_info_view() noexcept;
 
   /// Draw player coordinates
-  void draw_player_coords() noexcept;
+  void draw_player_info() noexcept;
 };
 
 key_action_map get_player_kam(const player& p);

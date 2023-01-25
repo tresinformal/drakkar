@@ -13,7 +13,8 @@ public:
     key_action_map player_1_kam = get_player_1_kam(),
     key_action_map player_2_kam = get_player_2_kam(),
     key_action_map player_3_kam = get_player_3_kam(),
-    environment_type env_type = environment_type::empty
+    environment_type env_type = environment_type::empty,
+    int max_time = 6000
   );
 
   ///Get the RNG seed
@@ -36,6 +37,7 @@ public:
 
   const environment_type& get_environment_type() const noexcept { return m_environment_type; };
 
+  const int& get_max_time() const noexcept { return m_max_time; };
 
 private:
   int m_rng_seed;
@@ -44,6 +46,7 @@ private:
   key_action_map m_kam_2;
   key_action_map m_kam_3;
   environment_type m_environment_type;
+  int m_max_time;
 };
 
 bool operator== (const game_options& lhs, const game_options& rhs) noexcept;

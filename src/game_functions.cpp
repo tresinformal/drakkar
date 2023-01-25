@@ -122,21 +122,6 @@ bool has_any_interplayer_collision(const game &g) noexcept
   return false;
 }
 
-bool has_any_player_food_collision(const game& g)
-{
-  for (auto& p : g.get_v_player())
-    {
-      for(auto& f : g.get_food())
-        {
-          if (are_colliding(p, f))
-            {
-              return true;
-            }
-        }
-    }
-  return false;
-}
-
 bool has_any_player_wall_collision(const game& g)
 {
   for(const auto& player : g.get_v_player())
@@ -155,76 +140,4 @@ coordinate predict_players_movement(const player& p)
   double next_y = p.get_y() + sin(p.get_direction()) * p.get_speed();
   coordinate c(next_x, next_y);
   return c;
-}
-
-// About shelters
-std::vector<coordinate> get_all_shelter_positions(const game& g)
-{
-  int n_shelters = g.get_shelters().size();
-  std::vector<coordinate> all_shelter_positions;
-  for (int i = 0; i < n_shelters; ++i)
-    {
-      all_shelter_positions.push_back(get_nth_shelter_position(g, i));
-    }
-  return all_shelter_positions;
-}
-
-coordinate get_nth_shelter_position(const game &g, const int &n)
-{
-  assert(n >= 0);
-  assert(n < static_cast<int>(g.get_shelters().size()));
-  return g.get_shelters()[n].get_position();
-}
-
-// About food
-bool has_uneaten_food(const game &g)
-{
-  std::vector<food> v_food{g.get_food()};
-  for (unsigned int i = 0; i < v_food.size(); i++) {
-      if (!v_food[i].is_eaten())
-        {
-          return true;
-        }
-    }
-  return false ;
-}
-
-int count_food_items(const game &g)
-{
-  return static_cast<int>(g.get_food().size());
-}
-
-coordinate get_nth_food_position(const game& g, const int& food_id)
-{
-  return g.get_food()[food_id].get_position();
-}
-
-double get_nth_food_x(const game &g, const int n)
-{
-  return g.get_food()[n].get_x();
-}
-
-double get_nth_food_y(const game &g, const int n)
-{
-  return g.get_food()[n].get_y();
-}
-
-color get_nth_food_color(const game &g, const int n)
-{
-  return g.get_food()[n].get_color();
-}
-
-bool is_nth_food_eaten(const game& g, const int &n)
-{
-  return g.get_food()[n].is_eaten();
-}
-
-int get_nth_food_regeneration_time(const game &g, const int &n)
-{
-  return g.get_food()[n].get_regeneration_time();
-}
-
-int get_nth_food_timer(const game &g, const int &n)
-{
-  return g.get_food()[n].get_timer();
 }

@@ -134,10 +134,13 @@ public:
     /// Make the player shrink
     void shrink();
 
-    // The player can die
+    /// The player can die
     void die();
 
-    // The player can revive
+    /// Set player's death size
+    void set_death_size(const double death_size) noexcept { m_death_size = death_size; };
+
+    /// The player can revive
     void revive();
 
 private:
@@ -199,6 +202,9 @@ private:
     /// Player's health percentage, the player always start with max health at
     /// construction
     double m_health = 1.0;
+
+    /// Player's minimal size before dying
+    double m_death_size = 1.0;
 };
 
 ///Adds an action to the action set
@@ -255,4 +261,8 @@ player create_blue_player();
 //winning scenario
 bool is_first_player_loser(const player& player_one, const player& player_two);
 bool is_first_player_winner (const player& player_one, const player& player_two);
+
+/// Define custom operators
+bool operator==(const player& lhs, const player& rhs) noexcept;
+
 #endif // PLAYER_H
