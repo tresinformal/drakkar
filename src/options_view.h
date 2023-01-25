@@ -42,7 +42,12 @@ private:
   double m_height = 720;
   double m_width = 1280;
   view_mode m_next_view = view_mode::quit;
-  menu_button m_music_button;
+  menu_button m_music_button = menu_button(
+        "Music:",
+        color(0, 100, 255),
+        coordinate(m_width / 2.0, m_height / 5.0),
+        200.0, 100.0
+        );
 };
 
 void test_options_view();

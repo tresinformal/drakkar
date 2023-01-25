@@ -13,7 +13,7 @@ options_view::options_view(const game_options& options) :
   )
 {
   // After setup, close window until executed
-  m_window.close();  
+  m_window.close();
 }
 
 void options_view::exec()
@@ -94,13 +94,6 @@ void options_view::show()
                                    music_button_bg.getSize().y / 2.0f);
   music_button_bg.setOrigin(music_button_origin);
   music_button_bg.setPosition(music_button_pos);
-
-  m_music_button = menu_button(
-        "Music:",
-        color(0, 100, 255),
-        coordinate(m_width / 2.0, m_height / 5.0),
-        200.0, 100.0
-        );
 
   // Create the Music button text
   sf::Text music_button_text;
