@@ -68,7 +68,7 @@ public:
 #endif // IS_ON_TRAVIS
 
 private:
-  /// Franjo
+  /// Franjo Weissing
   sf::Texture m_franjo;
 
   /// Dragon
