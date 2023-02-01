@@ -6,6 +6,16 @@
 game_resources::game_resources()
 {
   {
+    const QString filename{"276813041_drakkar__dragon__realistic__flying__paper__rock__scissors__RGB__3.png"};
+    QFile f(":/" + filename);
+    f.copy(filename);
+    if (!m_artwork_1.loadFromFile(filename.toStdString()))
+    {
+      QString msg{"Cannot find image file '" + filename + "'"};
+      throw std::runtime_error(msg.toStdString());
+    }
+  }
+  {
     const QString filename{"franjo.png"};
     QFile f(":/" + filename);
     f.copy(filename);
@@ -189,6 +199,7 @@ void test_game_resources()
   #ifndef NDEBUG // no tests in release
   game_resources g;
   assert(g.get_coastal_world().getSize().x > 0.0);
+  assert(g.get_artwork_1().getSize().x > 0.0);
 
   #endif
 }

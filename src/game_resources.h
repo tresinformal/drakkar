@@ -9,26 +9,29 @@ class game_resources
 public:
   game_resources();
 
-  /// Get the texture of a heterogenous landscape
-  sf::Texture &get_heterogenous_landscape() noexcept { return m_heterogenous_landscape; }
+  /// Get an artwork picture
+  sf::Texture& get_artwork_1() noexcept { return m_artwork_1; }
 
   /// Get the texture of a heterogenous landscape
-  sf::Texture &get_coastal_world() noexcept { return m_coastal_world; }
+  sf::Texture& get_heterogenous_landscape() noexcept { return m_heterogenous_landscape; }
 
   /// Get the texture of a heterogenous landscape
-  sf::Texture &get_grass_landscape() noexcept { return m_grass_landscape; }
+  sf::Texture& get_coastal_world() noexcept { return m_coastal_world; }
+
+  /// Get the texture of a heterogenous landscape
+  sf::Texture& get_grass_landscape() noexcept { return m_grass_landscape; }
 
   /// Get the texture of a the player
-  sf::Texture &get_player_sprite() noexcept { return m_player_sprite; }
+  sf::Texture& get_player_sprite() noexcept { return m_player_sprite; }
 
   /// Get a picture of a Marjon the dragon
-  sf::Texture &get_dragon() noexcept { return m_dragon; }
+  sf::Texture& get_dragon() noexcept { return m_dragon; }
 
   /// Get a picture of Franjo
-  sf::Texture &get_franjo() noexcept { return m_franjo; }
+  sf::Texture& get_franjo() noexcept { return m_franjo; }
 
   /// Get a picture of a Cat
-  sf::Texture &get_cat() noexcept { return m_cat; }
+  sf::Texture& get_cat() noexcept { return m_cat; }
 
   /// Get a font
   sf::Font &get_font() noexcept {return m_font; }
@@ -68,6 +71,9 @@ public:
 #endif // IS_ON_TRAVIS
 
 private:
+  /// Artwork 1
+  sf::Texture m_artwork_1;
+
   /// Franjo Weissing
   sf::Texture m_franjo;
 
