@@ -1,19 +1,14 @@
 #include "game_resources.h"
 
+#include <QResource>
 #include <QFile>
 #include <cassert>
 
 game_resources::game_resources()
 {
   {
-    const QString filename{"276813041_drakkar__dragon__realistic__flying__paper__rock__scissors__RGB__3.png"};
-    QFile f(":/" + filename);
-    f.copy(filename);
-    if (!m_artwork_1.loadFromFile(filename.toStdString()))
-    {
-      QString msg{"Cannot find image file '" + filename + "'"};
-      throw std::runtime_error(msg.toStdString());
-    }
+    QResource artWork1 { ":/276813041_drakkar__dragon__realistic__flying__paper__rock__scissors__RGB__3.png" };
+    m_artwork_1.loadFromMemory(artWork1.data(), artWork1.size());
   }
   {
     const QString filename{"franjo.png"};
