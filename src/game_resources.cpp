@@ -1,10 +1,15 @@
 #include "game_resources.h"
 
+#include <QResource>
 #include <QFile>
 #include <cassert>
 
 game_resources::game_resources()
 {
+  {
+    QResource artWork1 { ":/276813041_drakkar__dragon__realistic__flying__paper__rock__scissors__RGB__3.png" };
+    m_artwork_1.loadFromMemory(artWork1.data(), artWork1.size());
+  }
   {
     const QString filename{"franjo.png"};
     QFile f(":/" + filename);
@@ -189,6 +194,7 @@ void test_game_resources()
   #ifndef NDEBUG // no tests in release
   game_resources g;
   assert(g.get_coastal_world().getSize().x > 0.0);
+  assert(g.get_artwork_1().getSize().x > 0.0);
 
   #endif
 }

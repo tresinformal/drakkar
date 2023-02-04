@@ -91,8 +91,8 @@ void menu_view::show()
   // Draw the background
   sf::Vector2f bg_dim(m_menu.get_height(), m_menu.get_height());
   sf::RectangleShape background_sprite(bg_dim);
+  background_sprite.setTexture(&m_game_resources.get_artwork_1());
   background_sprite.setPosition(10.0, 10.0);
-  background_sprite.setFillColor(sf::Color::Black);
   m_window.draw(background_sprite);
 
   // Draw buttons
