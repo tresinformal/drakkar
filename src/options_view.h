@@ -31,6 +31,9 @@ public:
   // Get the game options
   const game_options& get_options()const noexcept { return m_options; }
 
+  // Get the music button
+  const menu_button& get_music_button() const noexcept { return m_music_button; }
+
   // Click the music button to turn music on/off
   void click_play_music_button();
 
@@ -42,9 +45,13 @@ private:
   double m_height = 720;
   double m_width = 1280;
   view_mode m_next_view = view_mode::quit;
+
+  // Music button
+  color m_music_button_color_on{219, 67, 37};
+  color m_music_button_color_off{87, 196, 173};
   menu_button m_music_button = menu_button(
         "Music:",
-        color(0, 100, 255),
+        m_music_button_color_on,
         coordinate(m_width / 2.0, m_height / 5.0),
         200.0, 100.0
         );

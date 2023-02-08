@@ -124,8 +124,10 @@ void options_view::click_play_music_button()
   if (m_options.is_playing_music()) // music is on
     {
       m_options.stop_music();
+      m_music_button.set_color(m_music_button_color_off);
     } else {
       m_options.play_music();
+      m_music_button.set_color(m_music_button_color_on);
     }
 }
 
@@ -185,8 +187,6 @@ void test_options_view() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_640
 
-  //#define FIX_ISSUE_710
-  #ifdef FIX_ISSUE_710
   // (710) The music on/off button changes color dynamically
   {
     // Colorblind-friendly green and red
@@ -194,16 +194,16 @@ void test_options_view() //!OCLINT tests may be many
     const color color_off{87, 196, 173};
 
     options_view ov;
-    color& mb_color = ov.get_music_button.get_color();
 
     // Music is on by default
+    color mb_color = ov.get_music_button().get_color();
     assert(mb_color == color_on);
 
     // Turn music off
+    mb_color = ov.get_music_button().get_color();
     ov.click_play_music_button();
     assert(mb_color == color_off);
   }
-  #endif // FIX_ISSUE_710
 }
 
 #endif // NDEBUG // No tests in release

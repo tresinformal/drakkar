@@ -31,6 +31,8 @@ public:
   std::string get_label() const noexcept { return m_label; }
   /// Get button color
   color get_color() const noexcept { return m_color;}
+  /// Set button color
+  void set_color(const color& col) { m_color = col; }
   /// Get the sizes of the button
   const sf::Vector2f &get_body() const noexcept;
 
