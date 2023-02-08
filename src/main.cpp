@@ -159,22 +159,22 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   // Default view mode
   view_mode start_view = view_mode::game;
 
-  // Resolve arguments
-  if (args.size() > 1)
+  for (int i = 1; i != argc; ++i)
+  {
+    const std::string arg{argv[i]};
+    if (arg == "--menu")
     {
-      if (args[1] == "--menu")
-        {
-          start_view = view_mode::menu;
-        }
-      else if (args[1] == "--options")
-        {
-          start_view = view_mode::options;
-        }
-      else if (args[1] == "--no-sound")
-        {
-          music_off(options);
-        }
+      start_view = view_mode::menu;
     }
+    else if (arg == "--options")
+    {
+      start_view = view_mode::options;
+    }
+    else if (arg == "--no-sound")
+    {
+      music_off(options);
+    }
+  }
 
   view_manager v{start_view, options};
   v.exec();
