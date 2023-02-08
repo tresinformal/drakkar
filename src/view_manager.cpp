@@ -110,6 +110,18 @@ void test_view_manager()
     assert(!vw.get_game_view().get_options().is_playing_music());
   }
 
+#ifdef FIX_ISSUE_664
+  // (664) A game_view's options can be updated from options_view's
+  {
+    game_options options(0, true);
+    view_manager vm(view_mode::options, options);
+    assert(vm.get_game_view().get_options().is_playing_music());
+
+    vm.get_options_view().click_play_music_button();
+    vm.set_next_view(view_mode::game);
+    assert(!vm.get_game_view().get_options().is_playing_music());
+  }
+#endif // FIX_ISSUE_664
 
 #endif // NDEBUG
 }

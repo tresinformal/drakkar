@@ -16,6 +16,7 @@ public:
     game_view& get_game_view() noexcept { return m_game_view;}
     const menu_view& get_menu_view() const noexcept { return m_menu_view;}
     const options_view& get_options_view() const noexcept { return m_options_view;}
+    options_view& get_options_view() noexcept { return m_options_view;}
 
     view_mode get_next_view() const noexcept { return m_next_view;}
     void exec();
