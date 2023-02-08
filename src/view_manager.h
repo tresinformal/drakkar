@@ -23,10 +23,12 @@ public:
     void set_next_view(view_mode next_view);
 
 private:
-    view_mode m_next_view; // start on game by default
+    view_mode m_next_view;
     game_view m_game_view;
     menu_view m_menu_view;
     options_view m_options_view;
+
+    void update_game_options();
 };
 
 void test_view_manager();

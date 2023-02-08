@@ -8,7 +8,8 @@
 view_manager::view_manager(const view_mode& starting_view,
                            const game_options& options) :
   m_next_view{starting_view},
-  m_game_view(options)
+  m_game_view(options),
+  m_options_view(options)
 {
 
 }
@@ -16,6 +17,16 @@ view_manager::view_manager(const view_mode& starting_view,
 void view_manager::set_next_view(view_mode next_view)
 {
     m_next_view = next_view;
+    if (next_view == view_mode::game)
+      {
+        update_game_options();
+      }
+}
+
+void view_manager::update_game_options()
+{
+  const game_options new_options = m_options_view.get_options();
+  m_game_view.set_options(new_options);
 }
 
 void view_manager::exec()
@@ -110,7 +121,6 @@ void test_view_manager()
     assert(!vw.get_game_view().get_options().is_playing_music());
   }
 
-#ifdef FIX_ISSUE_664
   // (664) A game_view's options can be updated from options_view's
   {
     game_options options(0, true);
@@ -121,7 +131,6 @@ void test_view_manager()
     vm.set_next_view(view_mode::game);
     assert(!vm.get_game_view().get_options().is_playing_music());
   }
-#endif // FIX_ISSUE_664
 
 #endif // NDEBUG
 }
