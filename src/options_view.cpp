@@ -167,6 +167,7 @@ void test_options_view() //!OCLINT tests may be many
     assert(options == options_again);
   }
   #endif // FIX_ISSUE_631
+
   //#define FIX_ISSUE_640
   #ifdef FIX_ISSUE_640
   // (640) Add a title
@@ -183,7 +184,28 @@ void test_options_view() //!OCLINT tests may be many
     assert(title_text.getCharacterSize() > 20); //Bigger is OK
   }
   #endif // FIX_ISSUE_640
+
+  //#define FIX_ISSUE_710
+  #ifdef FIX_ISSUE_710
+  // (710) The music on/off button changes color dynamically
+  {
+    // Colorblind-friendly green and red
+    const color color_on{219, 67, 37};
+    const color color_off{87, 196, 173};
+
+    options_view ov;
+    color& mb_color = ov.get_music_button.get_color();
+
+    // Music is on by default
+    assert(mb_color == color_on);
+
+    // Turn music off
+    ov.click_play_music_button();
+    assert(mb_color == color_off);
+  }
+  #endif // FIX_ISSUE_710
 }
+
 #endif // NDEBUG // No tests in release
 
 #endif // LOGIC_ONLY
