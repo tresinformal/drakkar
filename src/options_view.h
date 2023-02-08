@@ -45,13 +45,12 @@ private:
   double m_height = 720;
   double m_width = 1280;
   view_mode m_next_view = view_mode::quit;
+  const color pick_music_button_color() const noexcept;
 
   // Music button
-  color m_music_button_color_on{219, 67, 37};
-  color m_music_button_color_off{87, 196, 173};
   menu_button m_music_button = menu_button(
         "Music:",
-        m_music_button_color_on,
+        pick_music_button_color(),
         coordinate(m_width / 2.0, m_height / 5.0),
         200.0, 100.0
         );

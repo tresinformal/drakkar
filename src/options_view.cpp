@@ -124,10 +124,19 @@ void options_view::click_play_music_button()
   if (m_options.is_playing_music()) // music is on
     {
       m_options.stop_music();
-      m_music_button.set_color(m_music_button_color_off);
     } else {
       m_options.play_music();
-      m_music_button.set_color(m_music_button_color_on);
+    }
+  m_music_button.set_color(pick_music_button_color());
+}
+
+const color options_view::pick_music_button_color() const noexcept
+{
+  if (m_options.is_playing_music())
+    {
+      return (color{87, 196, 173});
+    } else {
+      return (color{219, 67, 37});
     }
 }
 
@@ -190,8 +199,8 @@ void test_options_view() //!OCLINT tests may be many
   // (710) The music on/off button changes color dynamically
   {
     // Colorblind-friendly green and red
-    const color color_on{219, 67, 37};
-    const color color_off{87, 196, 173};
+    const color color_on{87, 196, 173};
+    const color color_off{219, 67, 37};
 
     // Music is first off, then turned on
     const game_options go_music_off(0, false);
