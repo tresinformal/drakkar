@@ -3,6 +3,19 @@
 #define MENU_H
 #include "menu_button.h"
 
+/// The logic of the menu
+///
+/// +-------+----------+
+/// |      .| Start    |
+/// |     . +----------+
+/// |    .  | Options  |
+/// |  Art  +----------+
+/// |  .    | About    |
+/// | .     +----------+
+/// |.      | Quit     |
+/// +-------+----------+
+/// The art is square
+///
 class menu
 {
 public:

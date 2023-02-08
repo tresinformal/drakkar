@@ -171,8 +171,25 @@ void test_menu()
   //#define FIX_ISSUE_714
   #ifdef FIX_ISSUE_714
   // Buttons are at the right half of the screen,
-  // the artwork at the left has the same height as the window
-  // and is square.
+  //
+  //     width == height of the window
+  //     |
+  // +---+---+
+  // |       |
+  // v       v
+  //
+  // +-------+----------+ <--+
+  // |      .| Start    |    |
+  // |     . +----------+    |
+  // |    .  | Options  |    |
+  // |  Art  +----------+    +-- height == width of art
+  // |  .    | About    |    |
+  // | .     +----------+    |
+  // |.      | Quit     |    |
+  // +-------+----------+ <--+
+  //
+  // The art is square
+  //
   {
     const menu m;
     const int height{m.get_height()};
