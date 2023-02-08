@@ -40,6 +40,9 @@ public:
   ///Gets a const ref to m_game
   const game& get_game() const noexcept {return m_game; }
 
+  ///Gets a ref to m_game
+  game& get_game() noexcept {return m_game; }
+
   /// Get next view
   view_mode get_next_view() const
   {
@@ -51,9 +54,6 @@ public:
 
   // Get the window's state, for testing purposes only
   bool is_window_open() const { return m_window.isOpen(); }
-
-  ///Gets a ref to m_game
-  game& get_game() noexcept {return m_game; }
 
 #ifdef VIEW_SWITCH
   // Returns what view should come next
