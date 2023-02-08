@@ -193,16 +193,14 @@ void test_options_view() //!OCLINT tests may be many
     const color color_on{219, 67, 37};
     const color color_off{87, 196, 173};
 
-    options_view ov;
-
-    // Music is on by default
+    // Music is first off, then turned on
+    const game_options go_music_off(0, false);
+    options_view ov(go_music_off);
     color mb_color = ov.get_music_button().get_color();
-    assert(mb_color == color_on);
-
-    // Turn music off
-    mb_color = ov.get_music_button().get_color();
-    ov.click_play_music_button();
     assert(mb_color == color_off);
+    ov.click_play_music_button();
+    mb_color = ov.get_music_button().get_color();
+    assert(mb_color == color_on);
   }
 }
 
