@@ -18,6 +18,7 @@ menu::menu( int w_width,
       menu_button(label_button4, color_button4)
       }
 {
+  assert(m_window_height < m_window_width);
   align_buttons();
 }
 /// Gets the width of the screen
@@ -52,7 +53,7 @@ void menu::align_buttons() noexcept
 {
   for (unsigned int i = 0; i != get_buttons().size(); ++i)
     {
-      get_buttons()[i].set_x(m_window_width / 2);
+      get_buttons()[i].set_x(m_window_height);
       get_buttons()[i].set_y(static_cast<int>((i + 1)) *
                                  (m_window_height)/
                                  (static_cast<int>(m_v_buttons.size()) + 1));
@@ -78,7 +79,7 @@ void test_menu()
   // menu_view is built with values
   // for width and height of the screen
   {
-    int width = 1000;
+    int width = 2000;
     int height = 1000;
     menu v(width, height);
     assert(v.get_w_width() - width < 0.00000001);
@@ -116,7 +117,7 @@ void test_menu()
   {
     // in the middle
 
-    int width = 1000;
+    int width = 2000;
     int height = 1000;
     menu v(width, height);
     v.align_buttons();
@@ -168,7 +169,7 @@ void test_menu()
 //        press_esc(ov);
 //        assert(is_showing_options(ov));
     }
-  //#define FIX_ISSUE_714
+  #define FIX_ISSUE_714
   #ifdef FIX_ISSUE_714
   // Buttons are at the right half of the screen,
   //
@@ -196,9 +197,8 @@ void test_menu()
     const auto& buttons{m.get_buttons()};
     const int min_x{height}; // the art is square
 
-    for (const auto& button: buttons)
+    for (const auto& button : buttons)
     {
-      // The x of a button is its origin
       assert(button.get_x() >= min_x);
     }
   }
