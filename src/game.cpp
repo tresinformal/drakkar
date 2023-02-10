@@ -1181,30 +1181,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_524
 
-  #define FIX_ISSUE_682
-  #ifdef FIX_ISSUE_682
-  // A game has a function to check whether the game is over (check end game conditions, currently it only checks max time)
-  {
-    const int time_limit = 10;
-    const game_options g_options{3,
-                          false,
-                          get_random_kam(),
-                          get_random_kam(),
-                          get_random_kam(),
-                          environment_type(),
-                          time_limit
-                         };
-    game g{g_options};
-    for (int i = 0; i < time_limit; i++)
-      {
-        assert(!g.is_over());
-        g.increment_n_ticks();
-        g.check_over();
-      }
-    assert(g.is_over());
-  }
-
-  // A game is over when the time limit is reached
+  // (682) A game is over when the time limit is reached
   {
     const int time_limit = 10;
     const game_options g_options{3,
@@ -1222,10 +1199,33 @@ void test_game() //!OCLINT tests may be many
         g.tick();
       }
     assert(g.is_over());
+
+#ifdef FIX_ISSUE_716
+    // (716) Game no longer ticks after game is over
+    const int n_ticks = g.get_n_ticks();
+    g.tick();
+    assert(g.get_n_ticks() == n_ticks);
+
+    // and as a result, no further actions are processed
+    // for example, players are not moved
+    player& p = g.get_player(0); // ref to player one
+    const coordinate initial_position = p.get_position();
+
+    add_action(p, action_type::accelerate_forward);
+    g.tick();
+    assert(p.get_position() == initial_position);
+#endif // FIX_ISSUE_716
   }
 
-
-  #endif // FIX_ISSUE_682
+  {
+    game g;
+    player& p = g.get_player(0);
+    coordinate init_pos = p.get_position();
+    p.accelerate_forward();
+    p.move();
+    assert(g.get_player(0).get_position() != init_pos);
+    assert(p.get_position() != init_pos);
+  }
 
   {
     const game g;
