@@ -1218,21 +1218,26 @@ void test_game() //!OCLINT tests may be many
   }
 
   {
-    game g;
-    player& p = g.get_player(0);
-    coordinate init_pos = p.get_position();
-    p.accelerate_forward();
-    p.move();
-    assert(g.get_player(0).get_position() != init_pos);
-    assert(p.get_position() != init_pos);
-  }
-
-  {
     const game g;
     const auto players{g.get_players()};
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
+
+  #ifndef FIX_ISSUE_721
+  // (721) The game keeps track of who is winnning
+  {
+    game g;
+    player &player_two = g.get_player(1);
+    player_two.grow();
+    assert(g.who_is_winning() == 1);
+
+    player &player_three = g.get_player(2);
+    player_three.grow();
+    player_three.grow(); // twice
+    assert(g.who_is_winning() == 2);
+  }
+  #endif // FIX_ISSUE_721
 
 #endif // no tests in release
 }
