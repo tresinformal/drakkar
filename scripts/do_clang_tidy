@@ -4,7 +4,7 @@
           cmake -DCMAKE_C_COMPILER=clang-4.0 -DCMAKE_CXX_COMPILER=clang++-4.0 \
           -DIRONY_WARNINGS_AS_ERRORS=ON \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-          ./game
+          ./drakkar
         - make -k
         - make check
         - |

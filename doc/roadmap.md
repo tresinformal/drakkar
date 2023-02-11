@@ -6,7 +6,6 @@ graph TD;
     0-->20[2. The game keeps track of a score for each player using a scoreboard]
     10-->30[3. Player size]
     20-->30
-    40-->100
     50[?. Fix or temporarily remove rockets]-->100
     60[?. Fix or temporarily remove stun rockets]-->100
     70[?. Fix or temporarily remove food and eating dynamics]-->100
