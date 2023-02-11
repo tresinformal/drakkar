@@ -1224,8 +1224,8 @@ void test_game() //!OCLINT tests may be many
     assert(players == v_player);
   }
 
-  #ifndef FIX_ISSUE_721
-  // (721) The game keeps track of who is winnning
+  #ifdef FIX_ISSUE_721
+  // (721) The largest player wins the game
   {
     game g;
     player &player_two = g.get_player(1);
@@ -1236,8 +1236,32 @@ void test_game() //!OCLINT tests may be many
     player_three.grow();
     player_three.grow(); // twice
     assert(g.who_is_winning() == 2);
-  }
+   }
   #endif // FIX_ISSUE_721
+
+  #ifdef FIX_ISSUE_722
+  // (722) In case of a tie, winner is decided on a coin flip
+  {
+      const int a_seed = 5;
+      const int another_seed = 6; // change if this picks the same winner
+
+      game a_game(game_options{a_seed});
+      player &player_two = a_game.get_player(1);
+      player_two.grow();
+      player &player_three = a_game.get_player(2);
+      player_three.grow();
+      assert(a_game.who_is_winning() != 0);
+
+      game another_game(game_options{another_seed});
+      player &other_player_two = another_game.get_player(1);
+      other_player_two.grow();
+      player &other_player_three = another_game.get_player(2);
+      other_player_three.grow();
+      assert(another_game.who_is_winning() != 0);
+
+      assert(a_game.who_is_winning != another_game.who_is_winning());
+  }
+  #endif // FIX_ISSUE_722
 
 #endif // no tests in release
 }
