@@ -83,7 +83,7 @@ void options_view::show()
   // Create the Music button sprite
   const sf::Vector2f music_button_dim(m_music_button.get_body());
   const sf::Vector2f music_button_pos(m_music_button.get_x(), m_music_button.get_y());
-  const sf::RectangleShape music_button_bg(music_button_dim);
+  sf::RectangleShape music_button_bg(music_button_dim);
   sf::Color music_button_color(
         m_music_button.get_color().get_red(),
         m_music_button.get_color().get_green(),

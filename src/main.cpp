@@ -143,7 +143,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
         while( time.count() < max_duration)
         {
             v.process_events();
-            v.get_game().tick();
+            v.tick();
             v.show();
             time =  high_resolution_clock::now() - start;
         }
