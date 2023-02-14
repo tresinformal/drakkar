@@ -44,7 +44,7 @@ bool options_view::process_events()
       return true; // Game is done
     } else if (event.type == sf::Event::KeyPressed)
       {
-        sf::Keyboard::Key key_pressed = event.key.code;
+        const sf::Keyboard::Key key_pressed = event.key.code;
         if (key_pressed == sf::Keyboard::Key::Escape)
         {
             m_next_view = view_mode::menu;
@@ -54,7 +54,7 @@ bool options_view::process_events()
       } else if (event.type == sf::Event::MouseButtonPressed)
       {
         // if we hit the music button
-        coordinate mouse_position(
+        const coordinate mouse_position(
               static_cast<double>(event.mouseButton.x),
               static_cast<double>(event.mouseButton.y)
               );
@@ -81,9 +81,9 @@ void options_view::show()
   m_window.draw(background_sprite);
 
   // Create the Music button sprite
-  sf::Vector2f music_button_dim(m_music_button.get_body());
-  sf::Vector2f music_button_pos(m_music_button.get_x(), m_music_button.get_y());
-  sf::RectangleShape music_button_bg(music_button_dim);
+  const sf::Vector2f music_button_dim(m_music_button.get_body());
+  const sf::Vector2f music_button_pos(m_music_button.get_x(), m_music_button.get_y());
+  const sf::RectangleShape music_button_bg(music_button_dim);
   sf::Color music_button_color(
         m_music_button.get_color().get_red(),
         m_music_button.get_color().get_green(),
