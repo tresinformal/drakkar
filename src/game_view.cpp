@@ -423,6 +423,47 @@ void test_game_view() //!OCLINT tests may be many
     assert(window_size.y == 120);
   }
 
+  #ifdef FIX_ISSUE_718
+  // (718) A game_view has a Results screen
+  {
+    game_view gv;
+    gv.get_results_screen();
+  }
+  #endif // FIX_ISSUE_718
+
+  #ifdef FIX_ISSUE_719
+  // (719) The results screen is displayed when time is up, not before
+  {
+    const int time_limit = 10;
+    const game_options g_options{3,
+                          false,
+                          get_random_kam(),
+                          get_random_kam(),
+                          get_random_kam(),
+                          environment_type(),
+                          time_limit
+                         };
+    game_view gv{g_options};
+    for (int i = 0; i < time_limit; i++)
+      {
+        assert(!gv.get_results_screen().is_visible());
+        gv.get_game().tick();
+      }
+    assert(gv.get_results_screen().is_visible());
+  }
+  #endif // FIX_ISSUE_719
+
+#ifdef FIX_ISSUE_720
+// (720) The results screen knows who is winning
+{
+  game_view gv;
+  player &player_two = gv.get_game().get_player(1);
+  player_two.grow();
+  const int winner = gv.get_results_screen().get_winner();
+  assert(winner == 1);
+}
+#endif // FIX_ISSUE_720
+
   #endif //NDEBUG
 }
 
