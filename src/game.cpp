@@ -1181,30 +1181,7 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_524
 
-  #define FIX_ISSUE_682
-  #ifdef FIX_ISSUE_682
-  // A game has a function to check whether the game is over (check end game conditions, currently it only checks max time)
-  {
-    const int time_limit = 10;
-    const game_options g_options{3,
-                          false,
-                          get_random_kam(),
-                          get_random_kam(),
-                          get_random_kam(),
-                          environment_type(),
-                          time_limit
-                         };
-    game g{g_options};
-    for (int i = 0; i < time_limit; i++)
-      {
-        assert(!g.is_over());
-        g.increment_n_ticks();
-        g.check_over();
-      }
-    assert(g.is_over());
-  }
-
-  // A game is over when the time limit is reached
+  // (682) A game is over when the time limit is reached
   {
     const int time_limit = 10;
     const game_options g_options{3,
@@ -1222,10 +1199,23 @@ void test_game() //!OCLINT tests may be many
         g.tick();
       }
     assert(g.is_over());
+
+#ifdef FIX_ISSUE_716
+    // (716) Game no longer ticks after game is over
+    const int n_ticks = g.get_n_ticks();
+    g.tick();
+    assert(g.get_n_ticks() == n_ticks);
+
+    // and as a result, no further actions are processed
+    // for example, players are not moved
+    player& p = g.get_player(0); // ref to player one
+    const coordinate initial_position = p.get_position();
+
+    add_action(p, action_type::accelerate_forward);
+    g.tick();
+    assert(p.get_position() == initial_position);
+#endif // FIX_ISSUE_716
   }
-
-
-  #endif // FIX_ISSUE_682
 
   {
     const game g;
@@ -1233,6 +1223,45 @@ void test_game() //!OCLINT tests may be many
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
+
+  #ifdef FIX_ISSUE_721
+  // (721) The largest player wins the game
+  {
+    game g;
+    player &player_two = g.get_player(1);
+    player_two.grow();
+    assert(g.who_is_winning() == 1);
+
+    player &player_three = g.get_player(2);
+    player_three.grow();
+    player_three.grow(); // twice
+    assert(g.who_is_winning() == 2);
+   }
+  #endif // FIX_ISSUE_721
+
+  #ifdef FIX_ISSUE_722
+  // (722) In case of a tie, winner is decided on a coin flip
+  {
+      const int a_seed = 5;
+      const int another_seed = 6; // change if this picks the same winner
+
+      game a_game(game_options{a_seed});
+      player &player_two = a_game.get_player(1);
+      player_two.grow();
+      player &player_three = a_game.get_player(2);
+      player_three.grow();
+      assert(a_game.who_is_winning() != 0);
+
+      game another_game(game_options{another_seed});
+      player &other_player_two = another_game.get_player(1);
+      other_player_two.grow();
+      player &other_player_three = another_game.get_player(2);
+      other_player_three.grow();
+      assert(another_game.who_is_winning() != 0);
+
+      assert(a_game.who_is_winning != another_game.who_is_winning());
+  }
+  #endif // FIX_ISSUE_722
 
 #endif // no tests in release
 }
