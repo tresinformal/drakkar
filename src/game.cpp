@@ -1196,11 +1196,11 @@ void test_game() //!OCLINT tests may be many
                          };
     game g{g_options};
     for (int i = 0; i < time_limit; i++)
-      {
+    {
         assert(!g.is_over());
         g.increment_n_ticks();
         g.check_over();
-      }
+    }
     assert(g.is_over());
   }
 
@@ -1217,10 +1217,10 @@ void test_game() //!OCLINT tests may be many
                          };
     game g{g_options};
     for (int i = 0; i < time_limit; i++)
-      {
+    {
         assert(!g.is_over());
         g.tick();
-      }
+    }
     assert(g.is_over());
   }
 

@@ -43,11 +43,13 @@ bool is_valid_arg(const std::string& s)
 
 /// Checks if the command-line arguments for
 /// the game are valid
-bool are_args_valid(std::vector<std::string> args) {
+bool are_args_valid(std::vector<std::string> args)
+{
     if (args.empty()) return false;
     if (args.size() == 1) return true;
 
-    for (size_t i = 1; i < args.size(); i++) {
+    for (size_t i = 1; i < args.size(); i++)
+    {
         if (!is_valid_arg(args[i])) return false;
     }
     return true;
