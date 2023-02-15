@@ -32,15 +32,8 @@ game_view::game_view(game_options options,
     m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
     m_v_views[2].setViewport(sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f));
 
-#ifndef IS_ON_TRAVIS
-    // Playing sound on Travis gives thousands of error lines, which causes the
-    // build to fail
-    if(get_options().is_playing_music())
-    {
-        m_game_resources.get_wonderland().setLoop(true);
-        m_game_resources.get_wonderland().play();
-    }
-#endif
+    m_game_resources.get_wonderland().setLoop(true);
+
     // After setup, close window until executed
     m_window.close();
 }
@@ -147,6 +140,14 @@ void game_view::exec() noexcept
     sf::VideoMode(m_window_size.x, m_window_size.y),
     "tresinformal game"
   );
+
+  if (get_options().is_playing_music())
+  {
+      m_game_resources.get_wonderland().play();
+  } else {
+      m_game_resources.get_wonderland().pause();
+  }
+
   while (m_window.isOpen())
   {
     // Process user input and play game until instructed to exit
