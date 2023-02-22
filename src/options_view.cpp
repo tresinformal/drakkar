@@ -1,4 +1,6 @@
 #include "options_view.h"
+#include "menu_button.h"
+#include "menu.h"
 #include <cassert>
 
 #ifndef LOGIC_ONLY // that is, NOT compiled on GitHub Actions
@@ -40,7 +42,28 @@ bool options_view::process_events()
     {
       m_window.close();
       return true; // Game is done
-    }
+    } else if (event.type == sf::Event::KeyPressed)
+      {
+        const sf::Keyboard::Key key_pressed = event.key.code;
+        if (key_pressed == sf::Keyboard::Key::Escape)
+        {
+            m_next_view = view_mode::menu;
+            m_window.close();
+            return true;
+        }
+      } else if (event.type == sf::Event::MouseButtonPressed)
+      {
+        // if we hit the music button
+        const coordinate mouse_position(
+              static_cast<double>(event.mouseButton.x),
+              static_cast<double>(event.mouseButton.y)
+              );
+        if (is_inside_button(mouse_position, m_music_button))
+          {
+            click_play_music_button();
+            return false;
+          }
+      }
   }
   return false;
 }
@@ -57,6 +80,33 @@ void options_view::show()
   background_sprite.setFillColor(bg_color);
   m_window.draw(background_sprite);
 
+  // Create the Music button sprite
+  const sf::Vector2f music_button_dim(m_music_button.get_body());
+  const sf::Vector2f music_button_pos(m_music_button.get_x(), m_music_button.get_y());
+  sf::RectangleShape music_button_bg(music_button_dim);
+  sf::Color music_button_color(
+        m_music_button.get_color().get_red(),
+        m_music_button.get_color().get_green(),
+        m_music_button.get_color().get_blue()
+        );
+  music_button_bg.setFillColor(music_button_color);
+  sf::Vector2f music_button_origin(music_button_bg.getSize().x / 2.0f,
+                                   music_button_bg.getSize().y / 2.0f);
+  music_button_bg.setOrigin(music_button_origin);
+  music_button_bg.setPosition(music_button_pos);
+
+  // Create the Music button text
+  sf::Text music_button_text;
+  music_button_text.setString(m_music_button.get_label());
+  music_button_text.setFont(m_game_resources.get_font());
+  //sf::FloatRect text_area = music_button_text.getLocalBounds();
+  music_button_text.setCharacterSize(50);
+  music_button_text.setOrigin(music_button_origin);
+  music_button_text.setPosition(music_button_pos);
+
+  m_window.draw(music_button_bg);
+  m_window.draw(music_button_text);
+
   #ifdef FIX_ISSUE_640
   {
     const sf::Text& get_title_text(*this);
@@ -64,29 +114,30 @@ void options_view::show()
   }
   #endif // FIX_ISSUE_640
 
-  // Placeholder text
-  sf::Text placeholder;
-
-  placeholder.setFont(m_game_resources.get_font());
-  placeholder.setString("We don't have an Options screen yet D:");
-  placeholder.setCharacterSize(40);
-  sf::FloatRect text_area = placeholder.getLocalBounds();
-  placeholder.setOrigin(text_area.width / 2.0, text_area.height / 2.0);
-
-#if SFML_VERSION_MAJOR > 2
-    placeholder.setFillColor(sf::Color::Yellow);
-#elif SFML_VERSION_MAJOR == 2 and SFML_VERSION_MINOR >= 4
-    placeholder.setFillColor(sf::Color::Yellow);
-#else
-    placeholder.setColor(sf::Color::Yellow);
-#endif
-
-
-  placeholder.setPosition(m_width / 2.0, m_height / 2.0);
-  m_window.draw(placeholder);
-
   // Display all shapes
   m_window.display();
+}
+
+// Click the music button to turn music on/off
+void options_view::click_play_music_button()
+{
+  if (m_options.is_playing_music()) // music is on
+    {
+      m_options.stop_music();
+    } else {
+      m_options.play_music();
+    }
+  m_music_button.set_color(pick_music_button_color());
+}
+
+const color options_view::pick_music_button_color() const noexcept
+{
+  if (m_options.is_playing_music())
+    {
+      return (color{87, 196, 173});
+    } else {
+      return (color{219, 67, 37});
+    }
 }
 
 #ifndef NDEBUG // no tests in release
@@ -106,8 +157,7 @@ void test_options_view() //!OCLINT tests may be many
     // and closing after, but that is not possible AFAICS
     // bc exec() doesn't exit on its own
   }
-  //#define FIX_ISSUE_630
-  #ifdef FIX_ISSUE_630
+
   // (630) One must be able to turn off the music in the options screen
   {
     const game_options options;
@@ -117,7 +167,7 @@ void test_options_view() //!OCLINT tests may be many
     view.click_play_music_button();
     assert(!view.get_options().is_playing_music());
   }
-  #endif // FIX_ISSUE_630
+
   //#define FIX_ISSUE_631
   #ifdef FIX_ISSUE_631
   // (631) An options_view allows a user to modify game_options
@@ -128,6 +178,7 @@ void test_options_view() //!OCLINT tests may be many
     assert(options == options_again);
   }
   #endif // FIX_ISSUE_631
+
   //#define FIX_ISSUE_640
   #ifdef FIX_ISSUE_640
   // (640) Add a title
@@ -145,7 +196,23 @@ void test_options_view() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_640
 
+  // (710) The music on/off button changes color dynamically
+  {
+    // Colorblind-friendly green and red
+    const color color_on{87, 196, 173};
+    const color color_off{219, 67, 37};
+
+    // Music is first off, then turned on
+    const game_options go_music_off(0, false);
+    options_view ov(go_music_off);
+    color mb_color = ov.get_music_button().get_color();
+    assert(mb_color == color_off);
+    ov.click_play_music_button();
+    mb_color = ov.get_music_button().get_color();
+    assert(mb_color == color_on);
+  }
 }
+
 #endif // NDEBUG // No tests in release
 
 #endif // LOGIC_ONLY

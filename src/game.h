@@ -92,6 +92,9 @@ public:
   /// Manages collisons with walls
   player resolve_wall_collision(player p);
 
+  /// The options can be changed
+  void set_options(const game_options& new_options) noexcept { m_options = new_options; }
+
   /// END GAME CONDITION ///
   /// Check whether the number of ticks >= max time, could extend this function in the future to detect more end game conditions
   void check_over();
