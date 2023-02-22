@@ -104,7 +104,9 @@ public:
   /// END GAME CONDITION ///
 
   /// The biggest player wins
-  int who_is_winning() const noexcept { return 0; }
+  int who_is_winning() const noexcept {
+      m_player
+      return 0; }
 
 private:
 
