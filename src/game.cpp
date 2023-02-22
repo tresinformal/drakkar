@@ -1224,6 +1224,7 @@ void test_game() //!OCLINT tests may be many
     assert(players == v_player);
   }
 
+  #define FIX_ISSUE_721
   #ifdef FIX_ISSUE_721
   // (721) The largest player wins the game
   {

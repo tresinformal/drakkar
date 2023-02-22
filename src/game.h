@@ -103,6 +103,9 @@ public:
   bool is_over() const noexcept { return m_is_over; }
   /// END GAME CONDITION ///
 
+  /// The biggest player wins
+  int who_is_winning() const noexcept { return 0; }
+
 private:
 
   /// The RNG engine
