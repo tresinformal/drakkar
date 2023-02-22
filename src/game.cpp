@@ -1224,21 +1224,18 @@ void test_game() //!OCLINT tests may be many
     assert(players == v_player);
   }
 
-  #define FIX_ISSUE_721
-  #ifdef FIX_ISSUE_721
   // (721) The largest player wins the game
   {
     game g;
     player &player_two = g.get_player(1);
     player_two.grow();
-    assert(g.who_is_winning() == 1);
+    assert(g.who_is_winning() == "1");
 
     player &player_three = g.get_player(2);
     player_three.grow();
     player_three.grow(); // twice
-    assert(g.who_is_winning() == 2);
+    assert(g.who_is_winning() == "2");
    }
-  #endif // FIX_ISSUE_721
 
   #ifdef FIX_ISSUE_722
   // (722) In case of a tie, winner is decided on a coin flip
