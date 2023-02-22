@@ -199,7 +199,7 @@ private:
     double m_growth_factor = 1.1;
 
     // The max allowed size for a player to reach
-    double m_max_size = 1000.0;
+    double m_max_size = 500.0;
 
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
