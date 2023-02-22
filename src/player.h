@@ -77,6 +77,12 @@ public:
     /// Get the radius of the player
     double get_diameter() const noexcept;
 
+    /// Get the maximum size of the player
+    double get_max_size() const noexcept { return m_max_size; }
+
+    /// Get the size multiplier when a player grows
+    double get_growth_factor() const noexcept { return m_growth_factor; }
+
     ///Gets the ID of a player
     std::string get_ID() const noexcept { return m_ID.get_value(); }
 
@@ -191,6 +197,9 @@ private:
 
     /// How much a player grows when growing
     double m_growth_factor = 1.1;
+
+    // The max allowed size for a player to reach
+    double m_max_size = 1000.0;
 
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;

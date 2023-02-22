@@ -56,7 +56,8 @@ double player::get_diameter() const noexcept { return m_diameter; }
 /// Make the player grow
 void player::grow()
 {
-  m_diameter *= m_growth_factor;
+  // Cannot exceed max size
+  m_diameter = std::min(m_diameter * m_growth_factor, m_max_size);
 }
 
 /// Make the player shrink
@@ -880,7 +881,6 @@ void test_player() //!OCLINT tests may be long
     assert(a == b);
   }
 
-#ifdef FIX_ISSUE_726
   // (726) There is a maximum size a player can reach
   {
     player p;
@@ -891,7 +891,6 @@ void test_player() //!OCLINT tests may be long
     assert(diff_size > 0);
     const double growth_factor = p.get_growth_factor();
     const int nb_cycles = static_cast<int>(std::ceil(diff_size / growth_factor));
-
     for (int i = 0; i < nb_cycles; i++)
     {
       p.grow();
@@ -899,7 +898,6 @@ void test_player() //!OCLINT tests may be long
     p.grow(); // to be sure we should exceed max size
     assert(p.get_diameter() == max_size);
   }
-#endif // FIX_ISSUE_726
 
 #endif // no tests in release
 }
