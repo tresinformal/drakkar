@@ -879,6 +879,28 @@ void test_player() //!OCLINT tests may be long
     const player b;
     assert(a == b);
   }
+
+#ifdef FIX_ISSUE_726
+  // (726) There is a maximum size a player can reach
+  {
+    player p;
+    // How many growth cycles to max size?
+    const double init_size = p.get_diameter();
+    const double max_size = p.get_max_size();
+    const double diff_size = max_size - init_size;
+    assert(diff_size > 0);
+    const double growth_factor = p.get_growth_factor();
+    const int nb_cycles = static_cast<int>(std::ceil(diff_size / growth_factor));
+
+    for (int i = 0; i < nb_cycles; i++)
+    {
+      p.grow();
+    }
+    p.grow(); // to be sure we should exceed max size
+    assert(p.get_diameter() == max_size);
+  }
+#endif // FIX_ISSUE_726
+
 #endif // no tests in release
 }
 
