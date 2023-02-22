@@ -105,8 +105,13 @@ public:
 
   /// The biggest player wins
   int who_is_winning() const noexcept {
-      m_player
-      return 0; }
+    for (auto& p : m_player) {
+      auto p_biggest = m_player[0];
+      if (p.get_diameter() > p_biggest.get_diameter())
+        p_biggest = p;
+    }
+    return 0;
+  }
 
 private:
 
