@@ -30,16 +30,15 @@ Look how nice they match :-)
 Use all defaults, up until the Qt Maintenance tool is started.
 Here, you will need to check two boxes:
 
- * 1. For the highest (stable) Qt version: 
-      the highest MinGW :warning: remember this version of MinGW
+ * 1. Now Qt 5.14.2 belongs to Archive because it is an old version, before you can see it in the installer, we need to first show all the archived packages, following the steps on the screenshot.
+![image](https://user-images.githubusercontent.com/57348932/192824914-dc3721e0-230c-41b7-a10a-09fb5d218d7c.png)
 
-![](qt_maintenance_tool_1_annotated.png)
+ * 2. Now we can see Qt 5.14.2, we tick it and expand it so that we could also see the correct version of MinGw (7.3.0).
+![image](https://user-images.githubusercontent.com/57348932/192825152-980e947e-3cbc-46f7-a0b1-c0ac28f2a0a6.png)
 
- * 2. Under tools: that same MinGW :warning: remember this version of MinGW
+## 2. Download and install SFML
 
-![](qt_maintenance_tool_2.png)
 
-## 2. Download and install SFML ([here](https://www.sfml-dev.org/files/SFML-2.5.1-macOS-clang.tar.gz))
 
  * Go to the SFML download page, 
    [https://www.sfml-dev.org/download/sfml/2.5.0/](https://www.sfml-dev.org/download/sfml/2.5.0/)
@@ -61,4 +60,21 @@ This means it cannot find the path.
    go to 'Build', 
    go to 'Build Environment', 
    add to the `Path` variable: `;C:\Qt\sfml\bin`
+
+## 4. Clone the game and `magic_enum` library
+
+Also do
+
+```
+git clone https://github.com/Neargye/magic_enum.git
+```
+
+in a folder *besides* the game folder, e.g. 
+
+```
+git clone https://github.com/tresinformal/game.git
+git clone https://github.com/Neargye/magic_enum.git
+```
+
+
 

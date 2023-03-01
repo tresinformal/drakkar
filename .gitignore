@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+CMakeLists.txt.user
 *.pro.user
 *.pro.user.*
 *.autsave
@@ -56,4 +57,5 @@ game_on_travis
 gprof.log
 game_on_gha
 .DS_Store
+CMakeLists.txt.user
 vcpkg/

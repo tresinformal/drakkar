@@ -1,25 +1,32 @@
- cmake_minimum_required(VERSION 3.8)
- set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# CMakeLists.txt
+cmake_minimum_required (VERSION 3.16)
 
-# find_program(CLANG_TIDY_BIN clang-tidy-6.0)
-# find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-6.0.py)
+# Integrate our local vcpkg install into CMake
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake
+  CACHE STRING "Vcpkg toolchain file")
 
-# if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
-    # message(FATAL_ERROR "unable to locate clang-tidy-6.0")
-# endif()
+project(game C CXX)
 
-# if(RUN_CLANG_TIDY_BIN STREQUAL "RUN_CLANG_TIDY_BIN-NOTFOUND")
-    # message(FATAL_ERROR "unable to locate run-clang-tidy-6.0.py")
-# endif()
+# Let CMake make the call
+# $> git submodule update --init --remote --recursive
+# so the user doesn't have to.
+#
+# Optionally, you can/should add these lines to all the sub-folder CMakeLists.txt.
+# That would take care about recursive submodules.
+find_package(Git REQUIRED)
+execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --remote --recursive
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                RESULT_VARIABLE GIT_SUBMOD_RESULT)
+if (NOT GIT_SUBMOD_RESULT EQUAL "0")
+    message(FATAL_ERROR "git submodule update --init --remote --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+endif()
 
-# list(APPEND RUN_CLANG_TIDY_BIN_ARGS
-    # -clang-tidy-binary ${CLANG_TIDY_BIN}
-    # -header-filter=.*
-    # -checks=-*,cppcoreguidelines*
-# )
+if (WIN32)
+    # the default is x86-windows -- 32Bit, really?
+    set(VCPKG_TARGET_TRIPLET x64-windows)
+endif()
 
-# add_custom_target(
-    # tidy
-    # COMMAND ${RUN_CLANG_TIDY_BIN} ${RUN_CLANG_TIDY_BIN_ARGS}
-    # COMMENT "running clang tidy"
-# )
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_subdirectory(src)
