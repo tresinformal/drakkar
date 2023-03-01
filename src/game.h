@@ -92,6 +92,9 @@ public:
   /// Manages collisons with walls
   player resolve_wall_collision(player p);
 
+  /// The options can be changed
+  void set_options(const game_options& new_options) noexcept { m_options = new_options; }
+
   /// END GAME CONDITION ///
   /// Check whether the number of ticks >= max time, could extend this function in the future to detect more end game conditions
   void check_over();
@@ -99,6 +102,16 @@ public:
   /// Return the flag to show whether the game is over
   bool is_over() const noexcept { return m_is_over; }
   /// END GAME CONDITION ///
+
+  /// The biggest player wins
+  std::string who_is_winning() const noexcept {
+    auto p_biggest = m_player[0];
+    for (auto& p : m_player) {
+      if (p.get_diameter() > p_biggest.get_diameter())
+        p_biggest = p;
+    }
+    return p_biggest.get_ID();
+  }
 
 private:
 
