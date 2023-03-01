@@ -149,6 +149,9 @@ public:
     /// The player can revive
     void revive();
 
+    ///Updates the health based on the diameteer of the player
+    void update_health_based_on_diameter();
+
 private:
     /// The player's color, will change depending on food items
     color m_color;

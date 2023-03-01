@@ -62,12 +62,13 @@ void player::grow()
 void player::shrink()
 {
   m_diameter /= m_growth_factor;
-  if(m_diameter <= m_death_size)
-  {
-     m_state = player_state::dead;
-  }
 }
 
+///Updates the health based on the diameteer of the player
+void player::update_health_based_on_diameter()
+{
+  m_health = m_diameter / health_diameter_ratio;
+}
 
 /// Get the direction of player movement, in radians
 double player::get_direction() const noexcept { return m_direction_radians; }
@@ -906,12 +907,14 @@ void test_player() //!OCLINT tests may be long
     player p1;
     const double initial_health { p1.get_health() };
     p1.grow();
+    p1.update_health_based_on_diameter();
+
     assert(p1.get_health() > initial_health);
     player p2;
     p2.shrink();
+    p2.update_health_based_on_diameter();
     assert(p1.get_health() < initial_health);
   }
-
 
 #endif // no tests in release
 }
