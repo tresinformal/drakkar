@@ -1262,6 +1262,19 @@ void test_game() //!OCLINT tests may be many
   }
   #endif // FIX_ISSUE_722
 
+//(674, part of #615)
+// a player's size (and therefore its health) decreasers over time
+    {
+        game g;
+        auto initnial_health = g.get_player(0).get_health();
+        auto initnial_diameter = g.get_player(0).get_diameter();
+        g.tick();
+        auto health_after_one_time_step = g.get_player(0).get_health();
+        auto diameter_after_one_time_step = g.get_player(0).get_diameter();
+        assert(initnial_health > health_after_one_time_step);
+        assert(initnial_diameter > diameter_after_one_time_step);
+
+    }
 #endif // no tests in release
 }
 

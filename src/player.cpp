@@ -901,6 +901,7 @@ void test_player() //!OCLINT tests may be long
   }
 
   // player's health changes along with size
+  // a player's health should decrease as a consequence of a player size decreasing
   {
     player p1;
     const double initial_health { p1.get_health() };
@@ -910,6 +911,7 @@ void test_player() //!OCLINT tests may be long
     p2.shrink();
     assert(p1.get_health() < initial_health);
   }
+
 #endif // no tests in release
 }
 
