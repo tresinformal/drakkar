@@ -1266,11 +1266,12 @@ void test_game() //!OCLINT tests may be many
   {
     game g;
     auto intial_health = g.get_player(0).get_health();
-    auto intial_diameter = g.get_player(0).get_diameter();
+    auto initial_diameter = g.get_player(0).get_diameter();
     g.tick();
     auto health_after_one_time_step = g.get_player(0).get_health();
     auto diameter_after_one_time_step = g.get_player(0).get_diameter();
     assert(intial_health > health_after_one_time_step);
+    assert(initial_diameter > diameter_after_one_time_step);
   }
 #endif // no tests in release
 }
