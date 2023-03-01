@@ -1261,7 +1261,17 @@ void test_game() //!OCLINT tests may be many
       assert(a_game.who_is_winning != another_game.who_is_winning());
   }
   #endif // FIX_ISSUE_722
-
+  //(#704 part of #615)
+  //A player's size (and therefore its health) decreases over time
+  {
+    game g;
+    auto intial_health = g.get_player(0).get_health();
+    auto intial_diameter = g.get_player(0).get_diameter();
+    g.tick();
+    auto health_after_one_time_step = g.get_player(0).get_health();
+    auto diameter_after_one_time_step = g.get_player(0).get_diameter();
+    assert(intial_health > health_after_one_time_step);
+  }
 #endif // no tests in release
 }
 
