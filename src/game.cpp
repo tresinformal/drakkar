@@ -1239,27 +1239,28 @@ void test_game() //!OCLINT tests may be many
     assert(g.who_is_winning() == "2");
    }
 
+  //#define FIX_ISSUE_722
   #ifdef FIX_ISSUE_722
   // (722) In case of a tie, winner is decided on a coin flip
   {
       const int a_seed = 5;
-      const int another_seed = 6; // change if this picks the same winner
+      const int another_seed = 8; // change if this picks the same winner
 
       game a_game(game_options{a_seed});
       player &player_two = a_game.get_player(1);
       player_two.grow();
       player &player_three = a_game.get_player(2);
       player_three.grow();
-      assert(a_game.who_is_winning() != 0);
+      assert(a_game.who_is_winning() != "0");
 
       game another_game(game_options{another_seed});
       player &other_player_two = another_game.get_player(1);
       other_player_two.grow();
       player &other_player_three = another_game.get_player(2);
       other_player_three.grow();
-      assert(another_game.who_is_winning() != 0);
+      assert(another_game.who_is_winning() != "0");
 
-      assert(a_game.who_is_winning != another_game.who_is_winning());
+      assert(a_game.who_is_winning() != another_game.who_is_winning());
   }
   #endif // FIX_ISSUE_722
 
