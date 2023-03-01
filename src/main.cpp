@@ -43,11 +43,13 @@ bool is_valid_arg(const std::string& s)
 
 /// Checks if the command-line arguments for
 /// the game are valid
-bool are_args_valid(std::vector<std::string> args) {
+bool are_args_valid(std::vector<std::string> args)
+{
     if (args.empty()) return false;
     if (args.size() == 1) return true;
 
-    for (size_t i = 1; i < args.size(); i++) {
+    for (size_t i = 1; i < args.size(); i++)
+    {
         if (!is_valid_arg(args[i])) return false;
     }
     return true;
@@ -143,7 +145,7 @@ int main(int argc, char **argv) //!OCLINT tests may be long
         while( time.count() < max_duration)
         {
             v.process_events();
-            v.get_game().tick();
+            v.tick();
             v.show();
             time =  high_resolution_clock::now() - start;
         }
@@ -159,22 +161,22 @@ int main(int argc, char **argv) //!OCLINT tests may be long
   // Default view mode
   view_mode start_view = view_mode::game;
 
-  // Resolve arguments
-  if (args.size() > 1)
+  for (int i = 1; i != argc; ++i)
+  {
+    const std::string arg{argv[i]};
+    if (arg == "--menu")
     {
-      if (args[1] == "--menu")
-        {
-          start_view = view_mode::menu;
-        }
-      else if (args[1] == "--options")
-        {
-          start_view = view_mode::options;
-        }
-      else if (args[1] == "--no-sound")
-        {
-          music_off(options);
-        }
+      start_view = view_mode::menu;
     }
+    else if (arg == "--options")
+    {
+      start_view = view_mode::options;
+    }
+    else if (arg == "--no-sound")
+    {
+      music_off(options);
+    }
+  }
 
   view_manager v{start_view, options};
   v.exec();
