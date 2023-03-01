@@ -2,6 +2,8 @@
 Drakkar is a multiplayer game featuring dragons of different colours trying to chase and eat one another.
 The game resembles [agar.io](https://agar.io/) with the addition of a Rock-Paper-Scissor dynamic via the RGB colours.
 
+The goals and rules of the game are described here. We aim to make the design described in this doc come to life, and should refrain from working on things that do not fall in its scope. Any new feature or idea should be discussed first, then if received positively should be included in the design doc. 
+
 ## General Principle
 There are three players. Each player controls a disc-shaped dragon of one of three colours: red, green, and blue.
 Every colour is strong against another one and weak against the third one. 
