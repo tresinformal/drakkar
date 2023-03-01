@@ -254,10 +254,12 @@ void game_view::show() noexcept
         draw_players();
     }
 
+
     // Set fourth view for players coordinates
     #ifndef NDEBUG  // coordinates should not be visible in release
     set_player_info_view();
     // Display player coordinates on the fourth view
+
     draw_player_info();
     #endif
 

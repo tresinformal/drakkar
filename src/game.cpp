@@ -3,6 +3,7 @@
 #include "coordinate.h"
 #include "action_type.h"
 #include "environment.h"
+#include "src/food.h"
 
 #include <cassert>
 #include <cmath>
