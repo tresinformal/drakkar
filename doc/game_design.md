@@ -25,14 +25,15 @@ During this time, the invulnerable dragon cannot be involved in a collision with
 The game is timed; when the timer runs out, whichever player has the largest dragon wins the game.
 In the event of a tie, the winner is decided on a coin flip among the tied players.
 
-### Limits on player size
+### Death and size limitations
 As described above, players change size upon interaction with other players.
+When a player falls under a certain size, it "dies". 
+While dead, the player cannot interact with either of the other players (and so ignores collisions).
+After some time, the player is revived, upon which it returns to its starting size and can interact with other players again.
 
-There is an upper limit to the size a player can reach, so it does not inflate to iccupy the whole environment and automatically trigger collisions with other players.
+There is also an upper limit to the size a player can reach, so it does not inflate to occupy the whole environment and automatically trigger collisions with other players.
 
-There is also a lower limit to the size of a player: upon being reduced to this size, a player becomes invulnerable to collisions with the stronger player. It stays invulnerable until it manages to grow again (by running into the weaker player).
-
-Players also progressively shrink over time, as an incentive to avoid players simply sitting around and waiting for the timer to run out after having reached a winning size.
+Players progressively shrink over time, as an incentive to avoid players simply sitting around and waiting for the timer to run out after having reached a winning size.
 
 ### Environment
 Players can move and interact within a rectangular environment. The environment has hard boundaries: players cannot move beyond these boundaries.
