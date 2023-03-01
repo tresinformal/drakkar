@@ -17,11 +17,20 @@ Upon a collision, the colour of the involved dragons is compared, and the dragon
 
 The winning dragon then munches on the losing one, growing a bit in the process, while the loser shrinks a bit.
 The loser then turns invulnerable for a short duration, so that it has a chance to escape its victor and avoid being munched on indefinitely.
-During this time, the invulnerable dragon cannot be involved in a collision with another player (it simply ignores them as it runs into them).
+During this time, the invulnerable dragon cannot be involved in a collision with the stronger player (it simply ignores it as it runs into it), but can still collide with the weaker player.
 
 ### Winning condition
 The game is timed; when the timer runs out, whichever player has the largest dragon wins the game.
 In the event of a tie, the winner is decided on a coin flip among the tied players.
+
+### Limits on player size
+As described above, players change size upon interaction with other players.
+
+There is an upper limit to the size a player can reach, so it does not inflate to iccupy the whole environment and automatically trigger collisions with other players.
+
+There is also a lower limit to the size of a player: upon being reduced to this size, a player becomes invulnerable to collisions with the stronger player. It stays invulnerable until it manages to grow again (by running into the weaker player).
+
+Players also progressively shrink over time, as an incentive to avoid players simply sitting around and waiting for the timer to run out after having reached a winning size.
 
 ### Environment
 Players can move and interact within a rectangular environment. The environment has hard boundaries: players cannot move beyond these boundaries.
@@ -31,5 +40,6 @@ Otherwise, players can move freely, there are no obstacles other than other play
 Players can move forward by pressing a key, immediately moving in the direction that the nose of the dragon points towards.
 A player can also move backwards, going in the opposite direction to the forward one.
 To change direction, a player can pivot left or right with dedicated keys.
+
 Movement is immediate: when a movement key is pressed, the player moves accordingly; when a movement key is released, the player stops moving.
 
