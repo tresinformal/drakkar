@@ -16,7 +16,6 @@ public:
   void set_y(const double y) { m_y = y; }
   void move(const double& direction, const double& speed = 1);
   void reset_coords_to_zero();
-  sdfs
 
 private:
     double m_x = 0;
