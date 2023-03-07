@@ -54,7 +54,7 @@ public:
 
   /// Increment the number of ticks
   void increment_n_ticks();
-    
+
   /// Get environment size of the game
   const environment& get_env() const noexcept{ return m_environment; }
 
@@ -98,7 +98,7 @@ public:
   /// END GAME CONDITION ///
   /// Check whether the number of ticks >= max time, could extend this function in the future to detect more end game conditions
   void check_over();
-  
+
   /// Return the flag to show whether the game is over
   bool is_over() const noexcept { return m_is_over; }
   /// END GAME CONDITION ///
