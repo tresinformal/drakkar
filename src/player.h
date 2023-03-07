@@ -26,7 +26,7 @@ public:
            const double player_acceleration_backward = 0.05,
            const double player_deceleration_forward = 0.1,
            const double player_deceleration_backward = 0.1,
-           const double diameter = 100.0,
+           const double health = 100.0,
            const double turn_rate = 0.007,
            const color &any_color = color(),
            const std::string& ID = "0");
@@ -78,7 +78,7 @@ public:
     std::string get_ID() const noexcept { return m_ID.get_value(); }
 
     ///Gets the player size
-    double get_diameter() const noexcept {return m_diameter;}
+    double get_diameter() const noexcept {return m_health;}
 
     ///Gets the player score
     int get_score() const noexcept { return m_score; }
@@ -99,7 +99,7 @@ public:
     double get_direction() const noexcept;
 
     /// Get the player's health
-    double get_health() const noexcept { return m_health; }
+    double get_health() const noexcept { return m_health / 100.0; }
 
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
@@ -192,9 +192,6 @@ private:
     /// The backward deceleration of the player
     double m_player_deceleration_backward;
 
-    /// The size of the player
-    double m_diameter;
-
     /// How much a player grows when growing
     double m_growth_factor = 1.1;
 
@@ -207,7 +204,7 @@ private:
 
     /// Player's health percentage, the player always start with max health at
     /// construction
-    double m_health = 1.0;
+    double m_health;
 
 
     /// Player's minimal size before dying

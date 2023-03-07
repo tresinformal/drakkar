@@ -17,7 +17,7 @@ player::player(const coordinate c,
                const double player_acceleration_backward,
                const double player_deceleration_forward,
                const double player_deceleration_backward,
-               const double diameter,
+               const double health,
                const double turn_rate,
                const color &any_color,
                const std::string& ID)
@@ -32,8 +32,8 @@ player::player(const coordinate c,
       m_player_acceleration_backward{player_acceleration_backward},
       m_player_deceleration_forward{player_deceleration_forward},
       m_player_deceleration_backward{player_deceleration_backward},
-      m_diameter{diameter},
-      m_turn_rate{turn_rate}
+      m_turn_rate{turn_rate},
+      m_health{health}
 {
 
 }
@@ -55,14 +55,14 @@ double player::get_y() const noexcept { return m_c.get_y(); }
 /// Make the player grow
 void player::grow()
 {
-  m_diameter *= m_growth_factor;
+  m_health *= m_growth_factor;
 }
 
 /// Make the player shrink
 void player::shrink()
 {
-  m_diameter /= m_growth_factor;
-  if(m_diameter <= m_death_size)
+  m_health /= m_growth_factor;
+  if(m_health <= m_death_size)
   {
      m_state = player_state::dead;
   }
