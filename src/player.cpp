@@ -909,7 +909,7 @@ void test_player() //!OCLINT tests may be long
     assert(p1.get_health() > initial_health);
     player p2;
     p2.shrink();
-    assert(p1.get_health() < initial_health);
+    assert(p2.get_health() < initial_health);
   }
 
 #endif // no tests in release
