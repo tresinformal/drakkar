@@ -3,6 +3,19 @@
 #define MENU_H
 #include "menu_button.h"
 
+/// The logic of the menu
+///
+/// +-------+----------+
+/// |      .| Start    |
+/// |     . +----------+
+/// |    .  | Options  |
+/// |  Art  +----------+
+/// |  .    | About    |
+/// | .     +----------+
+/// |.      | Quit     |
+/// +-------+----------+
+/// The art is square
+///
 class menu
 {
 public:
@@ -25,7 +38,10 @@ public:
   int get_height()const noexcept;
 
   /// Gets the vector of buttons
-  std::vector<menu_button> &get_buttons() noexcept;
+  const std::vector<menu_button>& get_buttons() const noexcept;
+
+  /// Gets the vector of buttons
+  std::vector<menu_button>& get_buttons() noexcept { return m_v_buttons; }
 
   /// Get one button at index i
   menu_button &get_button(int index);
@@ -36,7 +52,7 @@ public:
   /// Sets the position of the buttons
   /// aligned in the center and equally
   /// distant vertically
-  void put_buttons_tidy() noexcept;
+  void align_buttons() noexcept;
 
 private:
   int m_window_width;
