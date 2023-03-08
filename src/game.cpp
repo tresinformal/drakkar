@@ -323,6 +323,15 @@ void save(const game& g, const std::string& filename)
   assert(!filename.empty());
 }
 
+bool get_random_bool(std::mt19937& rng)
+{
+  std::uniform_int_distribution<> dis(0, 1);
+  const int i{dis(rng)};
+  if (i)
+      return 0;
+  return 1;
+}
+
 void test_game() //!OCLINT tests may be many
 {
 #ifndef NDEBUG // no tests in release
