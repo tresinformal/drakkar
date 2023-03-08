@@ -38,15 +38,20 @@ unix:!macx {
 }
 
 macx {
+  QMAKE_OSX_DEPLOYMENT_TARGET = 10.15
   INCLUDEPATH += /Users/johti53/SFML/include
+  INCLUDEPATH += /Users/oscargullberg/SFML/Library/Frameworks/include
   INCLUDEPATH += /Users/Ludvig/SFML/include
   LIBS += -L/Users/Ludvig/SFML/lib
+  LIBS += -L/Users/oscargullberg/SFML/lib
   LIBS += -L/Users/johti53/SFML/lib \
       -lsfml-system \
       -lsfml-window \
       -lsfml-graphics \
       -lsfml-audio \
-      -lsfml-network
+      -lsfml-network \
+      -framework SFML \
+      -F/Library/Frameworks
 }
 
 win32{
