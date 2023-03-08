@@ -109,6 +109,9 @@ public:
     for (auto& p : m_player) {
       if (p.get_diameter() > p_biggest.get_diameter())
         p_biggest = p;
+      else if(p.get_diameter() == p_biggest.get_diameter())
+        p_biggest = p;
+
     }
     return p_biggest.get_ID();
   }
