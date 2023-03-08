@@ -105,18 +105,7 @@ public:
 
   /// The biggest player wins
   std::string who_is_winning() const noexcept {
-    auto p_biggest = m_player[0];
-    for (auto& p : m_player) {
-      if (p.get_diameter() > p_biggest.get_diameter())
-        p_biggest = p;
-      else if (p.get_diameter() == p_biggest.get_diameter())
-      { 
-        if (get_random_bool(m_rng))
-            p_biggest = p;
-      }
-    }
-    return p_biggest.get_ID();
-  }
+
 
 private:
 
