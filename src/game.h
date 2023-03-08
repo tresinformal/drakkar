@@ -110,9 +110,8 @@ public:
       if (p.get_diameter() > p_biggest.get_diameter())
         p_biggest = p;
       else if (p.get_diameter() == p_biggest.get_diameter())
-      {
-        std::mt19937& { rng };
-        if (get_random_bool(rng))
+      { 
+        if (get_random_bool(m_rng))
             p_biggest = p;
       }
     }
