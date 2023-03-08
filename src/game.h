@@ -104,7 +104,7 @@ public:
   /// END GAME CONDITION ///
 
   /// The biggest player wins
-  std::string who_is_winning() const noexcept {
+  std::string who_is_winning() noexcept;
 
 
 private:
@@ -159,6 +159,8 @@ void shrink_losing_player(game &g);
 
 /// Save the game to file
 void save(const game& g, const std::string& filename);
+
+bool get_random_bool(std::mt19937& rng);
 
 void test_game();
 
