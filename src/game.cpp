@@ -134,6 +134,20 @@ void game::apply_inertia()
       }
     }
 }
+void game::who_is_winning()
+{
+auto p_biggest = m_player[0];
+for (auto& p : m_player) {
+  if (p.get_diameter() > p_biggest.get_diameter())
+    p_biggest = p;
+  else if (p.get_diameter() == p_biggest.get_diameter())
+  {
+    if (get_random_bool(m_rng))
+        p_biggest = p;
+  }
+}
+return p_biggest.get_ID();
+}
 
 void game::tick()
 {
