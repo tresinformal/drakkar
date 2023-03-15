@@ -18,8 +18,6 @@ Branch      |[GitHub Actions](https://github.com/tresinformal/drakkar/actions)  
 `theo`      |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/drakkar/branch/theo)
 `tianjian`  |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=tianjian)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=tianjian)](https://codecov.io/github/tresinformal/drakkar/branch/tianjian)
 
-
-
  * Branches are ordered `master`, `develop`, then topic branches alphabetically
 A video game, developed informally and professionally.
 
