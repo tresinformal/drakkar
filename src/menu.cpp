@@ -18,7 +18,8 @@ menu::menu( int w_width,
       menu_button(label_button4, color_button4)
       }
 {
-  put_buttons_tidy();
+  assert(m_window_height < m_window_width);
+  align_buttons();
 }
 /// Gets the width of the screen
 int menu::get_w_width() const noexcept { return m_window_width; }
@@ -27,7 +28,7 @@ int menu::get_w_width() const noexcept { return m_window_width; }
 int menu::get_height() const noexcept { return m_window_height; }
 
 /// Gets the vector of buttons
-std::vector<menu_button> &menu::get_buttons() noexcept { return m_v_buttons; }
+const std::vector<menu_button>& menu::get_buttons() const noexcept { return m_v_buttons; }
 
 menu_button &menu::get_button(int index)
 {
@@ -48,11 +49,11 @@ menu_button &menu::get_button(const std::string& label)
   throw std::logic_error("No button in menu has this label.");
 }
 
-void menu::put_buttons_tidy() noexcept
+void menu::align_buttons() noexcept
 {
   for (unsigned int i = 0; i != get_buttons().size(); ++i)
     {
-      get_buttons()[i].set_x(m_window_width / 2);
+      get_buttons()[i].set_x(m_window_height);
       get_buttons()[i].set_y(static_cast<int>((i + 1)) *
                                  (m_window_height)/
                                  (static_cast<int>(m_v_buttons.size()) + 1));
@@ -78,7 +79,7 @@ void test_menu()
   // menu_view is built with values
   // for width and height of the screen
   {
-    int width = 1000;
+    int width = 2000;
     int height = 1000;
     menu v(width, height);
     assert(v.get_w_width() - width < 0.00000001);
@@ -116,10 +117,10 @@ void test_menu()
   {
     // in the middle
 
-    int width = 1000;
+    int width = 2000;
     int height = 1000;
     menu v(width, height);
-    v.put_buttons_tidy();
+    v.align_buttons();
     for (unsigned int i = 0; i < v.get_buttons().size(); ++i)
       assert(v.get_buttons()[i].get_y() -
              (static_cast<int>(i) + 1) * (width) /
@@ -168,4 +169,38 @@ void test_menu()
 //        press_esc(ov);
 //        assert(is_showing_options(ov));
     }
+  #define FIX_ISSUE_714
+  #ifdef FIX_ISSUE_714
+  // Buttons are at the right half of the screen,
+  //
+  //     width == height of the window
+  //     |
+  // +---+---+
+  // |       |
+  // v       v
+  //
+  // +-------+----------+ <--+
+  // |      .| Start    |    |
+  // |     . +----------+    |
+  // |    .  | Options  |    |
+  // |  Art  +----------+    +-- height == width of art
+  // |  .    | About    |    |
+  // | .     +----------+    |
+  // |.      | Quit     |    |
+  // +-------+----------+ <--+
+  //
+  // The art is square
+  //
+  {
+    const menu m;
+    const int height{m.get_height()};
+    const auto& buttons{m.get_buttons()};
+    const int min_x{height}; // the art is square
+
+    for (const auto& button : buttons)
+    {
+      assert(button.get_x() >= min_x);
+    }
+  }
+  #endif // FIX_ISSUE_714
 }
