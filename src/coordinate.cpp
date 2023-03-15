@@ -73,8 +73,8 @@ void test_coordinate() {
       {
         c.reset_coords_to_zero();
         c.move(forward_direction, speed);
-        const double error_x = fabs(get_x(c) - speed);
-        const double error_y = fabs(get_y(c) - 0);
+        const double error_x = std::abs(get_x(c) - speed);
+        const double error_y = std::abs(get_y(c) - 0);
         assert(error_x < 0.00001);
         assert(error_y < 0.00001);
       }
@@ -90,8 +90,8 @@ void test_coordinate() {
       {
         c.reset_coords_to_zero();
         c.move(up_direction, speed);
-        const double error_x = fabs(get_x(c) - 0);
-        const double error_y = fabs(get_y(c) - speed);
+        const double error_x = std::abs(get_x(c) - 0);
+        const double error_y = std::abs(get_y(c) - speed);
         assert(error_x < 0.00001);
         assert(error_y < 0.00001);
       }
@@ -102,16 +102,16 @@ void test_coordinate() {
     c.reset_coords_to_zero();
     const double a_direction = M_PI / 3.0; // 60 degrees
     c.move(a_direction, default_speed);
-    double error_x = fabs(get_x(c) - 1.0 / 2.0);
-    double error_y = fabs(get_y(c) - sqrt(3.0) / 2.0);
+    double error_x = std::abs(get_x(c) - 1.0 / 2.0);
+    double error_y = std::abs(get_y(c) - sqrt(3.0) / 2.0);
     assert(error_x < 0.00001);
     assert(error_y < 0.00001);
 
     c.reset_coords_to_zero();
     const double another_direction = M_PI / 6.0; // 30 degrees
     c.move(another_direction, default_speed);
-    error_x = fabs(get_x(c) -  sqrt(3.0) / 2.0);
-    error_y = fabs(get_y(c) - 1.0 / 2.0);
+    error_x = std::abs(get_x(c) -  sqrt(3.0) / 2.0);
+    error_y = std::abs(get_y(c) - 1.0 / 2.0);
     assert(error_x < 0.00001);
     assert(error_y < 0.00001);
   }
