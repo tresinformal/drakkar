@@ -504,6 +504,7 @@ void test_game() //!OCLINT tests may be many
   }
 
   // In the start of the game no players are colliding
+  #define FIX_ISSUE_732
   #ifdef FIX_ISSUE_732
   {
     const game g;
