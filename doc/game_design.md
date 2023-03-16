@@ -11,7 +11,7 @@ Players chase one another, trying to run into and eat the weaker player while ev
 
 ### Interactions
 A player running into another one triggers a collision. 
-Upon a collision, the colour of the involved dragons is compared, and the dragon with the strongest colour wins, according to the following Rock-Paper-Scissor logic:
+Upon a collision, the colour of the involved dragons is compared, and the dragon with the stronger colour among the two wins, according to the following Rock-Paper-Scissor logic:
 
 - Red is strong against Green, and weak against Blue;
 - Green is strong against Blue, and weak against Red;
