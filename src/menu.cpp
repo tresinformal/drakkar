@@ -79,8 +79,8 @@ void test_menu()
   // menu_view is built with values
   // for width and height of the screen
   {
-    int width = 2000;
-    int height = 1000;
+    const int width {2000};
+    const int height {1000};
     menu v(width, height);
     assert(v.get_w_width() - width < 0.00000001);
     assert(v.get_height() - height < 0.00000001);
@@ -117,8 +117,8 @@ void test_menu()
   {
     // in the middle
 
-    int width = 2000;
-    int height = 1000;
+    const int width {2000};
+    const int height {1000};
     menu v(width, height);
     v.align_buttons();
     for (unsigned int i = 0; i < v.get_buttons().size(); ++i)
