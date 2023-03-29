@@ -356,8 +356,8 @@ void test_player() //!OCLINT tests may be long
         coordinate predicted_player_position = predict_players_movement(p);
         p.move();
         assert(p.get_position() == predicted_player_position);
-        const double error_x = abs(predicted_player_position.get_x() - get_x(p));
-        const double error_y = abs(predicted_player_position.get_y() - get_y(p));
+        const double error_x = std::abs(predicted_player_position.get_x() - get_x(p));
+        const double error_y = std::abs(predicted_player_position.get_y() - get_y(p));
         assert(error_x < 0.001);
         assert(error_y < 0.001);
     }
@@ -864,7 +864,7 @@ void test_player() //!OCLINT tests may be long
                 p.accelerate_backward();
             }
             assert(p.get_speed() == p.get_max_speed_backward());
-            assert(p.get_deceleration_backward() * n_of_accelerations > abs(p.get_speed()));
+            assert(p.get_deceleration_backward() * n_of_accelerations > std::abs(p.get_speed()));
             for(int i = 0; i != n_of_accelerations; i++ )
             {
                 p.decelerate();
