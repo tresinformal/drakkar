@@ -53,21 +53,21 @@ public:
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
   /// Get 'bump' sound
-  sf::Sound &get_bump() noexcept { return m_bump; }
+  sf::SoundBuffer &get_bump() noexcept { return m_bump; }
 #endif // IS_ON_TRAVIS
 
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
   /// Get 'grow' sound
-  sf::Sound &get_grow() noexcept { return m_grow; }
+  sf::SoundBuffer &get_grow() noexcept { return m_grow; }
 #endif // IS_ON_TRAVIS
 
 #ifndef IS_ON_TRAVIS
   // Playing sound on Travis gives thousands of error lines, which causes the
   // build to fail
   /// Get 'shrink' sound
-  sf::Sound &get_shrink() noexcept { return m_shrink; }
+  sf::SoundBuffer &get_shrink() noexcept { return m_shrink; }
 #endif // IS_ON_TRAVIS
 
 private:

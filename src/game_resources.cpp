@@ -152,7 +152,7 @@ game_resources::game_resources()
     const QString filename{"bump.ogg"};
     QFile f(":/" + filename);
     f.copy(filename);
-    if (!m_bump.openFromFile(filename.toStdString()))
+    if (!m_bump.loadFromFile(filename.toStdString()))
     {
       QString msg{"Cannot find sound file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());
@@ -166,7 +166,7 @@ game_resources::game_resources()
     const QString filename{"grow.ogg"};
     QFile f(":/" + filename);
     f.copy(filename);
-    if (!m_grow.openFromFile(filename.toStdString()))
+    if (!m_grow.loadFromFile(filename.toStdString()))
     {
       QString msg{"Cannot find sound file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());
@@ -180,7 +180,7 @@ game_resources::game_resources()
     const QString filename{"shrink.ogg"};
     QFile f(":/" + filename);
     f.copy(filename);
-    if (!m_shrink.openFromFile(filename.toStdString()))
+    if (!m_shrink.loadFromFile(filename.toStdString()))
     {
       QString msg{"Cannot find sound file '" + filename + "'"};
       throw std::runtime_error(msg.toStdString());
