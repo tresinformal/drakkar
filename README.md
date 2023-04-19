@@ -53,20 +53,11 @@ contact [Stefano 'swom' Tiso](https://github.com/swom).
 
 ## drakkar.io: 2D PvP chasing game
 
-A game where you are on a 2D surface with heterogeneous characteristics, as different terrains, resources etc. You start with a very small particle-like character, as you play you can gather resources scattered around and increase your size/mass, the more you grow the more your options increase(you can change shape, what matter composes you etc.), other players roam around as you do increasing size and having more options as they progress. The goal is to chase and eliminate the other players. It would be good to have multiple conditions(you have to be bigger, you need to be made of a certain material etc.) you need to satisfy to be able to eliminate the other players.e.
+Drakkar is a multiplayer game featuring dragons of different colours trying to chase and eat one another. The game resembles agar.io, with the addition of a Rock-Paper-Scissor dynamic via the RGB colours.
 
-Ideas:
-
-Issue                                                 |Idea
-------------------------------------------------------|------------------------
-[221](https://github.com/tresinformal/drakkar/issues/221)|-1. Rock-Paper-Scissor dynamics
-[219](https://github.com/tresinformal/drakkar/issues/219)|0. Food
-[208](https://github.com/tresinformal/drakkar/issues/208)|1. Stun
-[209](https://github.com/tresinformal/drakkar/issues/209)|2. Poison
-[210](https://github.com/tresinformal/drakkar/issues/210)|3. Regenerating walls
-[212](https://github.com/tresinformal/drakkar/issues/212)|4. Heal
-[222](https://github.com/tresinformal/drakkar/issues/222)|5. Targeting system
-[223](https://github.com/tresinformal/drakkar/issues/223)|6. Minimap
+The goals and rules of the game are described in the [Design Doc](https://github.com/tresinformal/
+drakkar/blob/master/doc/game_design.md). Before contributing, first make sure you are familiar with it.
+We aim to make the design described in the doc come to life, and should refrain from working on things that do not fall in its scope. Any new feature or idea should be discussed first, then if received positively should be included in the design doc. 
 
 ## [Installation](install.md)
 
