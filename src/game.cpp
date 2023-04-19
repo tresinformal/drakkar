@@ -503,13 +503,14 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  // In the start of the game no players are colliding
-  #ifdef FIX_ISSUE_732
+  // (732) In the start of the game no players are colliding
+
   {
+
     const game g;
     assert(!has_any_interplayer_collision(g));
   }
-  #endif // FIX_ISSUE_732
+
 
   // two overlapping players signal a collision
   {
