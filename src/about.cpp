@@ -45,6 +45,11 @@ std::string about::get_link_discord()
 {
     return std::string("https://discord.gg/QMZMaTx5b4");
 }
+
+std::string about::get_link_repo()
+{
+    return std::string("https://github.com/tresinformal/drakkar");
+}
 /*
 {
     about ab;
@@ -61,6 +66,10 @@ void test_about()
     std::vector<std::string> contributors = ab.get_contributors();
   }
 
+  {
+    about ab;
+    std::string link_to_gh = ab.get_link_repo();
+  }
 
 #ifdef FIX_ISSUE_600
   // (600) The list of contributors is up-to-date
