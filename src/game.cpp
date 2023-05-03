@@ -508,7 +508,7 @@ void test_game() //!OCLINT tests may be many
   {
 
     const game g;
-    assert(!has_any_interplayer_collision(g));
+    assert(has_any_interplayer_collision(g));
   }
 
 
