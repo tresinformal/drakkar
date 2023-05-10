@@ -337,8 +337,6 @@ void grow_winning_player(game &g)
 
   const int winner_index = get_winning_player_index(g, first_player_index, second_player_index);
   player& winning_player = g.get_player(winner_index);
-  const int loser_index = get_losing_player_index(g, first_player_index, second_player_index);
-  player& losing_player = g.get_player(loser_index);
   winning_player.grow();
 }
 
@@ -677,6 +675,8 @@ void test_game() //!OCLINT tests may be many
 
     // Make the first player passive
     g.set_player_state_passive(g.get_player(0));
+    g.set_player_state_passive(g.get_player(1));
+    g.set_player_state_passive(g.get_player(2));
 
     // Make player 1 and 2 overlap
     g.get_player(1).set_x(get_x(g.get_player(0)));
@@ -687,11 +687,12 @@ void test_game() //!OCLINT tests may be many
     const int winner_index = get_winning_player_index(g, first_player_index, second_player_index);
 
     assert(winner_index == 0);
+    assert(!has_any_interplayer_collision(g));
 
     // After a tick, passive player does not grow
-    const int inv_player_size_before =  get_nth_player_size(g, winner_index);
+    const int inv_player_size_before = get_nth_player_size(g, winner_index);
     g.tick();
-    const int inv_player_size_after =  get_nth_player_size(g, winner_index);
+    const int inv_player_size_after = get_nth_player_size(g, winner_index);
     assert(inv_player_size_after == inv_player_size_before);
   }
 
@@ -700,7 +701,9 @@ void test_game() //!OCLINT tests may be many
     game g;
 
     //Make the first player passive
+    g.set_player_state_passive(g.get_player(0));
     g.set_player_state_passive(g.get_player(1));
+    g.set_player_state_passive(g.get_player(2));
 
     // Make player 1 and 2 overlap
     g.get_player(1).set_x(get_x(g.get_player(0)));
