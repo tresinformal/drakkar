@@ -339,10 +339,7 @@ void grow_winning_player(game &g)
   player& winning_player = g.get_player(winner_index);
   const int loser_index = get_losing_player_index(g, first_player_index, second_player_index);
   player& losing_player = g.get_player(loser_index);
-  if (!is_passive(winning_player) && !is_passive(losing_player))
-  {
-    winning_player.grow();
-  }
+  winning_player.grow();
 }
 
 void shrink_losing_player(game &g)
@@ -352,11 +349,8 @@ void shrink_losing_player(game &g)
 
   const int loser_index = get_losing_player_index(g, first_player_index, second_player_index);
   player& losing_player = g.get_player(loser_index);
-  if (!is_passive(losing_player))
-  {
-    losing_player.shrink();
-    g.set_player_state_passive(losing_player);
-  }
+  losing_player.shrink();
+  g.set_player_state_passive(losing_player);
 }
 
 void save(const game& g, const std::string& filename)
