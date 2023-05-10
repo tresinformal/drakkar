@@ -32,15 +32,8 @@ game_view::game_view(game_options options,
     m_v_views[1].setViewport(sf::FloatRect(0.f, 0.5f, 0.5f, 0.5f));
     m_v_views[2].setViewport(sf::FloatRect(0.5f, 0.5f, 0.5f, 0.5f));
 
-#ifndef IS_ON_TRAVIS
-    // Playing sound on Travis gives thousands of error lines, which causes the
-    // build to fail
-    if(get_options().is_playing_music())
-    {
-        m_game_resources.get_wonderland().setLoop(true);
-        m_game_resources.get_wonderland().play();
-    }
-#endif
+    m_game_resources.get_wonderland().setLoop(true);
+
     // After setup, close window until executed
     m_window.close();
 }
@@ -147,6 +140,14 @@ void game_view::exec() noexcept
     sf::VideoMode(m_window_size.x, m_window_size.y),
     "tresinformal game"
   );
+
+  if (get_options().is_playing_music())
+  {
+      m_game_resources.get_wonderland().play();
+  } else {
+      m_game_resources.get_wonderland().pause();
+  }
+
   while (m_window.isOpen())
   {
     // Process user input and play game until instructed to exit
@@ -253,10 +254,12 @@ void game_view::show() noexcept
         draw_players();
     }
 
+
     // Set fourth view for players coordinates
     #ifndef NDEBUG  // coordinates should not be visible in release
     set_player_info_view();
     // Display player coordinates on the fourth view
+
     draw_player_info();
     #endif
 
@@ -421,6 +424,47 @@ void test_game_view() //!OCLINT tests may be many
     assert(window_size.x == 550);
     assert(window_size.y == 120);
   }
+
+  #ifdef FIX_ISSUE_718
+  // (718) A game_view has a Results screen
+  {
+    game_view gv;
+    gv.get_results_screen();
+  }
+  #endif // FIX_ISSUE_718
+
+  #ifdef FIX_ISSUE_719
+  // (719) The results screen is displayed when time is up, not before
+  {
+    const int time_limit = 10;
+    const game_options g_options{3,
+                          false,
+                          get_random_kam(),
+                          get_random_kam(),
+                          get_random_kam(),
+                          environment_type(),
+                          time_limit
+                         };
+    game_view gv{g_options};
+    for (int i = 0; i < time_limit; i++)
+      {
+        assert(!gv.get_results_screen().is_visible());
+        gv.get_game().tick();
+      }
+    assert(gv.get_results_screen().is_visible());
+  }
+  #endif // FIX_ISSUE_719
+
+#ifdef FIX_ISSUE_720
+// (720) The results screen knows who is winning
+{
+  game_view gv;
+  player &player_two = gv.get_game().get_player(1);
+  player_two.grow();
+  const int winner = gv.get_results_screen().get_winner();
+  assert(winner == 1);
+}
+#endif // FIX_ISSUE_720
 
   #endif //NDEBUG
 }

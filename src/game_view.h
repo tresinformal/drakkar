@@ -31,9 +31,14 @@ public:
   /// Get const reference to m_game_options
   const game_options& get_options() const noexcept {return get_game().get_game_options();}
 
+  void set_options(const game_options& new_options) noexcept { m_game.set_options(new_options); }
+
   /// Processes events in game and ouputs false if quit
   /// is inputted
   bool process_events();
+
+  /// Process one timestep
+  void tick() { m_game.tick(); }
 
   ///Gets a const ref to m_game
   const game& get_game() const noexcept {return m_game; }
@@ -49,9 +54,6 @@ public:
 
   // Get the window's state, for testing purposes only
   bool is_window_open() const { return m_window.isOpen(); }
-
-  ///Gets a ref to m_game
-  game& get_game() noexcept {return m_game; }
 
 #ifdef VIEW_SWITCH
   // Returns what view should come next

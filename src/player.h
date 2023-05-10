@@ -12,7 +12,7 @@
 #include <set>
 #define _USE_MATH_DEFINES
 
-
+static const double health_diameter_ratio = 100.;
 
 class player
 {
@@ -26,7 +26,7 @@ public:
            const double player_acceleration_backward = 0.05,
            const double player_deceleration_forward = 0.1,
            const double player_deceleration_backward = 0.1,
-           const double size = 100.0,
+           const double health = 1.0,
            const double turn_rate = 0.007,
            const color &any_color = color(),
            const std::string& ID = "0");
@@ -74,11 +74,23 @@ public:
     /// Set the current action of the player
     void set_action_flag(const action_type action) { m_action_flag = action; }
 
-    /// Get the radius of the player
-    double get_diameter() const noexcept;
+    /// Get the maximum size of the player
+    double get_max_health() const noexcept { return m_max_health; }
+
+    /// Get the size multiplier when a player grows
+    double get_growth_factor() const noexcept { return m_growth_factor; }
 
     ///Gets the ID of a player
     std::string get_ID() const noexcept { return m_ID.get_value(); }
+
+    ///Gets the player size
+    double get_diameter() const noexcept { return m_health * health_diameter_ratio; }
+
+    ///Gets the player score
+    int get_score() const noexcept { return m_score; }
+
+    ///Returns player's score as a string
+    std::string get_score_as_string() const noexcept {return std::to_string(m_score);}
 
     /// Get the speed of the player
     double get_speed() const noexcept { return m_player_speed; }
@@ -157,10 +169,13 @@ public:
     /// Make the player shrink
     void shrink();
 
-    // The player can die
+    /// The player can die
     void die();
 
-    // The player can revive
+    /// Set player's death size
+    void set_death_size(const double death_size) noexcept { m_death_size = death_size; };
+
+    /// The player can revive
     void revive();
 
 private:
@@ -206,11 +221,11 @@ private:
     /// The backward deceleration of the player
     double m_player_deceleration_backward;
 
-    /// The size of the player
-    double m_diameter;
-
     /// How much a player grows when growing
     double m_growth_factor = 1.1;
+
+    // The max allowed size for a player to reach
+    double m_max_health = 500.0;
 
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
@@ -230,6 +245,12 @@ private:
     /// Player's passive timer
     int m_passive_timer = 0;
     /// PASSIVE STATE ///
+
+    /// Player's minimal size before dying
+    double m_death_size = 1.0;
+
+    /// Player's score
+    int m_score = 0;
 };
 
 ///Adds an action to the action set

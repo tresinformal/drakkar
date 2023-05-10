@@ -7,6 +7,8 @@ Three fairytale protagonists in two horse bodies, what a quantum conundrum.
 
 They drank a lot of beer and flew into the sun, that was a white dwarf.
 
+They ate sushi
+
 The sun was very hot and would burn anything and anyone to a crisp, but as they are magical creatures, they were not harmed.
 They flew right through it and back into darkness.
 

@@ -1,10 +1,15 @@
 #include "game_resources.h"
 
+#include <QResource>
 #include <QFile>
 #include <cassert>
 
 game_resources::game_resources()
 {
+  {
+    QResource artWork1 { ":/276813041_drakkar__dragon__realistic__flying__paper__rock__scissors__RGB__3.png" };
+    m_artwork_1.loadFromMemory(artWork1.data(), artWork1.size());
+  }
   {
     const QString filename{"franjo.png"};
     QFile f(":/" + filename);
@@ -187,8 +192,22 @@ game_resources::game_resources()
 void test_game_resources()
 {
   #ifndef NDEBUG // no tests in release
+
   game_resources g;
   assert(g.get_coastal_world().getSize().x > 0.0);
+  assert(g.get_artwork_1().getSize().x > 0.0);
 
-  #endif
+#ifdef FIX_ISSUE_724
+ // (724) Button sprites are loaded and ready to use
+  {
+    game_resources gr;
+    gr.get_blue_button();
+    gr.get_green_button();
+    gr.get_red_button();
+    gr.get_yellow_button();
+    gr.get_grey_button();
+  }
+#endif // FIX_ISSUE_724
+
+  #endif // NDEBUG
 }

@@ -5,12 +5,16 @@ Branch      |[GitHub Actions](https://github.com/tresinformal/drakkar/actions)  
 `master`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/drakkar/branch/master)
 `develop`   |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=develop)](https://codecov.io/github/tresinformal/drakkar/branch/develop)
 `claudio`   |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=claudio)     |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=claudio)](https://codecov.io/github/tresinformal/drakkar/branch/claudio)
+`maedas`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=maedas)     |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=maedas)](https://codecov.io/github/tresinformal/drakkar/branch/maedas)
 `jacob`     |![check](https://github.com/tresinformal/game/workflows/check/badge.svg?branch=jacob)   |[![codecov.io](https://codecov.io/github/tresinformal/game/coverage.svg?branch=jacob)](https://codecov.io/github/tresinformal/game/branch/jacob)
+`jayjay`  |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=jayjay)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=jayjay)](https://codecov.io/github/tresinformal/drakkar/branch/jayjay)
 `ludvig`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=ludvig)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=ludvig)](https://codecov.io/github/tresinformal/drakkar/branch/ludvig) 
-`oliver`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=oliver)    |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=oliver)](https://codecov.io/github/tresinformal/drakkar/branch/pavel)
-`oscar`     |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=oscar)    |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=oscar)](https://codecov.io/github/tresinformal/drakkar/branch/pavel)
+`mahsa`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=mahsa)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=mahsa)](https://codecov.io/github/tresinformal/drakkar/branch/mahsa)
+`oliver`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=oliver)    |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=oliver)](https://codecov.io/github/tresinformal/drakkar/branch/oliver)
+`oscar`     |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=oscar)    |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=oscar)](https://codecov.io/github/tresinformal/drakkar/branch/oscar)
 `pavel`     |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=pavel)    |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=pavel)](https://codecov.io/github/tresinformal/drakkar/branch/pavel)
 `richel`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=richel)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=richel)](https://codecov.io/github/tresinformal/drakkar/branch/richel)
+`richel2`   |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=richel2)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=richel2)](https://codecov.io/github/tresinformal/drakkar/branch/richel2)
 `sebastian` |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=sebastian)|[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=sebastian)](https://codecov.io/github/tresinformal/drakkar/branch/sebastian)
 `stefano`   |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=stefano)  |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=stefano)](https://codecov.io/github/tresinformal/drakkar/branch/stefano)
 `theo`      |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=theo)     |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=theo)](https://codecov.io/github/tresinformal/drakkar/branch/theo)
@@ -52,20 +56,11 @@ contact [Stefano 'swom' Tiso](https://github.com/swom).
 
 ## drakkar.io: 2D PvP chasing game
 
-A game where you are on a 2D surface with heterogeneous characteristics, as different terrains, resources etc. You start with a very small particle-like character, as you play you can gather resources scattered around and increase your size/mass, the more you grow the more your options increase(you can change shape, what matter composes you etc.), other players roam around as you do increasing size and having more options as they progress. The goal is to chase and eliminate the other players. It would be good to have multiple conditions(you have to be bigger, you need to be made of a certain material etc.) you need to satisfy to be able to eliminate the other players.e.
+Drakkar is a multiplayer game featuring dragons of different colours trying to chase and eat one another. The game resembles agar.io, with the addition of a Rock-Paper-Scissor dynamic via the RGB colours.
 
-Ideas:
-
-Issue                                                 |Idea
-------------------------------------------------------|------------------------
-[221](https://github.com/tresinformal/drakkar/issues/221)|-1. Rock-Paper-Scissor dynamics
-[219](https://github.com/tresinformal/drakkar/issues/219)|0. Food
-[208](https://github.com/tresinformal/drakkar/issues/208)|1. Stun
-[209](https://github.com/tresinformal/drakkar/issues/209)|2. Poison
-[210](https://github.com/tresinformal/drakkar/issues/210)|3. Regenerating walls
-[212](https://github.com/tresinformal/drakkar/issues/212)|4. Heal
-[222](https://github.com/tresinformal/drakkar/issues/222)|5. Targeting system
-[223](https://github.com/tresinformal/drakkar/issues/223)|6. Minimap
+The goals and rules of the game are described in the [Design Doc](https://github.com/tresinformal/
+drakkar/blob/master/doc/game_design.md). Before contributing, first make sure you are familiar with it.
+We aim to make the design described in the doc come to life, and should refrain from working on things that do not fall in its scope. Any new feature or idea should be discussed first, then if received positively should be included in the design doc. 
 
 ## [Installation](install.md)
 

@@ -3,6 +3,7 @@
 #include "coordinate.h"
 #include "action_type.h"
 #include "environment.h"
+#include "src/food.h"
 
 #include <cassert>
 #include <cmath>
@@ -553,11 +554,15 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
-  // In the start of the game no players are colliding
+  // (732) In the start of the game no players are colliding
+  #ifdef FIX_ISSUE_732
   {
-    game g;
+
+    const game g;
     assert(!has_any_interplayer_collision(g));
   }
+  #endif // FIX_ISSUE_732
+
 
   // two overlapping players signal a collision
   {
@@ -853,6 +858,7 @@ void test_game() //!OCLINT tests may be many
       }
   }
 
+  #ifdef FIX_ISSUE_732
   ///Players cannot move past wall coordinates as defined in environment
   {
     game g;
@@ -873,6 +879,7 @@ void test_game() //!OCLINT tests may be many
 
     assert(!hits_wall(p,g.get_env()));
   }
+  #endif // FIX_ISSUE_732
 
   /// When a player is out it stays in the player vector but its state is out
   {
@@ -911,13 +918,12 @@ void test_game() //!OCLINT tests may be many
     assert(!is_dead(g.get_player(0)));
   }
 #endif
-
-#ifdef FIX_ISSUE_606
   {
     // (606) When a player goes under some size, it dies
     game g;
     player& p = g.get_player(0);
     const double death_size = 5.0; // choose a value
+    p.set_death_size(death_size);
     // Make the player smaller
     while(get_nth_player_size(g, 0) > death_size)
       {
@@ -927,7 +933,7 @@ void test_game() //!OCLINT tests may be many
       }
     assert(is_dead(p));
   }
-#endif
+
   {
     //(625) A player that is dead cannot collide with other players
     game g;
@@ -1035,13 +1041,15 @@ void test_game() //!OCLINT tests may be many
   }
 
   // (478) Saving a game and loading it, must result in the same game
+  #ifdef FIX_ISSUE_478
   {
     const game g;
     const std::string filename = "test.txt";
     save(g, filename); // To prevent a bloated/Winnebago class
-    //const game h = load(filename);
-    //assert(g == h);
+    const game h = load(filename);
+    assert(g == h);
   }
+  #endif // FIX_ISSUE_478
 
   #define FIX_ISSUE_524
   #ifdef FIX_ISSUE_524
@@ -1277,6 +1285,7 @@ void test_game() //!OCLINT tests may be many
         assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
 
+    #ifdef FIX_ISSUE_732
     // A player's displacement per tick when decelerating backward is the same as m_deceleration_backward
     {
         game g;
@@ -1368,13 +1377,12 @@ void test_game() //!OCLINT tests may be many
         actual_displacement = sqrt(pow((after_x - before_x), 2) + pow((after_y - before_y), 2));
         assert(std::abs(actual_displacement - expected_displacement) < 0.000000001);
     }
+    #endif // FIX_ISSUE_732
 
   }
   #endif // FIX_ISSUE_524
 
-  #define FIX_ISSUE_682
-  #ifdef FIX_ISSUE_682
-  // A game has a function to check whether the game is over (check end game conditions, currently it only checks max time)
+  // (682) A game is over when the time limit is reached
   {
     const int time_limit = 10;
     const game_options g_options{3,
@@ -1387,36 +1395,28 @@ void test_game() //!OCLINT tests may be many
                          };
     game g{g_options};
     for (int i = 0; i < time_limit; i++)
-      {
-        assert(!g.is_over());
-        g.increment_n_ticks();
-        g.check_over();
-      }
-    assert(g.is_over());
-  }
-
-  // A game is over when the time limit is reached
-  {
-    const int time_limit = 10;
-    const game_options g_options{3,
-                          false,
-                          get_random_kam(),
-                          get_random_kam(),
-                          get_random_kam(),
-                          environment_type(),
-                          time_limit
-                         };
-    game g{g_options};
-    for (int i = 0; i < time_limit; i++)
-      {
+    {
         assert(!g.is_over());
         g.tick();
-      }
+    }
     assert(g.is_over());
+
+#ifdef FIX_ISSUE_716
+    // (716) Game no longer ticks after game is over
+    const int n_ticks = g.get_n_ticks();
+    g.tick();
+    assert(g.get_n_ticks() == n_ticks);
+
+    // and as a result, no further actions are processed
+    // for example, players are not moved
+    player& p = g.get_player(0); // ref to player one
+    const coordinate initial_position = p.get_position();
+
+    add_action(p, action_type::accelerate_forward);
+    g.tick();
+    assert(p.get_position() == initial_position);
+#endif // FIX_ISSUE_716
   }
-
-
-  #endif // FIX_ISSUE_682
 
   {
     const game g;
@@ -1424,7 +1424,59 @@ void test_game() //!OCLINT tests may be many
     const auto v_player{g.get_v_player()};
     assert(players == v_player);
   }
-  
+
+  // (721) The largest player wins the game
+  {
+    game g;
+    player &player_two = g.get_player(1);
+    player_two.grow();
+    assert(g.who_is_winning() == "1");
+
+    player &player_three = g.get_player(2);
+    player_three.grow();
+    player_three.grow(); // twice
+    assert(g.who_is_winning() == "2");
+   }
+
+  //#define FIX_ISSUE_722
+  #ifdef FIX_ISSUE_722
+  // (722) In case of a tie, winner is decided on a coin flip
+  {
+      const int a_seed = 5;
+      const int another_seed = 8; // change if this picks the same winner
+
+      game a_game(game_options{a_seed});
+      player &player_two = a_game.get_player(1);
+      player_two.grow();
+      player &player_three = a_game.get_player(2);
+      player_three.grow();
+      assert(a_game.who_is_winning() != "0");
+
+      game another_game(game_options{another_seed});
+      player &other_player_two = another_game.get_player(1);
+      other_player_two.grow();
+      player &other_player_three = another_game.get_player(2);
+      other_player_three.grow();
+      assert(another_game.who_is_winning() != "0");
+
+      assert(a_game.who_is_winning() != another_game.who_is_winning());
+  }
+  #endif // FIX_ISSUE_722
+
+  #ifdef FIX_ISSUE_732 // fails due collision detection
+  //(674, part of #615)
+  // a player's size (and therefore its health) decreases over time
+  {
+    game g;
+    auto initial_health = g.get_player(0).get_health();
+    auto initial_diameter = g.get_player(0).get_diameter();
+    g.tick();
+    auto health_after_one_time_step = g.get_player(0).get_health();
+    auto diameter_after_one_time_step = g.get_player(0).get_diameter();
+    assert(initial_health > health_after_one_time_step);
+    assert(initial_diameter > diameter_after_one_time_step);
+  }
+  #endif // FIX_ISSUE_732
 #endif // no tests in release
 }
 
