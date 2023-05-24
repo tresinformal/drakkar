@@ -12,7 +12,7 @@
 #include <set>
 #define _USE_MATH_DEFINES
 
-
+static const double health_diameter_ratio = 100.;
 
 class player
 {
@@ -74,11 +74,17 @@ public:
     /// Set the current action of the player
     void set_action_flag(const action_type action) { m_action_flag = action; }
 
+    /// Get the maximum size of the player
+    double get_max_health() const noexcept { return m_max_health; }
+
+    /// Get the size multiplier when a player grows
+    double get_growth_factor() const noexcept { return m_growth_factor; }
+
     ///Gets the ID of a player
     std::string get_ID() const noexcept { return m_ID.get_value(); }
 
     ///Gets the player size
-    double get_diameter() const noexcept {return m_health * 100.0;}
+    double get_diameter() const noexcept { return m_health * health_diameter_ratio; }
 
     ///Gets the player score
     int get_score() const noexcept { return m_score; }
@@ -194,6 +200,9 @@ private:
 
     /// How much a player grows when growing
     double m_growth_factor = 1.1;
+
+    // The max allowed size for a player to reach
+    double m_max_health = 500.0;
 
     /// The direction of player in radians
     double m_direction_radians = 270 * M_PI / 180;
