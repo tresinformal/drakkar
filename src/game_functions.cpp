@@ -108,7 +108,9 @@ bool has_any_interplayer_collision(const game &g) noexcept
           for (int j = i + 1; j < n_players; ++j)
             {
               auto& rhs_pl = g.get_player(j);
-              if(is_alive(rhs_pl))
+              if(is_alive(rhs_pl)
+                      && !is_passive(lhs_pl)
+                      && !is_passive(rhs_pl) )
                 {
                   if (are_colliding(lhs_pl, rhs_pl))
                     {

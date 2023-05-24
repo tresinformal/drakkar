@@ -80,6 +80,18 @@ public:
   /// Assumes that index exists, else crashes
   void kill_player(const int index);
 
+  /// PASSIVE STATE ///
+  void set_player_state_passive(player &p) noexcept;
+
+  void remove_player_state_passive(player &p) noexcept;
+
+  /// Increment all players' passive timers, if applicable, in every tick
+  void increment_passive_timers() noexcept;
+
+  /// Reset all players' passive timers, if applicable, in every tick
+  void reset_passive_timers() noexcept;
+  /// PASSIVE STATE ///
+
   /// Apply inertia to player movement
   void apply_inertia();
 
