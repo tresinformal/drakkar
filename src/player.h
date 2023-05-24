@@ -107,6 +107,29 @@ public:
     /// Get the player's health
     double get_health() const noexcept { return m_health; }
 
+    /// PASSIVE STATE ///
+    /// Get the player's passive duration
+    int get_duration_passive() const noexcept { return m_duration_passive; }
+
+    /// Set the player's state to passive
+    void set_state_passive() noexcept { m_state = player_state::passive; }
+
+    /// Remove the player's passive state, reset to active
+    void remove_state_passive() noexcept { m_state = player_state::active; }
+
+    /// Set the player's passive duration
+    void set_duration_passive(int duration) noexcept { m_duration_passive = duration; }
+
+    /// Get the player's passive timer
+    int get_passive_timer() const noexcept { return m_passive_timer; }
+
+    /// Increment the player's passive timer
+    void increment_passive_timer() noexcept { m_passive_timer += 1; }
+
+    /// Reset the player's passive timer
+    void reset_passive_timer() noexcept { m_passive_timer = 0; }
+    /// PASSIVE STATE ///
+
     ///Places a player to a given x,y poisition
     void place_to_position(const coordinate& position) noexcept
     {
@@ -213,15 +236,21 @@ private:
 
     /// Player's health percentage, the player always start with max health at
     /// construction
-    double m_health;
+    double m_health = 1.0;
 
+    /// PASSIVE STATE ///
+    /// Player's passive duration, in ticks
+    int m_duration_passive = 2000;
+
+    /// Player's passive timer
+    int m_passive_timer = 0;
+    /// PASSIVE STATE ///
 
     /// Player's minimal size before dying
     double m_death_size = 1.0;
 
     /// Player's score
     int m_score = 0;
-
 };
 
 ///Adds an action to the action set
@@ -259,6 +288,11 @@ bool is_active(const player &p) noexcept;
 
 /// Is a player dead?
 bool is_dead(const player& p) noexcept;
+
+/// PASSIVE STATE ///
+/// Is a player passive?
+bool is_passive(const player& p) noexcept;
+/// PASSIVE STATE ///
 
 ///Get color index
 int get_colorhash(const player &p) noexcept;
