@@ -36,7 +36,6 @@ We follow this timetable:
 
 Where|What              | Time
 -----|------------------|------
-U    |Order pizza       | 16:00
 GOU  |Doors open        | 17:00
 GOU  |Session starts    | 17:15
 GOU  |Break time!       | 18:00
@@ -69,30 +68,6 @@ See [install.md](install.md).
 ## Links
 
 https://agar.io/, this game could give a good idea of how we would like this game to work. The game we think about though should allow more variation in determining how you grow and/or change shape, as well as could require different conditions than just being bigger than the other player to eliminate it.
-
-## Short-term schedule
-
-Next meeting:
-
-Timespan    |Activity
-------------|--------------------------------------------------------------------------
-17:00       |Door opens
-..          |Do Issues
-17:45-18:00 |Break
-..          |Do Issues
-
- * Note that `xx` and the other variables can be in range `00` to and including `59`. 
-
-## Long-term schedule
-
-Date       |Activity
------------|--------------------------------------------------------------------------
-2021-02-17 |practice git branching
-2021-02-17 |fixing tests
-2021-04-28 |merge to develop by code reviewed Pull Request
-.          |pair programming
-.          |move to C++14
-.          |add clang tidy
 
 ## [Frequently Asked Questions](faq.md)
 
@@ -135,4 +110,4 @@ Most recent at the top.
 ![](pics/20191024.png) 
 
 ![](pics/20190929.png)
-Hi, how are things
+
