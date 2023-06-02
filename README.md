@@ -1,5 +1,11 @@
 # drakkar
 
+```
+TRESINFORMAL HAS HOLIDAY!
+
+First session is at Wednesday September 6th 17:00 sharp :-)
+```
+
 Branch      |[GitHub Actions](https://github.com/tresinformal/drakkar/actions)                                       |[![Codecov logo](man/figures/Codecov.png)](https://www.codecov.io)
 ------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
 `master`    |![check](https://github.com/tresinformal/drakkar/workflows/check/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/tresinformal/drakkar/coverage.svg?branch=master)](https://codecov.io/github/tresinformal/drakkar/branch/master)
