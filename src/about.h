@@ -16,6 +16,9 @@ public:
 
   /// Get a discord link that is permanent
   std::string get_link_discord();
+
+  /// Get a repo link that is permanent
+  std::string get_link_repo();
 };
 
 void test_about();
