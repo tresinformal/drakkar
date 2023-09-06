@@ -212,8 +212,8 @@ Actions
 
 Abbreviation|Full
 ---|--------------
-R|Richel
-GD|Game Design team
-PU|Project Update presenter
-CG|C++ Core Guideline presenter
-T|Tresinformal
+R  |Richel
+GD |Game Design team
+PU |Project Update presenter
+CG |C++ Core Guideline presenter
+T  |Tresinformal
